@@ -1,6 +1,10 @@
 ----설치할 라이브러리----
+1. laravel
+    -composer install
+    -.env.example >복사> .env
+    -php artisan key:generate
 
-1. vue
+2. vue
     npm install    뷰 install
     npm install vue-router@4     라우터 설정
     npm install vuex@next --save    뷰엑스설치
