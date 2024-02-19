@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="test-p">test</p>
+        <p class="text-8xl test-p">test</p>
     </div>
 </template>
 <script>
@@ -8,6 +8,6 @@ export default {
     name: 'AppComponent',
 }
 </script>
-<style>
-    
+<style lang="scss">
+    @import '../sass/app.scss';
 </style>
