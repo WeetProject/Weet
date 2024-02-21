@@ -1,9 +1,10 @@
 import { createWebHistory, createRouter } from 'vue-router';
+import AppComponent from '../components/AppComponent.vue';
 
 const routes = [
 	{
 		path: '/',
-		redirect: '/main',
+		component: AppComponent
 	},
 ];
 
