@@ -1,4 +1,4 @@
-----설치할 라이브러리----
+----설치할 라이브러리?----
 1. laravel
     - composer install (vendor생성)
     - .env.example >복사> .env
