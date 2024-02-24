@@ -22,7 +22,7 @@
         "sass": "^1.71.0",
         "sass-loader": "^14.1.0",
         "vue-loader": "^17.4.2",
-        "vue-router": "^4.2.5",
+        "vue-router": "^4.3.0",
         "vuex": "^4.0.2"
     }
 }
