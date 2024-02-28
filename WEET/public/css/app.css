@@ -492,13 +492,13 @@ video {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
-.text-8xl {
-  font-size: 6rem;
-  line-height: 1;
-}
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+.text-8xl {
+  font-size: 6rem;
+  line-height: 1;
 }
 .no-underline {
   text-decoration-line: none;

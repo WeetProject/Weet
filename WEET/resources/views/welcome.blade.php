@@ -10,6 +10,7 @@
 </head>
 <body>
     <div id="app">
+        <!-- 앱컴포넌트 호출 -->
         <App-Component></App-Component>
     </div>
 </body>

@@ -1,40 +1,16 @@
 <template>
-    <div>
-        <p class="text-8xl test-p">test</p>
-        <p class="test-p no-underline hover:underline text-2xl">가보자구</p>
-    </div>
-    
-    <div class="demo-box">
-  <div class="flight-info">
-    <div class="segments">
-      <div class="segment departure">
-        <time>06:30</time>
-        <span class="airport">ALC</span>
-      </div>
-      <div class="divider"><span class="plane"></span></div>
-      <div class="segment adaptive">
-        <span class="airport">MAD</span>
-      </div>
-      <div class="divider adaptive">
-      <span class="plane"></span>
-      </div>
-      <div class="segment destination">
-        <time>11:40</time>
-        <span class="airport">VIE</span>
-      </div>
-    </div>
-  </div>
-  <div class="flight-duration">   
-  8h 40min Length of trip
-  </div>
-</div>
-<p class="info">Adaptive fluid flight info</p>
+	<!-- 호출된 앱컴포넌트는 나머지 router로 연결된 컴포넌트들을 호출해줌 -->
+	<!-- router.js 연결 -->
+	<router-view></router-view>
 </template>
+
 <script>
 export default {
-    name: 'AppComponent',
-}
+		name: 'AppComponent',
+		
+	}
 </script>
+
 <style lang="scss">
-    @import '../sass/app.scss';
+	@import '../sass/app.scss';
 </style>
