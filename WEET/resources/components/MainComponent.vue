@@ -1,5 +1,5 @@
 <template>
-  <div>
+  	<div>
 		<p class="text-8xl test-p">test</p>
 		<p class="test-p no-underline hover:underline text-2xl">가보자구</p>
 	</div>
@@ -28,7 +28,7 @@
 			<p>8h 40min Length of trip</p>
 		</div>
 	</div>
-	<p class="info">Adaptive fluid flight info</p>
+	<span class="info">Adaptive fluid flight info</span>
 </template>
 
 <script >
