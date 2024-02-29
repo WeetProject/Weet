@@ -28,3 +28,7 @@
     - 이부분은 확인 후 수정해줄 것.
     - 참고(scss설명 및 명령어, 설치과정) : https://inpa.tistory.com/entry/SCSS-%F0%9F%92%8E-SassSCSS-%EB%9E%80-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%BB%B4%ED%8C%8C%EC%9D%BC
     - npm install -g node-sass
+    - component 추가
+        <style lang="scss">
+            @import '../sass/app.scss';
+        </style>

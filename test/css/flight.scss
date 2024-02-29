@@ -35,11 +35,18 @@ font-family: Helvetica, Arial, sans-serif;
 
 .demo-box {
 background: #fff;
-
 margin: 0 auto;
 box-shadow: -4px 23px 48px -13px rgba(0,0,0,0.75);
 padding: 20px;
 
+
+}
+
+
+@include mobile {
+  id or class {
+      width : 100px
+  }
 }
 
 .flight-duration {
