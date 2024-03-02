@@ -25,169 +25,180 @@
 // }
 
 
-.test-p {
-    color: red;
-}
+// ******************** 현희_로그인모달 scss ***********************
+/* VARIABLES */
+
+$colors: (
+  white: #FEFEFE,
+  brown: #362100,
+  blue: #2E9AFE,
+);
 
 
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-html {
-   box-sizing: border-box;
-}
+/* BASE */
 
 body {
-    background: linear-gradient(45deg, rgba(204,31,48,1) 0%, rgba(123,53,132,1) 100%);
-display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.page:after {
-  content: '';
-  display: block;
-  position: fixed;
-  height: 100%;
+  color: map-get($colors, white);
+  font: 100 100%/1.6 "Heebo", sans-serif;
+  overflow-x: hidden;
   width: 100%;
-  left: 0;
-  top: 0;
-  background: rgba(0,0,0,.5);
-  z-index: 1;
 }
 
-body {
-  font-family: Helvetica, Arial, sans-serif;
-  
-}
-
-.demo-box {
-  background: #fff;
-  
-  margin: 0 auto;
-  box-shadow: -4px 23px 48px -13px rgba(0,0,0,0.75);
-  padding: 20px;
-  
-}
-
-.flight-duration {
-  max-width: 430px;
-  margin: -14px auto 0 auto;
-  text-align: center;
-  font-size: 12px;
-  color: rgba(0,0,0,.4);
-  position: relative;
-  z-index: 4;
-}
-
-.flight-info {
-  position: relative;
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-  max-width: 430px;
-  margin: 0 auto;
-  border-collapse: collapse;
-  
-  &:after {
-    content: '';
-    width: 100%;
-    height: 1px;
-    position: absolute;
-    top: 20px;
-    display: block;
-    background: #666;
-    z-index: 0;
-  }
-  
-  .segments {
-    display: table-row;
-
-    > div {
-      display: table-cell;
-      text-align: center;
-      position: relative;
-    }
-    
-    .airport {
-      display: block;
-      font-size: 12px;
-      color: rgba(0,0,0,.4);
-      
-      &:only-child {
-        line-height: 40px;
-      }
-    }
-    
-    .plane {
-      width: 36px;
-      height: 36px;
-      background-color: #fff;
-      position: absolute;
-      display: block;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 0;
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDUwIDI1Ij48cGF0aCBkPSJNNDYuMiwxMS4zYy0wLjktMS43LTMtMi4yLTQuNy0xLjNsLTEwLjcsNi4zbC0xNi02LjZsLTMuNSwyTDIyLDIxLjZMMTIuNiwyN0wyLjIsMjUuM0wwLDI2LjZsOC40LDYuN2wwLDBsMCwwbDAsMGwwLDBjNC44LTAuMyw1LjUtMC40LDgtMC42TDQ0LjksMTZDNDYuNSwxNS4xLDQ3LjEsMTMsNDYuMiwxMS4zeiIgc3R5bGU9ImZpbGw6IHJnYigxMTgsIDExOCwgMTE4KTsiLz48L3N2Zz4=');
-    background-size: 50% 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-      z-index: 2;
-    }
-    
-    time {
-      font-weight: bold;
-      font-size: 20px;
-      line-height: 40px;
-    }
-    
-    .segment {
-      width: 60px;
-      background: #fff;
-      position: relative;
-      z-index: 3;
-      padding: 0 8px;
-    }
-    
-    .departure {
-      padding: 0 8px 0 0;
-    }
-    .destination {
-      padding: 0 0 0 8px;
-    }
-  }
-}
-
-@media screen and (max-width: 39.9375em) {
-  .adaptive {
-    display: none !important;
-  }
-}
-
-@media screen and (max-width: 20em) {
-  
-  .flight-duration {
-    display: none !important;
-  }
-}
-
-@media screen and (max-width: 15em) {
-  .flight-info:after {
-    display: none !important;
-  }
-}
-@media screen and (min-width: 16em) {
-  .flight-info:after {
-    display: block !important;
-  }
-}
-
-p.info {
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
   position: absolute;
-  bottom: 10px;
-  font-size: 11px;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.flex {
+  align-items: center;
+  // display: flex;
+  justify-content: center;
+}
+
+.scene {
+  // background: map-get($colors, brown) url('https://picsum.photos/id/413/1920/1080') center/cover;
+  height: 100vh;
+  position: relative;
+}
+
+.login_modal {
+  
+  &_headline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &_text {
+    font-size: 0.6rem;
+    text-align: start;
+    margin: 10px 0;
+  }
+}
+
+.card {
+  backdrop-filter: blur(10px);
+  // background: rgba(map-get($colors, blue), 0.075);
+  background: rgba(map-get($colors, blue), 1);
+  border: 1px solid rgba(map-get($colors, white), 0.18);
+  border-radius: 15px;
+  box-shadow: 0 10px 35px 0 rgba(map-get($colors, brown), 0.65);
+  color: white;
+  max-width: 300px;
+  overflow: hidden;
+  // padding: 20px 30px 50px 30px;
+  padding: 30px;
+  position: relative;
+  text-align: center;
+  z-index: 1;
+
+  &__heading {
+    font-size: 1.35rem;
+    font-weight: 200;
+    // margin-bottom: 15px;
+    span {
+      font-weight: bold;
+    }
+  }
+
+  &__figure {
+    height: auto;
+    margin: 0 auto;
+    max-width: 225px;
+    width: 60%;
+  }
+
+  &__image {
+    border-radius: 50%;
+    max-width: 100%;
+  }
+  
+  &__input {
+    background: rgba(map-get($colors, white), 0.075);
+    border: 1px solid rgba(map-get($colors, white), 0.3);
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: map-get($colors, white);
+    display: block;
+    font-size: 1rem;
+    letter-spacing: 0.15rem;
+    // padding: 10px;
+    width: 100%;
+
+    &:focus,
+    &:active {
+      background: rgba(map-get($colors, white), 0.08);
+      border: 1px solid rgba(map-get($colors, white), 0.75);
+      outline: none;
+    }
+  }
+
+  &__form_email {
+    text-align: start;
+
+    label {
+      font-size: 10px;
+    }
+  }
+
+  &__form_pw {
+    text-align: start;
+
+    label {
+      font-size: 10px;
+    }
+  }
+
+  &__button {
+    background: rgba(map-get($colors, white), 0.65);
+    border: none;
+    border-radius: 3px;
+    color: #362100;
+    margin: 15px auto 0 auto;
+    padding: 3px 10px;
+    font-size: 13px;
+
+    &:focus,
+    &:active {
+      background: rgba(255, 255, 255, 0.75);
+      outline: none;
+    }
+  }
+
+  &__form_button {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  &__kakao_btn {
+
+    background: rgba(map-get($colors, white), 0.075);
+    border: 1px solid rgba(map-get($colors, white), 0.3);
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: map-get($colors, white);
+    display: block;
+    font-size: 1rem;
+    letter-spacing: 0.15rem;
+    // padding: 10px;
+    width: 100%;
+    margin-top: 10px;
+
+    &:focus,
+    &:active {
+      background: rgba(map-get($colors, white), 0.08);
+      border: 1px solid rgba(map-get($colors, white), 0.75);
+      outline: none;
+    }
+  }
+}
+
+// 모달
+.modal {
+	background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */
 }

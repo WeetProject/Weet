@@ -1,75 +1,48 @@
 <template>
-    <main>
-        <header>
-            <h1>Boarding pass</h1>
-            <div>
-                <h5>Flight n°</h5>
-                <p> VY1812</p>
+    <div class="scene flex">
+        <section class="card">
+    <!-- <figure class="card__figure">
+      <img class="card__image" src="https://picsum.photos/id/454/200/200" alt="A female hand holding a camera"/>
+      <figcaption>
+        <span class="visually-hidden">
+          Avatar photo
+        </span>
+      </figcaption>
+    </figure> -->
+            <div class="login_modal">
+                <div class="login_modal_headline">
+                    <div class="card__heading">
+                        <!-- <span class="visually-hidden">Account name:</span> -->
+                        <span>WEET</span>
+                    </div>
+                    <div>
+                        <span>login</span>
+                    </div>
+                </div>
+                <div class="login_modal_text">
+                    <p>한눈에 예매 항공권을 확인하고</p>
+                    <p>실시간으로 항공권 가격을 비교해보세요</p>
+                </div>
+                <form class="card__form">
+                    <div class="card__form_email">
+                        <!-- <label for="email" class="visually-hidden">Email:</label> -->
+                        <label for="email">Email:</label>
+                            <input id="email" class="card__input" type="email" />
+                    </div>
+                    <div class="card__form_pw">
+                        <!-- <label for="password" class="visually-hidden">Password:</label> -->
+                        <label for="password">Password:</label>
+                            <input id="password" class="card__input" type="password" />
+                    </div>
+                    <div>
+                        <button class="card__button" type="button">
+                            <span>Login</span>
+                        </button>
+                    </div>    
+                </form>
             </div>
-            <div>
-                <h5>Gate</h5>
-                <p> D26</p>
-            </div>
-        </header>
-        <section class="flight--general">
-        <div>
-            <h4>Munich</h4>
-            <h2>MUC</h2>
-        </div>
-        <div>
-            <h4>to</h4>
-        </div>
-        <div>
-            <h4>Barcelona</h4>
-            <h2>BCN</h2>
-        </div>
         </section>
-        <section class="flight--TimeInfo">
-        <div>
-            <h5>Boarding</h5>
-            <p>18:20</p>
-        </div>
-        <div>
-            <h5>Departure</h5>
-            <p>19:00</p>
-        </div>
-        <div>
-            <h5>Date</h5>
-            <p>15/10/2017</p>
-        </div>
-        </section>
-        <section class="flight--PassInfo">
-        <div>
-            <h5>Passenger</h5>
-            <p>Victor Janin</p>
-        </div>
-        <div>
-            <h5>Seat</h5>
-            <p>23A</p>
-        </div>
-        </section>
-        <section class="flight--qrcode">
-            <img src="http://cdnqrcgde.s3-eu-west-1.amazonaws.com/wp-content/uploads/2013/11/jpeg.jpg">
-        </section>
-        <section class="extra--meteo">
-        <div>
-            <h5>16th</h5>
-            <h6>23°C </h6>
-            <p>Partly Sunny</p>
-        </div>
-        <div>
-            <h5>17th</h5>
-            <h6>24°C </h6>
-            <p>Cloudy with a bit of rain</p>
-        </div>
-        <div>
-            <h5>18th</h5>
-            <h6>23°C </h6>
-            <p>Mostly sunny</p>
-        </div>
-        </section>
-        <section class="extra--image"><img src="https://images.unsplash.com/photo-1464790719320-516ecd75af6c?dpr=2&auto=format&fit=crop&w=1500&h=1001&q=80&cs=tinysrgb&crop=">          </section>
-    </main>
+    </div>
 
 </template>
 
