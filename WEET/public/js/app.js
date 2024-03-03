@@ -20844,6 +20844,28 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/HeaderComponent.vue?vue&type=script&lang=js":
+/*!******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/HeaderComponent.vue?vue&type=script&lang=js ***!
+  \******************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'HeaderComponent',
+  data: function data() {
+    return {
+      showmodal: false
+    };
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/MainComponent.vue?vue&type=script&lang=js":
 /*!****************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/MainComponent.vue?vue&type=script&lang=js ***!
@@ -20861,9 +20883,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MainComponent',
   data: function data() {
-    return {
-      showmodal: false
-    };
+    return {};
   }
 });
 
@@ -20906,6 +20926,69 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/HeaderComponent.vue?vue&type=template&id=64157be2":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/HeaderComponent.vue?vue&type=template&id=64157be2 ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "header_container"
+};
+var _hoisted_2 = {
+  "class": "header_nav"
+};
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "header_nav_logo"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "WEET")], -1 /* HOISTED */);
+var _hoisted_4 = {
+  "class": "header_nav_user_btn"
+};
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: "20",
+  height: "20",
+  fill: "currentColor",
+  "class": "bi bi-question-circle-fill",
+  viewBox: "0 0 16 16"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247m2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"
+})])], -1 /* HOISTED */);
+var _hoisted_6 = {
+  "class": "header_nav_login_btn"
+};
+var _hoisted_7 = {
+  "class": "header_nav_login_btn_user"
+};
+var _hoisted_8 = {
+  key: 0,
+  "class": "modal"
+};
+var _hoisted_9 = {
+  "class": "modal-content"
+};
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"scene flex\"><section class=\"card\"><div class=\"login_modal\"><div class=\"login_modal_headline\"><div class=\"card__heading\"><!-- &lt;span class=&quot;visually-hidden&quot;&gt;Account name:&lt;/span&gt; --><span>WEET</span></div></div><div class=\"login_modal_text\"><p>한눈에 예매 항공권을 확인하고</p><p>실시간으로 항공권 가격을 비교해보세요</p></div><form class=\"card__form\"><div class=\"card__form_email\"><!-- &lt;label for=&quot;email&quot; class=&quot;visually-hidden&quot;&gt;Email:&lt;/label&gt; --><label for=\"email\">Email:</label><input id=\"email\" class=\"card__input\" type=\"email\"></div><div class=\"card__form_pw\"><!-- &lt;label for=&quot;password&quot; class=&quot;visually-hidden&quot;&gt;Password:&lt;/label&gt; --><label for=\"password\">Password:</label><input id=\"password\" class=\"card__input\" type=\"password\"></div><div class=\"card__form_button\"><div><button class=\"card__button\" type=\"button\"><span>Login</span></button></div><div><button class=\"card__button\" type=\"button\"><span>Sign Up</span></button></div></div><div class=\"card__kakao_btn\"><div><button>kakao login</button></div></div></form></div></section></div>", 1);
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[0] || (_cache[0] = function ($event) {
+      return $data.showmodal = true;
+    })
+  }, "login")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인모달 "), $data.showmodal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 모달 내용 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인 폼 등 "), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return $data.showmodal = false;
+    })
+  }, "Close")])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]);
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/MainComponent.vue?vue&type=template&id=10ba9c23":
 /*!********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/MainComponent.vue?vue&type=template&id=10ba9c23 ***!
@@ -20920,23 +21003,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  key: 0,
-  "class": "modal"
+  "class": "main_container"
 };
-var _hoisted_2 = {
-  "class": "modal-content"
-};
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"scene flex\"><section class=\"card\"><div class=\"login_modal\"><div class=\"login_modal_headline\"><div class=\"card__heading\"><!-- &lt;span class=&quot;visually-hidden&quot;&gt;Account name:&lt;/span&gt; --><span>WEET</span></div></div><div class=\"login_modal_text\"><p>한눈에 예매 항공권을 확인하고</p><p>실시간으로 항공권 가격을 비교해보세요</p></div><form class=\"card__form\"><div class=\"card__form_email\"><!-- &lt;label for=&quot;email&quot; class=&quot;visually-hidden&quot;&gt;Email:&lt;/label&gt; --><label for=\"email\">Email:</label><input id=\"email\" class=\"card__input\" type=\"email\"></div><div class=\"card__form_pw\"><!-- &lt;label for=&quot;password&quot; class=&quot;visually-hidden&quot;&gt;Password:&lt;/label&gt; --><label for=\"password\">Password:</label><input id=\"password\" class=\"card__input\" type=\"password\"></div><div class=\"card__form_button\"><div><button class=\"card__button\" type=\"button\"><span>Login</span></button></div><div><button class=\"card__button\" type=\"button\"><span>Sign Up</span></button></div></div><div class=\"card__kakao_btn\"><div><button>kakao login</button></div></div></form></div></section></div>", 1);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
+  style: {
+    "color": "black"
+  }
+}, "MAIN", -1 /* HOISTED */);
+var _hoisted_3 = [_hoisted_2];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[0] || (_cache[0] = function ($event) {
-      return $data.showmodal = true;
-    })
-  }, "login")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인모달 "), $data.showmodal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 모달 내용 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인 폼 등 "), _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[1] || (_cache[1] = function ($event) {
-      return $data.showmodal = false;
-    })
-  }, "Close")])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [].concat(_hoisted_3));
 }
 
 /***/ }),
@@ -20977,14 +21053,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_router_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../js/router.js */ "./resources/js/router.js");
 /* harmony import */ var _components_AppComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/AppComponent.vue */ "./resources/components/AppComponent.vue");
 /* harmony import */ var _components_TestComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/TestComponent.vue */ "./resources/components/TestComponent.vue");
+/* harmony import */ var _components_MainComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/MainComponent.vue */ "./resources/components/MainComponent.vue");
+/* harmony import */ var _components_HeaderComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/HeaderComponent.vue */ "./resources/components/HeaderComponent.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+
 
 
 
 
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({
   components: {
-    AppComponent: _components_AppComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    AppComponent: _components_AppComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    HeaderComponent: _components_HeaderComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    MainComponent: _components_MainComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   }
 }).use(_js_router_js__WEBPACK_IMPORTED_MODULE_1__["default"]).mount('#app');
 
@@ -21077,7 +21159,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n/* VARIABLES */\n/* BASE */\nbody {\n  color: #FEFEFE;\n  font: 100 100%/1.6 \"Heebo\", sans-serif;\n  overflow-x: hidden;\n  width: 100%;\n}\n.visually-hidden {\n  clip: rect(0 0 0 0);\n  -webkit-clip-path: inset(50%);\n          clip-path: inset(50%);\n  height: 1px;\n  overflow: hidden;\n  position: absolute;\n  white-space: nowrap;\n  width: 1px;\n}\n.flex {\n  align-items: center;\n  justify-content: center;\n}\n.scene {\n  height: 100vh;\n  position: relative;\n}\n.login_modal_headline {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.login_modal_text {\n  font-size: 0.6rem;\n  text-align: start;\n  margin: 10px 0;\n}\n.card {\n  -webkit-backdrop-filter: blur(10px);\n          backdrop-filter: blur(10px);\n  background: #2e9afe;\n  border: 1px solid rgba(254, 254, 254, 0.18);\n  border-radius: 15px;\n  box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n  color: white;\n  max-width: 300px;\n  overflow: hidden;\n  padding: 30px;\n  position: relative;\n  text-align: center;\n  z-index: 1;\n}\n.card__heading {\n  font-size: 1.35rem;\n  font-weight: 200;\n}\n.card__heading span {\n  font-weight: bold;\n}\n.card__figure {\n  height: auto;\n  margin: 0 auto;\n  max-width: 225px;\n  width: 60%;\n}\n.card__image {\n  border-radius: 50%;\n  max-width: 100%;\n}\n.card__input {\n  background: rgba(254, 254, 254, 0.075);\n  border: 1px solid rgba(254, 254, 254, 0.3);\n  border-radius: 3px;\n  box-sizing: border-box;\n  color: #FEFEFE;\n  display: block;\n  font-size: 1rem;\n  letter-spacing: 0.15rem;\n  width: 100%;\n}\n.card__input:focus, .card__input:active {\n  background: rgba(254, 254, 254, 0.08);\n  border: 1px solid rgba(254, 254, 254, 0.75);\n  outline: none;\n}\n.card__form_email {\n  text-align: start;\n}\n.card__form_email label {\n  font-size: 10px;\n}\n.card__form_pw {\n  text-align: start;\n}\n.card__form_pw label {\n  font-size: 10px;\n}\n.card__button {\n  background: rgba(254, 254, 254, 0.65);\n  border: none;\n  border-radius: 3px;\n  color: #362100;\n  margin: 15px auto 0 auto;\n  padding: 3px 10px;\n  font-size: 13px;\n}\n.card__button:focus, .card__button:active {\n  background: rgba(255, 255, 255, 0.75);\n  outline: none;\n}\n.card__form_button {\n  display: flex;\n  justify-content: space-evenly;\n}\n.card__kakao_btn {\n  background: rgba(254, 254, 254, 0.075);\n  border: 1px solid rgba(254, 254, 254, 0.3);\n  border-radius: 3px;\n  box-sizing: border-box;\n  color: #FEFEFE;\n  display: block;\n  font-size: 1rem;\n  letter-spacing: 0.15rem;\n  width: 100%;\n  margin-top: 10px;\n}\n.card__kakao_btn:focus, .card__kakao_btn:active {\n  background: rgba(254, 254, 254, 0.08);\n  border: 1px solid rgba(254, 254, 254, 0.75);\n  outline: none;\n}\n.modal {\n  background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n/* VARIABLES */\n/* BASE */\nbody {\n  color: #FEFEFE;\n  font: 100 100%/1.6 \"Heebo\", sans-serif;\n  overflow-x: hidden;\n  width: 100%;\n}\n.visually-hidden {\n  clip: rect(0 0 0 0);\n  -webkit-clip-path: inset(50%);\n          clip-path: inset(50%);\n  height: 1px;\n  overflow: hidden;\n  position: absolute;\n  white-space: nowrap;\n  width: 1px;\n}\n.flex {\n  align-items: center;\n  justify-content: center;\n}\n.scene {\n  position: relative;\n}\n.login_modal {\n  height: 400px;\n}\n.login_modal_headline {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.login_modal_text {\n  font-size: 0.6rem;\n  text-align: start;\n  margin: 10px 0;\n}\n.modal-content {\n  /* 기존 스타일 유지 */\n  background-color: transparent;\n  padding: 20px;\n  border-radius: 5px;\n}\n.modal {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n  display: flex;\n  justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n  align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n  -webkit-backdrop-filter: blur(10px);\n          backdrop-filter: blur(10px);\n  background: #2e9afe;\n  border: 1px solid rgba(254, 254, 254, 0.18);\n  border-radius: 15px;\n  box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n  color: white;\n  max-width: 300px;\n  overflow: hidden;\n  padding: 50px;\n  position: relative;\n  text-align: center;\n  z-index: 1;\n}\n.card__heading {\n  font-size: 1.35rem;\n  font-weight: 200;\n}\n.card__heading span {\n  font-weight: bold;\n}\n.card__figure {\n  height: auto;\n  margin: 0 auto;\n  max-width: 225px;\n  width: 60%;\n}\n.card__image {\n  border-radius: 50%;\n  max-width: 100%;\n}\n.card__input {\n  background: rgba(254, 254, 254, 0.075);\n  border: 1px solid rgba(254, 254, 254, 0.3);\n  border-radius: 3px;\n  box-sizing: border-box;\n  color: #FEFEFE;\n  display: block;\n  font-size: 1rem;\n  letter-spacing: 0.15rem;\n  width: 100%;\n}\n.card__input:focus, .card__input:active {\n  background: rgba(254, 254, 254, 0.08);\n  border: 1px solid rgba(254, 254, 254, 0.75);\n  outline: none;\n}\n.card__form_email {\n  text-align: start;\n}\n.card__form_email label {\n  font-size: 10px;\n}\n.card__form_pw {\n  text-align: start;\n}\n.card__form_pw label {\n  font-size: 10px;\n}\n.card__button {\n  background: rgba(254, 254, 254, 0.65);\n  border: none;\n  border-radius: 3px;\n  color: #362100;\n  margin: 15px auto 0 auto;\n  padding: 3px 10px;\n  font-size: 13px;\n}\n.card__button:focus, .card__button:active {\n  background: rgba(255, 255, 255, 0.75);\n  outline: none;\n}\n.card__form_button {\n  display: flex;\n  justify-content: space-evenly;\n}\n.card__kakao_btn {\n  background: rgba(254, 254, 254, 0.075);\n  border: 1px solid rgba(254, 254, 254, 0.3);\n  border-radius: 3px;\n  box-sizing: border-box;\n  color: #FEFEFE;\n  display: block;\n  font-size: 1rem;\n  letter-spacing: 0.15rem;\n  width: 100%;\n  margin-top: 10px;\n}\n.card__kakao_btn:focus, .card__kakao_btn:active {\n  background: rgba(254, 254, 254, 0.08);\n  border: 1px solid rgba(254, 254, 254, 0.75);\n  outline: none;\n}\n.modal {\n  background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n.header_container {\n  background-color: #2E9AFE;\n  width: 100%;\n  padding: 10px;\n}\n.header_nav {\n  display: flex;\n  justify-content: space-between;\n}\n.header_nav_logo {\n  margin: 0 10px;\n  font-weight: bold;\n  font-size: 30px;\n}\n.header_nav_user_btn {\n  display: flex;\n  align-items: center;\n  margin: 0 10px;\n}\n.header_nav_login_btn {\n  font-weight: bold;\n  margin-left: 10px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -21100,9 +21182,8 @@ __webpack_require__.r(__webpack_exports__);
 // Imports
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Montserrat:400,600);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n  margin: 0;\n  padding: 0;\n  font-family: \"Montserrat\", Helvetica, arial, sans-serif;\n  letter-spacing: 0.75px;\n  color: #000000;\n  background-color: #f9ebd2;\n  font-size: 16px;\n}\nh1, h2, h3, h4, h5, h6, p {\n  margin: 0;\n  padding: 0;\n  font-weight: 400;\n  font-size: 1em;\n}\nh1 {\n  font-weight: 600;\n  font-size: 2em;\n}\nh2 {\n  color: #ff4500;\n  font-size: 2rem;\n}\nh4, h5 {\n  color: #989898;\n  font-size: 0.8rem;\n}\nh6 {\n  font-size: 1.6rem;\n}\np {\n  letter-spacing: 1px;\n}\nimg {\n  max-width: 100%;\n  height: auto;\n  max-height: 100%;\n}\nsection, header {\n  display: flex;\n  background-color: white;\n}\nsection > div, header > div {\n  padding: 10px 10px;\n}\n@media (max-width: 500px) {\nsection > div:first-child, header > div:first-child {\n    padding: 10px 10px 10px 0;\n}\n}\nheader > div {\n  min-width: 65px;\n}\n.flight--general {\n  text-align: center;\n  align-items: center;\n}\n.flight--general div:first-of-type, .flight--general div:last-of-type {\n  flex: 1 50%;\n}\n.flight--general div:first-child {\n  padding: 10px 10px;\n}\n.flight--qrcode {\n  justify-content: center;\n  align-items: center;\n  height: 30vh;\n}\n.flight--qrcode img {\n  -o-object-fit: contain;\n  object-fit: contain;\n  font-family: \"object-fit: contain\";\n  height: 100%;\n}\n.extra--meteo p:last-of-type {\n  font-size: 0.8rem;\n}\n.extra--image {\n  height: 100%;\n  display: block;\n  padding: 0;\n}\n.extra--image img {\n  -o-object-fit: cover;\n  object-fit: cover;\n  font-family: \"object-fit: cover\";\n  max-height: 100%;\n  min-width: 100%;\n}\nheader {\n  background-color: #ff4500;\n  color: #f9ebd2;\n  justify-content: flex-end;\n  align-items: center;\n}\nheader h1 {\n  flex: 1 90%;\n}\nheader h5 {\n  color: #f9ebd2;\n}\nheader > div {\n  flex: 1 10%;\n}\nheader > div:first-of-type {\n  padding-left: 0;\n}\n@media (max-width: 500px) {\nsection, header {\n    padding: 10px 20px;\n}\nheader {\n    flex-wrap: wrap;\n}\n.extra--image {\n    min-height: inherit;\n}\n.flight--general {\n    display: -ms-flex;\n    display: flex;\n    align-items: center;\n}\n.flight--general div:first-of-type {\n    text-align: left;\n    padding-left: 0;\n}\n.flight--general div:last-of-type {\n    text-align: right;\n    padding-right: 0;\n}\n.extra--meteo {\n    flex-direction: column;\n}\n.extra--meteo > div {\n    width: 100%;\n    padding-left: 0;\n}\n.extra--image img {\n    height: auto;\n    max-height: -webkit-fill-available;\n}\n}\n@media (min-width: 501px) {\nsection, h1, header div:first-of-type {\n    padding: 10px 20px;\n}\n.flight--general {\n    padding-bottom: 0;\n}\n.flight--TimeInfo {\n    padding-top: 0;\n}\n.flight--qrcode {\n    padding: 0 10px;\n}\n.extra--meteo {\n    justify-content: space-around;\n}\n.extra--meteo > div {\n    max-width: 30%;\n}\n.extra--meteo > div:last-of-type {\n    padding-right: 0;\n}\n}\n@media (min-width: 1024px) {\n.flight--TimeInfo {\n    padding-top: 10px;\n}\n.flight--qrcode {\n    padding: 0 10px;\n}\n}\nmain {\n  display: grid;\n  display: block\\9 ;\n  max-width: 500px\\9 ;\n  margin: 0 auto;\n}\nheader {\n  border-radius: 10px 10px 0 0;\n}\n@media (max-width: 500px) {\nheader {\n    border-radius: 0;\n}\n}\n.flight--qrcode {\n  border-radius: 0 0 10px 0;\n}\n@media (max-width: 500px) {\n.flight--qrcode {\n    border-radius: 0;\n}\n}\n.flight--general {\n  border-radius: 0 0 0 10px;\n}\n.extra--meteo {\n  border-radius: 10px;\n}\n.extra--image {\n  display: flex;\n}\n@media (min-width: 501px) and (max-width: 1023px) {\n.flight--TimeInfo {\n    border-radius: 0 0 0 10px;\n}\n.flight--general {\n    border-radius: 0;\n}\n.flight--qrcode {\n    justify-content: flex-end;\n}\n}\n@media (min-width: 501px) {\nmain {\n    height: 100vh;\n}\n.flight--qrcode {\n    height: 100%;\n    padding: 0;\n}\n.extra--image {\n    min-height: 100vh;\n}\n}\n@supports (display: grid) {\n@media (min-width: 501px) {\n.flight--qrcode {\n      height: initial;\n}\n}\n}\n@supports not (display: grid) {\nmain {\n    margin: 0 auto;\n    max-width: 500px;\n    grid-gap: 0 0;\n    display: block;\n}\nheader {\n    border-radius: 0;\n}\n@media (max-width: 500px) {\nheader {\n      border-radius: 0;\n}\n}\n.flight--qrcode {\n    border-radius: 0;\n}\n@media (max-width: 500px) {\n.flight--qrcode {\n      border-radius: 0;\n}\n}\n.flight--general {\n    border-radius: 0;\n}\n.extra--meteo {\n    border-radius: 0;\n}\n.extra--image {\n    min-height: inherit;\n    display: block;\n}\n@media (min-width: 501px) and (max-width: 1023px) {\n.flight--TimeInfo {\n      border-radius: 0;\n}\n.flight--general {\n      border-radius: 0;\n}\n.flight--qrcode {\n      justify-content: center;\n}\n}\n@media (min-width: 501px) {\nmain {\n      height: inherit;\n}\n.flight--qrcode {\n      height: initial;\n}\n.extra--image {\n      min-height: inherit;\n}\n}\n}\n.extra--meteo {\n  z-index: 2;\n}\n@media (min-width: 501px) {\n.extra--meteo {\n    justify-self: center;\n}\n}\n@media (max-width: 500px) {\nmain {\n    grid-template-columns: 1fr 1fr;\n}\nheader {\n    grid-column: 1/span 2;\n    grid-row: 1/span 1;\n}\n.flight--general, .flight--TimeInfo, .flight--PassInfo, .flight--qrcode {\n    grid-column: 1/span 2;\n}\n.flight--general {\n    grid-row: 2/span 1;\n}\n.flight--TimeInfo {\n    grid-row: 3/span 1;\n}\n.flight--PassInfo {\n    grid-row: 4/span 1;\n}\n.flight--qrcode {\n    grid-row: 5/span 1;\n}\n.extra--meteo, .extra--image {\n    grid-row: 6/span 1;\n}\n.extra--meteo {\n    grid-column: 1/span 1;\n}\n.extra--image {\n    grid-column: 2/span 1;\n}\n}\n@media (min-width: 501px) and (max-width: 1023px) {\nmain {\n    grid-template-columns: 1fr repeat(3, minmax(100px, 200px)) 1fr;\n    grid-template-rows: 1fr 60px repeat(3, 75px) 10vh auto 1fr;\n}\nheader {\n    grid-column: 2/span 3;\n    grid-row: 2/span 1;\n    z-index: 2;\n}\n.flight--PassInfo, .flight--qrcode {\n    z-index: 2;\n}\n.flight--general {\n    grid-column: 2/span 2;\n    grid-row: 3/span 1;\n    z-index: 3;\n}\n.flight--TimeInfo {\n    grid-column: 2/span 2;\n    grid-row: 5/span 1;\n    z-index: 3;\n}\n.flight--PassInfo {\n    grid-column: 2/span 2;\n    grid-row: 4/span 1;\n}\n.flight--qrcode {\n    grid-column: 4/span 1;\n    grid-row: 3/span 3;\n}\n.extra--meteo {\n    grid-column: 2/span 3;\n    grid-row: 7/span 1;\n}\n.extra--image {\n    grid-column: 1/span 7;\n    grid-row: 1/span 8;\n}\n}\n@media (min-width: 1024px) {\nmain {\n    grid-template-columns: 1fr repeat(4, 150px) 250px 1fr;\n    grid-template-rows: 1fr 60px repeat(2, 100px) 0.5fr auto 1fr;\n}\nheader {\n    grid-column: 2/span 5;\n    grid-row: 2/span 1;\n    z-index: 2;\n}\n.flight--general, .flight--TimeInfo, .flight--PassInfo, .flight--qrcode {\n    z-index: 2;\n}\n.flight--general {\n    grid-column: 2/span 2;\n    grid-row: 3/span 2;\n}\n.flight--TimeInfo {\n    grid-column: 4/span 2;\n    grid-row: 3/span 1;\n}\n.flight--PassInfo {\n    grid-column: 4/span 2;\n    grid-row: 4/span 1;\n}\n.flight--qrcode {\n    grid-column: 6/span 1;\n    grid-row: 3/span 2;\n}\n.extra--meteo {\n    grid-column: 2/span 5;\n    grid-row: 6/span 1;\n}\n.extra--image {\n    grid-column: 1/span 7;\n    grid-row: 1/span 7;\n    z-index: 1;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38996,6 +39077,34 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/components/HeaderComponent.vue":
+/*!**************************************************!*\
+  !*** ./resources/components/HeaderComponent.vue ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _HeaderComponent_vue_vue_type_template_id_64157be2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HeaderComponent.vue?vue&type=template&id=64157be2 */ "./resources/components/HeaderComponent.vue?vue&type=template&id=64157be2");
+/* harmony import */ var _HeaderComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HeaderComponent.vue?vue&type=script&lang=js */ "./resources/components/HeaderComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_HeaderComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_HeaderComponent_vue_vue_type_template_id_64157be2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/HeaderComponent.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/components/MainComponent.vue":
 /*!************************************************!*\
   !*** ./resources/components/MainComponent.vue ***!
@@ -39071,6 +39180,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/components/HeaderComponent.vue?vue&type=script&lang=js":
+/*!**************************************************************************!*\
+  !*** ./resources/components/HeaderComponent.vue?vue&type=script&lang=js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_HeaderComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_HeaderComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./HeaderComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/HeaderComponent.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/components/MainComponent.vue?vue&type=script&lang=js":
 /*!************************************************************************!*\
   !*** ./resources/components/MainComponent.vue?vue&type=script&lang=js ***!
@@ -39115,6 +39240,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AppComponent_vue_vue_type_template_id_1a737966__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AppComponent_vue_vue_type_template_id_1a737966__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AppComponent.vue?vue&type=template&id=1a737966 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/AppComponent.vue?vue&type=template&id=1a737966");
+
+
+/***/ }),
+
+/***/ "./resources/components/HeaderComponent.vue?vue&type=template&id=64157be2":
+/*!********************************************************************************!*\
+  !*** ./resources/components/HeaderComponent.vue?vue&type=template&id=64157be2 ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_HeaderComponent_vue_vue_type_template_id_64157be2__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_HeaderComponent_vue_vue_type_template_id_64157be2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./HeaderComponent.vue?vue&type=template&id=64157be2 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/HeaderComponent.vue?vue&type=template&id=64157be2");
 
 
 /***/ }),

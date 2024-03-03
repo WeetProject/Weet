@@ -32,3 +32,8 @@
         <style lang="scss">
             @import '../sass/app.scss';
         </style>
+
+5. Bootstrap Icons
+    - 참고 : https://icons.getbootstrap.kr/?q=hand
+    - npm i bootstrap-icons
+    - <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
