@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+footer {
+    position: fixed;
+    background-color: #081742;
+    opacity: 0.9;
+    color: #ffff;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+}
+
+.footer_container {
+    display: flex;
+    justify-content: space-between;
+
+    &_text {
+        // display: flex;
+
+        &_personal_info {
+            display: flex;
+        }
+    }
+
+    &_icons {
+        display: flex;
+        font-size: 30px;
+        align-items: center;
+
+        &_instar {
+            margin: 0 10px;
+        }
+
+        &_facebook {
+            margin: 0 10px;
+        }
+
+        &_amadeus {
+            margin: 0 10px;
+        }
+    }
+}

@@ -18,4 +18,5 @@
     // "liveSassCompile.settings.includeItems": [
     //     "/css/scss/ *.scss"
     // ]
+    "vetur.completion.enable": true,
 }

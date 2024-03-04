@@ -16,6 +16,7 @@
             <!-- 앱컴포넌트 호출 -->
             <App-Component></App-Component>
         </div>
+        <Footer-Component></Footer-Component>
     </div>
 </body>
 </html>
