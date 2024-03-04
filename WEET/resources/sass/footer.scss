@@ -9,18 +9,22 @@ footer {
     color: #ffff;
     bottom: 0;
     width: 100%;
-    padding: 20px;
+    padding: 10px;
+    font-size: 10px;
 }
 
 .footer_container {
-    display: flex;
-    justify-content: space-between;
+    // display: flex;
+    // justify-content: space-between;
 
     &_text {
         // display: flex;
+        width: 100%;
 
         &_personal_info {
             display: flex;
+            justify-content: center;
+            align-content: center;
         }
     }
 
@@ -28,6 +32,8 @@ footer {
         display: flex;
         font-size: 30px;
         align-items: center;
+        justify-content: center;
+        margin-top: 10px;
 
         &_instar {
             margin: 0 10px;
