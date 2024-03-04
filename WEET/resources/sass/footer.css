@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+footer {
+  position: fixed;
+  background-color: #081742;
+  opacity: 0.9;
+  color: white;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  font-size: 10px;
+}
+
+.footer_container_text {
+  width: 100%;
+}
+.footer_container_text_personal_info {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.footer_container_icons {
+  display: flex;
+  font-size: 30px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+.footer_container_icons_instar {
+  margin: 0 10px;
+}
+.footer_container_icons_facebook {
+  margin: 0 10px;
+}
+.footer_container_icons_amadeus {
+  margin: 0 10px;
+}/*# sourceMappingURL=footer.css.map */
