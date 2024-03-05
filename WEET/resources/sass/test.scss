@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /*custom font*/
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
 
@@ -9,13 +13,19 @@ html {
 	/*Image only BG fallback*/
 	
 	/*background = gradient + image pattern combo*/
-	background: 
-		linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+	// background: 
+	// 	linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+	background-color: #fff;
 }
 
 body {
 	font-family: montserrat, arial, verdana;
 }
+
+.regist_container {
+	color: #666;
+}
+
 /*form styles*/
 #msform {
 	width: 400px;
@@ -69,18 +79,20 @@ input {
 	width: 100px;
 	background: #27AE60;
 	font-weight: bold;
-	color: white;
+	color: #0B2161;
 	border: 0 none;
 	border-radius: 1px;
 	cursor: pointer;
 	padding: 10px;
 	margin: 10px 5px;
-  text-decoration: none;
-  font-size: 14px;
+	text-decoration: none;
+	font-size: 14px;
 }
+
 #msform .action-button:hover, #msform .action-button:focus {
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
 }
+
 /*headings*/
 .fs-title {
 	font-size: 15px;
@@ -88,12 +100,14 @@ input {
 	color: #2C3E50;
 	margin-bottom: 10px;
 }
+
 .fs-subtitle {
 	font-weight: normal;
 	font-size: 13px;
 	color: #666;
 	margin-bottom: 20px;
 }
+
 /*progressbar*/
 #progressbar {
 	margin: 30px;
@@ -102,17 +116,16 @@ input {
 	counter-reset: step;
 	text-align: center;
 }
+
 #progressbar li {
 	list-style-type: none;
-	color: white;
+	color: #0B2161;
 	text-transform: uppercase;
-	font-size: 9px;
+	font-size: 12px;
 	width: 50%;
 	float: left;
 	position: relative;
 }
-
-
 
 #progressbar li:before {
 	content: counter(step);
@@ -124,8 +137,10 @@ input {
 	color: #333;
 	background: white;
 	border-radius: 3px;
+	border: 1px solid #0B2161;
 	margin: 0 auto 5px auto;
 }
+
 /*progressbar connectors*/
 #progressbar li:after {
 	content: '';
@@ -140,16 +155,43 @@ input {
 	top: 9px;
 	z-index: -1; /*put it behind the numbers*/
 }
+
 #progressbar li:first-child:after {
 	/*connector not needed before the first step*/
 	content: none; 
 }
+
 /*marking active/completed steps green*/
 /*The number of the step and the connector before it = green*/
 #progressbar li.active:before,  #progressbar li.active:after{
-	background: #27AE60;
-	color: white;
+	background: #0B2161;
+	color: #fff;
 }
 
+.terms_conditions {
 
+	text-align: center;
+
+	&_box {
+		border: 1px solid #2C3E50;
+		border-radius: 5px;
+		padding: 20px;
+		width: 50%;
+		text-align: start;
+		margin: 0 auto;
+		height: 50vW;
+    	overflow: auto;
+		font-size: 12px;
+		color: #333;
+	}
+
+	&_label {
+		font-size: 13px;
+    	color: #666;
+	}
+
+	&_checkbox {
+		margin: 0 5px;
+	}
+}
 

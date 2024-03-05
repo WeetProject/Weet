@@ -492,8 +492,17 @@ video {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+.fixed {
+  position: fixed;
+}
+.absolute {
+  position: absolute;
+}
 .flex {
   display: flex;
+}
+.resize {
+  resize: both;
 }
 .text-center {
   text-align: center;
