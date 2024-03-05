@@ -2,17 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+// 변경 푸터 css
 footer {
-    position: fixed;
     background-color: #081742;
     opacity: 0.9;
     color: #ffff;
-    bottom: 0;
     width: 100%;
     padding: 10px;
     font-size: 10px;
     overflow: auto;
+    height: 140px;
+    position: relative;
+    transform: translateY(0%);
 }
+
+// 기존 푸터 css
+// footer {
+//     position: fixed;
+//     background-color: #081742;
+//     opacity: 0.9;
+//     color: #ffff;
+//     bottom: 0;
+//     width: 100%;
+//     padding: 10px;
+//     font-size: 10px;
+//     overflow: auto;
+// }
 
 .footer_container {
     // display: flex;
