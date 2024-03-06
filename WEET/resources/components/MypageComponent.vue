@@ -49,14 +49,14 @@
                     <p class="mypage_menu_detail_input_title">성별</p>
                     <!-- <p class="mypage_menu_detail_input_title">*</p> -->
                     <div class="mypage_menu_detail_input_cont">
-                        <select type="text">
+                        <select type="text"></select>
                     </div>
                 </div>
                 <div class="mypage_menu_detail_input">
                     <p class="mypage_menu_detail_input_title">국가</p>
                     <!-- <p class="mypage_menu_detail_input_title">*</p> -->
                     <div class="mypage_menu_detail_input_cont">
-                        <select type="text">
+                        <select type="text"></select>
                     </div>
                 </div>
                 <div class="mypage_menu_detail_input">
@@ -70,11 +70,15 @@
         </div>
     </div>
 </template>
+
+
 <script>
 export default {
     name: 'MypageComponent',
 }
 </script>
+
+
 <style lang="scss">
-	@import '../sass/mypage.scss';
+	@import '../sass/User/mypage.scss';
 </style>
