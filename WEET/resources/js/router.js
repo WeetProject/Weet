@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router';
 import AppComponent from '../components/AppComponent.vue';
 import MainComponent from '../components/MainComponent.vue';
 import TestComponent from '../components/TestComponent.vue';
+import MypageComponent from '../components/MypageComponent.vue';
 
 const routes = [
 	{
@@ -11,6 +12,10 @@ const routes = [
 	{
 		path: '/test',
 		component: TestComponent
+	},
+	{
+		path: '/mypage',
+		component: MypageComponent
 	},
 ];
 
