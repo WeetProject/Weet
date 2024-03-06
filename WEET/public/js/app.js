@@ -20973,20 +20973,35 @@ __webpack_require__.r(__webpack_exports__);
         title: 'Create your account',
         subtitle: 'Personal Details',
         inputs: [{
-          name: 'fname',
-          placeholder: 'First Name'
+          name: 'user_email',
+          placeholder: 'Email'
         }, {
-          name: 'lname',
-          placeholder: 'Last Name'
+          name: 'user_password',
+          placeholder: 'Password'
         }, {
-          name: 'phone',
+          name: 'user_tel',
           placeholder: 'Phone'
         }, {
-          name: 'address',
-          placeholder: 'Address'
+          name: 'user_postcode',
+          placeholder: 'Postcode'
+        }, {
+          name: 'user_basic_address',
+          placeholder: 'Basic_address'
+        }, {
+          name: 'user_detail_address',
+          placeholder: 'Detail_address'
+        }, {
+          name: 'user_gender',
+          type: 'radio',
+          options: ['Male', 'Female'],
+          placeholder: 'Gender'
+        }, {
+          name: 'user_birthdate',
+          type: 'date',
+          placeholder: 'Birthdate'
         }]
-      }],
-      submitLink: 'https://twitter.com/GoktepeAtakan'
+      }]
+      // submitLink: 'https://twitter.com/GoktepeAtakan'
     };
   },
   methods: {
@@ -21178,64 +21193,88 @@ var _hoisted_1 = {
   "class": "regist_container"
 };
 var _hoisted_2 = {
-  id: "progressbar"
+  "class": "progressbar_container"
 };
 var _hoisted_3 = {
-  "class": "fs-title"
+  id: "progressbar"
 };
 var _hoisted_4 = {
-  "class": "fs-subtitle"
+  "class": "fs-title"
 };
 var _hoisted_5 = {
+  "class": "fs-subtitle"
+};
+var _hoisted_6 = {
   key: 0,
   "class": "terms_conditions"
 };
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<label class=\"terms_conditions_label\">이용약관 및 개인정보수집 및 이용에 모두 동의합니다.</label><div class=\"terms_conditions_box\"><p class=\"text-center\">서비스 이용약관</p><p>제1조 (목적)</p><p>이 이용약관은 [WEET] (이하 &quot;회사&quot;라 함)이 운영하는 인터넷 관련 서비스 및 기타 관련 제반 서비스(이하 &quot;서비스&quot;라 함)를 이용함에 있어 회사와 이용자의 권리, 의무 및 책임 사항을 규정함을 목적으로 합니다.</p><p>제2조 (약관의 효력과 변경)</p><p>본 약관은 서비스를 신청한 이용자가 본 약관에 동의하고 회사가 정한 가입신청 양식에 기반하여 가입을 완료하는 시점부터 효력이 발생합니다.</p><p>1. 회사는 필요한 경우 관련 법령 및 회사의 내부 정책을 반영하여 이 약관을 변경할 수 있으며, 변경된 약관은 회사의 홈페이지나 서비스 내 공지를 통해 이용자에게 공지됩니다.</p><p>변경된 약관은 공지 후 7일 이내에 이용자의 동의 없이 적용됩니다. </p><p>2. 이용자가 변경된 약관에 동의하지 않을 경우 회사는 해당 이용자에 대하여 서비스 제공을 중단할 수 있습니다.</p><p>제3조 (이용자의 의무)</p><p>1. 이용자는 서비스 이용 시 관련 법령, 약관, 공지사항, 회사의 안내 등에 따라 서비스를 이용해야 하며, 회사의 명시적 동의 없이는 서비스를 이용하여 얻은 정보를 복제, 유통, 출판하거나 상업적으로 이용할 수 없습니다.</p><p>2. 이용자는 서비스 이용 시 다음 각 호의 행위를 하지 않아야 합니다.</p><p>가. 타인의 정보를 도용하거나 부정한 목적으로 이용하는 행위</p><p>나. 서비스를 통해 전송되는 컨텐츠를 위변조, 삭제, 변경하는 행위</p><p>다. 서비스의 안전성, 안정성 및 정상적인 운영을 방해하는 행위</p><p>제4조 (회사의 의무)</p><p>회사는 이용자의 개인정보 보호를 위해 최선을 다하며, 관련 법령에 따라 이를 처리합니다.</p><p>회사는 서비스 제공을 위해 지속적으로 시스템 및 네트워크 관리를 개선하며, 서비스 이용 중 발생하는 장애나 문제에 대하여 신속하게 조치합니다.</p></div>", 2);
-var _hoisted_8 = ["type", "name", "placeholder"];
-var _hoisted_9 = ["href"];
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<label class=\"terms_conditions_label\">이용약관 및 개인정보수집 및 이용에 모두 동의합니다.</label><div class=\"terms_conditions_box\"><p class=\"text-center\"><strong>서비스 이용약관</strong></p><p><strong>제1조 (목적)</strong></p><br><p>이 이용약관은 [WEET] (이하 &quot;회사&quot;라 함)이 운영하는 인터넷 관련 서비스 및 기타 관련 제반 서비스(이하 &quot;서비스&quot;라 함)를 이용함에 있어 회사와 이용자의 권리, 의무 및 책임 사항을 규정함을 목적으로 합니다.</p><br><p><strong>제2조 (약관의 효력과 변경)</strong></p><br><p>본 약관은 서비스를 신청한 이용자가 본 약관에 동의하고 회사가 정한 가입신청 양식에 기반하여 가입을 완료하는 시점부터 효력이 발생합니다.</p><p>1. 회사는 필요한 경우 관련 법령 및 회사의 내부 정책을 반영하여 이 약관을 변경할 수 있으며, 변경된 약관은 회사의 홈페이지나 서비스 내 공지를 통해 이용자에게 공지됩니다.</p><p>변경된 약관은 공지 후 7일 이내에 이용자의 동의 없이 적용됩니다. </p><p>2. 이용자가 변경된 약관에 동의하지 않을 경우 회사는 해당 이용자에 대하여 서비스 제공을 중단할 수 있습니다.</p><br><p><strong>제3조 (이용자의 의무)</strong></p><br><p>1. 이용자는 서비스 이용 시 관련 법령, 약관, 공지사항, 회사의 안내 등에 따라 서비스를 이용해야 하며, 회사의 명시적 동의 없이는 서비스를 이용하여 얻은 정보를 복제, 유통, 출판하거나 상업적으로 이용할 수 없습니다.</p><p>2. 이용자는 서비스 이용 시 다음 각 호의 행위를 하지 않아야 합니다.</p><p>가. 타인의 정보를 도용하거나 부정한 목적으로 이용하는 행위</p><p>나. 서비스를 통해 전송되는 컨텐츠를 위변조, 삭제, 변경하는 행위</p><p>다. 서비스의 안전성, 안정성 및 정상적인 운영을 방해하는 행위</p><br><p><strong>제4조 (회사의 의무</strong>)</p><br><p>회사는 이용자의 개인정보 보호를 위해 최선을 다하며, 관련 법령에 따라 이를 처리합니다.</p><p>회사는 서비스 제공을 위해 지속적으로 시스템 및 네트워크 관리를 개선하며, 서비스 이용 중 발생하는 장애나 문제에 대하여 신속하게 조치합니다.</p></div>", 2);
+var _hoisted_9 = {
+  "class": "account_info_container"
+};
+var _hoisted_10 = ["for"];
+var _hoisted_11 = ["type", "name", "id", "placeholder"];
+var _hoisted_12 = {
+  "class": "regist_user_btn"
+};
+var _hoisted_13 = {
+  "class": "regist_user_pre_btn"
+};
+var _hoisted_14 = {
+  "class": "regist_user_next_btn"
+};
+var _hoisted_15 = {
+  "class": "regist_user_sub_btn"
+};
+var _hoisted_16 = ["href"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" progressbar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.steps, function (step, index) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" progressbar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.steps, function (step, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       key: index,
       "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
         active: index === $data.currentStep
       })
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(step), 3 /* TEXT, CLASS */);
-  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" fieldsets "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.fieldsets, function (fieldset, index) {
+  }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" fieldsets "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.fieldsets, function (fieldset, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("fieldset", {
       key: index
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(fieldset.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(fieldset.subtitle), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" '이용약관 동의'에 대한 텍스트 추가 "), index === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(fieldset.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(fieldset.subtitle), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" '이용약관 동의'에 대한 텍스트 추가 "), index === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       "class": "terms_conditions_checkbox",
       type: "checkbox",
       "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
         return $data.termsAgreed = $event;
       })
-    }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.termsAgreed]]), _hoisted_6])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <input v-for=\"(input, inputIndex) in fieldset.inputs\" :key=\"inputIndex\" type=\"text\" :name=\"input.name\" :placeholder=\"input.placeholder\" /> "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(fieldset.inputs, function (input, inputIndex) {
-      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("input", {
-        key: inputIndex,
+    }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.termsAgreed]]), _hoisted_7])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <input v-for=\"(input, inputIndex) in fieldset.inputs\" :key=\"inputIndex\" type=\"text\" :name=\"input.name\" :placeholder=\"input.placeholder\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <label v-for=\"(input, inputIndex) in fieldset.inputs\" :key=\"inputIndex\">\r\n                    {{ input.placeholder }}\r\n                </label>\r\n                    <input v-for=\"(input, inputIndex) in fieldset.inputs\" :key=\"inputIndex\" \r\n                        :type=\"input.type\" :name=\"input.name\" :placeholder=\"input.placeholder\" \r\n                        :class=\"input.classes\" /> "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(fieldset.inputs, function (input, inputIndex) {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+        key: inputIndex
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+        "for": 'input_' + inputIndex,
+        "class": "account_info_label"
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(input.placeholder), 9 /* TEXT, PROPS */, _hoisted_10), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         type: input.type,
         name: input.name,
+        id: 'input_' + inputIndex,
         placeholder: input.placeholder,
-        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(input.classes)
-      }, null, 10 /* CLASS, PROPS */, _hoisted_8);
-    }), 128 /* KEYED_FRAGMENT */)), index > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
-      key: 1,
+        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([input.classes, "account_info_input"])
+      }, null, 10 /* CLASS, PROPS */, _hoisted_11)]);
+    }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [index > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+      key: 0,
       onClick: _cache[1] || (_cache[1] = function () {
         return $options.prevStep && $options.prevStep.apply($options, arguments);
       }),
       "class": "previous action-button"
-    }, "Previous")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), index < $data.fieldsets.length - 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
-      key: 2,
+    }, "Previous")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [index < $data.fieldsets.length - 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+      key: 0,
       onClick: _cache[2] || (_cache[2] = function () {
         return $options.nextStep && $options.nextStep.apply($options, arguments);
       }),
       "class": "next action-button"
-    }, "Next")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), index === $data.fieldsets.length - 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
-      key: 3,
-      href: $data.submitLink,
+    }, "Next")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [index === $data.fieldsets.length - 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+      key: 0,
+      href: _ctx.submitLink,
       "class": "submit action-button",
       target: "_top"
-    }, "Submit", 8 /* PROPS */, _hoisted_9)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, index === $data.currentStep]]);
+    }, "Submit", 8 /* PROPS */, _hoisted_16)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, index === $data.currentStep]]);
   }), 128 /* KEYED_FRAGMENT */))]);
 }
 
@@ -21465,7 +21504,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Montserrat);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n/*custom font*/\n/*basic reset*/\n* {\n  margin: 0;\n  padding: 0;\n}\nhtml {\n  height: 100%;\n  /*Image only BG fallback*/\n  /*background = gradient + image pattern combo*/\n  background-color: #fff;\n}\nbody {\n  font-family: montserrat, arial, verdana;\n}\n.regist_container {\n  color: #666;\n}\n\n/*form styles*/\n#msform {\n  width: 400px;\n  margin: 50px auto;\n  text-align: center;\n  position: relative;\n}\nfieldset {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n#msform fieldset {\n  background: white;\n  border: 0 none;\n  border-radius: 3px;\n  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);\n  padding: 20px 30px;\n  box-sizing: border-box;\n  width: 80%;\n  margin: 0 10%;\n  /*stacking fieldsets above each other*/\n  position: relative;\n}\n\n/*Hide all except first fieldset*/\n#msform fieldset:not(:first-of-type) {\n  display: none;\n}\n\n/*inputs*/\n#msform input, #msform textarea {\n  padding: 15px;\n  border: 1px solid #ccc;\n  border-radius: 3px;\n  margin-bottom: 10px;\n  width: 100%;\n  box-sizing: border-box;\n  font-family: montserrat;\n  color: #2C3E50;\n  font-size: 13px;\n}\ninput {\n  margin-top: 10px;\n}\n\n/*buttons*/\n#msform .action-button {\n  width: 100px;\n  background: #27AE60;\n  font-weight: bold;\n  color: #0B2161;\n  border: 0 none;\n  border-radius: 1px;\n  cursor: pointer;\n  padding: 10px;\n  margin: 10px 5px;\n  text-decoration: none;\n  font-size: 14px;\n}\n#msform .action-button:hover, #msform .action-button:focus {\n  box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;\n}\n\n/*headings*/\n.fs-title {\n  font-size: 15px;\n  text-transform: uppercase;\n  color: #2C3E50;\n  margin-bottom: 10px;\n}\n.fs-subtitle {\n  font-weight: normal;\n  font-size: 13px;\n  color: #666;\n  margin-bottom: 20px;\n}\n\n/*progressbar*/\n#progressbar {\n  margin: 30px;\n  overflow: hidden;\n  /*CSS counters to number the steps*/\n  counter-reset: step;\n  text-align: center;\n}\n#progressbar li {\n  list-style-type: none;\n  color: #0B2161;\n  text-transform: uppercase;\n  font-size: 12px;\n  width: 50%;\n  float: left;\n  position: relative;\n}\n#progressbar li:before {\n  content: counter(step);\n  counter-increment: step;\n  width: 20px;\n  line-height: 20px;\n  display: block;\n  font-size: 10px;\n  color: #333;\n  background: white;\n  border-radius: 3px;\n  border: 1px solid #0B2161;\n  margin: 0 auto 5px auto;\n}\n\n/*progressbar connectors*/\n#progressbar li:after {\n  content: \"\";\n  width: 100%;\n  height: 2px;\n  background: white;\n  position: absolute;\n  left: -50%;\n  top: 9px;\n  z-index: -1; /*put it behind the numbers*/\n}\n#progressbar li:first-child:after {\n  /*connector not needed before the first step*/\n  content: none;\n}\n\n/*marking active/completed steps green*/\n/*The number of the step and the connector before it = green*/\n#progressbar li.active:before, #progressbar li.active:after {\n  background: #0B2161;\n  color: #fff;\n}\n.terms_conditions {\n  text-align: center;\n}\n.terms_conditions_box {\n  border: 1px solid #2C3E50;\n  border-radius: 5px;\n  padding: 20px;\n  width: 50%;\n  text-align: start;\n  margin: 0 auto;\n  height: 30vW;\n  overflow: auto;\n  font-size: 12px;\n  color: #333;\n}\n.terms_conditions_label {\n  font-size: 13px;\n  color: #666;\n}\n.terms_conditions_checkbox {\n  margin: 0 5px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n/*custom font*/\n/*basic reset*/\n* {\n  margin: 0;\n  padding: 0;\n}\nhtml {\n  height: 100%;\n  /*Image only BG fallback*/\n  /*background = gradient + image pattern combo*/\n  background-color: #fff;\n}\nbody {\n  font-family: montserrat, arial, verdana;\n}\n.regist_container {\n  color: #666;\n}\n\n/*form styles*/\n#msform {\n  width: 400px;\n  margin: 50px auto;\n  text-align: center;\n  position: relative;\n}\nfieldset {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n#msform fieldset {\n  background: white;\n  border: 0 none;\n  border-radius: 3px;\n  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);\n  padding: 20px 30px;\n  box-sizing: border-box;\n  width: 80%;\n  margin: 0 10%;\n  /*stacking fieldsets above each other*/\n  position: relative;\n}\n\n/*Hide all except first fieldset*/\n#msform fieldset:not(:first-of-type) {\n  display: none;\n}\n\n/*inputs*/\n#msform input, #msform textarea {\n  padding: 15px;\n  border: 1px solid #ccc;\n  border-radius: 3px;\n  margin-bottom: 10px;\n  width: 100%;\n  box-sizing: border-box;\n  font-family: montserrat;\n  color: #2C3E50;\n  font-size: 13px;\n}\ninput {\n  margin-top: 10px;\n}\n\n/*buttons*/\n.regist_user_btn {\n  display: flex;\n  margin: 10px 0;\n}\n.regist_user_next_btn,\n.regist_user_sub_btn {\n  display: flex; /* 자식 요소들을 수평으로 정렬 */\n  align-items: center; /* 수직 정렬 */\n}\n.previous {\n  margin: 0 5px;\n  padding: 5px;\n  border-radius: 5px;\n}\n.previous:hover {\n  background-color: #666;\n  color: #fff;\n  opacity: 0.6;\n}\n.next {\n  margin: 0 5px;\n  padding: 5px;\n  border-radius: 5px;\n}\n.next:hover {\n  background-color: #666;\n  color: #fff;\n  opacity: 0.6;\n}\n.submit {\n  margin: 0 5px;\n  padding: 5px;\n  border-radius: 5px;\n}\n.submit:hover {\n  background-color: #0B2161;\n  color: #fff;\n}\n#msform .action-button {\n  width: 100px;\n  background: #27AE60;\n  font-weight: bold;\n  color: #0B2161;\n  border: 0 none;\n  border-radius: 1px;\n  cursor: pointer;\n  padding: 10px;\n  margin: 10px 5px;\n  text-decoration: none;\n  font-size: 14px;\n}\n#msform .action-button:hover, #msform .action-button:focus {\n  box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;\n}\n\n/*headings*/\n.fs-title {\n  font-size: 15px;\n  text-transform: uppercase;\n  color: #2C3E50;\n  margin-bottom: 10px;\n}\n.fs-subtitle {\n  font-weight: normal;\n  font-size: 13px;\n  color: #666;\n  margin-bottom: 20px;\n}\n\n/*progressbar*/\n.progressbar_container {\n  text-align: center;\n}\n#progressbar {\n  margin: 20px;\n  overflow: hidden;\n  /*CSS counters to number the steps*/\n  counter-reset: step;\n  text-align: center;\n  display: flex; /* ul에 flex 적용 */\n  justify-content: space-between; /* 자식 요소들 사이의 간격을 동일하게 조절합니다 */\n  align-items: center;\n}\n#progressbar li {\n  list-style-type: none;\n  color: #0B2161;\n  text-transform: uppercase;\n  font-size: 12px;\n  width: 50%;\n  float: left;\n  position: relative;\n}\n#progressbar li:before {\n  content: counter(step);\n  counter-increment: step;\n  width: 20px;\n  line-height: 20px;\n  display: block;\n  font-size: 10px;\n  color: #333;\n  background: white;\n  border-radius: 3px;\n  border: 1px solid #0B2161;\n  margin: 0 auto 5px auto;\n}\n\n/*progressbar connectors*/\n#progressbar li:after {\n  content: \"\";\n  width: 100%;\n  height: 2px;\n  background: white;\n  position: absolute;\n  left: -50%;\n  top: 9px;\n  z-index: -1; /*put it behind the numbers*/\n}\n#progressbar li:first-child:after {\n  /*connector not needed before the first step*/\n  content: none;\n}\n\n/*marking active/completed steps green*/\n/*The number of the step and the connector before it = green*/\n#progressbar li.active:before, #progressbar li.active:after {\n  background: #0B2161;\n  color: #fff;\n}\n.terms_conditions {\n  text-align: center;\n}\n.terms_conditions_box {\n  border: 1px solid #2C3E50;\n  border-radius: 5px;\n  padding: 20px;\n  width: 50%;\n  text-align: start;\n  margin: 0 auto;\n  height: 30vW;\n  overflow: auto;\n  font-size: 12px;\n  color: #333;\n}\n.terms_conditions_label {\n  font-size: 13px;\n  color: #666;\n}\n.terms_conditions_checkbox {\n  margin: 0 5px;\n}\n.account_info_container {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.account_info_label {\n  margin: 5px;\n  border-radius: 3px;\n  background-color: #666;\n  padding: 10px;\n  color: #fff;\n}\n.account_info_input {\n  border: 2px solid rgba(102, 102, 102, 0.5);\n  border-radius: 3px;\n  padding: 5px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -1,9 +1,11 @@
 <template>
     <div class="regist_container">
     <!-- progressbar -->
-    <ul id="progressbar">
-        <li v-for="(step, index) in steps" :key="index" :class="{ active: index === currentStep }">{{ step }}</li>
-    </ul>
+    <div class="progressbar_container">
+        <ul id="progressbar">
+            <li v-for="(step, index) in steps" :key="index" :class="{ active: index === currentStep }">{{ step }}</li>
+        </ul>
+    </div>
     <!-- fieldsets -->
     <fieldset v-for="(fieldset, index) in fieldsets" :key="index" v-show="index === currentStep">
         <h2 class="fs-title">{{ fieldset.title }}</h2>
@@ -15,39 +17,61 @@
                 <label class="terms_conditions_label">이용약관 및 개인정보수집 및 이용에 모두 동의합니다.</label>
 
                     <div class="terms_conditions_box">
-                        <p class="text-center">서비스 이용약관</p>
+                        <p class="text-center"><strong>서비스 이용약관</strong></p>
 
-                        <p>제1조 (목적)</p>
+                        <p><strong>제1조 (목적)</strong></p>
+                            <br>
                         <p>이 이용약관은 [WEET] (이하 "회사"라 함)이 운영하는 인터넷 관련 서비스 및 기타 관련 제반 서비스(이하 "서비스"라 함)를 이용함에 있어 회사와 이용자의 권리, 의무 및 책임 사항을 규정함을 목적으로 합니다.</p>
-
-                        <p>제2조 (약관의 효력과 변경)</p>
-
+                            <br>
+                        <p><strong>제2조 (약관의 효력과 변경)</strong></p>
+                            <br>
                         <p>본 약관은 서비스를 신청한 이용자가 본 약관에 동의하고 회사가 정한 가입신청 양식에 기반하여 가입을 완료하는 시점부터 효력이 발생합니다.</p>
                         <p>1. 회사는 필요한 경우 관련 법령 및 회사의 내부 정책을 반영하여 이 약관을 변경할 수 있으며, 변경된 약관은 회사의 홈페이지나 서비스 내 공지를 통해 이용자에게 공지됩니다.</p> 
                         <p>변경된 약관은 공지 후 7일 이내에 이용자의 동의 없이 적용됩니다. </p>
                         <p>2. 이용자가 변경된 약관에 동의하지 않을 경우 회사는 해당 이용자에 대하여 서비스 제공을 중단할 수 있습니다.</p>
-                        
-                        <p>제3조 (이용자의 의무)</p>
-
+                            <br>
+                        <p><strong>제3조 (이용자의 의무)</strong></p>
+                            <br>
                         <p>1. 이용자는 서비스 이용 시 관련 법령, 약관, 공지사항, 회사의 안내 등에 따라 서비스를 이용해야 하며, 회사의 명시적 동의 없이는 서비스를 이용하여 얻은 정보를 복제, 유통, 출판하거나 상업적으로 이용할 수 없습니다.</p>
                         <p>2. 이용자는 서비스 이용 시 다음 각 호의 행위를 하지 않아야 합니다.</p>
                         <p>가. 타인의 정보를 도용하거나 부정한 목적으로 이용하는 행위</p>
                         <p>나. 서비스를 통해 전송되는 컨텐츠를 위변조, 삭제, 변경하는 행위</p>
                         <p>다. 서비스의 안전성, 안정성 및 정상적인 운영을 방해하는 행위</p>
-
-                        <p>제4조 (회사의 의무)</p>
-
+                            <br>
+                        <p><strong>제4조 (회사의 의무</strong>)</p>
+                            <br>
                         <p>회사는 이용자의 개인정보 보호를 위해 최선을 다하며, 관련 법령에 따라 이를 처리합니다.</p>
                         <p>회사는 서비스 제공을 위해 지속적으로 시스템 및 네트워크 관리를 개선하며, 서비스 이용 중 발생하는 장애나 문제에 대하여 신속하게 조치합니다.</p>
                     </div>
             </div>
-            <!-- <input v-for="(input, inputIndex) in fieldset.inputs" :key="inputIndex" type="text" :name="input.name" :placeholder="input.placeholder" /> -->
-            <input v-for="(input, inputIndex) in fieldset.inputs" :key="inputIndex" 
-                :type="input.type" :name="input.name" :placeholder="input.placeholder" 
-                :class="input.classes" />
-        <button v-if="index > 0" @click="prevStep" class="previous action-button">Previous</button>
-        <button v-if="index < fieldsets.length - 1" @click="nextStep" class="next action-button">Next</button>
-            <a v-if="index === fieldsets.length - 1" :href="submitLink" class="submit action-button" target="_top">Submit</a>
+            <div class="account_info_container">
+                <!-- <input v-for="(input, inputIndex) in fieldset.inputs" :key="inputIndex" type="text" :name="input.name" :placeholder="input.placeholder" /> -->
+                
+                <!-- <label v-for="(input, inputIndex) in fieldset.inputs" :key="inputIndex">
+                    {{ input.placeholder }}
+                </label>
+                    <input v-for="(input, inputIndex) in fieldset.inputs" :key="inputIndex" 
+                        :type="input.type" :name="input.name" :placeholder="input.placeholder" 
+                        :class="input.classes" /> -->
+                
+                <div v-for="(input, inputIndex) in fieldset.inputs" :key="inputIndex">
+                    
+                    <label :for="'input_' + inputIndex" class="account_info_label">{{ input.placeholder }}</label>
+                    <input :type="input.type" :name="input.name" :id="'input_' + inputIndex" :placeholder="input.placeholder" :class="input.classes" class="account_info_input" />
+                </div>
+                    
+            </div>
+            <div class="regist_user_btn">
+                <div class="regist_user_pre_btn">
+                    <button v-if="index > 0" @click="prevStep" class="previous action-button">Previous</button>
+                </div>
+                <div class="regist_user_next_btn">
+                    <button v-if="index < fieldsets.length - 1" @click="nextStep" class="next action-button">Next</button>
+                </div>
+                <div class="regist_user_sub_btn">
+                    <a v-if="index === fieldsets.length - 1" :href="submitLink" class="submit action-button" target="_top">Submit</a>
+                </div>    
+            </div>
     </fieldset>
     </div>
 
@@ -76,14 +100,18 @@ export default {
                     title: 'Create your account',
                     subtitle: 'Personal Details',
                     inputs: [
-                        { name: 'fname', placeholder: 'First Name' },
-                        { name: 'lname', placeholder: 'Last Name' },
-                        { name: 'phone', placeholder: 'Phone' },
-                        { name: 'address', placeholder: 'Address' }
+                        { name: 'user_email', placeholder: 'Email' },
+                        { name: 'user_password', placeholder: 'Password' },
+                        { name: 'user_tel', placeholder: 'Phone' },
+                        { name: 'user_postcode', placeholder: 'Postcode' },
+                        { name: 'user_basic_address', placeholder: 'Basic_address' },
+                        { name: 'user_detail_address', placeholder: 'Detail_address' },
+                        { name: 'user_gender', type: 'radio', options: ['Male', 'Female'], placeholder: 'Gender'},
+                        { name: 'user_birthdate', type: 'date', placeholder: 'Birthdate'},
                     ]
                 }
             ],
-            submitLink: 'https://twitter.com/GoktepeAtakan'
+            // submitLink: 'https://twitter.com/GoktepeAtakan'
             };
         },
 
