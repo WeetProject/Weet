@@ -91,6 +91,6 @@
     }
 </script>
 
-<style>
-  
+<style lang="scss">
+	@import '../sass/Layout/header.scss';
 </style>

@@ -78,6 +78,7 @@ export default {
     }
 };
 </script>
+
 <style lang="scss">
-	@import '../sass/footer.scss';
+	@import '../sass/Layout/footer.scss';
 </style>
