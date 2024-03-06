@@ -54,12 +54,28 @@
                         :type="input.type" :name="input.name" :placeholder="input.placeholder" 
                         :class="input.classes" /> -->
                 
-                <div v-for="(input, inputIndex) in fieldset.inputs" :key="inputIndex">
-                    
-                    <label :for="'input_' + inputIndex" class="account_info_label">{{ input.placeholder }}</label>
-                    <input :type="input.type" :name="input.name" :id="'input_' + inputIndex" :placeholder="input.placeholder" :class="input.classes" class="account_info_input" />
+                <!-- <div v-for="(input, inputIndex) in fieldset.inputs" :key="inputIndex" class="account_info_input_wrapper">
+                    <label :for="'input_' + inputIndex" class="account_info_label" style="flex: 1;">{{ input.label }}</label>
+                    <div v-if="input.type === 'radio'" style="display: flex;">
+                        <div v-for="(option, optionIndex) in input.options" :key="optionIndex">
+                            <input type="radio" :name="input.name" :value="option" :id="'input_' + inputIndex + '_' + optionIndex">
+                            <label :for="'input_' + inputIndex + '_' + optionIndex">{{ option }}</label>
+                        </div>
+                    </div>
+                    <input v-else :type="input.type" :name="input.name" :id="'input_' + inputIndex" :placeholder="input.placeholder" :class="input.classes" class="account_info_input" />
+                </div> -->
+                
+                <div v-for="(input, inputIndex) in fieldset.inputs" :key="inputIndex" class="account_info_input_wrapper">
+                    <label :for="'input_' + inputIndex" class="account_info_label">{{ input.label }}</label>
+                    <input v-if="input.type !== 'radio'" :type="input.type" :name="input.name" :id="'input_' + inputIndex" :placeholder="input.placeholder" :class="['account_info_input', input.classes]" />
+                    <div v-else class="radio_options">
+                        <div v-for="(option, optionIndex) in input.options" :key="optionIndex">
+                            <input type="radio" :name="input.name" :value="option" :id="'input_' + inputIndex + '_' + optionIndex">
+                            <label :for="'input_' + inputIndex + '_' + optionIndex">{{ option }}</label>
+                        </div>
+                    </div>
                 </div>
-                    
+                
             </div>
             <div class="regist_user_btn">
                 <div class="regist_user_pre_btn">
@@ -100,14 +116,15 @@ export default {
                     title: 'Create your account',
                     subtitle: 'Personal Details',
                     inputs: [
-                        { name: 'user_email', placeholder: 'Email' },
-                        { name: 'user_password', placeholder: 'Password' },
-                        { name: 'user_tel', placeholder: 'Phone' },
-                        { name: 'user_postcode', placeholder: 'Postcode' },
-                        { name: 'user_basic_address', placeholder: 'Basic_address' },
-                        { name: 'user_detail_address', placeholder: 'Detail_address' },
-                        { name: 'user_gender', type: 'radio', options: ['Male', 'Female'], placeholder: 'Gender'},
-                        { name: 'user_birthdate', type: 'date', placeholder: 'Birthdate'},
+                        { name: 'user_email', placeholder: 'Email', label: '이메일' },
+                        { name: 'user_password', placeholder: 'Password', label: '비밀번호' },
+                        { name: 'user_name', placeholder: 'Fullname', label: '이름' },
+                        { name: 'user_tel', placeholder: 'Phone', label: '연락처' },
+                        { name: 'user_postcode', placeholder: 'Postcode', label: '우편번호' },
+                        { name: 'user_basic_address', placeholder: 'Basic_address', label: '기본주소' },
+                        { name: 'user_detail_address', placeholder: 'Detail_address', label: '나머지 주소' },
+                        { name: 'user_gender', type: 'radio', options: ['Male', 'Female'], placeholder: 'Gender', label: '성별'},
+                        { name: 'user_birthdate', type: 'date', placeholder: 'Birthdate', label: '생년월일'},
                     ]
                 }
             ],
