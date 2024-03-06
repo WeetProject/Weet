@@ -75,6 +75,91 @@ input {
 }
 
 /*buttons*/
+.regist_user_btn {
+	display: flex;
+	margin: 10px 0;
+}
+
+.regist_user_next_btn,
+.regist_user_sub_btn {
+    display: flex; /* 자식 요소들을 수평으로 정렬 */
+    align-items: center; /* 수직 정렬 */
+}
+
+.previous {
+	margin: 0 5px;
+	padding: 5px;
+	border-radius: 5px;
+
+	&:hover {
+		background-color: #666;
+		color: #fff;
+		opacity: 0.6;
+	}
+}
+
+.next {
+	margin: 0 5px;
+	padding: 5px;
+	border-radius: 5px;
+
+	&:hover {
+		background-color: #666;
+		color: #fff;
+		opacity: 0.6;
+	}
+}
+
+.submit {
+	margin: 0 5px;
+	padding: 5px;
+	border-radius: 5px;
+
+	&:hover {
+		background-color: #0B2161;
+		color: #fff;
+	}
+}
+
+
+// .regist_user {
+	
+// 	&_pre_btn {
+// 		margin: 0 5px;
+// 		padding: 5px;
+// 		border-radius: 5px;
+// 	}
+
+// 	&_pre_btn:hover {
+// 		background-color: #666;
+// 		color: #fff;
+// 		opacity: 0.7;
+// 	}
+
+// 	&_next_btn {
+// 		padding: 5px;
+// 		border-radius: 5px;
+// 	}
+
+// 	&_next_btn:hover {
+// 		background-color: #666;
+// 		color: #fff;
+// 		opacity: 0.7;
+// 	}
+
+// 	&_sub_btn {
+// 		margin: 0 5px;
+// 		padding: 5px;
+// 		border-radius: 5px;
+// 	}
+
+// 	&_sub_btn:hover {
+// 		background-color: #0B2161;
+// 		color: #fff;
+// 		opacity: 0.7;
+// 	}
+// }
+
 #msform .action-button {
 	width: 100px;
 	background: #27AE60;
@@ -109,12 +194,19 @@ input {
 }
 
 /*progressbar*/
+.progressbar_container {
+	text-align: center;
+}
+
 #progressbar {
-	margin: 30px;
+	margin: 20px;
 	overflow: hidden;
 	/*CSS counters to number the steps*/
 	counter-reset: step;
 	text-align: center;
+	display: flex; /* ul에 flex 적용 */
+    justify-content: space-between; /* 자식 요소들 사이의 간격을 동일하게 조절합니다 */
+    align-items: center;
 }
 
 #progressbar li {
@@ -195,3 +287,23 @@ input {
 	}
 }
 
+.account_info_container {
+	display: flex;
+	flex-direction: column;
+    align-items: flex-start;
+}
+
+.account_info_label {
+	margin: 5px;
+	// border: 2px solid rgba(102, 102, 102, 0.5);
+	border-radius: 3px;
+	background-color: #666;
+	padding: 10px;
+	color: #fff;
+}
+
+.account_info_input {
+	border: 2px solid rgba(102, 102, 102, 0.5);
+	border-radius: 3px;
+	padding: 5px;
+}
