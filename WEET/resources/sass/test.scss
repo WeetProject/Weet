@@ -195,7 +195,9 @@ fieldset {
 
 /*progressbar*/
 .progressbar_container {
-	text-align: center;
+	// text-align: center;
+	width: 500px;
+	margin: 0 auto;
 }
 
 #progressbar {
