@@ -180,6 +180,7 @@ $colors: (
     &__form_button {
         display: flex;
         justify-content: space-evenly;
+        margin-bottom: 10px;
     }
 
     &__social_btn {
@@ -195,8 +196,10 @@ $colors: (
         letter-spacing: 0.15rem;
         // padding: 10px;
         width: 100%;
-        margin-top: 10px;
+        margin-top: 5px;
         display: flex;
+        align-items: center;
+        justify-content: center;
 
         &:focus,
         &:active {
@@ -205,7 +208,15 @@ $colors: (
         outline: none;
         }
 
-        
+        &_google {
+            width: 2rem;
+            margin-right: 5px;
+        }
+
+        &_kakao {
+            width: 2rem;
+            margin-left: 5px;
+        }
     }
 }
 

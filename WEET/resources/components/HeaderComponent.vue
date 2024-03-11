@@ -64,15 +64,19 @@
 													</button>
 												</div>
 											</div>
+											<hr>
+											<div>
+												<p>Social Login</p>
+											</div>
 
 											<div class="card__social_btn">
 												<button class="card__social_btn_google">
 													<!-- <button>kakao login</button> -->
 													<img src="../../public/images/Google_logo.svg.png" alt="">
 												</button>
-												<div class="card__social_btn_kakao">
+												<button class="card__social_btn_kakao">
 													<img src="../../public/images/Kakao_logo.png" alt="">
-												</div>
+												</button>
 											</div>
 										</form>
 									</div>
