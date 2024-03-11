@@ -1,11 +1,15 @@
 <template>
     <div class="regist_container">
     <!-- progressbar -->
-    <div class="progressbar_container">
+    <!-- <div class="progressbar_container">
         <ul id="progressbar">
             <li v-for="(step, index) in steps" :key="index" :class="{ active: index === currentStep }">{{ step }}</li>
         </ul>
-    </div>
+    </div> -->
+
+        <div class="regist_logo_div">
+            <img src="../../public/images/WEET_logo.png" alt="">
+        </div>
     <!-- fieldsets -->
     <fieldset v-for="(fieldset, index) in fieldsets" :key="index" v-show="index === currentStep">
         <h2 class="fs-title">{{ fieldset.title }}</h2>
