@@ -64,8 +64,8 @@
 													</button>
 												</div>
 											</div>
-											<hr>
-											<div>
+										<hr>
+											<div class="card__social_login_text">
 												<p>Social Login</p>
 											</div>
 
