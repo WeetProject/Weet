@@ -53,22 +53,22 @@
 														<input id="password" class="card__input" type="password" />
 												</div>
 
-												<div class="card__form_button">
-													<div>
-														<button class="card__button" type="button">
-															<span>Login</span>
-														</button>
-													</div>  
-													<div>
-														<button class="card__button" type="button">
-															<span>Sign Up</span>
-														</button>
-													</div>
-												</div>
-												<hr>
+											<div class="card__form_button">
 												<div>
-													<p>Social Login</p>
+													<button class="card__button" type="button">
+														<span>Login</span>
+													</button>
+												</div>  
+												<div>
+													<button class="card__button" type="button">
+														<span>Sign Up</span>
+													</button>
 												</div>
+											</div>
+										<hr>
+											<div class="card__social_login_text">
+												<p>Social Login</p>
+											</div>
 
 												<div class="card__social_btn">
 													<button class="card__social_btn_google">
