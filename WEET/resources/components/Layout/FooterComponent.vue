@@ -1,7 +1,7 @@
 <template>
     <footer>
         <div class="footer_container">
-            <div class="footer_container_text text-center">
+            <div class="text-center footer_container_text">
                 <div class="footer_container_text_logo">
                     <h1 style="font-weight: bold; font-size: 15px;">
                         WEET
@@ -80,5 +80,5 @@ export default {
 </script>
 
 <style lang="scss">
-	@import '../sass/Layout/footer.scss';
+	@import '../../sass/Layout/footer.scss';
 </style>

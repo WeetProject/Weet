@@ -21,7 +21,7 @@
 						<div class="modal-content">
 							<!-- 모달 내용 -->
 							<!-- 로그인 폼 등 -->
-							<div class="scene flex">
+							<div class="flex scene">
 								<section class="card">
 									<div class="login_modal">
 										<div class="login_modal_headline">
@@ -102,5 +102,5 @@
 </script>
 
 <style lang="scss">
-	@import '../sass/Layout/header.scss';
+	@import '../../sass/Layout/header.scss';
 </style>

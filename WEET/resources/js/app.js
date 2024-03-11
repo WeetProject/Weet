@@ -7,13 +7,15 @@ import TestComponent from '../components/TestComponent.vue';
 import MainComponent from '../components/MainComponent.vue';
 import HeaderComponent from '../components/HeaderComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
+import AdminComponent from '../components/AdminComponent.vue';
 
 createApp({
 	components: {
 		AppComponent,
 		HeaderComponent,
 		FooterComponent,
-		MainComponent
+		MainComponent,
+		AdminComponent
 	}
 })
 .use(router)
