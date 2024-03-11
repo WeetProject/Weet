@@ -19,7 +19,6 @@ createApp({
 		MainComponent,
 		AdminLoginComponent,
 		AdminIndexComponent,
-		AdminComponent,
 		RegistComponent,
 	}
 })

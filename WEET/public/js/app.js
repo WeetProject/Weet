@@ -21689,7 +21689,6 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
     MainComponent: _components_MainComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     AdminLoginComponent: _components_Admin_AdminLoginComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     AdminIndexComponent: _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
-    AdminComponent: AdminComponent,
     RegistComponent: _components_RegistComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
   }
 }).use(_js_router_js__WEBPACK_IMPORTED_MODULE_1__["default"]).mount('#app');
