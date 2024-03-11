@@ -1,0 +1,54 @@
+
+.reservation_layout{
+    width: 1000px;
+    height: 100vh;
+    background-color: rgb(222, 222, 222);
+}
+.reservation_header{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    position: absolute;
+    width: 1000px;
+}
+.reservation_header_box{
+    width: 100px;
+    text-align: center;
+}
+.reservation_header_box span{
+    color: #000;
+    font-weight: bold;
+    font-size: 15px;
+}
+.reservation_header_ball{
+    line-height: 60px;
+    height: 60px;
+    width: 60px;
+    font-size: 35px;
+    border-radius: 100%;
+    background-color: #2E9AFE;
+    font-weight: bold;
+    margin: 0 auto;
+}
+.reservation_progress_box{
+    padding-top: 67px;
+    width: 900px;
+    margin: 0 auto;
+}
+.reservation_progress_blue{
+    background-color: #2E9AFE;
+}
+.reservation_progress_gray{
+    background-color: #ededed;
+}
+@include mobile {
+
+}
+    
+@include tablet {
+
+}
+    
+@include desktop {
+
+}

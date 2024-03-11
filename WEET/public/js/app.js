@@ -20942,6 +20942,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/ReservationComponent.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/ReservationComponent.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/TestComponent.vue?vue&type=script&lang=js":
 /*!****************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/TestComponent.vue?vue&type=script&lang=js ***!
@@ -21188,6 +21203,30 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/ReservationComponent.vue?vue&type=template&id=e0ba42fc":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/ReservationComponent.vue?vue&type=template&id=e0ba42fc ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "reservation_layout text-center mx-auto"
+};
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"reservation_header\"><div class=\"reservation_header_box\"><span>예약정보확인</span><div class=\"reservation_header_ball\">1</div></div><div class=\"reservation_header_box\"><span>결제 준비</span><div class=\"reservation_header_ball\">2</div></div><div class=\"reservation_header_box\"><span>결제 완료</span><div class=\"reservation_header_ball\">3</div></div></div><div class=\"reservation_progress_box\"><div class=\"h-4 w-900 bg-gray-200 rounded reservation_progress_gray\"><div class=\"h-full rounded reservation_progress_blue w-1/4\"></div><!-- w-1/4 w-3/4 --></div></div>", 2);
+var _hoisted_4 = [_hoisted_2];
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [].concat(_hoisted_4));
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/TestComponent.vue?vue&type=template&id=cd27f42c":
 /*!********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/TestComponent.vue?vue&type=template&id=cd27f42c ***!
@@ -21392,11 +21431,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
 /* harmony import */ var _components_AppComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/AppComponent.vue */ "./resources/components/AppComponent.vue");
 /* harmony import */ var _components_MainComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/MainComponent.vue */ "./resources/components/MainComponent.vue");
 /* harmony import */ var _components_TestComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/TestComponent.vue */ "./resources/components/TestComponent.vue");
 /* harmony import */ var _components_MypageComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/MypageComponent.vue */ "./resources/components/MypageComponent.vue");
+/* harmony import */ var _components_ReservationComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/ReservationComponent.vue */ "./resources/components/ReservationComponent.vue");
+
 
 
 
@@ -21411,9 +21452,12 @@ var routes = [{
 }, {
   path: '/mypage',
   component: _components_MypageComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+}, {
+  path: '/reservation',
+  component: _components_ReservationComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
 }];
-var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.createRouter)({
-  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.createWebHistory)(),
+var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createRouter)({
+  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createWebHistory)(),
   routes: routes
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
@@ -21438,7 +21482,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Montserrat);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n/*custom font*/\n/*basic reset*/\n* {\n  margin: 0;\n  padding: 0;\n}\nhtml {\n  height: 100%;\n  /*Image only BG fallback*/\n  /*background = gradient + image pattern combo*/\n  background-color: #fff;\n}\nbody {\n  font-family: montserrat, arial, verdana;\n}\n.regist_container {\n  color: #666;\n}\n\n/*form styles*/\n#msform {\n  width: 400px;\n  margin: 50px auto;\n  text-align: center;\n  position: relative;\n}\nfieldset {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n#msform fieldset {\n  background: white;\n  border: 0 none;\n  border-radius: 3px;\n  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);\n  padding: 20px 30px;\n  box-sizing: border-box;\n  width: 80%;\n  margin: 0 10%;\n  /*stacking fieldsets above each other*/\n  position: relative;\n}\n\n/*Hide all except first fieldset*/\n#msform fieldset:not(:first-of-type) {\n  display: none;\n}\n\n/*inputs*/\n#msform input, #msform textarea {\n  padding: 15px;\n  border: 1px solid #ccc;\n  border-radius: 3px;\n  margin-bottom: 10px;\n  width: 100%;\n  box-sizing: border-box;\n  font-family: montserrat;\n  color: #2C3E50;\n  font-size: 13px;\n}\n\n/*buttons*/\n.regist_user_btn {\n  display: flex;\n  margin: 10px 0;\n}\n.regist_user_next_btn,\n.regist_user_sub_btn {\n  display: flex; /* 자식 요소들을 수평으로 정렬 */\n  align-items: center; /* 수직 정렬 */\n}\n.previous {\n  margin: 0 5px;\n  padding: 5px;\n  border-radius: 5px;\n}\n.previous:hover {\n  background-color: #666;\n  color: #fff;\n  opacity: 0.6;\n}\n.next {\n  margin: 0 5px;\n  padding: 5px;\n  border-radius: 5px;\n}\n.next:hover {\n  background-color: #666;\n  color: #fff;\n  opacity: 0.6;\n}\n.submit {\n  margin: 0 5px;\n  padding: 5px;\n  border-radius: 5px;\n}\n.submit:hover {\n  background-color: #0B2161;\n  color: #fff;\n}\n#msform .action-button {\n  width: 100px;\n  background: #27AE60;\n  font-weight: bold;\n  color: #0B2161;\n  border: 0 none;\n  border-radius: 1px;\n  cursor: pointer;\n  padding: 10px;\n  margin: 10px 5px;\n  text-decoration: none;\n  font-size: 14px;\n}\n#msform .action-button:hover, #msform .action-button:focus {\n  box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;\n}\n\n/*headings*/\n.fs-title {\n  font-size: 15px;\n  text-transform: uppercase;\n  color: #2C3E50;\n  margin-bottom: 10px;\n}\n.fs-subtitle {\n  font-weight: normal;\n  font-size: 13px;\n  color: #666;\n  margin-bottom: 20px;\n}\n\n/*progressbar*/\n.progressbar_container {\n  width: 500px;\n  margin: 0 auto;\n}\n#progressbar {\n  margin: 20px;\n  overflow: hidden;\n  /*CSS counters to number the steps*/\n  counter-reset: step;\n  text-align: center;\n  display: flex; /* ul에 flex 적용 */\n  justify-content: space-between; /* 자식 요소들 사이의 간격을 동일하게 조절합니다 */\n  align-items: center;\n}\n#progressbar li {\n  list-style-type: none;\n  color: #0B2161;\n  text-transform: uppercase;\n  font-size: 12px;\n  width: 50%;\n  float: left;\n  position: relative;\n}\n#progressbar li:before {\n  content: counter(step);\n  counter-increment: step;\n  width: 20px;\n  line-height: 20px;\n  display: block;\n  font-size: 10px;\n  color: #333;\n  background: white;\n  border-radius: 3px;\n  border: 1px solid #0B2161;\n  margin: 0 auto 5px auto;\n}\n\n/*progressbar connectors*/\n#progressbar li:after {\n  content: \"\";\n  width: 100%;\n  height: 2px;\n  background: white;\n  position: absolute;\n  left: -50%;\n  top: 9px;\n  z-index: -1; /*put it behind the numbers*/\n}\n#progressbar li:first-child:after {\n  /*connector not needed before the first step*/\n  content: none;\n}\n\n/*marking active/completed steps green*/\n/*The number of the step and the connector before it = green*/\n#progressbar li.active:before, #progressbar li.active:after {\n  background: #0B2161;\n  color: #fff;\n}\n.terms_conditions {\n  text-align: center;\n}\n.terms_conditions_box {\n  border: 1px solid #2C3E50;\n  border-radius: 5px;\n  padding: 20px;\n  width: 50%;\n  text-align: start;\n  margin: 0 auto;\n  height: 30vW;\n  overflow: auto;\n  font-size: 12px;\n  color: #333;\n}\n.terms_conditions_label {\n  font-size: 13px;\n  color: #666;\n}\n.terms_conditions_checkbox {\n  margin: 0 5px;\n}\n.account_info_container {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.account_info_label {\n  margin-right: 5px;\n  border-radius: 3px;\n  background-color: #666;\n  padding: 5px;\n  color: #fff;\n}\n.account_info_input_wrapper {\n  display: flex;\n  align-items: center;\n}\n.account_info_input {\n  border: 2px solid rgba(102, 102, 102, 0.5);\n  border-radius: 3px;\n  padding: 5px;\n}\n.account_info_input, .radio_options {\n  flex: 1;\n  border: 2px solid rgba(102, 102, 102, 0.5);\n  border-radius: 3px;\n  padding: 5px;\n  display: flex;\n}\n.radio_options {\n  align-items: center;\n}\n\n/* VARIABLES */\n/* BASE */\nbody {\n  color: #FEFEFE;\n  font: 100 100%/1.6 \"Heebo\", sans-serif;\n  overflow-x: hidden;\n  width: 100%;\n}\n.visually-hidden {\n  clip: rect(0 0 0 0);\n  -webkit-clip-path: inset(50%);\n          clip-path: inset(50%);\n  height: 1px;\n  overflow: hidden;\n  position: absolute;\n  white-space: nowrap;\n  width: 1px;\n}\n.flex {\n  align-items: center;\n  justify-content: center;\n}\n.scene {\n  position: relative;\n}\n.login_modal {\n  height: 400px;\n}\n.login_modal_headline {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.login_modal_text {\n  font-size: 0.6rem;\n  text-align: start;\n  margin: 10px 0;\n}\n.modal-content {\n  /* 기존 스타일 유지 */\n  background-color: transparent;\n  padding: 20px;\n  border-radius: 5px;\n}\n.modal {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n  display: flex;\n  justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n  align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n  -webkit-backdrop-filter: blur(10px);\n          backdrop-filter: blur(10px);\n  background: #2e9afe;\n  border: 1px solid rgba(254, 254, 254, 0.18);\n  border-radius: 15px;\n  box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n  color: white;\n  max-width: 300px;\n  overflow: hidden;\n  padding: 50px;\n  position: relative;\n  text-align: center;\n  z-index: 1;\n}\n.card__heading {\n  font-size: 1.35rem;\n  font-weight: 200;\n}\n.card__heading span {\n  font-weight: bold;\n}\n.card__figure {\n  height: auto;\n  margin: 0 auto;\n  max-width: 225px;\n  width: 60%;\n}\n.card__image {\n  border-radius: 50%;\n  max-width: 100%;\n}\n.card__input {\n  background: rgba(254, 254, 254, 0.075);\n  border: 1px solid rgba(254, 254, 254, 0.3);\n  border-radius: 3px;\n  box-sizing: border-box;\n  color: #FEFEFE;\n  display: block;\n  font-size: 1rem;\n  letter-spacing: 0.15rem;\n  width: 100%;\n}\n.card__input:focus, .card__input:active {\n  background: rgba(254, 254, 254, 0.08);\n  border: 1px solid rgba(254, 254, 254, 0.75);\n  outline: none;\n}\n.card__form_email {\n  text-align: start;\n}\n.card__form_email label {\n  font-size: 10px;\n}\n.card__form_pw {\n  text-align: start;\n}\n.card__form_pw label {\n  font-size: 10px;\n}\n.card__button {\n  background: rgba(254, 254, 254, 0.65);\n  border: none;\n  border-radius: 3px;\n  color: #362100;\n  margin: 15px auto 0 auto;\n  padding: 3px 10px;\n  font-size: 13px;\n}\n.card__button:focus, .card__button:active {\n  background: rgba(255, 255, 255, 0.75);\n  outline: none;\n}\n.card__form_button {\n  display: flex;\n  justify-content: space-evenly;\n}\n.card__kakao_btn {\n  background: rgba(254, 254, 254, 0.075);\n  border: 1px solid rgba(254, 254, 254, 0.3);\n  border-radius: 3px;\n  box-sizing: border-box;\n  color: #FEFEFE;\n  display: block;\n  font-size: 1rem;\n  letter-spacing: 0.15rem;\n  width: 100%;\n  margin-top: 10px;\n}\n.card__kakao_btn:focus, .card__kakao_btn:active {\n  background: rgba(254, 254, 254, 0.08);\n  border: 1px solid rgba(254, 254, 254, 0.75);\n  outline: none;\n}\n.modal {\n  background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n.header_container {\n  background-color: #2E9AFE;\n  width: 100%;\n  padding: 10px;\n}\n.header_nav {\n  display: flex;\n  justify-content: space-between;\n}\n.header_nav_logo {\n  margin: 0 10px;\n  font-weight: bold;\n  font-size: 30px;\n}\n.header_nav_user_btn {\n  display: flex;\n  align-items: center;\n  margin: 0 10px;\n}\n.header_nav_login_btn {\n  font-weight: bold;\n  margin-left: 10px;\n}\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\nfooter {\n  background-color: #081742;\n  opacity: 0.9;\n  color: white;\n  width: 100%;\n  padding: 10px;\n  font-size: 10px;\n  overflow: auto;\n  height: 140px;\n  position: relative;\n  transform: translateY(0%);\n}\n.footer_container_text {\n  width: 100%;\n}\n.footer_container_text_personal_info {\n  display: flex;\n  justify-content: center;\n  align-content: center;\n}\n.footer_container_icons {\n  display: flex;\n  font-size: 30px;\n  align-items: center;\n  justify-content: center;\n  margin-top: 10px;\n}\n.footer_container_icons_instar {\n  margin: 0 10px;\n}\n.footer_container_icons_facebook {\n  margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n  margin: 0 10px;\n}\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n.mypage_container {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  background-color: #C8D7FF;\n}\n.mypage_box1 {\n  width: 30%;\n  border: 1px solid #000;\n  border-radius: 1rem;\n  background-color: #78A9ED;\n  margin: 1rem 1rem;\n}\n.mypage_mention {\n  text-align: center;\n  padding: 15%;\n}\n.mypage_mention_1 {\n  font-size: 1.3rem;\n}\n.mypage_mention_2 {\n  font-size: 1rem;\n}\n.mypage_menu_button {\n  width: 95%;\n  border-bottom: 1px solid #000;\n  padding: 7px 20px;\n}\n.mypage_menu_button_content {\n  display: inline;\n  font-size: 1.3rem;\n  padding: 0 5px;\n}\n.mypage_menu_button_content svg {\n  display: inline;\n}\n.mypage_menu_button_content_btn {\n  display: inline;\n}\n.mypage_menu_button_content_btn svg {\n  font-size: 1.3rem;\n  float: right;\n}\n.mypage_box2 {\n  width: 65%;\n  border: 1px solid #000;\n  border-radius: 1rem;\n  background-color: #78A9ED;\n  margin: 1rem 1rem;\n}\n.mypage_menu_detail_frame {\n  padding: 10% 15%;\n}\n.mypage_menu_detail h1 {\n  width: 100%;\n  text-align: center;\n  font-size: 2rem;\n  padding: 5%;\n}\n.mypage_menu_detail_input {\n  padding: 5%;\n}\n.mypage_menu_detail_input p {\n  display: inline-block;\n}\n.mypage_menu_detail_input_title2 {\n  color: red;\n}\n.mypage_menu_detail_input input, .mypage_menu_detail_input select {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  color: black;\n  font-size: 1.5rem;\n  border-radius: 0.5rem;\n  padding: 3%;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n/*custom font*/\n/*basic reset*/\n* {\n  margin: 0;\n  padding: 0;\n}\nhtml {\n  height: 100%;\n  /*Image only BG fallback*/\n  /*background = gradient + image pattern combo*/\n  background-color: #fff;\n}\nbody {\n  font-family: montserrat, arial, verdana;\n}\n.regist_container {\n  color: #666;\n}\n\n/*form styles*/\n#msform {\n  width: 400px;\n  margin: 50px auto;\n  text-align: center;\n  position: relative;\n}\nfieldset {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n#msform fieldset {\n  background: white;\n  border: 0 none;\n  border-radius: 3px;\n  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);\n  padding: 20px 30px;\n  box-sizing: border-box;\n  width: 80%;\n  margin: 0 10%;\n  /*stacking fieldsets above each other*/\n  position: relative;\n}\n\n/*Hide all except first fieldset*/\n#msform fieldset:not(:first-of-type) {\n  display: none;\n}\n\n/*inputs*/\n#msform input, #msform textarea {\n  padding: 15px;\n  border: 1px solid #ccc;\n  border-radius: 3px;\n  margin-bottom: 10px;\n  width: 100%;\n  box-sizing: border-box;\n  font-family: montserrat;\n  color: #2C3E50;\n  font-size: 13px;\n}\n\n/*buttons*/\n.regist_user_btn {\n  display: flex;\n  margin: 10px 0;\n}\n.regist_user_next_btn,\n.regist_user_sub_btn {\n  display: flex; /* 자식 요소들을 수평으로 정렬 */\n  align-items: center; /* 수직 정렬 */\n}\n.previous {\n  margin: 0 5px;\n  padding: 5px;\n  border-radius: 5px;\n}\n.previous:hover {\n  background-color: #666;\n  color: #fff;\n  opacity: 0.6;\n}\n.next {\n  margin: 0 5px;\n  padding: 5px;\n  border-radius: 5px;\n}\n.next:hover {\n  background-color: #666;\n  color: #fff;\n  opacity: 0.6;\n}\n.submit {\n  margin: 0 5px;\n  padding: 5px;\n  border-radius: 5px;\n}\n.submit:hover {\n  background-color: #0B2161;\n  color: #fff;\n}\n#msform .action-button {\n  width: 100px;\n  background: #27AE60;\n  font-weight: bold;\n  color: #0B2161;\n  border: 0 none;\n  border-radius: 1px;\n  cursor: pointer;\n  padding: 10px;\n  margin: 10px 5px;\n  text-decoration: none;\n  font-size: 14px;\n}\n#msform .action-button:hover, #msform .action-button:focus {\n  box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;\n}\n\n/*headings*/\n.fs-title {\n  font-size: 15px;\n  text-transform: uppercase;\n  color: #2C3E50;\n  margin-bottom: 10px;\n}\n.fs-subtitle {\n  font-weight: normal;\n  font-size: 13px;\n  color: #666;\n  margin-bottom: 20px;\n}\n\n/*progressbar*/\n.progressbar_container {\n  width: 500px;\n  margin: 0 auto;\n}\n#progressbar {\n  margin: 20px;\n  overflow: hidden;\n  /*CSS counters to number the steps*/\n  counter-reset: step;\n  text-align: center;\n  display: flex; /* ul에 flex 적용 */\n  justify-content: space-between; /* 자식 요소들 사이의 간격을 동일하게 조절합니다 */\n  align-items: center;\n}\n#progressbar li {\n  list-style-type: none;\n  color: #0B2161;\n  text-transform: uppercase;\n  font-size: 12px;\n  width: 50%;\n  float: left;\n  position: relative;\n}\n#progressbar li:before {\n  content: counter(step);\n  counter-increment: step;\n  width: 20px;\n  line-height: 20px;\n  display: block;\n  font-size: 10px;\n  color: #333;\n  background: white;\n  border-radius: 3px;\n  border: 1px solid #0B2161;\n  margin: 0 auto 5px auto;\n}\n\n/*progressbar connectors*/\n#progressbar li:after {\n  content: \"\";\n  width: 100%;\n  height: 2px;\n  background: white;\n  position: absolute;\n  left: -50%;\n  top: 9px;\n  z-index: -1; /*put it behind the numbers*/\n}\n#progressbar li:first-child:after {\n  /*connector not needed before the first step*/\n  content: none;\n}\n\n/*marking active/completed steps green*/\n/*The number of the step and the connector before it = green*/\n#progressbar li.active:before, #progressbar li.active:after {\n  background: #0B2161;\n  color: #fff;\n}\n.terms_conditions {\n  text-align: center;\n}\n.terms_conditions_box {\n  border: 1px solid #2C3E50;\n  border-radius: 5px;\n  padding: 20px;\n  width: 50%;\n  text-align: start;\n  margin: 0 auto;\n  height: 30vW;\n  overflow: auto;\n  font-size: 12px;\n  color: #333;\n}\n.terms_conditions_label {\n  font-size: 13px;\n  color: #666;\n}\n.terms_conditions_checkbox {\n  margin: 0 5px;\n}\n.account_info_container {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.account_info_label {\n  margin-right: 5px;\n  border-radius: 3px;\n  background-color: #666;\n  padding: 5px;\n  color: #fff;\n}\n.account_info_input_wrapper {\n  display: flex;\n  align-items: center;\n}\n.account_info_input {\n  border: 2px solid rgba(102, 102, 102, 0.5);\n  border-radius: 3px;\n  padding: 5px;\n}\n.account_info_input, .radio_options {\n  flex: 1;\n  border: 2px solid rgba(102, 102, 102, 0.5);\n  border-radius: 3px;\n  padding: 5px;\n  display: flex;\n}\n.radio_options {\n  align-items: center;\n}\n\n/* VARIABLES */\n/* BASE */\nbody {\n  color: #FEFEFE;\n  font: 100 100%/1.6 \"Heebo\", sans-serif;\n  overflow-x: hidden;\n  width: 100%;\n}\n.visually-hidden {\n  clip: rect(0 0 0 0);\n  -webkit-clip-path: inset(50%);\n          clip-path: inset(50%);\n  height: 1px;\n  overflow: hidden;\n  position: absolute;\n  white-space: nowrap;\n  width: 1px;\n}\n.flex {\n  align-items: center;\n  justify-content: center;\n}\n.scene {\n  position: relative;\n}\n.login_modal {\n  height: 400px;\n}\n.login_modal_headline {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.login_modal_text {\n  font-size: 0.6rem;\n  text-align: start;\n  margin: 10px 0;\n}\n.modal-content {\n  /* 기존 스타일 유지 */\n  background-color: transparent;\n  padding: 20px;\n  border-radius: 5px;\n}\n.modal {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n  display: flex;\n  justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n  align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n  -webkit-backdrop-filter: blur(10px);\n          backdrop-filter: blur(10px);\n  background: #2e9afe;\n  border: 1px solid rgba(254, 254, 254, 0.18);\n  border-radius: 15px;\n  box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n  color: white;\n  max-width: 300px;\n  overflow: hidden;\n  padding: 50px;\n  position: relative;\n  text-align: center;\n  z-index: 1;\n}\n.card__heading {\n  font-size: 1.35rem;\n  font-weight: 200;\n}\n.card__heading span {\n  font-weight: bold;\n}\n.card__figure {\n  height: auto;\n  margin: 0 auto;\n  max-width: 225px;\n  width: 60%;\n}\n.card__image {\n  border-radius: 50%;\n  max-width: 100%;\n}\n.card__input {\n  background: rgba(254, 254, 254, 0.075);\n  border: 1px solid rgba(254, 254, 254, 0.3);\n  border-radius: 3px;\n  box-sizing: border-box;\n  color: #FEFEFE;\n  display: block;\n  font-size: 1rem;\n  letter-spacing: 0.15rem;\n  width: 100%;\n}\n.card__input:focus, .card__input:active {\n  background: rgba(254, 254, 254, 0.08);\n  border: 1px solid rgba(254, 254, 254, 0.75);\n  outline: none;\n}\n.card__form_email {\n  text-align: start;\n}\n.card__form_email label {\n  font-size: 10px;\n}\n.card__form_pw {\n  text-align: start;\n}\n.card__form_pw label {\n  font-size: 10px;\n}\n.card__button {\n  background: rgba(254, 254, 254, 0.65);\n  border: none;\n  border-radius: 3px;\n  color: #362100;\n  margin: 15px auto 0 auto;\n  padding: 3px 10px;\n  font-size: 13px;\n}\n.card__button:focus, .card__button:active {\n  background: rgba(255, 255, 255, 0.75);\n  outline: none;\n}\n.card__form_button {\n  display: flex;\n  justify-content: space-evenly;\n}\n.card__kakao_btn {\n  background: rgba(254, 254, 254, 0.075);\n  border: 1px solid rgba(254, 254, 254, 0.3);\n  border-radius: 3px;\n  box-sizing: border-box;\n  color: #FEFEFE;\n  display: block;\n  font-size: 1rem;\n  letter-spacing: 0.15rem;\n  width: 100%;\n  margin-top: 10px;\n}\n.card__kakao_btn:focus, .card__kakao_btn:active {\n  background: rgba(254, 254, 254, 0.08);\n  border: 1px solid rgba(254, 254, 254, 0.75);\n  outline: none;\n}\n.modal {\n  background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n.header_container {\n  background-color: #2E9AFE;\n  width: 100%;\n  padding: 10px;\n}\n.header_nav {\n  display: flex;\n  justify-content: space-between;\n}\n.header_nav_logo {\n  margin: 0 10px;\n  font-weight: bold;\n  font-size: 30px;\n}\n.header_nav_user_btn {\n  display: flex;\n  align-items: center;\n  margin: 0 10px;\n}\n.header_nav_login_btn {\n  font-weight: bold;\n  margin-left: 10px;\n}\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\nfooter {\n  background-color: #081742;\n  opacity: 0.9;\n  color: white;\n  width: 100%;\n  padding: 10px;\n  font-size: 10px;\n  overflow: auto;\n  height: 140px;\n  position: relative;\n  transform: translateY(0%);\n}\n.footer_container_text {\n  width: 100%;\n}\n.footer_container_text_personal_info {\n  display: flex;\n  justify-content: center;\n  align-content: center;\n}\n.footer_container_icons {\n  display: flex;\n  font-size: 30px;\n  align-items: center;\n  justify-content: center;\n  margin-top: 10px;\n}\n.footer_container_icons_instar {\n  margin: 0 10px;\n}\n.footer_container_icons_facebook {\n  margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n  margin: 0 10px;\n}\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n.mypage_container {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  background-color: #C8D7FF;\n}\n.mypage_box1 {\n  width: 30%;\n  border: 1px solid #000;\n  border-radius: 1rem;\n  background-color: #78A9ED;\n  margin: 1rem 1rem;\n}\n.mypage_mention {\n  text-align: center;\n  padding: 15%;\n}\n.mypage_mention_1 {\n  font-size: 1.3rem;\n}\n.mypage_mention_2 {\n  font-size: 1rem;\n}\n.mypage_menu_button {\n  width: 95%;\n  border-bottom: 1px solid #000;\n  padding: 7px 20px;\n}\n.mypage_menu_button_content {\n  display: inline;\n  font-size: 1.3rem;\n  padding: 0 5px;\n}\n.mypage_menu_button_content svg {\n  display: inline;\n}\n.mypage_menu_button_content_btn {\n  display: inline;\n}\n.mypage_menu_button_content_btn svg {\n  font-size: 1.3rem;\n  float: right;\n}\n.mypage_box2 {\n  width: 65%;\n  border: 1px solid #000;\n  border-radius: 1rem;\n  background-color: #78A9ED;\n  margin: 1rem 1rem;\n}\n.mypage_menu_detail_frame {\n  padding: 10% 15%;\n}\n.mypage_menu_detail h1 {\n  width: 100%;\n  text-align: center;\n  font-size: 2rem;\n  padding: 5%;\n}\n.mypage_menu_detail_input {\n  padding: 5%;\n}\n.mypage_menu_detail_input p {\n  display: inline-block;\n}\n.mypage_menu_detail_input_title2 {\n  color: red;\n}\n.mypage_menu_detail_input input, .mypage_menu_detail_input select {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  color: black;\n  font-size: 1.5rem;\n  border-radius: 0.5rem;\n  padding: 3%;\n}\n.reservation_layout {\n  width: 1000px;\n  height: 100vh;\n  background-color: rgb(222, 222, 222);\n}\n.reservation_header {\n  display: flex;\n  justify-content: space-between;\n  padding: 20px;\n  position: absolute;\n  width: 1000px;\n}\n.reservation_header_box {\n  width: 100px;\n  text-align: center;\n}\n.reservation_header_box span {\n  color: #000;\n  font-weight: bold;\n  font-size: 15px;\n}\n.reservation_header_ball {\n  line-height: 60px;\n  height: 60px;\n  width: 60px;\n  font-size: 35px;\n  border-radius: 100%;\n  background-color: #2E9AFE;\n  font-weight: bold;\n  margin: 0 auto;\n}\n.reservation_progress_box {\n  padding-top: 67px;\n  width: 900px;\n  margin: 0 auto;\n}\n.reservation_progress_blue {\n  background-color: #2E9AFE;\n}\n.reservation_progress_gray {\n  background-color: #ededed;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -21511,6 +21555,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n.mypage_container {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  background-color: #C8D7FF;\n}\n.mypage_box1 {\n  width: 30%;\n  border: 1px solid #000;\n  border-radius: 1rem;\n  background-color: #78A9ED;\n  margin: 1rem 1rem;\n}\n.mypage_mention {\n  text-align: center;\n  padding: 15%;\n}\n.mypage_mention_1 {\n  font-size: 1.3rem;\n}\n.mypage_mention_2 {\n  font-size: 1rem;\n}\n.mypage_menu_button {\n  width: 95%;\n  border-bottom: 1px solid #000;\n  padding: 7px 20px;\n}\n.mypage_menu_button_content {\n  display: inline;\n  font-size: 1.3rem;\n  padding: 0 5px;\n}\n.mypage_menu_button_content svg {\n  display: inline;\n}\n.mypage_menu_button_content_btn {\n  display: inline;\n}\n.mypage_menu_button_content_btn svg {\n  font-size: 1.3rem;\n  float: right;\n}\n.mypage_box2 {\n  width: 65%;\n  border: 1px solid #000;\n  border-radius: 1rem;\n  background-color: #78A9ED;\n  margin: 1rem 1rem;\n}\n.mypage_menu_detail_frame {\n  padding: 10% 15%;\n}\n.mypage_menu_detail h1 {\n  width: 100%;\n  text-align: center;\n  font-size: 2rem;\n  padding: 5%;\n}\n.mypage_menu_detail_input {\n  padding: 5%;\n}\n.mypage_menu_detail_input p {\n  display: inline-block;\n}\n.mypage_menu_detail_input_title2 {\n  color: red;\n}\n.mypage_menu_detail_input input, .mypage_menu_detail_input select {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  color: black;\n  font-size: 1.5rem;\n  border-radius: 0.5rem;\n  padding: 3%;\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/ReservationComponent.vue?vue&type=style&index=0&id=e0ba42fc&lang=scss":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/ReservationComponent.vue?vue&type=style&index=0&id=e0ba42fc&lang=scss ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -39157,6 +39225,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/ReservationComponent.vue?vue&type=style&index=0&id=e0ba42fc&lang=scss":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/ReservationComponent.vue?vue&type=style&index=0&id=e0ba42fc&lang=scss ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReservationComponent_vue_vue_type_style_index_0_id_e0ba42fc_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../node_modules/vue-loader/dist/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ReservationComponent.vue?vue&type=style&index=0&id=e0ba42fc&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/ReservationComponent.vue?vue&type=style&index=0&id=e0ba42fc&lang=scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReservationComponent_vue_vue_type_style_index_0_id_e0ba42fc_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReservationComponent_vue_vue_type_style_index_0_id_e0ba42fc_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/TestComponent.vue?vue&type=style&index=0&id=cd27f42c&lang=scss":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/TestComponent.vue?vue&type=style&index=0&id=cd27f42c&lang=scss ***!
@@ -39640,6 +39738,37 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/components/ReservationComponent.vue":
+/*!*******************************************************!*\
+  !*** ./resources/components/ReservationComponent.vue ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ReservationComponent_vue_vue_type_template_id_e0ba42fc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ReservationComponent.vue?vue&type=template&id=e0ba42fc */ "./resources/components/ReservationComponent.vue?vue&type=template&id=e0ba42fc");
+/* harmony import */ var _ReservationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ReservationComponent.vue?vue&type=script&lang=js */ "./resources/components/ReservationComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _ReservationComponent_vue_vue_type_style_index_0_id_e0ba42fc_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ReservationComponent.vue?vue&type=style&index=0&id=e0ba42fc&lang=scss */ "./resources/components/ReservationComponent.vue?vue&type=style&index=0&id=e0ba42fc&lang=scss");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+
+
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_ReservationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ReservationComponent_vue_vue_type_template_id_e0ba42fc__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/ReservationComponent.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/components/TestComponent.vue":
 /*!************************************************!*\
   !*** ./resources/components/TestComponent.vue ***!
@@ -39751,6 +39880,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/components/ReservationComponent.vue?vue&type=script&lang=js":
+/*!*******************************************************************************!*\
+  !*** ./resources/components/ReservationComponent.vue?vue&type=script&lang=js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReservationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReservationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ReservationComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/ReservationComponent.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/components/TestComponent.vue?vue&type=script&lang=js":
 /*!************************************************************************!*\
   !*** ./resources/components/TestComponent.vue?vue&type=script&lang=js ***!
@@ -39847,6 +39992,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/components/ReservationComponent.vue?vue&type=template&id=e0ba42fc":
+/*!*************************************************************************************!*\
+  !*** ./resources/components/ReservationComponent.vue?vue&type=template&id=e0ba42fc ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReservationComponent_vue_vue_type_template_id_e0ba42fc__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReservationComponent_vue_vue_type_template_id_e0ba42fc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ReservationComponent.vue?vue&type=template&id=e0ba42fc */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/ReservationComponent.vue?vue&type=template&id=e0ba42fc");
+
+
+/***/ }),
+
 /***/ "./resources/components/TestComponent.vue?vue&type=template&id=cd27f42c":
 /*!******************************************************************************!*\
   !*** ./resources/components/TestComponent.vue?vue&type=template&id=cd27f42c ***!
@@ -39911,6 +40072,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_MypageComponent_vue_vue_type_style_index_0_id_7e60d521_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../node_modules/vue-loader/dist/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./MypageComponent.vue?vue&type=style&index=0&id=7e60d521&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/MypageComponent.vue?vue&type=style&index=0&id=7e60d521&lang=scss");
+
+
+/***/ }),
+
+/***/ "./resources/components/ReservationComponent.vue?vue&type=style&index=0&id=e0ba42fc&lang=scss":
+/*!****************************************************************************************************!*\
+  !*** ./resources/components/ReservationComponent.vue?vue&type=style&index=0&id=e0ba42fc&lang=scss ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReservationComponent_vue_vue_type_style_index_0_id_e0ba42fc_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../node_modules/vue-loader/dist/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ReservationComponent.vue?vue&type=style&index=0&id=e0ba42fc&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/ReservationComponent.vue?vue&type=style&index=0&id=e0ba42fc&lang=scss");
 
 
 /***/ }),

@@ -24,3 +24,7 @@ Route::get('/test', function () {
 Route::get('/mypage', function () {
     return view('welcome');
 });
+
+Route::get('/reservation', function () {
+    return view('welcome');
+});

@@ -3,6 +3,7 @@ import AppComponent from '../components/AppComponent.vue';
 import MainComponent from '../components/MainComponent.vue';
 import TestComponent from '../components/TestComponent.vue';
 import MypageComponent from '../components/MypageComponent.vue';
+import ReservationComponent from '../components/ReservationComponent.vue';
 
 const routes = [
 	{
@@ -16,6 +17,10 @@ const routes = [
 	{
 		path: '/mypage',
 		component: MypageComponent
+	},
+	{
+		path: '/reservation',
+		component: ReservationComponent
 	},
 ];
 
