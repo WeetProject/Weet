@@ -513,6 +513,9 @@ video {
 .resize {
   resize: both;
 }
+.justify-evenly {
+  justify-content: space-evenly;
+}
 .rounded {
   border-radius: 0.25rem;
 }
@@ -520,8 +523,14 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
+.pt-20 {
+  padding-top: 5rem;
+}
 .text-center {
   text-align: center;
+}
+.font-bold {
+  font-weight: 700;
 }
 
 

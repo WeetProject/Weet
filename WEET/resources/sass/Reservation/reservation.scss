@@ -34,6 +34,7 @@
 .reservation_progress_box{
     padding-top: 67px;
     margin: 0 auto;
+    padding-bottom: 70px;
 }
 .reservation_progress_blue{
     background-color: #084AFF;
@@ -44,14 +45,119 @@
 
 // 바디파트
 .reservation_body{
-    width: 600px
+    width: 550px;
+    margin: 0 auto;
+}
+.reservation_title_1{
+    font-size: 40px;
+    font-weight: bold;
+}
+.reservation_title_2{
+    font-size: 30px;
+    font-weight: bold;
+    padding: 50px 0 20px 0;
+}
+.reservation_title_3{
+    font-size: 25px;
+    font-weight: bold;
+}
+.reservation_title_4{
+    font-size: 15px;
+    font-weight: bold;
+}
+.reservation_to_tiket_title{
+    display: flex;
+    align-items: center;
+}
+.reservation_to_tiket_title div:nth-child(1){
+    font-size: 17px;
+    padding: 4px 7px;
+    background-color: $logo-one-main-color;
+    color: #fff;
+    font-weight:800;
+    border-radius: 20px;
+    margin-left: 5px;
+}
+.reservation_to_tiket_title div:nth-child(2){
+    margin-left: 5px;
+    padding: 0px 10px;
+    border-right: 2px solid #ededed;
+}
+.reservation_to_tiket_title div:nth-child(3){
+    padding: 0px 10px;
+}
+.reservation_to_tiket_info{
+    display: flex;
+    padding: 20px 0px;
+}
+.reservation_to_tiket_time{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-right: 20px;
+}
+.reservation_to_tiket_time div{
+    font-size: 20px;
+    font-weight: 900;
+    width: 60px;
+}
+.reservation_to_tiket_time_type{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 20px;
+    border-left: 5px solid #ededed;
+    margin: 10px 0px;
+}
+.reservation_to_tiket_time_type div:nth-child(1),
+.reservation_to_tiket_time_type div:nth-child(3){
+    font-weight: 900;
+}
+.reservation_to_tiket_time_type div:nth-child(2){
+    padding: 20px 0px;
+    font-size: 10px;
+}
+
+
+// 두번째영역
+.reservation_gray_bg{
+    background-color: #ededed;
+    height: 100vh;
+}
+.reservation_baggage_rule_box{
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+}
+.reservation_baggage{
+    flex-grow: 2;
+}
+.reservation_rule{
+    flex-grow: 1;
+}
+.reservation_icon_blue{
+    color: #249ac2;
+    margin-right: 10px;
+}
+.reservation_icon_gray{
+    color: #adadad;
+    margin-right: 10px;
+}
+.reservation_icon_flex{
+    display: flex;
+    align-items: center;
+}
+.reservation_passenger_box{
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px;
 }
 
 @include mobile {
     .reservation_layout{
-        max-width: 700px;
         width: 100vw;
-        height: 100vh;
+        padding-bottom: 50px;
     }
     .reservation_header {
         width: 100%;
@@ -64,8 +170,8 @@
 @include tablet {
     .reservation_layout{
         width: 768px;
-        height: 100vh;
         margin: 0 auto;
+        padding-bottom: 50px;
     }
     .reservation_header {
         max-width: 750px;
@@ -78,8 +184,8 @@
 @include desktop {
     .reservation_layout{
         width: 1000px;
-        height: 100vh;
         margin: 0 auto;
+        padding-bottom: 50px;
     }
     .reservation_header {
         max-width: 1000px;
