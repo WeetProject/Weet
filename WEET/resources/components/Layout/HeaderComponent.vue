@@ -22,7 +22,7 @@
 						<div class="modal-content">
 							<!-- 모달 내용 -->
 							<!-- 로그인 폼 등 -->
-							<div class="flex scene">
+							<div class="flex scene" style="width: 300px;">
 								<section class="card">
 									<div class="login_modal">
 										<div class="login_modal_headline">
@@ -62,7 +62,7 @@
 												</div>  
 												<div>
 													<button class="card__button" type="button">
-														<span><a href="">Sign Up</a></span>
+														<span><a href="/regist">Sign Up</a></span>
 													</button>
 												</div>
 											</div>
