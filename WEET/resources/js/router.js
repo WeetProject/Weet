@@ -6,6 +6,8 @@ import MypageComponent from '../components/MypageComponent.vue';
 import ReservationComponent from '../components/Reservation/ReservationComponent.vue';
 import AdminComponent from '../components/Admin/AdminComponent.vue';
 import RegistComponent from '../components/RegistComponent.vue';
+import AdminLoginComponent from '../components/Admin/AdminLoginComponent.vue';
+import AdminIndexComponent from '../components/Admin/AdminIndexComponent.vue';
 
 const routes = [
 	{
@@ -26,7 +28,11 @@ const routes = [
 	},
 	{
 		path: '/admin',
-		component: AdminComponent
+		component: AdminLoginComponent
+	},
+	{
+		path: '/admin/index',
+		component: AdminIndexComponent
 	},
 	{
 		path: '/regist',

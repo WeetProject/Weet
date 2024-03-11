@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 // 미디어쿼리 import
-@import "./_mixin.scss";
+@import "./mixin";
 @import "./test.scss";
 @import "./User/loginModal.scss";
 @import "./Layout/header.scss";
@@ -11,6 +11,7 @@
 @import "./User/mypage.scss";
 @import "./Reservation/reservation.scss";
 @import "./User/regist.scss";
+@import "./Admin/admin.scss";
 
 // 미디어쿼리 사용 예시
 // @include mobile {

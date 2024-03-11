@@ -7,6 +7,8 @@ import TestComponent from '../components/TestComponent.vue';
 import MainComponent from '../components/MainComponent.vue';
 import HeaderComponent from '../components/Layout/HeaderComponent.vue';
 import FooterComponent from '../components/Layout/FooterComponent.vue';
+import AdminLoginComponent from '../components/Admin/AdminLoginComponent.vue';
+import AdminIndexComponent from '../components/Admin/AdminIndexComponent.vue';
 import AdminComponent from '../components/Admin/AdminComponent.vue';
 import RegistComponent from '../components/RegistComponent.vue';
 
@@ -16,6 +18,8 @@ createApp({
 		HeaderComponent,
 		FooterComponent,
 		MainComponent,
+		AdminLoginComponent,
+		AdminIndexComponent,
 		AdminComponent,
 		RegistComponent,
 	}
