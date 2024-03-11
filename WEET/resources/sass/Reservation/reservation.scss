@@ -1,54 +1,90 @@
-
-.reservation_layout{
-    width: 1000px;
-    height: 100vh;
-    background-color: rgb(222, 222, 222);
-}
+// 헤더파트
 .reservation_header{
     display: flex;
     justify-content: space-between;
     padding: 20px;
     position: absolute;
-    width: 1000px;
+    width: 100%;
 }
 .reservation_header_box{
     width: 100px;
     text-align: center;
 }
 .reservation_header_box span{
-    color: #000;
     font-weight: bold;
     font-size: 15px;
 }
-.reservation_header_ball{
+.reservation_header_ball_1,.reservation_header_ball_2{
     line-height: 60px;
     height: 60px;
     width: 60px;
     font-size: 35px;
     border-radius: 100%;
-    background-color: #2E9AFE;
     font-weight: bold;
     margin: 0 auto;
+    color: #fff;
+    box-shadow: 0 10px 15px -4px rgba(125, 125, 125, 0.4784313725);
+}
+.reservation_header_ball_1{
+    background-color: #0B4AFF;
+}
+.reservation_header_ball_2{
+    background-color: #C5DFFF;
 }
 .reservation_progress_box{
     padding-top: 67px;
-    width: 900px;
     margin: 0 auto;
 }
 .reservation_progress_blue{
-    background-color: #2E9AFE;
+    background-color: #084AFF;
 }
 .reservation_progress_gray{
-    background-color: #ededed;
+    background-color: $layout-background-color;
 }
-@include mobile {
 
+// 바디파트
+.reservation_body{
+    width: 600px
+}
+
+@include mobile {
+    .reservation_layout{
+        max-width: 700px;
+        width: 100vw;
+        height: 100vh;
+    }
+    .reservation_header {
+        width: 100%;
+    }
+    .reservation_progress_box{
+        width: 75%;
+    }
 }
     
 @include tablet {
-
+    .reservation_layout{
+        width: 768px;
+        height: 100vh;
+        margin: 0 auto;
+    }
+    .reservation_header {
+        max-width: 750px;
+    }
+    .reservation_progress_box {
+        width: 628px;
+    }
 }
     
 @include desktop {
-
+    .reservation_layout{
+        width: 1000px;
+        height: 100vh;
+        margin: 0 auto;
+    }
+    .reservation_header {
+        max-width: 1000px;
+    }
+    .reservation_progress_box{
+        width: 900px;
+    }
 }

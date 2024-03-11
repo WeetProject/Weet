@@ -3,7 +3,7 @@ import AppComponent from '../components/AppComponent.vue';
 import MainComponent from '../components/MainComponent.vue';
 import TestComponent from '../components/TestComponent.vue';
 import MypageComponent from '../components/MypageComponent.vue';
-import ReservationComponent from '../components/ReservationComponent.vue';
+import ReservationComponent from '../components/Reservation/ReservationComponent.vue';
 
 const routes = [
 	{

@@ -523,6 +523,9 @@ video {
 .w-3\/4 {
   width: 75%;
 }
+.w-screen {
+  width: 100vw;
+}
 .resize {
   resize: both;
 }
@@ -548,6 +551,16 @@ video {
 }
 .text-center {
   text-align: center;
+}
+@media (min-width: 640px) {
+
+  .sm\:w-3\/4 {
+    width: 75%;
+  }
+
+  .sm\:w-full {
+    width: 100%;
+  }
 }
 
 
