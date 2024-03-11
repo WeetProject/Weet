@@ -2,7 +2,7 @@
     <div class="header_container">
 		<div class="header_nav">
 			<div class="header_nav_logo">
-				<p>WEET</p>
+				<img src="../../public/img/WEET_logo.png" alt="">
 			</div>
 
             <div class="header_nav_user_btn">
