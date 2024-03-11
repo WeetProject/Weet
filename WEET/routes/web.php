@@ -32,3 +32,7 @@ Route::get('/reservation', function () {
 Route::get('/admin', function () {
     return view('welcome');
 });
+
+Route::get('/admin/index', function () {
+    return view('welcome');
+});
