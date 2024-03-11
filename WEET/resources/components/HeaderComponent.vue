@@ -27,12 +27,18 @@
 										<div class="login_modal_headline">
 											<div class="card__heading">
 												<!-- <span class="visually-hidden">Account name:</span> -->
-												<span>WEET</span>
+												<!-- <span>WEET</span> -->
+												<img src="../../public/img/WEET_logo.png" alt="">
 											</div>
 										</div>
 										<div class="login_modal_text">
-											<p>한눈에 예매 항공권을 확인하고</p>
-											<p>실시간으로 항공권 가격을 비교해보세요</p>
+											<!-- <div class="login_modal_text_login">
+												<p>로그인</p>
+											</div> -->
+											<div class="login_modal_text_comment">
+												<p>한눈에 예매 항공권을 확인하고</p>
+												<p>실시간으로 항공권 가격을 비교해보세요</p>
+											</div>	
 										</div>
 										<form class="card__form">
 											<div class="card__form_email">
