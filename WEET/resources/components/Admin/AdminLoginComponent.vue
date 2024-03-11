@@ -4,7 +4,6 @@
 			<div class="admin_login_left_section">
 				<div class="admin_login_title_section">
 					<img class="admin_login_title_img" src="../../../public/images/WEET_logo.png" alt="">
-					<p class="text-3xl font-black admin_login_title">Admin</p>
 				</div>
 				<form class="admin_login_form" action="" method="post"></form>
 					<div class="admin_login_input_area">
