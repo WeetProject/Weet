@@ -28,3 +28,7 @@ Route::get('/mypage', function () {
 Route::get('/reservation', function () {
     return view('welcome');
 });
+
+Route::get('/admin', function () {
+    return view('welcome');
+});

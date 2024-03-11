@@ -2,7 +2,7 @@
     <div class="header_container">
 		<div class="header_nav">
 			<div class="header_nav_logo">
-				<img src="../../public/images/WEET_logo.png" alt="">
+				<img src="../../../public/images/WEET_logo.png" alt="">
 			</div>
 
             <div class="header_nav_user_btn">
@@ -21,14 +21,14 @@
 						<div class="modal-content">
 							<!-- 모달 내용 -->
 							<!-- 로그인 폼 등 -->
-							<div class="scene flex">
+							<div class="flex scene">
 								<section class="card">
 									<div class="login_modal">
 										<div class="login_modal_headline">
 											<div class="card__heading">
 												<!-- <span class="visually-hidden">Account name:</span> -->
 												<!-- <span>WEET</span> -->
-												<img src="../../public/images/WEET_logo.png" alt="">
+												<img src="../../../public/images/WEET_logo.png" alt="">
 											</div>
 										</div>
 										<div class="login_modal_text">
@@ -72,10 +72,10 @@
 											<div class="card__social_btn">
 												<button class="card__social_btn_google">
 													<!-- <button>kakao login</button> -->
-													<img src="../../public/images/Google_logo.svg.png" alt="">
+													<img src="../../../public/images/Google_logo.svg.png" alt="">
 												</button>
 												<button class="card__social_btn_kakao">
-													<img src="../../public/images/Kakao_logo.png" alt="">
+													<img src="../../../public/images/Kakao_logo.png" alt="">
 												</button>
 											</div>
 										</form>
@@ -106,5 +106,5 @@
 </script>
 
 <style lang="scss">
-	@import '../sass/Layout/header.scss';
+	@import '../../sass/Layout/header.scss';
 </style>
