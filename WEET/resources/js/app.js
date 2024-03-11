@@ -9,7 +9,6 @@ import HeaderComponent from '../components/Layout/HeaderComponent.vue';
 import FooterComponent from '../components/Layout/FooterComponent.vue';
 import AdminLoginComponent from '../components/Admin/AdminLoginComponent.vue';
 import AdminIndexComponent from '../components/Admin/AdminIndexComponent.vue';
-import AdminComponent from '../components/Admin/AdminComponent.vue';
 import RegistComponent from '../components/RegistComponent.vue';
 
 createApp({
