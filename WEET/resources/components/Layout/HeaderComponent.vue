@@ -37,7 +37,7 @@
 											</div> -->
 											<div class="login_modal_text_comment">
 												<p>한눈에 예매 항공권을 확인하고</p>
-												<p>실시간으로 항공권 가격을 비교해보세요</p>
+												<p>다양한 항공권 가격을 비교해보세요</p>
 											</div>	
 										</div>
 										<form class="card__form">
@@ -60,13 +60,13 @@
 												</div>  
 												<div>
 													<button class="card__button" type="button">
-														<span>Sign Up</span>
+														<span><a href="">Sign Up</a></span>
 													</button>
 												</div>
 											</div>
 										<hr>
 											<div class="card__social_login_text">
-												<p>Social Login</p>
+												<p>- Social Login -</p>
 											</div>
 
 											<div class="card__social_btn">

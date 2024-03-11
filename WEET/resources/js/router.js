@@ -5,6 +5,7 @@ import TestComponent from '../components/TestComponent.vue';
 import MypageComponent from '../components/MypageComponent.vue';
 import ReservationComponent from '../components/Reservation/ReservationComponent.vue';
 import AdminComponent from '../components/Admin/AdminComponent.vue';
+import RegistComponent from '../components/RegistComponent.vue';
 
 const routes = [
 	{
@@ -26,6 +27,10 @@ const routes = [
 	{
 		path: '/admin',
 		component: AdminComponent
+	},
+	{
+		path: '/regist',
+		component: RegistComponent
 	},
 ];
 
