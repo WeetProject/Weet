@@ -100,5 +100,13 @@
         text-align: center;
         justify-content: center;
         
+        &_content {
+            border-collapse: separate;
+            border-spacing: 10px 10px;
+
+            th {
+                border: 1px solid #ededed;
+            }
+        }
     }
 }

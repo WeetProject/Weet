@@ -78,40 +78,40 @@
                         <col style="width: 20%;">
                         <col style="width: 80%;">
                     </colgroup>
-                    <tr>
+                    <tr class="regist_user_info_box_content">
                         <th><label for="">이메일</label></th>
-                        <td><input type="email" placeholder="email"></td>
+                        <td colspan="3"><input type="email" placeholder="email"></td>
                     </tr>
-                    <tr>
+                    <tr class="regist_user_info_box_content">
                         <th><label for="">비밀번호</label></th>
-                        <td><input type="password" placeholder="password"></td>
+                        <td colspan="3"><input type="password" placeholder="password"></td>
                     </tr>
-                    <tr>
+                    <tr class="regist_user_info_box_content">
                         <th><label for="">비밀번호 확인</label></th>
-                        <td><input type="password" placeholder="password chk"></td>
+                        <td colspan="3"><input type="password" placeholder="password chk"></td>
                     </tr>
-                    <tr>
+                    <tr class="regist_user_info_box_content">
                         <th><label for="">이름</label></th>
-                        <td><input type="text" placeholder="name"></td>
+                        <td colspan="3"><input type="text" placeholder="name"></td>
                     </tr>
-                    <tr>
+                    <tr class="regist_user_info_box_content">
                         <th><label for="">연락처</label></th>
-                        <td><input type="tel" placeholder="tel"></td>
+                        <td colspan="3"><input type="tel" placeholder="tel"></td>
                     </tr>
-                    <tr>
+                    <tr class="regist_user_info_box_content">
                         <th><label for="">우편번호</label></th>
-                        <td><input type="text" placeholder=""></td>
+                        <td colspan="3"><input type="text" placeholder=""></td>
                     </tr>
-                    <tr>
+                    <tr class="regist_user_info_box_content">
                         <th><label for="">주소</label></th>
-                        <td><input type="address" placeholder="address"></td>
+                        <td colspan="3"><input type="address" placeholder="address"></td>
                     </tr>
-                    <tr>
+                    <tr class="regist_user_info_box_content">
                         <th><label for="">성별</label></th>
                         <td><input type="radio">남</td>
                         <td><input type="radio">여</td>
                     </tr>
-                    <tr>
+                    <tr class="regist_user_info_box_content">
                         <th><label for="">생년월일</label></th>
                         <td><input type="date" placeholder=""></td>
                     </tr>
