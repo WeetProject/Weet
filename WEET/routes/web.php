@@ -28,3 +28,15 @@ Route::get('/mypage', function () {
 Route::get('/reservation', function () {
     return view('welcome');
 });
+
+Route::get('/admin', function () {
+    return view('welcome');
+});
+
+Route::get('/regist', function () {
+    return view('welcome');
+});
+
+Route::get('/admin/index', function () {
+    return view('welcome');
+});

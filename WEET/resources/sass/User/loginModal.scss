@@ -59,9 +59,13 @@ $colors: (
     text-align: start;
     margin: 10px 0;
 
-        &_login {
-            font-size: 1rem;
-            font-weight: bold;
+        // &_login {
+        //     font-size: 1rem;
+        //     font-weight: bold;
+        // }
+
+        &_comment {
+            font-size: 12px;
         }
     }
 }
@@ -129,16 +133,18 @@ $colors: (
         border: 1px solid rgba(map-get($colors, white), 0.3);
         border-radius: 3px;
         box-sizing: border-box;
-        color: map-get($colors, white);
+        // color: map-get($colors, white);
+        color: $main-font-color;
         display: block;
-        font-size: 1rem;
+        font-size: 12px;
         letter-spacing: 0.15rem;
         // padding: 10px;
         width: 100%;
+        padding: 5px 8px;
 
         &:focus,
         &:active {
-        background: rgba(map-get($colors, white), 0.08);
+        // background: rgba(map-get($colors, white), 0.08);
         border: 1px solid rgba(map-get($colors, white), 0.75);
         outline: none;
         }
@@ -148,7 +154,7 @@ $colors: (
         text-align: start;
 
         label {
-        font-size: 10px;
+        font-size: 12px;
         }
     }
 
@@ -156,35 +162,49 @@ $colors: (
         text-align: start;
 
         label {
-        font-size: 10px;
+        font-size: 12px;
         }
     }
 
     &__button {
-        background: rgba(map-get($colors, white), 0.65);
+        // background: rgba(map-get($colors, white), 0.65);
+        background-color: $logo-two-main-color;
         border: none;
         border-radius: 3px;
-        color: #362100;
+        // color: #362100;
+        color: $main-font-color;
         margin: 15px auto 0 auto;
-        padding: 3px 10px;
-        font-size: 13px;
+        padding: 5px 12px;
+        font-size: 12px;
 
         &:focus,
         &:active {
-        background: rgba(255, 255, 255, 0.75);
-        outline: none;
+            background: rgba(255, 255, 255, 0.75);
+            outline: none;
+        }
+        &:hover {
+            background-color: #497bff;
+            font-weight: bold;
         }
     }
 
     &__form_button {
         display: flex;
         justify-content: space-evenly;
+        margin-bottom: 20px;
     }
 
-    &__kakao_btn {
+    &__social_login_text {
+        font-size: 15px;
+        color: $logo-two-main-color;
+        margin-top: 8px;
+    }
 
-        background: rgba(map-get($colors, white), 0.075);
-        border: 1px solid rgba(map-get($colors, white), 0.3);
+    &__social_btn {
+
+        // background: rgba(map-get($colors, white), 0.075);
+        // background-color: $logo-two-main-color;
+        // border: 1px solid rgba(map-get($colors, white), 0.3);
         border-radius: 3px;
         box-sizing: border-box;
         color: map-get($colors, white);
@@ -193,13 +213,26 @@ $colors: (
         letter-spacing: 0.15rem;
         // padding: 10px;
         width: 100%;
-        margin-top: 10px;
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &:focus,
         &:active {
         background: rgba(map-get($colors, white), 0.08);
         border: 1px solid rgba(map-get($colors, white), 0.75);
         outline: none;
+        }
+
+        &_google {
+            width: 2rem;
+            margin-right: 5px;
+        }
+
+        &_kakao {
+            width: 2rem;
+            margin-left: 5px;
         }
     }
 }

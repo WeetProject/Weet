@@ -7,22 +7,22 @@
 }
 
 .header_nav {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .header_nav_logo {
-  margin: 0 10px;
-  font-weight: bold;
-  font-size: 30px;
-  width: 100px;
+    margin: 0 10px;
+    font-weight: bold;
+    font-size: 30px;
+    width: 100px;
 }
 
 .header_nav_user_btn {
-  display: flex;
-  align-items: center;
-  margin: 0 10px;
-  color: #0B2161;
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+    color: #0B2161;
 }
 
 .header_nav_login_btn {
