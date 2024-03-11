@@ -537,6 +537,10 @@ video {
   font-size: 1rem;
   line-height: 1.5rem;
 }
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
 .font-black {
   font-weight: 900;
 }
