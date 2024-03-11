@@ -161,7 +161,8 @@ $colors: (
     }
 
     &__button {
-        background: rgba(map-get($colors, white), 0.65);
+        // background: rgba(map-get($colors, white), 0.65);
+        background-color: $logo-two-main-color;
         border: none;
         border-radius: 3px;
         color: #362100;
@@ -181,10 +182,11 @@ $colors: (
         justify-content: space-evenly;
     }
 
-    &__kakao_btn {
+    &__social_btn {
 
-        background: rgba(map-get($colors, white), 0.075);
-        border: 1px solid rgba(map-get($colors, white), 0.3);
+        // background: rgba(map-get($colors, white), 0.075);
+        // background-color: $logo-two-main-color;
+        // border: 1px solid rgba(map-get($colors, white), 0.3);
         border-radius: 3px;
         box-sizing: border-box;
         color: map-get($colors, white);
@@ -194,6 +196,7 @@ $colors: (
         // padding: 10px;
         width: 100%;
         margin-top: 10px;
+        display: flex;
 
         &:focus,
         &:active {
@@ -201,6 +204,8 @@ $colors: (
         border: 1px solid rgba(map-get($colors, white), 0.75);
         outline: none;
         }
+
+        
     }
 }
 
