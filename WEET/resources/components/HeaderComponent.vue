@@ -2,7 +2,7 @@
     <div class="header_container">
 		<div class="header_nav">
 			<div class="header_nav_logo">
-				<img src="../../public/img/WEET_logo.png" alt="">
+				<img src="../../public/images/WEET_logo.png" alt="">
 			</div>
 
             <div class="header_nav_user_btn">
@@ -28,7 +28,7 @@
 											<div class="card__heading">
 												<!-- <span class="visually-hidden">Account name:</span> -->
 												<!-- <span>WEET</span> -->
-												<img src="../../public/img/WEET_logo.png" alt="">
+												<img src="../../public/images/WEET_logo.png" alt="">
 											</div>
 										</div>
 										<div class="login_modal_text">
@@ -65,9 +65,13 @@
 												</div>
 											</div>
 
-											<div class="card__kakao_btn">
-												<div>
-													<button>kakao login</button>
+											<div class="card__social_btn">
+												<button class="card__social_btn_google">
+													<!-- <button>kakao login</button> -->
+													<img src="../../public/images/Google_logo.svg.png" alt="">
+												</button>
+												<div class="card__social_btn_kakao">
+													<img src="../../public/images/Kakao_logo.png" alt="">
 												</div>
 											</div>
 										</form>
