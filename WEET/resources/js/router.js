@@ -4,6 +4,7 @@ import MainComponent from '../components/MainComponent.vue';
 import TestComponent from '../components/TestComponent.vue';
 import MypageComponent from '../components/MypageComponent.vue';
 import ReservationComponent from '../components/Reservation/ReservationComponent.vue';
+import AdminComponent from '../components/Admin/AdminComponent.vue';
 
 const routes = [
 	{
