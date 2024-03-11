@@ -92,7 +92,11 @@
                         <p class="mypage_menu_detail_input_title">성별</p>
                         <!-- <p class="mypage_menu_detail_input_title">*</p> -->
                         <div class="mypage_menu_detail_input_cont">
-                            <select type="text"></select>
+                            <select type="text">
+                                <option value="" selelcted>응답안함</option>
+                                <option value="">여성</option>
+                                <option value="">남성</option>
+                            </select>
                         </div>
                     </div>
                     <div class="mypage_menu_detail_input">
@@ -107,6 +111,16 @@
                         <!-- <p class="mypage_menu_detail_input_title">*</p> -->
                         <div class="mypage_menu_detail_input_cont">
                             <input type="text" placeholder="YYYY.MM.DD">
+                        </div>
+                    </div>
+                    <div class="mypage_menu_detail_input">
+                        <p class="mypage_menu_detail_input_title">전화번호</p>
+                        <!-- <p class="mypage_menu_detail_input_title">*</p> -->
+                        <div class="mypage_menu_detail_input_cont">
+                            <select name="" id="">
+                                <option value="" selelcted>국가번호</option>
+                            </select>
+                            <input type="text"></input>
                         </div>
                     </div>
                 </div>  
