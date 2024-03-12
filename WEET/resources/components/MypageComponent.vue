@@ -1,5 +1,7 @@
 <template>
-    <div class="mypage_banner">이미지 배너 영역</div>
+    <!-- <div class="mypage_banner">
+        <img src="../../public/images/banner2.jpg" alt="" width="676" height="200" >
+    </div> -->
     <div class="mypage_container">
         <div class="mypage_box1">
             <div class="mypage_mention">
@@ -93,7 +95,7 @@
                         <p class="mypage_menu_detail_input_title">성별</p>
                         <!-- <p class="mypage_menu_detail_input_title">*</p> -->
                         <div class="mypage_menu_detail_input_cont">
-                            <select type="text">
+                            <select>
                                 <option value="" selelcted>응답안함</option>
                                 <option value="">여성</option>
                                 <option value="">남성</option>
@@ -104,7 +106,9 @@
                         <p class="mypage_menu_detail_input_title">국가</p>
                         <!-- <p class="mypage_menu_detail_input_title">*</p> -->
                         <div class="mypage_menu_detail_input_cont">
-                            <select type="text"></select>
+                            <select>
+                                <option value="" selected>한국</option>
+                            </select>
                         </div>
                     </div>
                     <div class="mypage_menu_detail_input">
@@ -117,12 +121,7 @@
                     <div class="mypage_menu_detail_input">
                         <p class="mypage_menu_detail_input_title">전화번호</p>
                         <!-- <p class="mypage_menu_detail_input_title">*</p> -->
-                        <div class="mypage_menu_detail_input_cont">
-                            <select name="" id="">
-                                <option value="" selected>국가번호</option>
-                            </select>
-                            <input type="text">
-                        </div>
+                        <input type="text">
                     </div>
                 </div>  
             </div>
