@@ -7,6 +7,7 @@ import ReservationComponent from '../components/Reservation/ReservationComponent
 import SignUpComponent from '../components/User/SignUpComponent.vue';
 import AdminLoginComponent from '../components/Admin/AdminLoginComponent.vue';
 import AdminIndexComponent from '../components/Admin/AdminIndexComponent.vue';
+// import LoginComponent from '../components/User/LoginComponent.vue';
 
 const routes = [
 	{
@@ -37,6 +38,7 @@ const routes = [
 		path: '/signup',
 		component: SignUpComponent
 	},
+	
 ];
 
 const router = createRouter({

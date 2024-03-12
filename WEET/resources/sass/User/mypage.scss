@@ -1,5 +1,12 @@
 @import "../mixin";
 
+.mypage_banner {
+    width: 1000px;
+    height: 200px;
+    background-image: "../../../public/images/banner.jpg";
+    background-size: cover;
+}
+
 .mypage_container {
     width: 100%;
     height: 100%;
