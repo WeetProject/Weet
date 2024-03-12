@@ -51,17 +51,21 @@
 			</div>
 
 			<div class="main_monthly_tourist_spot_section">
-				<div class="main_monthly_tourist_spot_title_area">
-					<p>이달의 실속 여행지 TOP3</p>
+				<div class="main_monthly_tourist_spot_flex_left">
+					<div class="main_monthly_tourist_spot_title_area">
+						<p>이달의 실속 여행지 TOP3</p>
+					</div>
+					<div class="main_monthly_tourist_spot_first_area">
+						<img src="../../public/images/Admin_login.jpg" alt="">
+					</div>
 				</div>
-				<div class="main_monthly_tourist_spot_first_area">
-
-				</div>
-				<div class="main_monthly_tourist_spot_second_area">
-
-				</div>
-				<div class="main_monthly_tourist_spot_third_area">
-
+				<div class="main_monthly_tourist_spot_flex_right">
+					<div class="main_monthly_tourist_spot_second_area">
+						<img src="../../public/images/Admin_login.jpg" alt="">
+					</div>
+					<div class="main_monthly_tourist_spot_third_area">
+						<img src="../../public/images/Admin_login.jpg" alt="">
+					</div>
 				</div>
 			</div>
 		</div>

@@ -133,7 +133,7 @@
                     <h1><strong>2. WEET 계정정보</strong></h1>
                 </div>
                 <div class="regist_user_info_div">
-                    <div class="regist_user_info_label">
+                    <!-- <div class="regist_user_info_label">
                         <div>
                             <span>이메일</span>
                         </div>
@@ -161,38 +161,39 @@
                         <div>
                             <span>생년월일</span>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="regist_user_info_box">
                         <div class="regist_user_info_box_content">
-                            <label for="hidden">이메일</label>
+                            
+                            <label for="">이메일</label>
                             <input type="email" placeholder="email">
                         </div>
                         <div class="regist_user_info_box_content">
-                            <label for="hidden">비밀번호</label>
+                            <label for="">비밀번호</label>
                             <input type="password" placeholder="password">
                         </div>
                         <div class="regist_user_info_box_content">
-                            <label for="hidden">비밀번호 확인</label>
+                            <label for="">비밀번호 확인</label>
                             <input type="password" placeholder="password chk">
                         </div>
                         <div class="regist_user_info_box_content">
-                            <label for="hidden">이름</label>
+                            <label for="">이름</label>
                             <input type="text" placeholder="name">
                         </div>
                         <div class="regist_user_info_box_content">
-                            <label for="hidden">연락처</label>
+                            <label for="">연락처</label>
                             <input type="tel" placeholder="tel">
                         </div>
                         <div class="regist_user_info_box_content">
-                            <label for="hidden">우편번호</label>
+                            <label for="">우편번호</label>
                             <input type="text" placeholder="">
                         </div>
                         <div class="regist_user_info_box_content">
-                            <label for="hidden">주소</label>
+                            <label for="">주소</label>
                             <input type="address" placeholder="address">
                         </div>
                         <div class="regist_user_info_box_content_gender">
-                            <label for="hidden">성별</label>
+                            <label for="">성별</label>
                             <div>
                                 <input type="radio" id="male" name="gender">
                                 <label for="male">남</label>
@@ -203,9 +204,17 @@
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
-                            <label for="hidden">생년월일</label>
+                            <label for="">생년월일</label>
                             <input type="date" placeholder="">
                         </div>
+                    </div>
+                </div>
+                <div class="regist_button">
+                    <div class="regist_button_cel">
+                        <button class="regist_button_cancel">PRE</button>
+                    </div>
+                    <div class="regist_button_nxt">
+                        <button class="regist_button_next" type="submit">Submit</button>
                     </div>
                 </div>    
             </main>

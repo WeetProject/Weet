@@ -1,11 +1,15 @@
 @import "../mixin";
 
-// .mypage_banner {
-//     width: 1000px;
-//     height: 200px;
-//     background-image: "../../../public/images/banner2.jpg";
-//     background-size: 676px 200px;
-// }
+.mypage_banner {
+    width: 1000px;
+    height: 200px;
+    // background-image: "../../../public/images/banner2.jpg";
+    // background-size: 676px 200px;
+    img {
+        width: 90%;
+        hegith: auto;
+    }
+}
 
 .mypage_container {
     width: 100%;
