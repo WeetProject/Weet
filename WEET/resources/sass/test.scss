@@ -1,329 +1,329 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
 
-/*custom font*/
-@import url(https://fonts.googleapis.com/css?family=Montserrat);
+// /*custom font*/
+// @import url(https://fonts.googleapis.com/css?family=Montserrat);
 
-/*basic reset*/
-* {margin: 0; padding: 0;}
+// /*basic reset*/
+// * {margin: 0; padding: 0;}
 
-html {
-	height: 100%;
-	/*Image only BG fallback*/
+// html {
+// 	height: 100%;
+// 	/*Image only BG fallback*/
 	
-	/*background = gradient + image pattern combo*/
-	// background: 
-	// 	linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
-	background-color: #fff;
-}
-
-body {
-	font-family: montserrat, arial, verdana;
-}
-
-.regist_container {
-	color: #666;
-}
-
-/*form styles*/
-#msform {
-	width: 400px;
-	margin: 50px auto;
-	text-align: center;
-	position: relative;
-}
-
-fieldset {
-	display: flex;
-	flex-direction: column;
-    align-items: center;
-}
-
-#msform fieldset {
-	background: white;
-	border: 0 none;
-	border-radius: 3px;
-	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-	padding: 20px 30px;
-	box-sizing: border-box;
-	width: 80%;
-	margin: 0 10%;
-	
-	/*stacking fieldsets above each other*/
-	position: relative;
-}
-/*Hide all except first fieldset*/
-#msform fieldset:not(:first-of-type) {
-	display: none;
-}
-/*inputs*/
-#msform input, #msform textarea {
-	padding: 15px;
-	border: 1px solid #ccc;
-	border-radius: 3px;
-	margin-bottom: 10px;
-	width: 100%;
-	box-sizing: border-box;
-	font-family: montserrat;
-	color: #2C3E50;
-	font-size: 13px;
-}
-
-// input {
-// 	margin-top: 10px;
+// 	/*background = gradient + image pattern combo*/
+// 	// background: 
+// 	// 	linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+// 	background-color: #fff;
 // }
 
-/*buttons*/
-.regist_user_btn {
-	display: flex;
-	margin: 10px 0;
-}
+// // body {
+// // 	font-family: montserrat, arial, verdana;
+// // }
 
-.regist_user_next_btn,
-.regist_user_sub_btn {
-    display: flex; /* 자식 요소들을 수평으로 정렬 */
-    align-items: center; /* 수직 정렬 */
-}
+// .regist_container {
+// 	color: #666;
+// }
 
-.previous {
-	margin: 0 5px;
-	padding: 5px;
-	border-radius: 5px;
+// /*form styles*/
+// // #msform {
+// // 	width: 400px;
+// // 	margin: 50px auto;
+// // 	text-align: center;
+// // 	position: relative;
+// // }
 
-	&:hover {
-		background-color: #666;
-		color: #fff;
-		opacity: 0.6;
-	}
-}
+// // fieldset {
+// // 	display: flex;
+// // 	flex-direction: column;
+// //     align-items: center;
+// // }
 
-.next {
-	margin: 0 5px;
-	padding: 5px;
-	border-radius: 5px;
-
-	&:hover {
-		background-color: #666;
-		color: #fff;
-		opacity: 0.6;
-	}
-}
-
-.submit {
-	margin: 0 5px;
-	padding: 5px;
-	border-radius: 5px;
-
-	&:hover {
-		background-color: #0B2161;
-		color: #fff;
-	}
-}
-
-
-// .regist_user {
+// #msform fieldset {
+// 	background: white;
+// 	border: 0 none;
+// 	border-radius: 3px;
+// 	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+// 	padding: 20px 30px;
+// 	box-sizing: border-box;
+// 	width: 80%;
+// 	margin: 0 10%;
 	
-// 	&_pre_btn {
-// 		margin: 0 5px;
-// 		padding: 5px;
-// 		border-radius: 5px;
-// 	}
+// 	/*stacking fieldsets above each other*/
+// 	position: relative;
+// }
+// /*Hide all except first fieldset*/
+// #msform fieldset:not(:first-of-type) {
+// 	display: none;
+// }
+// /*inputs*/
+// #msform input, #msform textarea {
+// 	padding: 15px;
+// 	border: 1px solid #ccc;
+// 	border-radius: 3px;
+// 	margin-bottom: 10px;
+// 	width: 100%;
+// 	box-sizing: border-box;
+// 	font-family: montserrat;
+// 	color: #2C3E50;
+// 	font-size: 13px;
+// }
 
-// 	&_pre_btn:hover {
+// // input {
+// // 	margin-top: 10px;
+// // }
+
+// /*buttons*/
+// .regist_user_btn {
+// 	display: flex;
+// 	margin: 10px 0;
+// }
+
+// .regist_user_next_btn,
+// .regist_user_sub_btn {
+//     display: flex; /* 자식 요소들을 수평으로 정렬 */
+//     align-items: center; /* 수직 정렬 */
+// }
+
+// .previous {
+// 	margin: 0 5px;
+// 	padding: 5px;
+// 	border-radius: 5px;
+
+// 	&:hover {
 // 		background-color: #666;
 // 		color: #fff;
-// 		opacity: 0.7;
+// 		opacity: 0.6;
 // 	}
+// }
 
-// 	&_next_btn {
-// 		padding: 5px;
-// 		border-radius: 5px;
-// 	}
+// .next {
+// 	margin: 0 5px;
+// 	padding: 5px;
+// 	border-radius: 5px;
 
-// 	&_next_btn:hover {
+// 	&:hover {
 // 		background-color: #666;
 // 		color: #fff;
-// 		opacity: 0.7;
+// 		opacity: 0.6;
 // 	}
+// }
 
-// 	&_sub_btn {
-// 		margin: 0 5px;
-// 		padding: 5px;
-// 		border-radius: 5px;
-// 	}
+// .submit {
+// 	margin: 0 5px;
+// 	padding: 5px;
+// 	border-radius: 5px;
 
-// 	&_sub_btn:hover {
+// 	&:hover {
 // 		background-color: #0B2161;
 // 		color: #fff;
-// 		opacity: 0.7;
 // 	}
 // }
 
-#msform .action-button {
-	width: 100px;
-	background: #27AE60;
-	font-weight: bold;
-	color: #0B2161;
-	border: 0 none;
-	border-radius: 1px;
-	cursor: pointer;
-	padding: 10px;
-	margin: 10px 5px;
-	text-decoration: none;
-	font-size: 14px;
-}
 
-#msform .action-button:hover, #msform .action-button:focus {
-	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
-}
+// // .regist_user {
+	
+// // 	&_pre_btn {
+// // 		margin: 0 5px;
+// // 		padding: 5px;
+// // 		border-radius: 5px;
+// // 	}
 
-/*headings*/
-.fs-title {
-	font-size: 15px;
-	text-transform: uppercase;
-	color: #2C3E50;
-	margin-bottom: 10px;
-}
+// // 	&_pre_btn:hover {
+// // 		background-color: #666;
+// // 		color: #fff;
+// // 		opacity: 0.7;
+// // 	}
 
-.fs-subtitle {
-	font-weight: normal;
-	font-size: 13px;
-	color: #666;
-	margin-bottom: 20px;
-}
+// // 	&_next_btn {
+// // 		padding: 5px;
+// // 		border-radius: 5px;
+// // 	}
 
-/*progressbar*/
-.progressbar_container {
-	// text-align: center;
-	width: 500px;
-	margin: 0 auto;
-}
+// // 	&_next_btn:hover {
+// // 		background-color: #666;
+// // 		color: #fff;
+// // 		opacity: 0.7;
+// // 	}
 
-#progressbar {
-	margin: 20px;
-	overflow: hidden;
-	/*CSS counters to number the steps*/
-	counter-reset: step;
-	text-align: center;
-	display: flex; /* ul에 flex 적용 */
-    justify-content: space-between; /* 자식 요소들 사이의 간격을 동일하게 조절합니다 */
-    align-items: center;
-}
+// // 	&_sub_btn {
+// // 		margin: 0 5px;
+// // 		padding: 5px;
+// // 		border-radius: 5px;
+// // 	}
 
-#progressbar li {
-	list-style-type: none;
-	color: #0B2161;
-	text-transform: uppercase;
-	font-size: 12px;
-	width: 50%;
-	float: left;
-	position: relative;
-}
+// // 	&_sub_btn:hover {
+// // 		background-color: #0B2161;
+// // 		color: #fff;
+// // 		opacity: 0.7;
+// // 	}
+// // }
 
-#progressbar li:before {
-	content: counter(step);
-	counter-increment: step;
-	width: 20px;
-	line-height: 20px;
-	display: block;
-	font-size: 10px;
-	color: #333;
-	background: white;
-	border-radius: 3px;
-	border: 1px solid #0B2161;
-	margin: 0 auto 5px auto;
-}
+// #msform .action-button {
+// 	width: 100px;
+// 	background: #27AE60;
+// 	font-weight: bold;
+// 	color: #0B2161;
+// 	border: 0 none;
+// 	border-radius: 1px;
+// 	cursor: pointer;
+// 	padding: 10px;
+// 	margin: 10px 5px;
+// 	text-decoration: none;
+// 	font-size: 14px;
+// }
 
-/*progressbar connectors*/
-#progressbar li:after {
-	content: '';
-	width: 100%;
-	// width: 50%;
-	height: 2px;
-	background: white;
-	position: absolute;
-	left: -50%;
-	// left: 0%;
-	// right: 50%;
-	top: 9px;
-	z-index: -1; /*put it behind the numbers*/
-}
+// #msform .action-button:hover, #msform .action-button:focus {
+// 	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+// }
 
-#progressbar li:first-child:after {
-	/*connector not needed before the first step*/
-	content: none; 
-}
+// /*headings*/
+// .fs-title {
+// 	font-size: 15px;
+// 	text-transform: uppercase;
+// 	color: #2C3E50;
+// 	margin-bottom: 10px;
+// }
 
-/*marking active/completed steps green*/
-/*The number of the step and the connector before it = green*/
-#progressbar li.active:before,  #progressbar li.active:after{
-	background: #0B2161;
-	color: #fff;
-}
+// .fs-subtitle {
+// 	font-weight: normal;
+// 	font-size: 13px;
+// 	color: #666;
+// 	margin-bottom: 20px;
+// }
 
-.terms_conditions {
+// /*progressbar*/
+// .progressbar_container {
+// 	// text-align: center;
+// 	width: 500px;
+// 	margin: 0 auto;
+// }
 
-	text-align: center;
+// #progressbar {
+// 	margin: 20px;
+// 	overflow: hidden;
+// 	/*CSS counters to number the steps*/
+// 	counter-reset: step;
+// 	text-align: center;
+// 	display: flex; /* ul에 flex 적용 */
+//     justify-content: space-between; /* 자식 요소들 사이의 간격을 동일하게 조절합니다 */
+//     align-items: center;
+// }
 
-	&_box {
-		border: 1px solid #2C3E50;
-		border-radius: 5px;
-		padding: 20px;
-		width: 50%;
-		text-align: start;
-		margin: 0 auto;
-		height: 30vW;
-    	overflow: auto;
-		font-size: 12px;
-		color: #333;
-	}
+// #progressbar li {
+// 	list-style-type: none;
+// 	color: #0B2161;
+// 	text-transform: uppercase;
+// 	font-size: 12px;
+// 	width: 50%;
+// 	float: left;
+// 	position: relative;
+// }
 
-	&_label {
-		font-size: 13px;
-    	color: #666;
-	}
+// #progressbar li:before {
+// 	content: counter(step);
+// 	counter-increment: step;
+// 	width: 20px;
+// 	line-height: 20px;
+// 	display: block;
+// 	font-size: 10px;
+// 	color: #333;
+// 	background: white;
+// 	border-radius: 3px;
+// 	border: 1px solid #0B2161;
+// 	margin: 0 auto 5px auto;
+// }
 
-	&_checkbox {
-		margin: 0 5px;
-	}
-}
+// /*progressbar connectors*/
+// #progressbar li:after {
+// 	content: '';
+// 	width: 100%;
+// 	// width: 50%;
+// 	height: 2px;
+// 	background: white;
+// 	position: absolute;
+// 	left: -50%;
+// 	// left: 0%;
+// 	// right: 50%;
+// 	top: 9px;
+// 	z-index: -1; /*put it behind the numbers*/
+// }
 
-.account_info_container {
-	display: flex;
-	flex-direction: column;
-    align-items: flex-start;
-}
+// #progressbar li:first-child:after {
+// 	/*connector not needed before the first step*/
+// 	content: none; 
+// }
 
-.account_info_label {
-	// margin: 5px;
-	margin-right: 5px;
-	// border: 2px solid rgba(102, 102, 102, 0.5);
-	border-radius: 3px;
-	background-color: #666;
-	padding: 5px;
-	color: #fff;
-}
+// /*marking active/completed steps green*/
+// /*The number of the step and the connector before it = green*/
+// #progressbar li.active:before,  #progressbar li.active:after{
+// 	background: #0B2161;
+// 	color: #fff;
+// }
 
-.account_info_input_wrapper {
-	display: flex; 
-	align-items: center;
-}
+// // .terms_conditions {
 
-.account_info_input {
-	border: 2px solid rgba(102, 102, 102, 0.5);
-	border-radius: 3px;
-	padding: 5px;
-}
+// // 	text-align: center;
 
-.account_info_input, .radio_options {
-    flex: 1;
-    border: 2px solid rgba(102, 102, 102, 0.5);
-    border-radius: 3px;
-    padding: 5px;
-    display: flex;
-}
+// // 	&_box {
+// // 		border: 1px solid #2C3E50;
+// // 		border-radius: 5px;
+// // 		padding: 20px;
+// // 		width: 50%;
+// // 		text-align: start;
+// // 		margin: 0 auto;
+// // 		height: 30vW;
+// //     	overflow: auto;
+// // 		font-size: 12px;
+// // 		color: #333;
+// // 	}
 
-.radio_options {
-    align-items: center;
-}
+// // 	&_label {
+// // 		font-size: 13px;
+// //     	color: #666;
+// // 	}
+
+// // 	&_checkbox {
+// // 		margin: 0 5px;
+// // 	}
+// // }
+
+// .account_info_container {
+// 	display: flex;
+// 	flex-direction: column;
+//     align-items: flex-start;
+// }
+
+// .account_info_label {
+// 	// margin: 5px;
+// 	margin-right: 5px;
+// 	// border: 2px solid rgba(102, 102, 102, 0.5);
+// 	border-radius: 3px;
+// 	background-color: #666;
+// 	padding: 5px;
+// 	color: #fff;
+// }
+
+// .account_info_input_wrapper {
+// 	display: flex; 
+// 	align-items: center;
+// }
+
+// .account_info_input {
+// 	border: 2px solid rgba(102, 102, 102, 0.5);
+// 	border-radius: 3px;
+// 	padding: 5px;
+// }
+
+// .account_info_input, .radio_options {
+//     flex: 1;
+//     border: 2px solid rgba(102, 102, 102, 0.5);
+//     border-radius: 3px;
+//     padding: 5px;
+//     display: flex;
+// }
+
+// .radio_options {
+//     align-items: center;
+// }
