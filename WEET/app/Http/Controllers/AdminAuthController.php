@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Cookie;
 
 class AdminAuthController extends Controller
 {   
@@ -28,76 +27,54 @@ class AdminAuthController extends Controller
         $result = Admin::where('admin_number', $request->admin_number)->first();
 
         // Admin_flg 저장
-        $admin_flg = Admin::where('admin_id', $result->admin_id)->pluck('admin_flg');
+        $adminFlg = Admin::where('admin_id', $result->admin_id)->pluck('admin_flg');
 
         // 로그인 DB Password 정보 조회
-        if ($result && (Hash::check($request->admin_password, $result->admin_password)) && $admin_flg === '0') {
+        if ($result && (Hash::check($request->admin_password, $result->admin_password)) && $adminFlg === '0') {
             $errorMsg = "아이디 또는 비밀번호가 일치하지 않습니다";
+            Log::debug("### Admin인증 실패 : 아이디 또는 비밀번호 오류 ###");
             return response()->json([
                 'code' => 'ad00'
-                ,'data' => $result
 				,'error' => $errorMsg
             ], 400);  
-            Log::debug("### Admin인증 실패 : 아이디 또는 비밀번호 오류 ###");
-        } else if($result && (Hash::check($request->admin_password, $result->admin_password)) && $admin_flg === '1') {
+        } else if($result && (Hash::check($request->admin_password, $result->admin_password)) && $adminFlg === '1') {
 			// rootAdmin 로그인 처리
             Auth::login($result);
-			// 쿠키생성
-			$cookieName = 'admin_id';
-			$cookieValue = $result->admin_id;
-			// 쿠키 만료시간 60분
-			$cookieExpiration = 60;
-			$cookie = Cookie::make($cookieName, $cookieValue, $cookieExpiration);
+            // JWT 토큰 생성
+            $adminToken = Auth::guard('admin-api')->login($result);
+            Log::debug("### root Admin인증 성공 : main ###");
 
 			// 프론트 데이터 전달
             return response()->json([
                 'code' => 'ad01'
                 ,'data' => $result
-				,'cookie' => $cookieValue
-            ], 200)->withCookie($cookie);
-            Log::debug("### root Admin인증 성공 : main ###");
-		} else if($result && (Hash::check($request->admin_password, $result->admin_password)) && $admin_flg === '2') {
+				,'token' => $adminToken
+            ], 200);
+		} else if($result && (Hash::check($request->admin_password, $result->admin_password)) && $adminFlg === '2') {
             // subAdmin 로그인 처리
             Auth::login($result);
-			// 쿠키생성
-			$cookieName = 'admin_id';
-			$cookieValue = $result->admin_id;
-			// 쿠키 만료시간 60분
-			$cookieExpiration = 60;
-			$cookie = Cookie::make($cookieName, $cookieValue, $cookieExpiration);
+			// JWT 토큰 생성
+            $adminToken = Auth::guard('admin-api')->login($result);
+            Log::debug("### sub Admin인증 성공 : notice ###");
             return response()->json([
                 'code' => 'ad02'
                 ,'data' => $result
-				,'cookie' => $cookieValue
-            ], 200)->withCookie($cookie);
-            Log::debug("### sub Admin인증 성공 : notice ###");
-        } else if ($result && (Hash::check($request->admin_password, $result->admin_password)) && $admin_flg === '3') {
+				,'token' => $adminToken
+            ], 200);
+        } else if ($result && (Hash::check($request->admin_password, $result->admin_password)) && $adminFlg === '3') {
             $errorMsg = "승인되지 않은 계정입니다";
+            Log::debug("### Admin인증 실패 : 승인되지 않은 계정 ###");
             return response()->json([
                 'code' => 'ad03'
-                ,'data' => $result
 				,'error' => $errorMsg
             ], 400);   
-            Log::debug("### Admin인증 실패 : 승인되지 않은 계정 ###");
         }  else {
 			$errorMsg = "오류가 발생했습니다. 페이지를 새로고침 해주세요";
+            Log::debug("### 예외처리 : 페이지 리로딩 요청 ###");
 			return response()->json([
                 'code' => 'ad04',
                 'error' => $errorMsg
             ], 400);
 		}
-
-
-        // Admin 인증
-        
-
-        if(Auth::check()) {
-            // 세션 내 Admin_number 저장
-            session($result->only('admin_number'));
-        } else {
-            $errorMsg = '새로고침 후 재로그인 해주세요';
-            return view('admin')->withErrors($errorMsg);
-            Log::debut("### 세션 저장 실패 - 재로그인 요청 ###");
-        }
     }
 }
