@@ -20938,11 +20938,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    openLoginModal: function openLoginModal() {
-      this.showmodal = true;
+    toggleModal: function toggleModal() {
+      this.showmodal = !this.showmodal; // 모달을 열고 닫는 토글 메서드
     },
     closeModal: function closeModal() {
-      this.showmodal = false;
+      this.showmodal = false; // 모달을 닫는 메서드
     }
   }
 });
@@ -21357,8 +21357,8 @@ var _hoisted_10 = {
 var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex scene\" style=\"width:300px;\"><section class=\"card\"><div class=\"login_modal\"><div class=\"login_modal_headline\"><div class=\"card__heading\"><img src=\"" + _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\"></div></div><div class=\"login_modal_text\"><div class=\"login_modal_text_comment\"><p>한눈에 예매 항공권을 확인하고</p><p>다양한 항공권 가격을 비교해보세요</p></div></div><form class=\"card__form\"><div class=\"card__form_email\"><label for=\"email\">Email:</label><input id=\"email\" class=\"card__input\" type=\"email\"></div><div class=\"card__form_pw\"><label for=\"password\">Password:</label><input id=\"password\" class=\"card__input\" type=\"password\"></div><div class=\"card__form_button\"><div><button class=\"card__button\" type=\"button\"><span>Login</span></button></div><div><button class=\"card__button\" type=\"button\"><span><a href=\"/signup\">Sign Up</a></span></button></div></div><hr><div class=\"card__social_login_text\"><p>- Social Login -</p></div><div class=\"card__social_btn\"><button class=\"card__social_btn_google\"><img src=\"" + _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__["default"] + "\" alt=\"\"></button><button class=\"card__social_btn_kakao\"><img src=\"" + _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__["default"] + "\" alt=\"\"></button></div></form></div></section></div>", 1);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return _ctx.$route.fullPath != '/admin' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[0] || (_cache[0] = function ($event) {
-      return $options.openLoginModal = true;
+    onClick: _cache[0] || (_cache[0] = function () {
+      return $options.toggleModal && $options.toggleModal.apply($options, arguments);
     })
   }, "login")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인모달 "), $data.showmodal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[1] || (_cache[1] = function ($event) {
@@ -22082,7 +22082,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".mypage_banner {\n  background-image: \"../../../public/images/banner.jpg\";\n  background-size: cover;\n}\n.mypage_container {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  background-color: #C8D7FF;\n}\n.mypage_box1 {\n  width: 30%;\n  border: 1px solid #000;\n  border-radius: 1rem;\n  background-color: #78A9ED;\n  margin: 1rem 1rem;\n}\n.mypage_mention {\n  text-align: center;\n  padding: 15%;\n}\n.mypage_mention_1 {\n  font-size: 2rem;\n}\n.mypage_mention_2 {\n  font-size: 1.5rem;\n}\n.mypage_menu_button {\n  width: 95%;\n  border-bottom: 1px solid #000;\n  padding: 7px 20px;\n}\n.mypage_menu_button_content {\n  display: inline;\n  font-size: 1.5rem;\n  padding: 0 5px;\n}\n.mypage_menu_button_content svg {\n  display: inline;\n}\n.mypage_menu_button_content_btn {\n  display: inline;\n}\n.mypage_menu_button_content_btn svg {\n  font-size: 1.5rem;\n  float: right;\n}\n.mypage_box2 {\n  width: 65%;\n  border: 1px solid #000;\n  border-radius: 1rem;\n  background-color: #78A9ED;\n  margin: 1rem 1rem;\n}\n.mypage_menu_detail_frame {\n  padding: 10% 15%;\n}\n.mypage_menu_detail h1 {\n  width: 100%;\n  text-align: center;\n  font-size: 3rem;\n  padding: 5%;\n}\n.mypage_menu_detail_input {\n  padding: 5%;\n}\n.mypage_menu_detail_input p {\n  display: inline-block;\n}\n.mypage_menu_detail_input_title2 {\n  color: red;\n}\n.mypage_menu_detail_input input, .mypage_menu_detail_input select {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  color: black;\n  font-size: 1.5rem;\n  border-radius: 0.5rem;\n  padding: 3%;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

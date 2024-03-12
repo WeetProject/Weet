@@ -76,22 +76,22 @@
 </template>
 
 <script>
-import Header from '../Layout/HeaderComponent.vue';
+// import Header from '../Layout/HeaderComponent.vue';
 
 export default {
     name: 
         'LoginComponent'
     ,
 
-    components: {
-        Header
-    },
+    // components: {
+    //     Header
+    // },
 
-    data() {
-        return {
-            showmodal: false,
-        }
-	}
+    // data() {
+    //     return {
+    //         showmodal: false,
+    //     }
+	// }
 }
 </script>
 

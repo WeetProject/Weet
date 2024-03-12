@@ -16,7 +16,7 @@
 					</button>
 					<div class="header_nav_login_btn">
 						<div class="header_nav_login_btn_user">
-							<button @click="openLoginModal = true">login</button>
+							<button @click="toggleModal">login</button>
 						</div>
 
 					<!-- 로그인모달 -->
@@ -111,13 +111,13 @@
 	    },
 
 		methods: {
-			openLoginModal() {
-				this.showmodal = true;
-			},
-			closeModal() {
-				this.showmodal = false;
-			}
-		}
+        	toggleModal() {
+            	this.showmodal = !this.showmodal; // 모달을 열고 닫는 토글 메서드
+        	},
+        	closeModal() {
+            	this.showmodal = false; // 모달을 닫는 메서드
+        	}
+    	}
     }
 </script>
 
