@@ -112,7 +112,48 @@
             </div>
             <div class="reservation_title_2">여행자 정보</div>
             <div class="reservation_passenger_box">
-                <div class="reservation_title_4">탑승객 1</div>
+                <div class="reservation_spacebetween">
+                    <div class="reservation_icon_flex">
+                        <div class="reservation_title_4">탑승객 1</div>
+                        <div>(성인한공권)</div>
+                    </div>
+                    <div class="reservation_input_reset_btn">
+                        초기화
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="reservation_grid">
+                    <div>
+                        <input type="text" class="reservation_input" placeholder="성(영문)">
+                        <input type="text" class="reservation_input" placeholder="이름(중간 이름 포함)">
+                    </div>
+                    <div>
+                        <select name="" id="" class="reservation_input" aria-placeholder="성별">
+                            <option value="" disabled selected hidden class="reservation_placeholder">성별</option>
+                            <option value="">남자(male)</option>
+                            <option value="">여자(female)</option>
+                        </select>
+                        <input type="date" class="reservation_input" placeholder="생년월일">
+                        <fieldset class="reservation_input">
+                            <legend >국적</legend>
+                            <select name="" id="" >
+                                <option value="">대한민국</option>
+                            </select>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset class="reservation_input">
+                            <legend >신분증 종류</legend>
+                            <select name="" id="">
+                                <option value="">여권</option>
+                            </select>
+                        </fieldset>
+                        <input type="text" class="reservation_input">
+                        <input type="date" class="reservation_input">
+                    </div>
+                </div>
             </div>
         </div>
     </div>

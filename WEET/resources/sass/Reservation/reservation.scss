@@ -138,22 +138,41 @@
 }
 .reservation_icon_blue{
     color: #249ac2;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 .reservation_icon_gray{
     color: #adadad;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 .reservation_icon_flex{
     display: flex;
     align-items: center;
+    gap: 5px;
+}
+.reservation_input_reset_btn{
+    color: #084AFF;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.reservation_input_reset_btn:hover{
+    cursor: pointer;
 }
 .reservation_passenger_box{
     background-color: #fff;
     border-radius: 10px;
     padding: 15px;
 }
-
+.reservation_spacebetween{
+    display: flex;
+    justify-content: space-between;
+}
+.reservation_placeholder{
+    color: #ededed;
+}
+.reservation_input{
+    border: 1px solid #ededed;
+}
 @include mobile {
     .reservation_layout{
         width: 100vw;
