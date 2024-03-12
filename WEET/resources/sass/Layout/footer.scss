@@ -58,7 +58,58 @@
 }
 
 @include tablet {
+    .header_mobile_nav_container {
+        display: none;
+    }
 
+    footer {
+        background-color: #081742;
+        opacity: 0.9;
+        color: #ffff;
+        width: 100%;
+        padding: 10px;
+        font-size: 10px;
+        overflow: auto;
+        height: 140px;
+        position: relative;
+        transform: translateY(0%);
+    }
+
+    .footer_container {
+        // display: flex;
+        // justify-content: space-between;
+
+        &_text {
+            // display: flex;
+            width: 100%;
+
+            &_personal_info {
+                display: flex;
+                justify-content: center;
+                align-content: center;
+            }
+        }
+
+        &_icons {
+            display: flex;
+            font-size: 30px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+
+            &_instar {
+                margin: 0 10px;
+            }
+
+            &_facebook {
+                margin: 0 10px;
+            }
+
+            &_amadeus {
+                margin: 0 10px;
+            }
+        }
+    }
 }
 
 @include mobile {

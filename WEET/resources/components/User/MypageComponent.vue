@@ -119,9 +119,9 @@
                         <!-- <p class="mypage_menu_detail_input_title">*</p> -->
                         <div class="mypage_menu_detail_input_cont">
                             <select name="" id="">
-                                <option value="" selected>국가번호</option>
+                                <option value="" selelcted>국가번호</option>
                             </select>
-                            <input type="text">
+                            <input type="text"></input>
                         </div>
                     </div>
                 </div>  
@@ -139,5 +139,5 @@ export default {
 
 
 <style lang="scss">
-	@import '../sass/User/mypage.scss';
+	@import '../../sass/User/mypage.scss';
 </style>

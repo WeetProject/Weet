@@ -1,10 +1,11 @@
 <template>
     <div class="regist_container_wrap">
         <div class="regist_container">
-            <main class="">
+            <main class="regist_terms_conditions_chk" style="display: none;">
                 <div class="regist_logo_div">
                     <div class="regist_logo_div_main_logo">
-                        <img src="../../public/images/WEET_logo.png" alt="">
+                        <!-- <img src="../../public/images/WEET_logo.png" alt=""> -->
+                        <img src="../../../public/images/WEET_logo.png" alt="">
                     </div>
                     <div class="regist_logo_div_title">
                         <h1>SIGN UP</h1>
@@ -69,7 +70,7 @@
         </div>
 
         <div class="regist_container">
-            <main class="regist_user_info">
+            <!-- <main class="regist_user_info">
                 <div class="terms_conditions_title">
                     <h1><strong>2. WEET 계정정보</strong></h1>
                 </div>
@@ -116,6 +117,97 @@
                         <td><input type="date" placeholder=""></td>
                     </tr>
                 </table>
+            </main> -->
+
+            <main class="regist_user_info">
+                <div class="regist_logo_div">
+                    <div class="regist_logo_div_main_logo">
+                        <!-- <img src="../../public/images/WEET_logo.png" alt=""> -->
+                        <img src="../../../public/images/WEET_logo.png" alt="">
+                    </div>
+                    <div class="regist_logo_div_title">
+                        <h1>SIGN UP</h1>
+                    </div>
+                </div>
+                <div class="terms_conditions_title">
+                    <h1><strong>2. WEET 계정정보</strong></h1>
+                </div>
+                <div class="regist_user_info_div">
+                    <div class="regist_user_info_label">
+                        <div>
+                            <span>이메일</span>
+                        </div>
+                        <div>
+                            <span>비밀번호</span>
+                        </div>
+                        <div>
+                            <span>비밀번호 확인</span>
+                        </div>
+                        <div>
+                            <span>이름</span>
+                        </div>
+                        <div>
+                            <span>연락처</span>
+                        </div>
+                        <div>
+                            <span>우편번호</span>
+                        </div>
+                        <div>
+                            <span>주소</span>
+                        </div>
+                        <div>
+                            <span>성별</span>
+                        </div>
+                        <div>
+                            <span>생년월일</span>
+                        </div>
+                    </div>
+                    <div class="regist_user_info_box">
+                        <div class="regist_user_info_box_content">
+                            <label for="hidden">이메일</label>
+                            <input type="email" placeholder="email">
+                        </div>
+                        <div class="regist_user_info_box_content">
+                            <label for="hidden">비밀번호</label>
+                            <input type="password" placeholder="password">
+                        </div>
+                        <div class="regist_user_info_box_content">
+                            <label for="hidden">비밀번호 확인</label>
+                            <input type="password" placeholder="password chk">
+                        </div>
+                        <div class="regist_user_info_box_content">
+                            <label for="hidden">이름</label>
+                            <input type="text" placeholder="name">
+                        </div>
+                        <div class="regist_user_info_box_content">
+                            <label for="hidden">연락처</label>
+                            <input type="tel" placeholder="tel">
+                        </div>
+                        <div class="regist_user_info_box_content">
+                            <label for="hidden">우편번호</label>
+                            <input type="text" placeholder="">
+                        </div>
+                        <div class="regist_user_info_box_content">
+                            <label for="hidden">주소</label>
+                            <input type="address" placeholder="address">
+                        </div>
+                        <div class="regist_user_info_box_content_gender">
+                            <label for="hidden">성별</label>
+                            <div>
+                                <input type="radio" id="male" name="gender">
+                                <label for="male">남</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="female" name="gender">
+                                <label for="female">여</label>
+                            </div>
+                        </div>
+                        <div class="regist_user_info_box_content">
+                            <label for="hidden">생년월일</label>
+                            <input type="date" placeholder="">
+                        </div>
+                    </div>
+                </div>    
             </main>
         </div>
     </div>
@@ -135,6 +227,6 @@ export default {
 
 </script>
 
-<style>
-  
+<style lang="scss">
+	@import '../../sass/User/signup.scss';
 </style>
