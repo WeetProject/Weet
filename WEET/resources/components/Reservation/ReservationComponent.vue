@@ -130,7 +130,7 @@
                         <input type="text" class="reservation_input" placeholder="이름(중간 이름 포함)">
                     </div>
                     <div class="grid gap-4 mb-4 md:grid-cols-3">
-                        <select id="countries" class="reservation_input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <select id="" class="w-full reservation_input">
                             <option value="" disabled selected hidden class="reservation_placeholder">성별</option>
                             <option value="">남자(male)</option>
                             <option value="">여자(female)</option>
@@ -138,7 +138,7 @@
                         <input type="date" class="reservation_input" placeholder="생년월일">
                         <fieldset class="reservation_input">
                             <legend >국적</legend>
-                            <select id="countries" class="w-full">
+                            <select id="" class="w-full">
                                 <option value="">대한민국</option>
                             </select>
                         </fieldset>
@@ -150,7 +150,7 @@
                                 <option value="">여권</option>
                             </select>
                         </fieldset>
-                        <input type="text" class="reservation_input">
+                        <input type="text" class="reservation_input" placeholder="여권번호">
                         <input type="date" class="reservation_input">
                     </div>
                 </div>
@@ -173,7 +173,7 @@
                         <span class="pr-3">
                             <span class="reservation_icon_blue">47400원</span>/1인당
                         </span>
-                        <input type="radio" name="refund">
+                        <input type="radio" name="refund" class="cursor-pointer">
                     </div>
                 </div>
                 <div class="reservation_refund_area">
@@ -189,7 +189,7 @@
                         <span class="pr-3">
                             <span class="reservation_icon_blue">32500원</span>/1인당
                         </span>
-                        <input type="radio" name="refund">
+                        <input type="radio" name="refund" class="cursor-pointer">
                     </div>
                 </div>
                 <div class="reservation_refund_area">
@@ -203,7 +203,7 @@
                         </div>
                     </div>
                     <div>
-                        <input type="radio" name="refund">
+                        <input type="radio" name="refund" class="cursor-pointer">
                     </div>
                 </div>
             </div>
