@@ -130,7 +130,7 @@
                         <input type="text" class="reservation_input" placeholder="이름(중간 이름 포함)">
                     </div>
                     <div>
-                        <select name="" id="" class="reservation_input" aria-placeholder="성별">
+                        <select id="countries" class="reservation_input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="" disabled selected hidden class="reservation_placeholder">성별</option>
                             <option value="">남자(male)</option>
                             <option value="">여자(female)</option>
@@ -164,5 +164,5 @@ export default {
 }
 </script>
 <style lang="scss">
-	// @import '../sass/Reservation/reservation.scss';
+	@import '../sass/Reservation/reservation.scss';
 </style>
