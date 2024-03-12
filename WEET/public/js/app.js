@@ -20938,11 +20938,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    openLoginModal: function openLoginModal() {
-      this.showmodal = true;
+    toggleModal: function toggleModal() {
+      this.showmodal = !this.showmodal; // 모달을 열고 닫는 토글 메서드
     },
     closeModal: function closeModal() {
-      this.showmodal = false;
+      this.showmodal = false; // 모달을 닫는 메서드
     }
   }
 });
@@ -21357,8 +21357,8 @@ var _hoisted_10 = {
 var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex scene\" style=\"width:300px;\"><section class=\"card\"><div class=\"login_modal\"><div class=\"login_modal_headline\"><div class=\"card__heading\"><img src=\"" + _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\"></div></div><div class=\"login_modal_text\"><div class=\"login_modal_text_comment\"><p>한눈에 예매 항공권을 확인하고</p><p>다양한 항공권 가격을 비교해보세요</p></div></div><form class=\"card__form\"><div class=\"card__form_email\"><label for=\"email\">Email:</label><input id=\"email\" class=\"card__input\" type=\"email\"></div><div class=\"card__form_pw\"><label for=\"password\">Password:</label><input id=\"password\" class=\"card__input\" type=\"password\"></div><div class=\"card__form_button\"><div><button class=\"card__button\" type=\"button\"><span>Login</span></button></div><div><button class=\"card__button\" type=\"button\"><span><a href=\"/signup\">Sign Up</a></span></button></div></div><hr><div class=\"card__social_login_text\"><p>- Social Login -</p></div><div class=\"card__social_btn\"><button class=\"card__social_btn_google\"><img src=\"" + _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__["default"] + "\" alt=\"\"></button><button class=\"card__social_btn_kakao\"><img src=\"" + _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__["default"] + "\" alt=\"\"></button></div></form></div></section></div>", 1);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return _ctx.$route.fullPath != '/admin' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[0] || (_cache[0] = function ($event) {
-      return $options.openLoginModal = true;
+    onClick: _cache[0] || (_cache[0] = function () {
+      return $options.toggleModal && $options.toggleModal.apply($options, arguments);
     })
   }, "login")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인모달 "), $data.showmodal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[1] || (_cache[1] = function ($event) {
@@ -21381,14 +21381,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _public_images_Main_search_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../public/images/Main_search.png */ "./public/images/Main_search.png");
+
 
 var _hoisted_1 = {
-  "class": "main_container"
+  "class": "box-border main_container"
 };
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"main_select_ticket_section\"><div class=\"main_select_ticket_starting_point\"></div><div class=\"main_select_ticket_destination_area\"></div><div class=\"main_select_ticket_outbound_flight_area\"></div><div class=\"main_select_ticket_inbound_flight_area\"></div><div class=\"main_select_ticket_traveler_seatclass_area\"></div></div><div class=\"main_search_ticket_section\"><div class=\"main_search_ticket_image_area\"></div><div class=\"main_search_ticket_airline_area\"></div></div><div class=\"main_ad_slide_section\"></div><div class=\"main_search_tourist_spot_section\"></div><div class=\"main_tourist_spot_recommendation_section\"><div class=\"main_tourist_spot_recommendation_title_area\"></div><div class=\"main_tourist_spot_recommendation_image_area\"></div></div><div class=\"main_monthly_tourist_spot_section\"><div class=\"main_monthly_tourist_spot_first_area\"></div><div class=\"main_monthly_tourist_spot_second_area\"></div><div class=\"main_monthly_tourist_spot_third_area\"></div></div>", 6);
-var _hoisted_8 = [_hoisted_2];
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"main_section\"><div class=\"main_select_ticket_section\"><div class=\"main_select_ticket_border main_select_ticket_starting_point\"><p class=\"text-lg font-semibold main_select_ticket_title\">출발지</p><p class=\"text-base text-center main_select_ticket_content\">부산 김해</p></div><div class=\"main_select_ticket_border main_select_ticket_destination_area\"><p class=\"text-lg font-semibold main_select_ticket_title\">도착지</p><p class=\"text-base text-center main_select_ticket_content\">베트남 나트랑</p></div><div class=\"main_select_ticket_border main_select_ticket_outbound_flight_area\"><p class=\"text-lg font-semibold main_select_ticket_title\">가는 편</p><p class=\"text-base text-center main_select_ticket_content\">날짜 입력</p></div><div class=\"main_select_ticket_border main_select_ticket_inbound_flight_area\"><p class=\"text-lg font-semibold main_select_ticket_title\">오는 편</p><p class=\"text-base text-center main_select_ticket_content\">날짜 입력</p></div><div class=\"main_select_ticket_border main_select_ticket_traveler_seatclass_area\"><p class=\"text-lg font-semibold main_select_ticket_title\">여행자 및 좌석 등급</p><p class=\"text-base text-center main_select_ticket_content\">1 성인, 일반석</p></div></div><div class=\"main_search_ticket_section\"><div class=\"main_search_ticket_image_area\"><img src=\"" + _public_images_Main_search_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\"></div><div class=\"main_search_ticket_airline_area\"><a class=\"text-center\" href=\"#\">검색하기</a></div></div><div class=\"main_ad_slide_section\"></div><div class=\"main_search_tourist_spot_section\"><input type=\"text\" placeholder=\"여행지를 검색해보세요\"></div><div class=\"main_tourist_spot_recommendation_section\"><div class=\"main_tourist_spot_recommendation_border main_tourist_spot_recommendation_title_area\"><p class=\"text-xl\">2024년도 추천 여행지가 궁금하다면</p></div><div class=\"main_tourist_spot_recommendation_border main_tourist_spot_recommendation_image_area\"><p>image</p></div></div><div class=\"main_monthly_tourist_spot_section\"><div class=\"main_monthly_tourist_spot_title_area\"><p>이달의 실속 여행지 TOP3</p></div><div class=\"main_monthly_tourist_spot_first_area\"></div><div class=\"main_monthly_tourist_spot_second_area\"></div><div class=\"main_monthly_tourist_spot_third_area\"></div></div></div>", 1);
+var _hoisted_3 = [_hoisted_2];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [].concat(_hoisted_8));
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [].concat(_hoisted_3));
 }
 
 /***/ }),
@@ -22082,7 +22084,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@media (min-width: 1024px) {\n.main_section {\n    width: 1000px;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 50px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_border {\n    width: 100%;\n    height: 120px;\n    margin: 0 5px;\n    padding: 10px 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_border:nth-child(odd) {\n    border: 1px solid #ededed;\n    border-radius: 20px 0 0 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_border:nth-child(even) {\n    border: 1px solid #ededed;\n    border-radius: 0 20px 20px 0;\n}\n.main_section .main_select_ticket_section .main_select_ticket_border:last-child {\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22303,6 +22305,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/Kakao_logo.png?5a130e9424ec4e0cd1418ce354a1b585");
+
+/***/ }),
+
+/***/ "./public/images/Main_search.png":
+/*!***************************************!*\
+  !*** ./public/images/Main_search.png ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/Main_search.png?c3c9d4b6f88ffe3c0654875e7d2a7d4f");
 
 /***/ }),
 
