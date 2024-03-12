@@ -1,3 +1,5 @@
+@import "../mixin";
+
 // 헤더파트
 .reservation_header{
     display: flex;
@@ -27,7 +29,7 @@
 }
 .reservation_header_ball_1{
     background-color: #0B4AFF;
-}
+}   
 .reservation_header_ball_2{
     background-color: #C5DFFF;
 }
