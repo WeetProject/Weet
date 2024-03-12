@@ -21781,7 +21781,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Montserrat);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n/*custom font*/\n/*basic reset*/\n* {\n  margin: 0;\n  padding: 0;\n}\nhtml {\n  height: 100%;\n  /*Image only BG fallback*/\n  /*background = gradient + image pattern combo*/\n  background-color: #fff;\n}\nbody {\n  font-family: montserrat, arial, verdana;\n}\n.regist_container {\n  color: #666;\n}\n\n/*form styles*/\n#msform {\n  width: 400px;\n  margin: 50px auto;\n  text-align: center;\n  position: relative;\n}\nfieldset {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n#msform fieldset {\n  background: white;\n  border: 0 none;\n  border-radius: 3px;\n  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);\n  padding: 20px 30px;\n  box-sizing: border-box;\n  width: 80%;\n  margin: 0 10%;\n  /*stacking fieldsets above each other*/\n  position: relative;\n}\n\n/*Hide all except first fieldset*/\n#msform fieldset:not(:first-of-type) {\n  display: none;\n}\n\n/*inputs*/\n#msform input, #msform textarea {\n  padding: 15px;\n  border: 1px solid #ccc;\n  border-radius: 3px;\n  margin-bottom: 10px;\n  width: 100%;\n  box-sizing: border-box;\n  font-family: montserrat;\n  color: #2C3E50;\n  font-size: 13px;\n}\n\n/*buttons*/\n.regist_user_btn {\n  display: flex;\n  margin: 10px 0;\n}\n.regist_user_next_btn,\n.regist_user_sub_btn {\n  display: flex; /* 자식 요소들을 수평으로 정렬 */\n  align-items: center; /* 수직 정렬 */\n}\n.previous {\n  margin: 0 5px;\n  padding: 5px;\n  border-radius: 5px;\n}\n.previous:hover {\n  background-color: #666;\n  color: #fff;\n  opacity: 0.6;\n}\n.next {\n  margin: 0 5px;\n  padding: 5px;\n  border-radius: 5px;\n}\n.next:hover {\n  background-color: #666;\n  color: #fff;\n  opacity: 0.6;\n}\n.submit {\n  margin: 0 5px;\n  padding: 5px;\n  border-radius: 5px;\n}\n.submit:hover {\n  background-color: #0B2161;\n  color: #fff;\n}\n#msform .action-button {\n  width: 100px;\n  background: #27AE60;\n  font-weight: bold;\n  color: #0B2161;\n  border: 0 none;\n  border-radius: 1px;\n  cursor: pointer;\n  padding: 10px;\n  margin: 10px 5px;\n  text-decoration: none;\n  font-size: 14px;\n}\n#msform .action-button:hover, #msform .action-button:focus {\n  box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;\n}\n\n/*headings*/\n.fs-title {\n  font-size: 15px;\n  text-transform: uppercase;\n  color: #2C3E50;\n  margin-bottom: 10px;\n}\n.fs-subtitle {\n  font-weight: normal;\n  font-size: 13px;\n  color: #666;\n  margin-bottom: 20px;\n}\n\n/*progressbar*/\n.progressbar_container {\n  width: 500px;\n  margin: 0 auto;\n}\n#progressbar {\n  margin: 20px;\n  overflow: hidden;\n  /*CSS counters to number the steps*/\n  counter-reset: step;\n  text-align: center;\n  display: flex; /* ul에 flex 적용 */\n  justify-content: space-between; /* 자식 요소들 사이의 간격을 동일하게 조절합니다 */\n  align-items: center;\n}\n#progressbar li {\n  list-style-type: none;\n  color: #0B2161;\n  text-transform: uppercase;\n  font-size: 12px;\n  width: 50%;\n  float: left;\n  position: relative;\n}\n#progressbar li:before {\n  content: counter(step);\n  counter-increment: step;\n  width: 20px;\n  line-height: 20px;\n  display: block;\n  font-size: 10px;\n  color: #333;\n  background: white;\n  border-radius: 3px;\n  border: 1px solid #0B2161;\n  margin: 0 auto 5px auto;\n}\n\n/*progressbar connectors*/\n#progressbar li:after {\n  content: \"\";\n  width: 100%;\n  height: 2px;\n  background: white;\n  position: absolute;\n  left: -50%;\n  top: 9px;\n  z-index: -1; /*put it behind the numbers*/\n}\n#progressbar li:first-child:after {\n  /*connector not needed before the first step*/\n  content: none;\n}\n\n/*marking active/completed steps green*/\n/*The number of the step and the connector before it = green*/\n#progressbar li.active:before, #progressbar li.active:after {\n  background: #0B2161;\n  color: #fff;\n}\n.terms_conditions {\n  text-align: center;\n}\n.terms_conditions_box {\n  border: 1px solid #2C3E50;\n  border-radius: 5px;\n  padding: 20px;\n  width: 50%;\n  text-align: start;\n  margin: 0 auto;\n  height: 30vW;\n  overflow: auto;\n  font-size: 12px;\n  color: #333;\n}\n.terms_conditions_label {\n  font-size: 13px;\n  color: #666;\n}\n.terms_conditions_checkbox {\n  margin: 0 5px;\n}\n.account_info_container {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.account_info_label {\n  margin-right: 5px;\n  border-radius: 3px;\n  background-color: #666;\n  padding: 5px;\n  color: #fff;\n}\n.account_info_input_wrapper {\n  display: flex;\n  align-items: center;\n}\n.account_info_input {\n  border: 2px solid rgba(102, 102, 102, 0.5);\n  border-radius: 3px;\n  padding: 5px;\n}\n.account_info_input, .radio_options {\n  flex: 1;\n  border: 2px solid rgba(102, 102, 102, 0.5);\n  border-radius: 3px;\n  padding: 5px;\n  display: flex;\n}\n.radio_options {\n  align-items: center;\n}\n\n/* VARIABLES */\n/* BASE */\n.header_container {\n  font: 100 100%/1.6 \"Heebo\", sans-serif;\n  overflow-x: hidden;\n  width: 100%;\n}\n.visually-hidden {\n  clip: rect(0 0 0 0);\n  -webkit-clip-path: inset(50%);\n          clip-path: inset(50%);\n  height: 1px;\n  overflow: hidden;\n  position: absolute;\n  white-space: nowrap;\n  width: 1px;\n}\n.flex {\n  align-items: center;\n  justify-content: center;\n}\n.scene {\n  position: relative;\n}\n.login_modal_headline {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.login_modal_text {\n  font-size: 0.6rem;\n  text-align: start;\n  margin: 10px 0;\n}\n.login_modal_text_login {\n  font-size: 1rem;\n  font-weight: bold;\n}\n.modal-content {\n  /* 기존 스타일 유지 */\n  background-color: transparent;\n  padding: 20px;\n  border-radius: 5px;\n}\n.modal {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n  display: flex;\n  justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n  align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n  -webkit-backdrop-filter: blur(10px);\n          backdrop-filter: blur(10px);\n  background: #fff;\n  border: 1px solid rgba(254, 254, 254, 0.18);\n  border-radius: 15px;\n  box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n  max-width: 300px;\n  overflow: hidden;\n  padding: 50px;\n  position: relative;\n  text-align: center;\n  z-index: 1;\n}\n.card__heading {\n  font-size: 1.35rem;\n  font-weight: 200;\n}\n.card__heading span {\n  font-weight: bold;\n}\n.card__figure {\n  height: auto;\n  margin: 0 auto;\n  max-width: 225px;\n  width: 60%;\n}\n.card__image {\n  border-radius: 50%;\n  max-width: 100%;\n}\n.card__input {\n  background: rgba(217, 217, 217, 0.5);\n  border: 1px solid rgba(254, 254, 254, 0.3);\n  border-radius: 3px;\n  box-sizing: border-box;\n  color: #FEFEFE;\n  display: block;\n  font-size: 1rem;\n  letter-spacing: 0.15rem;\n  width: 100%;\n}\n.card__input:focus, .card__input:active {\n  background: rgba(254, 254, 254, 0.08);\n  border: 1px solid rgba(254, 254, 254, 0.75);\n  outline: none;\n}\n.card__form_email {\n  text-align: start;\n}\n.card__form_email label {\n  font-size: 10px;\n}\n.card__form_pw {\n  text-align: start;\n}\n.card__form_pw label {\n  font-size: 10px;\n}\n.card__button {\n  background-color: #C5DFFF;\n  border: none;\n  border-radius: 3px;\n  color: #362100;\n  margin: 15px auto 0 auto;\n  padding: 3px 10px;\n  font-size: 13px;\n}\n.card__button:focus, .card__button:active {\n  background: rgba(255, 255, 255, 0.75);\n  outline: none;\n}\n.card__form_button {\n  display: flex;\n  justify-content: space-evenly;\n  margin-bottom: 20px;\n}\n.card__social_login_text {\n  font-size: 15px;\n  color: #d9d9d9;\n  margin-top: 8px;\n}\n.card__social_btn {\n  border-radius: 3px;\n  box-sizing: border-box;\n  color: #FEFEFE;\n  display: block;\n  font-size: 1rem;\n  letter-spacing: 0.15rem;\n  width: 100%;\n  margin-top: 5px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n  background: rgba(254, 254, 254, 0.08);\n  border: 1px solid rgba(254, 254, 254, 0.75);\n  outline: none;\n}\n.card__social_btn_google {\n  width: 2rem;\n  margin-right: 5px;\n}\n.card__social_btn_kakao {\n  width: 2rem;\n  margin-left: 5px;\n}\n.modal {\n  background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n.header_container {\n  width: 100%;\n  padding: 10px;\n}\n.header_nav {\n  display: flex;\n  justify-content: space-between;\n}\n.header_nav_logo {\n  margin: 0 10px;\n  font-weight: bold;\n  font-size: 30px;\n  width: 100px;\n}\n.header_nav_user_btn {\n  display: flex;\n  align-items: center;\n  margin: 0 10px;\n  color: #0B2161;\n}\n.header_nav_login_btn {\n  font-weight: bold;\n  margin-left: 10px;\n}\n.card__heading {\n  width: 100px;\n}\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\nfooter {\n  background-color: #081742;\n  opacity: 0.9;\n  color: white;\n  width: 100%;\n  padding: 10px;\n  font-size: 10px;\n  overflow: auto;\n  height: 140px;\n  position: relative;\n  transform: translateY(0%);\n}\n.footer_container_text {\n  width: 100%;\n}\n.footer_container_text_personal_info {\n  display: flex;\n  justify-content: center;\n  align-content: center;\n}\n.footer_container_icons {\n  display: flex;\n  font-size: 30px;\n  align-items: center;\n  justify-content: center;\n  margin-top: 10px;\n}\n.footer_container_icons_instar {\n  margin: 0 10px;\n}\n.footer_container_icons_facebook {\n  margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n  margin: 0 10px;\n}\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n.mypage_container {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  background-color: #C8D7FF;\n}\n.mypage_box1 {\n  width: 30%;\n  border: 1px solid #000;\n  border-radius: 1rem;\n  background-color: #78A9ED;\n  margin: 1rem 1rem;\n}\n.mypage_mention {\n  text-align: center;\n  padding: 15%;\n}\n.mypage_mention_1 {\n  font-size: 2rem;\n}\n.mypage_mention_2 {\n  font-size: 1.5rem;\n}\n.mypage_menu_button {\n  width: 95%;\n  border-bottom: 1px solid #000;\n  padding: 7px 20px;\n}\n.mypage_menu_button_content {\n  display: inline;\n  font-size: 1.5rem;\n  padding: 0 5px;\n}\n.mypage_menu_button_content svg {\n  display: inline;\n}\n.mypage_menu_button_content_btn {\n  display: inline;\n}\n.mypage_menu_button_content_btn svg {\n  font-size: 1.5rem;\n  float: right;\n}\n.mypage_box2 {\n  width: 65%;\n  border: 1px solid #000;\n  border-radius: 1rem;\n  background-color: #78A9ED;\n  margin: 1rem 1rem;\n}\n.mypage_menu_detail_frame {\n  padding: 10% 15%;\n}\n.mypage_menu_detail h1 {\n  width: 100%;\n  text-align: center;\n  font-size: 3rem;\n  padding: 5%;\n}\n.mypage_menu_detail_input {\n  padding: 5%;\n}\n.mypage_menu_detail_input p {\n  display: inline-block;\n}\n.mypage_menu_detail_input_title2 {\n  color: red;\n}\n.mypage_menu_detail_input input, .mypage_menu_detail_input select {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  color: black;\n  font-size: 1.5rem;\n  border-radius: 0.5rem;\n  padding: 3%;\n}\n.reservation_header {\n  display: flex;\n  justify-content: space-between;\n  padding: 20px;\n  position: absolute;\n  width: 100%;\n}\n.reservation_header_box {\n  width: 100px;\n  text-align: center;\n}\n.reservation_header_box span {\n  font-weight: bold;\n  font-size: 15px;\n}\n.reservation_header_ball_1, .reservation_header_ball_2 {\n  line-height: 60px;\n  height: 60px;\n  width: 60px;\n  font-size: 35px;\n  border-radius: 100%;\n  font-weight: bold;\n  margin: 0 auto;\n  color: #fff;\n  box-shadow: 0 10px 15px -4px rgba(125, 125, 125, 0.4784313725);\n}\n.reservation_header_ball_1 {\n  background-color: #0B4AFF;\n}\n.reservation_header_ball_2 {\n  background-color: #C5DFFF;\n}\n.reservation_progress_box {\n  padding-top: 67px;\n  margin: 0 auto;\n}\n.reservation_progress_blue {\n  background-color: #084AFF;\n}\n.reservation_progress_gray {\n  background-color: #ededed;\n}\n.reservation_body {\n  width: 600px;\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.reservation_layout {\n    max-width: 700px;\n    width: 100vw;\n    height: 100vh;\n}\n.reservation_header {\n    width: 100%;\n}\n.reservation_progress_box {\n    width: 75%;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.reservation_layout {\n    width: 768px;\n    height: 100vh;\n    margin: 0 auto;\n}\n.reservation_header {\n    max-width: 750px;\n}\n.reservation_progress_box {\n    width: 628px;\n}\n}\n@media (min-width: 1024px) {\n.reservation_layout {\n    width: 1000px;\n    height: 100vh;\n    margin: 0 auto;\n}\n.reservation_header {\n    max-width: 1000px;\n}\n.reservation_progress_box {\n    width: 900px;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n/*custom font*/\n/*basic reset*/\n* {\n  margin: 0;\n  padding: 0;\n}\nhtml {\n  height: 100%;\n  /*Image only BG fallback*/\n  /*background = gradient + image pattern combo*/\n  background-color: #fff;\n}\nbody {\n  font-family: montserrat, arial, verdana;\n}\n.regist_container {\n  color: #666;\n}\n\n/*form styles*/\n#msform {\n  width: 400px;\n  margin: 50px auto;\n  text-align: center;\n  position: relative;\n}\nfieldset {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n#msform fieldset {\n  background: white;\n  border: 0 none;\n  border-radius: 3px;\n  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);\n  padding: 20px 30px;\n  box-sizing: border-box;\n  width: 80%;\n  margin: 0 10%;\n  /*stacking fieldsets above each other*/\n  position: relative;\n}\n\n/*Hide all except first fieldset*/\n#msform fieldset:not(:first-of-type) {\n  display: none;\n}\n\n/*inputs*/\n#msform input, #msform textarea {\n  padding: 15px;\n  border: 1px solid #ccc;\n  border-radius: 3px;\n  margin-bottom: 10px;\n  width: 100%;\n  box-sizing: border-box;\n  font-family: montserrat;\n  color: #2C3E50;\n  font-size: 13px;\n}\n\n/*buttons*/\n.regist_user_btn {\n  display: flex;\n  margin: 10px 0;\n}\n.regist_user_next_btn,\n.regist_user_sub_btn {\n  display: flex; /* 자식 요소들을 수평으로 정렬 */\n  align-items: center; /* 수직 정렬 */\n}\n.previous {\n  margin: 0 5px;\n  padding: 5px;\n  border-radius: 5px;\n}\n.previous:hover {\n  background-color: #666;\n  color: #fff;\n  opacity: 0.6;\n}\n.next {\n  margin: 0 5px;\n  padding: 5px;\n  border-radius: 5px;\n}\n.next:hover {\n  background-color: #666;\n  color: #fff;\n  opacity: 0.6;\n}\n.submit {\n  margin: 0 5px;\n  padding: 5px;\n  border-radius: 5px;\n}\n.submit:hover {\n  background-color: #0B2161;\n  color: #fff;\n}\n#msform .action-button {\n  width: 100px;\n  background: #27AE60;\n  font-weight: bold;\n  color: #0B2161;\n  border: 0 none;\n  border-radius: 1px;\n  cursor: pointer;\n  padding: 10px;\n  margin: 10px 5px;\n  text-decoration: none;\n  font-size: 14px;\n}\n#msform .action-button:hover, #msform .action-button:focus {\n  box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;\n}\n\n/*headings*/\n.fs-title {\n  font-size: 15px;\n  text-transform: uppercase;\n  color: #2C3E50;\n  margin-bottom: 10px;\n}\n.fs-subtitle {\n  font-weight: normal;\n  font-size: 13px;\n  color: #666;\n  margin-bottom: 20px;\n}\n\n/*progressbar*/\n.progressbar_container {\n  width: 500px;\n  margin: 0 auto;\n}\n#progressbar {\n  margin: 20px;\n  overflow: hidden;\n  /*CSS counters to number the steps*/\n  counter-reset: step;\n  text-align: center;\n  display: flex; /* ul에 flex 적용 */\n  justify-content: space-between; /* 자식 요소들 사이의 간격을 동일하게 조절합니다 */\n  align-items: center;\n}\n#progressbar li {\n  list-style-type: none;\n  color: #0B2161;\n  text-transform: uppercase;\n  font-size: 12px;\n  width: 50%;\n  float: left;\n  position: relative;\n}\n#progressbar li:before {\n  content: counter(step);\n  counter-increment: step;\n  width: 20px;\n  line-height: 20px;\n  display: block;\n  font-size: 10px;\n  color: #333;\n  background: white;\n  border-radius: 3px;\n  border: 1px solid #0B2161;\n  margin: 0 auto 5px auto;\n}\n\n/*progressbar connectors*/\n#progressbar li:after {\n  content: \"\";\n  width: 100%;\n  height: 2px;\n  background: white;\n  position: absolute;\n  left: -50%;\n  top: 9px;\n  z-index: -1; /*put it behind the numbers*/\n}\n#progressbar li:first-child:after {\n  /*connector not needed before the first step*/\n  content: none;\n}\n\n/*marking active/completed steps green*/\n/*The number of the step and the connector before it = green*/\n#progressbar li.active:before, #progressbar li.active:after {\n  background: #0B2161;\n  color: #fff;\n}\n.terms_conditions {\n  text-align: center;\n}\n.terms_conditions_box {\n  border: 1px solid #2C3E50;\n  border-radius: 5px;\n  padding: 20px;\n  width: 50%;\n  text-align: start;\n  margin: 0 auto;\n  height: 30vW;\n  overflow: auto;\n  font-size: 12px;\n  color: #333;\n}\n.terms_conditions_label {\n  font-size: 13px;\n  color: #666;\n}\n.terms_conditions_checkbox {\n  margin: 0 5px;\n}\n.account_info_container {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.account_info_label {\n  margin-right: 5px;\n  border-radius: 3px;\n  background-color: #666;\n  padding: 5px;\n  color: #fff;\n}\n.account_info_input_wrapper {\n  display: flex;\n  align-items: center;\n}\n.account_info_input {\n  border: 2px solid rgba(102, 102, 102, 0.5);\n  border-radius: 3px;\n  padding: 5px;\n}\n.account_info_input, .radio_options {\n  flex: 1;\n  border: 2px solid rgba(102, 102, 102, 0.5);\n  border-radius: 3px;\n  padding: 5px;\n  display: flex;\n}\n.radio_options {\n  align-items: center;\n}\n\n/* VARIABLES */\n/* BASE */\n.header_container {\n  font: 100 100%/1.6 \"Heebo\", sans-serif;\n  overflow-x: hidden;\n  width: 100%;\n}\n.visually-hidden {\n  clip: rect(0 0 0 0);\n  -webkit-clip-path: inset(50%);\n          clip-path: inset(50%);\n  height: 1px;\n  overflow: hidden;\n  position: absolute;\n  white-space: nowrap;\n  width: 1px;\n}\n.flex {\n  align-items: center;\n  justify-content: center;\n}\n.scene {\n  position: relative;\n}\n.login_modal_headline {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.login_modal_text {\n  font-size: 0.6rem;\n  text-align: start;\n  margin: 10px 0;\n}\n.login_modal_text_login {\n  font-size: 1rem;\n  font-weight: bold;\n}\n.modal-content {\n  /* 기존 스타일 유지 */\n  background-color: transparent;\n  padding: 20px;\n  border-radius: 5px;\n}\n.modal {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n  display: flex;\n  justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n  align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n  -webkit-backdrop-filter: blur(10px);\n          backdrop-filter: blur(10px);\n  background: #fff;\n  border: 1px solid rgba(254, 254, 254, 0.18);\n  border-radius: 15px;\n  box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n  max-width: 300px;\n  overflow: hidden;\n  padding: 50px;\n  position: relative;\n  text-align: center;\n  z-index: 1;\n}\n.card__heading {\n  font-size: 1.35rem;\n  font-weight: 200;\n}\n.card__heading span {\n  font-weight: bold;\n}\n.card__figure {\n  height: auto;\n  margin: 0 auto;\n  max-width: 225px;\n  width: 60%;\n}\n.card__image {\n  border-radius: 50%;\n  max-width: 100%;\n}\n.card__input {\n  background: rgba(217, 217, 217, 0.5);\n  border: 1px solid rgba(254, 254, 254, 0.3);\n  border-radius: 3px;\n  box-sizing: border-box;\n  color: #FEFEFE;\n  display: block;\n  font-size: 1rem;\n  letter-spacing: 0.15rem;\n  width: 100%;\n}\n.card__input:focus, .card__input:active {\n  background: rgba(254, 254, 254, 0.08);\n  border: 1px solid rgba(254, 254, 254, 0.75);\n  outline: none;\n}\n.card__form_email {\n  text-align: start;\n}\n.card__form_email label {\n  font-size: 10px;\n}\n.card__form_pw {\n  text-align: start;\n}\n.card__form_pw label {\n  font-size: 10px;\n}\n.card__button {\n  background-color: #C5DFFF;\n  border: none;\n  border-radius: 3px;\n  color: #362100;\n  margin: 15px auto 0 auto;\n  padding: 3px 10px;\n  font-size: 13px;\n}\n.card__button:focus, .card__button:active {\n  background: rgba(255, 255, 255, 0.75);\n  outline: none;\n}\n.card__form_button {\n  display: flex;\n  justify-content: space-evenly;\n  margin-bottom: 20px;\n}\n.card__social_login_text {\n  font-size: 15px;\n  color: #d9d9d9;\n  margin-top: 8px;\n}\n.card__social_btn {\n  border-radius: 3px;\n  box-sizing: border-box;\n  color: #FEFEFE;\n  display: block;\n  font-size: 1rem;\n  letter-spacing: 0.15rem;\n  width: 100%;\n  margin-top: 5px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n  background: rgba(254, 254, 254, 0.08);\n  border: 1px solid rgba(254, 254, 254, 0.75);\n  outline: none;\n}\n.card__social_btn_google {\n  width: 2rem;\n  margin-right: 5px;\n}\n.card__social_btn_kakao {\n  width: 2rem;\n  margin-left: 5px;\n}\n.modal {\n  background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n.header_container {\n  width: 100%;\n  padding: 10px;\n}\n.header_nav {\n  display: flex;\n  justify-content: space-between;\n}\n.header_nav_logo {\n  margin: 0 10px;\n  font-weight: bold;\n  font-size: 30px;\n  width: 100px;\n}\n.header_nav_user_btn {\n  display: flex;\n  align-items: center;\n  margin: 0 10px;\n  color: #0B2161;\n}\n.header_nav_login_btn {\n  font-weight: bold;\n  margin-left: 10px;\n}\n.card__heading {\n  width: 100px;\n}\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\nfooter {\n  background-color: #081742;\n  opacity: 0.9;\n  color: white;\n  width: 100%;\n  padding: 10px;\n  font-size: 10px;\n  overflow: auto;\n  height: 140px;\n  position: relative;\n  transform: translateY(0%);\n}\n.footer_container_text {\n  width: 100%;\n}\n.footer_container_text_personal_info {\n  display: flex;\n  justify-content: center;\n  align-content: center;\n}\n.footer_container_icons {\n  display: flex;\n  font-size: 30px;\n  align-items: center;\n  justify-content: center;\n  margin-top: 10px;\n}\n.footer_container_icons_instar {\n  margin: 0 10px;\n}\n.footer_container_icons_facebook {\n  margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n  margin: 0 10px;\n}\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n.mypage_container {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  background-color: #C8D7FF;\n}\n.mypage_box1 {\n  width: 30%;\n  border: 1px solid #000;\n  border-radius: 1rem;\n  background-color: #78A9ED;\n  margin: 1rem 1rem;\n}\n.mypage_mention {\n  text-align: center;\n  padding: 15%;\n}\n.mypage_mention_1 {\n  font-size: 2rem;\n}\n.mypage_mention_2 {\n  font-size: 1.5rem;\n}\n.mypage_menu_button {\n  width: 95%;\n  border-bottom: 1px solid #000;\n  padding: 7px 20px;\n}\n.mypage_menu_button_content {\n  display: inline;\n  font-size: 1.5rem;\n  padding: 0 5px;\n}\n.mypage_menu_button_content svg {\n  display: inline;\n}\n.mypage_menu_button_content_btn {\n  display: inline;\n}\n.mypage_menu_button_content_btn svg {\n  font-size: 1.5rem;\n  float: right;\n}\n.mypage_box2 {\n  width: 65%;\n  border: 1px solid #000;\n  border-radius: 1rem;\n  background-color: #78A9ED;\n  margin: 1rem 1rem;\n}\n.mypage_menu_detail_frame {\n  padding: 10% 15%;\n}\n.mypage_menu_detail h1 {\n  width: 100%;\n  text-align: center;\n  font-size: 3rem;\n  padding: 5%;\n}\n.mypage_menu_detail_input {\n  padding: 5%;\n}\n.mypage_menu_detail_input p {\n  display: inline-block;\n}\n.mypage_menu_detail_input_title2 {\n  color: red;\n}\n.mypage_menu_detail_input input, .mypage_menu_detail_input select {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  color: black;\n  font-size: 1.5rem;\n  border-radius: 0.5rem;\n  padding: 3%;\n}\n.reservation_header {\n  display: flex;\n  justify-content: space-between;\n  padding: 20px;\n  position: absolute;\n  width: 100%;\n}\n.reservation_header_box {\n  width: 100px;\n  text-align: center;\n}\n.reservation_header_box span {\n  font-weight: bold;\n  font-size: 15px;\n}\n.reservation_header_ball_1, .reservation_header_ball_2 {\n  line-height: 60px;\n  height: 60px;\n  width: 60px;\n  font-size: 35px;\n  border-radius: 100%;\n  font-weight: bold;\n  margin: 0 auto;\n  color: #fff;\n  box-shadow: 0 10px 15px -4px rgba(125, 125, 125, 0.4784313725);\n}\n.reservation_header_ball_1 {\n  background-color: #0B4AFF;\n}\n.reservation_header_ball_2 {\n  background-color: #C5DFFF;\n}\n.reservation_progress_box {\n  padding-top: 67px;\n  margin: 0 auto;\n  padding-bottom: 70px;\n}\n.reservation_progress_blue {\n  background-color: #084AFF;\n}\n.reservation_progress_gray {\n  background-color: #ededed;\n}\n.reservation_body {\n  width: 550px;\n  margin: 0 auto;\n}\n.reservation_title_1 {\n  font-size: 40px;\n  font-weight: bold;\n}\n.reservation_title_2 {\n  font-size: 30px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_3 {\n  font-size: 25px;\n  font-weight: bold;\n}\n.reservation_title_4 {\n  font-size: 15px;\n  font-weight: bold;\n}\n.reservation_to_tiket_title {\n  display: flex;\n  align-items: center;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n  font-size: 17px;\n  padding: 4px 7px;\n  background-color: #0B4AFF;\n  color: #fff;\n  font-weight: 800;\n  border-radius: 20px;\n  margin-left: 5px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n  margin-left: 5px;\n  padding: 0px 10px;\n  border-right: 2px solid #ededed;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n  padding: 0px 10px;\n}\n.reservation_to_tiket_info {\n  display: flex;\n  padding: 20px 0px;\n}\n.reservation_to_tiket_time {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-right: 20px;\n}\n.reservation_to_tiket_time div {\n  font-size: 20px;\n  font-weight: 900;\n  width: 60px;\n}\n.reservation_to_tiket_time_type {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-left: 20px;\n  border-left: 5px solid #ededed;\n  margin: 10px 0px;\n}\n.reservation_to_tiket_time_type div:nth-child(1),\n.reservation_to_tiket_time_type div:nth-child(3) {\n  font-weight: 900;\n}\n.reservation_to_tiket_time_type div:nth-child(2) {\n  padding: 20px 0px;\n  font-size: 10px;\n}\n.reservation_gray_bg {\n  background-color: #ededed;\n  height: 100vh;\n}\n.reservation_baggage_rule_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n  display: flex;\n}\n.reservation_baggage {\n  flex-grow: 2;\n}\n.reservation_rule {\n  flex-grow: 1;\n}\n.reservation_icon_blue {\n  color: #249ac2;\n  margin-right: 10px;\n}\n.reservation_icon_gray {\n  color: #adadad;\n  margin-right: 10px;\n}\n.reservation_icon_flex {\n  display: flex;\n  align-items: center;\n}\n.reservation_passenger_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.reservation_layout {\n    width: 100vw;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    width: 100%;\n}\n.reservation_progress_box {\n    width: 75%;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.reservation_layout {\n    width: 768px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 750px;\n}\n.reservation_progress_box {\n    width: 628px;\n}\n}\n@media (min-width: 1024px) {\n.reservation_layout {\n    width: 1000px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 1000px;\n}\n.reservation_progress_box {\n    width: 900px;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -40966,14 +40966,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var _vue_devtools_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vue/devtools-api */ "./node_modules/@vue/devtools-api/lib/esm/index.js");
 /*!
-  * vue-router v4.2.5
-  * (c) 2023 Eduardo San Martin Morote
+  * vue-router v4.3.0
+  * (c) 2024 Eduardo San Martin Morote
   * @license MIT
   */
 
 
 
-const isBrowser = typeof window !== 'undefined';
+const isBrowser = typeof document !== 'undefined';
 
 function isESModule(obj) {
     return obj.__esModule || obj[Symbol.toStringTag] === 'Module';
@@ -41000,6 +41000,142 @@ function warn(msg) {
     // avoid using ...args as it breaks in older Edge builds
     const args = Array.from(arguments).slice(1);
     console.warn.apply(console, ['[Vue Router warn]: ' + msg].concat(args));
+}
+
+/**
+ * Encoding Rules ␣ = Space Path: ␣ " < > # ? { } Query: ␣ " < > # & = Hash: ␣ "
+ * < > `
+ *
+ * On top of that, the RFC3986 (https://tools.ietf.org/html/rfc3986#section-2.2)
+ * defines some extra characters to be encoded. Most browsers do not encode them
+ * in encodeURI https://github.com/whatwg/url/issues/369, so it may be safer to
+ * also encode `!'()*`. Leaving un-encoded only ASCII alphanumeric(`a-zA-Z0-9`)
+ * plus `-._~`. This extra safety should be applied to query by patching the
+ * string returned by encodeURIComponent encodeURI also encodes `[\]^`. `\`
+ * should be encoded to avoid ambiguity. Browsers (IE, FF, C) transform a `\`
+ * into a `/` if directly typed in. The _backtick_ (`````) should also be
+ * encoded everywhere because some browsers like FF encode it when directly
+ * written while others don't. Safari and IE don't encode ``"<>{}``` in hash.
+ */
+// const EXTRA_RESERVED_RE = /[!'()*]/g
+// const encodeReservedReplacer = (c: string) => '%' + c.charCodeAt(0).toString(16)
+const HASH_RE = /#/g; // %23
+const AMPERSAND_RE = /&/g; // %26
+const SLASH_RE = /\//g; // %2F
+const EQUAL_RE = /=/g; // %3D
+const IM_RE = /\?/g; // %3F
+const PLUS_RE = /\+/g; // %2B
+/**
+ * NOTE: It's not clear to me if we should encode the + symbol in queries, it
+ * seems to be less flexible than not doing so and I can't find out the legacy
+ * systems requiring this for regular requests like text/html. In the standard,
+ * the encoding of the plus character is only mentioned for
+ * application/x-www-form-urlencoded
+ * (https://url.spec.whatwg.org/#urlencoded-parsing) and most browsers seems lo
+ * leave the plus character as is in queries. To be more flexible, we allow the
+ * plus character on the query, but it can also be manually encoded by the user.
+ *
+ * Resources:
+ * - https://url.spec.whatwg.org/#urlencoded-parsing
+ * - https://stackoverflow.com/questions/1634271/url-encoding-the-space-character-or-20
+ */
+const ENC_BRACKET_OPEN_RE = /%5B/g; // [
+const ENC_BRACKET_CLOSE_RE = /%5D/g; // ]
+const ENC_CARET_RE = /%5E/g; // ^
+const ENC_BACKTICK_RE = /%60/g; // `
+const ENC_CURLY_OPEN_RE = /%7B/g; // {
+const ENC_PIPE_RE = /%7C/g; // |
+const ENC_CURLY_CLOSE_RE = /%7D/g; // }
+const ENC_SPACE_RE = /%20/g; // }
+/**
+ * Encode characters that need to be encoded on the path, search and hash
+ * sections of the URL.
+ *
+ * @internal
+ * @param text - string to encode
+ * @returns encoded string
+ */
+function commonEncode(text) {
+    return encodeURI('' + text)
+        .replace(ENC_PIPE_RE, '|')
+        .replace(ENC_BRACKET_OPEN_RE, '[')
+        .replace(ENC_BRACKET_CLOSE_RE, ']');
+}
+/**
+ * Encode characters that need to be encoded on the hash section of the URL.
+ *
+ * @param text - string to encode
+ * @returns encoded string
+ */
+function encodeHash(text) {
+    return commonEncode(text)
+        .replace(ENC_CURLY_OPEN_RE, '{')
+        .replace(ENC_CURLY_CLOSE_RE, '}')
+        .replace(ENC_CARET_RE, '^');
+}
+/**
+ * Encode characters that need to be encoded query values on the query
+ * section of the URL.
+ *
+ * @param text - string to encode
+ * @returns encoded string
+ */
+function encodeQueryValue(text) {
+    return (commonEncode(text)
+        // Encode the space as +, encode the + to differentiate it from the space
+        .replace(PLUS_RE, '%2B')
+        .replace(ENC_SPACE_RE, '+')
+        .replace(HASH_RE, '%23')
+        .replace(AMPERSAND_RE, '%26')
+        .replace(ENC_BACKTICK_RE, '`')
+        .replace(ENC_CURLY_OPEN_RE, '{')
+        .replace(ENC_CURLY_CLOSE_RE, '}')
+        .replace(ENC_CARET_RE, '^'));
+}
+/**
+ * Like `encodeQueryValue` but also encodes the `=` character.
+ *
+ * @param text - string to encode
+ */
+function encodeQueryKey(text) {
+    return encodeQueryValue(text).replace(EQUAL_RE, '%3D');
+}
+/**
+ * Encode characters that need to be encoded on the path section of the URL.
+ *
+ * @param text - string to encode
+ * @returns encoded string
+ */
+function encodePath(text) {
+    return commonEncode(text).replace(HASH_RE, '%23').replace(IM_RE, '%3F');
+}
+/**
+ * Encode characters that need to be encoded on the path section of the URL as a
+ * param. This function encodes everything {@link encodePath} does plus the
+ * slash (`/`) character. If `text` is `null` or `undefined`, returns an empty
+ * string instead.
+ *
+ * @param text - string to encode
+ * @returns encoded string
+ */
+function encodeParam(text) {
+    return text == null ? '' : encodePath(text).replace(SLASH_RE, '%2F');
+}
+/**
+ * Decode text using `decodeURIComponent`. Returns the original text if it
+ * fails.
+ *
+ * @param text - string to decode
+ * @returns decoded string
+ */
+function decode(text) {
+    try {
+        return decodeURIComponent('' + text);
+    }
+    catch (err) {
+        ( true) && warn(`Error decoding "${text}". Using original value`);
+    }
+    return '' + text;
 }
 
 const TRAILING_SLASH_RE = /\/$/;
@@ -41040,7 +41176,7 @@ function parseURL(parseQuery, location, currentLocation = '/') {
         fullPath: path + (searchString && '?') + searchString + hash,
         path,
         query,
-        hash,
+        hash: decode(hash),
     };
 }
 /**
@@ -41169,10 +41305,7 @@ function resolveRelativePath(to, from) {
     }
     return (fromSegments.slice(0, position).join('/') +
         '/' +
-        toSegments
-            // ensure we use at least the last element in the toSegments
-            .slice(toPosition - (toPosition === toSegments.length ? 1 : 0))
-            .join('/'));
+        toSegments.slice(toPosition).join('/'));
 }
 
 var NavigationType;
@@ -41235,8 +41368,8 @@ function getElementPosition(el, offset) {
     };
 }
 const computeScrollPosition = () => ({
-    left: window.pageXOffset,
-    top: window.pageYOffset,
+    left: window.scrollX,
+    top: window.scrollY,
 });
 function scrollToPosition(position) {
     let scrollToOptions;
@@ -41299,7 +41432,7 @@ function scrollToPosition(position) {
     if ('scrollBehavior' in document.documentElement.style)
         window.scrollTo(scrollToOptions);
     else {
-        window.scrollTo(scrollToOptions.left != null ? scrollToOptions.left : window.pageXOffset, scrollToOptions.top != null ? scrollToOptions.top : window.pageYOffset);
+        window.scrollTo(scrollToOptions.left != null ? scrollToOptions.left : window.scrollX, scrollToOptions.top != null ? scrollToOptions.top : window.scrollY);
     }
 }
 function getScrollKey(path, delta) {
@@ -41764,6 +41897,12 @@ const ErrorTypeMessages = {
         return `Avoided redundant navigation to current location: "${from.fullPath}".`;
     },
 };
+/**
+ * Creates a typed NavigationFailure object.
+ * @internal
+ * @param type - NavigationFailureType
+ * @param params - { from, to }
+ */
 function createRouterError(type, params) {
     // keep full error messages in cjs versions
     if (true) {
@@ -41783,7 +41922,7 @@ const propertiesToLog = ['params', 'query', 'hash'];
 function stringifyRoute(to) {
     if (typeof to === 'string')
         return to;
-    if ('path' in to)
+    if (to.path != null)
         return to.path;
     const location = {};
     for (const key of propertiesToLog) {
@@ -42393,8 +42532,11 @@ function createRouterMatcher(routes, globalOptions) {
             // paramsFromLocation is a new object
             paramsFromLocation(currentLocation.params, 
             // only keep params that exist in the resolved location
-            // TODO: only keep optional params coming from a parent record
-            matcher.keys.filter(k => !k.optional).map(k => k.name)), 
+            // only keep optional params coming from a parent record
+            matcher.keys
+                .filter(k => !k.optional)
+                .concat(matcher.parent ? matcher.parent.keys.filter(k => k.optional) : [])
+                .map(k => k.name)), 
             // discard any existing params in the current location that do not exist here
             // #1497 this ensures better active/exact matching
             location.params &&
@@ -42402,7 +42544,7 @@ function createRouterMatcher(routes, globalOptions) {
             // throws if cannot be stringified
             path = matcher.stringify(params);
         }
-        else if ('path' in location) {
+        else if (location.path != null) {
             // no need to resolve the path with the matcher as it was provided
             // this also allows the user to control the encoding
             path = location.path;
@@ -42576,142 +42718,6 @@ function checkMissingParamsInAbsolutePath(record, parent) {
 }
 function isRecordChildOf(record, parent) {
     return parent.children.some(child => child === record || isRecordChildOf(record, child));
-}
-
-/**
- * Encoding Rules ␣ = Space Path: ␣ " < > # ? { } Query: ␣ " < > # & = Hash: ␣ "
- * < > `
- *
- * On top of that, the RFC3986 (https://tools.ietf.org/html/rfc3986#section-2.2)
- * defines some extra characters to be encoded. Most browsers do not encode them
- * in encodeURI https://github.com/whatwg/url/issues/369, so it may be safer to
- * also encode `!'()*`. Leaving un-encoded only ASCII alphanumeric(`a-zA-Z0-9`)
- * plus `-._~`. This extra safety should be applied to query by patching the
- * string returned by encodeURIComponent encodeURI also encodes `[\]^`. `\`
- * should be encoded to avoid ambiguity. Browsers (IE, FF, C) transform a `\`
- * into a `/` if directly typed in. The _backtick_ (`````) should also be
- * encoded everywhere because some browsers like FF encode it when directly
- * written while others don't. Safari and IE don't encode ``"<>{}``` in hash.
- */
-// const EXTRA_RESERVED_RE = /[!'()*]/g
-// const encodeReservedReplacer = (c: string) => '%' + c.charCodeAt(0).toString(16)
-const HASH_RE = /#/g; // %23
-const AMPERSAND_RE = /&/g; // %26
-const SLASH_RE = /\//g; // %2F
-const EQUAL_RE = /=/g; // %3D
-const IM_RE = /\?/g; // %3F
-const PLUS_RE = /\+/g; // %2B
-/**
- * NOTE: It's not clear to me if we should encode the + symbol in queries, it
- * seems to be less flexible than not doing so and I can't find out the legacy
- * systems requiring this for regular requests like text/html. In the standard,
- * the encoding of the plus character is only mentioned for
- * application/x-www-form-urlencoded
- * (https://url.spec.whatwg.org/#urlencoded-parsing) and most browsers seems lo
- * leave the plus character as is in queries. To be more flexible, we allow the
- * plus character on the query, but it can also be manually encoded by the user.
- *
- * Resources:
- * - https://url.spec.whatwg.org/#urlencoded-parsing
- * - https://stackoverflow.com/questions/1634271/url-encoding-the-space-character-or-20
- */
-const ENC_BRACKET_OPEN_RE = /%5B/g; // [
-const ENC_BRACKET_CLOSE_RE = /%5D/g; // ]
-const ENC_CARET_RE = /%5E/g; // ^
-const ENC_BACKTICK_RE = /%60/g; // `
-const ENC_CURLY_OPEN_RE = /%7B/g; // {
-const ENC_PIPE_RE = /%7C/g; // |
-const ENC_CURLY_CLOSE_RE = /%7D/g; // }
-const ENC_SPACE_RE = /%20/g; // }
-/**
- * Encode characters that need to be encoded on the path, search and hash
- * sections of the URL.
- *
- * @internal
- * @param text - string to encode
- * @returns encoded string
- */
-function commonEncode(text) {
-    return encodeURI('' + text)
-        .replace(ENC_PIPE_RE, '|')
-        .replace(ENC_BRACKET_OPEN_RE, '[')
-        .replace(ENC_BRACKET_CLOSE_RE, ']');
-}
-/**
- * Encode characters that need to be encoded on the hash section of the URL.
- *
- * @param text - string to encode
- * @returns encoded string
- */
-function encodeHash(text) {
-    return commonEncode(text)
-        .replace(ENC_CURLY_OPEN_RE, '{')
-        .replace(ENC_CURLY_CLOSE_RE, '}')
-        .replace(ENC_CARET_RE, '^');
-}
-/**
- * Encode characters that need to be encoded query values on the query
- * section of the URL.
- *
- * @param text - string to encode
- * @returns encoded string
- */
-function encodeQueryValue(text) {
-    return (commonEncode(text)
-        // Encode the space as +, encode the + to differentiate it from the space
-        .replace(PLUS_RE, '%2B')
-        .replace(ENC_SPACE_RE, '+')
-        .replace(HASH_RE, '%23')
-        .replace(AMPERSAND_RE, '%26')
-        .replace(ENC_BACKTICK_RE, '`')
-        .replace(ENC_CURLY_OPEN_RE, '{')
-        .replace(ENC_CURLY_CLOSE_RE, '}')
-        .replace(ENC_CARET_RE, '^'));
-}
-/**
- * Like `encodeQueryValue` but also encodes the `=` character.
- *
- * @param text - string to encode
- */
-function encodeQueryKey(text) {
-    return encodeQueryValue(text).replace(EQUAL_RE, '%3D');
-}
-/**
- * Encode characters that need to be encoded on the path section of the URL.
- *
- * @param text - string to encode
- * @returns encoded string
- */
-function encodePath(text) {
-    return commonEncode(text).replace(HASH_RE, '%23').replace(IM_RE, '%3F');
-}
-/**
- * Encode characters that need to be encoded on the path section of the URL as a
- * param. This function encodes everything {@link encodePath} does plus the
- * slash (`/`) character. If `text` is `null` or `undefined`, returns an empty
- * string instead.
- *
- * @param text - string to encode
- * @returns encoded string
- */
-function encodeParam(text) {
-    return text == null ? '' : encodePath(text).replace(SLASH_RE, '%2F');
-}
-/**
- * Decode text using `decodeURIComponent`. Returns the original text if it
- * fails.
- *
- * @param text - string to decode
- * @returns decoded string
- */
-function decode(text) {
-    try {
-        return decodeURIComponent('' + text);
-    }
-    catch (err) {
-        ( true) && warn(`Error decoding "${text}". Using original value`);
-    }
-    return '' + text;
 }
 
 /**
@@ -42928,7 +42934,7 @@ function onBeforeRouteUpdate(updateGuard) {
     }
     registerGuard(activeRecord, 'updateGuards', updateGuard);
 }
-function guardToPromiseFn(guard, to, from, record, name) {
+function guardToPromiseFn(guard, to, from, record, name, runWithContext = fn => fn()) {
     // keep a reference to the enterCallbackArray to prevent pushing callbacks if a new navigation took place
     const enterCallbackArray = record &&
         // name is defined if record is because of the function overload
@@ -42961,7 +42967,7 @@ function guardToPromiseFn(guard, to, from, record, name) {
             }
         };
         // wrapping with Promise.resolve allows it to work with both async and sync guards
-        const guardReturn = guard.call(record && record.instances[name], to, from, ( true) ? canOnlyBeCalledOnce(next, to, from) : 0);
+        const guardReturn = runWithContext(() => guard.call(record && record.instances[name], to, from, ( true) ? canOnlyBeCalledOnce(next, to, from) : 0));
         let guardCall = Promise.resolve(guardReturn);
         if (guard.length < 3)
             guardCall = guardCall.then(next);
@@ -43000,7 +43006,7 @@ function canOnlyBeCalledOnce(next, to, from) {
             next.apply(null, arguments);
     };
 }
-function extractComponentsGuards(matched, guardType, to, from) {
+function extractComponentsGuards(matched, guardType, to, from, runWithContext = fn => fn()) {
     const guards = [];
     for (const record of matched) {
         if (( true) && !record.components && !record.children.length) {
@@ -43047,7 +43053,8 @@ function extractComponentsGuards(matched, guardType, to, from) {
                 // __vccOpts is added by vue-class-component and contain the regular options
                 const options = rawComponent.__vccOpts || rawComponent;
                 const guard = options[guardType];
-                guard && guards.push(guardToPromiseFn(guard, to, from, record, name));
+                guard &&
+                    guards.push(guardToPromiseFn(guard, to, from, record, name, runWithContext));
             }
             else {
                 // start requesting the chunk already
@@ -43068,7 +43075,8 @@ function extractComponentsGuards(matched, guardType, to, from) {
                     // __vccOpts is added by vue-class-component and contain the regular options
                     const options = resolvedComponent.__vccOpts || resolvedComponent;
                     const guard = options[guardType];
-                    return guard && guardToPromiseFn(guard, to, from, record, name)();
+                    return (guard &&
+                        guardToPromiseFn(guard, to, from, record, name, runWithContext)());
                 }));
             }
         }
@@ -43985,7 +43993,7 @@ function createRouter(options) {
         }
         let matcherLocation;
         // path could be relative in object as well
-        if ('path' in rawLocation) {
+        if (rawLocation.path != null) {
             if (( true) &&
                 'params' in rawLocation &&
                 !('name' in rawLocation) &&
@@ -44031,7 +44039,7 @@ function createRouter(options) {
                 warn(`Location "${rawLocation}" resolved to "${href}". A resolved location cannot start with multiple slashes.`);
             }
             else if (!matchedRoute.matched.length) {
-                warn(`No match found for location with path "${'path' in rawLocation ? rawLocation.path : rawLocation}"`);
+                warn(`No match found for location with path "${rawLocation.path != null ? rawLocation.path : rawLocation}"`);
             }
         }
         return assign({
@@ -44088,7 +44096,7 @@ function createRouter(options) {
                 newTargetLocation.params = {};
             }
             if (( true) &&
-                !('path' in newTargetLocation) &&
+                newTargetLocation.path == null &&
                 !('name' in newTargetLocation)) {
                 warn(`Invalid redirect found:\n${JSON.stringify(newTargetLocation, null, 2)}\n when navigating to "${to.fullPath}". A redirect must contain a name or path. This will break in production.`);
                 throw new Error('Invalid redirect');
@@ -44097,7 +44105,7 @@ function createRouter(options) {
                 query: to.query,
                 hash: to.hash,
                 // avoid transferring params if the redirect has a path
-                params: 'path' in newTargetLocation ? {} : to.params,
+                params: newTargetLocation.path != null ? {} : to.params,
             }, newTargetLocation);
         }
     }
@@ -44258,7 +44266,7 @@ function createRouter(options) {
             // clear existing enterCallbacks, these are added by extractComponentsGuards
             to.matched.forEach(record => (record.enterCallbacks = {}));
             // check in-component beforeRouteEnter
-            guards = extractComponentsGuards(enteringRecords, 'beforeRouteEnter', to, from);
+            guards = extractComponentsGuards(enteringRecords, 'beforeRouteEnter', to, from, runWithContext);
             guards.push(canceledNavigationCheck);
             // run the queue of per route beforeEnter guards
             return runGuardQueue(guards);
