@@ -1,5 +1,6 @@
 @import "../mixin";
 
+
 // 헤더파트
 .reservation_header{
     display: flex;
@@ -62,6 +63,7 @@
 .reservation_title_3{
     font-size: 25px;
     font-weight: bold;
+    padding: 50px 0 20px 0;
 }
 .reservation_title_4{
     font-size: 15px;
@@ -119,12 +121,13 @@
     padding: 20px 0px;
     font-size: 10px;
 }
+.reservation_refund_box{
 
+}
 
 // 두번째영역
 .reservation_gray_bg{
     background-color: #ededed;
-    height: 100vh;
 }
 .reservation_baggage_rule_box{
     background-color: #fff;
@@ -149,7 +152,6 @@
 .reservation_icon_flex{
     display: flex;
     align-items: center;
-    gap: 5px;
 }
 .reservation_input_reset_btn{
     color: #084AFF;
@@ -174,7 +176,52 @@
 }
 .reservation_input{
     border: 1px solid #ededed;
+    outline: none;
+    height: 50px;
+    border-radius: 5px;
+    padding: 5px;
 }
+.reservation_input select{
+    border: none;
+    outline: none;
+}
+.reservation_input legend{
+    font-size: 12px;
+    color: #4f4f4f;
+}
+.reservation_notification_box{
+    border: 1px solid #ededed;
+    background-color: #ededed;
+    border-radius: 5px;
+    padding: 5px;
+}
+.reservation_notification_box span{
+    font-weight: 900;
+}
+.reservation_refund_box{
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.reservation_refund_area{
+    font-size: 14px;
+    border: 1px solid #ededed;
+    border-radius: 5px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.reservation_refund_area span{
+    font-weight: 900;
+}
+
+
+
+
 @include mobile {
     .reservation_layout{
         width: 100vw;
