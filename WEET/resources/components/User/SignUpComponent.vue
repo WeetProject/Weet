@@ -4,7 +4,8 @@
             <main class="">
                 <div class="regist_logo_div">
                     <div class="regist_logo_div_main_logo">
-                        <img src="../../public/images/WEET_logo.png" alt="">
+                        <!-- <img src="../../public/images/WEET_logo.png" alt=""> -->
+                        <img src="../../../public/images/WEET_logo.png" alt="">
                     </div>
                     <div class="regist_logo_div_title">
                         <h1>SIGN UP</h1>
@@ -135,6 +136,6 @@ export default {
 
 </script>
 
-<style>
-  
+<style lang="scss">
+	@import '../../sass/User/signup.scss';
 </style>
