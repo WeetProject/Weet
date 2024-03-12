@@ -51,7 +51,7 @@ Route::get('/admin/index', function () {
 });
 
 // 로그인 처리
-Route::middleware(['adminTokenAuthMiddleware'])->group(function () {
-    // 로그인 처리
-    Route::post('/admin', [AdminAuthController::class, 'adminPostLogin'])->name('adminPostLogin');
-});
+Route::post('/admin', [AdminAuthController::class, 'adminPostLogin'])
+    ->name('adminPostLogin')
+    ->middleware('adminTokenAuthMiddleware');
+
