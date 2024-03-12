@@ -93,6 +93,4 @@ class AdminTokenAuthMiddleware
         return $next($request);
     }
 
-
-	// 미들웨어 유효성검사 후에 adminauthcontroller에서 로직 다시 짜야함
 }
