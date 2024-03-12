@@ -16,11 +16,11 @@
 					</button>
 					<div class="header_nav_login_btn">
 						<div class="header_nav_login_btn_user">
-							<button @click="showmodal = true">login</button>
+							<button @click="openLoginModal = true">login</button>
 						</div>
 
 					<!-- 로그인모달 -->
-					<!-- <div v-if="showmodal" class="modal">
+					<div v-if="showmodal" class="modal">
 						<div class="modal-content">
 							<div class="flex scene" style="width: 300px;">
 								<section class="card">
@@ -84,25 +84,25 @@
 									<button @click="showmodal = false">Close</button>
 								</div>
 							</div>
-						</div> -->
+						</div>
 						
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- 로그인 모달 -->
-		<LoginModal v-if="showModal" @closeModal="closeModal" />
+		<!-- <Login v-if="showmodal" @closeModal="closemodal" /> -->
 	</div>
 </template>
 
 <script>
-import Login from '../User/LoginComponent.vue';
+// import Login from '../User/LoginComponent.vue';
 
     export default {
         name: 'HeaderComponent',
-		components: {
-			Login
-		},
+		// components: {
+		// 	Login
+		// },
 
         data() {
             return {
@@ -112,10 +112,10 @@ import Login from '../User/LoginComponent.vue';
 
 		methods: {
 			openLoginModal() {
-				this.showModal = true;
+				this.showmodal = true;
 			},
 			closeModal() {
-				this.showModal = false;
+				this.showmodal = false;
 			}
 		}
     }
