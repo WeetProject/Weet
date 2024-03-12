@@ -1,5 +1,11 @@
 @import "../mixin.scss";
 
+.regist_container_wrap {
+    width: 1000px;
+    // height: 100vh;
+    margin: 0 auto;
+}
+
 .regist_container {
     // background-color: #ededed;
 	color: #666;
@@ -95,18 +101,53 @@
 
     }
 
+    .regist_user_info_div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .regist_user_info_label {
+        text-align: start;
+
+        div {
+            margin-bottom: 10px;
+            border: 1px solid #ededed;
+            border-radius: 5px;
+            padding: 5px;
+        }
+    }
+
     .regist_user_info_box {
         display: flex;
         text-align: center;
         justify-content: center;
+        flex-direction: column;
+        margin-left: 20px;
+
+        // div {
+        //     margin-bottom: 10px;
+        // }
         
         &_content {
-            border-collapse: separate;
-            border-spacing: 10px 10px;
+            // border-collapse: separate;
+            // border-spacing: 10px 10px;
+            margin-bottom: 22px;
 
             th {
                 border: 1px solid #ededed;
             }
+
         }
+
+        label {
+            text-align: start;
+            display: inline-block;
+            width: 120px;
+        }
+    }
+
+    .regist_user_info_box_content_gender {
+        display: flex;
     }
 }
