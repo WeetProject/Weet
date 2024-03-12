@@ -96,5 +96,5 @@ export default {
 </script>
 
 <style lang="scss">
-	@import '../../sass/User/loginModal.scss';
+	// @import '../../sass/User/loginModal.scss';
 </style>
