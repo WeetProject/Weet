@@ -54,8 +54,8 @@
     }
 
     .header_nav {
-        // display: flex;
-        // justify-content: space-between;
+        display: flex;
+        justify-content: center;
         text-align: center;
     }
 
@@ -68,10 +68,14 @@
     }
 
     .header_nav_user_btn {
-        display: flex;
-        align-items: center;
-        margin: 0 10px;
-        color: #0B2161;
+        // display: flex;
+        // align-items: center;
+        // margin: 0 10px;
+        // color: #0B2161;
+    }
+
+    .header_nav_user_btn_search {
+        display: none;
     }
 
     .header_nav_login_btn {
@@ -80,7 +84,7 @@
     }
 
     .header_nav_login_btn_user {
-        
+        display: none;
     }
 
     .card__heading {

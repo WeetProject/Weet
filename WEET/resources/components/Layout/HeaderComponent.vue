@@ -62,7 +62,7 @@
 												</div>  
 												<div>
 													<button class="card__button" type="button">
-														<span><a href="/regist">Sign Up</a></span>
+														<span><a href="/signup">Sign Up</a></span>
 													</button>
 												</div>
 											</div>
