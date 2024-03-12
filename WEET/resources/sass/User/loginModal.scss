@@ -1,3 +1,5 @@
+@import "../mixin";
+
 // ******************** 현희_로그인모달 scss ***********************
 /* VARIABLES */
 
@@ -17,228 +19,230 @@ $colors: (
 //     width: 100%;
 // }
 
-.header_container {
-    font: 100 100%/1.6 "Heebo", sans-serif;
-    overflow-x: hidden;
-    width: 100%;
-}
-
-.visually-hidden {
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-}
-
-.flex {
-    align-items: center;
-  // display: flex;
-    justify-content: center;
-}
-
-.scene {
-  // background: map-get($colors, brown) url('https://picsum.photos/id/413/1920/1080') center/cover;
-  // height: 100vh;
-    position: relative;
-}
-
-.login_modal {
-  // height: 400px;
-
-    &_headline {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    }
-
-    &_text {
-    font-size: 0.6rem;
-    text-align: start;
-    margin: 10px 0;
-
-        // &_login {
-        //     font-size: 1rem;
-        //     font-weight: bold;
-        // }
-
-        &_comment {
-            font-size: 12px;
-        }
-    }
-}
-
-.modal-content {
-  /* 기존 스타일 유지 */
-    background-color: transparent;
-    padding: 20px;
-    border-radius: 5px;
-}
-
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */
-    display: flex;
-    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */
-    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */
-}
-
-.card {
-    backdrop-filter: blur(10px);
-    // background: rgba(map-get($colors, blue), 0.075);
-    // background: rgba(map-get($colors, blue), 1);
-    background: #fff;
-    border: 1px solid rgba(map-get($colors, white), 0.18);
-    border-radius: 15px;
-    box-shadow: 0 10px 35px 0 rgba(map-get($colors, brown), 0.65);
-    // color: white;
-    // max-width: 300px;
-    overflow: hidden;
-    // padding: 20px 30px 50px 30px;
-    padding: 30px;
-    position: relative;
-    text-align: center;
-    z-index: 1;
-    width: 100%;
-
-    &__heading {
-        font-size: 1.35rem;
-        font-weight: 200;
-        // margin-bottom: 15px;
-        span {
-        font-weight: bold;
-        }
-    }
-
-    &__figure {
-        height: auto;
-        margin: 0 auto;
-        max-width: 225px;
-        width: 60%;
-    }
-
-    &__image {
-        border-radius: 50%;
-        max-width: 100%;
-    }
-    
-    &__input {
-        // background: rgba(map-get($colors, white), 0.075);
-        background: rgb(217, 217, 217, 0.5);
-        border: 1px solid rgba(map-get($colors, white), 0.3);
-        border-radius: 3px;
-        box-sizing: border-box;
-        // color: map-get($colors, white);
-        color: $main-font-color;
-        display: block;
-        font-size: 12px;
-        letter-spacing: 0.15rem;
-        // padding: 10px;
+@include desktop {
+    .header_container {
+        font: 100 100%/1.6 "Heebo", sans-serif;
+        overflow-x: hidden;
         width: 100%;
-        padding: 5px 8px;
-
-        &:focus,
-        &:active {
-        // background: rgba(map-get($colors, white), 0.08);
-        border: 1px solid rgba(map-get($colors, white), 0.75);
-        outline: none;
-        }
     }
 
-    &__form_email {
-        text-align: start;
-
-        label {
-        font-size: 12px;
-        }
+    .visually-hidden {
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
     }
 
-    &__form_pw {
-        text-align: start;
-
-        label {
-        font-size: 12px;
-        }
-    }
-
-    &__button {
-        // background: rgba(map-get($colors, white), 0.65);
-        background-color: $logo-two-main-color;
-        border: none;
-        border-radius: 3px;
-        // color: #362100;
-        color: $main-font-color;
-        margin: 15px auto 0 auto;
-        padding: 5px 12px;
-        font-size: 12px;
-
-        &:focus,
-        &:active {
-            background: rgba(255, 255, 255, 0.75);
-            outline: none;
-        }
-        &:hover {
-            background-color: #497bff;
-            font-weight: bold;
-        }
-    }
-
-    &__form_button {
-        display: flex;
-        justify-content: space-evenly;
-        margin-bottom: 20px;
-    }
-
-    &__social_login_text {
-        font-size: 15px;
-        color: $logo-two-main-color;
-        margin-top: 8px;
-    }
-
-    &__social_btn {
-
-        // background: rgba(map-get($colors, white), 0.075);
-        // background-color: $logo-two-main-color;
-        // border: 1px solid rgba(map-get($colors, white), 0.3);
-        border-radius: 3px;
-        box-sizing: border-box;
-        color: map-get($colors, white);
-        display: block;
-        font-size: 1rem;
-        letter-spacing: 0.15rem;
-        // padding: 10px;
-        width: 100%;
-        margin-top: 5px;
-        display: flex;
+    .flex {
         align-items: center;
+    // display: flex;
         justify-content: center;
+    }
 
-        &:focus,
-        &:active {
-        background: rgba(map-get($colors, white), 0.08);
-        border: 1px solid rgba(map-get($colors, white), 0.75);
-        outline: none;
+    .scene {
+    // background: map-get($colors, brown) url('https://picsum.photos/id/413/1920/1080') center/cover;
+    // height: 100vh;
+        position: relative;
+    }
+
+    .login_modal {
+    // height: 400px;
+
+        &_headline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         }
 
-        &_google {
-            width: 2rem;
-            margin-right: 5px;
-        }
+        &_text {
+        font-size: 0.6rem;
+        text-align: start;
+        margin: 10px 0;
 
-        &_kakao {
-            width: 2rem;
-            margin-left: 5px;
+            // &_login {
+            //     font-size: 1rem;
+            //     font-weight: bold;
+            // }
+
+            &_comment {
+                font-size: 12px;
+            }
         }
     }
-}
 
-// 모달
-.modal {
-	background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */
+    .modal-content {
+    /* 기존 스타일 유지 */
+        background-color: transparent;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */
+        display: flex;
+        justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */
+        align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */
+    }
+
+    .card {
+        backdrop-filter: blur(10px);
+        // background: rgba(map-get($colors, blue), 0.075);
+        // background: rgba(map-get($colors, blue), 1);
+        background: #fff;
+        border: 1px solid rgba(map-get($colors, white), 0.18);
+        border-radius: 15px;
+        box-shadow: 0 10px 35px 0 rgba(map-get($colors, brown), 0.65);
+        // color: white;
+        // max-width: 300px;
+        overflow: hidden;
+        // padding: 20px 30px 50px 30px;
+        padding: 30px;
+        position: relative;
+        text-align: center;
+        z-index: 1;
+        width: 100%;
+
+        &__heading {
+            font-size: 1.35rem;
+            font-weight: 200;
+            // margin-bottom: 15px;
+            span {
+            font-weight: bold;
+            }
+        }
+
+        &__figure {
+            height: auto;
+            margin: 0 auto;
+            max-width: 225px;
+            width: 60%;
+        }
+
+        &__image {
+            border-radius: 50%;
+            max-width: 100%;
+        }
+        
+        &__input {
+            // background: rgba(map-get($colors, white), 0.075);
+            background: rgb(217, 217, 217, 0.5);
+            border: 1px solid rgba(map-get($colors, white), 0.3);
+            border-radius: 3px;
+            box-sizing: border-box;
+            // color: map-get($colors, white);
+            color: $main-font-color;
+            display: block;
+            font-size: 12px;
+            letter-spacing: 0.15rem;
+            // padding: 10px;
+            width: 100%;
+            padding: 5px 8px;
+
+            &:focus,
+            &:active {
+            // background: rgba(map-get($colors, white), 0.08);
+            border: 1px solid rgba(map-get($colors, white), 0.75);
+            outline: none;
+            }
+        }
+
+        &__form_email {
+            text-align: start;
+
+            label {
+            font-size: 12px;
+            }
+        }
+
+        &__form_pw {
+            text-align: start;
+
+            label {
+            font-size: 12px;
+            }
+        }
+
+        &__button {
+            // background: rgba(map-get($colors, white), 0.65);
+            background-color: $logo-two-main-color;
+            border: none;
+            border-radius: 3px;
+            // color: #362100;
+            color: $main-font-color;
+            margin: 15px auto 0 auto;
+            padding: 5px 12px;
+            font-size: 12px;
+
+            &:focus,
+            &:active {
+                background: rgba(255, 255, 255, 0.75);
+                outline: none;
+            }
+            &:hover {
+                background-color: #497bff;
+                font-weight: bold;
+            }
+        }
+
+        &__form_button {
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 20px;
+        }
+
+        &__social_login_text {
+            font-size: 15px;
+            color: $logo-two-main-color;
+            margin-top: 8px;
+        }
+
+        &__social_btn {
+
+            // background: rgba(map-get($colors, white), 0.075);
+            // background-color: $logo-two-main-color;
+            // border: 1px solid rgba(map-get($colors, white), 0.3);
+            border-radius: 3px;
+            box-sizing: border-box;
+            color: map-get($colors, white);
+            display: block;
+            font-size: 1rem;
+            letter-spacing: 0.15rem;
+            // padding: 10px;
+            width: 100%;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:focus,
+            &:active {
+            background: rgba(map-get($colors, white), 0.08);
+            border: 1px solid rgba(map-get($colors, white), 0.75);
+            outline: none;
+            }
+
+            &_google {
+                width: 2rem;
+                margin-right: 5px;
+            }
+
+            &_kakao {
+                width: 2rem;
+                margin-left: 5px;
+            }
+        }
+    }
+
+    // 모달
+    .modal {
+        background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */
+    }
 }

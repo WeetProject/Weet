@@ -37,3 +37,7 @@
     - 참고 : https://icons.getbootstrap.kr/?q=hand
     - npm i bootstrap-icons
     - <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+6. JWT
+    - 참고 : https://hacktam.kr/etclec/120?sca=php
+    - composer require tymon/jwt-auth
