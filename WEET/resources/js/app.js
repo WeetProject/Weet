@@ -9,7 +9,7 @@ import HeaderComponent from '../components/Layout/HeaderComponent.vue';
 import FooterComponent from '../components/Layout/FooterComponent.vue';
 import AdminLoginComponent from '../components/Admin/AdminLoginComponent.vue';
 import AdminIndexComponent from '../components/Admin/AdminIndexComponent.vue';
-import RegistComponent from '../components/RegistComponent.vue';
+import SignUpComponent from '../components/SignUpComponent.vue';
 
 createApp({
 	components: {
@@ -19,7 +19,7 @@ createApp({
 		MainComponent,
 		AdminLoginComponent,
 		AdminIndexComponent,
-		RegistComponent,
+		SignUpComponent,
 	}
 })
 .use(router)

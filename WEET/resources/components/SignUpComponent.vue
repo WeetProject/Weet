@@ -124,7 +124,7 @@
 <script>
 
 export default {
-    name: 'RegistComponent',
+    name: 'SignUpComponent',
 
     data() {
         return {

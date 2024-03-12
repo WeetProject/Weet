@@ -4,7 +4,7 @@ import MainComponent from '../components/MainComponent.vue';
 import TestComponent from '../components/TestComponent.vue';
 import MypageComponent from '../components/MypageComponent.vue';
 import ReservationComponent from '../components/Reservation/ReservationComponent.vue';
-import RegistComponent from '../components/RegistComponent.vue';
+import SignUpComponent from '../components/SignUpComponent.vue';
 import AdminLoginComponent from '../components/Admin/AdminLoginComponent.vue';
 import AdminIndexComponent from '../components/Admin/AdminIndexComponent.vue';
 
@@ -34,8 +34,8 @@ const routes = [
 		component: AdminIndexComponent
 	},
 	{
-		path: '/regist',
-		component: RegistComponent
+		path: '/signup',
+		component: SignUpComponent
 	},
 ];
 

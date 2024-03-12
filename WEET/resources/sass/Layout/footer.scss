@@ -1,66 +1,85 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "../mixin";
 
 // 변경 푸터 css
-footer {
-    background-color: #081742;
-    opacity: 0.9;
-    color: #ffff;
-    width: 100%;
-    padding: 10px;
-    font-size: 10px;
-    overflow: auto;
-    height: 140px;
-    position: relative;
-    transform: translateY(0%);
-}
 
-// 기존 푸터 css
-// footer {
-//     position: fixed;
-//     background-color: #081742;
-//     opacity: 0.9;
-//     color: #ffff;
-//     bottom: 0;
-//     width: 100%;
-//     padding: 10px;
-//     font-size: 10px;
-//     overflow: auto;
-// }
-
-.footer_container {
-    // display: flex;
-    // justify-content: space-between;
-
-    &_text {
-        // display: flex;
+@include desktop {
+    footer {
+        background-color: #081742;
+        opacity: 0.9;
+        color: #ffff;
         width: 100%;
+        padding: 10px;
+        font-size: 10px;
+        overflow: auto;
+        height: 140px;
+        position: relative;
+        transform: translateY(0%);
+    }
 
-        &_personal_info {
+    .footer_container {
+        // display: flex;
+        // justify-content: space-between;
+
+        &_text {
+            // display: flex;
+            width: 100%;
+
+            &_personal_info {
+                display: flex;
+                justify-content: center;
+                align-content: center;
+            }
+        }
+
+        &_icons {
             display: flex;
+            font-size: 30px;
+            align-items: center;
             justify-content: center;
-            align-content: center;
+            margin-top: 10px;
+
+            &_instar {
+                margin: 0 10px;
+            }
+
+            &_facebook {
+                margin: 0 10px;
+            }
+
+            &_amadeus {
+                margin: 0 10px;
+            }
         }
     }
 
-    &_icons {
+    .header_mobile_nav_container {
+        display: none;
+    }
+}
+
+@include tablet {
+
+}
+
+@include mobile {
+    .footer_container {
+        display: none;
+    }
+
+    .header_mobile_nav_container {
         display: flex;
-        font-size: 30px;
         align-items: center;
-        justify-content: center;
-        margin-top: 10px;
+        justify-content: space-around;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        // margin-bottom: 10px;
+        background-color: $layout-background-color;
+        padding: 10px;
 
-        &_instar {
-            margin: 0 10px;
-        }
-
-        &_facebook {
-            margin: 0 10px;
-        }
-
-        &_amadeus {
-            margin: 0 10px;
+        svg {
+            width: 30px;
+            height: 30px;
         }
     }
 }
