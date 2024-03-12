@@ -1,26 +1,34 @@
 <template>
-  	<div class="box-border main_container">
+	<div class="box-border main_container">
 		<div class="main_section">
 			<div class="main_select_ticket_section">
-				<div class="main_select_ticket_border main_select_ticket_starting_point">
-					<p class="text-lg font-semibold main_select_ticket_title">출발지</p>
-					<p class="text-base text-center main_select_ticket_content">부산 김해</p>
-				</div>
-				<div class="main_select_ticket_border main_select_ticket_destination_area">
-					<p class="text-lg font-semibold main_select_ticket_title">도착지</p>
-					<p class="text-base text-center main_select_ticket_content">베트남 나트랑</p>
-				</div>
-				<div class="main_select_ticket_border main_select_ticket_outbound_flight_area">
-					<p class="text-lg font-semibold main_select_ticket_title">가는 편</p>
-					<p class="text-base text-center main_select_ticket_content">날짜 입력</p>
-				</div>
-				<div class="main_select_ticket_border main_select_ticket_inbound_flight_area">
-					<p class="text-lg font-semibold main_select_ticket_title">오는 편</p>
-					<p class="text-base text-center main_select_ticket_content">날짜 입력</p>
-				</div>
-				<div class="main_select_ticket_border main_select_ticket_traveler_seatclass_area">
-					<p class="text-lg font-semibold main_select_ticket_title">여행자 및 좌석 등급</p>
-					<p class="text-base text-center main_select_ticket_content">1 성인, 일반석</p>
+				<div class="main_select_ticket_flex_first">
+					<div class="main_select_ticket_flex_first_top">
+						<div class="main_select_ticket_border main_select_ticket_starting_point_area">
+							<p class="text-base font-semibold text-left main_select_ticket_title">출발지</p>
+							<p class="text-sm text-left main_select_ticket_content">부산 김해</p>
+						</div>
+						<div class="main_select_ticket_border main_select_ticket_destination_area">
+							<p class="text-base font-semibold text-left main_select_ticket_title">도착지</p>
+							<p class="text-sm text-left main_select_ticket_content">일본 도쿄</p>
+						</div>
+					</div>
+					<div class="main_select_ticket_flex_first_middle">
+						<div class="main_select_ticket_border main_select_ticket_outbound_flight_area">
+							<p class="text-base font-semibold text-left main_select_ticket_title">가는 편</p>
+							<p class="text-sm text-left main_select_ticket_content">날짜 입력</p>
+						</div>
+						<div class="main_select_ticket_border main_select_ticket_inbound_flight_area">
+							<p class="text-base font-semibold text-left main_select_ticket_title">오는 편</p>
+							<p class="text-sm text-left main_select_ticket_content">날짜 입력</p>
+						</div>
+					</div>
+					<div class="main_select_ticket_flex_first_bottom">
+						<div class="main_select_ticket_border_bottom main_select_ticket_traveler_seatclass_area">
+							<p class="text-base font-semibold text-left main_select_ticket_title">여행자 및 좌석 등급</p>
+							<p class="text-sm text-left main_select_ticket_content">1 성인, 일반석</p>
+						</div>
+					</div>
 				</div>
 			</div>
 
