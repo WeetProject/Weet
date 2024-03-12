@@ -70,7 +70,7 @@
                 <div class="reservation_baggage">
                     <div class="reservation_title_4">수하물 허용량</div>
                     <div>
-                        <span class="reservation_icon_flex">
+                        <span class="reservation_icon_flex pr-3">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-duffle reservation_icon_blue" viewBox="0 0 16 16">
                                 <path d="M8 5.75c1.388 0 2.673.193 3.609.385a18 18 0 0 1 1.43.354l.112.034.002.001h.001a.5.5 0 0 1-.308.952l-.004-.002-.018-.005a17 17 0 0 0-1.417-.354A17.3 17.3 0 0 0 8 6.75a17.3 17.3 0 0 0-3.408.365 17 17 0 0 0-1.416.354l-.018.005-.003.001a.5.5 0 1 1-.308-.95A17.3 17.3 0 0 1 8 5.75"/>
                                 <path d="M5.229 2.722c-.126.461-.19.945-.222 1.375-1.401.194-2.65.531-3.525 1.012C-.644 6.278.036 11.204.393 13.127a.954.954 0 0 0 .95.772h13.314a.954.954 0 0 0 .95-.772c.357-1.923 1.037-6.85-1.09-8.018-.873-.48-2.123-.818-3.524-1.012a7.4 7.4 0 0 0-.222-1.375c-.162-.593-.445-1.228-.971-1.622-1.115-.836-2.485-.836-3.6 0-.526.394-.81 1.03-.971 1.622M9.2 1.9c.26.195.466.57.606 1.085.088.322.142.667.173.998a23.3 23.3 0 0 0-3.958 0 6 6 0 0 1 .173-.998c.14-.515.346-.89.606-1.085.76-.57 1.64-.57 2.4 0M8 4.9c2.475 0 4.793.402 6.036 1.085.238.13.472.406.655.93.183.522.28 1.195.303 1.952.047 1.486-.189 3.088-.362 4.032H1.368c-.173-.944-.409-2.545-.362-4.032.024-.757.12-1.43.303-1.952.183-.524.417-.8.655-.93C3.207 5.302 5.525 4.9 8 4.9"/>
@@ -79,7 +79,7 @@
                         </span>
                     </div>
                     <div>
-                        <span class="reservation_icon_flex">
+                        <span class="reservation_icon_flex pr-3">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suitcase reservation_icon_blue" viewBox="0 0 16 16">
                                 <path d="M6 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 6 5m2 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m2 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 10 5"/>
                                 <path d="M6.5 0a.5.5 0 0 0-.5.5V3H5a2 2 0 0 0-2 2v8a2 2 0 0 0 1.031 1.75A1.003 1.003 0 0 0 5 16a1 1 0 0 0 1-1h4a1 1 0 1 0 1.969-.25A2 2 0 0 0 13 13V5a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-.5-.5zM9 3H7V1h2zm3 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
@@ -91,7 +91,7 @@
                 <div class="reservation_rule">
                     <div class="reservation_title_4">규정</div>
                     <div>
-                        <span class="reservation_icon_flex">
+                        <span class="reservation_icon_flex pr-3">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban reservation_icon_gray" viewBox="0 0 16 16">
                                 <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"/>
                             </svg>
@@ -99,7 +99,7 @@
                         </span>
                     </div>
                     <div>
-                        <span class="reservation_icon_flex">
+                        <span class="reservation_icon_flex pr-3">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin reservation_icon_blue" viewBox="0 0 16 16">
                                 <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z"/>
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
@@ -138,7 +138,7 @@
                         <input type="date" class="reservation_input" placeholder="생년월일">
                         <fieldset class="reservation_input">
                             <legend >국적</legend>
-                            <select name="" id="" >
+                            <select id="countries" class="w-full">
                                 <option value="">대한민국</option>
                             </select>
                         </fieldset>
@@ -146,7 +146,7 @@
                     <div class="grid gap-4 mb-4 md:grid-cols-3">
                         <fieldset class="reservation_input">
                             <legend >신분증 종류</legend>
-                            <select name="" id="">
+                            <select id=""  class="w-full">
                                 <option value="">여권</option>
                             </select>
                         </fieldset>
@@ -154,14 +154,67 @@
                         <input type="date" class="reservation_input">
                     </div>
                 </div>
+                <li class="reservation_notification_box">이름을 포함하여 탑승객의 모든 정보는 신분증 정보와 일치해야합니다.신분증 상의 정보와 다른경우 <span>탑승이 불가</span>
+                    하여, 예약 확정 후에는 <span>탑승객 정보의 변경이 불가</span>합니다.
+                </li>
+            </div>
+            <div class="reservation_title_3">이유불문! 환불보장</div>
+            <div class="reservation_refund_box">
+                <div class="reservation_refund_area">
+                    <div>
+                        <span>예약 항공권 금액 100% 보상!</span>
+                        <div class="reservation_icon_flex">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check reservation_icon_blue" viewBox="0 0 16 16">
+                                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                            </svg>
+                            취소 시 <span class="reservation_icon_blue">300000원</span>을(를) 환불 받으실수 있습니다</div>
+                    </div>
+                    <div>
+                        <span class="pr-3">
+                            <span class="reservation_icon_blue">47400원</span>/1인당
+                        </span>
+                        <input type="radio" name="refund">
+                    </div>
+                </div>
+                <div class="reservation_refund_area">
+                    <div>
+                        <span>예약 항공권 금액 80% 보상!</span>
+                        <div class="reservation_icon_flex">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check reservation_icon_blue" viewBox="0 0 16 16">
+                                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                            </svg>
+                            취소 시 <span class="reservation_icon_blue">240000원</span>을(를) 환불 받으실수 있습니다</div>
+                    </div>
+                    <div>
+                        <span class="pr-3">
+                            <span class="reservation_icon_blue">32500원</span>/1인당
+                        </span>
+                        <input type="radio" name="refund">
+                    </div>
+                </div>
+                <div class="reservation_refund_area">
+                    <div>
+                        <span>보상없음</span>
+                        <div class="reservation_icon_flex">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                            </svg>
+                            취소 시,환불이 불가합니다
+                        </div>
+                    </div>
+                    <div>
+                        <input type="radio" name="refund">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
-<script>
-export default {
-    
-}
+<script setup>
+import { reactive } from 'vue';
+import axios from 'axios';
+import { useRouter } from 'vue-router'
+const router = useRouter();
 </script>
 <style lang="scss">
 	@import '../../sass/Reservation/reservation.scss';
