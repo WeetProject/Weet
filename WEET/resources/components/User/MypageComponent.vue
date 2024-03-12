@@ -1,4 +1,5 @@
 <template>
+    <div class="mypage_banner">이미지 배너 영역</div>
     <div class="mypage_container">
         <div class="mypage_box1">
             <div class="mypage_mention">
