@@ -112,6 +112,9 @@
 
         div {
             margin-bottom: 10px;
+            border: 1px solid #ededed;
+            border-radius: 5px;
+            padding: 5px;
         }
     }
 
@@ -129,7 +132,7 @@
         &_content {
             // border-collapse: separate;
             // border-spacing: 10px 10px;
-            margin-bottom: 10px;
+            margin-bottom: 22px;
 
             th {
                 border: 1px solid #ededed;
@@ -138,7 +141,9 @@
         }
 
         label {
-            display: none;
+            text-align: start;
+            display: inline-block;
+            width: 120px;
         }
     }
 
