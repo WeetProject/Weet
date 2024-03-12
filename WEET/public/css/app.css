@@ -498,9 +498,6 @@ video {
 .absolute {
   position: absolute;
 }
-.mb-6 {
-  margin-bottom: 1.5rem;
-}
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -536,9 +533,6 @@ video {
 }
 .resize {
   resize: both;
-}
-.gap-6 {
-  gap: 1.5rem;
 }
 .gap-4 {
   gap: 1rem;
@@ -598,6 +592,16 @@ video {
 .focus\:ring-blue-500:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
+}
+@media (min-width: 768px) {
+
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 @media (prefers-color-scheme: dark) {
 
