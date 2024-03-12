@@ -138,5 +138,5 @@ export default {
 
 
 <style lang="scss">
-	@import '../sass/User/mypage.scss';
+	@import '../../sass/User/mypage.scss';
 </style>
