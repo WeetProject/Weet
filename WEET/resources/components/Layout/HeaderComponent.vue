@@ -3,7 +3,9 @@
 		<div class="header_container">
 			<div class="header_nav">
 				<div class="header_nav_logo">
-					<img src="../../../public/images/WEET_logo.png" alt="">
+					<a href="/">
+						<img src="../../../public/images/WEET_logo.png" alt="">
+					</a>
 				</div>
 
 				<div class="header_nav_user_btn">
