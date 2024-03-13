@@ -1,7 +1,8 @@
 <template>
     <div class="login_container">
         <!-- 로그인모달 -->
-					<div v-if="showmodal" class="modal">
+					<!-- <div v-if="showmodal" class="modal"> -->
+					<div class="modal">
 						<div class="modal-content">
 							<!-- 모달 내용 -->
 							<!-- 로그인 폼 등 -->
@@ -79,19 +80,17 @@
 // import Header from '../Layout/HeaderComponent.vue';
 
 export default {
-    name: 
-        'LoginComponent'
-    ,
+    name: 'LoginComponent',
 
     // components: {
     //     Header
     // },
 
-    // data() {
-    //     return {
-    //         showmodal: false,
-    //     }
-	// },
+    data() {
+        return {
+            showmodal: false,
+        }
+	},
 
 	// methods: {
     //     	toggleModal() {

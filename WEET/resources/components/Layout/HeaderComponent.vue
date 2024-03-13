@@ -17,7 +17,7 @@
 					<div class="header_nav_login_btn">
 						<div class="header_nav_login_btn_user">
 							<button @click="toggleModal">login</button>
-							<LoginComponent v-if="showmodal" @closeModal="closemodal" />
+							<!-- <LoginComponent v-if="showmodal" @closeModal="closemodal" /> -->
 							<!-- <a href="/login">login</a> -->
 						</div>
 
@@ -93,7 +93,7 @@
 			</div>
 		</div>
 		<!-- 로그인 모달 -->
-		<!-- <LoginComponent v-if="showmodal" @closeModal="closemodal" /> -->
+		<LoginComponent v-if="showmodal" @click="closeModal" />
 		<!-- <LoginComponent :showmodal="showmodal" @closeModal="closemodal" /> -->
 	</div>
 </template>
