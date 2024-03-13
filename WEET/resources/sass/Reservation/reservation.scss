@@ -334,6 +334,34 @@ input[type="date"]:not(.has-value):before{
     .reservation_progress_box{
         width: 75%;
     }
+    .reservation_baggage_rule_box{
+        gap: 10px;
+        flex-direction: column;
+    }
+    .reservation_refund_area{
+        padding: 5px;
+        font-size: 12px;
+        gap: 10px;
+        flex-direction: column;
+    }
+    .reservation_title_1{
+        font-size: 35px;
+    }
+    .reservation_to_tiket_info{
+        font-size: 15px;
+    }
+    .reservation_to_tiket_title div:nth-child(1){
+        font-size: 14px;
+    }
+    .reservation_to_tiket_title div:nth-child(2){
+        font-size: 12px;
+    }
+    .reservation_to_tiket_title div:nth-child(3){
+        font-size: 11px;
+    }
+    .reservation_icon_flex{
+        align-items: flex-start 
+    }
 }
     
 @include tablet {
@@ -348,6 +376,7 @@ input[type="date"]:not(.has-value):before{
     .reservation_progress_box {
         width: 628px;
     }
+
 }
     
 @include desktop {
