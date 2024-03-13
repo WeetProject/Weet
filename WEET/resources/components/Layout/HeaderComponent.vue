@@ -116,7 +116,9 @@ import LoginComponent from '../User/LoginComponent.vue';
 
 		methods: {
         	toggleModal() {
-            	this.showmodal = !this.showmodal; // 모달을 열고 닫는 토글 메서드
+				// 모달을 열고 닫는 토글 메서드
+            	// this.showmodal = !this.showmodal;
+            	this.showmodal = true; // 모달을 열고 닫는 토글 메서드
         	},
         	closeModal() {
             	this.showmodal = false; // 모달을 닫는 메서드
