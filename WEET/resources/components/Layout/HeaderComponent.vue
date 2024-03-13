@@ -17,10 +17,12 @@
 					<div class="header_nav_login_btn">
 						<div class="header_nav_login_btn_user">
 							<button @click="toggleModal">login</button>
+							<LoginComponent v-if="showmodal" @closeModal="closemodal" />
+							<!-- <a href="/login">login</a> -->
 						</div>
 
 					<!-- 로그인모달 -->
-					<div v-if="showmodal" class="modal">
+					<!-- <div v-if="showmodal" class="modal">
 						<div class="modal-content">
 							<div class="flex scene" style="width: 300px;">
 								<section class="card">
@@ -84,25 +86,27 @@
 									<button @click="showmodal = false">Close</button>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- 로그인 모달 -->
-		<!-- <Login v-if="showmodal" @closeModal="closemodal" /> -->
+		<!-- <LoginComponent v-if="showmodal" @closeModal="closemodal" /> -->
+		<!-- <LoginComponent :showmodal="showmodal" @closeModal="closemodal" /> -->
 	</div>
 </template>
 
 <script>
-// import Login from '../User/LoginComponent.vue';
+import LoginComponent from '../User/LoginComponent.vue';
 
     export default {
         name: 'HeaderComponent',
-		// components: {
-		// 	Login
-		// },
+
+		components: {
+			LoginComponent,
+		},
 
         data() {
             return {
@@ -117,7 +121,11 @@
         	closeModal() {
             	this.showmodal = false; // 모달을 닫는 메서드
         	}
-    	}
+    	},
+		// mounted() {
+		// 	this.toggleModal();
+		// 	this.closeModal();
+    	// },
     }
 </script>
 
