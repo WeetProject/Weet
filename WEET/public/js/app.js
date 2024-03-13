@@ -20892,24 +20892,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'FooterComponent',
   methods: {
-    adjustFooterPosition: function adjustFooterPosition() {
-      var footer = document.getElementById('footer');
-      var windowHeight = window.innerHeight;
-      var bodyHeight = document.body.offsetHeight;
-      if (windowHeight > bodyHeight) {
-        footer.style.position = 'fixed';
-        footer.style.bottom = '0';
-      } else {
-        footer.style.position = 'absolute';
-        footer.style.bottom = 'auto';
-      }
-    }
-  },
-  mounted: function mounted() {
-    // 페이지 로드 및 창 크기 변경 시 푸터 위치 조정
-    window.addEventListener('load', this.adjustFooterPosition);
-    window.addEventListener('resize', this.adjustFooterPosition);
+    // adjustFooterPosition() {
+    //     const footer = document.getElementById('footer');
+    //     const windowHeight = window.innerHeight;
+    //     const bodyHeight = document.body.offsetHeight;
+
+    //     if (windowHeight > bodyHeight) {
+    //         footer.style.position = 'fixed';
+    //         footer.style.bottom = '0';
+    //     } else {
+    //         footer.style.position = 'absolute';
+    //         footer.style.bottom = 'auto';
+    //     }
+    // }
   }
+
+  // mounted() {
+  //     // 페이지 로드 및 창 크기 변경 시 푸터 위치 조정
+  //     window.addEventListener('load', this.adjustFooterPosition);
+  //     window.addEventListener('resize', this.adjustFooterPosition);
+  // }
 });
 
 /***/ }),
