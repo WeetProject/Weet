@@ -17,6 +17,8 @@
 					<div class="header_nav_login_btn">
 						<div class="header_nav_login_btn_user">
 							<button @click="toggleModal">login</button>
+							<!-- <LoginComponent v-if="showmodal" @closeModal="closemodal" /> -->
+							<!-- <a href="/login">login</a> -->
 						</div>
 
 					<!-- 로그인모달 -->
@@ -89,19 +91,25 @@
 					</div>
 				</div>
 			</div>
+				
 		</div>
 		<!-- 로그인 모달 -->
-		<!-- <Login v-if="showmodal" @closeModal="closemodal" /> -->
+			<!-- <LoginComponent v-if="showmodal" @click="closeModal" /> -->
+		<!-- <LoginComponent /> -->
 	</div>
 </template>
 
 <script>
-// import Login from '../User/LoginComponent.vue';
+import LoginComponent from '../User/LoginComponent.vue';
+import axios from 'axios';
+import Vuex from 'vuex';
+import store from '../../js/store.js';
 
     export default {
         name: 'HeaderComponent',
+
 		// components: {
-		// 	Login
+		// 	LoginComponent,
 		// },
 
         data() {
@@ -111,13 +119,28 @@
 	    },
 
 		methods: {
-        	toggleModal() {
-            	this.showmodal = !this.showmodal; // 모달을 열고 닫는 토글 메서드
+        	// toggleModal() {
+			// 	// 모달을 열고 닫는 토글 메서드
+            // 	// this.showmodal = !this.showmodal;
+            // 	this.showmodal = true; // 모달을 열고 닫는 토글 메서드
+        	// },
+        	// closeModal() {
+            // 	this.showmodal = false; // 모달을 닫는 메서드
+        	// }
+			// 모달 토글 액션을 Store에 커밋
+			toggleModal() {
+				this.$store.commit('setToggleModal');
+				this.showmodal = true;
+    		},
+			closeModal() {
+            	this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
+				this.showmodal = false;
         	},
-        	closeModal() {
-            	this.showmodal = false; // 모달을 닫는 메서드
-        	}
-    	}
+    	},
+		// mounted() {
+		// 	this.toggleModal();
+		// 	this.closeModal();
+    	// },
     }
 </script>
 

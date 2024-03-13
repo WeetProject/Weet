@@ -20,7 +20,7 @@
                         </button>    
                     </div>
                     <div>
-                        <p>제작자 : 여중기 | 최정훈 | 정지우 | 최현희</p>
+                        <p>제작자 : 여중기 | 최정훈 | 최현희</p>
                     </div>
                     <div>
                         <p>주소 : 대구 중구 중앙대로394 제일빌딩5F</p>
@@ -83,20 +83,106 @@
                 </a>
             </div>
             <div class="header_mobile_nav_icon_user">
-                <a href="/signup">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                    </svg>
-                </a>
+                <!-- <a href="/login"> -->
+                    <button @click="toggleModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                        </svg>
+                    </button>
+                <!-- </a> -->
             </div>
         </div>
+        <!-- 로그인 모달 -->
+			<!-- <LoginComponent v-if="showmodal" @click="closeModal" /> -->
+            <!-- <LoginComponent /> -->
+            <!-- 로그인모달 -->
+					<div v-if="showmodal" class="modal">
+						<div class="modal-content">
+							<div class="flex scene" style="width: 300px;">
+								<section class="card">
+									<div class="login_modal">
+										<div class="login_modal_headline">
+											<div class="card__heading">
+												
+												<img src="../../../public/images/WEET_logo.png" alt="">
+											</div>
+										</div>
+										<div class="login_modal_text">
+											
+											<div class="login_modal_text_comment">
+												<p>한눈에 예매 항공권을 확인하고</p>
+												<p>다양한 항공권 가격을 비교해보세요</p>
+											</div>	
+										</div>
+										<form class="card__form">
+											<div class="card__form_email">
+												
+												<label for="email">Email:</label>
+													<input id="email" class="card__input" type="email" />
+											</div>
+											<div class="card__form_pw">
+												
+												<label for="password">Password:</label>
+													<input id="password" class="card__input" type="password" />
+											</div>
+						
+
+											<div class="card__form_button">
+												<div>
+													<button class="card__button" type="button">
+														<span>Login</span>
+													</button>
+												</div>  
+												<div>
+													<button class="card__button" type="button">
+														<span><a href="/signup">Sign Up</a></span>
+													</button>
+												</div>
+											</div>
+										<hr>
+											<div class="card__social_login_text">
+												<p>- Social Login -</p>
+											</div>
+
+												<div class="card__social_btn">
+													<button class="card__social_btn_google">
+														<img src="../../../public/images/Google_logo.svg.png" alt="">
+													</button>
+													<button class="card__social_btn_kakao">
+														<img src="../../../public/images/Kakao_logo.png" alt="">
+													</button>
+												</div>
+											</form>
+										</div>
+									</section>
+								</div>
+								<div>
+									<button @click="showmodal = false">Close</button>
+								</div>
+							</div>
+						</div>
     </div>
 </template>
 
 <script>
+import LoginComponent from '../User/LoginComponent.vue';
+import axios from 'axios'
+import Vuex from 'vuex';
+import store from '../../js/store.js';
+
 export default {
     name: 'FooterComponent',
+
+    // components: {
+	// 		LoginComponent,
+	// 	},
+
+        data() {
+            return {
+                showmodal: false,
+            }
+	    },
 
     methods: {
         // adjustFooterPosition() {
@@ -112,6 +198,22 @@ export default {
         //         footer.style.bottom = 'auto';
         //     }
         // }
+        // toggleModal() {
+		// 		// 모달을 열고 닫는 토글 메서드
+        //     	// this.showmodal = !this.showmodal;
+        //     	this.showmodal = true; // 모달을 열고 닫는 토글 메서드
+        // 	},
+        // closeModal() {
+        //     	this.showmodal = false; // 모달을 닫는 메서드
+        // 	}
+        toggleModal() {
+			this.$store.commit('setToggleModal');
+            this.showmodal = true;
+    	},
+        closeModal() {
+            this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
+            this.showmodal = false;
+        },
     },
     
     // mounted() {

@@ -2,10 +2,11 @@
     <div class="login_container">
         <!-- 로그인모달 -->
 					<div v-if="showmodal" class="modal">
+					<!-- <div class="modal"> -->
 						<div class="modal-content">
 							<!-- 모달 내용 -->
 							<!-- 로그인 폼 등 -->
-							<div class="flex scene" style="width: 300px;">
+							<div class="flex scene" style="width: 350px;">
 								<section class="card">
 									<div class="login_modal">
 										<div class="login_modal_headline">
@@ -27,12 +28,12 @@
 										<form class="card__form">
 											<div class="card__form_email">
 												<!-- <label for="email" class="visually-hidden">Email:</label> -->
-												<label for="email">Email:</label>
+												<label for="email">Email</label>
 													<input id="email" class="card__input" type="email" />
 											</div>
 											<div class="card__form_pw">
 												<!-- <label for="password" class="visually-hidden">Password:</label> -->
-												<label for="password">Password:</label>
+												<label for="password">Password</label>
 													<input id="password" class="card__input" type="password" />
 											</div>
 						
@@ -68,7 +69,7 @@
 									</section>
 								</div>
 								<div>
-									<button @click="showmodal = false">Close</button>
+									<button @click="closeModal">Close</button>
 								</div>
 							</div>
 						</div>
@@ -76,25 +77,50 @@
 </template>
 
 <script>
-// import Header from '../Layout/HeaderComponent.vue';
+import axios from 'axios'
+import Vuex from 'vuex';
 
 export default {
-    name: 
-        'LoginComponent'
-    ,
+    name: 'LoginComponent',
 
     // components: {
     //     Header
     // },
 
-    // data() {
-    //     return {
-    //         showmodal: false,
-    //     }
-	// }
+    data() {
+        return {
+            showmodal: true,
+        }
+	},
+
+	// computed: {
+	// 	showModal() {
+	// 		return this.$store.state.showModal;
+	// 	},
+	// },
+
+	methods: {
+    //     	toggleModal() {
+    //         	this.showmodal = !this.showmodal; // 모달을 열고 닫는 토글 메서드
+    //     	},
+    //     	closeModal() {
+    //         	this.showmodal = false; // 모달을 닫는 메서드
+    //     	}
+		// 모달 닫기 액션을 Store에 커밋
+		// closeModal() {
+      	// 	this.$store.commit('closeModal');
+    	// },
+		// toggleModal() {
+		// 		this.$store.commit('toggleModal');
+    	// 	},
+			closeModal() {
+            	this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
+				this.showmodal = false;
+        	},
+    }
 }
 </script>
 
 <style lang="scss">
-	// @import '../../sass/User/loginModal.scss';
+	@import '../../sass/User/loginModal.scss';
 </style>

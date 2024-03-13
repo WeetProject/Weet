@@ -20903,14 +20903,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../User/LoginComponent.vue */ "./resources/components/User/LoginComponent.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _js_store_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../js/store.js */ "./resources/js/store.js");
+
+
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'FooterComponent',
+  // components: {
+  // 		LoginComponent,
+  // 	},
+  data: function data() {
+    return {
+      showmodal: false
+    };
+  },
   methods: {
     // adjustFooterPosition() {
     //     const footer = document.getElementById('footer');
     //     const windowHeight = window.innerHeight;
     //     const bodyHeight = document.body.offsetHeight;
-
     //     if (windowHeight > bodyHeight) {
     //         footer.style.position = 'fixed';
     //         footer.style.bottom = '0';
@@ -20919,6 +20934,22 @@ __webpack_require__.r(__webpack_exports__);
     //         footer.style.bottom = 'auto';
     //     }
     // }
+    // toggleModal() {
+    // 		// 모달을 열고 닫는 토글 메서드
+    //     	// this.showmodal = !this.showmodal;
+    //     	this.showmodal = true; // 모달을 열고 닫는 토글 메서드
+    // 	},
+    // closeModal() {
+    //     	this.showmodal = false; // 모달을 닫는 메서드
+    // 	}
+    toggleModal: function toggleModal() {
+      this.$store.commit('setToggleModal');
+      this.showmodal = true;
+    },
+    closeModal: function closeModal() {
+      this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
+      this.showmodal = false;
+    }
   }
 
   // mounted() {
@@ -20941,12 +20972,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-// import Login from '../User/LoginComponent.vue';
+/* harmony import */ var _User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../User/LoginComponent.vue */ "./resources/components/User/LoginComponent.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _js_store_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../js/store.js */ "./resources/js/store.js");
+
+
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'HeaderComponent',
   // components: {
-  // 	Login
+  // 	LoginComponent,
   // },
   data: function data() {
     return {
@@ -20954,13 +20991,28 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    // toggleModal() {
+    // 	// 모달을 열고 닫는 토글 메서드
+    // 	// this.showmodal = !this.showmodal;
+    // 	this.showmodal = true; // 모달을 열고 닫는 토글 메서드
+    // },
+    // closeModal() {
+    // 	this.showmodal = false; // 모달을 닫는 메서드
+    // }
+    // 모달 토글 액션을 Store에 커밋
     toggleModal: function toggleModal() {
-      this.showmodal = !this.showmodal; // 모달을 열고 닫는 토글 메서드
+      this.$store.commit('setToggleModal');
+      this.showmodal = true;
     },
     closeModal: function closeModal() {
-      this.showmodal = false; // 모달을 닫는 메서드
+      this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
+      this.showmodal = false;
     }
   }
+  // mounted() {
+  // 	this.toggleModal();
+  // 	this.closeModal();
+  // },
 });
 
 /***/ }),
@@ -20988,10 +21040,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/ReservationComponent.vue?vue&type=script&setup=true&lang=js":
-/*!**********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/ReservationComponent.vue?vue&type=script&setup=true&lang=js ***!
-  \**********************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/ReservationComponent.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/ReservationComponent.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -20999,34 +21051,99 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
-
-
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  __name: 'ReservationComponent',
-  setup: function setup(__props, _ref) {
-    var __expose = _ref.expose;
-    __expose();
-    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_2__.useRouter)();
-    var __returned__ = {
-      router: router,
-      reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
-      get axios() {
-        return (axios__WEBPACK_IMPORTED_MODULE_1___default());
-      },
-      get useRouter() {
-        return vue_router__WEBPACK_IMPORTED_MODULE_2__.useRouter;
-      }
+  name: 'ReservationComponent',
+  data: function data() {
+    return {
+      contactName: '',
+      contactEmail: '',
+      contactNum: '',
+      contactNamePlaceholder: '',
+      contactEmailPlaceholder: '',
+      contactNumPlaceholder: '',
+      ticketPrice: '230043',
+      refundPrice100: '',
+      refundPrice80: '',
+      insurancePrice: 0,
+      totalPrice: 0,
+      day: 4,
+      refund: "0",
+      refundPrice: 0,
+      insurance: "0",
+      pageflg: "0"
     };
-    Object.defineProperty(__returned__, '__isScriptSetup', {
-      enumerable: false,
-      value: true
-    });
-    return __returned__;
+  },
+  created: function created() {
+    this.sumTotalPrice(), this.addInsurancePrice();
+  },
+  watch: {
+    refund: function refund() {
+      if (this.refund === "0") {
+        this.addRefundPrice(0);
+      } else if (this.refund === "1") {
+        this.addRefundPrice(1);
+      } else if (this.refund === "2") {
+        this.addRefundPrice(2);
+      }
+      this.sumTotalPrice();
+    },
+    insurance: function insurance() {
+      this.sumTotalPrice();
+    }
+  },
+  methods: {
+    // 플레이스 홀더용 메소드
+    namePlaceholder: function namePlaceholder(i) {
+      this.contactNamePlaceholder = '';
+      this.contactEmailPlaceholder = '';
+      this.contactNumPlaceholder = '';
+      if (i === 1) {
+        this.contactNamePlaceholder = "예)hong,gildong";
+      } else if (i === 2) {
+        this.contactEmailPlaceholder = "연락 받으실 Email";
+      } else if (i === 3) {
+        this.contactNumPlaceholder = "예)01011111111";
+      }
+    },
+    // 환불보장 가격 더하기
+    addRefundPrice: function addRefundPrice(i) {
+      if (i === 0) {
+        this.refundPrice = 0;
+      } else if (i === 1) {
+        this.refundPrice = Math.ceil(this.ticketPrice * 0.1);
+      } else if (i === 2) {
+        this.refundPrice = Math.ceil(this.ticketPrice * 0.15);
+      }
+    },
+    // 보험 가격 더하기
+    addInsurancePrice: function addInsurancePrice() {
+      this.insurancePrice = 3000 * this.day;
+    },
+    // 최종 금액
+    sumTotalPrice: function sumTotalPrice() {
+      if (this.insurance === "1") {
+        this.totalPrice = parseInt(this.ticketPrice) + this.refundPrice + this.insurancePrice;
+      } else {
+        this.totalPrice = parseInt(this.ticketPrice) + this.refundPrice;
+      }
+    },
+    // 페이지플래그 변경
+    changeFlg: function changeFlg(i) {
+      if (i === 1) {
+        this.pageflg = "1";
+        window.scrollTo({
+          top: 0
+        }); // 페이지 맨 위로 스크롤
+      } else {
+        this.pageflg = "0";
+        // 페이지의 가장 아래로 스크롤합니다.
+        setTimeout(function () {
+          document.documentElement.scrollIntoView({
+            block: 'end'
+          });
+        }, 10);
+      }
+    }
   }
 });
 
@@ -21116,6 +21233,60 @@ __webpack_require__.r(__webpack_exports__);
       if (this.currentStep > 0) {
         this.currentStep--;
       }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/LoginComponent.vue?vue&type=script&lang=js":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/LoginComponent.vue?vue&type=script&lang=js ***!
+  \**********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'LoginComponent',
+  // components: {
+  //     Header
+  // },
+  data: function data() {
+    return {
+      showmodal: true
+    };
+  },
+  // computed: {
+  // 	showModal() {
+  // 		return this.$store.state.showModal;
+  // 	},
+  // },
+
+  methods: {
+    //     	toggleModal() {
+    //         	this.showmodal = !this.showmodal; // 모달을 열고 닫는 토글 메서드
+    //     	},
+    //     	closeModal() {
+    //         	this.showmodal = false; // 모달을 닫는 메서드
+    //     	}
+    // 모달 닫기 액션을 Store에 커밋
+    // closeModal() {
+    // 	this.$store.commit('closeModal');
+    // },
+    // toggleModal() {
+    // 		this.$store.commit('toggleModal');
+    // 	},
+    closeModal: function closeModal() {
+      this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
+      this.showmodal = false;
     }
   }
 });
@@ -21418,14 +21589,54 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../public/images/WEET_logo.png */ "./public/images/WEET_logo.png");
+/* harmony import */ var _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../public/images/Google_logo.svg.png */ "./public/images/Google_logo.svg.png");
+/* harmony import */ var _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../public/images/Kakao_logo.png */ "./public/images/Kakao_logo.png");
+
+
+
 
 var _hoisted_1 = {
   key: 0
 };
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<footer><div class=\"footer_container\"><div class=\"text-center footer_container_text\"><div class=\"footer_container_text_logo\"><h1 style=\"font-weight:bold;font-size:15px;\"> WEET </h1></div><div class=\"footer_container_text_personal_info\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-clipboard-check-fill\" viewBox=\"0 0 16 16\"><path d=\"M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z\"></path><path d=\"M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708\"></path></svg></span><button><span>개인정보처리방침</span></button></div><div><p>제작자 : 여중기 | 최정훈 | 정지우 | 최현희</p></div><div><p>주소 : 대구 중구 중앙대로394 제일빌딩5F</p></div></div><div class=\"footer_container_icons\"><div class=\"footer_container_icons_instar\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-instagram\" viewBox=\"0 0 16 16\"><path d=\"M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334\"></path></svg></span></div><div class=\"footer_container_icons_facebook\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-facebook\" viewBox=\"0 0 16 16\"><path d=\"M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951\"></path></svg></span></div><div class=\"footer_container_icons_amadeus\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-airplane-engines\" viewBox=\"0 0 16 16\"><path d=\"M8 0c-.787 0-1.292.592-1.572 1.151A4.35 4.35 0 0 0 6 3v3.691l-2 1V7.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.191l-1.17.585A1.5 1.5 0 0 0 0 10.618V12a.5.5 0 0 0 .582.493l1.631-.272.313.937a.5.5 0 0 0 .948 0l.405-1.214 2.21-.369.375 2.253-1.318 1.318A.5.5 0 0 0 5.5 16h5a.5.5 0 0 0 .354-.854l-1.318-1.318.375-2.253 2.21.369.405 1.214a.5.5 0 0 0 .948 0l.313-.937 1.63.272A.5.5 0 0 0 16 12v-1.382a1.5 1.5 0 0 0-.83-1.342L14 8.691V7.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v.191l-2-1V3c0-.568-.14-1.271-.428-1.849C9.292.591 8.787 0 8 0M7 3c0-.432.11-.979.322-1.401C7.542 1.159 7.787 1 8 1s.458.158.678.599C8.889 2.02 9 2.569 9 3v4a.5.5 0 0 0 .276.447l5.448 2.724a.5.5 0 0 1 .276.447v.792l-5.418-.903a.5.5 0 0 0-.575.41l-.5 3a.5.5 0 0 0 .14.437l.646.646H6.707l.647-.646a.5.5 0 0 0 .14-.436l-.5-3a.5.5 0 0 0-.576-.411L1 11.41v-.792a.5.5 0 0 1 .276-.447l5.448-2.724A.5.5 0 0 0 7 7z\"></path></svg></span></div></div></div></footer><div class=\"header_mobile_nav_container\"><div class=\"header_mobile_nav_icon_flight\"><a href=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"bi bi-airplane\" viewBox=\"0 0 16 16\"><path d=\"M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849m.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1s-.458.158-.678.599\"></path></svg></a></div><div class=\"header_mobile_nav_icon_hotel\"><a href=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"bi bi-buildings\" viewBox=\"0 0 16 16\"><path d=\"M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z\"></path><path d=\"M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z\"></path></svg></a></div><div class=\"header_mobile_nav_icon_home\"><a href=\"/\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"bi bi-house\" viewBox=\"0 0 16 16\"><path d=\"M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z\"></path></svg></a></div><div class=\"header_mobile_nav_icon_trip\"><a href=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"bi bi-suitcase-lg\" viewBox=\"0 0 16 16\"><path d=\"M5 2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2h3.5A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5H14a.5.5 0 0 1-1 0H3a.5.5 0 0 1-1 0h-.5A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2zm1 0h4a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1M1.5 3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5H3V3zM15 12.5v-9a.5.5 0 0 0-.5-.5H13v10h1.5a.5.5 0 0 0 .5-.5m-3 .5V3H4v10z\"></path></svg></a></div><div class=\"header_mobile_nav_icon_user\"><a href=\"/signup\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"bi bi-person-circle\" viewBox=\"0 0 16 16\"><path d=\"M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0\"></path><path fill-rule=\"evenodd\" d=\"M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1\"></path></svg></a></div></div>", 2);
-var _hoisted_4 = [_hoisted_2];
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<footer><div class=\"footer_container\"><div class=\"text-center footer_container_text\"><div class=\"footer_container_text_logo\"><h1 style=\"font-weight:bold;font-size:15px;\"> WEET </h1></div><div class=\"footer_container_text_personal_info\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-clipboard-check-fill\" viewBox=\"0 0 16 16\"><path d=\"M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z\"></path><path d=\"M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708\"></path></svg></span><button><span>개인정보처리방침</span></button></div><div><p>제작자 : 여중기 | 최정훈 | 최현희</p></div><div><p>주소 : 대구 중구 중앙대로394 제일빌딩5F</p></div></div><div class=\"footer_container_icons\"><div class=\"footer_container_icons_instar\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-instagram\" viewBox=\"0 0 16 16\"><path d=\"M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334\"></path></svg></span></div><div class=\"footer_container_icons_facebook\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-facebook\" viewBox=\"0 0 16 16\"><path d=\"M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951\"></path></svg></span></div><div class=\"footer_container_icons_amadeus\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-airplane-engines\" viewBox=\"0 0 16 16\"><path d=\"M8 0c-.787 0-1.292.592-1.572 1.151A4.35 4.35 0 0 0 6 3v3.691l-2 1V7.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.191l-1.17.585A1.5 1.5 0 0 0 0 10.618V12a.5.5 0 0 0 .582.493l1.631-.272.313.937a.5.5 0 0 0 .948 0l.405-1.214 2.21-.369.375 2.253-1.318 1.318A.5.5 0 0 0 5.5 16h5a.5.5 0 0 0 .354-.854l-1.318-1.318.375-2.253 2.21.369.405 1.214a.5.5 0 0 0 .948 0l.313-.937 1.63.272A.5.5 0 0 0 16 12v-1.382a1.5 1.5 0 0 0-.83-1.342L14 8.691V7.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v.191l-2-1V3c0-.568-.14-1.271-.428-1.849C9.292.591 8.787 0 8 0M7 3c0-.432.11-.979.322-1.401C7.542 1.159 7.787 1 8 1s.458.158.678.599C8.889 2.02 9 2.569 9 3v4a.5.5 0 0 0 .276.447l5.448 2.724a.5.5 0 0 1 .276.447v.792l-5.418-.903a.5.5 0 0 0-.575.41l-.5 3a.5.5 0 0 0 .14.437l.646.646H6.707l.647-.646a.5.5 0 0 0 .14-.436l-.5-3a.5.5 0 0 0-.576-.411L1 11.41v-.792a.5.5 0 0 1 .276-.447l5.448-2.724A.5.5 0 0 0 7 7z\"></path></svg></span></div></div></div></footer>", 1);
+var _hoisted_3 = {
+  "class": "header_mobile_nav_container"
+};
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"header_mobile_nav_icon_flight\"><a href=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"bi bi-airplane\" viewBox=\"0 0 16 16\"><path d=\"M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849m.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1s-.458.158-.678.599\"></path></svg></a></div><div class=\"header_mobile_nav_icon_hotel\"><a href=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"bi bi-buildings\" viewBox=\"0 0 16 16\"><path d=\"M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z\"></path><path d=\"M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z\"></path></svg></a></div><div class=\"header_mobile_nav_icon_home\"><a href=\"/\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"bi bi-house\" viewBox=\"0 0 16 16\"><path d=\"M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z\"></path></svg></a></div><div class=\"header_mobile_nav_icon_trip\"><a href=\"\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"bi bi-suitcase-lg\" viewBox=\"0 0 16 16\"><path d=\"M5 2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2h3.5A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5H14a.5.5 0 0 1-1 0H3a.5.5 0 0 1-1 0h-.5A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2zm1 0h4a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1M1.5 3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5H3V3zM15 12.5v-9a.5.5 0 0 0-.5-.5H13v10h1.5a.5.5 0 0 0 .5-.5m-3 .5V3H4v10z\"></path></svg></a></div>", 4);
+var _hoisted_8 = {
+  "class": "header_mobile_nav_icon_user"
+};
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  fill: "currentColor",
+  "class": "bi bi-person-circle",
+  viewBox: "0 0 16 16"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "fill-rule": "evenodd",
+  d: "M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+})], -1 /* HOISTED */);
+var _hoisted_10 = [_hoisted_9];
+var _hoisted_11 = {
+  key: 0,
+  "class": "modal"
+};
+var _hoisted_12 = {
+  "class": "modal-content"
+};
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex scene\" style=\"width:300px;\"><section class=\"card\"><div class=\"login_modal\"><div class=\"login_modal_headline\"><div class=\"card__heading\"><img src=\"" + _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\"></div></div><div class=\"login_modal_text\"><div class=\"login_modal_text_comment\"><p>한눈에 예매 항공권을 확인하고</p><p>다양한 항공권 가격을 비교해보세요</p></div></div><form class=\"card__form\"><div class=\"card__form_email\"><label for=\"email\">Email:</label><input id=\"email\" class=\"card__input\" type=\"email\"></div><div class=\"card__form_pw\"><label for=\"password\">Password:</label><input id=\"password\" class=\"card__input\" type=\"password\"></div><div class=\"card__form_button\"><div><button class=\"card__button\" type=\"button\"><span>Login</span></button></div><div><button class=\"card__button\" type=\"button\"><span><a href=\"/signup\">Sign Up</a></span></button></div></div><hr><div class=\"card__social_login_text\"><p>- Social Login -</p></div><div class=\"card__social_btn\"><button class=\"card__social_btn_google\"><img src=\"" + _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__["default"] + "\" alt=\"\"></button><button class=\"card__social_btn_kakao\"><img src=\"" + _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__["default"] + "\" alt=\"\"></button></div></form></div></section></div>", 1);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return !['/admin', '/admin/index'].includes(_ctx.$route.fullPath) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [].concat(_hoisted_4))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
+  return !['/admin', '/admin/index'].includes(_ctx.$route.fullPath) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"/login\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[0] || (_cache[0] = function () {
+      return $options.toggleModal && $options.toggleModal.apply($options, arguments);
+    })
+  }, [].concat(_hoisted_10)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </a> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인 모달 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent v-if=\"showmodal\" @click=\"closeModal\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인모달 "), $data.showmodal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return $data.showmodal = false;
+    })
+  }, "Close")])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
 }
 
 /***/ }),
@@ -21500,11 +21711,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.toggleModal && $options.toggleModal.apply($options, arguments);
     })
-  }, "login")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인모달 "), $data.showmodal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, "login"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent v-if=\"showmodal\" @closeModal=\"closemodal\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"/login\">login</a> ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인모달 "), $data.showmodal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $data.showmodal = false;
     })
-  }, "Close")])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인 모달 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Login v-if=\"showmodal\" @closeModal=\"closemodal\" /> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
+  }, "Close")])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인 모달 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent v-if=\"showmodal\" @click=\"closeModal\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent /> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
 }
 
 /***/ }),
@@ -21550,9 +21761,302 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"reservation_layout\"><div class=\"reservation_header text-center\"><div class=\"reservation_header_box\"><span>예약정보확인</span><div class=\"reservation_header_ball_1\">1</div></div><div class=\"reservation_header_box\"><span>결제 준비</span><div class=\"reservation_header_ball_2\">2</div></div><div class=\"reservation_header_box\"><span>결제 완료</span><div class=\"reservation_header_ball_2\">3</div></div></div><!-- &lt;div class=&quot;reservation_progress_box&quot;&gt;\r\n            &lt;div class=&quot;h-4 w-900 bg-gray-200 rounded reservation_progress_gray&quot;&gt;\r\n                &lt;div class=&quot;h-full rounded reservation_progress_blue w-1/4&quot;&gt;&lt;/div&gt;\r\n            &lt;/div&gt;      \r\n        &lt;/div&gt; --><div class=\"reservation_progress_box\"><div class=\"h-4 bg-gray-200 rounded reservation_progress_gray\"><div class=\"h-full rounded reservation_progress_blue w-1/4\"></div></div></div><div class=\"reservation_body\"><div class=\"reservation_title_1\"> ㅁㅁㅁ 여행 </div><div class=\"reservation_to_tiket_title\"><div>가는편</div><div>3월 11일(일)</div><div>소요시간 1시간 45분</div></div><div class=\"reservation_to_tiket_info\"><div class=\"reservation_to_tiket_time text-center\"><div>08:50</div><div>10:35</div></div><div class=\"reservation_to_tiket_time_type\"><div>INC 서울 인천국제공항 T2</div><div>진에어 LI233 보잉 777-200 일반석</div><div>KIX 오사카 간사이공항 T1</div></div></div><div class=\"reservation_to_tiket_title\"><div>오는편</div><div>3월 13일(일)</div><div>소요시간 1시간 45분</div></div><div class=\"reservation_to_tiket_info\"><div class=\"reservation_to_tiket_time text-center\"><div>09:20</div><div>11:05</div></div><div class=\"reservation_to_tiket_time_type\"><div>KIX 오사카 간사이공항 T1</div><div>진에어 LI232 보잉 777-200 일반석</div><div>INC 서울 인천국제공항 T2</div></div></div></div></div><div class=\"reservation_gray_bg\"><div class=\"reservation_body\"><div class=\"reservation_title_2\">나의 항공권</div><div class=\"reservation_baggage_rule_box\"><div class=\"reservation_baggage\"><div class=\"reservation_title_4\">수하물 허용량</div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-duffle reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M8 5.75c1.388 0 2.673.193 3.609.385a18 18 0 0 1 1.43.354l.112.034.002.001h.001a.5.5 0 0 1-.308.952l-.004-.002-.018-.005a17 17 0 0 0-1.417-.354A17.3 17.3 0 0 0 8 6.75a17.3 17.3 0 0 0-3.408.365 17 17 0 0 0-1.416.354l-.018.005-.003.001a.5.5 0 1 1-.308-.95A17.3 17.3 0 0 1 8 5.75\"></path><path d=\"M5.229 2.722c-.126.461-.19.945-.222 1.375-1.401.194-2.65.531-3.525 1.012C-.644 6.278.036 11.204.393 13.127a.954.954 0 0 0 .95.772h13.314a.954.954 0 0 0 .95-.772c.357-1.923 1.037-6.85-1.09-8.018-.873-.48-2.123-.818-3.524-1.012a7.4 7.4 0 0 0-.222-1.375c-.162-.593-.445-1.228-.971-1.622-1.115-.836-2.485-.836-3.6 0-.526.394-.81 1.03-.971 1.622M9.2 1.9c.26.195.466.57.606 1.085.088.322.142.667.173.998a23.3 23.3 0 0 0-3.958 0 6 6 0 0 1 .173-.998c.14-.515.346-.89.606-1.085.76-.57 1.64-.57 2.4 0M8 4.9c2.475 0 4.793.402 6.036 1.085.238.13.472.406.655.93.183.522.28 1.195.303 1.952.047 1.486-.189 3.088-.362 4.032H1.368c-.173-.944-.409-2.545-.362-4.032.024-.757.12-1.43.303-1.952.183-.524.417-.8.655-.93C3.207 5.302 5.525 4.9 8 4.9\"></path></svg> 휴대수화물 : <span class=\"font-bold\">1 X 10kg</span></span></div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-suitcase reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M6 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 6 5m2 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m2 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 10 5\"></path><path d=\"M6.5 0a.5.5 0 0 0-.5.5V3H5a2 2 0 0 0-2 2v8a2 2 0 0 0 1.031 1.75A1.003 1.003 0 0 0 5 16a1 1 0 0 0 1-1h4a1 1 0 1 0 1.969-.25A2 2 0 0 0 13 13V5a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-.5-.5zM9 3H7V1h2zm3 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z\"></path></svg> 위탁수화물 : <span class=\"font-bold\">1 X 15kg</span></span></div></div><div class=\"reservation_rule\"><div class=\"reservation_title_4\">규정</div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-ban reservation_icon_gray\" viewBox=\"0 0 16 16\"><path d=\"M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0\"></path></svg> 일부 환불 불가 </span></div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-coin reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z\"></path><path d=\"M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16\"></path><path d=\"M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12\"></path></svg> 변경 수수료 최저가 : 38500원 </span></div></div></div><div class=\"reservation_title_2\">여행자 정보</div><div class=\"reservation_passenger_box\"><div class=\"reservation_spacebetween\"><div class=\"reservation_icon_flex\"><div class=\"reservation_title_4\">탑승객 1</div><div>(성인한공권)</div></div><div class=\"reservation_input_reset_btn\"> 초기화 <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-trash-fill\" viewBox=\"0 0 16 16\"><path d=\"M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0\"></path></svg></div></div><div class=\"reservation_grid\"><div class=\"grid gap-4 mb-4 md:grid-cols-2\"><input type=\"text\" class=\"reservation_input\" placeholder=\"성(영문)\"><input type=\"text\" class=\"reservation_input\" placeholder=\"이름(중간 이름 포함)\"></div><div class=\"grid gap-4 mb-4 md:grid-cols-3\"><select id=\"\" class=\"w-full reservation_input\"><option value=\"\" disabled selected hidden class=\"reservation_placeholder\">성별</option><option value=\"\">남자(male)</option><option value=\"\">여자(female)</option></select><input type=\"date\" class=\"reservation_input\" placeholder=\"생년월일\"><fieldset class=\"reservation_input\"><legend>국적</legend><select id=\"\" class=\"w-full\"><option value=\"\">대한민국</option></select></fieldset></div><div class=\"grid gap-4 mb-4 md:grid-cols-3\"><fieldset class=\"reservation_input\"><legend>신분증 종류</legend><select id=\"\" class=\"w-full\"><option value=\"\">여권</option></select></fieldset><input type=\"text\" class=\"reservation_input\" placeholder=\"여권번호\"><input type=\"date\" class=\"reservation_input\" placeholder=\"유효기간\"></div></div><div class=\"reservation_notification_box text-sm\"><span>*</span> 이름을 포함하여 탑승객의 모든 정보는 신분증 정보와 일치해야합니다.신분증 상의 정보와 다른경우 <span>탑승이 불가</span> 하여, 예약 확정 후에는 <span>탑승객 정보의 변경이 불가</span>합니다. </div></div><div class=\"reservation_title_3\">이유불문! 환불보장</div><div class=\"reservation_refund_box\"><div class=\"reservation_refund_area\"><div><span>예약 항공권 금액 100% 보상!</span><div class=\"reservation_icon_flex\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> 취소 시 ,<span class=\"reservation_icon_blue\">300000원</span>을(를) 환불 받으실수 있습니다</div></div><div><span class=\"pr-3\"><span class=\"reservation_icon_deepblue\">47400원</span>/1인당 </span><input type=\"radio\" name=\"refund\" class=\"cursor-pointer\"></div></div><div class=\"reservation_refund_area\"><div><span>예약 항공권 금액 80% 보상!</span><div class=\"reservation_icon_flex\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> 취소 시 ,<span class=\"reservation_icon_blue\">240000원</span>을(를) 환불 받으실수 있습니다</div></div><div><span class=\"pr-3\"><span class=\"reservation_icon_deepblue\">32500원</span>/1인당 </span><input type=\"radio\" name=\"refund\" class=\"cursor-pointer\"></div></div><div class=\"reservation_refund_area\"><div><span>보상없음</span><div class=\"reservation_icon_flex text-gray-400\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-x\" viewBox=\"0 0 16 16\"><path d=\"M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708\"></path></svg> 취소 시,환불이 불가합니다 </div></div><div><input type=\"radio\" name=\"refund\" class=\"cursor-pointer\"></div></div></div><div class=\"reservation_title_3\">안전한 여행을 위한 해외 보험 서비스</div><div class=\"reservation_refund_box\"><span class=\"reservation_title_4\">해외여행 보험서비스</span><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> COVID 보장 </div><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> 여행중 상해 의료비 5000만원 실손보상 </div><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> 여행중 휴대품 손해 30만원 보장 </div><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> 해외여행 중단 보상 30만원 보장 </div><div class=\"cursor-pointer reservation_icon_deepblue text-sm mb-3\"> 보장내역 자세히 보기 》 </div><hr><div class=\"text-sm\"><span>기간 및 보장범위: 2024년03월10일 00:00</span> ㅡ <span>2024년03월13일 00:00</span></div><div class=\"text-sm mb-2\"> 총 보험료: <span class=\"reservation_icon_deepblue font-black\">11,000원</span></div><div class=\"text-sm font-black\"> 안전한 여행을 위한 필수품, 해외여행보험! 미리준비하면 든든합니다. </div></div></div></div>", 2);
+var _hoisted_1 = {
+  "class": "reservation_layout"
+};
+var _hoisted_2 = {
+  "class": "reservation_header text-center"
+};
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "reservation_header_box"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "예약정보확인"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "reservation_header_ball_1"
+}, "1")], -1 /* HOISTED */);
+var _hoisted_4 = {
+  "class": "reservation_header_box"
+};
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "결제 준비", -1 /* HOISTED */);
+var _hoisted_6 = {
+  key: 0,
+  "class": "reservation_header_ball_1"
+};
+var _hoisted_7 = {
+  key: 1,
+  "class": "reservation_header_ball_2"
+};
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "reservation_header_box"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "결제 완료"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "reservation_header_ball_2"
+}, "3")], -1 /* HOISTED */);
+var _hoisted_9 = {
+  "class": "reservation_progress_box"
+};
+var _hoisted_10 = {
+  "class": "h-4 bg-gray-200 rounded reservation_progress_gray"
+};
+var _hoisted_11 = {
+  key: 0,
+  "class": "h-full rounded reservation_progress_blue w-1/4"
+};
+var _hoisted_12 = {
+  key: 1,
+  "class": "h-full rounded reservation_progress_blue w-3/4"
+};
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"reservation_body\"><div class=\"reservation_title_1\"> ㅁㅁㅁ 여행 </div><div class=\"reservation_to_tiket_title\"><div>가는편</div><div>3월 11일(일)</div><div>소요시간 1시간 45분</div></div><div class=\"reservation_to_tiket_info\"><div class=\"reservation_to_tiket_time text-center\"><div>08:50</div><div>10:35</div></div><div class=\"reservation_to_tiket_time_type\"><div>INC 서울 인천국제공항 T2</div><div>진에어 LI233 보잉 777-200 일반석</div><div>KIX 오사카 간사이공항 T1</div></div></div><div class=\"reservation_to_tiket_title\"><div>오는편</div><div>3월 13일(일)</div><div>소요시간 1시간 45분</div></div><div class=\"reservation_to_tiket_info\"><div class=\"reservation_to_tiket_time text-center\"><div>09:20</div><div>11:05</div></div><div class=\"reservation_to_tiket_time_type\"><div>KIX 오사카 간사이공항 T1</div><div>진에어 LI232 보잉 777-200 일반석</div><div>INC 서울 인천국제공항 T2</div></div></div></div>", 1);
+var _hoisted_14 = {
+  key: 0,
+  "class": "reservation_gray_bg"
+};
+var _hoisted_15 = {
+  "class": "reservation_body"
+};
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"reservation_title_2\">나의 항공권</div><div class=\"reservation_baggage_rule_box\"><div class=\"reservation_baggage\"><div class=\"reservation_title_4\">수하물 허용량</div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-duffle reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M8 5.75c1.388 0 2.673.193 3.609.385a18 18 0 0 1 1.43.354l.112.034.002.001h.001a.5.5 0 0 1-.308.952l-.004-.002-.018-.005a17 17 0 0 0-1.417-.354A17.3 17.3 0 0 0 8 6.75a17.3 17.3 0 0 0-3.408.365 17 17 0 0 0-1.416.354l-.018.005-.003.001a.5.5 0 1 1-.308-.95A17.3 17.3 0 0 1 8 5.75\"></path><path d=\"M5.229 2.722c-.126.461-.19.945-.222 1.375-1.401.194-2.65.531-3.525 1.012C-.644 6.278.036 11.204.393 13.127a.954.954 0 0 0 .95.772h13.314a.954.954 0 0 0 .95-.772c.357-1.923 1.037-6.85-1.09-8.018-.873-.48-2.123-.818-3.524-1.012a7.4 7.4 0 0 0-.222-1.375c-.162-.593-.445-1.228-.971-1.622-1.115-.836-2.485-.836-3.6 0-.526.394-.81 1.03-.971 1.622M9.2 1.9c.26.195.466.57.606 1.085.088.322.142.667.173.998a23.3 23.3 0 0 0-3.958 0 6 6 0 0 1 .173-.998c.14-.515.346-.89.606-1.085.76-.57 1.64-.57 2.4 0M8 4.9c2.475 0 4.793.402 6.036 1.085.238.13.472.406.655.93.183.522.28 1.195.303 1.952.047 1.486-.189 3.088-.362 4.032H1.368c-.173-.944-.409-2.545-.362-4.032.024-.757.12-1.43.303-1.952.183-.524.417-.8.655-.93C3.207 5.302 5.525 4.9 8 4.9\"></path></svg> 휴대수화물 : <span class=\"font-bold\">1 X 10kg</span></span></div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-suitcase reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M6 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 6 5m2 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m2 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 10 5\"></path><path d=\"M6.5 0a.5.5 0 0 0-.5.5V3H5a2 2 0 0 0-2 2v8a2 2 0 0 0 1.031 1.75A1.003 1.003 0 0 0 5 16a1 1 0 0 0 1-1h4a1 1 0 1 0 1.969-.25A2 2 0 0 0 13 13V5a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-.5-.5zM9 3H7V1h2zm3 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z\"></path></svg> 위탁수화물 : <span class=\"font-bold\">1 X 15kg</span></span></div></div><div class=\"reservation_rule\"><div class=\"reservation_title_4\">규정</div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-ban reservation_icon_gray\" viewBox=\"0 0 16 16\"><path d=\"M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0\"></path></svg> 일부 환불 불가 </span></div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-coin reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z\"></path><path d=\"M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16\"></path><path d=\"M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12\"></path></svg> 변경 수수료 최저가 : 38500원 </span></div></div></div><div class=\"reservation_title_2\">여행자 정보</div><div class=\"reservation_passenger_box\"><div class=\"reservation_spacebetween\"><div class=\"reservation_icon_flex\"><div class=\"reservation_title_4\">탑승객 1</div><div>(성인한공권)</div></div><div class=\"reservation_input_reset_btn\"> 초기화 <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-trash-fill\" viewBox=\"0 0 16 16\"><path d=\"M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0\"></path></svg></div></div><div class=\"reservation_grid\"><div class=\"grid gap-4 mb-4 md:grid-cols-2\"><input type=\"text\" class=\"reservation_input\" placeholder=\"성(영문)\"><input type=\"text\" class=\"reservation_input\" placeholder=\"이름(중간 이름 포함)\"></div><div class=\"grid gap-4 mb-4 md:grid-cols-3\"><select id=\"\" class=\"w-full reservation_input\"><option value=\"\" disabled selected hidden class=\"reservation_placeholder\">성별</option><option value=\"\">남자(male)</option><option value=\"\">여자(female)</option></select><input type=\"date\" class=\"reservation_input\" placeholder=\"생년월일\"><fieldset class=\"reservation_input\"><legend>국적</legend><select id=\"\" class=\"w-full\"><option value=\"\">대한민국</option></select></fieldset></div><div class=\"grid gap-4 mb-4 md:grid-cols-3\"><fieldset class=\"reservation_input\"><legend>신분증 종류</legend><select id=\"\" class=\"w-full\"><option value=\"\">여권</option></select></fieldset><input type=\"text\" class=\"reservation_input\" placeholder=\"여권번호\"><input type=\"date\" class=\"reservation_input\" placeholder=\"유효기간\"></div></div><div class=\"reservation_notification_box text-sm\"><span>*</span> 이름을 포함하여 탑승객의 모든 정보는 신분증 정보와 일치해야합니다.신분증 상의 정보와 다른경우 <span>탑승이 불가</span> 하여, 예약 확정 후에는 <span>탑승객 정보의 변경이 불가</span>합니다. </div></div><div class=\"reservation_title_3\">이유불문! 환불보장</div>", 5);
+var _hoisted_21 = {
+  "class": "reservation_refund_box"
+};
+var _hoisted_22 = {
+  "class": "reservation_refund_area relative"
+};
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "예약 항공권 금액 100% 보상!", -1 /* HOISTED */);
+var _hoisted_24 = {
+  "class": "reservation_icon_flex"
+};
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: "16",
+  height: "16",
+  fill: "currentColor",
+  "class": "bi bi-check reservation_icon_blue",
+  viewBox: "0 0 16 16"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"
+})], -1 /* HOISTED */);
+var _hoisted_26 = {
+  "class": "reservation_icon_blue"
+};
+var _hoisted_27 = {
+  "class": "pr-3"
+};
+var _hoisted_28 = {
+  "class": "reservation_icon_deepblue"
+};
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "reservation_refund_100",
+  "class": "reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"
+}, null, -1 /* HOISTED */);
+var _hoisted_30 = {
+  "class": "reservation_refund_area relative"
+};
+var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "예약 항공권 금액 80% 보상!", -1 /* HOISTED */);
+var _hoisted_32 = {
+  "class": "reservation_icon_flex"
+};
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: "16",
+  height: "16",
+  fill: "currentColor",
+  "class": "bi bi-check reservation_icon_blue",
+  viewBox: "0 0 16 16"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"
+})], -1 /* HOISTED */);
+var _hoisted_34 = {
+  "class": "reservation_icon_blue"
+};
+var _hoisted_35 = {
+  "class": "pr-3"
+};
+var _hoisted_36 = {
+  "class": "reservation_icon_deepblue"
+};
+var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "reservation_refund_80",
+  "class": "reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"
+}, null, -1 /* HOISTED */);
+var _hoisted_38 = {
+  "class": "reservation_refund_area relative"
+};
+var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "보상없음"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "reservation_icon_flex text-gray-400"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: "16",
+  height: "16",
+  fill: "currentColor",
+  "class": "bi bi-x",
+  viewBox: "0 0 16 16"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
+})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 취소 시,환불이 불가합니다 ")])], -1 /* HOISTED */);
+var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "reservation_refund_0",
+  "class": "reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"
+}, null, -1 /* HOISTED */);
+var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "reservation_title_3"
+}, "안전한 여행을 위한 해외 보험 서비스", -1 /* HOISTED */);
+var _hoisted_42 = {
+  "class": "reservation_refund_box"
+};
+var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<span class=\"reservation_title_4\">해외여행 보험서비스</span><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> COVID 보장 </div><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> 여행중 상해 의료비 5000만원 실손보상 </div><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> 여행중 휴대품 손해 30만원 보장 </div><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> 해외여행 중단 보상 30만원 보장 </div><div class=\"cursor-pointer reservation_icon_deepblue text-sm mb-3\"> 보장내역 자세히 보기 》 </div><hr><div class=\"text-sm\"><span>기간 및 보장범위: 2024년03월10일 00:00</span> ㅡ <span>2024년03월13일 00:00</span></div>", 8);
+var _hoisted_51 = {
+  "class": "text-sm mb-2"
+};
+var _hoisted_52 = {
+  "class": "reservation_icon_deepblue font-black"
+};
+var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "text-sm font-black"
+}, " 안전한 여행을 위한 필수품, 해외여행보험! 미리준비하면 든든합니다. ", -1 /* HOISTED */);
+var _hoisted_54 = {
+  "class": "reservation_insurance_area relative"
+};
+var _hoisted_55 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "reservation_insurance_yes",
+  "class": "reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"
+}, null, -1 /* HOISTED */);
+var _hoisted_56 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, " 네, 해외여행보험서비스를 구매하겠습니다.", -1 /* HOISTED */);
+var _hoisted_57 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div><div class=\"reservation_insurance_small_msg text-xs\"><span class=\"reservation_icon_deepblue\">해외여행보험 이용약관</span> 및 <span class=\"reservation_icon_deepblue\">보험가입 시 유의사항</span>에 동의합니다. </div><div class=\"reservation_insurance_small_msg text-xs\">해외여행보험 불가능(보상불가) 지역 안내</div><div class=\"reservation_insurance_small_msg text-xs\">단체여행보험 연말정산 소득공제 제외 안내</div><div class=\"reservation_insurance_small_msg text-xs\">실손 담보 비례보상 안내</div><div class=\"reservation_insurance_small_msg text-xs\">휴대폰 손해 보상 안내</div><div class=\"reservation_insurance_small_msg text-xs\">항공기 및 수하물 지연보상 안내</div></div>", 1);
+var _hoisted_58 = {
+  "class": "reservation_insurance_area relative"
+};
+var _hoisted_59 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "reservation_insurance_no",
+  "class": "reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"
+}, null, -1 /* HOISTED */);
+var _hoisted_60 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, " 아니오, 해외여행보험서비스를 구매하지 않겠습니다.", -1 /* HOISTED */);
+var _hoisted_61 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "reservation_title_3"
+}, "연락처 정보", -1 /* HOISTED */);
+var _hoisted_62 = {
+  "class": "reservation_contact_info_box"
+};
+var _hoisted_63 = {
+  "class": "reservation_custom_box grid gap-4 md:grid-cols-3"
+};
+var _hoisted_64 = {
+  "class": "reservation_custom_sec_box"
+};
+var _hoisted_65 = ["placeholder"];
+var _hoisted_66 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, "이름", -1 /* HOISTED */);
+var _hoisted_67 = {
+  "class": "reservation_custom_sec_box"
+};
+var _hoisted_68 = ["placeholder"];
+var _hoisted_69 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, "이메일", -1 /* HOISTED */);
+var _hoisted_70 = {
+  "class": "reservation_custom_sec_box"
+};
+var _hoisted_71 = ["placeholder"];
+var _hoisted_72 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, "휴대폰번호", -1 /* HOISTED */);
+var _hoisted_73 = {
+  "class": "reservation_next_btn_box"
+};
+var _hoisted_74 = {
+  "class": "reservation_next_btn_price"
+};
+var _hoisted_75 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "reservation_title_4"
+}, "총금액", -1 /* HOISTED */);
+var _hoisted_76 = {
+  "class": "text-2xl font-bold reservation_icon_deepblue"
+};
+var _hoisted_77 = {
+  key: 1
+};
+var _hoisted_78 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "reservation_next_btn w-full text-center font-bold cursor-pointer"
+}, "결제", -1 /* HOISTED */);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return _hoisted_1;
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, this.pageflg === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, "2")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.pageflg === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, "2")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), _hoisted_8]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"reservation_progress_box\">\r\n            <div class=\"h-4 w-900 bg-gray-200 rounded reservation_progress_gray\">\r\n                <div class=\"h-full rounded reservation_progress_blue w-1/4\"></div>\r\n            </div>      \r\n        </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [this.pageflg === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.pageflg === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_12)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), _hoisted_13]), $data.pageflg === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [_hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 취소 시 ,"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.ticketPrice) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("을(를) 환불 받으실수 있습니다")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.15)) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("/1인당 ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "radio",
+    name: "refund",
+    "class": "cursor-pointer",
+    id: "reservation_refund_100",
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $data.refund = $event;
+    }),
+    value: "2"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.refund]])]), _hoisted_29]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [_hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 취소 시 ,"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.8)) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("을(를) 환불 받으실수 있습니다")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.1)) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("/1인당 ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "radio",
+    name: "refund",
+    "class": "cursor-pointer",
+    id: "reservation_refund_80",
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return $data.refund = $event;
+    }),
+    value: "1"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.refund]])]), _hoisted_37]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [_hoisted_39, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "radio",
+    name: "refund",
+    "class": "cursor-pointer",
+    id: "reservation_refund_0",
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $data.refund = $event;
+    }),
+    value: "0"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.refund]])]), _hoisted_40])]), _hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [_hoisted_43, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 총 보험료: "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_52, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.insurancePrice) + "원", 1 /* TEXT */)]), _hoisted_53, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_54, [_hoisted_55, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "radio",
+    name: "insurance",
+    id: "reservation_insurance_yes",
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+      return $data.insurance = $event;
+    }),
+    value: "1"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.insurance]]), _hoisted_56]), _hoisted_57]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_58, [_hoisted_59, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "radio",
+    name: "insurance",
+    id: "reservation_insurance_no",
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+      return $data.insurance = $event;
+    }),
+    value: "0"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.insurance]]), _hoisted_60])])]), _hoisted_61, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_62, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_63, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_64, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    name: "",
+    required: "",
+    onClick: _cache[5] || (_cache[5] = function ($event) {
+      return $options.namePlaceholder(1);
+    }),
+    "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+      return $data.contactName = $event;
+    }),
+    placeholder: $data.contactNamePlaceholder
+  }, null, 8 /* PROPS */, _hoisted_65), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.contactName]]), _hoisted_66]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_67, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    name: "",
+    required: "",
+    onClick: _cache[7] || (_cache[7] = function ($event) {
+      return $options.namePlaceholder(2);
+    }),
+    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
+      return $data.contactEmail = $event;
+    }),
+    placeholder: $data.contactEmailPlaceholder
+  }, null, 8 /* PROPS */, _hoisted_68), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.contactEmail]]), _hoisted_69]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_70, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    name: "",
+    required: "",
+    onClick: _cache[9] || (_cache[9] = function ($event) {
+      return $options.namePlaceholder(3);
+    }),
+    "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
+      return $data.contactNum = $event;
+    }),
+    placeholder: $data.contactNumPlaceholder
+  }, null, 8 /* PROPS */, _hoisted_71), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.contactNum]]), _hoisted_72])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_73, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_74, [_hoisted_75, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_76, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.totalPrice) + "원", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "reservation_next_btn w-full text-center font-bold cursor-pointer",
+    onClick: _cache[11] || (_cache[11] = function ($event) {
+      return $options.changeFlg(1);
+    })
+  }, "다음")])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.pageflg === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_77, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "reservation_next_btn w-full text-center font-bold cursor-pointer",
+    onClick: _cache[12] || (_cache[12] = function ($event) {
+      return $options.changeFlg(0);
+    })
+  }, "이전"), _hoisted_78])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -21675,6 +22179,46 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/LoginComponent.vue?vue&type=template&id=c2577fd2":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/LoginComponent.vue?vue&type=template&id=c2577fd2 ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../public/images/WEET_logo.png */ "./public/images/WEET_logo.png");
+/* harmony import */ var _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../public/images/Google_logo.svg.png */ "./public/images/Google_logo.svg.png");
+/* harmony import */ var _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../public/images/Kakao_logo.png */ "./public/images/Kakao_logo.png");
+
+
+
+
+var _hoisted_1 = {
+  "class": "login_container"
+};
+var _hoisted_2 = {
+  key: 0,
+  "class": "modal"
+};
+var _hoisted_3 = {
+  "class": "modal-content"
+};
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex scene\" style=\"width:350px;\"><section class=\"card\"><div class=\"login_modal\"><div class=\"login_modal_headline\"><div class=\"card__heading\"><!-- &lt;span class=&quot;visually-hidden&quot;&gt;Account name:&lt;/span&gt; --><!-- &lt;span&gt;WEET&lt;/span&gt; --><img src=\"" + _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\"></div></div><div class=\"login_modal_text\"><!-- &lt;div class=&quot;login_modal_text_login&quot;&gt;\r\n\t\t\t\t\t\t\t\t\t\t\t\t&lt;p&gt;로그인&lt;/p&gt;\r\n\t\t\t\t\t\t\t\t\t\t\t&lt;/div&gt; --><div class=\"login_modal_text_comment\"><p>한눈에 예매 항공권을 확인하고</p><p>다양한 항공권 가격을 비교해보세요</p></div></div><form class=\"card__form\"><div class=\"card__form_email\"><!-- &lt;label for=&quot;email&quot; class=&quot;visually-hidden&quot;&gt;Email:&lt;/label&gt; --><label for=\"email\">Email</label><input id=\"email\" class=\"card__input\" type=\"email\"></div><div class=\"card__form_pw\"><!-- &lt;label for=&quot;password&quot; class=&quot;visually-hidden&quot;&gt;Password:&lt;/label&gt; --><label for=\"password\">Password</label><input id=\"password\" class=\"card__input\" type=\"password\"></div><div class=\"card__form_button\"><div><button class=\"card__button\" type=\"button\"><span>Login</span></button></div><div><button class=\"card__button\" type=\"button\"><span><a href=\"/signup\">Sign Up</a></span></button></div></div><hr><div class=\"card__social_login_text\"><p>- Social Login -</p></div><div class=\"card__social_btn\"><button class=\"card__social_btn_google\"><!-- &lt;button&gt;kakao login&lt;/button&gt; --><img src=\"" + _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__["default"] + "\" alt=\"\"></button><button class=\"card__social_btn_kakao\"><img src=\"" + _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__["default"] + "\" alt=\"\"></button></div></form></div></section></div>", 1);
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인모달 "), $data.showmodal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"modal\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 모달 내용 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인 폼 등 "), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[0] || (_cache[0] = function () {
+      return $options.closeModal && $options.closeModal.apply($options, arguments);
+    })
+  }, "Close")])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/MypageComponent.vue?vue&type=template&id=ac065fe2":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/MypageComponent.vue?vue&type=template&id=ac065fe2 ***!
@@ -21739,23 +22283,23 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 var _hoisted_5 = {
   "class": "regist_terms_box"
 };
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"terms_conditions_title\"><h1><strong>1. WEET 이용약관</strong></h1></div><div class=\"terms_conditions_box\"><p class=\"text-center\"><strong>서비스 이용약관</strong></p><p><strong>제1조 (목적)</strong></p><br><p>이 이용약관은 [WEET] (이하 &quot;회사&quot;라 함)이 운영하는 인터넷 관련 서비스 및 기타 관련 제반 서비스(이하 &quot;서비스&quot;라 함)를 이용함에 있어 회사와 이용자의 권리, 의무 및 책임 사항을 규정함을 목적으로 합니다.</p><br><p><strong>제2조 (약관의 효력과 변경)</strong></p><br><p>본 약관은 서비스를 신청한 이용자가 본 약관에 동의하고 회사가 정한 가입신청 양식에 기반하여 가입을 완료하는 시점부터 효력이 발생합니다.</p><p>1. 회사는 필요한 경우 관련 법령 및 회사의 내부 정책을 반영하여 이 약관을 변경할 수 있으며, 변경된 약관은 회사의 홈페이지나 서비스 내 공지를 통해 이용자에게 공지됩니다.</p><p>변경된 약관은 공지 후 7일 이내에 이용자의 동의 없이 적용됩니다. </p><p>2. 이용자가 변경된 약관에 동의하지 않을 경우 회사는 해당 이용자에 대하여 서비스 제공을 중단할 수 있습니다.</p><br><p><strong>제3조 (이용자의 의무)</strong></p><br><p>1. 이용자는 서비스 이용 시 관련 법령, 약관, 공지사항, 회사의 안내 등에 따라 서비스를 이용해야 하며, 회사의 명시적 동의 없이는 서비스를 이용하여 얻은 정보를 복제, 유통, 출판하거나 상업적으로 이용할 수 없습니다.</p><p>2. 이용자는 서비스 이용 시 다음 각 호의 행위를 하지 않아야 합니다.</p><p>가. 타인의 정보를 도용하거나 부정한 목적으로 이용하는 행위</p><p>나. 서비스를 통해 전송되는 컨텐츠를 위변조, 삭제, 변경하는 행위</p><p>다. 서비스의 안전성, 안정성 및 정상적인 운영을 방해하는 행위</p><br><p><strong>제4조 (회사의 의무)</strong></p><br><p>회사는 이용자의 개인정보 보호를 위해 최선을 다하며, 관련 법령에 따라 이를 처리합니다.</p><p>회사는 서비스 제공을 위해 지속적으로 시스템 및 네트워크 관리를 개선하며, 서비스 이용 중 발생하는 장애나 문제에 대하여 신속하게 조치합니다.</p><br><p><strong>제5조(개인정보의 안전성 확보 조치)</strong></p><br><p>1. 회사는 개인정보보호법 제29조에 따라 다음과 같이 안전성 확보에 필요한 기술적, 관리적, 물리적 조치를 하고 있습니다.</p><p>가. 개인정보 암호화: 이용자의 개인정보는 암호화되어 저장 및 관리됩니다.</p><p>나. 접근 제한: 개인정보를 처리하는 데이터베이스시스템에 대한 접근 권한을 최소한으로 제한하고 있습니다.</p></div>", 2);
-var _hoisted_8 = {
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"terms_conditions_title\"><h1><strong>1. WEET 이용약관</strong></h1></div><hr><div class=\"terms_conditions_box\"><p class=\"text-center\"><strong>서비스 이용약관</strong></p><p><strong>제1조 (목적)</strong></p><br><p>이 이용약관은 [WEET] (이하 &quot;회사&quot;라 함)이 운영하는 인터넷 관련 서비스 및 기타 관련 제반 서비스(이하 &quot;서비스&quot;라 함)를 이용함에 있어 회사와 이용자의 권리, 의무 및 책임 사항을 규정함을 목적으로 합니다.</p><br><p><strong>제2조 (약관의 효력과 변경)</strong></p><br><p>본 약관은 서비스를 신청한 이용자가 본 약관에 동의하고 회사가 정한 가입신청 양식에 기반하여 가입을 완료하는 시점부터 효력이 발생합니다.</p><p>1. 회사는 필요한 경우 관련 법령 및 회사의 내부 정책을 반영하여 이 약관을 변경할 수 있으며, 변경된 약관은 회사의 홈페이지나 서비스 내 공지를 통해 이용자에게 공지됩니다.</p><p>변경된 약관은 공지 후 7일 이내에 이용자의 동의 없이 적용됩니다. </p><p>2. 이용자가 변경된 약관에 동의하지 않을 경우 회사는 해당 이용자에 대하여 서비스 제공을 중단할 수 있습니다.</p><br><p><strong>제3조 (이용자의 의무)</strong></p><br><p>1. 이용자는 서비스 이용 시 관련 법령, 약관, 공지사항, 회사의 안내 등에 따라 서비스를 이용해야 하며, 회사의 명시적 동의 없이는 서비스를 이용하여 얻은 정보를 복제, 유통, 출판하거나 상업적으로 이용할 수 없습니다.</p><p>2. 이용자는 서비스 이용 시 다음 각 호의 행위를 하지 않아야 합니다.</p><p>가. 타인의 정보를 도용하거나 부정한 목적으로 이용하는 행위</p><p>나. 서비스를 통해 전송되는 컨텐츠를 위변조, 삭제, 변경하는 행위</p><p>다. 서비스의 안전성, 안정성 및 정상적인 운영을 방해하는 행위</p><br><p><strong>제4조 (회사의 의무)</strong></p><br><p>회사는 이용자의 개인정보 보호를 위해 최선을 다하며, 관련 법령에 따라 이를 처리합니다.</p><p>회사는 서비스 제공을 위해 지속적으로 시스템 및 네트워크 관리를 개선하며, 서비스 이용 중 발생하는 장애나 문제에 대하여 신속하게 조치합니다.</p><br><p><strong>제5조(개인정보의 안전성 확보 조치)</strong></p><br><p>1. 회사는 개인정보보호법 제29조에 따라 다음과 같이 안전성 확보에 필요한 기술적, 관리적, 물리적 조치를 하고 있습니다.</p><p>가. 개인정보 암호화: 이용자의 개인정보는 암호화되어 저장 및 관리됩니다.</p><p>나. 접근 제한: 개인정보를 처리하는 데이터베이스시스템에 대한 접근 권한을 최소한으로 제한하고 있습니다.</p></div>", 3);
+var _hoisted_9 = {
   "class": "terms_conditions_checkbox_btn"
 };
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "terms_conditions_label"
 }, "이용약관 및 개인정보수집 및 이용에 모두 동의합니다.", -1 /* HOISTED */);
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"regist_button\"><div class=\"regist_button_cel\"><button class=\"regist_button_cancel\">CANCEL</button></div><div class=\"regist_button_nxt\"><button class=\"regist_button_next\" type=\"button\">NEXT</button></div></div>", 1);
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"regist_container\"><!-- &lt;main class=&quot;regist_user_info&quot;&gt;\r\n                &lt;div class=&quot;terms_conditions_title&quot;&gt;\r\n                    &lt;h1&gt;&lt;strong&gt;2. WEET 계정정보&lt;/strong&gt;&lt;/h1&gt;\r\n                &lt;/div&gt;\r\n                &lt;table class=&quot;regist_user_info_box&quot;&gt;\r\n                    &lt;colgroup class=&quot;regist_user_info_box_title&quot;&gt;\r\n                        &lt;col style=&quot;width: 20%;&quot;&gt;\r\n                        &lt;col style=&quot;width: 80%;&quot;&gt;\r\n                    &lt;/colgroup&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;이메일&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td colspan=&quot;3&quot;&gt;&lt;input type=&quot;email&quot; placeholder=&quot;email&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;비밀번호&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td colspan=&quot;3&quot;&gt;&lt;input type=&quot;password&quot; placeholder=&quot;password&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;비밀번호 확인&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td colspan=&quot;3&quot;&gt;&lt;input type=&quot;password&quot; placeholder=&quot;password chk&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;이름&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td colspan=&quot;3&quot;&gt;&lt;input type=&quot;text&quot; placeholder=&quot;name&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;연락처&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td colspan=&quot;3&quot;&gt;&lt;input type=&quot;tel&quot; placeholder=&quot;tel&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;우편번호&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td colspan=&quot;3&quot;&gt;&lt;input type=&quot;text&quot; placeholder=&quot;&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;주소&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td colspan=&quot;3&quot;&gt;&lt;input type=&quot;address&quot; placeholder=&quot;address&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;성별&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td&gt;&lt;input type=&quot;radio&quot;&gt;남&lt;/td&gt;\r\n                        &lt;td&gt;&lt;input type=&quot;radio&quot;&gt;여&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;생년월일&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td&gt;&lt;input type=&quot;date&quot; placeholder=&quot;&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                &lt;/table&gt;\r\n            &lt;/main&gt; --><main class=\"regist_user_info\"><div class=\"regist_logo_div\"><div class=\"regist_logo_div_main_logo\"><!-- &lt;img src=&quot;../../public/images/WEET_logo.png&quot; alt=&quot;&quot;&gt; --><img src=\"" + _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\"></div><div class=\"regist_logo_div_title\"><h1>SIGN UP</h1></div></div><div class=\"terms_conditions_title\"><h1><strong>2. WEET 계정정보</strong></h1></div><div class=\"regist_user_info_div\"><!-- &lt;div class=&quot;regist_user_info_label&quot;&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;이메일&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;비밀번호&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;비밀번호 확인&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;이름&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;연락처&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;우편번호&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;주소&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;성별&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;생년월일&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                    &lt;/div&gt; --><div class=\"regist_user_info_box\"><div class=\"regist_user_info_box_content\"><label for=\"\">이메일</label><input type=\"email\" placeholder=\"email\"></div><div class=\"regist_user_info_box_content\"><label for=\"\">비밀번호</label><input type=\"password\" placeholder=\"password\"></div><div class=\"regist_user_info_box_content\"><label for=\"\">비밀번호 확인</label><input type=\"password\" placeholder=\"password chk\"></div><div class=\"regist_user_info_box_content\"><label for=\"\">이름</label><input type=\"text\" placeholder=\"name\"></div><div class=\"regist_user_info_box_content\"><label for=\"\">연락처</label><input type=\"tel\" placeholder=\"tel\"></div><div class=\"regist_user_info_box_content\"><label for=\"\">우편번호</label><input type=\"text\" placeholder=\"\"></div><div class=\"regist_user_info_box_content\"><label for=\"\">주소</label><input type=\"address\" placeholder=\"address\"></div><div class=\"regist_user_info_box_content_gender\"><label for=\"\">성별</label><div><input type=\"radio\" id=\"male\" name=\"gender\"><label for=\"male\">남</label></div><div><input type=\"radio\" id=\"female\" name=\"gender\"><label for=\"female\">여</label></div></div><div class=\"regist_user_info_box_content\"><label for=\"\">생년월일</label><input type=\"date\" placeholder=\"\"></div></div></div><div class=\"regist_button\"><div class=\"regist_button_cel\"><button class=\"regist_button_cancel\">PRE</button></div><div class=\"regist_button_nxt\"><button class=\"regist_button_next\" type=\"submit\">Submit</button></div></div></main></div>", 1);
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<hr><div class=\"regist_button\"><div class=\"regist_button_cel\"><button class=\"regist_button_cancel\">CANCEL</button></div><div class=\"regist_button_nxt\"><button class=\"regist_button_next\" type=\"button\">NEXT</button></div></div>", 2);
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"regist_container\"><!-- &lt;main class=&quot;regist_user_info&quot;&gt;\r\n                &lt;div class=&quot;terms_conditions_title&quot;&gt;\r\n                    &lt;h1&gt;&lt;strong&gt;2. WEET 계정정보&lt;/strong&gt;&lt;/h1&gt;\r\n                &lt;/div&gt;\r\n                &lt;table class=&quot;regist_user_info_box&quot;&gt;\r\n                    &lt;colgroup class=&quot;regist_user_info_box_title&quot;&gt;\r\n                        &lt;col style=&quot;width: 20%;&quot;&gt;\r\n                        &lt;col style=&quot;width: 80%;&quot;&gt;\r\n                    &lt;/colgroup&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;이메일&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td colspan=&quot;3&quot;&gt;&lt;input type=&quot;email&quot; placeholder=&quot;email&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;비밀번호&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td colspan=&quot;3&quot;&gt;&lt;input type=&quot;password&quot; placeholder=&quot;password&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;비밀번호 확인&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td colspan=&quot;3&quot;&gt;&lt;input type=&quot;password&quot; placeholder=&quot;password chk&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;이름&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td colspan=&quot;3&quot;&gt;&lt;input type=&quot;text&quot; placeholder=&quot;name&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;연락처&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td colspan=&quot;3&quot;&gt;&lt;input type=&quot;tel&quot; placeholder=&quot;tel&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;우편번호&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td colspan=&quot;3&quot;&gt;&lt;input type=&quot;text&quot; placeholder=&quot;&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;주소&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td colspan=&quot;3&quot;&gt;&lt;input type=&quot;address&quot; placeholder=&quot;address&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;성별&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td&gt;&lt;input type=&quot;radio&quot;&gt;남&lt;/td&gt;\r\n                        &lt;td&gt;&lt;input type=&quot;radio&quot;&gt;여&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                    &lt;tr class=&quot;regist_user_info_box_content&quot;&gt;\r\n                        &lt;th&gt;&lt;label for=&quot;&quot;&gt;생년월일&lt;/label&gt;&lt;/th&gt;\r\n                        &lt;td&gt;&lt;input type=&quot;date&quot; placeholder=&quot;&quot;&gt;&lt;/td&gt;\r\n                    &lt;/tr&gt;\r\n                &lt;/table&gt;\r\n            &lt;/main&gt; --><main class=\"regist_user_info\"><div class=\"regist_logo_div\"><div class=\"regist_logo_div_main_logo\"><!-- &lt;img src=&quot;../../public/images/WEET_logo.png&quot; alt=&quot;&quot;&gt; --><img src=\"" + _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\"></div><div class=\"regist_logo_div_title\"><h1>SIGN UP</h1></div></div><div class=\"terms_conditions_title\"><h1><strong>2. WEET 계정정보</strong></h1></div><hr><div class=\"regist_user_info_div\"><!-- &lt;div class=&quot;regist_user_info_label&quot;&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;이메일&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;비밀번호&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;비밀번호 확인&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;이름&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;연락처&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;우편번호&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;주소&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;성별&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                        &lt;div&gt;\r\n                            &lt;span&gt;생년월일&lt;/span&gt;\r\n                        &lt;/div&gt;\r\n                    &lt;/div&gt; --><div class=\"regist_user_info_box\"><div class=\"regist_user_info_box_content\"><div class=\"regist_user_info_box_label\"><span>이메일</span></div><div class=\"regist_user_info_box_input\"><input type=\"email\" placeholder=\"email\"></div></div><div class=\"regist_user_info_box_content\"><div class=\"regist_user_info_box_label\"><span>비밀번호</span></div><div class=\"regist_user_info_box_input\"><input type=\"password\" placeholder=\"password\"></div></div><div class=\"regist_user_info_box_content\"><div class=\"regist_user_info_box_label\"><span>비밀번호 확인</span></div><div class=\"regist_user_info_box_input\"><input type=\"password\" placeholder=\"password chk\"></div></div><div class=\"regist_user_info_box_content\"><div class=\"regist_user_info_box_label\"><span>이름</span></div><div class=\"regist_user_info_box_input\"><input type=\"text\" placeholder=\"name\"></div></div><div class=\"regist_user_info_box_content\"><div class=\"regist_user_info_box_label\"><span>연락처</span></div><div class=\"regist_user_info_box_input\"><input type=\"tel\" placeholder=\"tel\"></div></div><div class=\"regist_user_info_box_content\"><div class=\"regist_user_info_box_label\"><span>우편번호</span></div><div class=\"regist_user_info_box_input\"><input type=\"text\" placeholder=\"\"></div></div><div class=\"regist_user_info_box_content\"><div class=\"regist_user_info_box_label\"><span>주소</span></div><div class=\"regist_user_info_box_input\"><input type=\"address\" placeholder=\"address\"></div></div><div class=\"regist_user_info_box_content\"><div class=\"regist_user_info_box_label\"><span>성별</span></div><div class=\"regist_user_info_box_input\"><div class=\"regist_user_info_box_gender\"><div><input type=\"radio\" id=\"male\" name=\"gender\"><!-- &lt;label for=&quot;male&quot;&gt;남&lt;/label&gt; --></div><div><span>남</span></div></div></div><div class=\"regist_user_info_box_input\"><div class=\"regist_user_info_box_gender\"><div><input type=\"radio\" id=\"female\" name=\"gender\"><!-- &lt;label for=&quot;female&quot;&gt;여&lt;/label&gt; --></div><div><span>여</span></div></div></div></div><div class=\"regist_user_info_box_content\"><div class=\"regist_user_info_box_label\"><span>생년월일</span></div><div class=\"regist_user_info_box_input\"><input type=\"date\" placeholder=\"\"></div></div></div></div><hr><div class=\"regist_button\"><div class=\"regist_button_cel\"><button class=\"regist_button_cancel\">PRE</button></div><div class=\"regist_button_nxt\"><button class=\"regist_button_next\" type=\"submit\">Submit</button></div></div></main></div>", 1);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("main", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("main", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "terms_conditions_checkbox",
     type: "checkbox",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return _ctx.termsAgreed = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, _ctx.termsAgreed]]), _hoisted_9])]), _hoisted_10])]), _hoisted_11]);
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, _ctx.termsAgreed]]), _hoisted_10])]), _hoisted_11])]), _hoisted_13]);
 }
 
 /***/ }),
@@ -21769,15 +22313,39 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _js_router_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../js/router.js */ "./resources/js/router.js");
-/* harmony import */ var _components_AppComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/AppComponent.vue */ "./resources/components/AppComponent.vue");
-/* harmony import */ var _components_TestComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/TestComponent.vue */ "./resources/components/TestComponent.vue");
-/* harmony import */ var _components_MainComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/MainComponent.vue */ "./resources/components/MainComponent.vue");
-/* harmony import */ var _components_Layout_HeaderComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Layout/HeaderComponent.vue */ "./resources/components/Layout/HeaderComponent.vue");
-/* harmony import */ var _components_Layout_FooterComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/Layout/FooterComponent.vue */ "./resources/components/Layout/FooterComponent.vue");
-/* harmony import */ var _components_Admin_AdminLoginComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/Admin/AdminLoginComponent.vue */ "./resources/components/Admin/AdminLoginComponent.vue");
-/* harmony import */ var _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/Admin/AdminIndexComponent.vue */ "./resources/components/Admin/AdminIndexComponent.vue");
-/* harmony import */ var _components_User_SignUpComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/User/SignUpComponent.vue */ "./resources/components/User/SignUpComponent.vue");
+/* harmony import */ var _components_AppComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/AppComponent.vue */ "./resources/components/AppComponent.vue");
+/* harmony import */ var _components_Layout_HeaderComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Layout/HeaderComponent.vue */ "./resources/components/Layout/HeaderComponent.vue");
+/* harmony import */ var _components_Layout_FooterComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Layout/FooterComponent.vue */ "./resources/components/Layout/FooterComponent.vue");
+/* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store.js */ "./resources/js/store.js");
+/* harmony import */ var _router_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./router.js */ "./resources/js/router.js");
+// require('./bootstrap');
+
+// import { createApp } from 'vue';
+// import store from './store';
+// import router from '../js/router.js';
+// import AppComponent from '../components/AppComponent.vue';
+// import MainComponent from '../components/MainComponent.vue';
+// import HeaderComponent from '../components/Layout/HeaderComponent.vue';
+// import FooterComponent from '../components/Layout/FooterComponent.vue';
+// import AdminLoginComponent from '../components/Admin/AdminLoginComponent.vue';
+// import AdminIndexComponent from '../components/Admin/AdminIndexComponent.vue';
+// import SignUpComponent from '../components/User/SignUpComponent.vue';
+
+// createApp({
+
+// 	components: {
+// 		AppComponent,
+// 		// HeaderComponent,
+// 		// FooterComponent,
+// 		// MainComponent,
+// 		// AdminLoginComponent,
+// 		// AdminIndexComponent,
+// 		// SignUpComponent,
+// 	}
+// })
+// .use(router)
+// .mount('#app');
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -21785,21 +22353,14 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-
-
-
-
-(0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({
+var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({
   components: {
-    AppComponent: _components_AppComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    HeaderComponent: _components_Layout_HeaderComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    FooterComponent: _components_Layout_FooterComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-    MainComponent: _components_MainComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    AdminLoginComponent: _components_Admin_AdminLoginComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
-    AdminIndexComponent: _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
-    SignUpComponent: _components_User_SignUpComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
+    AppComponent: _components_AppComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    HeaderComponent: _components_Layout_HeaderComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    FooterComponent: _components_Layout_FooterComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
-}).use(_js_router_js__WEBPACK_IMPORTED_MODULE_1__["default"]).mount('#app');
+}).use(_store_js__WEBPACK_IMPORTED_MODULE_4__["default"]).use(_router_js__WEBPACK_IMPORTED_MODULE_5__["default"]);
+app.mount('#app'); //마운트 처리
 
 /***/ }),
 
@@ -21850,7 +22411,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
 /* harmony import */ var _components_AppComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/AppComponent.vue */ "./resources/components/AppComponent.vue");
 /* harmony import */ var _components_MainComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/MainComponent.vue */ "./resources/components/MainComponent.vue");
 /* harmony import */ var _components_TestComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/TestComponent.vue */ "./resources/components/TestComponent.vue");
@@ -21859,6 +22420,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_User_SignUpComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/User/SignUpComponent.vue */ "./resources/components/User/SignUpComponent.vue");
 /* harmony import */ var _components_Admin_AdminLoginComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/Admin/AdminLoginComponent.vue */ "./resources/components/Admin/AdminLoginComponent.vue");
 /* harmony import */ var _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/Admin/AdminIndexComponent.vue */ "./resources/components/Admin/AdminIndexComponent.vue");
+/* harmony import */ var _components_User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/User/LoginComponent.vue */ "./resources/components/User/LoginComponent.vue");
 
 
 
@@ -21868,7 +22430,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import LoginComponent from '../components/User/LoginComponent.vue';
 
 var routes = [{
   path: '/',
@@ -21891,12 +22452,54 @@ var routes = [{
 }, {
   path: '/signup',
   component: _components_User_SignUpComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+}, {
+  path: '/login',
+  component: _components_User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
 }];
-var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_8__.createRouter)({
-  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_8__.createWebHistory)(),
+var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_9__.createRouter)({
+  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_9__.createWebHistory)(),
   routes: routes
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
+
+/***/ }),
+
+/***/ "./resources/js/store.js":
+/*!*******************************!*\
+  !*** ./resources/js/store.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var _js_router_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../js/router.js */ "./resources/js/router.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+
+var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)({
+  state: function state() {
+    return {
+      showmodal: false
+    };
+  },
+  mutations: {
+    setToggleModal: function setToggleModal(state) {
+      state.showModal = true;
+    },
+    setCloseModal: function setCloseModal(state) {
+      state.showModal = false;
+    }
+  },
+  actions: function actions() {}
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
 
 /***/ }),
 
@@ -21965,7 +22568,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n@media (min-width: 335px) and (max-width: 767px) {\n.main_section {\n    width: 90%;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_starting_point_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_outbound_flight_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_starting_point_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_outbound_flight_area {\n    margin-right: 5px;\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_destination_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_inbound_flight_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_destination_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_inbound_flight_area {\n    margin-left: 5px;\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 100%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.main_section {\n    width: 95%;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(odd),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(odd) {\n    border-radius: 20px 0 0 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(even),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(even) {\n    border-radius: 0 20px 20px 0;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 65%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n@media (min-width: 1024px) {\n.main_section {\n    width: 1000px;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(odd),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(odd) {\n    border-radius: 20px 0 0 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(even),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(even) {\n    border-radius: 0 20px 20px 0;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border_bottom,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border_bottom .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 65%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n/* VARIABLES */\n/* BASE */\n@media (min-width: 1024px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.visually-hidden {\n    clip: rect(0 0 0 0);\n    -webkit-clip-path: inset(50%);\n            clip-path: inset(50%);\n    height: 1px;\n    overflow: hidden;\n    position: absolute;\n    white-space: nowrap;\n    width: 1px;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 20px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 1024px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: space-between;\n}\n.header_nav_logo {\n    margin: 0 10px;\n    font-weight: bold;\n    font-size: 30px;\n    width: 100px;\n}\n.header_nav_user_btn {\n    display: flex;\n    align-items: center;\n    margin: 0 10px;\n    color: #0B2161;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.card__heading {\n    width: 100px;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: space-between;\n}\n.header_nav_logo {\n    margin: 0 10px;\n    font-weight: bold;\n    font-size: 30px;\n    width: 100px;\n}\n.header_nav_user_btn {\n    display: flex;\n    align-items: center;\n    margin: 0 10px;\n    color: #0B2161;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.card__heading {\n    width: 100px;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: center;\n    text-align: center;\n}\n.header_nav_logo {\n    width: 100px;\n    text-align: center;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.header_nav_login_btn_user {\n    display: none;\n}\n.card__heading {\n    width: 100px;\n}\n.header_mobile_nav_container {\n    display: none;\n}\n.header_nav_user_btn_search {\n    display: none;\n}\n}\n@media (min-width: 1024px) {\nfooter {\n    background-color: #081742;\n    opacity: 0.9;\n    color: white;\n    width: 100%;\n    padding: 10px;\n    font-size: 10px;\n    overflow: auto;\n    height: 140px;\n    position: relative;\n    transform: translateY(0%);\n}\n.footer_container_text {\n    width: 100%;\n}\n.footer_container_text_personal_info {\n    display: flex;\n    justify-content: center;\n    align-content: center;\n}\n.footer_container_icons {\n    display: flex;\n    font-size: 30px;\n    align-items: center;\n    justify-content: center;\n    margin-top: 10px;\n}\n.footer_container_icons_instar {\n    margin: 0 10px;\n}\n.footer_container_icons_facebook {\n    margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n    margin: 0 10px;\n}\n.header_mobile_nav_container {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_mobile_nav_container {\n    display: none;\n}\nfooter {\n    background-color: #081742;\n    opacity: 0.9;\n    color: white;\n    width: 100%;\n    padding: 10px;\n    font-size: 10px;\n    overflow: auto;\n    height: 140px;\n    position: relative;\n    transform: translateY(0%);\n}\n.footer_container_text {\n    width: 100%;\n}\n.footer_container_text_personal_info {\n    display: flex;\n    justify-content: center;\n    align-content: center;\n}\n.footer_container_icons {\n    display: flex;\n    font-size: 30px;\n    align-items: center;\n    justify-content: center;\n    margin-top: 10px;\n}\n.footer_container_icons_instar {\n    margin: 0 10px;\n}\n.footer_container_icons_facebook {\n    margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n    margin: 0 10px;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.footer_container {\n    display: none;\n}\n.header_mobile_nav_container {\n    display: flex;\n    align-items: center;\n    justify-content: space-around;\n    position: fixed;\n    bottom: 0;\n    width: 100%;\n    background-color: #ededed;\n    padding: 10px;\n}\n.header_mobile_nav_container svg {\n    width: 30px;\n    height: 30px;\n}\n}\n@media (min-width: 1024px) {\n.mypage_container {\n    width: 1000px;\n    margin: 0 auto;\n}\n.mypage_container .mypage_banner_section {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n    background-color: #BECDFF;\n}\n.mypage_container .mypage_main_section {\n    width: 100%;\n    display: flex;\n}\n.mypage_container .mypage_main_section_top {\n    width: 30%;\n    display: inline-block;\n    margin-right: 50px;\n    border: 1px solid #ededed;\n}\n.mypage_container .mypage_main_section_top_profile {\n    width: 100px;\n    height: 100px;\n    border-radius: 50%;\n    background-color: #0B2161;\n    position: relative;\n    top: 0;\n    left: 1rem;\n}\n.mypage_container .mypage_main_section_top_profile p {\n    color: #FFFFFF;\n    position: absolute;\n    top: 2rem;\n    left: 2rem;\n}\n.mypage_container .mypage_main_section_top_mention {\n    text-align: center;\n    margin: 30px;\n}\n.mypage_container .mypage_main_section_top_content li {\n    width: 85%;\n    margin-left: 62px;\n    margin-bottom: 20px;\n    border-bottom: 1px solid #ededed;\n}\n.mypage_container .mypage_main_section_top_content li p {\n    display: inline;\n}\n.mypage_container .mypage_main_section_bottom {\n    width: 60%;\n    display: inline-block;\n    margin: 0 auto;\n    border: 1px solid #ededed;\n}\n}\ninput[type=date]:not(.has-value):before {\n  color: lightgray;\n  content: attr(placeholder);\n}\n.reservation_header {\n  display: flex;\n  justify-content: space-between;\n  padding: 20px;\n  position: absolute;\n  width: 100%;\n}\n.reservation_header_box {\n  width: 100px;\n  text-align: center;\n}\n.reservation_header_box span {\n  font-weight: bold;\n  font-size: 15px;\n}\n.reservation_header_ball_1, .reservation_header_ball_2 {\n  line-height: 60px;\n  height: 60px;\n  width: 60px;\n  font-size: 35px;\n  border-radius: 100%;\n  font-weight: bold;\n  margin: 0 auto;\n  color: #fff;\n  box-shadow: 0 10px 15px -4px rgba(125, 125, 125, 0.4784313725);\n}\n.reservation_header_ball_1 {\n  background-color: #0B4AFF;\n}\n.reservation_header_ball_2 {\n  background-color: #C5DFFF;\n}\n.reservation_progress_box {\n  padding-top: 67px;\n  margin: 0 auto;\n  padding-bottom: 70px;\n}\n.reservation_progress_blue {\n  background-color: #084AFF;\n}\n.reservation_progress_gray {\n  background-color: #ededed;\n}\n.reservation_body {\n  width: 90%;\n  max-width: 600px;\n  margin: 0 auto;\n}\n.reservation_title_1 {\n  font-size: 40px;\n  font-weight: bold;\n}\n.reservation_title_2 {\n  font-size: 30px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_3 {\n  font-size: 25px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_4 {\n  font-size: 15px;\n  font-weight: bold;\n}\n.reservation_to_tiket_title {\n  display: flex;\n  align-items: center;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n  font-size: 17px;\n  padding: 4px 7px;\n  background-color: #0B4AFF;\n  color: #fff;\n  font-weight: 800;\n  border-radius: 20px;\n  margin-left: 5px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n  margin-left: 5px;\n  padding: 0px 10px;\n  border-right: 2px solid #ededed;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n  padding: 0px 10px;\n}\n.reservation_to_tiket_info {\n  display: flex;\n  padding: 20px 0px;\n}\n.reservation_to_tiket_time {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-right: 20px;\n}\n.reservation_to_tiket_time div {\n  font-size: 20px;\n  font-weight: 900;\n  width: 60px;\n}\n.reservation_to_tiket_time_type {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-left: 20px;\n  border-left: 5px solid #ededed;\n  margin: 10px 0px;\n}\n.reservation_to_tiket_time_type div:nth-child(1),\n.reservation_to_tiket_time_type div:nth-child(3) {\n  font-weight: 900;\n}\n.reservation_to_tiket_time_type div:nth-child(2) {\n  padding: 20px 0px;\n  font-size: 10px;\n}\n.reservation_gray_bg {\n  background-color: #ededed;\n}\n.reservation_baggage_rule_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n  display: flex;\n}\n.reservation_baggage {\n  flex-grow: 2;\n}\n.reservation_rule {\n  flex-grow: 1;\n}\n.reservation_icon_blue {\n  color: #249ac2;\n  margin-right: 5px;\n}\n.reservation_icon_deepblue {\n  color: #084AFF;\n  margin-right: 5px;\n}\n.reservation_icon_gray {\n  color: #adadad;\n  margin-right: 5px;\n}\n.reservation_icon_flex {\n  display: flex;\n  align-items: center;\n}\n.reservation_input_reset_btn {\n  color: #084AFF;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n}\n.reservation_input_reset_btn:hover {\n  cursor: pointer;\n}\n.reservation_passenger_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n}\n.reservation_spacebetween {\n  display: flex;\n  justify-content: space-between;\n}\n.reservation_placeholder {\n  color: #ededed;\n}\n.reservation_input {\n  border: 1px solid #ededed;\n  outline: none;\n  height: 50px;\n  border-radius: 5px;\n  padding: 5px;\n}\n.reservation_input select {\n  border: none;\n  outline: none;\n}\n.reservation_input legend {\n  font-size: 12px;\n  color: #4f4f4f;\n}\n.reservation_notification_box {\n  border: 1px solid #ededed;\n  background-color: #ededed;\n  border-radius: 5px;\n  padding: 5px;\n}\n.reservation_notification_box span {\n  font-weight: 900;\n}\n.reservation_refund_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 20px;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n}\n.reservation_refund_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_refund_area span {\n  font-weight: 900;\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.reservation_layout {\n    width: 100vw;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    width: 100%;\n}\n.reservation_progress_box {\n    width: 75%;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.reservation_layout {\n    width: 768px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 750px;\n}\n.reservation_progress_box {\n    width: 628px;\n}\n}\n@media (min-width: 1024px) {\n.reservation_layout {\n    width: 1000px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 1000px;\n}\n.reservation_progress_box {\n    width: 900px;\n}\n}\n.regist_container_wrap {\n  width: 1000px;\n  margin: 0 auto;\n}\n.regist_container {\n  color: #666;\n  text-align: center;\n  height: 100vh;\n}\n.regist_container .regist_logo_div {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 40px 0;\n  font-size: 30px;\n  font-weight: bold;\n}\n.regist_container .regist_logo_div_main_logo {\n  width: 100px;\n}\n.regist_container .terms_conditions {\n  text-align: center;\n}\n.regist_container .terms_conditions_title {\n  margin-bottom: 10px;\n}\n.regist_container .terms_conditions_box {\n  border: 1px solid #2C3E50;\n  border-radius: 5px;\n  padding: 20px;\n  width: 50%;\n  text-align: start;\n  margin: 0 auto;\n  overflow: auto;\n  font-size: 12px;\n  color: #333;\n}\n.regist_container .terms_conditions_label {\n  font-size: 13px;\n  color: #666;\n}\n.regist_container .terms_conditions_checkbox {\n  margin: 0 5px;\n}\n.regist_container .terms_conditions_checkbox_btn {\n  margin-top: 5px;\n}\n.regist_container .regist_button {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-top: 20px;\n}\n.regist_container .regist_button_cel {\n  padding: 10px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  margin-right: 5px;\n}\n.regist_container .regist_button_cel:hover {\n  border: none;\n  background-color: #c5dfff;\n}\n.regist_container .regist_button_nxt {\n  padding: 10px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  margin-left: 5px;\n}\n.regist_container .regist_button_nxt:hover {\n  border: none;\n  background-color: #c5dfff;\n}\n.regist_container .regist_user_info_div {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.regist_container .regist_user_info_label {\n  text-align: start;\n}\n.regist_container .regist_user_info_label div {\n  margin-bottom: 10px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 5px;\n}\n.regist_container .regist_user_info_box {\n  display: flex;\n  text-align: center;\n  justify-content: center;\n  flex-direction: column;\n  margin-left: 20px;\n}\n.regist_container .regist_user_info_box_content {\n  margin-bottom: 22px;\n}\n.regist_container .regist_user_info_box_content th {\n  border: 1px solid #ededed;\n}\n.regist_container .regist_user_info_box label {\n  text-align: start;\n  display: inline-block;\n  width: 120px;\n}\n.regist_container .regist_user_info_box_content_gender {\n  display: flex;\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 95%;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 95%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 75%;\n    height: 50px;\n    margin: 0 auto 30px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 75%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 50%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    transform: scale(1.1);\n    transition: 0.3s;\n}\n.admin_login_section .admin_login_right_section {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 95%;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 45%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 75%;\n    height: 50px;\n    margin: 0 auto 30px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 75%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 55%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    transform: scale(1.1);\n    transition: 0.3s;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n@media (min-width: 1024px) {\n.admin_login_section {\n    width: 1000px;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    margin: 0 auto 30px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 60%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    transform: scale(1.1);\n    transition: 0.3s;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n.admin_index_container {\n  width: 1700px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #ededed;\n  background-color: #EFF3F8;\n}\n.admin_index_container .admin_index_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container {\n  width: 20%;\n  height: 100vh;\n  background-color: #0B2161;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section {\n  width: 100%;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area .admin_index_left_info_image {\n  width: 100px;\n  height: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section {\n  width: 100%;\n  margin: 20px 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input {\n  width: 70%;\n  height: 40px;\n  margin: auto;\n  padding: 4px;\n  outline: none;\n  background-color: transparent;\n  border-bottom: 1px solid transparent;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input:focus {\n  border-bottom: 1px solid #ededed;\n  transition: 0.8s;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  padding: 10px 40px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li {\n  width: 100%;\n  margin-bottom: 50px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_left_svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_right_svg {\n  margin-left: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_ul {\n  width: 100%;\n  display: block;\n}\n.admin_index_container .admin_index_section .admin_index_right_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 1350px;\n  margin: 10px auto;\n  display: flex;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section img {\n  width: 100px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_button_section svg {\n  width: 60px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 100%;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section .admin_index_right_top_title_area {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container {\n  width: 100%;\n  margin-bottom: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section {\n  width: 100%;\n  height: 100px;\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #FFF;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users svg {\n  width: 60px;\n  height: 60px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_register_users_text {\n  width: 100%;\n  padding: 20px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container {\n  width: 100%;\n  height: 400px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section {\n  width: 100%;\n  height: 100%;\n  margin-bottom: 10px;\n  background-color: #fff;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area {\n  width: 100%;\n  height: 100%;\n  padding: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area .admin_index_right_bottom_chart_image {\n  width: 1200px;\n  height: 300px;\n  margin: 0 auto;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section {\n  width: 50%;\n  height: 250px;\n  border-radius: 10px;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area {\n  width: 100%;\n  padding: 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a {\n  display: flex;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n@media (min-width: 335px) and (max-width: 767px) {\n.main_section {\n    width: 90%;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_starting_point_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_outbound_flight_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_starting_point_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_outbound_flight_area {\n    margin-right: 5px;\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_destination_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_inbound_flight_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_destination_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_inbound_flight_area {\n    margin-left: 5px;\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 100%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.main_section {\n    width: 95%;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(odd),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(odd) {\n    border-radius: 20px 0 0 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(even),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(even) {\n    border-radius: 0 20px 20px 0;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 65%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n@media (min-width: 1024px) {\n.main_section {\n    width: 1000px;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(odd),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(odd) {\n    border-radius: 20px 0 0 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(even),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(even) {\n    border-radius: 0 20px 20px 0;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border_bottom,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border_bottom .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 65%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n/* VARIABLES */\n/* BASE */\n@media (min-width: 1024px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.visually-hidden {\n    clip: rect(0 0 0 0);\n    -webkit-clip-path: inset(50%);\n            clip-path: inset(50%);\n    height: 1px;\n    overflow: hidden;\n    position: absolute;\n    white-space: nowrap;\n    width: 1px;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 20px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.visually-hidden {\n    clip: rect(0 0 0 0);\n    -webkit-clip-path: inset(50%);\n            clip-path: inset(50%);\n    height: 1px;\n    overflow: hidden;\n    position: absolute;\n    white-space: nowrap;\n    width: 1px;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 20px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 30px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 1024px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: space-between;\n}\n.header_nav_logo {\n    margin: 0 10px;\n    font-weight: bold;\n    font-size: 30px;\n    width: 100px;\n}\n.header_nav_user_btn {\n    display: flex;\n    align-items: center;\n    margin: 0 10px;\n    color: #0B2161;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.card__heading {\n    width: 100px;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: space-between;\n}\n.header_nav_logo {\n    margin: 0 10px;\n    font-weight: bold;\n    font-size: 30px;\n    width: 100px;\n}\n.header_nav_user_btn {\n    display: flex;\n    align-items: center;\n    margin: 0 10px;\n    color: #0B2161;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.card__heading {\n    width: 100px;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: center;\n    text-align: center;\n}\n.header_nav_logo {\n    width: 100px;\n    text-align: center;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.header_nav_login_btn_user {\n    display: none;\n}\n.card__heading {\n    width: 100px;\n}\n.header_mobile_nav_container {\n    display: none;\n}\n.header_nav_user_btn_search {\n    display: none;\n}\n}\n@media (min-width: 1024px) {\nfooter {\n    background-color: #081742;\n    opacity: 0.9;\n    color: white;\n    width: 100%;\n    padding: 10px;\n    font-size: 10px;\n    overflow: auto;\n    height: 140px;\n    position: relative;\n    transform: translateY(0%);\n}\n.footer_container_text {\n    width: 100%;\n}\n.footer_container_text_personal_info {\n    display: flex;\n    justify-content: center;\n    align-content: center;\n}\n.footer_container_icons {\n    display: flex;\n    font-size: 30px;\n    align-items: center;\n    justify-content: center;\n    margin-top: 10px;\n}\n.footer_container_icons_instar {\n    margin: 0 10px;\n}\n.footer_container_icons_facebook {\n    margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n    margin: 0 10px;\n}\n.header_mobile_nav_container {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_mobile_nav_container {\n    display: none;\n}\nfooter {\n    background-color: #081742;\n    opacity: 0.9;\n    color: white;\n    width: 100%;\n    padding: 10px;\n    font-size: 10px;\n    overflow: auto;\n    height: 140px;\n    position: relative;\n    transform: translateY(0%);\n}\n.footer_container_text {\n    width: 100%;\n}\n.footer_container_text_personal_info {\n    display: flex;\n    justify-content: center;\n    align-content: center;\n}\n.footer_container_icons {\n    display: flex;\n    font-size: 30px;\n    align-items: center;\n    justify-content: center;\n    margin-top: 10px;\n}\n.footer_container_icons_instar {\n    margin: 0 10px;\n}\n.footer_container_icons_facebook {\n    margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n    margin: 0 10px;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.footer_container {\n    display: none;\n}\n.header_mobile_nav_container {\n    display: flex;\n    align-items: center;\n    justify-content: space-around;\n    position: fixed;\n    bottom: 0;\n    width: 100%;\n    background-color: #ededed;\n    padding: 10px;\n}\n.header_mobile_nav_container svg {\n    width: 30px;\n    height: 30px;\n}\n}\n@media (min-width: 1024px) {\n.mypage_container {\n    width: 1000px;\n    margin: 0 auto;\n}\n.mypage_container .mypage_banner_section {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n    background-color: #BECDFF;\n}\n.mypage_container .mypage_main_section {\n    width: 100%;\n    display: flex;\n}\n.mypage_container .mypage_main_section_top {\n    width: 30%;\n    display: inline-block;\n    margin-right: 50px;\n    border: 1px solid #ededed;\n}\n.mypage_container .mypage_main_section_top_profile {\n    width: 100px;\n    height: 100px;\n    border-radius: 50%;\n    background-color: #0B2161;\n    position: relative;\n    top: 0;\n    left: 1rem;\n}\n.mypage_container .mypage_main_section_top_profile p {\n    color: #FFFFFF;\n    position: absolute;\n    top: 2rem;\n    left: 2rem;\n}\n.mypage_container .mypage_main_section_top_mention {\n    text-align: center;\n    margin: 30px;\n}\n.mypage_container .mypage_main_section_top_content li {\n    width: 85%;\n    margin-left: 62px;\n    margin-bottom: 20px;\n    border-bottom: 1px solid #ededed;\n}\n.mypage_container .mypage_main_section_top_content li p {\n    display: inline;\n}\n.mypage_container .mypage_main_section_bottom {\n    width: 60%;\n    display: inline-block;\n    margin: 0 auto;\n    border: 1px solid #ededed;\n}\n}\n* {\n  font-family: sans-serif;\n}\ninput[type=date] {\n  margin: 0 auto;\n  width: 100%;\n  position: relative;\n}\n::-webkit-calendar-picker-indicator {\n  position: absolute;\n  right: -10px;\n  top: 0px;\n  padding-left: 3000px;\n  height: 100%;\n  opacity: 0;\n}\n::-webkit-calendar-picker-indicator:hover {\n  cursor: pointer;\n}\ninput[type=date]:not(.has-value):before {\n  color: lightgray;\n  content: attr(placeholder);\n}\n.reservation_custom_box .reservation_custom_sec_box {\n  position: relative;\n}\n.reservation_custom_box .reservation_custom_sec_box input {\n  height: 50px;\n  width: 100%;\n  padding: 10px 0px 10px 10px;\n  font-size: 16px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  outline: none;\n  background: transparent;\n}\n.reservation_custom_box .reservation_custom_sec_box label {\n  position: absolute;\n  top: 13px;\n  left: 8px;\n  font-size: 16px;\n  color: #a5a5a5;\n  pointer-events: none;\n  transition: 0.5s;\n}\n.reservation_custom_box .reservation_custom_sec_box input:focus ~ label,\n.reservation_custom_box .reservation_custom_sec_box input:valid ~ label {\n  top: -10px;\n  left: 5px;\n  color: #a5a5a5;\n  font-size: 12px;\n  background-color: #fff;\n}\n.reservation_custom_sec_box input:not(:focus)::-moz-placeholder {\n  opacity: 0;\n}\n.reservation_custom_sec_box input:not(:focus)::placeholder {\n  opacity: 0;\n}\n.reservation_header {\n  display: flex;\n  justify-content: space-between;\n  padding: 20px;\n  position: absolute;\n  width: 100%;\n}\n.reservation_header_box {\n  width: 100px;\n  text-align: center;\n}\n.reservation_header_box span {\n  font-weight: bold;\n  font-size: 15px;\n}\n.reservation_header_ball_1, .reservation_header_ball_2 {\n  line-height: 60px;\n  height: 60px;\n  width: 60px;\n  font-size: 35px;\n  border-radius: 100%;\n  font-weight: bold;\n  margin: 0 auto;\n  color: #fff;\n  box-shadow: 0 10px 15px -4px rgba(125, 125, 125, 0.4784313725);\n}\n.reservation_header_ball_1 {\n  background-color: #0B4AFF;\n}\n.reservation_header_ball_2 {\n  background-color: #C5DFFF;\n}\n.reservation_progress_box {\n  padding-top: 67px;\n  margin: 0 auto;\n  padding-bottom: 70px;\n}\n.reservation_progress_blue {\n  background-color: #084AFF;\n}\n.reservation_progress_gray {\n  background-color: #ededed;\n}\n.reservation_body {\n  width: 90%;\n  max-width: 600px;\n  margin: 0 auto;\n}\n.reservation_title_1 {\n  font-size: 40px;\n  font-weight: bold;\n}\n.reservation_title_2 {\n  font-size: 30px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_3 {\n  font-size: 25px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_4 {\n  font-size: 15px;\n  font-weight: bold;\n}\n.reservation_to_tiket_title {\n  display: flex;\n  align-items: center;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n  font-size: 17px;\n  padding: 4px 7px;\n  background-color: #0B4AFF;\n  color: #fff;\n  font-weight: 800;\n  border-radius: 20px;\n  margin-left: 5px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n  margin-left: 5px;\n  padding: 0px 10px;\n  border-right: 2px solid #ededed;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n  padding: 0px 10px;\n}\n.reservation_to_tiket_info {\n  display: flex;\n  padding: 20px 0px;\n}\n.reservation_to_tiket_time {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-right: 20px;\n}\n.reservation_to_tiket_time div {\n  font-size: 20px;\n  font-weight: 900;\n  width: 60px;\n}\n.reservation_to_tiket_time_type {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-left: 20px;\n  border-left: 5px solid #ededed;\n  margin: 10px 0px;\n}\n.reservation_to_tiket_time_type div:nth-child(1),\n.reservation_to_tiket_time_type div:nth-child(3) {\n  font-weight: 900;\n}\n.reservation_to_tiket_time_type div:nth-child(2) {\n  padding: 20px 0px;\n  font-size: 10px;\n}\n.reservation_gray_bg {\n  background-color: #ededed;\n  padding-bottom: 100px;\n}\n.reservation_baggage_rule_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n  display: flex;\n}\n.reservation_baggage {\n  flex-grow: 2;\n}\n.reservation_rule {\n  flex-grow: 1;\n}\n.reservation_icon_blue {\n  color: #249ac2;\n  margin-right: 5px;\n}\n.reservation_icon_deepblue {\n  color: #084AFF;\n  margin-right: 5px;\n}\n.reservation_icon_gray {\n  color: #adadad;\n  margin-right: 5px;\n}\n.reservation_icon_flex {\n  display: flex;\n  align-items: center;\n}\n.reservation_input_reset_btn {\n  color: #084AFF;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n}\n.reservation_input_reset_btn:hover {\n  cursor: pointer;\n}\n.reservation_passenger_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n}\n.reservation_spacebetween {\n  display: flex;\n  justify-content: space-between;\n}\n.reservation_placeholder {\n  color: #ededed;\n}\n.reservation_input {\n  border: 1px solid #ededed;\n  outline: none;\n  height: 50px;\n  border-radius: 5px;\n  padding: 5px;\n  position: relative;\n}\n.reservation_input select {\n  border: none;\n  outline: none;\n}\n.reservation_input legend {\n  font-size: 12px;\n  color: #4f4f4f;\n}\n.reservation_notification_box {\n  border: 1px solid #ededed;\n  background-color: #ededed;\n  border-radius: 5px;\n  padding: 5px;\n}\n.reservation_notification_box span {\n  font-weight: 900;\n}\n.reservation_refund_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 20px;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n}\n.reservation_refund_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_refund_area span {\n  font-weight: 900;\n}\n.reservation_insurance_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n}\n.reservation_insurance_small_msg {\n  padding-left: 10px;\n}\n.reservation_contact_info_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_box {\n  display: flex;\n  flex-direction: column;\n  margin-top: 30px;\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_price {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_next_btn {\n  background-color: #084AFF;\n  padding: 5px;\n  color: #fff;\n  border-radius: 5px;\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.reservation_layout {\n    width: 100vw;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    width: 100%;\n}\n.reservation_progress_box {\n    width: 75%;\n}\n.reservation_baggage_rule_box {\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_refund_area {\n    padding: 5px;\n    font-size: 12px;\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_title_1 {\n    font-size: 35px;\n}\n.reservation_to_tiket_info {\n    font-size: 15px;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n    font-size: 14px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n    font-size: 12px;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n    font-size: 11px;\n}\n.reservation_icon_flex {\n    align-items: flex-start;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.reservation_layout {\n    width: 768px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 750px;\n}\n.reservation_progress_box {\n    width: 628px;\n}\n}\n@media (min-width: 1024px) {\n.reservation_layout {\n    width: 1000px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 1000px;\n}\n.reservation_progress_box {\n    width: 900px;\n}\n}\n@media (min-width: 1024px) {\n.regist_container_wrap {\n    width: 1000px;\n    margin: 0 auto;\n}\n.regist_container {\n    color: #666;\n    text-align: center;\n    height: 100vh;\n}\n.regist_container .regist_logo_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 40px 0;\n    font-size: 30px;\n    font-weight: bold;\n}\n.regist_container .regist_logo_div_main_logo {\n    width: 100px;\n}\n.regist_container .terms_conditions {\n    text-align: center;\n}\n.regist_container .terms_conditions_title {\n    margin-bottom: 10px;\n}\n.regist_container .terms_conditions_box {\n    border: 1px solid #2C3E50;\n    border-radius: 5px;\n    padding: 20px;\n    width: 50%;\n    text-align: start;\n    margin: 0 auto;\n    overflow: auto;\n    font-size: 12px;\n    color: #333;\n}\n.regist_container .terms_conditions_label {\n    font-size: 13px;\n    color: #666;\n}\n.regist_container .terms_conditions_checkbox {\n    margin: 0 5px;\n}\n.regist_container .terms_conditions_checkbox_btn {\n    margin-top: 5px;\n}\n.regist_container .regist_button {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    margin-top: 20px;\n}\n.regist_container .regist_button_cel {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_button_cel:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_button_nxt {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-left: 5px;\n}\n.regist_container .regist_button_nxt:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_user_info_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.regist_container .regist_user_info_box {\n    display: flex;\n    text-align: center;\n    justify-content: center;\n    flex-direction: column;\n    margin: 20px 0;\n}\n.regist_container .regist_user_info_box_content {\n    margin-bottom: 22px;\n    display: flex;\n}\n.regist_container .regist_user_info_box_content th {\n    border: 1px solid #ededed;\n}\n.regist_container .regist_user_info_box_label {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n}\n.regist_container .regist_user_info_box_input {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_gender {\n    display: flex;\n    align-items: center;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 95%;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 95%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 75%;\n    height: 50px;\n    margin: 0 auto 30px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 75%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 50%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    transform: scale(1.1);\n    transition: 0.3s;\n}\n.admin_login_section .admin_login_right_section {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 95%;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 45%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 75%;\n    height: 50px;\n    margin: 0 auto 30px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 75%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 55%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    transform: scale(1.1);\n    transition: 0.3s;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n@media (min-width: 1024px) {\n.admin_login_section {\n    width: 1000px;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    margin: 0 auto 30px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 60%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    transform: scale(1.1);\n    transition: 0.3s;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n.admin_index_container {\n  width: 1700px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #ededed;\n  background-color: #EFF3F8;\n}\n.admin_index_container .admin_index_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container {\n  width: 20%;\n  height: 100vh;\n  background-color: #0B2161;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section {\n  width: 100%;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area .admin_index_left_info_image {\n  width: 100px;\n  height: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section {\n  width: 100%;\n  margin: 20px 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input {\n  width: 70%;\n  height: 40px;\n  margin: auto;\n  padding: 4px;\n  outline: none;\n  background-color: transparent;\n  border-bottom: 1px solid transparent;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input:focus {\n  border-bottom: 1px solid #ededed;\n  transition: 0.8s;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  padding: 10px 40px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li {\n  width: 100%;\n  margin-bottom: 50px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_left_svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_right_svg {\n  margin-left: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_ul {\n  width: 100%;\n  display: block;\n}\n.admin_index_container .admin_index_section .admin_index_right_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 1350px;\n  margin: 10px auto;\n  display: flex;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section img {\n  width: 100px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_button_section svg {\n  width: 60px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 100%;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section .admin_index_right_top_title_area {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container {\n  width: 100%;\n  margin-bottom: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section {\n  width: 100%;\n  height: 100px;\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #FFF;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users svg {\n  width: 60px;\n  height: 60px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_register_users_text {\n  width: 100%;\n  padding: 20px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container {\n  width: 100%;\n  height: 400px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section {\n  width: 100%;\n  height: 100%;\n  margin-bottom: 10px;\n  background-color: #fff;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area {\n  width: 100%;\n  height: 100%;\n  padding: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area .admin_index_right_bottom_chart_image {\n  width: 1200px;\n  height: 300px;\n  margin: 0 auto;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section {\n  width: 50%;\n  height: 250px;\n  border-radius: 10px;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area {\n  width: 100%;\n  padding: 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a {\n  display: flex;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22061,7 +22664,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "input[type=date]:not(.has-value):before {\n  color: lightgray;\n  content: attr(placeholder);\n}\n.reservation_header {\n  display: flex;\n  justify-content: space-between;\n  padding: 20px;\n  position: absolute;\n  width: 100%;\n}\n.reservation_header_box {\n  width: 100px;\n  text-align: center;\n}\n.reservation_header_box span {\n  font-weight: bold;\n  font-size: 15px;\n}\n.reservation_header_ball_1, .reservation_header_ball_2 {\n  line-height: 60px;\n  height: 60px;\n  width: 60px;\n  font-size: 35px;\n  border-radius: 100%;\n  font-weight: bold;\n  margin: 0 auto;\n  color: #fff;\n  box-shadow: 0 10px 15px -4px rgba(125, 125, 125, 0.4784313725);\n}\n.reservation_header_ball_1 {\n  background-color: #0B4AFF;\n}\n.reservation_header_ball_2 {\n  background-color: #C5DFFF;\n}\n.reservation_progress_box {\n  padding-top: 67px;\n  margin: 0 auto;\n  padding-bottom: 70px;\n}\n.reservation_progress_blue {\n  background-color: #084AFF;\n}\n.reservation_progress_gray {\n  background-color: #ededed;\n}\n.reservation_body {\n  width: 90%;\n  max-width: 600px;\n  margin: 0 auto;\n}\n.reservation_title_1 {\n  font-size: 40px;\n  font-weight: bold;\n}\n.reservation_title_2 {\n  font-size: 30px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_3 {\n  font-size: 25px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_4 {\n  font-size: 15px;\n  font-weight: bold;\n}\n.reservation_to_tiket_title {\n  display: flex;\n  align-items: center;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n  font-size: 17px;\n  padding: 4px 7px;\n  background-color: #0B4AFF;\n  color: #fff;\n  font-weight: 800;\n  border-radius: 20px;\n  margin-left: 5px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n  margin-left: 5px;\n  padding: 0px 10px;\n  border-right: 2px solid #ededed;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n  padding: 0px 10px;\n}\n.reservation_to_tiket_info {\n  display: flex;\n  padding: 20px 0px;\n}\n.reservation_to_tiket_time {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-right: 20px;\n}\n.reservation_to_tiket_time div {\n  font-size: 20px;\n  font-weight: 900;\n  width: 60px;\n}\n.reservation_to_tiket_time_type {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-left: 20px;\n  border-left: 5px solid #ededed;\n  margin: 10px 0px;\n}\n.reservation_to_tiket_time_type div:nth-child(1),\n.reservation_to_tiket_time_type div:nth-child(3) {\n  font-weight: 900;\n}\n.reservation_to_tiket_time_type div:nth-child(2) {\n  padding: 20px 0px;\n  font-size: 10px;\n}\n.reservation_gray_bg {\n  background-color: #ededed;\n}\n.reservation_baggage_rule_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n  display: flex;\n}\n.reservation_baggage {\n  flex-grow: 2;\n}\n.reservation_rule {\n  flex-grow: 1;\n}\n.reservation_icon_blue {\n  color: #249ac2;\n  margin-right: 5px;\n}\n.reservation_icon_deepblue {\n  color: #084AFF;\n  margin-right: 5px;\n}\n.reservation_icon_gray {\n  color: #adadad;\n  margin-right: 5px;\n}\n.reservation_icon_flex {\n  display: flex;\n  align-items: center;\n}\n.reservation_input_reset_btn {\n  color: #084AFF;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n}\n.reservation_input_reset_btn:hover {\n  cursor: pointer;\n}\n.reservation_passenger_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n}\n.reservation_spacebetween {\n  display: flex;\n  justify-content: space-between;\n}\n.reservation_placeholder {\n  color: #ededed;\n}\n.reservation_input {\n  border: 1px solid #ededed;\n  outline: none;\n  height: 50px;\n  border-radius: 5px;\n  padding: 5px;\n}\n.reservation_input select {\n  border: none;\n  outline: none;\n}\n.reservation_input legend {\n  font-size: 12px;\n  color: #4f4f4f;\n}\n.reservation_notification_box {\n  border: 1px solid #ededed;\n  background-color: #ededed;\n  border-radius: 5px;\n  padding: 5px;\n}\n.reservation_notification_box span {\n  font-weight: 900;\n}\n.reservation_refund_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 20px;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n}\n.reservation_refund_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_refund_area span {\n  font-weight: 900;\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.reservation_layout {\n    width: 100vw;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    width: 100%;\n}\n.reservation_progress_box {\n    width: 75%;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.reservation_layout {\n    width: 768px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 750px;\n}\n.reservation_progress_box {\n    width: 628px;\n}\n}\n@media (min-width: 1024px) {\n.reservation_layout {\n    width: 1000px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 1000px;\n}\n.reservation_progress_box {\n    width: 900px;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  font-family: sans-serif;\n}\ninput[type=date] {\n  margin: 0 auto;\n  width: 100%;\n  position: relative;\n}\n::-webkit-calendar-picker-indicator {\n  position: absolute;\n  right: -10px;\n  top: 0px;\n  padding-left: 3000px;\n  height: 100%;\n  opacity: 0;\n}\n::-webkit-calendar-picker-indicator:hover {\n  cursor: pointer;\n}\ninput[type=date]:not(.has-value):before {\n  color: lightgray;\n  content: attr(placeholder);\n}\n.reservation_custom_box .reservation_custom_sec_box {\n  position: relative;\n}\n.reservation_custom_box .reservation_custom_sec_box input {\n  height: 50px;\n  width: 100%;\n  padding: 10px 0px 10px 10px;\n  font-size: 16px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  outline: none;\n  background: transparent;\n}\n.reservation_custom_box .reservation_custom_sec_box label {\n  position: absolute;\n  top: 13px;\n  left: 8px;\n  font-size: 16px;\n  color: #a5a5a5;\n  pointer-events: none;\n  transition: 0.5s;\n}\n.reservation_custom_box .reservation_custom_sec_box input:focus ~ label,\n.reservation_custom_box .reservation_custom_sec_box input:valid ~ label {\n  top: -10px;\n  left: 5px;\n  color: #a5a5a5;\n  font-size: 12px;\n  background-color: #fff;\n}\n.reservation_custom_sec_box input:not(:focus)::-moz-placeholder {\n  opacity: 0;\n}\n.reservation_custom_sec_box input:not(:focus)::placeholder {\n  opacity: 0;\n}\n.reservation_header {\n  display: flex;\n  justify-content: space-between;\n  padding: 20px;\n  position: absolute;\n  width: 100%;\n}\n.reservation_header_box {\n  width: 100px;\n  text-align: center;\n}\n.reservation_header_box span {\n  font-weight: bold;\n  font-size: 15px;\n}\n.reservation_header_ball_1, .reservation_header_ball_2 {\n  line-height: 60px;\n  height: 60px;\n  width: 60px;\n  font-size: 35px;\n  border-radius: 100%;\n  font-weight: bold;\n  margin: 0 auto;\n  color: #fff;\n  box-shadow: 0 10px 15px -4px rgba(125, 125, 125, 0.4784313725);\n}\n.reservation_header_ball_1 {\n  background-color: #0B4AFF;\n}\n.reservation_header_ball_2 {\n  background-color: #C5DFFF;\n}\n.reservation_progress_box {\n  padding-top: 67px;\n  margin: 0 auto;\n  padding-bottom: 70px;\n}\n.reservation_progress_blue {\n  background-color: #084AFF;\n}\n.reservation_progress_gray {\n  background-color: #ededed;\n}\n.reservation_body {\n  width: 90%;\n  max-width: 600px;\n  margin: 0 auto;\n}\n.reservation_title_1 {\n  font-size: 40px;\n  font-weight: bold;\n}\n.reservation_title_2 {\n  font-size: 30px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_3 {\n  font-size: 25px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_4 {\n  font-size: 15px;\n  font-weight: bold;\n}\n.reservation_to_tiket_title {\n  display: flex;\n  align-items: center;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n  font-size: 17px;\n  padding: 4px 7px;\n  background-color: #0B4AFF;\n  color: #fff;\n  font-weight: 800;\n  border-radius: 20px;\n  margin-left: 5px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n  margin-left: 5px;\n  padding: 0px 10px;\n  border-right: 2px solid #ededed;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n  padding: 0px 10px;\n}\n.reservation_to_tiket_info {\n  display: flex;\n  padding: 20px 0px;\n}\n.reservation_to_tiket_time {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-right: 20px;\n}\n.reservation_to_tiket_time div {\n  font-size: 20px;\n  font-weight: 900;\n  width: 60px;\n}\n.reservation_to_tiket_time_type {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-left: 20px;\n  border-left: 5px solid #ededed;\n  margin: 10px 0px;\n}\n.reservation_to_tiket_time_type div:nth-child(1),\n.reservation_to_tiket_time_type div:nth-child(3) {\n  font-weight: 900;\n}\n.reservation_to_tiket_time_type div:nth-child(2) {\n  padding: 20px 0px;\n  font-size: 10px;\n}\n.reservation_gray_bg {\n  background-color: #ededed;\n  padding-bottom: 100px;\n}\n.reservation_baggage_rule_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n  display: flex;\n}\n.reservation_baggage {\n  flex-grow: 2;\n}\n.reservation_rule {\n  flex-grow: 1;\n}\n.reservation_icon_blue {\n  color: #249ac2;\n  margin-right: 5px;\n}\n.reservation_icon_deepblue {\n  color: #084AFF;\n  margin-right: 5px;\n}\n.reservation_icon_gray {\n  color: #adadad;\n  margin-right: 5px;\n}\n.reservation_icon_flex {\n  display: flex;\n  align-items: center;\n}\n.reservation_input_reset_btn {\n  color: #084AFF;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n}\n.reservation_input_reset_btn:hover {\n  cursor: pointer;\n}\n.reservation_passenger_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n}\n.reservation_spacebetween {\n  display: flex;\n  justify-content: space-between;\n}\n.reservation_placeholder {\n  color: #ededed;\n}\n.reservation_input {\n  border: 1px solid #ededed;\n  outline: none;\n  height: 50px;\n  border-radius: 5px;\n  padding: 5px;\n  position: relative;\n}\n.reservation_input select {\n  border: none;\n  outline: none;\n}\n.reservation_input legend {\n  font-size: 12px;\n  color: #4f4f4f;\n}\n.reservation_notification_box {\n  border: 1px solid #ededed;\n  background-color: #ededed;\n  border-radius: 5px;\n  padding: 5px;\n}\n.reservation_notification_box span {\n  font-weight: 900;\n}\n.reservation_refund_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 20px;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n}\n.reservation_refund_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_refund_area span {\n  font-weight: 900;\n}\n.reservation_insurance_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n}\n.reservation_insurance_small_msg {\n  padding-left: 10px;\n}\n.reservation_contact_info_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_box {\n  display: flex;\n  flex-direction: column;\n  margin-top: 30px;\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_price {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_next_btn {\n  background-color: #084AFF;\n  padding: 5px;\n  color: #fff;\n  border-radius: 5px;\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.reservation_layout {\n    width: 100vw;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    width: 100%;\n}\n.reservation_progress_box {\n    width: 75%;\n}\n.reservation_baggage_rule_box {\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_refund_area {\n    padding: 5px;\n    font-size: 12px;\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_title_1 {\n    font-size: 35px;\n}\n.reservation_to_tiket_info {\n    font-size: 15px;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n    font-size: 14px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n    font-size: 12px;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n    font-size: 11px;\n}\n.reservation_icon_flex {\n    align-items: flex-start;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.reservation_layout {\n    width: 768px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 750px;\n}\n.reservation_progress_box {\n    width: 628px;\n}\n}\n@media (min-width: 1024px) {\n.reservation_layout {\n    width: 1000px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 1000px;\n}\n.reservation_progress_box {\n    width: 900px;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22086,6 +22689,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/LoginComponent.vue?vue&type=style&index=0&id=c2577fd2&lang=scss":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/LoginComponent.vue?vue&type=style&index=0&id=c2577fd2&lang=scss ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n/* VARIABLES */\n/* BASE */\n@media (min-width: 1024px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.visually-hidden {\n    clip: rect(0 0 0 0);\n    -webkit-clip-path: inset(50%);\n            clip-path: inset(50%);\n    height: 1px;\n    overflow: hidden;\n    position: absolute;\n    white-space: nowrap;\n    width: 1px;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 20px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.visually-hidden {\n    clip: rect(0 0 0 0);\n    -webkit-clip-path: inset(50%);\n            clip-path: inset(50%);\n    height: 1px;\n    overflow: hidden;\n    position: absolute;\n    white-space: nowrap;\n    width: 1px;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 20px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 30px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22133,7 +22760,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".regist_container_wrap {\n  width: 1000px;\n  margin: 0 auto;\n}\n.regist_container {\n  color: #666;\n  text-align: center;\n  height: 100vh;\n}\n.regist_container .regist_logo_div {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 40px 0;\n  font-size: 30px;\n  font-weight: bold;\n}\n.regist_container .regist_logo_div_main_logo {\n  width: 100px;\n}\n.regist_container .terms_conditions {\n  text-align: center;\n}\n.regist_container .terms_conditions_title {\n  margin-bottom: 10px;\n}\n.regist_container .terms_conditions_box {\n  border: 1px solid #2C3E50;\n  border-radius: 5px;\n  padding: 20px;\n  width: 50%;\n  text-align: start;\n  margin: 0 auto;\n  overflow: auto;\n  font-size: 12px;\n  color: #333;\n}\n.regist_container .terms_conditions_label {\n  font-size: 13px;\n  color: #666;\n}\n.regist_container .terms_conditions_checkbox {\n  margin: 0 5px;\n}\n.regist_container .terms_conditions_checkbox_btn {\n  margin-top: 5px;\n}\n.regist_container .regist_button {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-top: 20px;\n}\n.regist_container .regist_button_cel {\n  padding: 10px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  margin-right: 5px;\n}\n.regist_container .regist_button_cel:hover {\n  border: none;\n  background-color: #c5dfff;\n}\n.regist_container .regist_button_nxt {\n  padding: 10px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  margin-left: 5px;\n}\n.regist_container .regist_button_nxt:hover {\n  border: none;\n  background-color: #c5dfff;\n}\n.regist_container .regist_user_info_div {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.regist_container .regist_user_info_label {\n  text-align: start;\n}\n.regist_container .regist_user_info_label div {\n  margin-bottom: 10px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 5px;\n}\n.regist_container .regist_user_info_box {\n  display: flex;\n  text-align: center;\n  justify-content: center;\n  flex-direction: column;\n  margin-left: 20px;\n}\n.regist_container .regist_user_info_box_content {\n  margin-bottom: 22px;\n}\n.regist_container .regist_user_info_box_content th {\n  border: 1px solid #ededed;\n}\n.regist_container .regist_user_info_box label {\n  text-align: start;\n  display: inline-block;\n  width: 120px;\n}\n.regist_container .regist_user_info_box_content_gender {\n  display: flex;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@media (min-width: 1024px) {\n.regist_container_wrap {\n    width: 1000px;\n    margin: 0 auto;\n}\n.regist_container {\n    color: #666;\n    text-align: center;\n    height: 100vh;\n}\n.regist_container .regist_logo_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 40px 0;\n    font-size: 30px;\n    font-weight: bold;\n}\n.regist_container .regist_logo_div_main_logo {\n    width: 100px;\n}\n.regist_container .terms_conditions {\n    text-align: center;\n}\n.regist_container .terms_conditions_title {\n    margin-bottom: 10px;\n}\n.regist_container .terms_conditions_box {\n    border: 1px solid #2C3E50;\n    border-radius: 5px;\n    padding: 20px;\n    width: 50%;\n    text-align: start;\n    margin: 0 auto;\n    overflow: auto;\n    font-size: 12px;\n    color: #333;\n}\n.regist_container .terms_conditions_label {\n    font-size: 13px;\n    color: #666;\n}\n.regist_container .terms_conditions_checkbox {\n    margin: 0 5px;\n}\n.regist_container .terms_conditions_checkbox_btn {\n    margin-top: 5px;\n}\n.regist_container .regist_button {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    margin-top: 20px;\n}\n.regist_container .regist_button_cel {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_button_cel:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_button_nxt {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-left: 5px;\n}\n.regist_container .regist_button_nxt:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_user_info_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.regist_container .regist_user_info_box {\n    display: flex;\n    text-align: center;\n    justify-content: center;\n    flex-direction: column;\n    margin: 20px 0;\n}\n.regist_container .regist_user_info_box_content {\n    margin-bottom: 22px;\n    display: flex;\n}\n.regist_container .regist_user_info_box_content th {\n    border: 1px solid #ededed;\n}\n.regist_container .regist_user_info_box_label {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n}\n.regist_container .regist_user_info_box_input {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_gender {\n    display: flex;\n    align-items: center;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -39965,6 +40592,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/LoginComponent.vue?vue&type=style&index=0&id=c2577fd2&lang=scss":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/LoginComponent.vue?vue&type=style&index=0&id=c2577fd2&lang=scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_LoginComponent_vue_vue_type_style_index_0_id_c2577fd2_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./LoginComponent.vue?vue&type=style&index=0&id=c2577fd2&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/LoginComponent.vue?vue&type=style&index=0&id=c2577fd2&lang=scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_LoginComponent_vue_vue_type_style_index_0_id_c2577fd2_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_LoginComponent_vue_vue_type_style_index_0_id_c2577fd2_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/MypageComponent.vue?vue&type=style&index=0&id=ac065fe2&lang=scss":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/MypageComponent.vue?vue&type=style&index=0&id=ac065fe2&lang=scss ***!
@@ -40524,7 +41181,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _ReservationComponent_vue_vue_type_template_id_1f12fbf6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ReservationComponent.vue?vue&type=template&id=1f12fbf6 */ "./resources/components/Reservation/ReservationComponent.vue?vue&type=template&id=1f12fbf6");
-/* harmony import */ var _ReservationComponent_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ReservationComponent.vue?vue&type=script&setup=true&lang=js */ "./resources/components/Reservation/ReservationComponent.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var _ReservationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ReservationComponent.vue?vue&type=script&lang=js */ "./resources/components/Reservation/ReservationComponent.vue?vue&type=script&lang=js");
 /* harmony import */ var _ReservationComponent_vue_vue_type_style_index_0_id_1f12fbf6_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ReservationComponent.vue?vue&type=style&index=0&id=1f12fbf6&lang=scss */ "./resources/components/Reservation/ReservationComponent.vue?vue&type=style&index=0&id=1f12fbf6&lang=scss");
 /* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
@@ -40534,7 +41191,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_ReservationComponent_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ReservationComponent_vue_vue_type_template_id_1f12fbf6__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/Reservation/ReservationComponent.vue"]])
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_ReservationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ReservationComponent_vue_vue_type_template_id_1f12fbf6__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/Reservation/ReservationComponent.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -40566,6 +41223,37 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_TestComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_TestComponent_vue_vue_type_template_id_cd27f42c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/TestComponent.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./resources/components/User/LoginComponent.vue":
+/*!******************************************************!*\
+  !*** ./resources/components/User/LoginComponent.vue ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _LoginComponent_vue_vue_type_template_id_c2577fd2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LoginComponent.vue?vue&type=template&id=c2577fd2 */ "./resources/components/User/LoginComponent.vue?vue&type=template&id=c2577fd2");
+/* harmony import */ var _LoginComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LoginComponent.vue?vue&type=script&lang=js */ "./resources/components/User/LoginComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _LoginComponent_vue_vue_type_style_index_0_id_c2577fd2_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./LoginComponent.vue?vue&type=style&index=0&id=c2577fd2&lang=scss */ "./resources/components/User/LoginComponent.vue?vue&type=style&index=0&id=c2577fd2&lang=scss");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+
+
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_LoginComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_LoginComponent_vue_vue_type_template_id_c2577fd2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/User/LoginComponent.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -40732,18 +41420,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/components/Reservation/ReservationComponent.vue?vue&type=script&setup=true&lang=js":
-/*!******************************************************************************************************!*\
-  !*** ./resources/components/Reservation/ReservationComponent.vue?vue&type=script&setup=true&lang=js ***!
-  \******************************************************************************************************/
+/***/ "./resources/components/Reservation/ReservationComponent.vue?vue&type=script&lang=js":
+/*!*******************************************************************************************!*\
+  !*** ./resources/components/Reservation/ReservationComponent.vue?vue&type=script&lang=js ***!
+  \*******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReservationComponent_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReservationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReservationComponent_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ReservationComponent.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/ReservationComponent.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ReservationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ReservationComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/ReservationComponent.vue?vue&type=script&lang=js");
  
 
 /***/ }),
@@ -40760,6 +41448,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_TestComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_TestComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./TestComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/TestComponent.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
+/***/ "./resources/components/User/LoginComponent.vue?vue&type=script&lang=js":
+/*!******************************************************************************!*\
+  !*** ./resources/components/User/LoginComponent.vue?vue&type=script&lang=js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_LoginComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_LoginComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./LoginComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/LoginComponent.vue?vue&type=script&lang=js");
  
 
 /***/ }),
@@ -40924,6 +41628,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/components/User/LoginComponent.vue?vue&type=template&id=c2577fd2":
+/*!************************************************************************************!*\
+  !*** ./resources/components/User/LoginComponent.vue?vue&type=template&id=c2577fd2 ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_LoginComponent_vue_vue_type_template_id_c2577fd2__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_LoginComponent_vue_vue_type_template_id_c2577fd2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./LoginComponent.vue?vue&type=template&id=c2577fd2 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/LoginComponent.vue?vue&type=template&id=c2577fd2");
+
+
+/***/ }),
+
 /***/ "./resources/components/User/MypageComponent.vue?vue&type=template&id=ac065fe2":
 /*!*************************************************************************************!*\
   !*** ./resources/components/User/MypageComponent.vue?vue&type=template&id=ac065fe2 ***!
@@ -41056,6 +41776,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_TestComponent_vue_vue_type_style_index_0_id_cd27f42c_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../node_modules/vue-loader/dist/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./TestComponent.vue?vue&type=style&index=0&id=cd27f42c&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/TestComponent.vue?vue&type=style&index=0&id=cd27f42c&lang=scss");
+
+
+/***/ }),
+
+/***/ "./resources/components/User/LoginComponent.vue?vue&type=style&index=0&id=c2577fd2&lang=scss":
+/*!***************************************************************************************************!*\
+  !*** ./resources/components/User/LoginComponent.vue?vue&type=style&index=0&id=c2577fd2&lang=scss ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_LoginComponent_vue_vue_type_style_index_0_id_c2577fd2_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./LoginComponent.vue?vue&type=style&index=0&id=c2577fd2&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/User/LoginComponent.vue?vue&type=style&index=0&id=c2577fd2&lang=scss");
 
 
 /***/ }),
@@ -41338,6 +42071,1495 @@ ${codeFrame}` : message);
 }
 (0,_vue_runtime_dom__WEBPACK_IMPORTED_MODULE_1__.registerRuntimeCompiler)(compileToFunction);
 
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vuex/dist/vuex.esm-bundler.js":
+/*!****************************************************!*\
+  !*** ./node_modules/vuex/dist/vuex.esm-bundler.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Store: () => (/* binding */ Store),
+/* harmony export */   createLogger: () => (/* binding */ createLogger),
+/* harmony export */   createNamespacedHelpers: () => (/* binding */ createNamespacedHelpers),
+/* harmony export */   createStore: () => (/* binding */ createStore),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   mapActions: () => (/* binding */ mapActions),
+/* harmony export */   mapGetters: () => (/* binding */ mapGetters),
+/* harmony export */   mapMutations: () => (/* binding */ mapMutations),
+/* harmony export */   mapState: () => (/* binding */ mapState),
+/* harmony export */   storeKey: () => (/* binding */ storeKey),
+/* harmony export */   useStore: () => (/* binding */ useStore)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _vue_devtools_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vue/devtools-api */ "./node_modules/@vue/devtools-api/lib/esm/index.js");
+/*!
+ * vuex v4.0.2
+ * (c) 2021 Evan You
+ * @license MIT
+ */
+
+
+
+var storeKey = 'store';
+
+function useStore (key) {
+  if ( key === void 0 ) key = null;
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.inject)(key !== null ? key : storeKey)
+}
+
+/**
+ * Get the first item that pass the test
+ * by second argument function
+ *
+ * @param {Array} list
+ * @param {Function} f
+ * @return {*}
+ */
+function find (list, f) {
+  return list.filter(f)[0]
+}
+
+/**
+ * Deep copy the given object considering circular structure.
+ * This function caches all nested objects and its copies.
+ * If it detects circular structure, use cached copy to avoid infinite loop.
+ *
+ * @param {*} obj
+ * @param {Array<Object>} cache
+ * @return {*}
+ */
+function deepCopy (obj, cache) {
+  if ( cache === void 0 ) cache = [];
+
+  // just return if obj is immutable value
+  if (obj === null || typeof obj !== 'object') {
+    return obj
+  }
+
+  // if obj is hit, it is in circular structure
+  var hit = find(cache, function (c) { return c.original === obj; });
+  if (hit) {
+    return hit.copy
+  }
+
+  var copy = Array.isArray(obj) ? [] : {};
+  // put the copy into cache at first
+  // because we want to refer it in recursive deepCopy
+  cache.push({
+    original: obj,
+    copy: copy
+  });
+
+  Object.keys(obj).forEach(function (key) {
+    copy[key] = deepCopy(obj[key], cache);
+  });
+
+  return copy
+}
+
+/**
+ * forEach for object
+ */
+function forEachValue (obj, fn) {
+  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
+}
+
+function isObject (obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+function isPromise (val) {
+  return val && typeof val.then === 'function'
+}
+
+function assert (condition, msg) {
+  if (!condition) { throw new Error(("[vuex] " + msg)) }
+}
+
+function partial (fn, arg) {
+  return function () {
+    return fn(arg)
+  }
+}
+
+function genericSubscribe (fn, subs, options) {
+  if (subs.indexOf(fn) < 0) {
+    options && options.prepend
+      ? subs.unshift(fn)
+      : subs.push(fn);
+  }
+  return function () {
+    var i = subs.indexOf(fn);
+    if (i > -1) {
+      subs.splice(i, 1);
+    }
+  }
+}
+
+function resetStore (store, hot) {
+  store._actions = Object.create(null);
+  store._mutations = Object.create(null);
+  store._wrappedGetters = Object.create(null);
+  store._modulesNamespaceMap = Object.create(null);
+  var state = store.state;
+  // init all modules
+  installModule(store, state, [], store._modules.root, true);
+  // reset state
+  resetStoreState(store, state, hot);
+}
+
+function resetStoreState (store, state, hot) {
+  var oldState = store._state;
+
+  // bind store public getters
+  store.getters = {};
+  // reset local getters cache
+  store._makeLocalGettersCache = Object.create(null);
+  var wrappedGetters = store._wrappedGetters;
+  var computedObj = {};
+  forEachValue(wrappedGetters, function (fn, key) {
+    // use computed to leverage its lazy-caching mechanism
+    // direct inline function use will lead to closure preserving oldState.
+    // using partial to return function with only arguments preserved in closure environment.
+    computedObj[key] = partial(fn, store);
+    Object.defineProperty(store.getters, key, {
+      // TODO: use `computed` when it's possible. at the moment we can't due to
+      // https://github.com/vuejs/vuex/pull/1883
+      get: function () { return computedObj[key](); },
+      enumerable: true // for local getters
+    });
+  });
+
+  store._state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
+    data: state
+  });
+
+  // enable strict mode for new state
+  if (store.strict) {
+    enableStrictMode(store);
+  }
+
+  if (oldState) {
+    if (hot) {
+      // dispatch changes in all subscribed watchers
+      // to force getter re-evaluation for hot reloading.
+      store._withCommit(function () {
+        oldState.data = null;
+      });
+    }
+  }
+}
+
+function installModule (store, rootState, path, module, hot) {
+  var isRoot = !path.length;
+  var namespace = store._modules.getNamespace(path);
+
+  // register in namespace map
+  if (module.namespaced) {
+    if (store._modulesNamespaceMap[namespace] && ("development" !== 'production')) {
+      console.error(("[vuex] duplicate namespace " + namespace + " for the namespaced module " + (path.join('/'))));
+    }
+    store._modulesNamespaceMap[namespace] = module;
+  }
+
+  // set state
+  if (!isRoot && !hot) {
+    var parentState = getNestedState(rootState, path.slice(0, -1));
+    var moduleName = path[path.length - 1];
+    store._withCommit(function () {
+      if ((true)) {
+        if (moduleName in parentState) {
+          console.warn(
+            ("[vuex] state field \"" + moduleName + "\" was overridden by a module with the same name at \"" + (path.join('.')) + "\"")
+          );
+        }
+      }
+      parentState[moduleName] = module.state;
+    });
+  }
+
+  var local = module.context = makeLocalContext(store, namespace, path);
+
+  module.forEachMutation(function (mutation, key) {
+    var namespacedType = namespace + key;
+    registerMutation(store, namespacedType, mutation, local);
+  });
+
+  module.forEachAction(function (action, key) {
+    var type = action.root ? key : namespace + key;
+    var handler = action.handler || action;
+    registerAction(store, type, handler, local);
+  });
+
+  module.forEachGetter(function (getter, key) {
+    var namespacedType = namespace + key;
+    registerGetter(store, namespacedType, getter, local);
+  });
+
+  module.forEachChild(function (child, key) {
+    installModule(store, rootState, path.concat(key), child, hot);
+  });
+}
+
+/**
+ * make localized dispatch, commit, getters and state
+ * if there is no namespace, just use root ones
+ */
+function makeLocalContext (store, namespace, path) {
+  var noNamespace = namespace === '';
+
+  var local = {
+    dispatch: noNamespace ? store.dispatch : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if (( true) && !store._actions[type]) {
+          console.error(("[vuex] unknown local action type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      return store.dispatch(type, payload)
+    },
+
+    commit: noNamespace ? store.commit : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if (( true) && !store._mutations[type]) {
+          console.error(("[vuex] unknown local mutation type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      store.commit(type, payload, options);
+    }
+  };
+
+  // getters and state object must be gotten lazily
+  // because they will be changed by state update
+  Object.defineProperties(local, {
+    getters: {
+      get: noNamespace
+        ? function () { return store.getters; }
+        : function () { return makeLocalGetters(store, namespace); }
+    },
+    state: {
+      get: function () { return getNestedState(store.state, path); }
+    }
+  });
+
+  return local
+}
+
+function makeLocalGetters (store, namespace) {
+  if (!store._makeLocalGettersCache[namespace]) {
+    var gettersProxy = {};
+    var splitPos = namespace.length;
+    Object.keys(store.getters).forEach(function (type) {
+      // skip if the target getter is not match this namespace
+      if (type.slice(0, splitPos) !== namespace) { return }
+
+      // extract local getter type
+      var localType = type.slice(splitPos);
+
+      // Add a port to the getters proxy.
+      // Define as getter property because
+      // we do not want to evaluate the getters in this time.
+      Object.defineProperty(gettersProxy, localType, {
+        get: function () { return store.getters[type]; },
+        enumerable: true
+      });
+    });
+    store._makeLocalGettersCache[namespace] = gettersProxy;
+  }
+
+  return store._makeLocalGettersCache[namespace]
+}
+
+function registerMutation (store, type, handler, local) {
+  var entry = store._mutations[type] || (store._mutations[type] = []);
+  entry.push(function wrappedMutationHandler (payload) {
+    handler.call(store, local.state, payload);
+  });
+}
+
+function registerAction (store, type, handler, local) {
+  var entry = store._actions[type] || (store._actions[type] = []);
+  entry.push(function wrappedActionHandler (payload) {
+    var res = handler.call(store, {
+      dispatch: local.dispatch,
+      commit: local.commit,
+      getters: local.getters,
+      state: local.state,
+      rootGetters: store.getters,
+      rootState: store.state
+    }, payload);
+    if (!isPromise(res)) {
+      res = Promise.resolve(res);
+    }
+    if (store._devtoolHook) {
+      return res.catch(function (err) {
+        store._devtoolHook.emit('vuex:error', err);
+        throw err
+      })
+    } else {
+      return res
+    }
+  });
+}
+
+function registerGetter (store, type, rawGetter, local) {
+  if (store._wrappedGetters[type]) {
+    if ((true)) {
+      console.error(("[vuex] duplicate getter key: " + type));
+    }
+    return
+  }
+  store._wrappedGetters[type] = function wrappedGetter (store) {
+    return rawGetter(
+      local.state, // local state
+      local.getters, // local getters
+      store.state, // root state
+      store.getters // root getters
+    )
+  };
+}
+
+function enableStrictMode (store) {
+  (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(function () { return store._state.data; }, function () {
+    if ((true)) {
+      assert(store._committing, "do not mutate vuex store state outside mutation handlers.");
+    }
+  }, { deep: true, flush: 'sync' });
+}
+
+function getNestedState (state, path) {
+  return path.reduce(function (state, key) { return state[key]; }, state)
+}
+
+function unifyObjectStyle (type, payload, options) {
+  if (isObject(type) && type.type) {
+    options = payload;
+    payload = type;
+    type = type.type;
+  }
+
+  if ((true)) {
+    assert(typeof type === 'string', ("expects string as the type, but found " + (typeof type) + "."));
+  }
+
+  return { type: type, payload: payload, options: options }
+}
+
+var LABEL_VUEX_BINDINGS = 'vuex bindings';
+var MUTATIONS_LAYER_ID = 'vuex:mutations';
+var ACTIONS_LAYER_ID = 'vuex:actions';
+var INSPECTOR_ID = 'vuex';
+
+var actionId = 0;
+
+function addDevtools (app, store) {
+  (0,_vue_devtools_api__WEBPACK_IMPORTED_MODULE_1__.setupDevtoolsPlugin)(
+    {
+      id: 'org.vuejs.vuex',
+      app: app,
+      label: 'Vuex',
+      homepage: 'https://next.vuex.vuejs.org/',
+      logo: 'https://vuejs.org/images/icons/favicon-96x96.png',
+      packageName: 'vuex',
+      componentStateTypes: [LABEL_VUEX_BINDINGS]
+    },
+    function (api) {
+      api.addTimelineLayer({
+        id: MUTATIONS_LAYER_ID,
+        label: 'Vuex Mutations',
+        color: COLOR_LIME_500
+      });
+
+      api.addTimelineLayer({
+        id: ACTIONS_LAYER_ID,
+        label: 'Vuex Actions',
+        color: COLOR_LIME_500
+      });
+
+      api.addInspector({
+        id: INSPECTOR_ID,
+        label: 'Vuex',
+        icon: 'storage',
+        treeFilterPlaceholder: 'Filter stores...'
+      });
+
+      api.on.getInspectorTree(function (payload) {
+        if (payload.app === app && payload.inspectorId === INSPECTOR_ID) {
+          if (payload.filter) {
+            var nodes = [];
+            flattenStoreForInspectorTree(nodes, store._modules.root, payload.filter, '');
+            payload.rootNodes = nodes;
+          } else {
+            payload.rootNodes = [
+              formatStoreForInspectorTree(store._modules.root, '')
+            ];
+          }
+        }
+      });
+
+      api.on.getInspectorState(function (payload) {
+        if (payload.app === app && payload.inspectorId === INSPECTOR_ID) {
+          var modulePath = payload.nodeId;
+          makeLocalGetters(store, modulePath);
+          payload.state = formatStoreForInspectorState(
+            getStoreModule(store._modules, modulePath),
+            modulePath === 'root' ? store.getters : store._makeLocalGettersCache,
+            modulePath
+          );
+        }
+      });
+
+      api.on.editInspectorState(function (payload) {
+        if (payload.app === app && payload.inspectorId === INSPECTOR_ID) {
+          var modulePath = payload.nodeId;
+          var path = payload.path;
+          if (modulePath !== 'root') {
+            path = modulePath.split('/').filter(Boolean).concat( path);
+          }
+          store._withCommit(function () {
+            payload.set(store._state.data, path, payload.state.value);
+          });
+        }
+      });
+
+      store.subscribe(function (mutation, state) {
+        var data = {};
+
+        if (mutation.payload) {
+          data.payload = mutation.payload;
+        }
+
+        data.state = state;
+
+        api.notifyComponentUpdate();
+        api.sendInspectorTree(INSPECTOR_ID);
+        api.sendInspectorState(INSPECTOR_ID);
+
+        api.addTimelineEvent({
+          layerId: MUTATIONS_LAYER_ID,
+          event: {
+            time: Date.now(),
+            title: mutation.type,
+            data: data
+          }
+        });
+      });
+
+      store.subscribeAction({
+        before: function (action, state) {
+          var data = {};
+          if (action.payload) {
+            data.payload = action.payload;
+          }
+          action._id = actionId++;
+          action._time = Date.now();
+          data.state = state;
+
+          api.addTimelineEvent({
+            layerId: ACTIONS_LAYER_ID,
+            event: {
+              time: action._time,
+              title: action.type,
+              groupId: action._id,
+              subtitle: 'start',
+              data: data
+            }
+          });
+        },
+        after: function (action, state) {
+          var data = {};
+          var duration = Date.now() - action._time;
+          data.duration = {
+            _custom: {
+              type: 'duration',
+              display: (duration + "ms"),
+              tooltip: 'Action duration',
+              value: duration
+            }
+          };
+          if (action.payload) {
+            data.payload = action.payload;
+          }
+          data.state = state;
+
+          api.addTimelineEvent({
+            layerId: ACTIONS_LAYER_ID,
+            event: {
+              time: Date.now(),
+              title: action.type,
+              groupId: action._id,
+              subtitle: 'end',
+              data: data
+            }
+          });
+        }
+      });
+    }
+  );
+}
+
+// extracted from tailwind palette
+var COLOR_LIME_500 = 0x84cc16;
+var COLOR_DARK = 0x666666;
+var COLOR_WHITE = 0xffffff;
+
+var TAG_NAMESPACED = {
+  label: 'namespaced',
+  textColor: COLOR_WHITE,
+  backgroundColor: COLOR_DARK
+};
+
+/**
+ * @param {string} path
+ */
+function extractNameFromPath (path) {
+  return path && path !== 'root' ? path.split('/').slice(-2, -1)[0] : 'Root'
+}
+
+/**
+ * @param {*} module
+ * @return {import('@vue/devtools-api').CustomInspectorNode}
+ */
+function formatStoreForInspectorTree (module, path) {
+  return {
+    id: path || 'root',
+    // all modules end with a `/`, we want the last segment only
+    // cart/ -> cart
+    // nested/cart/ -> cart
+    label: extractNameFromPath(path),
+    tags: module.namespaced ? [TAG_NAMESPACED] : [],
+    children: Object.keys(module._children).map(function (moduleName) { return formatStoreForInspectorTree(
+        module._children[moduleName],
+        path + moduleName + '/'
+      ); }
+    )
+  }
+}
+
+/**
+ * @param {import('@vue/devtools-api').CustomInspectorNode[]} result
+ * @param {*} module
+ * @param {string} filter
+ * @param {string} path
+ */
+function flattenStoreForInspectorTree (result, module, filter, path) {
+  if (path.includes(filter)) {
+    result.push({
+      id: path || 'root',
+      label: path.endsWith('/') ? path.slice(0, path.length - 1) : path || 'Root',
+      tags: module.namespaced ? [TAG_NAMESPACED] : []
+    });
+  }
+  Object.keys(module._children).forEach(function (moduleName) {
+    flattenStoreForInspectorTree(result, module._children[moduleName], filter, path + moduleName + '/');
+  });
+}
+
+/**
+ * @param {*} module
+ * @return {import('@vue/devtools-api').CustomInspectorState}
+ */
+function formatStoreForInspectorState (module, getters, path) {
+  getters = path === 'root' ? getters : getters[path];
+  var gettersKeys = Object.keys(getters);
+  var storeState = {
+    state: Object.keys(module.state).map(function (key) { return ({
+      key: key,
+      editable: true,
+      value: module.state[key]
+    }); })
+  };
+
+  if (gettersKeys.length) {
+    var tree = transformPathsToObjectTree(getters);
+    storeState.getters = Object.keys(tree).map(function (key) { return ({
+      key: key.endsWith('/') ? extractNameFromPath(key) : key,
+      editable: false,
+      value: canThrow(function () { return tree[key]; })
+    }); });
+  }
+
+  return storeState
+}
+
+function transformPathsToObjectTree (getters) {
+  var result = {};
+  Object.keys(getters).forEach(function (key) {
+    var path = key.split('/');
+    if (path.length > 1) {
+      var target = result;
+      var leafKey = path.pop();
+      path.forEach(function (p) {
+        if (!target[p]) {
+          target[p] = {
+            _custom: {
+              value: {},
+              display: p,
+              tooltip: 'Module',
+              abstract: true
+            }
+          };
+        }
+        target = target[p]._custom.value;
+      });
+      target[leafKey] = canThrow(function () { return getters[key]; });
+    } else {
+      result[key] = canThrow(function () { return getters[key]; });
+    }
+  });
+  return result
+}
+
+function getStoreModule (moduleMap, path) {
+  var names = path.split('/').filter(function (n) { return n; });
+  return names.reduce(
+    function (module, moduleName, i) {
+      var child = module[moduleName];
+      if (!child) {
+        throw new Error(("Missing module \"" + moduleName + "\" for path \"" + path + "\"."))
+      }
+      return i === names.length - 1 ? child : child._children
+    },
+    path === 'root' ? moduleMap : moduleMap.root._children
+  )
+}
+
+function canThrow (cb) {
+  try {
+    return cb()
+  } catch (e) {
+    return e
+  }
+}
+
+// Base data struct for store's module, package with some attribute and method
+var Module = function Module (rawModule, runtime) {
+  this.runtime = runtime;
+  // Store some children item
+  this._children = Object.create(null);
+  // Store the origin module object which passed by programmer
+  this._rawModule = rawModule;
+  var rawState = rawModule.state;
+
+  // Store the origin module's state
+  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
+};
+
+var prototypeAccessors$1 = { namespaced: { configurable: true } };
+
+prototypeAccessors$1.namespaced.get = function () {
+  return !!this._rawModule.namespaced
+};
+
+Module.prototype.addChild = function addChild (key, module) {
+  this._children[key] = module;
+};
+
+Module.prototype.removeChild = function removeChild (key) {
+  delete this._children[key];
+};
+
+Module.prototype.getChild = function getChild (key) {
+  return this._children[key]
+};
+
+Module.prototype.hasChild = function hasChild (key) {
+  return key in this._children
+};
+
+Module.prototype.update = function update (rawModule) {
+  this._rawModule.namespaced = rawModule.namespaced;
+  if (rawModule.actions) {
+    this._rawModule.actions = rawModule.actions;
+  }
+  if (rawModule.mutations) {
+    this._rawModule.mutations = rawModule.mutations;
+  }
+  if (rawModule.getters) {
+    this._rawModule.getters = rawModule.getters;
+  }
+};
+
+Module.prototype.forEachChild = function forEachChild (fn) {
+  forEachValue(this._children, fn);
+};
+
+Module.prototype.forEachGetter = function forEachGetter (fn) {
+  if (this._rawModule.getters) {
+    forEachValue(this._rawModule.getters, fn);
+  }
+};
+
+Module.prototype.forEachAction = function forEachAction (fn) {
+  if (this._rawModule.actions) {
+    forEachValue(this._rawModule.actions, fn);
+  }
+};
+
+Module.prototype.forEachMutation = function forEachMutation (fn) {
+  if (this._rawModule.mutations) {
+    forEachValue(this._rawModule.mutations, fn);
+  }
+};
+
+Object.defineProperties( Module.prototype, prototypeAccessors$1 );
+
+var ModuleCollection = function ModuleCollection (rawRootModule) {
+  // register root module (Vuex.Store options)
+  this.register([], rawRootModule, false);
+};
+
+ModuleCollection.prototype.get = function get (path) {
+  return path.reduce(function (module, key) {
+    return module.getChild(key)
+  }, this.root)
+};
+
+ModuleCollection.prototype.getNamespace = function getNamespace (path) {
+  var module = this.root;
+  return path.reduce(function (namespace, key) {
+    module = module.getChild(key);
+    return namespace + (module.namespaced ? key + '/' : '')
+  }, '')
+};
+
+ModuleCollection.prototype.update = function update$1 (rawRootModule) {
+  update([], this.root, rawRootModule);
+};
+
+ModuleCollection.prototype.register = function register (path, rawModule, runtime) {
+    var this$1$1 = this;
+    if ( runtime === void 0 ) runtime = true;
+
+  if ((true)) {
+    assertRawModule(path, rawModule);
+  }
+
+  var newModule = new Module(rawModule, runtime);
+  if (path.length === 0) {
+    this.root = newModule;
+  } else {
+    var parent = this.get(path.slice(0, -1));
+    parent.addChild(path[path.length - 1], newModule);
+  }
+
+  // register nested modules
+  if (rawModule.modules) {
+    forEachValue(rawModule.modules, function (rawChildModule, key) {
+      this$1$1.register(path.concat(key), rawChildModule, runtime);
+    });
+  }
+};
+
+ModuleCollection.prototype.unregister = function unregister (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+  var child = parent.getChild(key);
+
+  if (!child) {
+    if ((true)) {
+      console.warn(
+        "[vuex] trying to unregister module '" + key + "', which is " +
+        "not registered"
+      );
+    }
+    return
+  }
+
+  if (!child.runtime) {
+    return
+  }
+
+  parent.removeChild(key);
+};
+
+ModuleCollection.prototype.isRegistered = function isRegistered (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+
+  if (parent) {
+    return parent.hasChild(key)
+  }
+
+  return false
+};
+
+function update (path, targetModule, newModule) {
+  if ((true)) {
+    assertRawModule(path, newModule);
+  }
+
+  // update target module
+  targetModule.update(newModule);
+
+  // update nested modules
+  if (newModule.modules) {
+    for (var key in newModule.modules) {
+      if (!targetModule.getChild(key)) {
+        if ((true)) {
+          console.warn(
+            "[vuex] trying to add a new module '" + key + "' on hot reloading, " +
+            'manual reload is needed'
+          );
+        }
+        return
+      }
+      update(
+        path.concat(key),
+        targetModule.getChild(key),
+        newModule.modules[key]
+      );
+    }
+  }
+}
+
+var functionAssert = {
+  assert: function (value) { return typeof value === 'function'; },
+  expected: 'function'
+};
+
+var objectAssert = {
+  assert: function (value) { return typeof value === 'function' ||
+    (typeof value === 'object' && typeof value.handler === 'function'); },
+  expected: 'function or object with "handler" function'
+};
+
+var assertTypes = {
+  getters: functionAssert,
+  mutations: functionAssert,
+  actions: objectAssert
+};
+
+function assertRawModule (path, rawModule) {
+  Object.keys(assertTypes).forEach(function (key) {
+    if (!rawModule[key]) { return }
+
+    var assertOptions = assertTypes[key];
+
+    forEachValue(rawModule[key], function (value, type) {
+      assert(
+        assertOptions.assert(value),
+        makeAssertionMessage(path, key, type, value, assertOptions.expected)
+      );
+    });
+  });
+}
+
+function makeAssertionMessage (path, key, type, value, expected) {
+  var buf = key + " should be " + expected + " but \"" + key + "." + type + "\"";
+  if (path.length > 0) {
+    buf += " in module \"" + (path.join('.')) + "\"";
+  }
+  buf += " is " + (JSON.stringify(value)) + ".";
+  return buf
+}
+
+function createStore (options) {
+  return new Store(options)
+}
+
+var Store = function Store (options) {
+  var this$1$1 = this;
+  if ( options === void 0 ) options = {};
+
+  if ((true)) {
+    assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
+    assert(this instanceof Store, "store must be called with the new operator.");
+  }
+
+  var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
+  var strict = options.strict; if ( strict === void 0 ) strict = false;
+  var devtools = options.devtools;
+
+  // store internal state
+  this._committing = false;
+  this._actions = Object.create(null);
+  this._actionSubscribers = [];
+  this._mutations = Object.create(null);
+  this._wrappedGetters = Object.create(null);
+  this._modules = new ModuleCollection(options);
+  this._modulesNamespaceMap = Object.create(null);
+  this._subscribers = [];
+  this._makeLocalGettersCache = Object.create(null);
+  this._devtools = devtools;
+
+  // bind commit and dispatch to self
+  var store = this;
+  var ref = this;
+  var dispatch = ref.dispatch;
+  var commit = ref.commit;
+  this.dispatch = function boundDispatch (type, payload) {
+    return dispatch.call(store, type, payload)
+  };
+  this.commit = function boundCommit (type, payload, options) {
+    return commit.call(store, type, payload, options)
+  };
+
+  // strict mode
+  this.strict = strict;
+
+  var state = this._modules.root.state;
+
+  // init root module.
+  // this also recursively registers all sub-modules
+  // and collects all module getters inside this._wrappedGetters
+  installModule(this, state, [], this._modules.root);
+
+  // initialize the store state, which is responsible for the reactivity
+  // (also registers _wrappedGetters as computed properties)
+  resetStoreState(this, state);
+
+  // apply plugins
+  plugins.forEach(function (plugin) { return plugin(this$1$1); });
+};
+
+var prototypeAccessors = { state: { configurable: true } };
+
+Store.prototype.install = function install (app, injectKey) {
+  app.provide(injectKey || storeKey, this);
+  app.config.globalProperties.$store = this;
+
+  var useDevtools = this._devtools !== undefined
+    ? this._devtools
+    : ( true) || 0;
+
+  if (useDevtools) {
+    addDevtools(app, this);
+  }
+};
+
+prototypeAccessors.state.get = function () {
+  return this._state.data
+};
+
+prototypeAccessors.state.set = function (v) {
+  if ((true)) {
+    assert(false, "use store.replaceState() to explicit replace store state.");
+  }
+};
+
+Store.prototype.commit = function commit (_type, _payload, _options) {
+    var this$1$1 = this;
+
+  // check object-style commit
+  var ref = unifyObjectStyle(_type, _payload, _options);
+    var type = ref.type;
+    var payload = ref.payload;
+    var options = ref.options;
+
+  var mutation = { type: type, payload: payload };
+  var entry = this._mutations[type];
+  if (!entry) {
+    if ((true)) {
+      console.error(("[vuex] unknown mutation type: " + type));
+    }
+    return
+  }
+  this._withCommit(function () {
+    entry.forEach(function commitIterator (handler) {
+      handler(payload);
+    });
+  });
+
+  this._subscribers
+    .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+    .forEach(function (sub) { return sub(mutation, this$1$1.state); });
+
+  if (
+    ( true) &&
+    options && options.silent
+  ) {
+    console.warn(
+      "[vuex] mutation type: " + type + ". Silent option has been removed. " +
+      'Use the filter functionality in the vue-devtools'
+    );
+  }
+};
+
+Store.prototype.dispatch = function dispatch (_type, _payload) {
+    var this$1$1 = this;
+
+  // check object-style dispatch
+  var ref = unifyObjectStyle(_type, _payload);
+    var type = ref.type;
+    var payload = ref.payload;
+
+  var action = { type: type, payload: payload };
+  var entry = this._actions[type];
+  if (!entry) {
+    if ((true)) {
+      console.error(("[vuex] unknown action type: " + type));
+    }
+    return
+  }
+
+  try {
+    this._actionSubscribers
+      .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+      .filter(function (sub) { return sub.before; })
+      .forEach(function (sub) { return sub.before(action, this$1$1.state); });
+  } catch (e) {
+    if ((true)) {
+      console.warn("[vuex] error in before action subscribers: ");
+      console.error(e);
+    }
+  }
+
+  var result = entry.length > 1
+    ? Promise.all(entry.map(function (handler) { return handler(payload); }))
+    : entry[0](payload);
+
+  return new Promise(function (resolve, reject) {
+    result.then(function (res) {
+      try {
+        this$1$1._actionSubscribers
+          .filter(function (sub) { return sub.after; })
+          .forEach(function (sub) { return sub.after(action, this$1$1.state); });
+      } catch (e) {
+        if ((true)) {
+          console.warn("[vuex] error in after action subscribers: ");
+          console.error(e);
+        }
+      }
+      resolve(res);
+    }, function (error) {
+      try {
+        this$1$1._actionSubscribers
+          .filter(function (sub) { return sub.error; })
+          .forEach(function (sub) { return sub.error(action, this$1$1.state, error); });
+      } catch (e) {
+        if ((true)) {
+          console.warn("[vuex] error in error action subscribers: ");
+          console.error(e);
+        }
+      }
+      reject(error);
+    });
+  })
+};
+
+Store.prototype.subscribe = function subscribe (fn, options) {
+  return genericSubscribe(fn, this._subscribers, options)
+};
+
+Store.prototype.subscribeAction = function subscribeAction (fn, options) {
+  var subs = typeof fn === 'function' ? { before: fn } : fn;
+  return genericSubscribe(subs, this._actionSubscribers, options)
+};
+
+Store.prototype.watch = function watch$1 (getter, cb, options) {
+    var this$1$1 = this;
+
+  if ((true)) {
+    assert(typeof getter === 'function', "store.watch only accepts a function.");
+  }
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(function () { return getter(this$1$1.state, this$1$1.getters); }, cb, Object.assign({}, options))
+};
+
+Store.prototype.replaceState = function replaceState (state) {
+    var this$1$1 = this;
+
+  this._withCommit(function () {
+    this$1$1._state.data = state;
+  });
+};
+
+Store.prototype.registerModule = function registerModule (path, rawModule, options) {
+    if ( options === void 0 ) options = {};
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+    assert(path.length > 0, 'cannot register the root module by using registerModule.');
+  }
+
+  this._modules.register(path, rawModule);
+  installModule(this, this.state, path, this._modules.get(path), options.preserveState);
+  // reset store to update getters...
+  resetStoreState(this, this.state);
+};
+
+Store.prototype.unregisterModule = function unregisterModule (path) {
+    var this$1$1 = this;
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  this._modules.unregister(path);
+  this._withCommit(function () {
+    var parentState = getNestedState(this$1$1.state, path.slice(0, -1));
+    delete parentState[path[path.length - 1]];
+  });
+  resetStore(this);
+};
+
+Store.prototype.hasModule = function hasModule (path) {
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  return this._modules.isRegistered(path)
+};
+
+Store.prototype.hotUpdate = function hotUpdate (newOptions) {
+  this._modules.update(newOptions);
+  resetStore(this, true);
+};
+
+Store.prototype._withCommit = function _withCommit (fn) {
+  var committing = this._committing;
+  this._committing = true;
+  fn();
+  this._committing = committing;
+};
+
+Object.defineProperties( Store.prototype, prototypeAccessors );
+
+/**
+ * Reduce the code which written in Vue.js for getting the state.
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
+ * @param {Object}
+ */
+var mapState = normalizeNamespace(function (namespace, states) {
+  var res = {};
+  if (( true) && !isValidMap(states)) {
+    console.error('[vuex] mapState: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(states).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedState () {
+      var state = this.$store.state;
+      var getters = this.$store.getters;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapState', namespace);
+        if (!module) {
+          return
+        }
+        state = module.context.state;
+        getters = module.context.getters;
+      }
+      return typeof val === 'function'
+        ? val.call(this, state, getters)
+        : state[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for committing the mutation
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept another params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+var mapMutations = normalizeNamespace(function (namespace, mutations) {
+  var res = {};
+  if (( true) && !isValidMap(mutations)) {
+    console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(mutations).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedMutation () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      // Get the commit method from store
+      var commit = this.$store.commit;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapMutations', namespace);
+        if (!module) {
+          return
+        }
+        commit = module.context.commit;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [commit].concat(args))
+        : commit.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for getting the getters
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} getters
+ * @return {Object}
+ */
+var mapGetters = normalizeNamespace(function (namespace, getters) {
+  var res = {};
+  if (( true) && !isValidMap(getters)) {
+    console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(getters).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    // The namespace has been mutated by normalizeNamespace
+    val = namespace + val;
+    res[key] = function mappedGetter () {
+      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
+        return
+      }
+      if (( true) && !(val in this.$store.getters)) {
+        console.error(("[vuex] unknown getter: " + val));
+        return
+      }
+      return this.$store.getters[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for dispatch the action
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+var mapActions = normalizeNamespace(function (namespace, actions) {
+  var res = {};
+  if (( true) && !isValidMap(actions)) {
+    console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(actions).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedAction () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      // get dispatch function from store
+      var dispatch = this.$store.dispatch;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapActions', namespace);
+        if (!module) {
+          return
+        }
+        dispatch = module.context.dispatch;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [dispatch].concat(args))
+        : dispatch.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+/**
+ * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
+ * @param {String} namespace
+ * @return {Object}
+ */
+var createNamespacedHelpers = function (namespace) { return ({
+  mapState: mapState.bind(null, namespace),
+  mapGetters: mapGetters.bind(null, namespace),
+  mapMutations: mapMutations.bind(null, namespace),
+  mapActions: mapActions.bind(null, namespace)
+}); };
+
+/**
+ * Normalize the map
+ * normalizeMap([1, 2, 3]) => [ { key: 1, val: 1 }, { key: 2, val: 2 }, { key: 3, val: 3 } ]
+ * normalizeMap({a: 1, b: 2, c: 3}) => [ { key: 'a', val: 1 }, { key: 'b', val: 2 }, { key: 'c', val: 3 } ]
+ * @param {Array|Object} map
+ * @return {Object}
+ */
+function normalizeMap (map) {
+  if (!isValidMap(map)) {
+    return []
+  }
+  return Array.isArray(map)
+    ? map.map(function (key) { return ({ key: key, val: key }); })
+    : Object.keys(map).map(function (key) { return ({ key: key, val: map[key] }); })
+}
+
+/**
+ * Validate whether given map is valid or not
+ * @param {*} map
+ * @return {Boolean}
+ */
+function isValidMap (map) {
+  return Array.isArray(map) || isObject(map)
+}
+
+/**
+ * Return a function expect two param contains namespace and map. it will normalize the namespace and then the param's function will handle the new namespace and the map.
+ * @param {Function} fn
+ * @return {Function}
+ */
+function normalizeNamespace (fn) {
+  return function (namespace, map) {
+    if (typeof namespace !== 'string') {
+      map = namespace;
+      namespace = '';
+    } else if (namespace.charAt(namespace.length - 1) !== '/') {
+      namespace += '/';
+    }
+    return fn(namespace, map)
+  }
+}
+
+/**
+ * Search a special module from store by namespace. if module not exist, print error message.
+ * @param {Object} store
+ * @param {String} helper
+ * @param {String} namespace
+ * @return {Object}
+ */
+function getModuleByNamespace (store, helper, namespace) {
+  var module = store._modulesNamespaceMap[namespace];
+  if (( true) && !module) {
+    console.error(("[vuex] module namespace not found in " + helper + "(): " + namespace));
+  }
+  return module
+}
+
+// Credits: borrowed code from fcomb/redux-logger
+
+function createLogger (ref) {
+  if ( ref === void 0 ) ref = {};
+  var collapsed = ref.collapsed; if ( collapsed === void 0 ) collapsed = true;
+  var filter = ref.filter; if ( filter === void 0 ) filter = function (mutation, stateBefore, stateAfter) { return true; };
+  var transformer = ref.transformer; if ( transformer === void 0 ) transformer = function (state) { return state; };
+  var mutationTransformer = ref.mutationTransformer; if ( mutationTransformer === void 0 ) mutationTransformer = function (mut) { return mut; };
+  var actionFilter = ref.actionFilter; if ( actionFilter === void 0 ) actionFilter = function (action, state) { return true; };
+  var actionTransformer = ref.actionTransformer; if ( actionTransformer === void 0 ) actionTransformer = function (act) { return act; };
+  var logMutations = ref.logMutations; if ( logMutations === void 0 ) logMutations = true;
+  var logActions = ref.logActions; if ( logActions === void 0 ) logActions = true;
+  var logger = ref.logger; if ( logger === void 0 ) logger = console;
+
+  return function (store) {
+    var prevState = deepCopy(store.state);
+
+    if (typeof logger === 'undefined') {
+      return
+    }
+
+    if (logMutations) {
+      store.subscribe(function (mutation, state) {
+        var nextState = deepCopy(state);
+
+        if (filter(mutation, prevState, nextState)) {
+          var formattedTime = getFormattedTime();
+          var formattedMutation = mutationTransformer(mutation);
+          var message = "mutation " + (mutation.type) + formattedTime;
+
+          startMessage(logger, message, collapsed);
+          logger.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState));
+          logger.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation);
+          logger.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState));
+          endMessage(logger);
+        }
+
+        prevState = nextState;
+      });
+    }
+
+    if (logActions) {
+      store.subscribeAction(function (action, state) {
+        if (actionFilter(action, state)) {
+          var formattedTime = getFormattedTime();
+          var formattedAction = actionTransformer(action);
+          var message = "action " + (action.type) + formattedTime;
+
+          startMessage(logger, message, collapsed);
+          logger.log('%c action', 'color: #03A9F4; font-weight: bold', formattedAction);
+          endMessage(logger);
+        }
+      });
+    }
+  }
+}
+
+function startMessage (logger, message, collapsed) {
+  var startMessage = collapsed
+    ? logger.groupCollapsed
+    : logger.group;
+
+  // render
+  try {
+    startMessage.call(logger, message);
+  } catch (e) {
+    logger.log(message);
+  }
+}
+
+function endMessage (logger) {
+  try {
+    logger.groupEnd();
+  } catch (e) {
+    logger.log('—— log end ——');
+  }
+}
+
+function getFormattedTime () {
+  var time = new Date();
+  return (" @ " + (pad(time.getHours(), 2)) + ":" + (pad(time.getMinutes(), 2)) + ":" + (pad(time.getSeconds(), 2)) + "." + (pad(time.getMilliseconds(), 3)))
+}
+
+function repeat (str, times) {
+  return (new Array(times + 1)).join(str)
+}
+
+function pad (num, maxLength) {
+  return repeat('0', maxLength - num.toString().length) + num
+}
+
+var index = {
+  version: '4.0.2',
+  Store: Store,
+  storeKey: storeKey,
+  createStore: createStore,
+  useStore: useStore,
+  mapState: mapState,
+  mapMutations: mapMutations,
+  mapGetters: mapGetters,
+  mapActions: mapActions,
+  createNamespacedHelpers: createNamespacedHelpers,
+  createLogger: createLogger
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (index);
 
 
 
