@@ -43,5 +43,5 @@ export default {
 }
 </script>
 <style lang="scss">
-	@import '../../sass/Admin/admin.scss';
+	@import '../../sass/Admin/admin_login.scss';
 </style>

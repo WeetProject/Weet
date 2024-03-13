@@ -1,5 +1,5 @@
 <template>
-	<div v-if="$route.fullPath != '/admin'">
+	<div v-if="!['/admin', '/admin/index'].includes($route.fullPath)">
 		<div class="header_container">
 			<div class="header_nav">
 				<div class="header_nav_logo">
