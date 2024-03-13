@@ -20,7 +20,7 @@
                         </button>    
                     </div>
                     <div>
-                        <p>제작자 : 여중기 | 최정훈 | 정지우 | 최현희</p>
+                        <p>제작자 : 여중기 | 최정훈 | 최현희</p>
                     </div>
                     <div>
                         <p>주소 : 대구 중구 중앙대로394 제일빌딩5F</p>
@@ -83,20 +83,36 @@
                 </a>
             </div>
             <div class="header_mobile_nav_icon_user">
-                <a href="/login">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                    </svg>
-                </a>
+                <!-- <a href="/login"> -->
+                    <button @click="toggleModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                        </svg>
+                    </button>
+                <!-- </a> -->
             </div>
         </div>
+        <!-- 로그인 모달 -->
+			<LoginComponent v-if="showmodal" @click="closeModal" />
     </div>
 </template>
 
 <script>
+import LoginComponent from '../User/LoginComponent.vue';
+
 export default {
     name: 'FooterComponent',
+
+    components: {
+			LoginComponent,
+		},
+
+        data() {
+            return {
+                showmodal: false,
+            }
+	    },
 
     methods: {
         // adjustFooterPosition() {
@@ -112,6 +128,14 @@ export default {
         //         footer.style.bottom = 'auto';
         //     }
         // }
+        toggleModal() {
+				// 모달을 열고 닫는 토글 메서드
+            	// this.showmodal = !this.showmodal;
+            	this.showmodal = true; // 모달을 열고 닫는 토글 메서드
+        	},
+        closeModal() {
+            	this.showmodal = false; // 모달을 닫는 메서드
+        	}
     },
     
     // mounted() {

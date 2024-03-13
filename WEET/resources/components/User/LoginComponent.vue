@@ -6,7 +6,7 @@
 						<div class="modal-content">
 							<!-- 모달 내용 -->
 							<!-- 로그인 폼 등 -->
-							<div class="flex scene" style="width: 300px;">
+							<div class="flex scene" style="width: 350px;">
 								<section class="card">
 									<div class="login_modal">
 										<div class="login_modal_headline">
@@ -28,12 +28,12 @@
 										<form class="card__form">
 											<div class="card__form_email">
 												<!-- <label for="email" class="visually-hidden">Email:</label> -->
-												<label for="email">Email:</label>
+												<label for="email">Email</label>
 													<input id="email" class="card__input" type="email" />
 											</div>
 											<div class="card__form_pw">
 												<!-- <label for="password" class="visually-hidden">Password:</label> -->
-												<label for="password">Password:</label>
+												<label for="password">Password</label>
 													<input id="password" class="card__input" type="password" />
 											</div>
 						
