@@ -69,7 +69,7 @@
 									</section>
 								</div>
 								<div>
-									<button @click="showmodal = false">Close</button>
+									<button>Close</button>
 								</div>
 							</div>
 						</div>
@@ -88,7 +88,7 @@ export default {
 
     data() {
         return {
-            showmodal: false,
+            showmodal: true,
         }
 	},
 
