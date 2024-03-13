@@ -17,7 +17,7 @@
 					<div class="header_nav_login_btn">
 						<div class="header_nav_login_btn_user">
 							<button @click="toggleModal">login</button>
-							<LoginComponent v-if="showmodal" @closeModal="closemodal" />
+							<!-- <LoginComponent v-if="showmodal" @closeModal="closemodal" /> -->
 							<!-- <a href="/login">login</a> -->
 						</div>
 
@@ -93,7 +93,7 @@
 			</div>
 		</div>
 		<!-- 로그인 모달 -->
-		<!-- <LoginComponent v-if="showmodal" @closeModal="closemodal" /> -->
+		<LoginComponent v-if="showmodal" @click="closeModal" />
 		<!-- <LoginComponent :showmodal="showmodal" @closeModal="closemodal" /> -->
 	</div>
 </template>
@@ -116,7 +116,9 @@ import LoginComponent from '../User/LoginComponent.vue';
 
 		methods: {
         	toggleModal() {
-            	this.showmodal = !this.showmodal; // 모달을 열고 닫는 토글 메서드
+				// 모달을 열고 닫는 토글 메서드
+            	// this.showmodal = !this.showmodal;
+            	this.showmodal = true; // 모달을 열고 닫는 토글 메서드
         	},
         	closeModal() {
             	this.showmodal = false; // 모달을 닫는 메서드
