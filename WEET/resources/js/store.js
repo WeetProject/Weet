@@ -7,11 +7,18 @@ import axios from "axios";
 const store = createStore({
 
     state() {
-    
+        return {
+            showmodal: false,
+        }
     },
 
-    mutations() {
-    
+    mutations: {
+        setToggleModal(state) {
+            state.showModal = true;
+        },
+        setCloseModal(state) {
+            state.showModal = false;
+        },
     
     },
 

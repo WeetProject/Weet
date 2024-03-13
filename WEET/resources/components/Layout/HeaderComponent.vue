@@ -22,7 +22,7 @@
 						</div>
 
 					<!-- 로그인모달 -->
-					<!-- <div v-if="showmodal" class="modal">
+					<div v-if="showmodal" class="modal">
 						<div class="modal-content">
 							<div class="flex scene" style="width: 300px;">
 								<section class="card">
@@ -86,7 +86,7 @@
 									<button @click="showmodal = false">Close</button>
 								</div>
 							</div>
-						</div> -->
+						</div>
 						
 					</div>
 				</div>
@@ -94,20 +94,23 @@
 				
 		</div>
 		<!-- 로그인 모달 -->
-			<LoginComponent v-if="showmodal" @click="closeModal" />
-		<!-- <LoginComponent :showmodal="showmodal" @closeModal="closemodal" /> -->
+			<!-- <LoginComponent v-if="showmodal" @click="closeModal" /> -->
+		<!-- <LoginComponent /> -->
 	</div>
 </template>
 
 <script>
 import LoginComponent from '../User/LoginComponent.vue';
+import axios from 'axios';
+import Vuex from 'vuex';
+import store from '../../js/store.js';
 
     export default {
         name: 'HeaderComponent',
 
-		components: {
-			LoginComponent,
-		},
+		// components: {
+		// 	LoginComponent,
+		// },
 
         data() {
             return {
@@ -116,14 +119,23 @@ import LoginComponent from '../User/LoginComponent.vue';
 	    },
 
 		methods: {
-        	toggleModal() {
-				// 모달을 열고 닫는 토글 메서드
-            	// this.showmodal = !this.showmodal;
-            	this.showmodal = true; // 모달을 열고 닫는 토글 메서드
+        	// toggleModal() {
+			// 	// 모달을 열고 닫는 토글 메서드
+            // 	// this.showmodal = !this.showmodal;
+            // 	this.showmodal = true; // 모달을 열고 닫는 토글 메서드
+        	// },
+        	// closeModal() {
+            // 	this.showmodal = false; // 모달을 닫는 메서드
+        	// }
+			// 모달 토글 액션을 Store에 커밋
+			toggleModal() {
+				this.$store.commit('setToggleModal');
+				this.showmodal = true;
+    		},
+			closeModal() {
+            	this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
+				this.showmodal = false;
         	},
-        	closeModal() {
-            	this.showmodal = false; // 모달을 닫는 메서드
-        	}
     	},
 		// mounted() {
 		// 	this.toggleModal();

@@ -20890,12 +20890,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../User/LoginComponent.vue */ "./resources/components/User/LoginComponent.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _js_store_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../js/store.js */ "./resources/js/store.js");
+
+
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'FooterComponent',
-  components: {
-    LoginComponent: _User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
+  // components: {
+  // 		LoginComponent,
+  // 	},
   data: function data() {
     return {
       showmodal: false
@@ -20914,13 +20920,21 @@ __webpack_require__.r(__webpack_exports__);
     //         footer.style.bottom = 'auto';
     //     }
     // }
+    // toggleModal() {
+    // 		// 모달을 열고 닫는 토글 메서드
+    //     	// this.showmodal = !this.showmodal;
+    //     	this.showmodal = true; // 모달을 열고 닫는 토글 메서드
+    // 	},
+    // closeModal() {
+    //     	this.showmodal = false; // 모달을 닫는 메서드
+    // 	}
     toggleModal: function toggleModal() {
-      // 모달을 열고 닫는 토글 메서드
-      // this.showmodal = !this.showmodal;
-      this.showmodal = true; // 모달을 열고 닫는 토글 메서드
+      this.$store.commit('setToggleModal');
+      this.showmodal = true;
     },
     closeModal: function closeModal() {
-      this.showmodal = false; // 모달을 닫는 메서드
+      this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
+      this.showmodal = false;
     }
   }
 
@@ -20945,25 +20959,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../User/LoginComponent.vue */ "./resources/components/User/LoginComponent.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _js_store_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../js/store.js */ "./resources/js/store.js");
+
+
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'HeaderComponent',
-  components: {
-    LoginComponent: _User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
+  // components: {
+  // 	LoginComponent,
+  // },
   data: function data() {
     return {
       showmodal: false
     };
   },
   methods: {
+    // toggleModal() {
+    // 	// 모달을 열고 닫는 토글 메서드
+    // 	// this.showmodal = !this.showmodal;
+    // 	this.showmodal = true; // 모달을 열고 닫는 토글 메서드
+    // },
+    // closeModal() {
+    // 	this.showmodal = false; // 모달을 닫는 메서드
+    // }
+    // 모달 토글 액션을 Store에 커밋
     toggleModal: function toggleModal() {
-      // 모달을 열고 닫는 토글 메서드
-      // this.showmodal = !this.showmodal;
-      this.showmodal = true; // 모달을 열고 닫는 토글 메서드
+      this.$store.commit('setToggleModal');
+      this.showmodal = true;
     },
     closeModal: function closeModal() {
-      this.showmodal = false; // 모달을 닫는 메서드
+      this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
+      this.showmodal = false;
     }
   }
   // mounted() {
@@ -21207,7 +21236,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-// import Header from '../Layout/HeaderComponent.vue';
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'LoginComponent',
@@ -21218,14 +21249,32 @@ __webpack_require__.r(__webpack_exports__);
     return {
       showmodal: true
     };
-  } // methods: {
-  //     	toggleModal() {
-  //         	this.showmodal = !this.showmodal; // 모달을 열고 닫는 토글 메서드
-  //     	},
-  //     	closeModal() {
-  //         	this.showmodal = false; // 모달을 닫는 메서드
-  //     	}
-  // 	}
+  },
+  // computed: {
+  // 	showModal() {
+  // 		return this.$store.state.showModal;
+  // 	},
+  // },
+
+  methods: {
+    //     	toggleModal() {
+    //         	this.showmodal = !this.showmodal; // 모달을 열고 닫는 토글 메서드
+    //     	},
+    //     	closeModal() {
+    //         	this.showmodal = false; // 모달을 닫는 메서드
+    //     	}
+    // 모달 닫기 액션을 Store에 커밋
+    // closeModal() {
+    // 	this.$store.commit('closeModal');
+    // },
+    // toggleModal() {
+    // 		this.$store.commit('toggleModal');
+    // 	},
+    closeModal: function closeModal() {
+      this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
+      this.showmodal = false;
+    }
+  }
 });
 
 /***/ }),
@@ -21431,6 +21480,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../public/images/WEET_logo.png */ "./public/images/WEET_logo.png");
+/* harmony import */ var _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../public/images/Google_logo.svg.png */ "./public/images/Google_logo.svg.png");
+/* harmony import */ var _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../public/images/Kakao_logo.png */ "./public/images/Kakao_logo.png");
+
+
+
 
 var _hoisted_1 = {
   key: 0
@@ -21455,16 +21510,24 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   d: "M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
 })], -1 /* HOISTED */);
 var _hoisted_10 = [_hoisted_9];
+var _hoisted_11 = {
+  key: 0,
+  "class": "modal"
+};
+var _hoisted_12 = {
+  "class": "modal-content"
+};
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex scene\" style=\"width:300px;\"><section class=\"card\"><div class=\"login_modal\"><div class=\"login_modal_headline\"><div class=\"card__heading\"><img src=\"" + _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\"></div></div><div class=\"login_modal_text\"><div class=\"login_modal_text_comment\"><p>한눈에 예매 항공권을 확인하고</p><p>다양한 항공권 가격을 비교해보세요</p></div></div><form class=\"card__form\"><div class=\"card__form_email\"><label for=\"email\">Email:</label><input id=\"email\" class=\"card__input\" type=\"email\"></div><div class=\"card__form_pw\"><label for=\"password\">Password:</label><input id=\"password\" class=\"card__input\" type=\"password\"></div><div class=\"card__form_button\"><div><button class=\"card__button\" type=\"button\"><span>Login</span></button></div><div><button class=\"card__button\" type=\"button\"><span><a href=\"/signup\">Sign Up</a></span></button></div></div><hr><div class=\"card__social_login_text\"><p>- Social Login -</p></div><div class=\"card__social_btn\"><button class=\"card__social_btn_google\"><img src=\"" + _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__["default"] + "\" alt=\"\"></button><button class=\"card__social_btn_kakao\"><img src=\"" + _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__["default"] + "\" alt=\"\"></button></div></form></div></section></div>", 1);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_LoginComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("LoginComponent");
   return _ctx.$route.fullPath != '/admin' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"/login\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.toggleModal && $options.toggleModal.apply($options, arguments);
     })
-  }, [].concat(_hoisted_10)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </a> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인 모달 "), $data.showmodal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_LoginComponent, {
-    key: 0,
-    onClick: $options.closeModal
-  }, null, 8 /* PROPS */, ["onClick"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
+  }, [].concat(_hoisted_10)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </a> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인 모달 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent v-if=\"showmodal\" @click=\"closeModal\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인모달 "), $data.showmodal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return $data.showmodal = false;
+    })
+  }, "Close")])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
 }
 
 /***/ }),
@@ -21482,6 +21545,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../public/images/WEET_logo.png */ "./public/images/WEET_logo.png");
+/* harmony import */ var _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../public/images/Google_logo.svg.png */ "./public/images/Google_logo.svg.png");
+/* harmony import */ var _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../public/images/Kakao_logo.png */ "./public/images/Kakao_logo.png");
+
+
 
 
 var _hoisted_1 = {
@@ -21522,16 +21589,24 @@ var _hoisted_7 = {
 var _hoisted_8 = {
   "class": "header_nav_login_btn_user"
 };
+var _hoisted_9 = {
+  key: 0,
+  "class": "modal"
+};
+var _hoisted_10 = {
+  "class": "modal-content"
+};
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex scene\" style=\"width:300px;\"><section class=\"card\"><div class=\"login_modal\"><div class=\"login_modal_headline\"><div class=\"card__heading\"><img src=\"" + _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\"></div></div><div class=\"login_modal_text\"><div class=\"login_modal_text_comment\"><p>한눈에 예매 항공권을 확인하고</p><p>다양한 항공권 가격을 비교해보세요</p></div></div><form class=\"card__form\"><div class=\"card__form_email\"><label for=\"email\">Email:</label><input id=\"email\" class=\"card__input\" type=\"email\"></div><div class=\"card__form_pw\"><label for=\"password\">Password:</label><input id=\"password\" class=\"card__input\" type=\"password\"></div><div class=\"card__form_button\"><div><button class=\"card__button\" type=\"button\"><span>Login</span></button></div><div><button class=\"card__button\" type=\"button\"><span><a href=\"/signup\">Sign Up</a></span></button></div></div><hr><div class=\"card__social_login_text\"><p>- Social Login -</p></div><div class=\"card__social_btn\"><button class=\"card__social_btn_google\"><img src=\"" + _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__["default"] + "\" alt=\"\"></button><button class=\"card__social_btn_kakao\"><img src=\"" + _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__["default"] + "\" alt=\"\"></button></div></form></div></section></div>", 1);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_LoginComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("LoginComponent");
   return _ctx.$route.fullPath != '/admin' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.toggleModal && $options.toggleModal.apply($options, arguments);
     })
-  }, "login"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent v-if=\"showmodal\" @closeModal=\"closemodal\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"/login\">login</a> ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인모달 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div v-if=\"showmodal\" class=\"modal\">\r\n\t\t\t\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t\t\t\t<div class=\"flex scene\" style=\"width: 300px;\">\r\n\t\t\t\t\t\t\t\t<section class=\"card\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"login_modal\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"login_modal_headline\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"card__heading\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img src=\"../../../public/images/WEET_logo.png\" alt=\"\">\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"login_modal_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"login_modal_text_comment\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<p>한눈에 예매 항공권을 확인하고</p>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<p>다양한 항공권 가격을 비교해보세요</p>\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\t\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t<form class=\"card__form\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"card__form_email\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t<label for=\"email\">Email:</label>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input id=\"email\" class=\"card__input\" type=\"email\" />\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"card__form_pw\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t<label for=\"password\">Password:</label>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<input id=\"password\" class=\"card__input\" type=\"password\" />\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\r\n\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"card__form_button\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<button class=\"card__button\" type=\"button\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span>Login</span>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</div>  \r\n\t\t\t\t\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<button class=\"card__button\" type=\"button\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span><a href=\"/signup\">Sign Up</a></span>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t<hr>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"card__social_login_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<p>- Social Login -</p>\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"card__social_btn\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<button class=\"card__social_btn_google\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<img src=\"../../../public/images/Google_logo.svg.png\" alt=\"\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<button class=\"card__social_btn_kakao\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<img src=\"../../../public/images/Kakao_logo.png\" alt=\"\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t\t</form>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</section>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t<div>\r\n\t\t\t\t\t\t\t\t\t<button @click=\"showmodal = false\">Close</button>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div> ")])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인 모달 "), $data.showmodal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_LoginComponent, {
-    key: 0,
-    onClick: $options.closeModal
-  }, null, 8 /* PROPS */, ["onClick"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent :showmodal=\"showmodal\" @closeModal=\"closemodal\" /> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
+  }, "login"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent v-if=\"showmodal\" @closeModal=\"closemodal\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"/login\">login</a> ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인모달 "), $data.showmodal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return $data.showmodal = false;
+    })
+  }, "Close")])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인 모달 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent v-if=\"showmodal\" @click=\"closeModal\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent /> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
 }
 
 /***/ }),
@@ -22017,9 +22092,20 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "login_container"
 };
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"modal\"><div class=\"modal-content\"><!-- 모달 내용 --><!-- 로그인 폼 등 --><div class=\"flex scene\" style=\"width:350px;\"><section class=\"card\"><div class=\"login_modal\"><div class=\"login_modal_headline\"><div class=\"card__heading\"><!-- &lt;span class=&quot;visually-hidden&quot;&gt;Account name:&lt;/span&gt; --><!-- &lt;span&gt;WEET&lt;/span&gt; --><img src=\"" + _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\"></div></div><div class=\"login_modal_text\"><!-- &lt;div class=&quot;login_modal_text_login&quot;&gt;\r\n\t\t\t\t\t\t\t\t\t\t\t\t&lt;p&gt;로그인&lt;/p&gt;\r\n\t\t\t\t\t\t\t\t\t\t\t&lt;/div&gt; --><div class=\"login_modal_text_comment\"><p>한눈에 예매 항공권을 확인하고</p><p>다양한 항공권 가격을 비교해보세요</p></div></div><form class=\"card__form\"><div class=\"card__form_email\"><!-- &lt;label for=&quot;email&quot; class=&quot;visually-hidden&quot;&gt;Email:&lt;/label&gt; --><label for=\"email\">Email</label><input id=\"email\" class=\"card__input\" type=\"email\"></div><div class=\"card__form_pw\"><!-- &lt;label for=&quot;password&quot; class=&quot;visually-hidden&quot;&gt;Password:&lt;/label&gt; --><label for=\"password\">Password</label><input id=\"password\" class=\"card__input\" type=\"password\"></div><div class=\"card__form_button\"><div><button class=\"card__button\" type=\"button\"><span>Login</span></button></div><div><button class=\"card__button\" type=\"button\"><span><a href=\"/signup\">Sign Up</a></span></button></div></div><hr><div class=\"card__social_login_text\"><p>- Social Login -</p></div><div class=\"card__social_btn\"><button class=\"card__social_btn_google\"><!-- &lt;button&gt;kakao login&lt;/button&gt; --><img src=\"" + _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__["default"] + "\" alt=\"\"></button><button class=\"card__social_btn_kakao\"><img src=\"" + _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__["default"] + "\" alt=\"\"></button></div></form></div></section></div><div><button>Close</button></div></div></div>", 1);
+var _hoisted_2 = {
+  key: 0,
+  "class": "modal"
+};
+var _hoisted_3 = {
+  "class": "modal-content"
+};
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex scene\" style=\"width:350px;\"><section class=\"card\"><div class=\"login_modal\"><div class=\"login_modal_headline\"><div class=\"card__heading\"><!-- &lt;span class=&quot;visually-hidden&quot;&gt;Account name:&lt;/span&gt; --><!-- &lt;span&gt;WEET&lt;/span&gt; --><img src=\"" + _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\"></div></div><div class=\"login_modal_text\"><!-- &lt;div class=&quot;login_modal_text_login&quot;&gt;\r\n\t\t\t\t\t\t\t\t\t\t\t\t&lt;p&gt;로그인&lt;/p&gt;\r\n\t\t\t\t\t\t\t\t\t\t\t&lt;/div&gt; --><div class=\"login_modal_text_comment\"><p>한눈에 예매 항공권을 확인하고</p><p>다양한 항공권 가격을 비교해보세요</p></div></div><form class=\"card__form\"><div class=\"card__form_email\"><!-- &lt;label for=&quot;email&quot; class=&quot;visually-hidden&quot;&gt;Email:&lt;/label&gt; --><label for=\"email\">Email</label><input id=\"email\" class=\"card__input\" type=\"email\"></div><div class=\"card__form_pw\"><!-- &lt;label for=&quot;password&quot; class=&quot;visually-hidden&quot;&gt;Password:&lt;/label&gt; --><label for=\"password\">Password</label><input id=\"password\" class=\"card__input\" type=\"password\"></div><div class=\"card__form_button\"><div><button class=\"card__button\" type=\"button\"><span>Login</span></button></div><div><button class=\"card__button\" type=\"button\"><span><a href=\"/signup\">Sign Up</a></span></button></div></div><hr><div class=\"card__social_login_text\"><p>- Social Login -</p></div><div class=\"card__social_btn\"><button class=\"card__social_btn_google\"><!-- &lt;button&gt;kakao login&lt;/button&gt; --><img src=\"" + _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__["default"] + "\" alt=\"\"></button><button class=\"card__social_btn_kakao\"><img src=\"" + _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__["default"] + "\" alt=\"\"></button></div></form></div></section></div>", 1);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인모달 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div v-if=\"showmodal\" class=\"modal\"> "), _hoisted_2]);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인모달 "), $data.showmodal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"modal\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 모달 내용 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인 폼 등 "), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[0] || (_cache[0] = function () {
+      return $options.closeModal && $options.closeModal.apply($options, arguments);
+    })
+  }, "Close")])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
 }
 
 /***/ }),
@@ -22289,8 +22375,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)({
-  state: function state() {},
-  mutations: function mutations() {},
+  state: function state() {
+    return {
+      showmodal: false
+    };
+  },
+  mutations: {
+    setToggleModal: function setToggleModal(state) {
+      state.showModal = true;
+    },
+    setCloseModal: function setCloseModal(state) {
+      state.showModal = false;
+    }
+  },
   actions: function actions() {}
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
