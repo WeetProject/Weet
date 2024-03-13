@@ -167,13 +167,13 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check reservation_icon_blue" viewBox="0 0 16 16">
                                 <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
                             </svg>
-                            취소 시 ,<span class="reservation_icon_blue">300000원</span>을(를) 환불 받으실수 있습니다</div>
+                            취소 시 ,<span><span class="reservation_icon_blue">{{ ticketPrice }}원</span>을(를) 환불 받으실수 있습니다</span></div>
                     </div>
                     <div>
                         <span class="pr-3">
-                            <span class="reservation_icon_deepblue">47400원</span>/1인당
+                            <span class="reservation_icon_deepblue">{{ Math.ceil(ticketPrice * 0.15) }}원</span>/1인당
                         </span>
-                        <input type="radio" name="refund" class="cursor-pointer" id="reservation_refund_100">
+                        <input type="radio" name="refund" class="cursor-pointer" id="reservation_refund_100" v-model="refund" value="2">
                     </div>
                     <label for="reservation_refund_100" class="reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"/>
                 </div>
@@ -184,13 +184,13 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check reservation_icon_blue" viewBox="0 0 16 16">
                                 <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
                             </svg>
-                            취소 시 ,<span class="reservation_icon_blue">240000원</span>을(를) 환불 받으실수 있습니다</div>
+                            취소 시 ,<span><span class="reservation_icon_blue">{{ Math.ceil(ticketPrice * 0.8) }}원</span>을(를) 환불 받으실수 있습니다</span></div>
                     </div>
                     <div>
                         <span class="pr-3">
-                            <span class="reservation_icon_deepblue">32500원</span>/1인당
+                            <span class="reservation_icon_deepblue">{{ Math.ceil(ticketPrice * 0.1) }}원</span>/1인당
                         </span>
-                        <input type="radio" name="refund" class="cursor-pointer" id="reservation_refund_80">
+                        <input type="radio" name="refund" class="cursor-pointer" id="reservation_refund_80" v-model="refund" value="1">
                     </div>
                     <label for="reservation_refund_80" class="reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"/>
                 </div>
@@ -205,7 +205,7 @@
                         </div>
                     </div>
                     <div>
-                        <input type="radio" name="refund" class="cursor-pointer" id="reservation_refund_0">
+                        <input type="radio" name="refund" class="cursor-pointer" id="reservation_refund_0" v-model="refund" value="0">
                     </div>
                     <label for="reservation_refund_0" class="reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"/>
                 </div>
@@ -245,7 +245,7 @@
                     <span>기간 및 보장범위: 2024년03월10일 00:00</span> ㅡ <span>2024년03월13일 00:00</span>
                 </div>
                 <div class="text-sm mb-2">
-                    총 보험료: <span class="reservation_icon_deepblue font-black">11,000원</span>
+                    총 보험료: <span class="reservation_icon_deepblue font-black">{{ insurancePrice }}원</span>
                 </div>
                 <div class="text-sm font-black">
                     안전한 여행을 위한 필수품, 해외여행보험! 미리준비하면 든든합니다.
@@ -253,7 +253,7 @@
                 <div class="reservation_insurance_area relative">
                     <label for="reservation_insurance_yes" class="reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"/>
                     <div>
-                        <input type="radio" name="insurance" id="reservation_insurance_yes">
+                        <input type="radio" name="insurance" id="reservation_insurance_yes" v-model="insurance" value="1">
                         <span> 네, 해외여행보험서비스를 구매하겠습니다.</span>
                     </div>
                     <div>
@@ -270,7 +270,7 @@
                 <div class="reservation_insurance_area relative">
                     <label for="reservation_insurance_no" class="reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"/>
                     <div>
-                        <input type="radio" name="insurance" id="reservation_insurance_no">
+                        <input type="radio" name="insurance" id="reservation_insurance_no" v-model="insurance" value="0">
                         <span> 아니오, 해외여행보험서비스를 구매하지 않겠습니다.</span>
                     </div>
                 </div>
@@ -295,7 +295,7 @@
             <div class="reservation_next_btn_box">
                 <div class="reservation_next_btn_price">
                     <div class="reservation_title_4">총금액</div>
-                    <div class="text-2xl font-bold reservation_icon_deepblue">320000원</div>
+                    <div class="text-2xl font-bold reservation_icon_deepblue">{{ totalPrice }}원</div>
                 </div>
                 <div class="reservation_next_btn w-full text-center font-bold cursor-pointer">다음</div>
             </div>
@@ -313,17 +313,46 @@ export default {
             contactNamePlaceholder: '',
             contactEmailPlaceholder: '',
             contactNumPlaceholder: '',
+            ticketPrice:'230043',
+            refundPrice100:'',
+            refundPrice80:'',
+            insurancePrice:0,
+            totalPrice: 0,
+            day: 4,
+            refund: "0",
+            refundPrice: 0,
+            insurance: "0",
+            pageflg:"0",
 		}
 	},
-
+    
 	created() {
-
+        this.sumTotalPrice(),
+        this.addInsurancePrice()
 	},
 
+    watch: {
+		refund(){
+            if(this.refund==="0"){
+                this.addRefundPrice(0)
+            }else if(this.refund==="1"){
+                this.addRefundPrice(1)
+            }else if(this.refund==="2"){
+                this.addRefundPrice(2)
+            }
+            this.sumTotalPrice()
+		},
+		insurance(){
+            this.sumTotalPrice()
+		},
+
+    },
+
 	methods: {
+        // 플레이스 홀더용 메소드
         namePlaceholder(i){
             this.contactNamePlaceholder = '';
-            this.contactEmailPlaceholder = '';
+            this.contactEmailPlaceholder = '';  
             this.contactNumPlaceholder = '';
             if(i===1){
                 this.contactNamePlaceholder = "예)hong,gildong"
@@ -333,7 +362,28 @@ export default {
                 this.contactNumPlaceholder = "예)01011111111"
             }
         },
-        
+        // 환불보장 가격 더하기
+        addRefundPrice(i){
+            if(i===0){
+                this.refundPrice = 0
+            }else if(i===1){
+                this.refundPrice =  Math.ceil(this.ticketPrice * 0.1)
+            }else if(i===2){
+                this.refundPrice =  Math.ceil(this.ticketPrice * 0.15)
+            }
+        },
+        // 보험 가격 더하기
+        addInsurancePrice(){
+            this.insurancePrice = 3000*this.day
+        },
+        // 최종 금액
+        sumTotalPrice(){            
+            if(this.insurance==="1"){
+                this.totalPrice = parseInt(this.ticketPrice)+this.refundPrice+this.insurancePrice
+            }else{
+                this.totalPrice = parseInt(this.ticketPrice)+this.refundPrice
+            }
+        },
 	},
 }
 </script>
