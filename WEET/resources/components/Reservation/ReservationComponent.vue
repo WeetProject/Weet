@@ -7,7 +7,8 @@
             </div>
             <div class="reservation_header_box">
                 <span>결제 준비</span>    
-                <div class="reservation_header_ball_2">2</div>
+                <div class="reservation_header_ball_1" v-if="this.pageflg==='1'">2</div>
+                <div class="reservation_header_ball_2" v-if="this.pageflg==='0'">2</div>
             </div>
             <div class="reservation_header_box">
                 <span>결제 완료</span>    
@@ -21,7 +22,8 @@
         </div> -->
         <div class="reservation_progress_box">
             <div class="h-4 bg-gray-200 rounded reservation_progress_gray">
-                <div class="h-full rounded reservation_progress_blue w-1/4"></div>
+                <div class="h-full rounded reservation_progress_blue w-1/4"  v-if="this.pageflg==='0'"></div>
+                <div class="h-full rounded reservation_progress_blue w-3/4" v-if="this.pageflg==='1'"></div>
             </div>      
         </div>
 
@@ -63,7 +65,7 @@
             </div>
         </div>
     </div>
-    <div class="reservation_gray_bg">
+    <div class="reservation_gray_bg" v-if="pageflg==='0'">
         <div class="reservation_body">
             <div class="reservation_title_2">나의 항공권</div>
             <div class="reservation_baggage_rule_box">
@@ -297,9 +299,13 @@
                     <div class="reservation_title_4">총금액</div>
                     <div class="text-2xl font-bold reservation_icon_deepblue">{{ totalPrice }}원</div>
                 </div>
-                <div class="reservation_next_btn w-full text-center font-bold cursor-pointer">다음</div>
+                <div class="reservation_next_btn w-full text-center font-bold cursor-pointer" @click="changeFlg(1)">다음</div>
             </div>
         </div>
+    </div>
+    <div v-if="pageflg==='1'">
+        <div class="reservation_next_btn w-full text-center font-bold cursor-pointer" @click="changeFlg(0)">이전</div>
+        <div class="reservation_next_btn w-full text-center font-bold cursor-pointer">결제</div>
     </div>
 </template>
 <script>
@@ -384,6 +390,19 @@ export default {
                 this.totalPrice = parseInt(this.ticketPrice)+this.refundPrice
             }
         },
+        // 페이지플래그 변경
+        changeFlg(i) {
+            if (i === 1) {
+                this.pageflg = "1";
+                window.scrollTo({ top: 0 }); // 페이지 맨 위로 스크롤
+            } else {
+                this.pageflg = "0";
+                // 페이지의 가장 아래로 스크롤합니다.
+                setTimeout(() => {
+                    document.documentElement.scrollIntoView({  block: 'end' });
+                }, 10);
+            }
+        }
 	},
 }
 </script>
