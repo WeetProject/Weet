@@ -1,5 +1,9 @@
 @import "../mixin";
 
+input[type="date"]:not(.has-value):before{
+    color: lightgray;
+    content: attr(placeholder);
+}
 
 // 헤더파트
 .reservation_header{
@@ -48,7 +52,8 @@
 
 // 바디파트
 .reservation_body{
-    width: 550px;
+    width: 90%;
+    max-width: 600px;
     margin: 0 auto;
 }
 .reservation_title_1{
@@ -143,6 +148,10 @@
 }
 .reservation_icon_blue{
     color: #249ac2;
+    margin-right: 5px;
+}
+.reservation_icon_deepblue{
+    color: #084AFF;
     margin-right: 5px;
 }
 .reservation_icon_gray{

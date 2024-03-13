@@ -151,12 +151,12 @@
                             </select>
                         </fieldset>
                         <input type="text" class="reservation_input" placeholder="여권번호">
-                        <input type="date" class="reservation_input">
+                        <input type="date" class="reservation_input" placeholder="유효기간">
                     </div>
                 </div>
-                <li class="reservation_notification_box">이름을 포함하여 탑승객의 모든 정보는 신분증 정보와 일치해야합니다.신분증 상의 정보와 다른경우 <span>탑승이 불가</span>
+                <div class="reservation_notification_box text-sm"><span>*</span> 이름을 포함하여 탑승객의 모든 정보는 신분증 정보와 일치해야합니다.신분증 상의 정보와 다른경우 <span>탑승이 불가</span>
                     하여, 예약 확정 후에는 <span>탑승객 정보의 변경이 불가</span>합니다.
-                </li>
+                </div>
             </div>
             <div class="reservation_title_3">이유불문! 환불보장</div>
             <div class="reservation_refund_box">
@@ -167,11 +167,11 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check reservation_icon_blue" viewBox="0 0 16 16">
                                 <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
                             </svg>
-                            취소 시 <span class="reservation_icon_blue">300000원</span>을(를) 환불 받으실수 있습니다</div>
+                            취소 시 ,<span class="reservation_icon_blue">300000원</span>을(를) 환불 받으실수 있습니다</div>
                     </div>
                     <div>
                         <span class="pr-3">
-                            <span class="reservation_icon_blue">47400원</span>/1인당
+                            <span class="reservation_icon_deepblue">47400원</span>/1인당
                         </span>
                         <input type="radio" name="refund" class="cursor-pointer">
                     </div>
@@ -183,11 +183,11 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check reservation_icon_blue" viewBox="0 0 16 16">
                                 <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
                             </svg>
-                            취소 시 <span class="reservation_icon_blue">240000원</span>을(를) 환불 받으실수 있습니다</div>
+                            취소 시 ,<span class="reservation_icon_blue">240000원</span>을(를) 환불 받으실수 있습니다</div>
                     </div>
                     <div>
                         <span class="pr-3">
-                            <span class="reservation_icon_blue">32500원</span>/1인당
+                            <span class="reservation_icon_deepblue">32500원</span>/1인당
                         </span>
                         <input type="radio" name="refund" class="cursor-pointer">
                     </div>
@@ -195,7 +195,7 @@
                 <div class="reservation_refund_area">
                     <div>
                         <span>보상없음</span>
-                        <div class="reservation_icon_flex">
+                        <div class="reservation_icon_flex text-gray-400">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
                                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
                             </svg>
@@ -205,6 +205,47 @@
                     <div>
                         <input type="radio" name="refund" class="cursor-pointer">
                     </div>
+                </div>
+            </div>
+            <div class="reservation_title_3">안전한 여행을 위한 해외 보험 서비스</div>
+            <div class="reservation_refund_box">
+                <span class="reservation_title_4">해외여행 보험서비스</span>
+                <div class="reservation_icon_flex text-xs">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check reservation_icon_blue" viewBox="0 0 16 16">
+                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                    </svg>
+                    COVID 보장
+                </div>
+                <div class="reservation_icon_flex text-xs">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check reservation_icon_blue" viewBox="0 0 16 16">
+                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                    </svg>
+                    여행중 상해 의료비 5000만원 실손보상
+                </div>
+                <div class="reservation_icon_flex text-xs">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check reservation_icon_blue" viewBox="0 0 16 16">
+                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                    </svg>
+                    여행중 휴대품 손해 30만원 보장
+                </div>
+                <div class="reservation_icon_flex text-xs">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check reservation_icon_blue" viewBox="0 0 16 16">
+                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                    </svg>
+                    해외여행 중단 보상 30만원 보장
+                </div>
+                <div class="cursor-pointer reservation_icon_deepblue text-sm mb-3">
+                    보장내역 자세히 보기 》
+                </div>
+                <hr>
+                <div class="text-sm">
+                    <span>기간 및 보장범위: 2024년03월10일 00:00</span> ㅡ <span>2024년03월13일 00:00</span>
+                </div>
+                <div class="text-sm mb-2">
+                    총 보험료: <span class="reservation_icon_deepblue font-black">11,000원</span>
+                </div>
+                <div class="text-sm font-black">
+                    안전한 여행을 위한 필수품, 해외여행보험! 미리준비하면 든든합니다.
                 </div>
             </div>
         </div>

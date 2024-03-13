@@ -1,104 +1,73 @@
 @import "../mixin";
 
-// .mypage_banner {
-//     width: 1000px;
-//     height: 200px;
-//     background-image: "../../../public/images/banner2.jpg";
-//     background-size: 676px 200px;
-// }
+@include desktop {
+    .mypage_container {
+        width: 1000px;
+        margin: 0 auto;
 
-.mypage_container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    background-color: #C8D7FF;
-}
-
-.mypage_box1 {
-    width: 30%;
-    border: 1px solid #000;
-    border-radius: 1rem;
-    // border-color: #000000;
-    background-color: #78A9ED;
-    margin: 1rem 1rem;
-}
-
-.mypage_mention {
-    text-align: center;
-    padding: 15%;
-    &_1 {
-        font-size: 2rem;
-    }
-    &_2 {
-        font-size: 1.5rem;
-    }
-}
-
-.mypage_menu_button {
-    width: 95%;
-    border-bottom: 1px solid #000;
-    padding: 7px 20px;
-    
-    &_content {
-        display: inline;
-        font-size: 1.5rem;
-        padding: 0 5px;
-
-        svg {
-            display: inline;
-        }
-    }
-
-    &_content_btn {
-        display: inline;
-        
-        svg {
-            font-size: 1.5rem;
-            float: right;
-        }
-    }
-}
-
-.mypage_box2 {
-    width: 65%;
-    border: 1px solid #000;
-    border-radius: 1rem;
-    background-color: #78A9ED;
-    margin: 1rem 1rem;
-}
-
-.mypage_menu_detail {
-    &_frame {
-        padding: 10% 15%;
-    }
-
-    h1 {
-        width: 100%;
-        text-align: center;
-        font-size: 3rem;
-        padding: 5%;
-    }
-
-    &_input {
-        padding: 5%;
-
-        p {
-            display: inline-block;
-        }
-
-        &_title2 {
-            color: red;
-        }
-
-        input, select {
+        .mypage_banner_section {
             width: 100%;
-            height: 50px;
-            line-height: 50px;
-            color: black;
-            font-size: 1.5rem;
-            border-radius: 0.5rem;
-            padding: 3%;
+            height: 200px;
+            margin: 0 auto;
+            // background-image: url("../../../public/images/banner.JPG");
+            // background-size: cover;
+            background-color: #BECDFF;
+        }
+
+        .mypage_main_section {
+            width: 100%;
+            display: flex;
+
+            &_top {
+                width: 30%;
+                display: inline-block;
+                margin-right: 50px;
+                border: 1px solid $layout-background-color;
+
+                &_profile {
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 50%;
+                    background-color: #0B2161;
+                    position: relative;
+                    top: 0;
+                    left: 1rem;
+
+                    p {
+                        color: #FFFFFF;
+                        position: absolute;
+                        top: 2rem;
+                        left: 2rem;
+                    }
+                }
+
+                &_mention {
+                    text-align: center;
+                    margin: 30px;
+                }
+
+                &_content {
+                    li {
+                        width: 85%;
+                        margin-left: 62px;
+                        margin-bottom: 20px;
+                        border-bottom: 1px solid $layout-background-color;
+
+                        p {
+                            display: inline;
+                        }
+                    }
+                }
+            }
+
+            &_bottom {
+                width: 60%;
+                display: inline-block;
+                margin: 0 auto;
+                border: 1px solid $layout-background-color;
+
+            }
         }
     }
-    
+
 }

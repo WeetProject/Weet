@@ -498,14 +498,20 @@ video {
 .absolute {
   position: absolute;
 }
+<<<<<<< HEAD
+=======
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+>>>>>>> faafa482b6ef051f40121cafdf759b61b007ebbe
 .mb-4 {
   margin-bottom: 1rem;
 }
 .box-border {
   box-sizing: border-box;
-}
-.block {
-  display: block;
 }
 .flex {
   display: flex;
@@ -543,6 +549,7 @@ video {
 .rounded {
   border-radius: 0.25rem;
 }
+<<<<<<< HEAD
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -553,10 +560,13 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
+=======
+>>>>>>> faafa482b6ef051f40121cafdf759b61b007ebbe
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
+<<<<<<< HEAD
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
@@ -567,8 +577,13 @@ video {
 .p-2\.5 {
   padding: 0.625rem;
 }
+=======
+>>>>>>> faafa482b6ef051f40121cafdf759b61b007ebbe
 .pr-3 {
   padding-right: 0.75rem;
+}
+.text-left {
+  text-align: left;
 }
 .text-center {
   text-align: center;
@@ -581,13 +596,16 @@ video {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.font-black {
+  font-weight: 900;
 }
 .font-bold {
   font-weight: 700;
@@ -595,8 +613,9 @@ video {
 .font-semibold {
   font-weight: 600;
 }
-.text-gray-900 {
+.text-gray-400 {
   --tw-text-opacity: 1;
+<<<<<<< HEAD
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 .focus\:border-blue-500:focus {
@@ -606,6 +625,9 @@ video {
 .focus\:ring-blue-500:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
+=======
+  color: rgb(156 163 175 / var(--tw-text-opacity));
+>>>>>>> faafa482b6ef051f40121cafdf759b61b007ebbe
 }
 @media (min-width: 768px) {
 
@@ -617,6 +639,7 @@ video {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+<<<<<<< HEAD
 @media (prefers-color-scheme: dark) {
 
   .dark\:border-gray-600 {
@@ -654,5 +677,7 @@ video {
     --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
   }
 }
+=======
+>>>>>>> faafa482b6ef051f40121cafdf759b61b007ebbe
 
 
