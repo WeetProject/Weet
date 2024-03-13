@@ -482,15 +482,15 @@ $colors: (
         width: 100%;
     }
 
-    .visually-hidden {
-        clip: rect(0 0 0 0);
-        clip-path: inset(50%);
-        height: 1px;
-        overflow: hidden;
-        position: absolute;
-        white-space: nowrap;
-        width: 1px;
-    }
+    // .visually-hidden {
+    //     clip: rect(0 0 0 0);
+    //     clip-path: inset(50%);
+    //     height: 1px;
+    //     overflow: hidden;
+    //     position: absolute;
+    //     white-space: nowrap;
+    //     width: 1px;
+    // }
 
     .flex {
         align-items: center;
@@ -508,15 +508,15 @@ $colors: (
     // height: 400px;
 
         &_headline {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         &_text {
-        font-size: 0.6rem;
-        text-align: start;
-        margin: 10px 0;
+            font-size: 0.6rem;
+            text-align: start;
+            margin: 10px 0;
 
             // &_login {
             //     font-size: 1rem;
@@ -532,7 +532,7 @@ $colors: (
     .modal-content {
     /* 기존 스타일 유지 */
         background-color: transparent;
-        padding: 20px;
+        padding: 30px;
         border-radius: 5px;
     }
 

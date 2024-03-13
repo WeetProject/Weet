@@ -91,9 +91,10 @@
 					</div>
 				</div>
 			</div>
+				
 		</div>
 		<!-- 로그인 모달 -->
-		<LoginComponent v-if="showmodal" @click="closeModal" />
+			<LoginComponent v-if="showmodal" @click="closeModal" />
 		<!-- <LoginComponent :showmodal="showmodal" @closeModal="closemodal" /> -->
 	</div>
 </template>
