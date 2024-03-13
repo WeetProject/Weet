@@ -160,7 +160,7 @@
             </div>
             <div class="reservation_title_3">이유불문! 환불보장</div>
             <div class="reservation_refund_box">
-                <div class="reservation_refund_area">
+                <div class="reservation_refund_area relative">
                     <div>
                         <span>예약 항공권 금액 100% 보상!</span>
                         <div class="reservation_icon_flex">
@@ -173,10 +173,11 @@
                         <span class="pr-3">
                             <span class="reservation_icon_deepblue">47400원</span>/1인당
                         </span>
-                        <input type="radio" name="refund" class="cursor-pointer">
+                        <input type="radio" name="refund" class="cursor-pointer" id="reservation_refund_100">
                     </div>
+                    <label for="reservation_refund_100" class="reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"/>
                 </div>
-                <div class="reservation_refund_area">
+                <div class="reservation_refund_area relative">
                     <div>
                         <span>예약 항공권 금액 80% 보상!</span>
                         <div class="reservation_icon_flex">
@@ -189,10 +190,11 @@
                         <span class="pr-3">
                             <span class="reservation_icon_deepblue">32500원</span>/1인당
                         </span>
-                        <input type="radio" name="refund" class="cursor-pointer">
+                        <input type="radio" name="refund" class="cursor-pointer" id="reservation_refund_80">
                     </div>
+                    <label for="reservation_refund_80" class="reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"/>
                 </div>
-                <div class="reservation_refund_area">
+                <div class="reservation_refund_area relative">
                     <div>
                         <span>보상없음</span>
                         <div class="reservation_icon_flex text-gray-400">
@@ -203,8 +205,9 @@
                         </div>
                     </div>
                     <div>
-                        <input type="radio" name="refund" class="cursor-pointer">
+                        <input type="radio" name="refund" class="cursor-pointer" id="reservation_refund_0">
                     </div>
+                    <label for="reservation_refund_0" class="reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"/>
                 </div>
             </div>
             <div class="reservation_title_3">안전한 여행을 위한 해외 보험 서비스</div>
@@ -247,15 +250,92 @@
                 <div class="text-sm font-black">
                     안전한 여행을 위한 필수품, 해외여행보험! 미리준비하면 든든합니다.
                 </div>
+                <div class="reservation_insurance_area relative">
+                    <label for="reservation_insurance_yes" class="reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"/>
+                    <div>
+                        <input type="radio" name="insurance" id="reservation_insurance_yes">
+                        <span> 네, 해외여행보험서비스를 구매하겠습니다.</span>
+                    </div>
+                    <div>
+                        <div class="reservation_insurance_small_msg text-xs">
+                            <span class="reservation_icon_deepblue ">해외여행보험 이용약관</span> 및 <span class="reservation_icon_deepblue">보험가입 시 유의사항</span>에 동의합니다.
+                        </div>
+                        <div class="reservation_insurance_small_msg text-xs">해외여행보험 불가능(보상불가) 지역 안내</div>
+                        <div class="reservation_insurance_small_msg text-xs">단체여행보험 연말정산 소득공제 제외 안내</div>
+                        <div class="reservation_insurance_small_msg text-xs">실손 담보 비례보상 안내</div>
+                        <div class="reservation_insurance_small_msg text-xs">휴대폰 손해 보상 안내</div>
+                        <div class="reservation_insurance_small_msg text-xs">항공기 및 수하물 지연보상 안내</div>
+                    </div>
+                </div>
+                <div class="reservation_insurance_area relative">
+                    <label for="reservation_insurance_no" class="reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"/>
+                    <div>
+                        <input type="radio" name="insurance" id="reservation_insurance_no">
+                        <span> 아니오, 해외여행보험서비스를 구매하지 않겠습니다.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="reservation_title_3">연락처 정보</div>
+            <div class="reservation_contact_info_box">
+                <div class="reservation_custom_box grid gap-4 md:grid-cols-3">
+                    <div class="reservation_custom_sec_box ">
+                        <input type="text" name="" required="" @click="namePlaceholder(1)" v-model="contactName" :placeholder="contactNamePlaceholder">
+                        <label>이름</label>
+                    </div>
+                    <div class="reservation_custom_sec_box">
+                        <input type="text" name="" required="" @click="namePlaceholder(2)" v-model="contactEmail" :placeholder="contactEmailPlaceholder">
+                        <label>이메일</label>
+                    </div>
+                    <div class="reservation_custom_sec_box">
+                        <input type="text" name="" required="" @click="namePlaceholder(3)" v-model="contactNum" :placeholder="contactNumPlaceholder">
+                        <label>휴대폰번호</label>
+                    </div>
+                </div>
+            </div>
+            <div class="reservation_next_btn_box">
+                <div class="reservation_next_btn_price">
+                    <div class="reservation_title_4">총금액</div>
+                    <div class="text-2xl font-bold reservation_icon_deepblue">320000원</div>
+                </div>
+                <div class="reservation_next_btn w-full text-center font-bold cursor-pointer">다음</div>
             </div>
         </div>
     </div>
 </template>
-<script setup>
-import { reactive } from 'vue';
-import axios from 'axios';
-import { useRouter } from 'vue-router'
-const router = useRouter();
+<script>
+export default {
+	name: 'ReservationComponent',
+	data() {
+		return {
+			contactName: '',
+			contactEmail: '',
+			contactNum: '',
+            contactNamePlaceholder: '',
+            contactEmailPlaceholder: '',
+            contactNumPlaceholder: '',
+		}
+	},
+
+	created() {
+
+	},
+
+	methods: {
+        namePlaceholder(i){
+            this.contactNamePlaceholder = '';
+            this.contactEmailPlaceholder = '';
+            this.contactNumPlaceholder = '';
+            if(i===1){
+                this.contactNamePlaceholder = "예)hong,gildong"
+            }else if(i===2){
+                this.contactEmailPlaceholder = "연락 받으실 Email"
+            }else if(i===3){
+                this.contactNumPlaceholder = "예)01011111111"
+            }
+        },
+        
+	},
+}
 </script>
 <style lang="scss">
 	@import '../../sass/Reservation/reservation.scss';
