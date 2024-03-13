@@ -16,6 +16,7 @@
                     <div class="terms_conditions_title">
                         <h1><strong>1. WEET 이용약관</strong></h1>
                     </div>
+                    <hr>
                     <div class="terms_conditions_box">
                         <p class="text-center"><strong>서비스 이용약관</strong></p>
 
@@ -55,9 +56,8 @@
                         <input class="terms_conditions_checkbox" type="checkbox" v-model="termsAgreed" />
                         <label class="terms_conditions_label">이용약관 및 개인정보수집 및 이용에 모두 동의합니다.</label>
                     </div>
-
                 </div>
-
+            <hr>
                 <div class="regist_button">
                     <div class="regist_button_cel">
                         <button class="regist_button_cancel">CANCEL</button>
@@ -132,6 +132,7 @@
                 <div class="terms_conditions_title">
                     <h1><strong>2. WEET 계정정보</strong></h1>
                 </div>
+                <hr>
                 <div class="regist_user_info_div">
                     <!-- <div class="regist_user_info_label">
                         <div>
@@ -164,51 +165,99 @@
                     </div> -->
                     <div class="regist_user_info_box">
                         <div class="regist_user_info_box_content">
-                            
-                            <label for="">이메일</label>
-                            <input type="email" placeholder="email">
-                        </div>
-                        <div class="regist_user_info_box_content">
-                            <label for="">비밀번호</label>
-                            <input type="password" placeholder="password">
-                        </div>
-                        <div class="regist_user_info_box_content">
-                            <label for="">비밀번호 확인</label>
-                            <input type="password" placeholder="password chk">
-                        </div>
-                        <div class="regist_user_info_box_content">
-                            <label for="">이름</label>
-                            <input type="text" placeholder="name">
-                        </div>
-                        <div class="regist_user_info_box_content">
-                            <label for="">연락처</label>
-                            <input type="tel" placeholder="tel">
-                        </div>
-                        <div class="regist_user_info_box_content">
-                            <label for="">우편번호</label>
-                            <input type="text" placeholder="">
-                        </div>
-                        <div class="regist_user_info_box_content">
-                            <label for="">주소</label>
-                            <input type="address" placeholder="address">
-                        </div>
-                        <div class="regist_user_info_box_content_gender">
-                            <label for="">성별</label>
-                            <div>
-                                <input type="radio" id="male" name="gender">
-                                <label for="male">남</label>
+                            <div class="regist_user_info_box_label">
+                                <span>이메일</span>
                             </div>
-                            <div>
-                                <input type="radio" id="female" name="gender">
-                                <label for="female">여</label>
+                            <div class="regist_user_info_box_input">
+                                <input type="email" placeholder="email">
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
-                            <label for="">생년월일</label>
-                            <input type="date" placeholder="">
+                            <div class="regist_user_info_box_label">
+                                <span>비밀번호</span>
+                            </div>
+                            <div class="regist_user_info_box_input">
+                                <input type="password" placeholder="password">
+                            </div>
+                        </div>
+                        <div class="regist_user_info_box_content">
+                            <div class="regist_user_info_box_label">
+                                <span>비밀번호 확인</span>
+                            </div>
+                            <div class="regist_user_info_box_input">
+                                <input type="password" placeholder="password chk">
+                            </div>
+                        </div>
+                        <div class="regist_user_info_box_content">
+                            <div class="regist_user_info_box_label">
+                                <span>이름</span>
+                            </div>
+                            <div class="regist_user_info_box_input">
+                                <input type="text" placeholder="name">
+                            </div>
+                        </div>
+                        <div class="regist_user_info_box_content">
+                            <div class="regist_user_info_box_label">
+                                <span>연락처</span>
+                            </div>
+                            <div class="regist_user_info_box_input">
+                                <input type="tel" placeholder="tel">
+                            </div>    
+                        </div>
+                        <div class="regist_user_info_box_content">
+                            <div class="regist_user_info_box_label">
+                                <span>우편번호</span>
+                            </div>
+                            <div class="regist_user_info_box_input">
+                                <input type="text" placeholder="">
+                            </div>
+                        </div>
+                        <div class="regist_user_info_box_content">
+                            <div class="regist_user_info_box_label">
+                                <span>주소</span>
+                            </div>
+                            <div class="regist_user_info_box_input">
+                                <input type="address" placeholder="address">
+                            </div>
+                        </div>
+                        <div class="regist_user_info_box_content">
+                            <div class="regist_user_info_box_label">
+                                <span>성별</span>
+                            </div>
+                            <div class="regist_user_info_box_input">
+                                <div class="regist_user_info_box_gender">
+                                    <div>
+                                        <input type="radio" id="male" name="gender">
+                                        <!-- <label for="male">남</label> -->
+                                    </div>
+                                    <div>
+                                        <span>남</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="regist_user_info_box_input">
+                                <div class="regist_user_info_box_gender">
+                                    <div>
+                                        <input type="radio" id="female" name="gender">
+                                        <!-- <label for="female">여</label> -->
+                                    </div>
+                                    <div>
+                                        <span>여</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="regist_user_info_box_content">
+                            <div class="regist_user_info_box_label">
+                                <span>생년월일</span>
+                            </div>
+                            <div class="regist_user_info_box_input">
+                                <input type="date" placeholder="">
+                            </div>
                         </div>
                     </div>
                 </div>
+            <hr>
                 <div class="regist_button">
                     <div class="regist_button_cel">
                         <button class="regist_button_cancel">PRE</button>

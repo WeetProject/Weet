@@ -91,10 +91,19 @@ export default {
     //     return {
     //         showmodal: false,
     //     }
-	// }
+	// },
+
+	// methods: {
+    //     	toggleModal() {
+    //         	this.showmodal = !this.showmodal; // 모달을 열고 닫는 토글 메서드
+    //     	},
+    //     	closeModal() {
+    //         	this.showmodal = false; // 모달을 닫는 메서드
+    //     	}
+    // 	}
 }
 </script>
 
 <style lang="scss">
-	// @import '../../sass/User/loginModal.scss';
+	@import '../../sass/User/loginModal.scss';
 </style>

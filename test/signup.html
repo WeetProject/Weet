@@ -1,0 +1,25 @@
+<!-- <form class="register-form" action="{{route('postRegister')}}" method="POST">
+    @csrf -->
+        <p class="register-h1">북픽 가입</p>
+        <p class="register-h2">는 필수입력 사항입니다(이메일은 아이디로 사용됩니다)</p>
+
+        <div class="register-input-area" style="display: flex;">
+            <div>
+                <span>이메일</span>
+            </div>
+            <div>
+                <input class="register-input" type="email" id="u_email" name="u_email" placeholder="email" readonly maxlength="50" value="">
+            </div>
+        </div>
+
+        <div class="register-input-area">
+            <input class="register-input" type="password" id="u_password" name="u_password" 
+            maxlength="20" placeholder="비밀번호" autocomplete="off">
+            <span class="errormsg u_password_errormsg"></span>
+        </div>
+
+        <div class="register-input-area">
+            <input class="register-input" type="password" id="u_password_confirm" name="u_password_confirm" 
+            maxlength="20" placeholder="*비밀번호 확인" autocomplete="off">
+            <span class="errormsg u_password_confirm_errormsg">
+        </div>

@@ -10,6 +10,7 @@ import FooterComponent from '../components/Layout/FooterComponent.vue';
 import AdminLoginComponent from '../components/Admin/AdminLoginComponent.vue';
 import AdminIndexComponent from '../components/Admin/AdminIndexComponent.vue';
 import SignUpComponent from '../components/User/SignUpComponent.vue';
+// import LoginUpComponent from '../components/User/LoginComponent.vue';
 
 createApp({
 	components: {
