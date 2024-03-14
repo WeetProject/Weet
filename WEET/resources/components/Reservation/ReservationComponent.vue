@@ -7,23 +7,19 @@
             </div>
             <div class="reservation_header_box">
                 <span>결제 준비</span>    
-                <div class="reservation_header_ball_1" v-if="this.pageflg==='1'">2</div>
-                <div class="reservation_header_ball_2" v-if="this.pageflg==='0'">2</div>
+                <div :class=" pageflg==='0' ? 'reservation_header_ball_2' : 'reservation_header_ball_1'">2</div>
             </div>
             <div class="reservation_header_box">
                 <span>결제 완료</span>    
                 <div class="reservation_header_ball_2">3</div>
             </div>
         </div>
-        <!-- <div class="reservation_progress_box">
-            <div class="h-4 w-900 bg-gray-200 rounded reservation_progress_gray">
-                <div class="h-full rounded reservation_progress_blue w-1/4"></div>
-            </div>      
-        </div> -->
         <div class="reservation_progress_box">
             <div class="h-4 bg-gray-200 rounded reservation_progress_gray">
-                <div class="h-full rounded reservation_progress_blue w-1/4"  v-if="this.pageflg==='0'"></div>
-                <div class="h-full rounded reservation_progress_blue w-3/4" v-if="this.pageflg==='1'"></div>
+                <!-- 0314 한줄로 변경 -->
+                <!-- <div class="h-full rounded reservation_progress_blue w-1/4"  v-if="this.pageflg==='0'"></div>
+                <div class="h-full rounded reservation_progress_blue w-3/4" v-if="this.pageflg==='1'"></div> -->
+                <div class="h-full rounded reservation_progress_blue" :class=" pageflg==='0' ? 'w-1/4' : 'w-3/4'"></div>
             </div>      
         </div>
 
@@ -128,19 +124,19 @@
                 </div>
                 <div class="reservation_grid">
                     <div class="grid gap-4 mb-4 md:grid-cols-2">
-                        <input type="text" class="reservation_input" placeholder="성(영문)">
-                        <input type="text" class="reservation_input" placeholder="이름(중간 이름 포함)">
+                        <input type="text" class="reservation_input" placeholder="성(영문)" v-model="lastName">
+                        <input type="text" class="reservation_input" placeholder="이름(중간 이름 포함)" v-model="firstName">
                     </div>
                     <div class="grid gap-4 mb-4 md:grid-cols-3">
-                        <select id="" class="w-full reservation_input">
+                        <select id="" class="w-full reservation_input" v-model="gender">
                             <option value="" disabled selected hidden class="reservation_placeholder">성별</option>
                             <option value="">남자(male)</option>
                             <option value="">여자(female)</option>
                         </select>
-                        <input type="date" class="reservation_input" placeholder="생년월일">
+                        <input type="date" class="reservation_input" placeholder="생년월일" v-model="birthDate">
                         <fieldset class="reservation_input">
                             <legend >국적</legend>
-                            <select id="" class="w-full">
+                            <select id="" class="w-full" v-model="country">
                                 <option value="">대한민국</option>
                             </select>
                         </fieldset>
@@ -148,12 +144,12 @@
                     <div class="grid gap-4 mb-4 md:grid-cols-3">
                         <fieldset class="reservation_input">
                             <legend >신분증 종류</legend>
-                            <select id=""  class="w-full">
+                            <select id=""  class="w-full" v-model="idCard">
                                 <option value="">여권</option>
                             </select>
                         </fieldset>
-                        <input type="text" class="reservation_input" placeholder="여권번호">
-                        <input type="date" class="reservation_input" placeholder="유효기간">
+                        <input type="text" class="reservation_input" placeholder="여권번호" v-model="passPortNum">
+                        <input type="date" class="reservation_input" placeholder="유효기간" v-model="passPortDate">
                     </div>
                 </div>
                 <div class="reservation_notification_box text-sm"><span>*</span> 이름을 포함하여 탑승객의 모든 정보는 신분증 정보와 일치해야합니다.신분증 상의 정보와 다른경우 <span>탑승이 불가</span>
@@ -281,15 +277,15 @@
             <div class="reservation_contact_info_box">
                 <div class="reservation_custom_box grid gap-4 md:grid-cols-3">
                     <div class="reservation_custom_sec_box ">
-                        <input type="text" name="" required="" @click="namePlaceholder(1)" v-model="contactName" :placeholder="contactNamePlaceholder">
+                        <input type="text" name="" required="" @click="namePlaceholder(1)" v-model="fullName" :placeholder="contactNamePlaceholder">
                         <label>이름</label>
                     </div>
                     <div class="reservation_custom_sec_box">
-                        <input type="text" name="" required="" @click="namePlaceholder(2)" v-model="contactEmail" :placeholder="contactEmailPlaceholder">
+                        <input type="text" name="" required="" @click="namePlaceholder(2)" v-model="email" :placeholder="contactEmailPlaceholder">
                         <label>이메일</label>
                     </div>
                     <div class="reservation_custom_sec_box">
-                        <input type="text" name="" required="" @click="namePlaceholder(3)" v-model="contactNum" :placeholder="contactNumPlaceholder">
+                        <input type="text" name="" required="" @click="namePlaceholder(3)" v-model="phone" :placeholder="contactNumPlaceholder">
                         <label>휴대폰번호</label>
                     </div>
                 </div>
@@ -303,9 +299,81 @@
             </div>
         </div>
     </div>
-    <div v-if="pageflg==='1'">
-        <div class="reservation_next_btn w-full text-center font-bold cursor-pointer" @click="changeFlg(0)">이전</div>
-        <div class="reservation_next_btn w-full text-center font-bold cursor-pointer">결제</div>
+    <div v-if="pageflg==='1'" class="reservation_body">
+        <div class="reservation_spacebetween mb-10">
+            <div class="reservation_switch">
+                <input id="s1" type="checkbox" class="reservation_switch" disabled :checked="refund==='2' ? true : false">
+                <label for="s1" class="pl-2">100%환불</label>
+            </div>
+            <div class="reservation_switch">
+                <input id="s1" type="checkbox" class="reservation_switch" disabled :checked="refund==='1' ? true : false">
+                <label for="s1" class="pl-2">80%환불</label>
+            </div>
+            <div class="reservation_switch">
+                <input id="s1" type="checkbox" class="reservation_switch" disabled :checked="insurance==='1' ? true : false">
+                <label for="s1" class="pl-2">여행자보험</label>
+            </div>
+        </div>
+        <div class="max-w-sm rounded overflow-hidden shadow-2xl mx-auto mb-5">
+            <div class="px-6 py-4">
+                <div class="font-bold text-2xl mb-4">요금 상세정보</div>
+                <div class="font-bold text-sm mb-2 reservation_spacebetween">
+                    <div class="reservation_icon_flex">
+                        <div >
+                            항공권 (성인1명)
+                        </div>
+                        <div class="cursor-pointer relative" @mouseover="popoverFlg=true" @mouseleave="popoverFlg=false">
+                            <svg class="w-4 h-4 ms-2 text-gray-400 hover:text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div class="reservation_popover" v-if="popoverFlg">
+                                <div class="font-bold text-2xl mb-2">탑승자명</div>
+                                <div class="text-sm mb-4">{{ lastName }}/{{ firstName }}</div>
+                                <div class="font-bold text-2xl mb-2">연락받을메일</div>
+                                <div class="text-sm mb-4">{{ email }}</div>
+                                <div class="font-bold text-2xl mb-4">여권번호</div>
+                                <div class="text-sm mb-2">{{ passPortNum }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>{{ ticketPrice }}원</div>
+                </div>
+                <div class="text-sm mb-4">탑승객</div>
+                <div class="font-bold text-sm mb-2">수하물</div>
+                <div class="text-sm mb-1 reservation_spacebetween">
+                    <div>개인 소지품</div>
+                    <div class="reservation_icon_blue">무료</div>
+                </div>
+                <div class="text-sm mb-1 reservation_spacebetween">
+                    <div>휴대 수하물</div>
+                    <div class="reservation_icon_blue">무료</div>
+                </div>
+                <div class="text-sm mb-3 reservation_spacebetween">
+                    <div>위탁 수하물</div>
+                    <div class="reservation_icon_blue">무료</div>
+                </div>
+                <hr class="mb-3" v-if="insurance==='1'||refund==='1'||refund==='2'">
+                <div class="text-sm mb-2 reservation_spacebetween" v-if="insurance==='1'||refund==='1'||refund==='2'">
+                    <div v-if="refund==='1'">환불80%</div>
+                    <div v-if="refund==='2'">환불100%</div>
+                    <div class="reservation_icon_blue" v-if="refund==='1'">{{ Math.ceil(ticketPrice * 0.1) }}원</div>
+                    <div class="reservation_icon_blue" v-if="refund==='2'">{{ Math.ceil(ticketPrice * 0.15) }}원</div>
+                </div>
+                <div class="text-sm mb-2 reservation_spacebetween" v-if="insurance==='1'||refund==='1'||refund==='2'">
+                    <div v-if="insurance==='1'">여행자보험</div>
+                    <div class="reservation_icon_blue" v-if="insurance==='1'">{{ insurancePrice }}원</div>
+                </div>
+                <hr>
+                <div class="font-bold text-xl mt-3 reservation_spacebetween">
+                    <div>총결제금액</div>
+                    <div class="reservation_icon_deepblue">{{ totalPrice }}원</div>
+                </div>
+            </div>
+        </div>
+        <div class="grid gap-4 mb-4 md:grid-cols-2">
+            <div class="reservation_next_btn w-full text-center font-bold cursor-pointer w-full" @click="changeFlg(0)">이전</div>
+            <div class="reservation_next_btn w-full text-center font-bold cursor-pointer w-full">결제</div>
+        </div>
     </div>
 </template>
 <script>
@@ -313,9 +381,9 @@ export default {
 	name: 'ReservationComponent',
 	data() {
 		return {
-			contactName: '',
-			contactEmail: '',
-			contactNum: '',
+			fullName: '',
+			email: '',
+			phone: '',
             contactNamePlaceholder: '',
             contactEmailPlaceholder: '',
             contactNumPlaceholder: '',
@@ -329,6 +397,15 @@ export default {
             refundPrice: 0,
             insurance: "0",
             pageflg:"0",
+            popoverFlg: false,
+            firstName: '',
+            lastName: '',
+            gender: '',
+            birthDate: '',
+            country: '',
+            idCard: '',
+            passPortNum: '',
+            passPortDate: '',
 		}
 	},
     
@@ -361,7 +438,7 @@ export default {
             this.contactEmailPlaceholder = '';  
             this.contactNumPlaceholder = '';
             if(i===1){
-                this.contactNamePlaceholder = "예)hong,gildong"
+                this.contactNamePlaceholder = "예)gildong/hong"
             }else if(i===2){
                 this.contactEmailPlaceholder = "연락 받으실 Email"
             }else if(i===3){
