@@ -16,12 +16,12 @@ class UserController extends Controller
     public function store(Request $request) {
         
         // 배열에서 가져 올 값 지정. 가지고와야할 유저 정보 담아서 data에 넣어줌.
-        $data = $request->only('user_email', 'user_password', 'user_name', 'user_gender', 'user_tel', 'user_postcode', 'user_basic_address', 'user_detail_address',);
+        $data = $request->only('user_email', 'user_password', 'user_name', 'user_gender', 'user_tel', 'user_postcode', 'user_basic_address', 'user_detail_address', 'user_birthdate');
         Log::debug("==========================");
         Log::debug("유저데이터");
 
         // 비밀번호 암호화
-        $data['user_password'] = Hash::make($data['user_password']);
+        // $data['user_password'] = Hash::make($data['user_password']);
 
         // 유저 데이터 db에 입력
         $result = User::create($data);

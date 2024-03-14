@@ -9,11 +9,15 @@
         margin: 0 auto;
     }
 
+    .container_signup_none {
+        display: none;
+    }
+
     .regist_container {
         // background-color: #ededed;
         color: #666;
         text-align: center;
-        height: 100vh;
+        // height: 100vh;
 
     // ************** 이용약관 동의css ********************
         .regist_logo_div {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,7 +22,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
         'user_flg',
         'user_email',
         'user_password',
@@ -40,7 +40,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'user_password',
         'remember_token',
     ];
 
@@ -52,4 +52,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static $rules = [
+        'user_email' => 'required|email', // 이메일은 필수이고 이메일 형식이어야 함
+        // 다른 필드에 대한 유효성 검사 규칙도 추가할 수 있음
+    ];
+
+    protected function serializeDate(DateTimeInterface $date) {
+        return $date->format('Y-m-d');
+    }
 }
