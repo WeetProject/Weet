@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\AdminTokenAuthMiddleware;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\UserController;
 
@@ -50,18 +49,10 @@ Route::get('/admin', function () {
     return view('welcome');
 });
 
-// 로그인 후 Admin Index 화면 이동
-Route::get('/admin/index', function () {
-    return view('welcome');
+Route::middleware(['adminValidation'])->group(function () {
+    // 로그인 처리
+    Route::post('/admin', [AdminAuthController::class, 'adminPostLogin'])->name('adminPostLogin');
 });
-
-// 로그인 처리
-Route::post('/admin', [AdminAuthController::class, 'adminPostLogin'])
-    ->name('adminPostLogin')
-    ->middleware('adminTokenAuthMiddleware');
-
-
-
 
 
 

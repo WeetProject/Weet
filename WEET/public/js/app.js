@@ -20870,7 +20870,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'AdminLoginComponent'
+  name: 'AdminLoginComponent',
+  methods: {
+    handleAdminLogin: function handleAdminLogin() {
+      var adminId = document.querySelector('#admin_id').value;
+      var adminPw = document.querySelector('#admin_password').value;
+      this.$store.dispatch('adminLogin', {
+        adminId: adminId,
+        adminPw: adminPw
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -21491,10 +21501,48 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "box-border admin_login_container"
 };
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"admin_login_section\"><div class=\"admin_login_left_section\"><div class=\"admin_login_title_section\"><img class=\"admin_login_title_img\" src=\"" + _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\"></div><div class=\"admin_login_input_area\"><svg class=\"admin_login_input_svg\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z\"></path></svg><input class=\"text-base admin_login_input\" type=\"text\" name=\"admin_id\" id=\"admin_id\" autocomplete=\"off\" placeholder=\"Enter your ID\"></div><div class=\"admin_login_input_area\"><svg class=\"admin_login_input_svg\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z\"></path></svg><input class=\"text-base admin_login_input\" type=\"password\" name=\"admin_password\" id=\"admin_password\" autocomplete=\"off\" placeholder=\"Enter your Password\"></div><div class=\"admin_login_button_area\"><button class=\"admin_login_button\" type=\"submit\"><div class=\"admin_login_button_text_area\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" class=\"admin_login_button_svg\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9\"></path></svg><span class=\"text-base font-semibold\">Login</span></div></button></div></div><div class=\"admin_login_right_section\"><img class=\"admin_login_image\" src=\"" + _public_images_Admin_login_jpg__WEBPACK_IMPORTED_MODULE_2__["default"] + "\" alt=\"\"></div></div>", 1);
-var _hoisted_3 = [_hoisted_2];
+var _hoisted_2 = {
+  "class": "admin_login_section"
+};
+var _hoisted_3 = {
+  "class": "admin_login_left_section"
+};
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"admin_login_title_section\"><img class=\"admin_login_title_img\" src=\"" + _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\"></div><div class=\"admin_login_input_area\"><svg class=\"admin_login_input_svg\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z\"></path></svg><input class=\"text-base admin_login_input\" type=\"text\" name=\"admin_id\" id=\"admin_id\" autocomplete=\"off\" placeholder=\"Enter your ID\"></div><div class=\"admin_login_input_area\"><svg class=\"admin_login_input_svg\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z\"></path></svg><input class=\"text-base admin_login_input\" type=\"password\" name=\"admin_password\" id=\"admin_password\" autocomplete=\"off\" placeholder=\"Enter your Password\"></div>", 3);
+var _hoisted_7 = {
+  "class": "admin_login_button_area"
+};
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "admin_login_button_text_area"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  fill: "none",
+  viewBox: "0 0 24 24",
+  "stroke-width": "1.5",
+  stroke: "currentColor",
+  "class": "admin_login_button_svg"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  d: "M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9"
+})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "text-base font-semibold"
+}, "Login")], -1 /* HOISTED */);
+var _hoisted_9 = [_hoisted_8];
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "admin_login_right_section"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  "class": "admin_login_image",
+  src: _public_images_Admin_login_jpg__WEBPACK_IMPORTED_MODULE_2__["default"],
+  alt: ""
+})], -1 /* HOISTED */);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [].concat(_hoisted_3));
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "admin_login_button",
+    type: "submit",
+    onClick: _cache[0] || (_cache[0] = function () {
+      return $options.handleAdminLogin && $options.handleAdminLogin.apply($options, arguments);
+    })
+  }, [].concat(_hoisted_9))])]), _hoisted_10])]);
 }
 
 /***/ }),
@@ -22842,7 +22890,8 @@ __webpack_require__.r(__webpack_exports__);
 var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)({
   state: function state() {
     return {
-      showmodal: false
+      showModal: false,
+      adminToken: null
     };
   },
   mutations: {
@@ -22851,30 +22900,32 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)({
     },
     setCloseModal: function setCloseModal(state) {
       state.showModal = false;
+    },
+    setAdminToken: function setAdminToken(state, token) {
+      state.adminToken = token;
     }
   },
   actions: {
-    actionLogin: function actionLogin() {
-      var adminId = document.querySelector('#admin_id').value;
-      var adminPw = document.querySelector('#admin_password').value;
+    adminLogin: function adminLogin(_ref, _ref2) {
+      var commit = _ref.commit;
+      var adminId = _ref2.adminId,
+        adminPw = _ref2.adminPw;
       var URL = '/admin';
-      var HEADER = {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      };
       var formData = new FormData();
       formData.append('admin_number', adminId);
       formData.append('admin_password', adminPw);
-      axios__WEBPACK_IMPORTED_MODULE_1___default().post(URL, formData, HEADER).then(function (res) {
-        if (res.data.code === "1" || res.data.code === "2") {
-          localStorage.setItem('admin_number', res.data.data.admin_number);
-          localStorage.setItem('admin_name', res.data.data.admin_name);
-          if (res.data.code === "1") {
-            localStorage.setItem('admin_flg', "1");
-          } else {
-            localStorage.setItem('admin_flg', '2');
-          }
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post(URL, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (res) {
+        if (res.data.code === "ad01" || res.data.code === "ad02") {
+          var token = res.data.token;
+          // Admin token 저장
+          commit('setAdminToken', token);
+          // 로컬스토리지 내 token 저장
+          localStorage.setItem('admin_token', token);
+          _js_router_js__WEBPACK_IMPORTED_MODULE_0__["default"].push('/admin/index');
         }
       })["catch"](function (err) {
         alert('네트워크 오류가 발생했습니다. 페이지를 새로고침 후 다시 로그인해주세요');

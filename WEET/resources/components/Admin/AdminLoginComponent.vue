@@ -18,7 +18,7 @@
 					<input class="text-base admin_login_input" type="password" name="admin_password" id="admin_password" autocomplete="off" placeholder="Enter your Password">
 				</div>
 				<div class="admin_login_button_area">
-					<button class="admin_login_button" type="submit">
+					<button class="admin_login_button" type="submit" @click="handleAdminLogin">
 						<div class="admin_login_button_text_area">
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="admin_login_button_svg">
 							<path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9" />
@@ -38,6 +38,13 @@
 <script>
 export default {
     name: 'AdminLoginComponent',
+	methods: {
+		handleAdminLogin() {
+			const adminId = document.querySelector('#admin_id').value;
+			const adminPw = document.querySelector('#admin_password').value;
+			this.$store.dispatch('adminLogin', {adminId, adminPw});
+		}
+	}
 }
 </script>
 <style lang="scss">

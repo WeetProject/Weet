@@ -27,7 +27,7 @@ return new class extends Migration
             // admin number
             // varchar 생성(50) / default : unique, not null
 
-            $table->string('admin_password', 50);
+            $table->string('admin_password', 200);
             // admin 비밀번호
             // varchar 생성(30) / default : not null            
             

@@ -4,15 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+// use App\Models\Notice;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Admin extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable, SoftDeletes;
 
     protected $primaryKey = 'admin_id';
+    protected $table = 'admin';
 
     public $timestamps = true;
 
@@ -23,13 +26,13 @@ class Admin extends Authenticatable implements JWTSubject
         'admin_name',
     ];
 
-    public function notice() {
-        return $this->hasMany(Notice::class, 'admin_id');
-    }
+    // public function notice() {
+    //     return $this->hasMany(Notice::class, 'admin_id');
+    // }
 
-    public function report() {
-        return $this->hasMany(Report::class, 'admin_id');
-    }
+    // public function report() {
+    //     return $this->hasMany(Report::class, 'admin_id');
+    // }
 
 	// jwt 토큰
     public function getJWTIdentifier()
