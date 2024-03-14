@@ -1,7 +1,7 @@
 <template>
     <div class="regist_container_wrap">
-        <div class="regist_container">
-            <main class="regist_terms_conditions_chk" style="display: none;">
+        <div class="regist_container" :class="{ 'container_signup_none': signFlg1 }">
+            <main class="regist_terms_conditions_chk">
                 <div class="regist_logo_div">
                     <div class="regist_logo_div_main_logo">
                         <!-- <img src="../../public/images/WEET_logo.png" alt=""> -->
@@ -53,7 +53,7 @@
                     </div>
                     
                     <div class="terms_conditions_checkbox_btn">
-                        <input class="terms_conditions_checkbox" type="checkbox" v-model="termsAgreed" />
+                        <input class="terms_conditions_checkbox" type="checkbox" v-model="frmUserData.userTermsofUse" />
                         <label class="terms_conditions_label">이용약관 및 개인정보수집 및 이용에 모두 동의합니다.</label>
                     </div>
                 </div>
@@ -63,62 +63,14 @@
                         <button class="regist_button_cancel">CANCEL</button>
                     </div>
                     <div class="regist_button_nxt">
-                        <button class="regist_button_next" type="button">NEXT</button>
+                        <button class="regist_button_next" type="button" @click="moveToNext">NEXT</button>
                     </div>
                 </div>
             </main>
         </div>
 
-        <div class="regist_container">
-            <!-- <main class="regist_user_info">
-                <div class="terms_conditions_title">
-                    <h1><strong>2. WEET 계정정보</strong></h1>
-                </div>
-                <table class="regist_user_info_box">
-                    <colgroup class="regist_user_info_box_title">
-                        <col style="width: 20%;">
-                        <col style="width: 80%;">
-                    </colgroup>
-                    <tr class="regist_user_info_box_content">
-                        <th><label for="">이메일</label></th>
-                        <td colspan="3"><input type="email" placeholder="email"></td>
-                    </tr>
-                    <tr class="regist_user_info_box_content">
-                        <th><label for="">비밀번호</label></th>
-                        <td colspan="3"><input type="password" placeholder="password"></td>
-                    </tr>
-                    <tr class="regist_user_info_box_content">
-                        <th><label for="">비밀번호 확인</label></th>
-                        <td colspan="3"><input type="password" placeholder="password chk"></td>
-                    </tr>
-                    <tr class="regist_user_info_box_content">
-                        <th><label for="">이름</label></th>
-                        <td colspan="3"><input type="text" placeholder="name"></td>
-                    </tr>
-                    <tr class="regist_user_info_box_content">
-                        <th><label for="">연락처</label></th>
-                        <td colspan="3"><input type="tel" placeholder="tel"></td>
-                    </tr>
-                    <tr class="regist_user_info_box_content">
-                        <th><label for="">우편번호</label></th>
-                        <td colspan="3"><input type="text" placeholder=""></td>
-                    </tr>
-                    <tr class="regist_user_info_box_content">
-                        <th><label for="">주소</label></th>
-                        <td colspan="3"><input type="address" placeholder="address"></td>
-                    </tr>
-                    <tr class="regist_user_info_box_content">
-                        <th><label for="">성별</label></th>
-                        <td><input type="radio">남</td>
-                        <td><input type="radio">여</td>
-                    </tr>
-                    <tr class="regist_user_info_box_content">
-                        <th><label for="">생년월일</label></th>
-                        <td><input type="date" placeholder=""></td>
-                    </tr>
-                </table>
-            </main> -->
-
+        <div class="regist_container" :class="{ 'container_signup_none': signFlg2 }">
+            
             <main class="regist_user_info">
                 <div class="regist_logo_div">
                     <div class="regist_logo_div_main_logo">
@@ -134,42 +86,14 @@
                 </div>
                 <hr>
                 <div class="regist_user_info_div">
-                    <!-- <div class="regist_user_info_label">
-                        <div>
-                            <span>이메일</span>
-                        </div>
-                        <div>
-                            <span>비밀번호</span>
-                        </div>
-                        <div>
-                            <span>비밀번호 확인</span>
-                        </div>
-                        <div>
-                            <span>이름</span>
-                        </div>
-                        <div>
-                            <span>연락처</span>
-                        </div>
-                        <div>
-                            <span>우편번호</span>
-                        </div>
-                        <div>
-                            <span>주소</span>
-                        </div>
-                        <div>
-                            <span>성별</span>
-                        </div>
-                        <div>
-                            <span>생년월일</span>
-                        </div>
-                    </div> -->
+    
                     <div class="regist_user_info_box">
                         <div class="regist_user_info_box_content">
                             <div class="regist_user_info_box_label">
                                 <span>이메일</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input v-model="frmUserData.userEmail" type="email" placeholder="email">
+                                <input id="user_email" name="user_email" v-model="frmUserData.userEmail" type="email" placeholder="email">
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
@@ -177,7 +101,7 @@
                                 <span>비밀번호</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input v-model="frmUserData.userPassword" type="password" placeholder="password">
+                                <input id="user_password" name="user_password" v-model="frmUserData.userPassword" type="password" placeholder="password">
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
@@ -193,7 +117,7 @@
                                 <span>이름</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input v-model="frmUserData.userName" type="text" placeholder="name">
+                                <input id="user_name" name="user_name" v-model="frmUserData.userName" type="text" placeholder="name">
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
@@ -201,7 +125,7 @@
                                 <span>연락처</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input v-model="frmUserData.userTel" type="tel" placeholder="tel">
+                                <input id="user_tel" name="user_tel" v-model="frmUserData.userTel" type="tel" placeholder="tel">
                             </div>    
                         </div>
                         <div class="regist_user_info_box_content">
@@ -209,16 +133,21 @@
                                 <span>우편번호</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input v-model="frmUserData.userPostcode" type="text" placeholder="">
-                                <input v-model="frmUserData.userBasicAddress" type="text" placeholder="">
+                                <input id="user_postcode" name="user_postcode" v-model="frmUserAddressData.userPostcode" type="text" placeholder="">
+                            </div>
+                            <div class="regist_user_info_box_input">
+                                <button type="button" @click="openDaumPostcode()">검색</button>
+                            </div>
+                            <div class="regist_user_info_box_input">
+                                <input id="user_basic_address" name="user_basic_address" v-model="frmUserAddressData.userBasicAddress" type="text" placeholder="">
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
                             <div class="regist_user_info_box_label">
-                                <span>주소</span>
+                                <span>상세주소</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input v-model="frmUserData.userDetailAddress" type="address" placeholder="address">
+                                <input id="user_detail_address" name="user_detail_address" v-model="frmUserAddressData.userDetailAddress" type="address" placeholder="address">
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
@@ -228,7 +157,7 @@
                             <div class="regist_user_info_box_input">
                                 <div class="regist_user_info_box_gender">
                                     <div>
-                                        <input v-model="frmUserData.userGender" type="radio" id="male" name="gender">
+                                        <input v-model="frmUserData.userGender" type="radio" id="male" name="user_gender">
                                         <!-- <label for="male">남</label> -->
                                     </div>
                                     <div>
@@ -239,7 +168,7 @@
                             <div class="regist_user_info_box_input">
                                 <div class="regist_user_info_box_gender">
                                     <div>
-                                        <input v-model="frmUserData.userGender" type="radio" id="female" name="gender">
+                                        <input v-model="frmUserData.userGender" type="radio" id="female" name="user_gender">
                                         <!-- <label for="female">여</label> -->
                                     </div>
                                     <div>
@@ -253,7 +182,7 @@
                                 <span>생년월일</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input v-model="frmUserData.userBirthDate" type="date" placeholder="">
+                                <input id="user_birthdate" name="user_birthdate" v-model="frmUserData.userBirthDate" type="date" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -261,10 +190,10 @@
             <hr>
                 <div class="regist_button">
                     <div class="regist_button_cel">
-                        <button class="regist_button_cancel">PRE</button>
+                        <button class="regist_button_cancel" @click="signFlg1=false; signFlg2=true;">PRE</button>
                     </div>
                     <div class="regist_button_nxt">
-                        <button class="regist_button_next" type="submit">Submit</button>
+                        <button class="regist_button_next" type="submit" @click="submitFrmUserData()">Submit</button>
                     </div>
                 </div>    
             </main>
@@ -273,12 +202,15 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
     name: 'SignUpComponent',
 
     data() {
         return {
+            signFlg1: false,
+            signFlg2: true,
 
             frmUserData: {
                 userEmail: '',
@@ -288,12 +220,116 @@ export default {
                 userBirthDate: '',
                 userGender: '',
                 userTel: '',
+                userTermsofUse: '',
+            },
+
+            frmUserAddressData: {
                 userPostcode: '',
                 userBasicAddress: '',
-                userDetailAddress: ''
+                userDetailAddress: '',
             },
+
         }
-    }
+    },
+    methods: {
+
+        submitFrmUserData() {
+            const url = '/signup';
+            const header = {
+                headers: {
+                    "Content-Type": 'multipart/form-data',
+                },
+            };
+
+            let frm = new FormData();
+            this.frmUserData.UserTermsofUse = this.frmUserData.UserTermsofUse ? 1 : 0;
+
+            frm.append('user_email', this.frmUserData.userEmail);
+            frm.append('user_password', this.frmUserData.userPassword);
+            frm.append('user_password_chk', this.frmUserData.userPasswordChk);
+            frm.append('user_name', this.frmUserData.userName);
+            frm.append('user_tel', this.frmUserData.userTel);
+            frm.append('user_gender', this.frmUserData.userGender);
+            frm.append('user_birthdate', this.frmUserData.userBirthDate);
+            frm.append('user_detail_address', this.frmUserAddressData.userDetailAddress);
+            frm.append('user_basic_address', this.frmUserAddressData.userBasicAddress);
+            frm.append('user_postcode', this.frmUserAddressData.userPostcode);
+
+            axios.post(url, frm, header)
+                .then( res => {
+                    alert('회원가입이 완료되었습니다.');
+                    this.$router.push('/');
+                })
+                .catch( err => {
+                    if( !this.frmUserAddressData && this.frmUserData ) {
+                        alert('필수입력사항을 확인해주세요.');
+                    }
+                    else {
+                        console.error('Unexpected error:', err);
+                    }
+                })
+        },
+
+        moveToNext() {
+            if(this.frmUserData.userTermsofUse) {
+                this.signFlg1 = true;
+                this.signFlg2 = false;
+            }
+            else {
+                alert('이용약관에 동의 체크 해주세요');
+            }
+        },
+
+        // 우편번호+기본주소(basicAddress) 입력 함수
+        openDaumPostcode() {
+            if (typeof daum === 'undefined') {
+                // 스크립트를 동적으로 로드하고 로드되면 콜백을 실행합니다.
+                const script = document.createElement('script');
+                script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+                script.onload = () => {
+                    // 로드가 완료되면 daum.Postcode를 사용할 수 있습니다.
+                    new daum.Postcode({
+                        oncomplete: (data) => {
+                        this.handleAddressComplete(data);
+                    }
+            }).open();
+                };
+                document.head.appendChild(script);
+            } else {
+                // 이미 로드되었으면 바로 실행합니다.
+                new daum.Postcode({
+                    oncomplete: (data) => {
+                        this.handleAddressComplete(data);
+                    }
+                }).open();
+            }
+            },
+        handleAddressComplete(data) {
+        // 주소 검색 완료 후 처리할 작업을 수행합니다.
+            var roadAddr = data.roadAddress;
+            var extraRoadAddr = '';
+
+            if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                extraRoadAddr += data.bname;
+            }
+
+            if (data.buildingName !== '' && data.apartment === 'Y') {
+                extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+
+            if (extraRoadAddr !== '') {
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+
+            this.frmUserAddressData = {
+                userPostcode: data.zonecode,
+                userBasicAddress: roadAddr,
+            }
+            console.log(data);
+        },
+    },
+
+    
 }
 
 </script>

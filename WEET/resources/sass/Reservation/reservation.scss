@@ -158,8 +158,9 @@ input[type="date"] {
     cursor: pointer;
 }
 
+// input date플레이스홀더
 input[type="date"]:not(.has-value):before{
-    color: lightgray;
+    color: rgb(164, 164, 164);
     content: attr(placeholder);
 }
 
@@ -368,7 +369,7 @@ input[type="date"]:not(.has-value):before{
 .reservation_passenger_box{
     background-color: #fff;
     border-radius: 10px;
-    padding: 15px;
+    padding: 30px;
 }
 .reservation_spacebetween{
     display: flex;
@@ -405,7 +406,7 @@ input[type="date"]:not(.has-value):before{
 .reservation_refund_box{
     background-color: #fff;
     border-radius: 10px;
-    padding: 20px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -459,12 +460,19 @@ input[type="date"]:not(.has-value):before{
 }
 .reservation_popover{
     position: absolute;
-    left: 0;
-    top: 0;
+    left: -110px;
+    top: 24px;
     border: 1px solid #dadada;
-    padding: 20px;
+    padding: 10px;
     background-color: #f9f9f9;
+    width: 260px;
     border-radius: 5px;
+}
+.reservation_success{
+    border: 1px solid #084AFF;
+}
+.reservation_fail{
+    border: 1px solid #ff0000;
 }
 
 @include mobile {
