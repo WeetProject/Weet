@@ -169,7 +169,7 @@
                                 <span>이메일</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input type="email" placeholder="email">
+                                <input v-model="frmUserData.userEmail" type="email" placeholder="email">
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
@@ -177,7 +177,7 @@
                                 <span>비밀번호</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input type="password" placeholder="password">
+                                <input v-model="frmUserData.userPassword" type="password" placeholder="password">
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
@@ -185,7 +185,7 @@
                                 <span>비밀번호 확인</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input type="password" placeholder="password chk">
+                                <input v-model="frmUserData.userPasswordChk" type="password" placeholder="password chk">
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
@@ -193,7 +193,7 @@
                                 <span>이름</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input type="text" placeholder="name">
+                                <input v-model="frmUserData.userName" type="text" placeholder="name">
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
@@ -201,7 +201,7 @@
                                 <span>연락처</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input type="tel" placeholder="tel">
+                                <input v-model="frmUserData.userTel" type="tel" placeholder="tel">
                             </div>    
                         </div>
                         <div class="regist_user_info_box_content">
@@ -209,7 +209,8 @@
                                 <span>우편번호</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input type="text" placeholder="">
+                                <input v-model="frmUserData.userPostcode" type="text" placeholder="">
+                                <input v-model="frmUserData.userBasicAddress" type="text" placeholder="">
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
@@ -217,7 +218,7 @@
                                 <span>주소</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input type="address" placeholder="address">
+                                <input v-model="frmUserData.userDetailAddress" type="address" placeholder="address">
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
@@ -227,7 +228,7 @@
                             <div class="regist_user_info_box_input">
                                 <div class="regist_user_info_box_gender">
                                     <div>
-                                        <input type="radio" id="male" name="gender">
+                                        <input v-model="frmUserData.userGender" type="radio" id="male" name="gender">
                                         <!-- <label for="male">남</label> -->
                                     </div>
                                     <div>
@@ -238,7 +239,7 @@
                             <div class="regist_user_info_box_input">
                                 <div class="regist_user_info_box_gender">
                                     <div>
-                                        <input type="radio" id="female" name="gender">
+                                        <input v-model="frmUserData.userGender" type="radio" id="female" name="gender">
                                         <!-- <label for="female">여</label> -->
                                     </div>
                                     <div>
@@ -252,7 +253,7 @@
                                 <span>생년월일</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input type="date" placeholder="">
+                                <input v-model="frmUserData.userBirthDate" type="date" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -279,6 +280,18 @@ export default {
     data() {
         return {
 
+            frmUserData: {
+                userEmail: '',
+                userPassword: '',
+                userPasswordChk: '',
+                userName: '',
+                userBirthDate: '',
+                userGender: '',
+                userTel: '',
+                userPostcode: '',
+                userBasicAddress: '',
+                userDetailAddress: ''
+            },
         }
     }
 }

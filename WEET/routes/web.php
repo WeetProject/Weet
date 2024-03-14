@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminTokenAuthMiddleware;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,3 +60,21 @@ Route::post('/admin', [AdminAuthController::class, 'adminPostLogin'])
     ->name('adminPostLogin')
     ->middleware('adminTokenAuthMiddleware');
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// User
+// UserSignUp
+Route::post('/signup', [UserController::class, 'store']);
