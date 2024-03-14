@@ -115,7 +115,7 @@
                         <div class="reservation_title_4">탑승객 1</div>
                         <div>(성인한공권)</div>
                     </div>
-                    <div class="reservation_input_reset_btn">
+                    <div class="reservation_input_reset_btn" @click="clearForm">
                         초기화
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                             <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
@@ -124,22 +124,24 @@
                 </div>
                 <div class="reservation_grid">
                     <div class="grid gap-4 mb-4 md:grid-cols-2">
-                        <input type="text" class="reservation_input" placeholder="성(영문)" v-model="lastName">
-                        <input type="text" class="reservation_input" placeholder="이름(중간 이름 포함)" v-model="firstName">
+                        <input type="text" class="reservation_input" placeholder="성(영문)" v-model="lastName" :class="lastNameValFlg!=='9'&&lastNameValFlg!=='0'?'reservation_fail':''" @input="koreaLastName">
+                        <input type="text" class="reservation_input" placeholder="이름(중간 이름 포함)" v-model="firstName" :class="firstNameValFlg!=='9'&&firstNameValFlg!=='0'?'reservation_fail':''" @input="koreaFirstName">
+                        <div v-if="lastNameValFlg!=='0'&&lastNameValFlg!=='9'" class="text-red-600 text-xs font-bold">{{ lastNameValMsg[lastNameValFlg] }}</div>
+                        <div v-if="firstNameValFlg!=='0'&&firstNameValFlg!=='9'" class="text-red-600 text-xs font-bold">{{ firstNameValMsg[firstNameValFlg] }}</div>
                     </div>
                     <div class="grid gap-4 mb-4 md:grid-cols-3">
                         <select id="" class="w-full reservation_input" v-model="gender">
-                            <option value="" disabled selected hidden class="reservation_placeholder">성별</option>
-                            <option value="">남자(male)</option>
-                            <option value="">여자(female)</option>
+                            <option value="M">남자(male)</option>
+                            <option value="F">여자(female)</option>
                         </select>
-                        <input type="date" class="reservation_input" placeholder="생년월일" v-model="birthDate">
+                        <input type="date" class="reservation_input" placeholder="생년월일" v-model="birthDate" :class="birthDateValFlg!=='9'&&birthDateValFlg!=='0'?'reservation_fail':''">
                         <fieldset class="reservation_input">
                             <legend >국적</legend>
                             <select id="" class="w-full" v-model="country">
                                 <option value="">대한민국</option>
                             </select>
                         </fieldset>
+                        <div v-if="birthDateValFlg!=='0'&&birthDateValFlg!=='9'" class="text-red-600 text-xs font-bold col-span-3">{{ birthDateValMsg[birthDateValFlg] }}</div>
                     </div>
                     <div class="grid gap-4 mb-4 md:grid-cols-3">
                         <fieldset class="reservation_input">
@@ -148,8 +150,10 @@
                                 <option value="">여권</option>
                             </select>
                         </fieldset>
-                        <input type="text" class="reservation_input" placeholder="여권번호" v-model="passPortNum">
-                        <input type="date" class="reservation_input" placeholder="유효기간" v-model="passPortDate">
+                        <input type="text" class="reservation_input" placeholder="여권번호" v-model="passPortNum" :class="passPortNumValFlg!=='9'&&passPortNumValFlg!=='0'?'reservation_fail':''" @input="koreaPassPortNum">
+                        <input type="date" class="reservation_input" placeholder="유효기간" v-model="passPortDate" :class="passPortDateValFlg!=='9'&&passPortDateValFlg!=='0'?'reservation_fail':''">
+                        <div v-if="passPortNumValFlg!=='0'&&passPortNumValFlg!=='9'" class="text-red-600 text-xs font-bold">{{ passPortNumValMsg[passPortNumValFlg] }}</div>
+                        <div v-if="passPortDateValFlg!=='0'&&passPortDateValFlg!=='9'" class="text-red-600 text-xs font-bold">{{ passPortDateValMsg[passPortDateValFlg] }}</div>
                     </div>
                 </div>
                 <div class="reservation_notification_box text-sm"><span>*</span> 이름을 포함하여 탑승객의 모든 정보는 신분증 정보와 일치해야합니다.신분증 상의 정보와 다른경우 <span>탑승이 불가</span>
@@ -276,18 +280,21 @@
             <div class="reservation_title_3">연락처 정보</div>
             <div class="reservation_contact_info_box">
                 <div class="reservation_custom_box grid gap-4 md:grid-cols-3">
-                    <div class="reservation_custom_sec_box ">
-                        <input type="text" name="" required="" @click="namePlaceholder(1)" v-model="fullName" :placeholder="contactNamePlaceholder">
+                    <div class="reservation_custom_sec_box " :class="fullNameValFlg!=='9'&&fullNameValFlg!=='0'?'reservation_fail':''">
+                        <input type="text" name="" required="" @click="namePlaceholder(1)" v-model="fullName" :placeholder="contactNamePlaceholder" @input="koreaFullName">
                         <label>이름</label>
                     </div>
-                    <div class="reservation_custom_sec_box">
-                        <input type="text" name="" required="" @click="namePlaceholder(2)" v-model="email" :placeholder="contactEmailPlaceholder">
+                    <div class="reservation_custom_sec_box" :class="emailValFlg!=='9'&&emailValFlg!=='0'?'reservation_fail':''">
+                        <input type="text" name="" required="" @click="namePlaceholder(2)" v-model="email" :placeholder="contactEmailPlaceholder" @input="koreaEmail" >
                         <label>이메일</label>
                     </div>
-                    <div class="reservation_custom_sec_box">
-                        <input type="text" name="" required="" @click="namePlaceholder(3)" v-model="phone" :placeholder="contactNumPlaceholder">
+                    <div class="reservation_custom_sec_box" :class="phoneValFlg!=='9'&&phoneValFlg!=='0'?'reservation_fail':''">
+                        <input type="text" name="" required="" maxlength="11" @click="namePlaceholder(3)" v-model="phone" :placeholder="contactNumPlaceholder" @input="koreaPhone">
                         <label>휴대폰번호</label>
                     </div>
+                    <div v-if="fullNameValFlg!=='0'&&fullNameValFlg!=='9'" class="text-red-600 text-xs font-bold">{{ fullNameValMsg[fullNameValFlg] }}</div>
+                        <div v-if="emailValFlg!=='0'&&emailValFlg!=='9'" class="text-red-600 text-xs font-bold">{{ emailValMsg[emailValFlg] }}</div>
+                        <div v-if="phoneValFlg!=='0'&&phoneValFlg!=='9'" class="text-red-600 text-xs font-bold">{{ phoneValMsg[phoneValFlg] }}</div>
                 </div>
             </div>
             <div class="reservation_next_btn_box">
@@ -400,12 +407,28 @@ export default {
             popoverFlg: false,
             firstName: '',
             lastName: '',
-            gender: '',
+            gender: 'M',
             birthDate: '',
             country: '',
             idCard: '',
             passPortNum: '',
             passPortDate: '',
+            lastNameValMsg:["","이름(성)은 필수 입력 사항 입니다.","이름(성)은 0~50 글자 사이로 입력해 주세요.","이름(성)은 영문만 입력 가능합니다."],
+            lastNameValFlg:"0",
+            firstNameValMsg:["","이름은 필수 입력 사항 입니다.","이름은 0~50 글자 사이로 입력해 주세요.","이름은 영문만 입력 가능합니다."],
+            firstNameValFlg:"0",
+            birthDateValMsg:["","생년월일은 필수 입력 사항 입니다.","현재 날짜보다 미래 입니다."],
+            birthDateValFlg:"0",
+            passPortNumValMsg:["","여권번호는 필수 입력 사항 입니다.","여권번호가 형식이 유효하지 않습니다."],
+            passPortNumValFlg:"0",
+            passPortDateValMsg:["","유효기간 필수 입력 사항 입니다.","유효기간이 만료 되었습니다."],
+            passPortDateValFlg:"0",
+            fullNameValMsg:["","이름은 필수 입력 사항 입니다.","이름은 0~50 글자 사이로 입력해 주세요","한글or영문만 입력 가능합니다"],
+            fullNameValFlg:"0",
+            emailValMsg:["","이메일 필수 입력 사항 입니다.","이메일의 형식이 유효하지 않습니다."],
+            emailValFlg:"0",
+            phoneValMsg:["","연락처는 필수 입력 사항 입니다","-를 제외한 11자리를 입력해 주세요","연락처의 형식이 유효하지 않습니다."],
+            phoneValFlg:"0",
 		}
 	},
     
@@ -428,7 +451,30 @@ export default {
 		insurance(){
             this.sumTotalPrice()
 		},
-
+        firstName(){
+			this.firstNameValidation();
+		},
+        lastName(){
+			this.lastNameValidation();
+		},
+        birthDate(){
+			this.birthdateValidation();
+		},
+        passPortNum(){
+            this.passPortNumValidation();
+        },
+        passPortDate(){
+			this.passPortDateValidation();
+		},
+        fullName(){
+			this.fullNameValidation();
+		},
+        email(){
+			this.emailValidation();
+		},
+        phone(){
+			this.phoneValidation();
+		},
     },
 
 	methods: {
@@ -438,7 +484,7 @@ export default {
             this.contactEmailPlaceholder = '';  
             this.contactNumPlaceholder = '';
             if(i===1){
-                this.contactNamePlaceholder = "예)gildong/hong"
+                this.contactNamePlaceholder = "한글or영어"
             }else if(i===2){
                 this.contactEmailPlaceholder = "연락 받으실 Email"
             }else if(i===3){
@@ -470,8 +516,22 @@ export default {
         // 페이지플래그 변경
         changeFlg(i) {
             if (i === 1) {
-                this.pageflg = "1";
-                window.scrollTo({ top: 0 }); // 페이지 맨 위로 스크롤
+                if(this.lastNameValFlg==="9"&&this.firstNameValFlg==="9"&&this.birthDateValFlg==="9"&&this.passPortNumValFlg==="9"&&this.passPortDateValFlg==="9"&&this.fullNameValFlg==="9"&&this.emailValFlg==="9"&&this.phoneValFlg==="9"){
+                    this.pageflg = "1";
+                    window.scrollTo({ top: 0 }); // 페이지 맨 위로 스크롤
+                }else{
+                    this.firstNameValidation();
+                    this.lastNameValidation();
+                    this.birthdateValidation();
+                    this.passPortNumValidation();
+                    this.passPortDateValidation();
+                    this.fullNameValidation();  
+                    this.emailValidation();
+                    this.phoneValidation();
+                    if(this.lastNameValFlg!=="9"||this.firstNameValFlg!=="9"||this.birthDateValFlg!=="9"||this.passPortNumValFlg!=="9"||this.passPortDateValFlg!=="9"){
+                        window.scrollTo({ top: 800, behavior: 'smooth' });
+                    }
+                }
             } else {
                 this.pageflg = "0";
                 // 페이지의 가장 아래로 스크롤합니다.
@@ -479,7 +539,162 @@ export default {
                     document.documentElement.scrollIntoView({  block: 'end' });
                 }, 10);
             }
-        }
+        },
+        // 여권 lastname 바리데이션
+        lastNameValidation(){
+			const VAR = /^.{2,50}$/;
+			const VAR1 = /^[a-zA-Z0-9]+$/;
+			if(this.lastName===""){
+                console.log("진입")
+				this.lastNameValFlg = "1";
+                return
+			}else if(!VAR.test(this.lastName)){
+				this.lastNameValFlg = "2";
+				return;
+			}else if(!VAR1.test(this.lastName)){
+				this.lastNameValFlg = "3";
+				return;
+			}
+			this.lastNameValFlg = "9";
+		},
+        // 여권 firstname 바리데이션
+        firstNameValidation(){
+			const VAR = /^.{2,50}$/;
+			const VAR1 = /^[a-zA-Z0-9]+$/;
+			if(this.firstName===""){
+				this.firstNameValFlg = "1";
+                return
+			}else if(!VAR.test(this.firstName)){
+				this.firstNameValFlg = "2";
+				return;
+			}else if(!VAR1.test(this.firstName)){
+				this.firstNameValFlg = "3";
+				return;
+			}
+			this.firstNameValFlg = "9";
+		},
+        // 생년월일 바리데이션
+        birthdateValidation(){
+            console.log("함수진입")
+            const today = new Date();
+			const year = today.getFullYear();
+			const month = (today.getMonth() + 1).toString().padStart(2, '0');
+			const day = today.getDate().toString().padStart(2, '0');
+			const formattedDate = year+"-"+month+"-"+day;
+			if(this.birthDate===""){
+				this.birthDateValFlg = "1";
+                return;
+			}else if(this.birthDate>=formattedDate){
+                console.log("이상")
+				this.birthDateValFlg = "2";
+				return;
+			}
+			this.birthDateValFlg = "9";
+		},
+        // 여권번호 바리데이션
+        passPortNumValidation(){
+			const VAR = /^[A-Za-z]{1,3}\d{6,9}$/;
+			if(this.passPortNum===""){
+				this.passPortNumValFlg = "1";
+                return
+			}else if(!VAR.test(this.passPortNum)){
+				this.passPortNumValFlg = "2";
+				return;
+			}
+			this.passPortNumValFlg = "9";
+		},
+        // 여권 유효기간 바리데이션
+        passPortDateValidation(){
+            console.log("함수진입")
+            const today = new Date();
+			const year = today.getFullYear();
+			const month = (today.getMonth() + 1).toString().padStart(2, '0');
+			const day = today.getDate().toString().padStart(2, '0');
+			const formattedDate = year+"-"+month+"-"+day;
+            if(this.passPortDate===""){
+				this.passPortDateValFlg = "1";
+                return;
+			}else if(this.passPortDate<=formattedDate){
+				this.passPortDateValFlg = "2";
+				return;
+			}
+			this.passPortDateValFlg = "9";
+		},
+        // 풀네임 바리데이션
+        fullNameValidation(){
+			const VAR = /^.{2,50}$/;
+            const VAR1 = /^[가-힣]*$|^[a-zA-Z]*$/;
+			if(this.fullName===""){
+				this.fullNameValFlg = "1";
+                return
+			}else if(!VAR.test(this.fullName)){
+				this.fullNameValFlg = "2";
+				return;
+			}else if(!VAR1.test(this.fullName)){
+				this.fullNameValFlg = "3";
+				return;
+			}
+			this.fullNameValFlg = "9";
+		},
+        // 이메일 바리데이션
+        emailValidation(){
+            const VAR = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            if(this.email===""){
+				this.emailValFlg = "1";
+                return;
+			}else if(!VAR.test(this.email)){
+				this.emailValFlg = "2";
+				return;
+			}
+			this.emailValFlg = "9";
+		},
+        // 휴대폰번호 바리데이션
+        phoneValidation(){
+            const VAR = /^[^-]{11}$/;
+			const VAR1 = /^010([0-9]{4})([0-9]{4})$/;
+            if(this.phone===""){
+				this.phoneValFlg = "1";
+                return;
+			}else if(!VAR.test(this.phone)){
+				this.phoneValFlg = "2";
+				return;
+			}else if(!VAR.test(this.phone)){
+				this.phoneValFlg = "3";
+				return;
+			}
+			this.phoneValFlg = "9";
+		},
+        // 이름(성) 한글 바로인식
+		koreaLastName(e) {
+			this.lastName = e.target.value;
+		},
+        // 이름 한글 바로인식
+		koreaFirstName(e) {
+			this.firstName = e.target.value;
+		},
+        // 여권번호 한글 바로인식
+		koreaPassPortNum(e) {
+			this.passPortNum = e.target.value;
+		},
+        // 이름 한글 바로인식
+		koreaFullName(e) {
+			this.fullName = e.target.value;
+		},
+        // 입력창 초기화 버튼
+        clearForm(){
+            this.firstName= '';
+            this.lastName= '';
+            this.birthDate= '';
+            this.passPortNum= '';
+            this.passPortDate= '';
+            setTimeout(() => {
+                this.lastNameValFlg = "0";
+                this.firstNameValFlg = "0";
+                this.birthDateValFlg = "0";
+                this.passPortNumValFlg = "0";
+                this.passPortDateValFlg = "0";
+            }, 50);
+        },
 	},
 }
 </script>
