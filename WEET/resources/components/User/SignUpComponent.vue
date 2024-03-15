@@ -3,10 +3,9 @@
         <div class="regist_container" :class="{ 'container_signup_none': signFlg1 }">
             <main class="regist_terms_conditions_chk">
                 <div class="regist_logo_div">
-                    <div class="regist_logo_div_main_logo">
-                        <!-- <img src="../../public/images/WEET_logo.png" alt=""> -->
+                    <!-- <div class="regist_logo_div_main_logo">
                         <img src="../../../public/images/WEET_logo.png" alt="">
-                    </div>
+                    </div> -->
                     <div class="regist_logo_div_title">
                         <h1>SIGN UP</h1>
                     </div>
@@ -73,10 +72,9 @@
             
             <main class="regist_user_info">
                 <div class="regist_logo_div">
-                    <div class="regist_logo_div_main_logo">
-                        <!-- <img src="../../public/images/WEET_logo.png" alt=""> -->
+                    <!-- <div class="regist_logo_div_main_logo">
                         <img src="../../../public/images/WEET_logo.png" alt="">
-                    </div>
+                    </div> -->
                     <div class="regist_logo_div_title">
                         <h1>SIGN UP</h1>
                     </div>
@@ -129,16 +127,16 @@
                             </div>    
                         </div>
                         <div class="regist_user_info_box_content">
-                            <div class="regist_user_info_box_label">
+                            <div class="regist_user_info_box_label_postcode">
                                 <span>우편번호</span>
                             </div>
-                            <div class="regist_user_info_box_input">
+                            <div class="regist_user_info_box_input_postcode">
                                 <input id="user_postcode" name="user_postcode" v-model="frmUserAddressData.userPostcode" type="text" placeholder="">
                             </div>
-                            <div class="regist_user_info_box_input">
+                            <div class="regist_user_info_box_input_search">
                                 <button type="button" @click="openDaumPostcode()">검색</button>
                             </div>
-                            <div class="regist_user_info_box_input">
+                            <div class="regist_user_info_box_input_basic_address">
                                 <input id="user_basic_address" name="user_basic_address" v-model="frmUserAddressData.userBasicAddress" type="text" placeholder="">
                             </div>
                         </div>
@@ -154,6 +152,7 @@
                             <div class="regist_user_info_box_label">
                                 <span>성별</span>
                             </div>
+                            <!-- <div class="regist_user_info_box_input_gender"> -->
                             <div class="regist_user_info_box_input">
                                 <div class="regist_user_info_box_gender">
                                     <div>
@@ -163,9 +162,17 @@
                                     <div>
                                         <span>남</span>
                                     </div>
+                                    <div>
+                                        <input v-model="frmUserData.userGender" type="radio" id="female" name="user_gender">
+                                        <!-- <label for="female">여</label> -->
+                                    </div>
+                                    <div>
+                                        <span>여</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="regist_user_info_box_input">
+                            <div class="regist_user_info_box_input_gender">
+                            <!-- <div class="regist_user_info_box_input"> -->
                                 <div class="regist_user_info_box_gender">
                                     <div>
                                         <input v-model="frmUserData.userGender" type="radio" id="female" name="user_gender">

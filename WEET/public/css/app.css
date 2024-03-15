@@ -550,14 +550,8 @@ video {
 .flex {
   display: flex;
 }
-.table {
-  display: table;
-}
 .grid {
   display: grid;
-}
-.hidden {
-  display: none;
 }
 .h-4 {
   height: 1rem;

@@ -50,7 +50,7 @@
                 padding: 20px;
                 width: 50%;
                 text-align: start;
-                margin: 0 auto;
+                margin: 20px auto;
                 // height: 30vW;
                 overflow: auto;
                 font-size: 12px;
@@ -67,7 +67,7 @@
             }
 
             &_checkbox_btn {
-                margin-top: 5px;
+                margin: 10px 0;
             }
         }
 
@@ -75,7 +75,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 20px;
+            margin: 20px 0;
 
             &_cel {
                 padding: 10px;
@@ -142,12 +142,8 @@
                 // border-spacing: 10px 10px;
                 margin-bottom: 22px;
                 display: flex;
+                justify-content: space-between;
 
-                th {
-                    border: 1px solid #ededed;
-                }
-
-                
             }
 
             &_label {
@@ -155,9 +151,73 @@
                 border: 1px solid #ededed;
                 padding: 10px;
                 border-radius: 5px;
+                width: 50%;
+                // width: auto;
+            }
+
+            &_label_postcode {
+                margin-right: 5px;
+                border: 1px solid #ededed;
+                padding: 10px;
+                border-radius: 5px;
+                width: auto;
             }
 
             &_input {
+                padding: 10px;
+                border: 1px solid #ededed;
+                border-radius: 5px;
+                margin-right: 5px;
+                width: 400px;
+
+                :focus {
+                    outline: none;
+                    border: none;
+                    // border-bottom: 1px solid;
+                }
+            }
+
+            &_input_postcode {
+                padding: 10px;
+                border: 1px solid #ededed;
+                border-radius: 5px;
+                margin-right: 5px;
+
+                :focus {
+                    outline: none;
+                    border: none;
+                    // border-bottom: 1px solid;
+                }
+            }
+
+            &_input_search {
+                padding: 10px;
+                border: 1px solid #ededed;
+                border-radius: 5px;
+                margin-right: 5px;
+
+
+                :focus {
+                    outline: none;
+                    border: none;
+                    // border-bottom: 1px solid;
+                }
+            }
+
+            &_input_basic_address {
+                padding: 10px;
+                border: 1px solid #ededed;
+                border-radius: 5px;
+                margin-right: 5px;
+
+                :focus {
+                    outline: none;
+                    border: none;
+                    // border-bottom: 1px solid;
+                }
+            }
+
+            &_input_gender {
                 padding: 10px;
                 border: 1px solid #ededed;
                 border-radius: 5px;
