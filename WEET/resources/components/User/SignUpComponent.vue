@@ -155,34 +155,36 @@
                             <!-- <div class="regist_user_info_box_input_gender"> -->
                             <div class="regist_user_info_box_input">
                                 <div class="regist_user_info_box_gender">
-                                    <div>
-                                        <input v-model="frmUserData.userGender" type="radio" id="male" name="user_gender">
-                                        <!-- <label for="male">남</label> -->
+                                    <div class="regist_user_info_box_gender_choose">
+                                        <div>
+                                            <input v-model="frmUserData.userGender" type="radio" id="male" name="user_gender" value="남자">
+                                            <!-- <label for="male">남</label> -->
+                                        </div>
+                                        <div>
+                                            <span>남</span>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <span>남</span>
-                                    </div>
-                                    <div>
-                                        <input v-model="frmUserData.userGender" type="radio" id="female" name="user_gender">
-                                        <!-- <label for="female">여</label> -->
-                                    </div>
-                                    <div>
-                                        <span>여</span>
+                                    <div class="regist_user_info_box_gender_choose">
+                                        <div>
+                                            <input v-model="frmUserData.userGender" type="radio" id="female" name="user_gender" value="여자">
+                                            <!-- <label for="female">여</label> -->
+                                        </div>
+                                        <div>
+                                            <span>여</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="regist_user_info_box_input_gender">
-                            <!-- <div class="regist_user_info_box_input"> -->
+                            <!-- <div class="regist_user_info_box_input_gender">
                                 <div class="regist_user_info_box_gender">
                                     <div>
                                         <input v-model="frmUserData.userGender" type="radio" id="female" name="user_gender">
-                                        <!-- <label for="female">여</label> -->
                                     </div>
                                     <div>
                                         <span>여</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="regist_user_info_box_content">
                             <div class="regist_user_info_box_label">
@@ -251,12 +253,21 @@ export default {
             let frm = new FormData();
             this.frmUserData.UserTermsofUse = this.frmUserData.UserTermsofUse ? 1 : 0;
 
+            let genderValue = '';
+
+            if(this.frmUserData.userGender === '남자') {
+                genderValue = 'M';
+            } else if(this.frmUserData.userGender === '여자') {
+                genderValue = 'F';
+            }
+
             frm.append('user_email', this.frmUserData.userEmail);
             frm.append('user_password', this.frmUserData.userPassword);
             frm.append('user_password_chk', this.frmUserData.userPasswordChk);
             frm.append('user_name', this.frmUserData.userName);
             frm.append('user_tel', this.frmUserData.userTel);
-            frm.append('user_gender', this.frmUserData.userGender);
+            // frm.append('user_gender', this.frmUserData.userGender);
+            frm.append('user_gender', genderValue);
             frm.append('user_birthdate', this.frmUserData.userBirthDate);
             frm.append('user_detail_address', this.frmUserAddressData.userDetailAddress);
             frm.append('user_basic_address', this.frmUserAddressData.userBasicAddress);

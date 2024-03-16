@@ -170,6 +170,10 @@
                 margin-right: 5px;
                 width: 400px;
 
+                input {
+                    width: 100%;
+                }
+
                 :focus {
                     outline: none;
                     border: none;
@@ -233,9 +237,12 @@
             &_gender {
                 display: flex;
                 align-items: center;
+                justify-content: space-evenly;
+
+                &_choose {
+                    display: flex;
+                }
             }
         }
-
-        
     }
 }

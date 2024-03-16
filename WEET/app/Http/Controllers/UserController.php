@@ -21,7 +21,7 @@ class UserController extends Controller
         Log::debug("유저데이터");
 
         // 비밀번호 암호화
-        // $data['user_password'] = Hash::make($data['user_password']);
+        $data['user_password'] = Hash::make($data['user_password']);
 
         // 유저 데이터 db에 입력
         $result = User::create($data);

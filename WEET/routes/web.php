@@ -68,4 +68,14 @@ Route::middleware(['adminValidation'])->group(function () {
 
 // User
 // UserSignUp
-Route::post('/signup', [UserController::class, 'store']);
+// Route::middleware(['UserValidation'])->post('/signup', [UserController::class, 'store']);
+// Route::middleware(['UserValidation'])->group(function() {
+//     Route::get('/', function () {
+//         return view('welcome');
+//     });
+//     Route::post('/signup', [UserController::class, 'store']);
+// });
+
+Route::middleware(['userValidation'])->group(function() {
+    Route::post('/signup', [UserController::class, 'store']);
+});
