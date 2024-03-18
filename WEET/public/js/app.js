@@ -21061,21 +21061,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/parseISO.mjs");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/format.mjs");
+/* harmony import */ var date_fns_locale__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns/locale */ "./node_modules/date-fns/locale/ko.mjs");
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ReservationComponent',
   data: function data() {
     return {
+      // api받아온거
+      departureAt1: '2021-11-01T11:35:00',
+      arrivalAt1: '2021-11-02T15:35:00',
+      departureAt2: '2021-11-21T12:35:00',
+      arrivalAt2: '2021-11-21T17:35:00',
+      departureAirplane: '진에어 LI233 보잉 777-200',
+      arrivalAirplane: '진에어 LI232 보잉 777-200',
+      // 가는편 = 1
+      departureAirport1: 'INC 서울 인천국제공항 T2',
+      departureDate1: '',
+      departureTime1: '',
+      arrivalAirport1: 'KIX 오사카 간사이공항 T1',
+      arrivalDate1: '',
+      arrivalTime1: '',
+      // 오는편 = 2
+      departureAirport2: 'KIX 오사카 간사이공항 T1',
+      departureDate2: '',
+      departureTime2: '',
+      arrivalAirport2: 'INC 서울 인천국제공항 T2',
+      arrivalDate2: '',
+      arrivalTime2: '',
+      // 연락처
       fullName: '',
       email: '',
       phone: '',
+      // 연락처 플레이스홀더용
       contactNamePlaceholder: '',
       contactEmailPlaceholder: '',
       contactNumPlaceholder: '',
-      ticketPrice: '230043',
-      refundPrice100: '',
-      refundPrice80: '',
+      // 가격
+      ticketPrice: '1',
       insurancePrice: 0,
       totalPrice: 0,
+      // 여행기간
       day: 4,
       refund: "0",
       refundPrice: 0,
@@ -21105,11 +21133,18 @@ __webpack_require__.r(__webpack_exports__);
       emailValMsg: ["", "이메일 필수 입력 사항 입니다.", "이메일의 형식이 유효하지 않습니다."],
       emailValFlg: "0",
       phoneValMsg: ["", "연락처는 필수 입력 사항 입니다", "-를 제외한 11자리를 입력해 주세요", "연락처의 형식이 유효하지 않습니다."],
-      phoneValFlg: "0"
+      phoneValFlg: "0",
+      progressWidth: ["w-1/4", "w-3/4", "w-full", "w-3/4"]
     };
   },
   created: function created() {
-    this.sumTotalPrice(), this.addInsurancePrice();
+    // 결제api 스크립트 불러오기
+    this.sumTotalPrice();
+    this.addInsurancePrice();
+    IMP.init('imp68563753');
+  },
+  mounted: function mounted() {
+    this.formatDateTime();
   },
   watch: {
     refund: function refund() {
@@ -21375,6 +21410,95 @@ __webpack_require__.r(__webpack_exports__);
         _this.passPortNumValFlg = "0";
         _this.passPortDateValFlg = "0";
       }, 50);
+    },
+    // 결제완료후 메인으로
+    clickMain: function clickMain(i) {
+      // 예약 첫페이지로 0
+      if (i === 0) {
+        this.pageflg = "0";
+      }
+      // 메인으로 1
+      if (i === 1) {
+        // 쿠키클리어 한뒤 라우터 푸쉬
+        this.$router.push('/');
+      }
+    },
+    // 결제기능
+    requestPay: function requestPay() {
+      var _this2 = this;
+      IMP.request_pay({
+        // param
+        pg: "kakaopay",
+        pay_method: "card",
+        name: "weet 항공권",
+        amount: this.totalPrice,
+        buyer_email: this.email,
+        buyer_name: this.fullName,
+        buyer_tel: this.phone
+      }, function (res) {
+        // callback
+        if (res.success) {
+          _this2.addReservation();
+          _this2.pageflg = "2";
+        } else {
+          _this2.pageflg = "3";
+        }
+      });
+    },
+    // 예약테이블 저장
+    addReservation: function addReservation() {
+      var URL = '/reservation';
+      var formData = new FormData();
+      formData.append('reservation_flight_number1', this.departureAirplane);
+      formData.append('reservation_departure_airport1', this.departureAirport1);
+      formData.append('reservation_departure_time1', this.departureAt1);
+      formData.append('reservation_arrival_airport1', this.arrivalAirport1);
+      formData.append('reservation_arrival_time1', this.arrivalAt1);
+      if (this.arrivalAirplane !== '') {
+        formData.append('reservation_flight_number2', this.arrivalAirplane);
+        formData.append('reservation_departure_airport2', this.departureAirport2);
+        formData.append('reservation_departure_time2', this.departureAt2);
+        formData.append('reservation_arrival_airport2', this.arrivalAirport2);
+        formData.append('reservation_arrival_time2', this.arrivalAt2);
+      }
+      formData.append('reservation_last_name', this.lastName);
+      formData.append('reservation_first_name', this.firstName);
+      formData.append('reservation_gender', this.gender);
+      formData.append('reservation_birth_date', this.birthDate);
+      formData.append('reservation_country', this.country);
+      formData.append('reservation_id_card', this.idCard);
+      formData.append('reservation_passport_num', this.passPortNum);
+      formData.append('reservation_full_name', this.fullName);
+      formData.append('reservation_email', this.email);
+      formData.append('reservation_phone', this.phone);
+      axios.post(URL, formData).then(function (res) {
+        if (res.data.code === "0") {
+          alert('성공');
+        }
+      })["catch"](function (err) {
+        alert('실패');
+      });
+    },
+    formatDateTime: function formatDateTime() {
+      // 출발일, 도착일, 출발시간, 도착시간 포맷
+      this.formatDateTimeSingle('1', this.departureAt1, this.arrivalAt1);
+      this.formatDateTimeSingle('2', this.departureAt2, this.arrivalAt2);
+    },
+    formatDateTimeSingle: function formatDateTimeSingle(number, departureAt, arrivalAt) {
+      var departureDate = (0,date_fns__WEBPACK_IMPORTED_MODULE_0__.parseISO)(departureAt);
+      var arrivalDate = (0,date_fns__WEBPACK_IMPORTED_MODULE_0__.parseISO)(arrivalAt);
+      // 출발일 포맷
+      this["departureDate".concat(number)] = (0,date_fns__WEBPACK_IMPORTED_MODULE_1__.format)(departureDate, "MM월dd일 (EEEE)", {
+        locale: date_fns_locale__WEBPACK_IMPORTED_MODULE_2__.ko
+      });
+      // 도착일 포맷  
+      this["arrivalDate".concat(number)] = (0,date_fns__WEBPACK_IMPORTED_MODULE_1__.format)(arrivalDate, "MM월dd일 (EEEE)", {
+        locale: date_fns_locale__WEBPACK_IMPORTED_MODULE_2__.ko
+      });
+      // 출발시간 포맷
+      this["departureTime".concat(number)] = (0,date_fns__WEBPACK_IMPORTED_MODULE_1__.format)(departureDate, "HH:mm");
+      // 도착시간 포맷
+      this["arrivalTime".concat(number)] = (0,date_fns__WEBPACK_IMPORTED_MODULE_1__.format)(arrivalDate, "HH:mm");
     }
   }
 });
@@ -22079,38 +22203,83 @@ var _hoisted_4 = {
   "class": "reservation_header_box"
 };
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "결제 준비", -1 /* HOISTED */);
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_6 = {
   "class": "reservation_header_box"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "결제 완료"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "reservation_header_ball_2"
-}, "3")], -1 /* HOISTED */);
-var _hoisted_7 = {
+};
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "결제 완료", -1 /* HOISTED */);
+var _hoisted_8 = {
   "class": "reservation_progress_box"
 };
-var _hoisted_8 = {
+var _hoisted_9 = {
   "class": "h-4 bg-gray-200 rounded reservation_progress_gray"
 };
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"reservation_body\"><div class=\"reservation_title_1\"> ㅁㅁㅁ 여행 </div><div class=\"reservation_to_tiket_title\"><div>가는편</div><div>3월 11일(일)</div><div>소요시간 1시간 45분</div></div><div class=\"reservation_to_tiket_info\"><div class=\"reservation_to_tiket_time text-center\"><div>08:50</div><div>10:35</div></div><div class=\"reservation_to_tiket_time_type\"><div>INC 서울 인천국제공항 T2</div><div>진에어 LI233 보잉 777-200 일반석</div><div>KIX 오사카 간사이공항 T1</div></div></div><div class=\"reservation_to_tiket_title\"><div>오는편</div><div>3월 13일(일)</div><div>소요시간 1시간 45분</div></div><div class=\"reservation_to_tiket_info\"><div class=\"reservation_to_tiket_time text-center\"><div>09:20</div><div>11:05</div></div><div class=\"reservation_to_tiket_time_type\"><div>KIX 오사카 간사이공항 T1</div><div>진에어 LI232 보잉 777-200 일반석</div><div>INC 서울 인천국제공항 T2</div></div></div></div>", 1);
 var _hoisted_10 = {
+  key: 0,
+  "class": "reservation_body"
+};
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "reservation_title_1"
+}, " 항공권 정보 ", -1 /* HOISTED */);
+var _hoisted_12 = {
+  "class": "reservation_to_tiket_title"
+};
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, "가는편", -1 /* HOISTED */);
+var _hoisted_14 = {
+  key: 0
+};
+var _hoisted_15 = {
+  key: 1
+};
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, "소요시간 1시간 45분", -1 /* HOISTED */);
+var _hoisted_17 = {
+  "class": "reservation_to_tiket_info"
+};
+var _hoisted_18 = {
+  "class": "reservation_to_tiket_time text-center"
+};
+var _hoisted_19 = {
+  "class": "reservation_to_tiket_time_type"
+};
+var _hoisted_20 = {
+  "class": "reservation_to_tiket_title"
+};
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, "오는편", -1 /* HOISTED */);
+var _hoisted_22 = {
+  key: 0
+};
+var _hoisted_23 = {
+  key: 1
+};
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, "소요시간 1시간 45분", -1 /* HOISTED */);
+var _hoisted_25 = {
+  "class": "reservation_to_tiket_info"
+};
+var _hoisted_26 = {
+  "class": "reservation_to_tiket_time text-center"
+};
+var _hoisted_27 = {
+  "class": "reservation_to_tiket_time_type"
+};
+var _hoisted_28 = {
   key: 0,
   "class": "reservation_gray_bg"
 };
-var _hoisted_11 = {
+var _hoisted_29 = {
   "class": "reservation_body"
 };
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"reservation_title_2\">나의 항공권</div><div class=\"reservation_baggage_rule_box\"><div class=\"reservation_baggage\"><div class=\"reservation_title_4\">수하물 허용량</div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-duffle reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M8 5.75c1.388 0 2.673.193 3.609.385a18 18 0 0 1 1.43.354l.112.034.002.001h.001a.5.5 0 0 1-.308.952l-.004-.002-.018-.005a17 17 0 0 0-1.417-.354A17.3 17.3 0 0 0 8 6.75a17.3 17.3 0 0 0-3.408.365 17 17 0 0 0-1.416.354l-.018.005-.003.001a.5.5 0 1 1-.308-.95A17.3 17.3 0 0 1 8 5.75\"></path><path d=\"M5.229 2.722c-.126.461-.19.945-.222 1.375-1.401.194-2.65.531-3.525 1.012C-.644 6.278.036 11.204.393 13.127a.954.954 0 0 0 .95.772h13.314a.954.954 0 0 0 .95-.772c.357-1.923 1.037-6.85-1.09-8.018-.873-.48-2.123-.818-3.524-1.012a7.4 7.4 0 0 0-.222-1.375c-.162-.593-.445-1.228-.971-1.622-1.115-.836-2.485-.836-3.6 0-.526.394-.81 1.03-.971 1.622M9.2 1.9c.26.195.466.57.606 1.085.088.322.142.667.173.998a23.3 23.3 0 0 0-3.958 0 6 6 0 0 1 .173-.998c.14-.515.346-.89.606-1.085.76-.57 1.64-.57 2.4 0M8 4.9c2.475 0 4.793.402 6.036 1.085.238.13.472.406.655.93.183.522.28 1.195.303 1.952.047 1.486-.189 3.088-.362 4.032H1.368c-.173-.944-.409-2.545-.362-4.032.024-.757.12-1.43.303-1.952.183-.524.417-.8.655-.93C3.207 5.302 5.525 4.9 8 4.9\"></path></svg> 휴대수화물 : <span class=\"font-bold\">1 X 10kg</span></span></div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-suitcase reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M6 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 6 5m2 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m2 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 10 5\"></path><path d=\"M6.5 0a.5.5 0 0 0-.5.5V3H5a2 2 0 0 0-2 2v8a2 2 0 0 0 1.031 1.75A1.003 1.003 0 0 0 5 16a1 1 0 0 0 1-1h4a1 1 0 1 0 1.969-.25A2 2 0 0 0 13 13V5a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-.5-.5zM9 3H7V1h2zm3 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z\"></path></svg> 위탁수화물 : <span class=\"font-bold\">1 X 15kg</span></span></div></div><div class=\"reservation_rule\"><div class=\"reservation_title_4\">규정</div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-ban reservation_icon_gray\" viewBox=\"0 0 16 16\"><path d=\"M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0\"></path></svg> 일부 환불 불가 </span></div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-coin reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z\"></path><path d=\"M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16\"></path><path d=\"M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12\"></path></svg> 변경 수수료 최저가 : 38500원 </span></div></div></div><div class=\"reservation_title_2\">여행자 정보</div>", 3);
-var _hoisted_15 = {
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"reservation_title_2\">나의 항공권</div><div class=\"reservation_baggage_rule_box\"><div class=\"reservation_baggage\"><div class=\"reservation_title_4\">수하물 허용량</div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-duffle reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M8 5.75c1.388 0 2.673.193 3.609.385a18 18 0 0 1 1.43.354l.112.034.002.001h.001a.5.5 0 0 1-.308.952l-.004-.002-.018-.005a17 17 0 0 0-1.417-.354A17.3 17.3 0 0 0 8 6.75a17.3 17.3 0 0 0-3.408.365 17 17 0 0 0-1.416.354l-.018.005-.003.001a.5.5 0 1 1-.308-.95A17.3 17.3 0 0 1 8 5.75\"></path><path d=\"M5.229 2.722c-.126.461-.19.945-.222 1.375-1.401.194-2.65.531-3.525 1.012C-.644 6.278.036 11.204.393 13.127a.954.954 0 0 0 .95.772h13.314a.954.954 0 0 0 .95-.772c.357-1.923 1.037-6.85-1.09-8.018-.873-.48-2.123-.818-3.524-1.012a7.4 7.4 0 0 0-.222-1.375c-.162-.593-.445-1.228-.971-1.622-1.115-.836-2.485-.836-3.6 0-.526.394-.81 1.03-.971 1.622M9.2 1.9c.26.195.466.57.606 1.085.088.322.142.667.173.998a23.3 23.3 0 0 0-3.958 0 6 6 0 0 1 .173-.998c.14-.515.346-.89.606-1.085.76-.57 1.64-.57 2.4 0M8 4.9c2.475 0 4.793.402 6.036 1.085.238.13.472.406.655.93.183.522.28 1.195.303 1.952.047 1.486-.189 3.088-.362 4.032H1.368c-.173-.944-.409-2.545-.362-4.032.024-.757.12-1.43.303-1.952.183-.524.417-.8.655-.93C3.207 5.302 5.525 4.9 8 4.9\"></path></svg> 휴대수화물 : <span class=\"font-bold\">1 X 10kg</span></span></div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-suitcase reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M6 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 6 5m2 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m2 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 10 5\"></path><path d=\"M6.5 0a.5.5 0 0 0-.5.5V3H5a2 2 0 0 0-2 2v8a2 2 0 0 0 1.031 1.75A1.003 1.003 0 0 0 5 16a1 1 0 0 0 1-1h4a1 1 0 1 0 1.969-.25A2 2 0 0 0 13 13V5a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-.5-.5zM9 3H7V1h2zm3 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z\"></path></svg> 위탁수화물 : <span class=\"font-bold\">1 X 15kg</span></span></div></div><div class=\"reservation_rule\"><div class=\"reservation_title_4\">규정</div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-ban reservation_icon_gray\" viewBox=\"0 0 16 16\"><path d=\"M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0\"></path></svg> 일부 환불 불가 </span></div><div><span class=\"reservation_icon_flex pr-3\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-coin reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z\"></path><path d=\"M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16\"></path><path d=\"M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12\"></path></svg> 변경 수수료 최저가 : 38500원 </span></div></div></div><div class=\"reservation_title_2\">여행자 정보</div>", 3);
+var _hoisted_33 = {
   "class": "reservation_passenger_box"
 };
-var _hoisted_16 = {
+var _hoisted_34 = {
   "class": "reservation_spacebetween"
 };
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "reservation_icon_flex"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "reservation_title_4"
 }, "탑승객 1"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, "(성인한공권)")], -1 /* HOISTED */);
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   width: "16",
   height: "16",
@@ -22120,78 +22289,78 @@ var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   d: "M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
 })], -1 /* HOISTED */);
-var _hoisted_19 = {
+var _hoisted_37 = {
   "class": "reservation_grid"
 };
-var _hoisted_20 = {
+var _hoisted_38 = {
   "class": "grid gap-4 mb-4 md:grid-cols-2"
 };
-var _hoisted_21 = {
+var _hoisted_39 = {
   key: 0,
   "class": "text-red-600 text-xs font-bold"
 };
-var _hoisted_22 = {
+var _hoisted_40 = {
   key: 1,
   "class": "text-red-600 text-xs font-bold"
 };
-var _hoisted_23 = {
+var _hoisted_41 = {
   "class": "grid gap-4 mb-4 md:grid-cols-3"
 };
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "M"
 }, "남자(male)", -1 /* HOISTED */);
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "F"
 }, "여자(female)", -1 /* HOISTED */);
-var _hoisted_26 = [_hoisted_24, _hoisted_25];
-var _hoisted_27 = {
+var _hoisted_44 = [_hoisted_42, _hoisted_43];
+var _hoisted_45 = {
   "class": "reservation_input"
 };
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("legend", null, "국적", -1 /* HOISTED */);
-var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_46 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("legend", null, "국적", -1 /* HOISTED */);
+var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: ""
 }, "대한민국", -1 /* HOISTED */);
-var _hoisted_30 = [_hoisted_29];
-var _hoisted_31 = {
+var _hoisted_48 = [_hoisted_47];
+var _hoisted_49 = {
   key: 0,
   "class": "text-red-600 text-xs font-bold col-span-3"
 };
-var _hoisted_32 = {
+var _hoisted_50 = {
   "class": "grid gap-4 mb-4 md:grid-cols-3"
 };
-var _hoisted_33 = {
+var _hoisted_51 = {
   "class": "reservation_input"
 };
-var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("legend", null, "신분증 종류", -1 /* HOISTED */);
-var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_52 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("legend", null, "신분증 종류", -1 /* HOISTED */);
+var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: ""
 }, "여권", -1 /* HOISTED */);
-var _hoisted_36 = [_hoisted_35];
-var _hoisted_37 = {
+var _hoisted_54 = [_hoisted_53];
+var _hoisted_55 = {
   key: 0,
   "class": "text-red-600 text-xs font-bold"
 };
-var _hoisted_38 = {
+var _hoisted_56 = {
   key: 1,
   "class": "text-red-600 text-xs font-bold"
 };
-var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_57 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "reservation_notification_box text-sm"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "*"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 이름을 포함하여 탑승객의 모든 정보는 신분증 정보와 일치해야합니다.신분증 상의 정보와 다른경우 "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "탑승이 불가"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 하여, 예약 확정 후에는 "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "탑승객 정보의 변경이 불가"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("합니다. ")], -1 /* HOISTED */);
-var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_58 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "reservation_title_3"
 }, "이유불문! 환불보장", -1 /* HOISTED */);
-var _hoisted_41 = {
+var _hoisted_59 = {
   "class": "reservation_refund_box"
 };
-var _hoisted_42 = {
+var _hoisted_60 = {
   "class": "reservation_refund_area relative"
 };
-var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "예약 항공권 금액 100% 보상!", -1 /* HOISTED */);
-var _hoisted_44 = {
+var _hoisted_61 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "예약 항공권 금액 100% 보상!", -1 /* HOISTED */);
+var _hoisted_62 = {
   "class": "reservation_icon_flex"
 };
-var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_63 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   width: "16",
   height: "16",
@@ -22201,27 +22370,27 @@ var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   d: "M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"
 })], -1 /* HOISTED */);
-var _hoisted_46 = {
+var _hoisted_64 = {
   "class": "reservation_icon_blue"
 };
-var _hoisted_47 = {
+var _hoisted_65 = {
   "class": "pr-3"
 };
-var _hoisted_48 = {
+var _hoisted_66 = {
   "class": "reservation_icon_deepblue"
 };
-var _hoisted_49 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_67 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "reservation_refund_100",
   "class": "reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"
 }, null, -1 /* HOISTED */);
-var _hoisted_50 = {
+var _hoisted_68 = {
   "class": "reservation_refund_area relative"
 };
-var _hoisted_51 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "예약 항공권 금액 80% 보상!", -1 /* HOISTED */);
-var _hoisted_52 = {
+var _hoisted_69 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "예약 항공권 금액 80% 보상!", -1 /* HOISTED */);
+var _hoisted_70 = {
   "class": "reservation_icon_flex"
 };
-var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_71 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   width: "16",
   height: "16",
@@ -22231,23 +22400,23 @@ var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   d: "M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"
 })], -1 /* HOISTED */);
-var _hoisted_54 = {
+var _hoisted_72 = {
   "class": "reservation_icon_blue"
 };
-var _hoisted_55 = {
+var _hoisted_73 = {
   "class": "pr-3"
 };
-var _hoisted_56 = {
+var _hoisted_74 = {
   "class": "reservation_icon_deepblue"
 };
-var _hoisted_57 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_75 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "reservation_refund_80",
   "class": "reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"
 }, null, -1 /* HOISTED */);
-var _hoisted_58 = {
+var _hoisted_76 = {
   "class": "reservation_refund_area relative"
 };
-var _hoisted_59 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "보상없음"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_77 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "보상없음"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "reservation_icon_flex text-gray-400"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
@@ -22259,130 +22428,130 @@ var _hoisted_59 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   d: "M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
 })]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 취소 시,환불이 불가합니다 ")])], -1 /* HOISTED */);
-var _hoisted_60 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_78 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "reservation_refund_0",
   "class": "reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"
 }, null, -1 /* HOISTED */);
-var _hoisted_61 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_79 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "reservation_title_3"
 }, "안전한 여행을 위한 해외 보험 서비스", -1 /* HOISTED */);
-var _hoisted_62 = {
+var _hoisted_80 = {
   "class": "reservation_refund_box"
 };
-var _hoisted_63 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<span class=\"reservation_title_4\">해외여행 보험서비스</span><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> COVID 보장 </div><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> 여행중 상해 의료비 5000만원 실손보상 </div><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> 여행중 휴대품 손해 30만원 보장 </div><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> 해외여행 중단 보상 30만원 보장 </div><div class=\"cursor-pointer reservation_icon_deepblue text-sm mb-3\"> 보장내역 자세히 보기 》 </div><hr><div class=\"text-sm\"><span>기간 및 보장범위: 2024년03월10일 00:00</span> ㅡ <span>2024년03월13일 00:00</span></div>", 8);
-var _hoisted_71 = {
+var _hoisted_81 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<span class=\"reservation_title_4\">해외여행 보험서비스</span><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> COVID 보장 </div><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> 여행중 상해 의료비 5000만원 실손보상 </div><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> 여행중 휴대품 손해 30만원 보장 </div><div class=\"reservation_icon_flex text-xs\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check reservation_icon_blue\" viewBox=\"0 0 16 16\"><path d=\"M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z\"></path></svg> 해외여행 중단 보상 30만원 보장 </div><div class=\"cursor-pointer reservation_icon_deepblue text-sm mb-3\"> 보장내역 자세히 보기 》 </div><hr><div class=\"text-sm\"><span>기간 및 보장범위: 2024년03월10일 00:00</span> ㅡ <span>2024년03월13일 00:00</span></div>", 8);
+var _hoisted_89 = {
   "class": "text-sm mb-2"
 };
-var _hoisted_72 = {
+var _hoisted_90 = {
   "class": "reservation_icon_deepblue font-black"
 };
-var _hoisted_73 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_91 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "text-sm font-black"
 }, " 안전한 여행을 위한 필수품, 해외여행보험! 미리준비하면 든든합니다. ", -1 /* HOISTED */);
-var _hoisted_74 = {
+var _hoisted_92 = {
   "class": "reservation_insurance_area relative"
 };
-var _hoisted_75 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_93 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "reservation_insurance_yes",
   "class": "reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"
 }, null, -1 /* HOISTED */);
-var _hoisted_76 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, " 네, 해외여행보험서비스를 구매하겠습니다.", -1 /* HOISTED */);
-var _hoisted_77 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div><div class=\"reservation_insurance_small_msg text-xs\"><span class=\"reservation_icon_deepblue\">해외여행보험 이용약관</span> 및 <span class=\"reservation_icon_deepblue\">보험가입 시 유의사항</span>에 동의합니다. </div><div class=\"reservation_insurance_small_msg text-xs\">해외여행보험 불가능(보상불가) 지역 안내</div><div class=\"reservation_insurance_small_msg text-xs\">단체여행보험 연말정산 소득공제 제외 안내</div><div class=\"reservation_insurance_small_msg text-xs\">실손 담보 비례보상 안내</div><div class=\"reservation_insurance_small_msg text-xs\">휴대폰 손해 보상 안내</div><div class=\"reservation_insurance_small_msg text-xs\">항공기 및 수하물 지연보상 안내</div></div>", 1);
-var _hoisted_78 = {
+var _hoisted_94 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, " 네, 해외여행보험서비스를 구매하겠습니다.", -1 /* HOISTED */);
+var _hoisted_95 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div><div class=\"reservation_insurance_small_msg text-xs\"><span class=\"reservation_icon_deepblue\">해외여행보험 이용약관</span> 및 <span class=\"reservation_icon_deepblue\">보험가입 시 유의사항</span>에 동의합니다. </div><div class=\"reservation_insurance_small_msg text-xs\">해외여행보험 불가능(보상불가) 지역 안내</div><div class=\"reservation_insurance_small_msg text-xs\">단체여행보험 연말정산 소득공제 제외 안내</div><div class=\"reservation_insurance_small_msg text-xs\">실손 담보 비례보상 안내</div><div class=\"reservation_insurance_small_msg text-xs\">휴대폰 손해 보상 안내</div><div class=\"reservation_insurance_small_msg text-xs\">항공기 및 수하물 지연보상 안내</div></div>", 1);
+var _hoisted_96 = {
   "class": "reservation_insurance_area relative"
 };
-var _hoisted_79 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_97 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "reservation_insurance_no",
   "class": "reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"
 }, null, -1 /* HOISTED */);
-var _hoisted_80 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, " 아니오, 해외여행보험서비스를 구매하지 않겠습니다.", -1 /* HOISTED */);
-var _hoisted_81 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_98 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, " 아니오, 해외여행보험서비스를 구매하지 않겠습니다.", -1 /* HOISTED */);
+var _hoisted_99 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "reservation_title_3"
 }, "연락처 정보", -1 /* HOISTED */);
-var _hoisted_82 = {
+var _hoisted_100 = {
   "class": "reservation_contact_info_box"
 };
-var _hoisted_83 = {
+var _hoisted_101 = {
   "class": "reservation_custom_box grid gap-4 md:grid-cols-3"
 };
-var _hoisted_84 = ["placeholder"];
-var _hoisted_85 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, "이름", -1 /* HOISTED */);
-var _hoisted_86 = ["placeholder"];
-var _hoisted_87 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, "이메일", -1 /* HOISTED */);
-var _hoisted_88 = ["placeholder"];
-var _hoisted_89 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, "휴대폰번호", -1 /* HOISTED */);
-var _hoisted_90 = {
+var _hoisted_102 = ["placeholder"];
+var _hoisted_103 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, "이름", -1 /* HOISTED */);
+var _hoisted_104 = ["placeholder"];
+var _hoisted_105 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, "이메일", -1 /* HOISTED */);
+var _hoisted_106 = ["placeholder"];
+var _hoisted_107 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, "휴대폰번호", -1 /* HOISTED */);
+var _hoisted_108 = {
   key: 0,
   "class": "text-red-600 text-xs font-bold"
 };
-var _hoisted_91 = {
+var _hoisted_109 = {
   key: 1,
   "class": "text-red-600 text-xs font-bold"
 };
-var _hoisted_92 = {
+var _hoisted_110 = {
   key: 2,
   "class": "text-red-600 text-xs font-bold"
 };
-var _hoisted_93 = {
+var _hoisted_111 = {
   "class": "reservation_next_btn_box"
 };
-var _hoisted_94 = {
+var _hoisted_112 = {
   "class": "reservation_next_btn_price"
 };
-var _hoisted_95 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_113 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "reservation_title_4"
 }, "총금액", -1 /* HOISTED */);
-var _hoisted_96 = {
+var _hoisted_114 = {
   "class": "text-2xl font-bold reservation_icon_deepblue"
 };
-var _hoisted_97 = {
+var _hoisted_115 = {
   key: 1,
   "class": "reservation_body"
 };
-var _hoisted_98 = {
+var _hoisted_116 = {
   "class": "reservation_spacebetween mb-10"
 };
-var _hoisted_99 = {
+var _hoisted_117 = {
   "class": "reservation_switch"
 };
-var _hoisted_100 = ["checked"];
-var _hoisted_101 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_118 = ["checked"];
+var _hoisted_119 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "s1",
   "class": "pl-2"
 }, "100%환불", -1 /* HOISTED */);
-var _hoisted_102 = {
+var _hoisted_120 = {
   "class": "reservation_switch"
 };
-var _hoisted_103 = ["checked"];
-var _hoisted_104 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_121 = ["checked"];
+var _hoisted_122 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "s1",
   "class": "pl-2"
 }, "80%환불", -1 /* HOISTED */);
-var _hoisted_105 = {
+var _hoisted_123 = {
   "class": "reservation_switch"
 };
-var _hoisted_106 = ["checked"];
-var _hoisted_107 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_124 = ["checked"];
+var _hoisted_125 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "s1",
   "class": "pl-2"
 }, "여행자보험", -1 /* HOISTED */);
-var _hoisted_108 = {
+var _hoisted_126 = {
   "class": "max-w-sm rounded overflow-hidden shadow-2xl mx-auto mb-5"
 };
-var _hoisted_109 = {
+var _hoisted_127 = {
   "class": "px-6 py-4"
 };
-var _hoisted_110 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_128 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "font-bold text-2xl mb-4"
 }, "요금 상세정보", -1 /* HOISTED */);
-var _hoisted_111 = {
+var _hoisted_129 = {
   "class": "font-bold text-sm mb-2 reservation_spacebetween"
 };
-var _hoisted_112 = {
+var _hoisted_130 = {
   "class": "reservation_icon_flex"
 };
-var _hoisted_113 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, " 항공권 (성인1명) ", -1 /* HOISTED */);
-var _hoisted_114 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_131 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, " 항공권 (성인1명) ", -1 /* HOISTED */);
+var _hoisted_132 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   "class": "w-4 h-4 ms-2 text-gray-400 hover:text-gray-500",
   "aria-hidden": "true",
   fill: "currentColor",
@@ -22393,87 +22562,133 @@ var _hoisted_114 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElemen
   d: "M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z",
   "clip-rule": "evenodd"
 })], -1 /* HOISTED */);
-var _hoisted_115 = {
+var _hoisted_133 = {
   key: 0,
   "class": "reservation_popover"
 };
-var _hoisted_116 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "font-bold text-2xl mb-2"
+var _hoisted_134 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "font-bold text-xl mb-2"
 }, "탑승자명", -1 /* HOISTED */);
-var _hoisted_117 = {
+var _hoisted_135 = {
   "class": "text-sm mb-4"
 };
-var _hoisted_118 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "font-bold text-2xl mb-2"
+var _hoisted_136 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "font-bold text-xl mb-2"
 }, "연락받을메일", -1 /* HOISTED */);
-var _hoisted_119 = {
+var _hoisted_137 = {
   "class": "text-sm mb-4"
 };
-var _hoisted_120 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "font-bold text-2xl mb-4"
+var _hoisted_138 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "font-bold text-xl mb-2"
 }, "여권번호", -1 /* HOISTED */);
-var _hoisted_121 = {
-  "class": "text-sm mb-2"
+var _hoisted_139 = {
+  "class": "text-sm mb-4"
 };
-var _hoisted_122 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"text-sm mb-4\">탑승객</div><div class=\"font-bold text-sm mb-2\">수하물</div><div class=\"text-sm mb-1 reservation_spacebetween\"><div>개인 소지품</div><div class=\"reservation_icon_blue\">무료</div></div><div class=\"text-sm mb-1 reservation_spacebetween\"><div>휴대 수하물</div><div class=\"reservation_icon_blue\">무료</div></div><div class=\"text-sm mb-3 reservation_spacebetween\"><div>위탁 수하물</div><div class=\"reservation_icon_blue\">무료</div></div>", 5);
-var _hoisted_127 = {
+var _hoisted_140 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "font-bold text-xs mb-2 text-red-500"
+}, "※ 결제 후 수정이 불가능 합니다.", -1 /* HOISTED */);
+var _hoisted_141 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"text-sm mb-4\">탑승객</div><div class=\"font-bold text-sm mb-2\">수하물</div><div class=\"text-sm mb-1 reservation_spacebetween\"><div>개인 소지품</div><div class=\"reservation_icon_blue\">무료</div></div><div class=\"text-sm mb-1 reservation_spacebetween\"><div>휴대 수하물</div><div class=\"reservation_icon_blue\">무료</div></div><div class=\"text-sm mb-3 reservation_spacebetween\"><div>위탁 수하물</div><div class=\"reservation_icon_blue\">무료</div></div>", 5);
+var _hoisted_146 = {
   key: 0,
   "class": "mb-3"
 };
-var _hoisted_128 = {
+var _hoisted_147 = {
   key: 1,
   "class": "text-sm mb-2 reservation_spacebetween"
 };
-var _hoisted_129 = {
+var _hoisted_148 = {
   key: 0
 };
-var _hoisted_130 = {
+var _hoisted_149 = {
   key: 1
 };
-var _hoisted_131 = {
+var _hoisted_150 = {
   key: 2,
   "class": "reservation_icon_blue"
 };
-var _hoisted_132 = {
+var _hoisted_151 = {
   key: 3,
   "class": "reservation_icon_blue"
 };
-var _hoisted_133 = {
+var _hoisted_152 = {
   key: 2,
   "class": "text-sm mb-2 reservation_spacebetween"
 };
-var _hoisted_134 = {
+var _hoisted_153 = {
   key: 0
 };
-var _hoisted_135 = {
+var _hoisted_154 = {
   key: 1,
   "class": "reservation_icon_blue"
 };
-var _hoisted_136 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1 /* HOISTED */);
-var _hoisted_137 = {
+var _hoisted_155 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1 /* HOISTED */);
+var _hoisted_156 = {
   "class": "font-bold text-xl mt-3 reservation_spacebetween"
 };
-var _hoisted_138 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, "총결제금액", -1 /* HOISTED */);
-var _hoisted_139 = {
+var _hoisted_157 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, "총결제금액", -1 /* HOISTED */);
+var _hoisted_158 = {
   "class": "reservation_icon_deepblue"
 };
-var _hoisted_140 = {
+var _hoisted_159 = {
   "class": "grid gap-4 mb-4 md:grid-cols-2"
 };
-var _hoisted_141 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "reservation_next_btn w-full text-center font-bold cursor-pointer w-full"
-}, "결제", -1 /* HOISTED */);
+var _hoisted_160 = {
+  key: 2,
+  "class": "reservation_body reservation_complete text-center"
+};
+var _hoisted_161 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  "class": "w-[60px] h-[60px] text-gray-800 dark:text-white reservation_complete_icon",
+  "aria-hidden": "true",
+  xmlns: "http://www.w3.org/2000/svg",
+  width: "60",
+  height: "60",
+  fill: "none",
+  viewBox: "0 0 24 24"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  stroke: "currentColor",
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  "stroke-width": "2",
+  d: "M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+})], -1 /* HOISTED */);
+var _hoisted_162 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "reservation_complete_msg"
+}, " 결제가 완료되었습니다. ", -1 /* HOISTED */);
+var _hoisted_163 = {
+  key: 3,
+  "class": "reservation_body reservation_complete text-center"
+};
+var _hoisted_164 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  "class": "w-[60px] h-[60px] text-gray-800 dark:text-white reservation_cancel_icon",
+  "aria-hidden": "true",
+  xmlns: "http://www.w3.org/2000/svg",
+  width: "60",
+  height: "60",
+  fill: "none",
+  viewBox: "0 0 24 24"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  stroke: "currentColor",
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  "stroke-width": "2",
+  d: "m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+})], -1 /* HOISTED */);
+var _hoisted_165 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "reservation_complete_msg"
+}, " 결제가 취소되었습니다. ", -1 /* HOISTED */);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 최상단 1,2,3 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($data.pageflg === '0' ? 'reservation_header_ball_2' : 'reservation_header_ball_1')
-  }, "2", 2 /* CLASS */)]), _hoisted_6]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 0314 한줄로 변경 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"h-full rounded reservation_progress_blue w-1/4\"  v-if=\"this.pageflg==='0'\"></div>\r\n                <div class=\"h-full rounded reservation_progress_blue w-3/4\" v-if=\"this.pageflg==='1'\"></div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["h-full rounded reservation_progress_blue", $data.pageflg === '0' ? 'w-1/4' : 'w-3/4'])
-  }, null, 2 /* CLASS */)])]), _hoisted_9]), $data.pageflg === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, "2", 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($data.pageflg === '2' ? 'reservation_header_ball_1' : 'reservation_header_ball_2')
+  }, "3", 2 /* CLASS */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 123 뒤 프로그레스 바 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 0314 한줄로 변경 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"h-full rounded reservation_progress_blue w-1/4\"  v-if=\"this.pageflg==='0'\"></div>\r\n                <div class=\"h-full rounded reservation_progress_blue w-3/4\" v-if=\"this.pageflg==='1'\"></div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 0318 데이터에 값불러오는 형태로 변형 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"h-full rounded reservation_progress_blue\" :class=\" pageflg==='0' ? 'w-1/4' : 'w-3/4'\"></div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["h-full rounded reservation_progress_blue", $data.progressWidth[$data.pageflg]])
+  }, null, 2 /* CLASS */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 예약내역 "), $data.pageflg !== '2' && $data.pageflg !== '3' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, $data.departureDate1 === $data.arrivalDate1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.arrivalDate1), 1 /* TEXT */)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.departureDate1) + "~" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.arrivalDate1), 1 /* TEXT */)), _hoisted_16]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.departureTime1), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.arrivalTime1), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.departureAirport1), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.departureAirplane), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.arrivalAirport1), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, $data.departureDate2 === $data.arrivalDate2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.arrivalDate2), 1 /* TEXT */)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.departureDate2) + "~" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.arrivalDate2), 1 /* TEXT */)), _hoisted_24]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.departureTime2), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.arrivalTime2), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.departureAirport2), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.arrivalAirplane), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.arrivalAirport2), 1 /* TEXT */)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 첫페이지 "), $data.pageflg === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [_hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [_hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "reservation_input_reset_btn",
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.clearForm && $options.clearForm.apply($options, arguments);
     })
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 초기화 "), _hoisted_18])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 초기화 "), _hoisted_36])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["reservation_input", $data.lastNameValFlg !== '9' && $data.lastNameValFlg !== '0' ? 'reservation_fail' : '']),
     placeholder: "성(영문)",
@@ -22493,32 +22708,32 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onInput: _cache[4] || (_cache[4] = function () {
       return $options.koreaFirstName && $options.koreaFirstName.apply($options, arguments);
     })
-  }, null, 34 /* CLASS, NEED_HYDRATION */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.firstName]]), $data.lastNameValFlg !== '0' && $data.lastNameValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.lastNameValMsg[$data.lastNameValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.firstNameValFlg !== '0' && $data.firstNameValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.firstNameValMsg[$data.firstNameValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  }, null, 34 /* CLASS, NEED_HYDRATION */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.firstName]]), $data.lastNameValFlg !== '0' && $data.lastNameValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_39, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.lastNameValMsg[$data.lastNameValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.firstNameValFlg !== '0' && $data.firstNameValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_40, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.firstNameValMsg[$data.firstNameValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     id: "",
     "class": "w-full reservation_input",
     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return $data.gender = $event;
     })
-  }, [].concat(_hoisted_26), 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.gender]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, [].concat(_hoisted_44), 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.gender]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "date",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["reservation_input", $data.birthDateValFlg !== '9' && $data.birthDateValFlg !== '0' ? 'reservation_fail' : '']),
     placeholder: "생년월일",
     "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
       return $data.birthDate = $event;
     })
-  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.birthDate]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_27, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.birthDate]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_45, [_hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     id: "",
     "class": "w-full",
     "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
       return $data.country = $event;
     })
-  }, [].concat(_hoisted_30), 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.country]])]), $data.birthDateValFlg !== '0' && $data.birthDateValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.birthDateValMsg[$data.birthDateValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_33, [_hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  }, [].concat(_hoisted_48), 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.country]])]), $data.birthDateValFlg !== '0' && $data.birthDateValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_49, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.birthDateValMsg[$data.birthDateValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_51, [_hoisted_52, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     id: "",
     "class": "w-full",
     "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
       return $data.idCard = $event;
     })
-  }, [].concat(_hoisted_36), 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.idCard]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, [].concat(_hoisted_54), 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.idCard]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["reservation_input", $data.passPortNumValFlg !== '9' && $data.passPortNumValFlg !== '0' ? 'reservation_fail' : '']),
     placeholder: "여권번호",
@@ -22535,7 +22750,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
       return $data.passPortDate = $event;
     })
-  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.passPortDate]]), $data.passPortNumValFlg !== '0' && $data.passPortNumValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.passPortNumValMsg[$data.passPortNumValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.passPortDateValFlg !== '0' && $data.passPortDateValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.passPortDateValMsg[$data.passPortDateValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), _hoisted_39]), _hoisted_40, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_43, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [_hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 취소 시 ,"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.ticketPrice) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("을(를) 환불 받으실수 있습니다")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.15)) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("/1인당 ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.passPortDate]]), $data.passPortNumValFlg !== '0' && $data.passPortNumValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_55, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.passPortNumValMsg[$data.passPortNumValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.passPortDateValFlg !== '0' && $data.passPortDateValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_56, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.passPortDateValMsg[$data.passPortDateValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), _hoisted_57]), _hoisted_58, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_59, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_60, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_61, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_62, [_hoisted_63, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 취소 시 ,"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_64, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.ticketPrice) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("을(를) 환불 받으실수 있습니다")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_65, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_66, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.15)) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("/1인당 ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "radio",
     name: "refund",
     "class": "cursor-pointer",
@@ -22544,7 +22759,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.refund = $event;
     }),
     value: "2"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.refund]])]), _hoisted_49]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_51, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_52, [_hoisted_53, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 취소 시 ,"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_54, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.8)) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("을(를) 환불 받으실수 있습니다")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_56, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.1)) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("/1인당 ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.refund]])]), _hoisted_67]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_69, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_70, [_hoisted_71, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 취소 시 ,"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_72, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.8)) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("을(를) 환불 받으실수 있습니다")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_73, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_74, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.1)) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("/1인당 ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "radio",
     name: "refund",
     "class": "cursor-pointer",
@@ -22553,7 +22768,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.refund = $event;
     }),
     value: "1"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.refund]])]), _hoisted_57]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_58, [_hoisted_59, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.refund]])]), _hoisted_75]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_76, [_hoisted_77, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "radio",
     name: "refund",
     "class": "cursor-pointer",
@@ -22562,7 +22777,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.refund = $event;
     }),
     value: "0"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.refund]])]), _hoisted_60])]), _hoisted_61, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_62, [_hoisted_63, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_71, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 총 보험료: "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_72, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.insurancePrice) + "원", 1 /* TEXT */)]), _hoisted_73, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_74, [_hoisted_75, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.refund]])]), _hoisted_78])]), _hoisted_79, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_80, [_hoisted_81, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_89, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 총 보험료: "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_90, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.insurancePrice) + "원", 1 /* TEXT */)]), _hoisted_91, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_92, [_hoisted_93, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "radio",
     name: "insurance",
     id: "reservation_insurance_yes",
@@ -22570,7 +22785,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.insurance = $event;
     }),
     value: "1"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.insurance]]), _hoisted_76]), _hoisted_77]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_78, [_hoisted_79, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.insurance]]), _hoisted_94]), _hoisted_95]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_96, [_hoisted_97, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "radio",
     name: "insurance",
     id: "reservation_insurance_no",
@@ -22578,7 +22793,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.insurance = $event;
     }),
     value: "0"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.insurance]]), _hoisted_80])])]), _hoisted_81, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_82, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_83, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.insurance]]), _hoisted_98])])]), _hoisted_99, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_100, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_101, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["reservation_custom_sec_box", $data.fullNameValFlg !== '9' && $data.fullNameValFlg !== '0' ? 'reservation_fail' : ''])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
@@ -22594,7 +22809,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onInput: _cache[19] || (_cache[19] = function () {
       return $options.koreaFullName && $options.koreaFullName.apply($options, arguments);
     })
-  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_84), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.fullName]]), _hoisted_85], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_102), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.fullName]]), _hoisted_103], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["reservation_custom_sec_box", $data.emailValFlg !== '9' && $data.emailValFlg !== '0' ? 'reservation_fail' : ''])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
@@ -22610,7 +22825,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onInput: _cache[22] || (_cache[22] = function () {
       return _ctx.koreaEmail && _ctx.koreaEmail.apply(_ctx, arguments);
     })
-  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_86), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.email]]), _hoisted_87], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_104), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.email]]), _hoisted_105], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["reservation_custom_sec_box", $data.phoneValFlg !== '9' && $data.phoneValFlg !== '0' ? 'reservation_fail' : ''])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
@@ -22627,30 +22842,30 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onInput: _cache[25] || (_cache[25] = function () {
       return _ctx.koreaPhone && _ctx.koreaPhone.apply(_ctx, arguments);
     })
-  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_88), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.phone]]), _hoisted_89], 2 /* CLASS */), $data.fullNameValFlg !== '0' && $data.fullNameValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_90, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.fullNameValMsg[$data.fullNameValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.emailValFlg !== '0' && $data.emailValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_91, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.emailValMsg[$data.emailValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.phoneValFlg !== '0' && $data.phoneValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_92, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.phoneValMsg[$data.phoneValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_93, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_94, [_hoisted_95, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_96, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.totalPrice) + "원", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_106), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.phone]]), _hoisted_107], 2 /* CLASS */), $data.fullNameValFlg !== '0' && $data.fullNameValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_108, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.fullNameValMsg[$data.fullNameValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.emailValFlg !== '0' && $data.emailValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_109, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.emailValMsg[$data.emailValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.phoneValFlg !== '0' && $data.phoneValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_110, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.phoneValMsg[$data.phoneValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_111, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_112, [_hoisted_113, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_114, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.totalPrice) + "원", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "reservation_next_btn w-full text-center font-bold cursor-pointer",
     onClick: _cache[26] || (_cache[26] = function ($event) {
       return $options.changeFlg(1);
     })
-  }, "다음")])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.pageflg === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_97, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_98, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_99, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, "다음")])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 중간페이지 "), $data.pageflg === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_115, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_116, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_117, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     id: "s1",
     type: "checkbox",
     "class": "reservation_switch",
     disabled: "",
     checked: $data.refund === '2' ? true : false
-  }, null, 8 /* PROPS */, _hoisted_100), _hoisted_101]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_102, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 8 /* PROPS */, _hoisted_118), _hoisted_119]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_120, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     id: "s1",
     type: "checkbox",
     "class": "reservation_switch",
     disabled: "",
     checked: $data.refund === '1' ? true : false
-  }, null, 8 /* PROPS */, _hoisted_103), _hoisted_104]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_105, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 8 /* PROPS */, _hoisted_121), _hoisted_122]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_123, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     id: "s1",
     type: "checkbox",
     "class": "reservation_switch",
     disabled: "",
     checked: $data.insurance === '1' ? true : false
-  }, null, 8 /* PROPS */, _hoisted_106), _hoisted_107])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_108, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_109, [_hoisted_110, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_111, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_112, [_hoisted_113, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, null, 8 /* PROPS */, _hoisted_124), _hoisted_125])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_126, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_127, [_hoisted_128, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_129, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_130, [_hoisted_131, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "cursor-pointer relative",
     onMouseover: _cache[27] || (_cache[27] = function ($event) {
       return $data.popoverFlg = true;
@@ -22658,12 +22873,35 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onMouseleave: _cache[28] || (_cache[28] = function ($event) {
       return $data.popoverFlg = false;
     })
-  }, [_hoisted_114, $data.popoverFlg ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_115, [_hoisted_116, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_117, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.lastName) + "/" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.firstName), 1 /* TEXT */), _hoisted_118, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_119, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.email), 1 /* TEXT */), _hoisted_120, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_121, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.passPortNum), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 32 /* NEED_HYDRATION */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.ticketPrice) + "원", 1 /* TEXT */)]), _hoisted_122, $data.insurance === '1' || $data.refund === '1' || $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("hr", _hoisted_127)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.insurance === '1' || $data.refund === '1' || $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_128, [$data.refund === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_129, "환불80%")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_130, "환불100%")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.refund === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_131, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.1)) + "원", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_132, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.15)) + "원", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.insurance === '1' || $data.refund === '1' || $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_133, [$data.insurance === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_134, "여행자보험")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.insurance === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_135, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.insurancePrice) + "원", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_136, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_137, [_hoisted_138, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_139, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.totalPrice) + "원", 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_140, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, [_hoisted_132, $data.popoverFlg ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_133, [_hoisted_134, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_135, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.lastName) + "/" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.firstName), 1 /* TEXT */), _hoisted_136, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_137, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.email), 1 /* TEXT */), _hoisted_138, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_139, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.passPortNum), 1 /* TEXT */), _hoisted_140])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 32 /* NEED_HYDRATION */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.ticketPrice) + "원", 1 /* TEXT */)]), _hoisted_141, $data.insurance === '1' || $data.refund === '1' || $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("hr", _hoisted_146)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.insurance === '1' || $data.refund === '1' || $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_147, [$data.refund === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_148, "환불80%")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_149, "환불100%")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.refund === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_150, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.1)) + "원", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_151, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.15)) + "원", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.insurance === '1' || $data.refund === '1' || $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_152, [$data.insurance === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_153, "여행자보험")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.insurance === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_154, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.insurancePrice) + "원", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_155, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_156, [_hoisted_157, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_158, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.totalPrice) + "원", 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_159, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "reservation_next_btn w-full text-center font-bold cursor-pointer w-full",
     onClick: _cache[29] || (_cache[29] = function ($event) {
       return $options.changeFlg(0);
     })
-  }, "이전"), _hoisted_141])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
+  }, "이전"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "reservation_next_btn w-full text-center font-bold cursor-pointer w-full",
+    onClick: _cache[30] || (_cache[30] = function ($event) {
+      return $options.requestPay();
+    })
+  }, "결제")])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 결제완료 "), $data.pageflg === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_160, [_hoisted_161, _hoisted_162, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "py-2.5 px-5 me-2 mb-2 text-sm text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 font-bold",
+    onClick: _cache[31] || (_cache[31] = function ($event) {
+      return $options.clickMain(1);
+    })
+  }, "메인으로")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 결제취소 및 에러 "), $data.pageflg === '3' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_163, [_hoisted_164, _hoisted_165, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "py-2.5 px-5 me-2 mb-2 text-sm text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 font-bold",
+    onClick: _cache[32] || (_cache[32] = function ($event) {
+      return $options.clickMain(0);
+    })
+  }, "처음으로"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "py-2.5 px-5 me-2 mb-2 text-sm text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 font-bold",
+    onClick: _cache[33] || (_cache[33] = function ($event) {
+      return $options.clickMain(1);
+    })
+  }, "메인으로")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -23445,7 +23683,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n@media (min-width: 335px) and (max-width: 767px) {\n.main_section {\n    width: 90%;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_starting_point_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_outbound_flight_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_starting_point_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_outbound_flight_area {\n    margin-right: 5px;\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_destination_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_inbound_flight_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_destination_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_inbound_flight_area {\n    margin-left: 5px;\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 100%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.main_section {\n    width: 95%;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(odd),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(odd) {\n    border-radius: 20px 0 0 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(even),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(even) {\n    border-radius: 0 20px 20px 0;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 65%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n@media (min-width: 1024px) {\n.main_section {\n    width: 1000px;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(odd),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(odd) {\n    border-radius: 20px 0 0 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(even),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(even) {\n    border-radius: 0 20px 20px 0;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border_bottom,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border_bottom .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 65%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n/* VARIABLES */\n/* BASE */\n@media (min-width: 1024px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.visually-hidden {\n    clip: rect(0 0 0 0);\n    -webkit-clip-path: inset(50%);\n            clip-path: inset(50%);\n    height: 1px;\n    overflow: hidden;\n    position: absolute;\n    white-space: nowrap;\n    width: 1px;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 20px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.visually-hidden {\n    clip: rect(0 0 0 0);\n    -webkit-clip-path: inset(50%);\n            clip-path: inset(50%);\n    height: 1px;\n    overflow: hidden;\n    position: absolute;\n    white-space: nowrap;\n    width: 1px;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 20px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 30px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 1024px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: space-between;\n}\n.header_nav_logo {\n    margin: 0 10px;\n    font-weight: bold;\n    font-size: 30px;\n    width: 100px;\n}\n.header_nav_user_btn {\n    display: flex;\n    align-items: center;\n    margin: 0 10px;\n    color: #0B2161;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.card__heading {\n    width: 100px;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: space-between;\n}\n.header_nav_logo {\n    margin: 0 10px;\n    font-weight: bold;\n    font-size: 30px;\n    width: 100px;\n}\n.header_nav_user_btn {\n    display: flex;\n    align-items: center;\n    margin: 0 10px;\n    color: #0B2161;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.card__heading {\n    width: 100px;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: center;\n    text-align: center;\n}\n.header_nav_logo {\n    width: 100px;\n    text-align: center;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.header_nav_login_btn_user {\n    display: none;\n}\n.card__heading {\n    width: 100px;\n}\n.header_mobile_nav_container {\n    display: none;\n}\n.header_nav_user_btn_search {\n    display: none;\n}\n}\n@media (min-width: 1024px) {\nfooter {\n    background-color: #081742;\n    opacity: 0.9;\n    color: white;\n    width: 100%;\n    padding: 10px;\n    font-size: 10px;\n    overflow: auto;\n    height: 140px;\n    position: relative;\n    transform: translateY(0%);\n}\n.footer_container_text {\n    width: 100%;\n}\n.footer_container_text_personal_info {\n    display: flex;\n    justify-content: center;\n    align-content: center;\n}\n.footer_container_icons {\n    display: flex;\n    font-size: 30px;\n    align-items: center;\n    justify-content: center;\n    margin-top: 10px;\n}\n.footer_container_icons_instar {\n    margin: 0 10px;\n}\n.footer_container_icons_facebook {\n    margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n    margin: 0 10px;\n}\n.header_mobile_nav_container {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_mobile_nav_container {\n    display: none;\n}\nfooter {\n    background-color: #081742;\n    opacity: 0.9;\n    color: white;\n    width: 100%;\n    padding: 10px;\n    font-size: 10px;\n    overflow: auto;\n    height: 140px;\n    position: relative;\n    transform: translateY(0%);\n}\n.footer_container_text {\n    width: 100%;\n}\n.footer_container_text_personal_info {\n    display: flex;\n    justify-content: center;\n    align-content: center;\n}\n.footer_container_icons {\n    display: flex;\n    font-size: 30px;\n    align-items: center;\n    justify-content: center;\n    margin-top: 10px;\n}\n.footer_container_icons_instar {\n    margin: 0 10px;\n}\n.footer_container_icons_facebook {\n    margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n    margin: 0 10px;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.footer_container {\n    display: none;\n}\n.header_mobile_nav_container {\n    display: flex;\n    align-items: center;\n    justify-content: space-around;\n    position: fixed;\n    bottom: 0;\n    width: 100%;\n    background-color: #ededed;\n    padding: 10px;\n}\n.header_mobile_nav_container svg {\n    width: 30px;\n    height: 30px;\n}\n}\n@media (min-width: 1024px) {\n.mypage_container {\n    width: 1000px;\n    margin: 0 auto;\n}\n.mypage_container .mypage_banner_section {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n    background-color: #BECDFF;\n}\n.mypage_container .mypage_main_section {\n    width: 100%;\n    display: flex;\n}\n.mypage_container .mypage_main_section_top {\n    width: 30%;\n    display: inline-block;\n    margin-right: 50px;\n    border: 1px solid #ededed;\n}\n.mypage_container .mypage_main_section_top_profile {\n    width: 100px;\n    height: 100px;\n    border-radius: 50%;\n    background-color: #0B2161;\n    position: relative;\n    top: 0;\n    left: 1rem;\n}\n.mypage_container .mypage_main_section_top_profile p {\n    color: #FFFFFF;\n    position: absolute;\n    top: 2rem;\n    left: 2rem;\n}\n.mypage_container .mypage_main_section_top_mention {\n    text-align: center;\n    margin: 30px;\n}\n.mypage_container .mypage_main_section_top_content li {\n    width: 85%;\n    margin-left: 62px;\n    margin-bottom: 20px;\n    border-bottom: 1px solid #ededed;\n}\n.mypage_container .mypage_main_section_top_content li p {\n    display: inline;\n}\n.mypage_container .mypage_main_section_bottom {\n    width: 60%;\n    display: inline-block;\n    margin: 0 auto;\n    border: 1px solid #ededed;\n}\n}\n* {\n  font-family: sans-serif;\n}\n@supports (-webkit-appearance: none) or (-moz-appearance: none) {\ninput[type=checkbox] {\n    --active: #275EFE;\n    --active-inner: #fff;\n    --focus: 2px rgba(39, 94, 254, .3);\n    --border: #BBC1E1;\n    --border-hover: #275EFE;\n    --background: #fff;\n    --disabled: #F6F8FF;\n    --disabled-inner: #275EFE;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    height: 21px;\n    outline: none;\n    display: inline-block;\n    vertical-align: top;\n    position: relative;\n    margin: 0;\n    cursor: pointer;\n    border: 1px solid var(--bc, var(--border));\n    background: var(--b, var(--background));\n    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;\n}\ninput[type=checkbox]:after {\n    content: \"\";\n    display: block;\n    left: 0;\n    top: 0;\n    position: absolute;\n    transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);\n}\ninput[type=checkbox]:checked {\n    --b: var(--active);\n    --bc: var(--active);\n    --d-o: .3s;\n    --d-t: .6s;\n    --d-t-e: cubic-bezier(.2, .85, .32, 1.2);\n}\ninput[type=checkbox]:disabled {\n    --b: var(--disabled);\n    cursor: not-allowed;\n    opacity: 0.9;\n}\ninput[type=checkbox]:disabled:checked {\n    --b: var(--disabled-inner);\n    --bc: var(--border);\n}\ninput[type=checkbox]:disabled + label {\n    cursor: not-allowed;\n}\ninput[type=checkbox]:hover:not(:checked):not(:disabled) {\n    --bc: var(--border-hover);\n}\ninput[type=checkbox]:focus {\n    box-shadow: 0 0 0 var(--focus);\n}\ninput[type=checkbox]:not(.reservation_switch) {\n    width: 21px;\n}\ninput[type=checkbox]:not(.reservation_switch):after {\n    opacity: var(--o, 0);\n}\ninput[type=checkbox]:not(.reservation_switch):checked {\n    --o: 1;\n}\ninput[type=checkbox] + label {\n    font-size: 14px;\n    line-height: 21px;\n    display: inline-block;\n    vertical-align: top;\n    cursor: pointer;\n    margin-left: 4px;\n}\ninput[type=checkbox]:not(.reservation_switch) {\n    border-radius: 7px;\n}\ninput[type=checkbox]:not(.reservation_switch):after {\n    width: 5px;\n    height: 9px;\n    border: 2px solid var(--active-inner);\n    border-top: 0;\n    border-left: 0;\n    left: 7px;\n    top: 4px;\n    transform: rotate(var(--r, 20deg));\n}\ninput[type=checkbox]:not(.reservation_switch):checked {\n    --r: 43deg;\n}\ninput[type=checkbox].reservation_switch {\n    width: 38px;\n    border-radius: 11px;\n}\ninput[type=checkbox].reservation_switch:after {\n    left: 2px;\n    top: 2px;\n    border-radius: 50%;\n    width: 15px;\n    height: 15px;\n    background: var(--ab, var(--border));\n    transform: translateX(var(--x, 0));\n}\ninput[type=checkbox].reservation_switch:checked {\n    --ab: var(--active-inner);\n    --x: 17px;\n}\ninput[type=checkbox].reservation_switch:disabled:not(:checked):after {\n    opacity: 0.6;\n}\ninput[type=radio] {\n    border-radius: 50%;\n}\ninput[type=radio]:after {\n    width: 19px;\n    height: 19px;\n    border-radius: 50%;\n    background: var(--active-inner);\n    opacity: 0;\n    transform: scale(var(--s, 0.7));\n}\ninput[type=radio]:checked {\n    --s: .5;\n}\n}\ninput[type=date] {\n  margin: 0 auto;\n  width: 100%;\n  position: relative;\n}\n::-webkit-calendar-picker-indicator {\n  position: absolute;\n  right: -10px;\n  top: 0px;\n  padding-left: 3000px;\n  height: 100%;\n  opacity: 0;\n}\n::-webkit-calendar-picker-indicator:hover {\n  cursor: pointer;\n}\ninput[type=date]:not(.has-value):before {\n  color: rgb(164, 164, 164);\n  content: attr(placeholder);\n}\n.reservation_custom_box .reservation_custom_sec_box {\n  position: relative;\n}\n.reservation_custom_box .reservation_custom_sec_box input {\n  height: 50px;\n  width: 100%;\n  padding: 10px 0px 10px 10px;\n  font-size: 16px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  outline: none;\n  background: transparent;\n}\n.reservation_custom_box .reservation_custom_sec_box label {\n  position: absolute;\n  top: 13px;\n  left: 8px;\n  font-size: 16px;\n  color: #a5a5a5;\n  pointer-events: none;\n  transition: 0.5s;\n}\n.reservation_custom_box .reservation_custom_sec_box input:focus ~ label,\n.reservation_custom_box .reservation_custom_sec_box input:valid ~ label {\n  top: -10px;\n  left: 5px;\n  color: #a5a5a5;\n  font-size: 12px;\n  background-color: #fff;\n}\n.reservation_custom_sec_box input:not(:focus)::-moz-placeholder {\n  opacity: 0;\n}\n.reservation_custom_sec_box input:not(:focus)::placeholder {\n  opacity: 0;\n}\n.reservation_header {\n  display: flex;\n  justify-content: space-between;\n  padding: 20px;\n  position: absolute;\n  width: 100%;\n}\n.reservation_header_box {\n  width: 100px;\n  text-align: center;\n}\n.reservation_header_box span {\n  font-weight: bold;\n  font-size: 15px;\n}\n.reservation_header_ball_1, .reservation_header_ball_2 {\n  line-height: 60px;\n  height: 60px;\n  width: 60px;\n  font-size: 35px;\n  border-radius: 100%;\n  font-weight: bold;\n  margin: 0 auto;\n  color: #fff;\n  box-shadow: 0 10px 15px -4px rgba(125, 125, 125, 0.4784313725);\n}\n.reservation_header_ball_1 {\n  background-color: #0B4AFF;\n}\n.reservation_header_ball_2 {\n  background-color: #C5DFFF;\n}\n.reservation_progress_box {\n  padding-top: 67px;\n  margin: 0 auto;\n  padding-bottom: 70px;\n}\n.reservation_progress_blue {\n  background-color: #084AFF;\n}\n.reservation_progress_gray {\n  background-color: #ededed;\n}\n.reservation_body {\n  width: 90%;\n  max-width: 600px;\n  margin: 0 auto;\n}\n.reservation_title_1 {\n  font-size: 40px;\n  font-weight: bold;\n}\n.reservation_title_2 {\n  font-size: 30px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_3 {\n  font-size: 25px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_4 {\n  font-size: 15px;\n  font-weight: bold;\n}\n.reservation_to_tiket_title {\n  display: flex;\n  align-items: center;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n  font-size: 17px;\n  padding: 4px 7px;\n  background-color: #0B4AFF;\n  color: #fff;\n  font-weight: 800;\n  border-radius: 20px;\n  margin-left: 5px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n  margin-left: 5px;\n  padding: 0px 10px;\n  border-right: 2px solid #ededed;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n  padding: 0px 10px;\n}\n.reservation_to_tiket_info {\n  display: flex;\n  padding: 20px 0px;\n}\n.reservation_to_tiket_time {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-right: 20px;\n}\n.reservation_to_tiket_time div {\n  font-size: 20px;\n  font-weight: 900;\n  width: 60px;\n}\n.reservation_to_tiket_time_type {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-left: 20px;\n  border-left: 5px solid #ededed;\n  margin: 10px 0px;\n}\n.reservation_to_tiket_time_type div:nth-child(1),\n.reservation_to_tiket_time_type div:nth-child(3) {\n  font-weight: 900;\n}\n.reservation_to_tiket_time_type div:nth-child(2) {\n  padding: 20px 0px;\n  font-size: 10px;\n}\n.reservation_gray_bg {\n  background-color: #ededed;\n  padding-bottom: 100px;\n}\n.reservation_baggage_rule_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n  display: flex;\n}\n.reservation_baggage {\n  flex-grow: 2;\n}\n.reservation_rule {\n  flex-grow: 1;\n}\n.reservation_icon_blue {\n  color: #249ac2;\n  margin-right: 5px;\n}\n.reservation_icon_deepblue {\n  color: #084AFF;\n  margin-right: 5px;\n}\n.reservation_icon_gray {\n  color: #adadad;\n  margin-right: 5px;\n}\n.reservation_icon_flex {\n  display: flex;\n  align-items: center;\n}\n.reservation_input_reset_btn {\n  color: #084AFF;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n}\n.reservation_input_reset_btn:hover {\n  cursor: pointer;\n}\n.reservation_passenger_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 30px;\n}\n.reservation_spacebetween {\n  display: flex;\n  justify-content: space-between;\n}\n.reservation_placeholder {\n  color: #ededed;\n}\n.reservation_input {\n  border: 1px solid #ededed;\n  outline: none;\n  height: 50px;\n  border-radius: 5px;\n  padding: 5px;\n  position: relative;\n}\n.reservation_input select {\n  border: none;\n  outline: none;\n}\n.reservation_input legend {\n  font-size: 12px;\n  color: #4f4f4f;\n}\n.reservation_notification_box {\n  border: 1px solid #ededed;\n  background-color: #ededed;\n  border-radius: 5px;\n  padding: 5px;\n}\n.reservation_notification_box span {\n  font-weight: 900;\n}\n.reservation_refund_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 30px;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n}\n.reservation_refund_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_refund_area span {\n  font-weight: 900;\n}\n.reservation_insurance_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n}\n.reservation_insurance_small_msg {\n  padding-left: 10px;\n}\n.reservation_contact_info_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_box {\n  display: flex;\n  flex-direction: column;\n  margin-top: 30px;\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_price {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_next_btn {\n  background-color: #084AFF;\n  padding: 5px;\n  color: #fff;\n  border-radius: 5px;\n}\n.reservation_popover {\n  position: absolute;\n  left: -110px;\n  top: 24px;\n  border: 1px solid #dadada;\n  padding: 10px;\n  background-color: #f9f9f9;\n  width: 260px;\n  border-radius: 5px;\n}\n.reservation_success {\n  border: 1px solid #084AFF;\n}\n.reservation_fail {\n  border: 1px solid #ff0000;\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.reservation_layout {\n    width: 100vw;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    width: 100%;\n}\n.reservation_progress_box {\n    width: 75%;\n}\n.reservation_baggage_rule_box {\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_refund_area {\n    padding: 5px;\n    font-size: 12px;\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_title_1 {\n    font-size: 35px;\n}\n.reservation_to_tiket_info {\n    font-size: 15px;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n    font-size: 14px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n    font-size: 12px;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n    font-size: 11px;\n}\n.reservation_icon_flex {\n    align-items: flex-start;\n}\n.reservation_switch label {\n    padding: 0;\n    font-size: 11px;\n}\n.reservation_popover {\n    position: absolute;\n    left: -110px;\n    top: 24px;\n    border: 1px solid #dadada;\n    padding: 10px;\n    background-color: #f9f9f9;\n    width: 260px;\n    border-radius: 5px;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.reservation_layout {\n    width: 768px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 750px;\n}\n.reservation_progress_box {\n    width: 628px;\n}\n}\n@media (min-width: 1024px) {\n.reservation_layout {\n    width: 1000px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 1000px;\n}\n.reservation_progress_box {\n    width: 900px;\n}\n}\n@media (min-width: 1024px) {\n.regist_container_wrap {\n    width: 1000px;\n    margin: 0 auto;\n}\n.container_signup_none {\n    display: none;\n}\n.regist_container {\n    color: #666;\n    text-align: center;\n}\n.regist_container .regist_logo_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 40px 0;\n    font-size: 30px;\n    font-weight: bold;\n}\n.regist_container .regist_logo_div_main_logo {\n    width: 100px;\n}\n.regist_container .terms_conditions {\n    text-align: center;\n}\n.regist_container .terms_conditions_title {\n    margin-bottom: 10px;\n}\n.regist_container .terms_conditions_box {\n    border: 1px solid #2C3E50;\n    border-radius: 5px;\n    padding: 20px;\n    width: 50%;\n    text-align: start;\n    margin: 20px auto;\n    overflow: auto;\n    font-size: 12px;\n    color: #333;\n}\n.regist_container .terms_conditions_label {\n    font-size: 13px;\n    color: #666;\n}\n.regist_container .terms_conditions_checkbox {\n    margin: 0 5px;\n}\n.regist_container .terms_conditions_checkbox_btn {\n    margin: 10px 0;\n}\n.regist_container .regist_button {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    margin: 20px 0;\n}\n.regist_container .regist_button_cel {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_button_cel:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_button_nxt {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-left: 5px;\n}\n.regist_container .regist_button_nxt:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_user_info_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.regist_container .regist_user_info_box {\n    display: flex;\n    text-align: center;\n    justify-content: center;\n    flex-direction: column;\n    margin: 20px 0;\n}\n.regist_container .regist_user_info_box_content {\n    margin-bottom: 22px;\n    display: flex;\n    justify-content: space-between;\n}\n.regist_container .regist_user_info_box_label {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: 50%;\n}\n.regist_container .regist_user_info_box_label_postcode {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: auto;\n}\n.regist_container .regist_user_info_box_input {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n    width: 400px;\n}\n.regist_container .regist_user_info_box_input input {\n    width: 100%;\n}\n.regist_container .regist_user_info_box_input :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_postcode {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_postcode :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_search {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_search :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_basic_address {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_basic_address :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_gender {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_gender :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_gender {\n    display: flex;\n    align-items: center;\n    justify-content: space-evenly;\n}\n.regist_container .regist_user_info_box_gender_choose {\n    display: flex;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 95%;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 95%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 75%;\n    height: 50px;\n    margin: 0 auto 30px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 75%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 50%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    transform: scale(1.1);\n    transition: 0.3s;\n}\n.admin_login_section .admin_login_right_section {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 95%;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 45%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 75%;\n    height: 50px;\n    margin: 0 auto 30px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 75%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 55%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    transform: scale(1.1);\n    transition: 0.3s;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n@media (min-width: 1024px) {\n.admin_login_section {\n    width: 1000px;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    margin: 0 auto 30px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 60%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    transform: scale(1.1);\n    transition: 0.3s;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n.admin_index_container {\n  width: 1700px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #ededed;\n  background-color: #EFF3F8;\n}\n.admin_index_container .admin_index_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container {\n  width: 20%;\n  height: 100vh;\n  background-color: #0B2161;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section {\n  width: 100%;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area .admin_index_left_info_image {\n  width: 100px;\n  height: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section {\n  width: 100%;\n  margin: 20px 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input {\n  width: 70%;\n  height: 40px;\n  margin: auto;\n  padding: 4px;\n  outline: none;\n  background-color: transparent;\n  border-bottom: 1px solid transparent;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input:focus {\n  border-bottom: 1px solid #ededed;\n  transition: 0.8s;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  padding: 10px 40px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li {\n  width: 100%;\n  margin-bottom: 50px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_left_svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_right_svg {\n  margin-left: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_ul {\n  width: 100%;\n  display: block;\n}\n.admin_index_container .admin_index_section .admin_index_right_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 1350px;\n  margin: 10px auto;\n  display: flex;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section img {\n  width: 100px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_button_section svg {\n  width: 60px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 100%;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section .admin_index_right_top_title_area {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container {\n  width: 100%;\n  margin-bottom: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section {\n  width: 100%;\n  height: 100px;\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #FFF;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users svg {\n  width: 60px;\n  height: 60px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_register_users_text {\n  width: 100%;\n  padding: 20px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container {\n  width: 100%;\n  height: 400px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section {\n  width: 100%;\n  height: 100%;\n  margin-bottom: 10px;\n  background-color: #fff;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area {\n  width: 100%;\n  height: 100%;\n  padding: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area .admin_index_right_bottom_chart_image {\n  width: 1200px;\n  height: 300px;\n  margin: 0 auto;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section {\n  width: 50%;\n  height: 250px;\n  border-radius: 10px;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area {\n  width: 100%;\n  padding: 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a {\n  display: flex;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n@media (min-width: 335px) and (max-width: 767px) {\n.main_section {\n    width: 90%;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_starting_point_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_outbound_flight_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_starting_point_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_outbound_flight_area {\n    margin-right: 5px;\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_destination_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_inbound_flight_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_destination_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_inbound_flight_area {\n    margin-left: 5px;\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 100%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.main_section {\n    width: 95%;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(odd),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(odd) {\n    border-radius: 20px 0 0 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(even),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(even) {\n    border-radius: 0 20px 20px 0;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 65%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n@media (min-width: 1024px) {\n.main_section {\n    width: 1000px;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(odd),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(odd) {\n    border-radius: 20px 0 0 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(even),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(even) {\n    border-radius: 0 20px 20px 0;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border_bottom,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border_bottom .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 65%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n/* VARIABLES */\n/* BASE */\n@media (min-width: 1024px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.visually-hidden {\n    clip: rect(0 0 0 0);\n    -webkit-clip-path: inset(50%);\n            clip-path: inset(50%);\n    height: 1px;\n    overflow: hidden;\n    position: absolute;\n    white-space: nowrap;\n    width: 1px;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 20px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.visually-hidden {\n    clip: rect(0 0 0 0);\n    -webkit-clip-path: inset(50%);\n            clip-path: inset(50%);\n    height: 1px;\n    overflow: hidden;\n    position: absolute;\n    white-space: nowrap;\n    width: 1px;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 20px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 30px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 1024px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: space-between;\n}\n.header_nav_logo {\n    margin: 0 10px;\n    font-weight: bold;\n    font-size: 30px;\n    width: 100px;\n}\n.header_nav_user_btn {\n    display: flex;\n    align-items: center;\n    margin: 0 10px;\n    color: #0B2161;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.card__heading {\n    width: 100px;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: space-between;\n}\n.header_nav_logo {\n    margin: 0 10px;\n    font-weight: bold;\n    font-size: 30px;\n    width: 100px;\n}\n.header_nav_user_btn {\n    display: flex;\n    align-items: center;\n    margin: 0 10px;\n    color: #0B2161;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.card__heading {\n    width: 100px;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: center;\n    text-align: center;\n}\n.header_nav_logo {\n    width: 100px;\n    text-align: center;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.header_nav_login_btn_user {\n    display: none;\n}\n.card__heading {\n    width: 100px;\n}\n.header_mobile_nav_container {\n    display: none;\n}\n.header_nav_user_btn_search {\n    display: none;\n}\n}\n@media (min-width: 1024px) {\nfooter {\n    background-color: #081742;\n    opacity: 0.9;\n    color: white;\n    width: 100%;\n    padding: 10px;\n    font-size: 10px;\n    overflow: auto;\n    height: 140px;\n    position: relative;\n    transform: translateY(0%);\n}\n.footer_container_text {\n    width: 100%;\n}\n.footer_container_text_personal_info {\n    display: flex;\n    justify-content: center;\n    align-content: center;\n}\n.footer_container_icons {\n    display: flex;\n    font-size: 30px;\n    align-items: center;\n    justify-content: center;\n    margin-top: 10px;\n}\n.footer_container_icons_instar {\n    margin: 0 10px;\n}\n.footer_container_icons_facebook {\n    margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n    margin: 0 10px;\n}\n.header_mobile_nav_container {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_mobile_nav_container {\n    display: none;\n}\nfooter {\n    background-color: #081742;\n    opacity: 0.9;\n    color: white;\n    width: 100%;\n    padding: 10px;\n    font-size: 10px;\n    overflow: auto;\n    height: 140px;\n    position: relative;\n    transform: translateY(0%);\n}\n.footer_container_text {\n    width: 100%;\n}\n.footer_container_text_personal_info {\n    display: flex;\n    justify-content: center;\n    align-content: center;\n}\n.footer_container_icons {\n    display: flex;\n    font-size: 30px;\n    align-items: center;\n    justify-content: center;\n    margin-top: 10px;\n}\n.footer_container_icons_instar {\n    margin: 0 10px;\n}\n.footer_container_icons_facebook {\n    margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n    margin: 0 10px;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.footer_container {\n    display: none;\n}\n.header_mobile_nav_container {\n    display: flex;\n    align-items: center;\n    justify-content: space-around;\n    position: fixed;\n    bottom: 0;\n    width: 100%;\n    background-color: #ededed;\n    padding: 10px;\n}\n.header_mobile_nav_container svg {\n    width: 30px;\n    height: 30px;\n}\n}\n@media (min-width: 1024px) {\n.mypage_container {\n    width: 1000px;\n    margin: 0 auto;\n}\n.mypage_container .mypage_banner_section {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n    background-color: #BECDFF;\n}\n.mypage_container .mypage_main_section {\n    width: 100%;\n    display: flex;\n}\n.mypage_container .mypage_main_section_top {\n    width: 30%;\n    display: inline-block;\n    margin-right: 50px;\n    border: 1px solid #ededed;\n}\n.mypage_container .mypage_main_section_top_profile {\n    width: 100px;\n    height: 100px;\n    border-radius: 50%;\n    background-color: #0B2161;\n    position: relative;\n    top: 0;\n    left: 1rem;\n}\n.mypage_container .mypage_main_section_top_profile p {\n    color: #FFFFFF;\n    position: absolute;\n    top: 2rem;\n    left: 2rem;\n}\n.mypage_container .mypage_main_section_top_mention {\n    text-align: center;\n    margin: 30px;\n}\n.mypage_container .mypage_main_section_top_content li {\n    width: 85%;\n    margin-left: 62px;\n    margin-bottom: 20px;\n    border-bottom: 1px solid #ededed;\n}\n.mypage_container .mypage_main_section_top_content li p {\n    display: inline;\n}\n.mypage_container .mypage_main_section_bottom {\n    width: 60%;\n    display: inline-block;\n    margin: 0 auto;\n    border: 1px solid #ededed;\n}\n}\n* {\n  font-family: sans-serif;\n}\n@supports (-webkit-appearance: none) or (-moz-appearance: none) {\ninput[type=checkbox] {\n    --active: #275EFE;\n    --active-inner: #fff;\n    --focus: 2px rgba(39, 94, 254, .3);\n    --border: #BBC1E1;\n    --border-hover: #275EFE;\n    --background: #fff;\n    --disabled: #F6F8FF;\n    --disabled-inner: #275EFE;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    height: 21px;\n    outline: none;\n    display: inline-block;\n    vertical-align: top;\n    position: relative;\n    margin: 0;\n    cursor: pointer;\n    border: 1px solid var(--bc, var(--border));\n    background: var(--b, var(--background));\n    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;\n}\ninput[type=checkbox]:after {\n    content: \"\";\n    display: block;\n    left: 0;\n    top: 0;\n    position: absolute;\n    transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);\n}\ninput[type=checkbox]:checked {\n    --b: var(--active);\n    --bc: var(--active);\n    --d-o: .3s;\n    --d-t: .6s;\n    --d-t-e: cubic-bezier(.2, .85, .32, 1.2);\n}\ninput[type=checkbox]:disabled {\n    --b: var(--disabled);\n    cursor: not-allowed;\n    opacity: 0.9;\n}\ninput[type=checkbox]:disabled:checked {\n    --b: var(--disabled-inner);\n    --bc: var(--border);\n}\ninput[type=checkbox]:disabled + label {\n    cursor: not-allowed;\n}\ninput[type=checkbox]:hover:not(:checked):not(:disabled) {\n    --bc: var(--border-hover);\n}\ninput[type=checkbox]:focus {\n    box-shadow: 0 0 0 var(--focus);\n}\ninput[type=checkbox]:not(.reservation_switch) {\n    width: 21px;\n}\ninput[type=checkbox]:not(.reservation_switch):after {\n    opacity: var(--o, 0);\n}\ninput[type=checkbox]:not(.reservation_switch):checked {\n    --o: 1;\n}\ninput[type=checkbox] + label {\n    font-size: 14px;\n    line-height: 21px;\n    display: inline-block;\n    vertical-align: top;\n    cursor: pointer;\n    margin-left: 4px;\n}\ninput[type=checkbox]:not(.reservation_switch) {\n    border-radius: 7px;\n}\ninput[type=checkbox]:not(.reservation_switch):after {\n    width: 5px;\n    height: 9px;\n    border: 2px solid var(--active-inner);\n    border-top: 0;\n    border-left: 0;\n    left: 7px;\n    top: 4px;\n    transform: rotate(var(--r, 20deg));\n}\ninput[type=checkbox]:not(.reservation_switch):checked {\n    --r: 43deg;\n}\ninput[type=checkbox].reservation_switch {\n    width: 38px;\n    border-radius: 11px;\n}\ninput[type=checkbox].reservation_switch:after {\n    left: 2px;\n    top: 2px;\n    border-radius: 50%;\n    width: 15px;\n    height: 15px;\n    background: var(--ab, var(--border));\n    transform: translateX(var(--x, 0));\n}\ninput[type=checkbox].reservation_switch:checked {\n    --ab: var(--active-inner);\n    --x: 17px;\n}\ninput[type=checkbox].reservation_switch:disabled:not(:checked):after {\n    opacity: 0.6;\n}\ninput[type=radio] {\n    border-radius: 50%;\n}\ninput[type=radio]:after {\n    width: 19px;\n    height: 19px;\n    border-radius: 50%;\n    background: var(--active-inner);\n    opacity: 0;\n    transform: scale(var(--s, 0.7));\n}\ninput[type=radio]:checked {\n    --s: .5;\n}\n}\ninput[type=date] {\n  margin: 0 auto;\n  width: 100%;\n  position: relative;\n}\n::-webkit-calendar-picker-indicator {\n  position: absolute;\n  right: -10px;\n  top: 0px;\n  padding-left: 3000px;\n  height: 100%;\n  opacity: 0;\n}\n::-webkit-calendar-picker-indicator:hover {\n  cursor: pointer;\n}\ninput[type=date]:not(.has-value):before {\n  color: rgb(164, 164, 164);\n  content: attr(placeholder);\n}\n.reservation_custom_box .reservation_custom_sec_box {\n  position: relative;\n}\n.reservation_custom_box .reservation_custom_sec_box input {\n  height: 50px;\n  width: 100%;\n  padding: 10px 0px 10px 10px;\n  font-size: 16px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  outline: none;\n  background: transparent;\n}\n.reservation_custom_box .reservation_custom_sec_box label {\n  position: absolute;\n  top: 13px;\n  left: 8px;\n  font-size: 16px;\n  color: #a5a5a5;\n  pointer-events: none;\n  transition: 0.5s;\n}\n.reservation_custom_box .reservation_custom_sec_box input:focus ~ label,\n.reservation_custom_box .reservation_custom_sec_box input:valid ~ label {\n  top: -10px;\n  left: 5px;\n  color: #a5a5a5;\n  font-size: 12px;\n  background-color: #fff;\n}\n.reservation_custom_sec_box input:not(:focus)::-moz-placeholder {\n  opacity: 0;\n}\n.reservation_custom_sec_box input:not(:focus)::placeholder {\n  opacity: 0;\n}\n.reservation_header {\n  display: flex;\n  justify-content: space-between;\n  padding: 20px;\n  position: absolute;\n  width: 100%;\n}\n.reservation_header_box {\n  width: 100px;\n  text-align: center;\n}\n.reservation_header_box span {\n  font-weight: bold;\n  font-size: 15px;\n}\n.reservation_header_ball_1, .reservation_header_ball_2 {\n  line-height: 60px;\n  height: 60px;\n  width: 60px;\n  font-size: 35px;\n  border-radius: 100%;\n  font-weight: bold;\n  margin: 0 auto;\n  color: #fff;\n  box-shadow: 0 10px 15px -4px rgba(125, 125, 125, 0.4784313725);\n}\n.reservation_header_ball_1 {\n  background-color: #0B4AFF;\n}\n.reservation_header_ball_2 {\n  background-color: #C5DFFF;\n}\n.reservation_progress_box {\n  padding-top: 67px;\n  margin: 0 auto;\n  padding-bottom: 70px;\n}\n.reservation_progress_blue {\n  background-color: #084AFF;\n}\n.reservation_progress_gray {\n  background-color: #ededed;\n}\n.reservation_body {\n  width: 90%;\n  max-width: 600px;\n  margin: 0 auto;\n}\n.reservation_title_1 {\n  font-size: 40px;\n  font-weight: bold;\n}\n.reservation_title_2 {\n  font-size: 30px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_3 {\n  font-size: 25px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_4 {\n  font-size: 15px;\n  font-weight: bold;\n}\n.reservation_to_tiket_title {\n  display: flex;\n  align-items: center;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n  font-size: 17px;\n  padding: 4px 7px;\n  background-color: #0B4AFF;\n  color: #fff;\n  font-weight: 800;\n  border-radius: 20px;\n  margin-left: 5px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n  margin-left: 5px;\n  padding: 0px 10px;\n  border-right: 2px solid #ededed;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n  padding: 0px 10px;\n}\n.reservation_to_tiket_info {\n  display: flex;\n  padding: 20px 0px;\n}\n.reservation_to_tiket_time {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-right: 20px;\n}\n.reservation_to_tiket_time div {\n  font-size: 20px;\n  font-weight: 900;\n  width: 60px;\n}\n.reservation_to_tiket_time_type {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-left: 20px;\n  border-left: 5px solid #ededed;\n  margin: 10px 0px;\n}\n.reservation_to_tiket_time_type div:nth-child(1),\n.reservation_to_tiket_time_type div:nth-child(3) {\n  font-weight: 900;\n}\n.reservation_to_tiket_time_type div:nth-child(2) {\n  padding: 20px 0px;\n  font-size: 10px;\n}\n.reservation_gray_bg {\n  background-color: #ededed;\n  padding-bottom: 100px;\n}\n.reservation_baggage_rule_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n  display: flex;\n}\n.reservation_baggage {\n  flex-grow: 2;\n}\n.reservation_rule {\n  flex-grow: 1;\n}\n.reservation_icon_blue {\n  color: #249ac2;\n  margin-right: 5px;\n}\n.reservation_icon_deepblue {\n  color: #084AFF;\n  margin-right: 5px;\n}\n.reservation_icon_gray {\n  color: #adadad;\n  margin-right: 5px;\n}\n.reservation_icon_flex {\n  display: flex;\n  align-items: center;\n}\n.reservation_input_reset_btn {\n  color: #084AFF;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n}\n.reservation_input_reset_btn:hover {\n  cursor: pointer;\n}\n.reservation_passenger_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 30px;\n}\n.reservation_spacebetween {\n  display: flex;\n  justify-content: space-between;\n}\n.reservation_placeholder {\n  color: #ededed;\n}\n.reservation_input {\n  border: 1px solid #ededed;\n  outline: none;\n  height: 50px;\n  border-radius: 5px;\n  padding: 5px;\n  position: relative;\n}\n.reservation_input select {\n  border: none;\n  outline: none;\n}\n.reservation_input legend {\n  font-size: 12px;\n  color: #4f4f4f;\n}\n.reservation_notification_box {\n  border: 1px solid #ededed;\n  background-color: #ededed;\n  border-radius: 5px;\n  padding: 5px;\n}\n.reservation_notification_box span {\n  font-weight: 900;\n}\n.reservation_refund_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 30px;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n}\n.reservation_refund_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_refund_area span {\n  font-weight: 900;\n}\n.reservation_insurance_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n}\n.reservation_insurance_small_msg {\n  padding-left: 10px;\n}\n.reservation_contact_info_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_box {\n  display: flex;\n  flex-direction: column;\n  margin-top: 30px;\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_price {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_next_btn {\n  background-color: #084AFF;\n  padding: 5px;\n  color: #fff;\n  border-radius: 5px;\n}\n.reservation_popover {\n  position: absolute;\n  left: -110px;\n  top: 24px;\n  border: 3px solid #ededed;\n  padding: 10px;\n  background-color: #ffffff;\n  width: 260px;\n  border-radius: 5px;\n}\n.reservation_success {\n  border: 1px solid #084AFF;\n}\n.reservation_fail {\n  border: 3px solid #ff0000;\n}\n.reservation_complete {\n  width: 100%;\n  padding-bottom: 50px;\n  margin: 0px auto 30px auto;\n}\n.reservation_complete_icon {\n  margin: 0 auto;\n  color: #084AFF;\n}\n.reservation_cancel_icon {\n  margin: 0 auto;\n  color: #ff3e3e;\n}\n.reservation_complete_msg {\n  padding: 20px 0 50px 0;\n  font-size: 20px;\n  font-weight: bold;\n  color: #000000;\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.reservation_layout {\n    width: 100vw;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    width: 100%;\n}\n.reservation_progress_box {\n    width: 75%;\n}\n.reservation_baggage_rule_box {\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_refund_area {\n    padding: 5px;\n    font-size: 12px;\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_title_1 {\n    font-size: 35px;\n}\n.reservation_to_tiket_info {\n    font-size: 15px;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n    font-size: 14px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n    font-size: 12px;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n    font-size: 11px;\n}\n.reservation_icon_flex {\n    align-items: flex-start;\n}\n.reservation_switch label {\n    padding: 0;\n    font-size: 11px;\n}\n.reservation_popover {\n    position: absolute;\n    left: -110px;\n    top: 24px;\n    border: 1px solid #dadada;\n    padding: 10px;\n    background-color: #f9f9f9;\n    width: 260px;\n    border-radius: 5px;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.reservation_layout {\n    width: 768px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 750px;\n}\n.reservation_progress_box {\n    width: 628px;\n}\n}\n@media (min-width: 1024px) {\n.reservation_layout {\n    width: 1000px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 1000px;\n}\n.reservation_progress_box {\n    width: 900px;\n}\n}\n@media (min-width: 1024px) {\n.regist_container_wrap {\n    width: 1000px;\n    margin: 0 auto;\n}\n.container_signup_none {\n    display: none;\n}\n.regist_container {\n    color: #666;\n    text-align: center;\n}\n.regist_container .regist_logo_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 40px 0;\n    font-size: 30px;\n    font-weight: bold;\n}\n.regist_container .regist_logo_div_main_logo {\n    width: 100px;\n}\n.regist_container .terms_conditions {\n    text-align: center;\n}\n.regist_container .terms_conditions_title {\n    margin-bottom: 10px;\n}\n.regist_container .terms_conditions_box {\n    border: 1px solid #2C3E50;\n    border-radius: 5px;\n    padding: 20px;\n    width: 50%;\n    text-align: start;\n    margin: 20px auto;\n    overflow: auto;\n    font-size: 12px;\n    color: #333;\n}\n.regist_container .terms_conditions_label {\n    font-size: 13px;\n    color: #666;\n}\n.regist_container .terms_conditions_checkbox {\n    margin: 0 5px;\n}\n.regist_container .terms_conditions_checkbox_btn {\n    margin: 10px 0;\n}\n.regist_container .regist_button {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    margin: 20px 0;\n}\n.regist_container .regist_button_cel {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_button_cel:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_button_nxt {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-left: 5px;\n}\n.regist_container .regist_button_nxt:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_user_info_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.regist_container .regist_user_info_box {\n    display: flex;\n    text-align: center;\n    justify-content: center;\n    flex-direction: column;\n    margin: 20px 0;\n}\n.regist_container .regist_user_info_box_content {\n    margin-bottom: 22px;\n    display: flex;\n    justify-content: space-between;\n}\n.regist_container .regist_user_info_box_label {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: 50%;\n}\n.regist_container .regist_user_info_box_label_postcode {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: auto;\n}\n.regist_container .regist_user_info_box_input {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n    width: 400px;\n}\n.regist_container .regist_user_info_box_input input {\n    width: 100%;\n}\n.regist_container .regist_user_info_box_input :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_postcode {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_postcode :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_search {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_search :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_basic_address {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_basic_address :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_gender {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_gender :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_gender {\n    display: flex;\n    align-items: center;\n    justify-content: space-evenly;\n}\n.regist_container .regist_user_info_box_gender_choose {\n    display: flex;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 95%;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 95%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 75%;\n    height: 50px;\n    margin: 0 auto 30px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 75%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 50%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    transform: scale(1.1);\n    transition: 0.3s;\n}\n.admin_login_section .admin_login_right_section {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 95%;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 45%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 75%;\n    height: 50px;\n    margin: 0 auto 30px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 75%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 55%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    transform: scale(1.1);\n    transition: 0.3s;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n@media (min-width: 1024px) {\n.admin_login_section {\n    width: 1000px;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    margin: 0 auto 30px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 60%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin: 80px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    transform: scale(1.1);\n    transition: 0.3s;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n.admin_index_container {\n  width: 1700px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #ededed;\n  background-color: #EFF3F8;\n}\n.admin_index_container .admin_index_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container {\n  width: 20%;\n  height: 100vh;\n  background-color: #0B2161;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section {\n  width: 100%;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area .admin_index_left_info_image {\n  width: 100px;\n  height: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section {\n  width: 100%;\n  margin: 20px 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input {\n  width: 70%;\n  height: 40px;\n  margin: auto;\n  padding: 4px;\n  outline: none;\n  background-color: transparent;\n  border-bottom: 1px solid transparent;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input:focus {\n  border-bottom: 1px solid #ededed;\n  transition: 0.8s;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  padding: 10px 40px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li {\n  width: 100%;\n  margin-bottom: 50px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_left_svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_right_svg {\n  margin-left: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_ul {\n  width: 100%;\n  display: block;\n}\n.admin_index_container .admin_index_section .admin_index_right_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 1350px;\n  margin: 10px auto;\n  display: flex;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section img {\n  width: 100px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_button_section svg {\n  width: 60px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 100%;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section .admin_index_right_top_title_area {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container {\n  width: 100%;\n  margin-bottom: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section {\n  width: 100%;\n  height: 100px;\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #FFF;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users svg {\n  width: 60px;\n  height: 60px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_register_users_text {\n  width: 100%;\n  padding: 20px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container {\n  width: 100%;\n  height: 400px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section {\n  width: 100%;\n  height: 100%;\n  margin-bottom: 10px;\n  background-color: #fff;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area {\n  width: 100%;\n  height: 100%;\n  padding: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area .admin_index_right_bottom_chart_image {\n  width: 1200px;\n  height: 300px;\n  margin: 0 auto;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section {\n  width: 50%;\n  height: 250px;\n  border-radius: 10px;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area {\n  width: 100%;\n  padding: 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a {\n  display: flex;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23541,7 +23779,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  font-family: sans-serif;\n}\n@supports (-webkit-appearance: none) or (-moz-appearance: none) {\ninput[type=checkbox] {\n    --active: #275EFE;\n    --active-inner: #fff;\n    --focus: 2px rgba(39, 94, 254, .3);\n    --border: #BBC1E1;\n    --border-hover: #275EFE;\n    --background: #fff;\n    --disabled: #F6F8FF;\n    --disabled-inner: #275EFE;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    height: 21px;\n    outline: none;\n    display: inline-block;\n    vertical-align: top;\n    position: relative;\n    margin: 0;\n    cursor: pointer;\n    border: 1px solid var(--bc, var(--border));\n    background: var(--b, var(--background));\n    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;\n}\ninput[type=checkbox]:after {\n    content: \"\";\n    display: block;\n    left: 0;\n    top: 0;\n    position: absolute;\n    transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);\n}\ninput[type=checkbox]:checked {\n    --b: var(--active);\n    --bc: var(--active);\n    --d-o: .3s;\n    --d-t: .6s;\n    --d-t-e: cubic-bezier(.2, .85, .32, 1.2);\n}\ninput[type=checkbox]:disabled {\n    --b: var(--disabled);\n    cursor: not-allowed;\n    opacity: 0.9;\n}\ninput[type=checkbox]:disabled:checked {\n    --b: var(--disabled-inner);\n    --bc: var(--border);\n}\ninput[type=checkbox]:disabled + label {\n    cursor: not-allowed;\n}\ninput[type=checkbox]:hover:not(:checked):not(:disabled) {\n    --bc: var(--border-hover);\n}\ninput[type=checkbox]:focus {\n    box-shadow: 0 0 0 var(--focus);\n}\ninput[type=checkbox]:not(.reservation_switch) {\n    width: 21px;\n}\ninput[type=checkbox]:not(.reservation_switch):after {\n    opacity: var(--o, 0);\n}\ninput[type=checkbox]:not(.reservation_switch):checked {\n    --o: 1;\n}\ninput[type=checkbox] + label {\n    font-size: 14px;\n    line-height: 21px;\n    display: inline-block;\n    vertical-align: top;\n    cursor: pointer;\n    margin-left: 4px;\n}\ninput[type=checkbox]:not(.reservation_switch) {\n    border-radius: 7px;\n}\ninput[type=checkbox]:not(.reservation_switch):after {\n    width: 5px;\n    height: 9px;\n    border: 2px solid var(--active-inner);\n    border-top: 0;\n    border-left: 0;\n    left: 7px;\n    top: 4px;\n    transform: rotate(var(--r, 20deg));\n}\ninput[type=checkbox]:not(.reservation_switch):checked {\n    --r: 43deg;\n}\ninput[type=checkbox].reservation_switch {\n    width: 38px;\n    border-radius: 11px;\n}\ninput[type=checkbox].reservation_switch:after {\n    left: 2px;\n    top: 2px;\n    border-radius: 50%;\n    width: 15px;\n    height: 15px;\n    background: var(--ab, var(--border));\n    transform: translateX(var(--x, 0));\n}\ninput[type=checkbox].reservation_switch:checked {\n    --ab: var(--active-inner);\n    --x: 17px;\n}\ninput[type=checkbox].reservation_switch:disabled:not(:checked):after {\n    opacity: 0.6;\n}\ninput[type=radio] {\n    border-radius: 50%;\n}\ninput[type=radio]:after {\n    width: 19px;\n    height: 19px;\n    border-radius: 50%;\n    background: var(--active-inner);\n    opacity: 0;\n    transform: scale(var(--s, 0.7));\n}\ninput[type=radio]:checked {\n    --s: .5;\n}\n}\ninput[type=date] {\n  margin: 0 auto;\n  width: 100%;\n  position: relative;\n}\n::-webkit-calendar-picker-indicator {\n  position: absolute;\n  right: -10px;\n  top: 0px;\n  padding-left: 3000px;\n  height: 100%;\n  opacity: 0;\n}\n::-webkit-calendar-picker-indicator:hover {\n  cursor: pointer;\n}\ninput[type=date]:not(.has-value):before {\n  color: rgb(164, 164, 164);\n  content: attr(placeholder);\n}\n.reservation_custom_box .reservation_custom_sec_box {\n  position: relative;\n}\n.reservation_custom_box .reservation_custom_sec_box input {\n  height: 50px;\n  width: 100%;\n  padding: 10px 0px 10px 10px;\n  font-size: 16px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  outline: none;\n  background: transparent;\n}\n.reservation_custom_box .reservation_custom_sec_box label {\n  position: absolute;\n  top: 13px;\n  left: 8px;\n  font-size: 16px;\n  color: #a5a5a5;\n  pointer-events: none;\n  transition: 0.5s;\n}\n.reservation_custom_box .reservation_custom_sec_box input:focus ~ label,\n.reservation_custom_box .reservation_custom_sec_box input:valid ~ label {\n  top: -10px;\n  left: 5px;\n  color: #a5a5a5;\n  font-size: 12px;\n  background-color: #fff;\n}\n.reservation_custom_sec_box input:not(:focus)::-moz-placeholder {\n  opacity: 0;\n}\n.reservation_custom_sec_box input:not(:focus)::placeholder {\n  opacity: 0;\n}\n.reservation_header {\n  display: flex;\n  justify-content: space-between;\n  padding: 20px;\n  position: absolute;\n  width: 100%;\n}\n.reservation_header_box {\n  width: 100px;\n  text-align: center;\n}\n.reservation_header_box span {\n  font-weight: bold;\n  font-size: 15px;\n}\n.reservation_header_ball_1, .reservation_header_ball_2 {\n  line-height: 60px;\n  height: 60px;\n  width: 60px;\n  font-size: 35px;\n  border-radius: 100%;\n  font-weight: bold;\n  margin: 0 auto;\n  color: #fff;\n  box-shadow: 0 10px 15px -4px rgba(125, 125, 125, 0.4784313725);\n}\n.reservation_header_ball_1 {\n  background-color: #0B4AFF;\n}\n.reservation_header_ball_2 {\n  background-color: #C5DFFF;\n}\n.reservation_progress_box {\n  padding-top: 67px;\n  margin: 0 auto;\n  padding-bottom: 70px;\n}\n.reservation_progress_blue {\n  background-color: #084AFF;\n}\n.reservation_progress_gray {\n  background-color: #ededed;\n}\n.reservation_body {\n  width: 90%;\n  max-width: 600px;\n  margin: 0 auto;\n}\n.reservation_title_1 {\n  font-size: 40px;\n  font-weight: bold;\n}\n.reservation_title_2 {\n  font-size: 30px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_3 {\n  font-size: 25px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_4 {\n  font-size: 15px;\n  font-weight: bold;\n}\n.reservation_to_tiket_title {\n  display: flex;\n  align-items: center;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n  font-size: 17px;\n  padding: 4px 7px;\n  background-color: #0B4AFF;\n  color: #fff;\n  font-weight: 800;\n  border-radius: 20px;\n  margin-left: 5px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n  margin-left: 5px;\n  padding: 0px 10px;\n  border-right: 2px solid #ededed;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n  padding: 0px 10px;\n}\n.reservation_to_tiket_info {\n  display: flex;\n  padding: 20px 0px;\n}\n.reservation_to_tiket_time {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-right: 20px;\n}\n.reservation_to_tiket_time div {\n  font-size: 20px;\n  font-weight: 900;\n  width: 60px;\n}\n.reservation_to_tiket_time_type {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-left: 20px;\n  border-left: 5px solid #ededed;\n  margin: 10px 0px;\n}\n.reservation_to_tiket_time_type div:nth-child(1),\n.reservation_to_tiket_time_type div:nth-child(3) {\n  font-weight: 900;\n}\n.reservation_to_tiket_time_type div:nth-child(2) {\n  padding: 20px 0px;\n  font-size: 10px;\n}\n.reservation_gray_bg {\n  background-color: #ededed;\n  padding-bottom: 100px;\n}\n.reservation_baggage_rule_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n  display: flex;\n}\n.reservation_baggage {\n  flex-grow: 2;\n}\n.reservation_rule {\n  flex-grow: 1;\n}\n.reservation_icon_blue {\n  color: #249ac2;\n  margin-right: 5px;\n}\n.reservation_icon_deepblue {\n  color: #084AFF;\n  margin-right: 5px;\n}\n.reservation_icon_gray {\n  color: #adadad;\n  margin-right: 5px;\n}\n.reservation_icon_flex {\n  display: flex;\n  align-items: center;\n}\n.reservation_input_reset_btn {\n  color: #084AFF;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n}\n.reservation_input_reset_btn:hover {\n  cursor: pointer;\n}\n.reservation_passenger_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 30px;\n}\n.reservation_spacebetween {\n  display: flex;\n  justify-content: space-between;\n}\n.reservation_placeholder {\n  color: #ededed;\n}\n.reservation_input {\n  border: 1px solid #ededed;\n  outline: none;\n  height: 50px;\n  border-radius: 5px;\n  padding: 5px;\n  position: relative;\n}\n.reservation_input select {\n  border: none;\n  outline: none;\n}\n.reservation_input legend {\n  font-size: 12px;\n  color: #4f4f4f;\n}\n.reservation_notification_box {\n  border: 1px solid #ededed;\n  background-color: #ededed;\n  border-radius: 5px;\n  padding: 5px;\n}\n.reservation_notification_box span {\n  font-weight: 900;\n}\n.reservation_refund_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 30px;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n}\n.reservation_refund_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_refund_area span {\n  font-weight: 900;\n}\n.reservation_insurance_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n}\n.reservation_insurance_small_msg {\n  padding-left: 10px;\n}\n.reservation_contact_info_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_box {\n  display: flex;\n  flex-direction: column;\n  margin-top: 30px;\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_price {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_next_btn {\n  background-color: #084AFF;\n  padding: 5px;\n  color: #fff;\n  border-radius: 5px;\n}\n.reservation_popover {\n  position: absolute;\n  left: -110px;\n  top: 24px;\n  border: 1px solid #dadada;\n  padding: 10px;\n  background-color: #f9f9f9;\n  width: 260px;\n  border-radius: 5px;\n}\n.reservation_success {\n  border: 1px solid #084AFF;\n}\n.reservation_fail {\n  border: 1px solid #ff0000;\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.reservation_layout {\n    width: 100vw;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    width: 100%;\n}\n.reservation_progress_box {\n    width: 75%;\n}\n.reservation_baggage_rule_box {\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_refund_area {\n    padding: 5px;\n    font-size: 12px;\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_title_1 {\n    font-size: 35px;\n}\n.reservation_to_tiket_info {\n    font-size: 15px;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n    font-size: 14px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n    font-size: 12px;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n    font-size: 11px;\n}\n.reservation_icon_flex {\n    align-items: flex-start;\n}\n.reservation_switch label {\n    padding: 0;\n    font-size: 11px;\n}\n.reservation_popover {\n    position: absolute;\n    left: -110px;\n    top: 24px;\n    border: 1px solid #dadada;\n    padding: 10px;\n    background-color: #f9f9f9;\n    width: 260px;\n    border-radius: 5px;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.reservation_layout {\n    width: 768px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 750px;\n}\n.reservation_progress_box {\n    width: 628px;\n}\n}\n@media (min-width: 1024px) {\n.reservation_layout {\n    width: 1000px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 1000px;\n}\n.reservation_progress_box {\n    width: 900px;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  font-family: sans-serif;\n}\n@supports (-webkit-appearance: none) or (-moz-appearance: none) {\ninput[type=checkbox] {\n    --active: #275EFE;\n    --active-inner: #fff;\n    --focus: 2px rgba(39, 94, 254, .3);\n    --border: #BBC1E1;\n    --border-hover: #275EFE;\n    --background: #fff;\n    --disabled: #F6F8FF;\n    --disabled-inner: #275EFE;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    height: 21px;\n    outline: none;\n    display: inline-block;\n    vertical-align: top;\n    position: relative;\n    margin: 0;\n    cursor: pointer;\n    border: 1px solid var(--bc, var(--border));\n    background: var(--b, var(--background));\n    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;\n}\ninput[type=checkbox]:after {\n    content: \"\";\n    display: block;\n    left: 0;\n    top: 0;\n    position: absolute;\n    transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);\n}\ninput[type=checkbox]:checked {\n    --b: var(--active);\n    --bc: var(--active);\n    --d-o: .3s;\n    --d-t: .6s;\n    --d-t-e: cubic-bezier(.2, .85, .32, 1.2);\n}\ninput[type=checkbox]:disabled {\n    --b: var(--disabled);\n    cursor: not-allowed;\n    opacity: 0.9;\n}\ninput[type=checkbox]:disabled:checked {\n    --b: var(--disabled-inner);\n    --bc: var(--border);\n}\ninput[type=checkbox]:disabled + label {\n    cursor: not-allowed;\n}\ninput[type=checkbox]:hover:not(:checked):not(:disabled) {\n    --bc: var(--border-hover);\n}\ninput[type=checkbox]:focus {\n    box-shadow: 0 0 0 var(--focus);\n}\ninput[type=checkbox]:not(.reservation_switch) {\n    width: 21px;\n}\ninput[type=checkbox]:not(.reservation_switch):after {\n    opacity: var(--o, 0);\n}\ninput[type=checkbox]:not(.reservation_switch):checked {\n    --o: 1;\n}\ninput[type=checkbox] + label {\n    font-size: 14px;\n    line-height: 21px;\n    display: inline-block;\n    vertical-align: top;\n    cursor: pointer;\n    margin-left: 4px;\n}\ninput[type=checkbox]:not(.reservation_switch) {\n    border-radius: 7px;\n}\ninput[type=checkbox]:not(.reservation_switch):after {\n    width: 5px;\n    height: 9px;\n    border: 2px solid var(--active-inner);\n    border-top: 0;\n    border-left: 0;\n    left: 7px;\n    top: 4px;\n    transform: rotate(var(--r, 20deg));\n}\ninput[type=checkbox]:not(.reservation_switch):checked {\n    --r: 43deg;\n}\ninput[type=checkbox].reservation_switch {\n    width: 38px;\n    border-radius: 11px;\n}\ninput[type=checkbox].reservation_switch:after {\n    left: 2px;\n    top: 2px;\n    border-radius: 50%;\n    width: 15px;\n    height: 15px;\n    background: var(--ab, var(--border));\n    transform: translateX(var(--x, 0));\n}\ninput[type=checkbox].reservation_switch:checked {\n    --ab: var(--active-inner);\n    --x: 17px;\n}\ninput[type=checkbox].reservation_switch:disabled:not(:checked):after {\n    opacity: 0.6;\n}\ninput[type=radio] {\n    border-radius: 50%;\n}\ninput[type=radio]:after {\n    width: 19px;\n    height: 19px;\n    border-radius: 50%;\n    background: var(--active-inner);\n    opacity: 0;\n    transform: scale(var(--s, 0.7));\n}\ninput[type=radio]:checked {\n    --s: .5;\n}\n}\ninput[type=date] {\n  margin: 0 auto;\n  width: 100%;\n  position: relative;\n}\n::-webkit-calendar-picker-indicator {\n  position: absolute;\n  right: -10px;\n  top: 0px;\n  padding-left: 3000px;\n  height: 100%;\n  opacity: 0;\n}\n::-webkit-calendar-picker-indicator:hover {\n  cursor: pointer;\n}\ninput[type=date]:not(.has-value):before {\n  color: rgb(164, 164, 164);\n  content: attr(placeholder);\n}\n.reservation_custom_box .reservation_custom_sec_box {\n  position: relative;\n}\n.reservation_custom_box .reservation_custom_sec_box input {\n  height: 50px;\n  width: 100%;\n  padding: 10px 0px 10px 10px;\n  font-size: 16px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  outline: none;\n  background: transparent;\n}\n.reservation_custom_box .reservation_custom_sec_box label {\n  position: absolute;\n  top: 13px;\n  left: 8px;\n  font-size: 16px;\n  color: #a5a5a5;\n  pointer-events: none;\n  transition: 0.5s;\n}\n.reservation_custom_box .reservation_custom_sec_box input:focus ~ label,\n.reservation_custom_box .reservation_custom_sec_box input:valid ~ label {\n  top: -10px;\n  left: 5px;\n  color: #a5a5a5;\n  font-size: 12px;\n  background-color: #fff;\n}\n.reservation_custom_sec_box input:not(:focus)::-moz-placeholder {\n  opacity: 0;\n}\n.reservation_custom_sec_box input:not(:focus)::placeholder {\n  opacity: 0;\n}\n.reservation_header {\n  display: flex;\n  justify-content: space-between;\n  padding: 20px;\n  position: absolute;\n  width: 100%;\n}\n.reservation_header_box {\n  width: 100px;\n  text-align: center;\n}\n.reservation_header_box span {\n  font-weight: bold;\n  font-size: 15px;\n}\n.reservation_header_ball_1, .reservation_header_ball_2 {\n  line-height: 60px;\n  height: 60px;\n  width: 60px;\n  font-size: 35px;\n  border-radius: 100%;\n  font-weight: bold;\n  margin: 0 auto;\n  color: #fff;\n  box-shadow: 0 10px 15px -4px rgba(125, 125, 125, 0.4784313725);\n}\n.reservation_header_ball_1 {\n  background-color: #0B4AFF;\n}\n.reservation_header_ball_2 {\n  background-color: #C5DFFF;\n}\n.reservation_progress_box {\n  padding-top: 67px;\n  margin: 0 auto;\n  padding-bottom: 70px;\n}\n.reservation_progress_blue {\n  background-color: #084AFF;\n}\n.reservation_progress_gray {\n  background-color: #ededed;\n}\n.reservation_body {\n  width: 90%;\n  max-width: 600px;\n  margin: 0 auto;\n}\n.reservation_title_1 {\n  font-size: 40px;\n  font-weight: bold;\n}\n.reservation_title_2 {\n  font-size: 30px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_3 {\n  font-size: 25px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_4 {\n  font-size: 15px;\n  font-weight: bold;\n}\n.reservation_to_tiket_title {\n  display: flex;\n  align-items: center;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n  font-size: 17px;\n  padding: 4px 7px;\n  background-color: #0B4AFF;\n  color: #fff;\n  font-weight: 800;\n  border-radius: 20px;\n  margin-left: 5px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n  margin-left: 5px;\n  padding: 0px 10px;\n  border-right: 2px solid #ededed;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n  padding: 0px 10px;\n}\n.reservation_to_tiket_info {\n  display: flex;\n  padding: 20px 0px;\n}\n.reservation_to_tiket_time {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-right: 20px;\n}\n.reservation_to_tiket_time div {\n  font-size: 20px;\n  font-weight: 900;\n  width: 60px;\n}\n.reservation_to_tiket_time_type {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-left: 20px;\n  border-left: 5px solid #ededed;\n  margin: 10px 0px;\n}\n.reservation_to_tiket_time_type div:nth-child(1),\n.reservation_to_tiket_time_type div:nth-child(3) {\n  font-weight: 900;\n}\n.reservation_to_tiket_time_type div:nth-child(2) {\n  padding: 20px 0px;\n  font-size: 10px;\n}\n.reservation_gray_bg {\n  background-color: #ededed;\n  padding-bottom: 100px;\n}\n.reservation_baggage_rule_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n  display: flex;\n}\n.reservation_baggage {\n  flex-grow: 2;\n}\n.reservation_rule {\n  flex-grow: 1;\n}\n.reservation_icon_blue {\n  color: #249ac2;\n  margin-right: 5px;\n}\n.reservation_icon_deepblue {\n  color: #084AFF;\n  margin-right: 5px;\n}\n.reservation_icon_gray {\n  color: #adadad;\n  margin-right: 5px;\n}\n.reservation_icon_flex {\n  display: flex;\n  align-items: center;\n}\n.reservation_input_reset_btn {\n  color: #084AFF;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n}\n.reservation_input_reset_btn:hover {\n  cursor: pointer;\n}\n.reservation_passenger_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 30px;\n}\n.reservation_spacebetween {\n  display: flex;\n  justify-content: space-between;\n}\n.reservation_placeholder {\n  color: #ededed;\n}\n.reservation_input {\n  border: 1px solid #ededed;\n  outline: none;\n  height: 50px;\n  border-radius: 5px;\n  padding: 5px;\n  position: relative;\n}\n.reservation_input select {\n  border: none;\n  outline: none;\n}\n.reservation_input legend {\n  font-size: 12px;\n  color: #4f4f4f;\n}\n.reservation_notification_box {\n  border: 1px solid #ededed;\n  background-color: #ededed;\n  border-radius: 5px;\n  padding: 5px;\n}\n.reservation_notification_box span {\n  font-weight: 900;\n}\n.reservation_refund_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 30px;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n}\n.reservation_refund_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_refund_area span {\n  font-weight: 900;\n}\n.reservation_insurance_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n}\n.reservation_insurance_small_msg {\n  padding-left: 10px;\n}\n.reservation_contact_info_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_box {\n  display: flex;\n  flex-direction: column;\n  margin-top: 30px;\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_price {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_next_btn {\n  background-color: #084AFF;\n  padding: 5px;\n  color: #fff;\n  border-radius: 5px;\n}\n.reservation_popover {\n  position: absolute;\n  left: -110px;\n  top: 24px;\n  border: 3px solid #ededed;\n  padding: 10px;\n  background-color: #ffffff;\n  width: 260px;\n  border-radius: 5px;\n}\n.reservation_success {\n  border: 1px solid #084AFF;\n}\n.reservation_fail {\n  border: 3px solid #ff0000;\n}\n.reservation_complete {\n  width: 100%;\n  padding-bottom: 50px;\n  margin: 0px auto 30px auto;\n}\n.reservation_complete_icon {\n  margin: 0 auto;\n  color: #084AFF;\n}\n.reservation_cancel_icon {\n  margin: 0 auto;\n  color: #ff3e3e;\n}\n.reservation_complete_msg {\n  padding: 20px 0 50px 0;\n  font-size: 20px;\n  font-weight: bold;\n  color: #000000;\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.reservation_layout {\n    width: 100vw;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    width: 100%;\n}\n.reservation_progress_box {\n    width: 75%;\n}\n.reservation_baggage_rule_box {\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_refund_area {\n    padding: 5px;\n    font-size: 12px;\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_title_1 {\n    font-size: 35px;\n}\n.reservation_to_tiket_info {\n    font-size: 15px;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n    font-size: 14px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n    font-size: 12px;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n    font-size: 11px;\n}\n.reservation_icon_flex {\n    align-items: flex-start;\n}\n.reservation_switch label {\n    padding: 0;\n    font-size: 11px;\n}\n.reservation_popover {\n    position: absolute;\n    left: -110px;\n    top: 24px;\n    border: 1px solid #dadada;\n    padding: 10px;\n    background-color: #f9f9f9;\n    width: 260px;\n    border-radius: 5px;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.reservation_layout {\n    width: 768px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 750px;\n}\n.reservation_progress_box {\n    width: 628px;\n}\n}\n@media (min-width: 1024px) {\n.reservation_layout {\n    width: 1000px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 1000px;\n}\n.reservation_progress_box {\n    width: 900px;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -42977,8 +43215,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var _vue_devtools_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vue/devtools-api */ "./node_modules/@vue/devtools-api/lib/esm/index.js");
 /*!
- * vuex v4.0.2
- * (c) 2021 Evan You
+ * vuex v4.1.0
+ * (c) 2022 Evan You
  * @license MIT
  */
 
@@ -43095,6 +43333,7 @@ function resetStore (store, hot) {
 
 function resetStoreState (store, state, hot) {
   var oldState = store._state;
+  var oldScope = store._scope;
 
   // bind store public getters
   store.getters = {};
@@ -43102,22 +43341,33 @@ function resetStoreState (store, state, hot) {
   store._makeLocalGettersCache = Object.create(null);
   var wrappedGetters = store._wrappedGetters;
   var computedObj = {};
-  forEachValue(wrappedGetters, function (fn, key) {
-    // use computed to leverage its lazy-caching mechanism
-    // direct inline function use will lead to closure preserving oldState.
-    // using partial to return function with only arguments preserved in closure environment.
-    computedObj[key] = partial(fn, store);
-    Object.defineProperty(store.getters, key, {
-      // TODO: use `computed` when it's possible. at the moment we can't due to
-      // https://github.com/vuejs/vuex/pull/1883
-      get: function () { return computedObj[key](); },
-      enumerable: true // for local getters
+  var computedCache = {};
+
+  // create a new effect scope and create computed object inside it to avoid
+  // getters (computed) getting destroyed on component unmount.
+  var scope = (0,vue__WEBPACK_IMPORTED_MODULE_0__.effectScope)(true);
+
+  scope.run(function () {
+    forEachValue(wrappedGetters, function (fn, key) {
+      // use computed to leverage its lazy-caching mechanism
+      // direct inline function use will lead to closure preserving oldState.
+      // using partial to return function with only arguments preserved in closure environment.
+      computedObj[key] = partial(fn, store);
+      computedCache[key] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () { return computedObj[key](); });
+      Object.defineProperty(store.getters, key, {
+        get: function () { return computedCache[key].value; },
+        enumerable: true // for local getters
+      });
     });
   });
 
   store._state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
     data: state
   });
+
+  // register the newly created effect scope to the store so that we can
+  // dispose the effects when this method runs again in the future.
+  store._scope = scope;
 
   // enable strict mode for new state
   if (store.strict) {
@@ -43132,6 +43382,11 @@ function resetStoreState (store, state, hot) {
         oldState.data = null;
       });
     }
+  }
+
+  // dispose previously registered effect scope if there is one.
+  if (oldScope) {
+    oldScope.stop();
   }
 }
 
@@ -43881,6 +44136,12 @@ var Store = function Store (options) {
   this._modulesNamespaceMap = Object.create(null);
   this._subscribers = [];
   this._makeLocalGettersCache = Object.create(null);
+
+  // EffectScope instance. when registering new getters, we wrap them inside
+  // EffectScope so that getters (computed) would not be destroyed on
+  // component unmount.
+  this._scope = null;
+
   this._devtools = devtools;
 
   // bind commit and dispatch to self
@@ -44423,7 +44684,7 @@ function pad (num, maxLength) {
 }
 
 var index = {
-  version: '4.0.2',
+  version: '4.1.0',
   Store: Store,
   storeKey: storeKey,
   createStore: createStore,
@@ -44438,6 +44699,4539 @@ var index = {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (index);
 
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/_lib/addLeadingZeros.mjs":
+/*!********************************************************!*\
+  !*** ./node_modules/date-fns/_lib/addLeadingZeros.mjs ***!
+  \********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   addLeadingZeros: () => (/* binding */ addLeadingZeros)
+/* harmony export */ });
+function addLeadingZeros(number, targetLength) {
+  const sign = number < 0 ? "-" : "";
+  const output = Math.abs(number).toString().padStart(targetLength, "0");
+  return sign + output;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/_lib/defaultOptions.mjs":
+/*!*******************************************************!*\
+  !*** ./node_modules/date-fns/_lib/defaultOptions.mjs ***!
+  \*******************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getDefaultOptions: () => (/* binding */ getDefaultOptions),
+/* harmony export */   setDefaultOptions: () => (/* binding */ setDefaultOptions)
+/* harmony export */ });
+let defaultOptions = {};
+
+function getDefaultOptions() {
+  return defaultOptions;
+}
+
+function setDefaultOptions(newOptions) {
+  defaultOptions = newOptions;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/_lib/format/formatters.mjs":
+/*!**********************************************************!*\
+  !*** ./node_modules/date-fns/_lib/format/formatters.mjs ***!
+  \**********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   formatters: () => (/* binding */ formatters)
+/* harmony export */ });
+/* harmony import */ var _getDayOfYear_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../getDayOfYear.mjs */ "./node_modules/date-fns/getDayOfYear.mjs");
+/* harmony import */ var _getISOWeek_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../getISOWeek.mjs */ "./node_modules/date-fns/getISOWeek.mjs");
+/* harmony import */ var _getISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../getISOWeekYear.mjs */ "./node_modules/date-fns/getISOWeekYear.mjs");
+/* harmony import */ var _getWeek_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../getWeek.mjs */ "./node_modules/date-fns/getWeek.mjs");
+/* harmony import */ var _getWeekYear_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../getWeekYear.mjs */ "./node_modules/date-fns/getWeekYear.mjs");
+/* harmony import */ var _addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../addLeadingZeros.mjs */ "./node_modules/date-fns/_lib/addLeadingZeros.mjs");
+/* harmony import */ var _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lightFormatters.mjs */ "./node_modules/date-fns/_lib/format/lightFormatters.mjs");
+
+
+
+
+
+
+
+
+const dayPeriodEnum = {
+  am: "am",
+  pm: "pm",
+  midnight: "midnight",
+  noon: "noon",
+  morning: "morning",
+  afternoon: "afternoon",
+  evening: "evening",
+  night: "night",
+};
+
+/*
+ * |     | Unit                           |     | Unit                           |
+ * |-----|--------------------------------|-----|--------------------------------|
+ * |  a  | AM, PM                         |  A* | Milliseconds in day            |
+ * |  b  | AM, PM, noon, midnight         |  B  | Flexible day period            |
+ * |  c  | Stand-alone local day of week  |  C* | Localized hour w/ day period   |
+ * |  d  | Day of month                   |  D  | Day of year                    |
+ * |  e  | Local day of week              |  E  | Day of week                    |
+ * |  f  |                                |  F* | Day of week in month           |
+ * |  g* | Modified Julian day            |  G  | Era                            |
+ * |  h  | Hour [1-12]                    |  H  | Hour [0-23]                    |
+ * |  i! | ISO day of week                |  I! | ISO week of year               |
+ * |  j* | Localized hour w/ day period   |  J* | Localized hour w/o day period  |
+ * |  k  | Hour [1-24]                    |  K  | Hour [0-11]                    |
+ * |  l* | (deprecated)                   |  L  | Stand-alone month              |
+ * |  m  | Minute                         |  M  | Month                          |
+ * |  n  |                                |  N  |                                |
+ * |  o! | Ordinal number modifier        |  O  | Timezone (GMT)                 |
+ * |  p! | Long localized time            |  P! | Long localized date            |
+ * |  q  | Stand-alone quarter            |  Q  | Quarter                        |
+ * |  r* | Related Gregorian year         |  R! | ISO week-numbering year        |
+ * |  s  | Second                         |  S  | Fraction of second             |
+ * |  t! | Seconds timestamp              |  T! | Milliseconds timestamp         |
+ * |  u  | Extended year                  |  U* | Cyclic year                    |
+ * |  v* | Timezone (generic non-locat.)  |  V* | Timezone (location)            |
+ * |  w  | Local week of year             |  W* | Week of month                  |
+ * |  x  | Timezone (ISO-8601 w/o Z)      |  X  | Timezone (ISO-8601)            |
+ * |  y  | Year (abs)                     |  Y  | Local week-numbering year      |
+ * |  z  | Timezone (specific non-locat.) |  Z* | Timezone (aliases)             |
+ *
+ * Letters marked by * are not implemented but reserved by Unicode standard.
+ *
+ * Letters marked by ! are non-standard, but implemented by date-fns:
+ * - `o` modifies the previous token to turn it into an ordinal (see `format` docs)
+ * - `i` is ISO day of week. For `i` and `ii` is returns numeric ISO week days,
+ *   i.e. 7 for Sunday, 1 for Monday, etc.
+ * - `I` is ISO week of year, as opposed to `w` which is local week of year.
+ * - `R` is ISO week-numbering year, as opposed to `Y` which is local week-numbering year.
+ *   `R` is supposed to be used in conjunction with `I` and `i`
+ *   for universal ISO week-numbering date, whereas
+ *   `Y` is supposed to be used in conjunction with `w` and `e`
+ *   for week-numbering date specific to the locale.
+ * - `P` is long localized date format
+ * - `p` is long localized time format
+ */
+
+const formatters = {
+  // Era
+  G: function (date, token, localize) {
+    const era = date.getFullYear() > 0 ? 1 : 0;
+    switch (token) {
+      // AD, BC
+      case "G":
+      case "GG":
+      case "GGG":
+        return localize.era(era, { width: "abbreviated" });
+      // A, B
+      case "GGGGG":
+        return localize.era(era, { width: "narrow" });
+      // Anno Domini, Before Christ
+      case "GGGG":
+      default:
+        return localize.era(era, { width: "wide" });
+    }
+  },
+
+  // Year
+  y: function (date, token, localize) {
+    // Ordinal number
+    if (token === "yo") {
+      const signedYear = date.getFullYear();
+      // Returns 1 for 1 BC (which is year 0 in JavaScript)
+      const year = signedYear > 0 ? signedYear : 1 - signedYear;
+      return localize.ordinalNumber(year, { unit: "year" });
+    }
+
+    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_0__.lightFormatters.y(date, token);
+  },
+
+  // Local week-numbering year
+  Y: function (date, token, localize, options) {
+    const signedWeekYear = (0,_getWeekYear_mjs__WEBPACK_IMPORTED_MODULE_1__.getWeekYear)(date, options);
+    // Returns 1 for 1 BC (which is year 0 in JavaScript)
+    const weekYear = signedWeekYear > 0 ? signedWeekYear : 1 - signedWeekYear;
+
+    // Two digit year
+    if (token === "YY") {
+      const twoDigitYear = weekYear % 100;
+      return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(twoDigitYear, 2);
+    }
+
+    // Ordinal number
+    if (token === "Yo") {
+      return localize.ordinalNumber(weekYear, { unit: "year" });
+    }
+
+    // Padding
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(weekYear, token.length);
+  },
+
+  // ISO week-numbering year
+  R: function (date, token) {
+    const isoWeekYear = (0,_getISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_3__.getISOWeekYear)(date);
+
+    // Padding
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(isoWeekYear, token.length);
+  },
+
+  // Extended year. This is a single number designating the year of this calendar system.
+  // The main difference between `y` and `u` localizers are B.C. years:
+  // | Year | `y` | `u` |
+  // |------|-----|-----|
+  // | AC 1 |   1 |   1 |
+  // | BC 1 |   1 |   0 |
+  // | BC 2 |   2 |  -1 |
+  // Also `yy` always returns the last two digits of a year,
+  // while `uu` pads single digit years to 2 characters and returns other years unchanged.
+  u: function (date, token) {
+    const year = date.getFullYear();
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(year, token.length);
+  },
+
+  // Quarter
+  Q: function (date, token, localize) {
+    const quarter = Math.ceil((date.getMonth() + 1) / 3);
+    switch (token) {
+      // 1, 2, 3, 4
+      case "Q":
+        return String(quarter);
+      // 01, 02, 03, 04
+      case "QQ":
+        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(quarter, 2);
+      // 1st, 2nd, 3rd, 4th
+      case "Qo":
+        return localize.ordinalNumber(quarter, { unit: "quarter" });
+      // Q1, Q2, Q3, Q4
+      case "QQQ":
+        return localize.quarter(quarter, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      // 1, 2, 3, 4 (narrow quarter; could be not numerical)
+      case "QQQQQ":
+        return localize.quarter(quarter, {
+          width: "narrow",
+          context: "formatting",
+        });
+      // 1st quarter, 2nd quarter, ...
+      case "QQQQ":
+      default:
+        return localize.quarter(quarter, {
+          width: "wide",
+          context: "formatting",
+        });
+    }
+  },
+
+  // Stand-alone quarter
+  q: function (date, token, localize) {
+    const quarter = Math.ceil((date.getMonth() + 1) / 3);
+    switch (token) {
+      // 1, 2, 3, 4
+      case "q":
+        return String(quarter);
+      // 01, 02, 03, 04
+      case "qq":
+        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(quarter, 2);
+      // 1st, 2nd, 3rd, 4th
+      case "qo":
+        return localize.ordinalNumber(quarter, { unit: "quarter" });
+      // Q1, Q2, Q3, Q4
+      case "qqq":
+        return localize.quarter(quarter, {
+          width: "abbreviated",
+          context: "standalone",
+        });
+      // 1, 2, 3, 4 (narrow quarter; could be not numerical)
+      case "qqqqq":
+        return localize.quarter(quarter, {
+          width: "narrow",
+          context: "standalone",
+        });
+      // 1st quarter, 2nd quarter, ...
+      case "qqqq":
+      default:
+        return localize.quarter(quarter, {
+          width: "wide",
+          context: "standalone",
+        });
+    }
+  },
+
+  // Month
+  M: function (date, token, localize) {
+    const month = date.getMonth();
+    switch (token) {
+      case "M":
+      case "MM":
+        return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_0__.lightFormatters.M(date, token);
+      // 1st, 2nd, ..., 12th
+      case "Mo":
+        return localize.ordinalNumber(month + 1, { unit: "month" });
+      // Jan, Feb, ..., Dec
+      case "MMM":
+        return localize.month(month, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      // J, F, ..., D
+      case "MMMMM":
+        return localize.month(month, {
+          width: "narrow",
+          context: "formatting",
+        });
+      // January, February, ..., December
+      case "MMMM":
+      default:
+        return localize.month(month, { width: "wide", context: "formatting" });
+    }
+  },
+
+  // Stand-alone month
+  L: function (date, token, localize) {
+    const month = date.getMonth();
+    switch (token) {
+      // 1, 2, ..., 12
+      case "L":
+        return String(month + 1);
+      // 01, 02, ..., 12
+      case "LL":
+        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(month + 1, 2);
+      // 1st, 2nd, ..., 12th
+      case "Lo":
+        return localize.ordinalNumber(month + 1, { unit: "month" });
+      // Jan, Feb, ..., Dec
+      case "LLL":
+        return localize.month(month, {
+          width: "abbreviated",
+          context: "standalone",
+        });
+      // J, F, ..., D
+      case "LLLLL":
+        return localize.month(month, {
+          width: "narrow",
+          context: "standalone",
+        });
+      // January, February, ..., December
+      case "LLLL":
+      default:
+        return localize.month(month, { width: "wide", context: "standalone" });
+    }
+  },
+
+  // Local week of year
+  w: function (date, token, localize, options) {
+    const week = (0,_getWeek_mjs__WEBPACK_IMPORTED_MODULE_4__.getWeek)(date, options);
+
+    if (token === "wo") {
+      return localize.ordinalNumber(week, { unit: "week" });
+    }
+
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(week, token.length);
+  },
+
+  // ISO week of year
+  I: function (date, token, localize) {
+    const isoWeek = (0,_getISOWeek_mjs__WEBPACK_IMPORTED_MODULE_5__.getISOWeek)(date);
+
+    if (token === "Io") {
+      return localize.ordinalNumber(isoWeek, { unit: "week" });
+    }
+
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(isoWeek, token.length);
+  },
+
+  // Day of the month
+  d: function (date, token, localize) {
+    if (token === "do") {
+      return localize.ordinalNumber(date.getDate(), { unit: "date" });
+    }
+
+    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_0__.lightFormatters.d(date, token);
+  },
+
+  // Day of year
+  D: function (date, token, localize) {
+    const dayOfYear = (0,_getDayOfYear_mjs__WEBPACK_IMPORTED_MODULE_6__.getDayOfYear)(date);
+
+    if (token === "Do") {
+      return localize.ordinalNumber(dayOfYear, { unit: "dayOfYear" });
+    }
+
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(dayOfYear, token.length);
+  },
+
+  // Day of week
+  E: function (date, token, localize) {
+    const dayOfWeek = date.getDay();
+    switch (token) {
+      // Tue
+      case "E":
+      case "EE":
+      case "EEE":
+        return localize.day(dayOfWeek, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      // T
+      case "EEEEE":
+        return localize.day(dayOfWeek, {
+          width: "narrow",
+          context: "formatting",
+        });
+      // Tu
+      case "EEEEEE":
+        return localize.day(dayOfWeek, {
+          width: "short",
+          context: "formatting",
+        });
+      // Tuesday
+      case "EEEE":
+      default:
+        return localize.day(dayOfWeek, {
+          width: "wide",
+          context: "formatting",
+        });
+    }
+  },
+
+  // Local day of week
+  e: function (date, token, localize, options) {
+    const dayOfWeek = date.getDay();
+    const localDayOfWeek = (dayOfWeek - options.weekStartsOn + 8) % 7 || 7;
+    switch (token) {
+      // Numerical value (Nth day of week with current locale or weekStartsOn)
+      case "e":
+        return String(localDayOfWeek);
+      // Padded numerical value
+      case "ee":
+        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(localDayOfWeek, 2);
+      // 1st, 2nd, ..., 7th
+      case "eo":
+        return localize.ordinalNumber(localDayOfWeek, { unit: "day" });
+      case "eee":
+        return localize.day(dayOfWeek, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      // T
+      case "eeeee":
+        return localize.day(dayOfWeek, {
+          width: "narrow",
+          context: "formatting",
+        });
+      // Tu
+      case "eeeeee":
+        return localize.day(dayOfWeek, {
+          width: "short",
+          context: "formatting",
+        });
+      // Tuesday
+      case "eeee":
+      default:
+        return localize.day(dayOfWeek, {
+          width: "wide",
+          context: "formatting",
+        });
+    }
+  },
+
+  // Stand-alone local day of week
+  c: function (date, token, localize, options) {
+    const dayOfWeek = date.getDay();
+    const localDayOfWeek = (dayOfWeek - options.weekStartsOn + 8) % 7 || 7;
+    switch (token) {
+      // Numerical value (same as in `e`)
+      case "c":
+        return String(localDayOfWeek);
+      // Padded numerical value
+      case "cc":
+        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(localDayOfWeek, token.length);
+      // 1st, 2nd, ..., 7th
+      case "co":
+        return localize.ordinalNumber(localDayOfWeek, { unit: "day" });
+      case "ccc":
+        return localize.day(dayOfWeek, {
+          width: "abbreviated",
+          context: "standalone",
+        });
+      // T
+      case "ccccc":
+        return localize.day(dayOfWeek, {
+          width: "narrow",
+          context: "standalone",
+        });
+      // Tu
+      case "cccccc":
+        return localize.day(dayOfWeek, {
+          width: "short",
+          context: "standalone",
+        });
+      // Tuesday
+      case "cccc":
+      default:
+        return localize.day(dayOfWeek, {
+          width: "wide",
+          context: "standalone",
+        });
+    }
+  },
+
+  // ISO day of week
+  i: function (date, token, localize) {
+    const dayOfWeek = date.getDay();
+    const isoDayOfWeek = dayOfWeek === 0 ? 7 : dayOfWeek;
+    switch (token) {
+      // 2
+      case "i":
+        return String(isoDayOfWeek);
+      // 02
+      case "ii":
+        return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(isoDayOfWeek, token.length);
+      // 2nd
+      case "io":
+        return localize.ordinalNumber(isoDayOfWeek, { unit: "day" });
+      // Tue
+      case "iii":
+        return localize.day(dayOfWeek, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      // T
+      case "iiiii":
+        return localize.day(dayOfWeek, {
+          width: "narrow",
+          context: "formatting",
+        });
+      // Tu
+      case "iiiiii":
+        return localize.day(dayOfWeek, {
+          width: "short",
+          context: "formatting",
+        });
+      // Tuesday
+      case "iiii":
+      default:
+        return localize.day(dayOfWeek, {
+          width: "wide",
+          context: "formatting",
+        });
+    }
+  },
+
+  // AM or PM
+  a: function (date, token, localize) {
+    const hours = date.getHours();
+    const dayPeriodEnumValue = hours / 12 >= 1 ? "pm" : "am";
+
+    switch (token) {
+      case "a":
+      case "aa":
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      case "aaa":
+        return localize
+          .dayPeriod(dayPeriodEnumValue, {
+            width: "abbreviated",
+            context: "formatting",
+          })
+          .toLowerCase();
+      case "aaaaa":
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "narrow",
+          context: "formatting",
+        });
+      case "aaaa":
+      default:
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "wide",
+          context: "formatting",
+        });
+    }
+  },
+
+  // AM, PM, midnight, noon
+  b: function (date, token, localize) {
+    const hours = date.getHours();
+    let dayPeriodEnumValue;
+    if (hours === 12) {
+      dayPeriodEnumValue = dayPeriodEnum.noon;
+    } else if (hours === 0) {
+      dayPeriodEnumValue = dayPeriodEnum.midnight;
+    } else {
+      dayPeriodEnumValue = hours / 12 >= 1 ? "pm" : "am";
+    }
+
+    switch (token) {
+      case "b":
+      case "bb":
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      case "bbb":
+        return localize
+          .dayPeriod(dayPeriodEnumValue, {
+            width: "abbreviated",
+            context: "formatting",
+          })
+          .toLowerCase();
+      case "bbbbb":
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "narrow",
+          context: "formatting",
+        });
+      case "bbbb":
+      default:
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "wide",
+          context: "formatting",
+        });
+    }
+  },
+
+  // in the morning, in the afternoon, in the evening, at night
+  B: function (date, token, localize) {
+    const hours = date.getHours();
+    let dayPeriodEnumValue;
+    if (hours >= 17) {
+      dayPeriodEnumValue = dayPeriodEnum.evening;
+    } else if (hours >= 12) {
+      dayPeriodEnumValue = dayPeriodEnum.afternoon;
+    } else if (hours >= 4) {
+      dayPeriodEnumValue = dayPeriodEnum.morning;
+    } else {
+      dayPeriodEnumValue = dayPeriodEnum.night;
+    }
+
+    switch (token) {
+      case "B":
+      case "BB":
+      case "BBB":
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "abbreviated",
+          context: "formatting",
+        });
+      case "BBBBB":
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "narrow",
+          context: "formatting",
+        });
+      case "BBBB":
+      default:
+        return localize.dayPeriod(dayPeriodEnumValue, {
+          width: "wide",
+          context: "formatting",
+        });
+    }
+  },
+
+  // Hour [1-12]
+  h: function (date, token, localize) {
+    if (token === "ho") {
+      let hours = date.getHours() % 12;
+      if (hours === 0) hours = 12;
+      return localize.ordinalNumber(hours, { unit: "hour" });
+    }
+
+    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_0__.lightFormatters.h(date, token);
+  },
+
+  // Hour [0-23]
+  H: function (date, token, localize) {
+    if (token === "Ho") {
+      return localize.ordinalNumber(date.getHours(), { unit: "hour" });
+    }
+
+    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_0__.lightFormatters.H(date, token);
+  },
+
+  // Hour [0-11]
+  K: function (date, token, localize) {
+    const hours = date.getHours() % 12;
+
+    if (token === "Ko") {
+      return localize.ordinalNumber(hours, { unit: "hour" });
+    }
+
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(hours, token.length);
+  },
+
+  // Hour [1-24]
+  k: function (date, token, localize) {
+    let hours = date.getHours();
+    if (hours === 0) hours = 24;
+
+    if (token === "ko") {
+      return localize.ordinalNumber(hours, { unit: "hour" });
+    }
+
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(hours, token.length);
+  },
+
+  // Minute
+  m: function (date, token, localize) {
+    if (token === "mo") {
+      return localize.ordinalNumber(date.getMinutes(), { unit: "minute" });
+    }
+
+    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_0__.lightFormatters.m(date, token);
+  },
+
+  // Second
+  s: function (date, token, localize) {
+    if (token === "so") {
+      return localize.ordinalNumber(date.getSeconds(), { unit: "second" });
+    }
+
+    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_0__.lightFormatters.s(date, token);
+  },
+
+  // Fraction of second
+  S: function (date, token) {
+    return _lightFormatters_mjs__WEBPACK_IMPORTED_MODULE_0__.lightFormatters.S(date, token);
+  },
+
+  // Timezone (ISO-8601. If offset is 0, output is always `'Z'`)
+  X: function (date, token, _localize) {
+    const timezoneOffset = date.getTimezoneOffset();
+
+    if (timezoneOffset === 0) {
+      return "Z";
+    }
+
+    switch (token) {
+      // Hours and optional minutes
+      case "X":
+        return formatTimezoneWithOptionalMinutes(timezoneOffset);
+
+      // Hours, minutes and optional seconds without `:` delimiter
+      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+      // so this token always has the same output as `XX`
+      case "XXXX":
+      case "XX": // Hours and minutes without `:` delimiter
+        return formatTimezone(timezoneOffset);
+
+      // Hours, minutes and optional seconds with `:` delimiter
+      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+      // so this token always has the same output as `XXX`
+      case "XXXXX":
+      case "XXX": // Hours and minutes with `:` delimiter
+      default:
+        return formatTimezone(timezoneOffset, ":");
+    }
+  },
+
+  // Timezone (ISO-8601. If offset is 0, output is `'+00:00'` or equivalent)
+  x: function (date, token, _localize) {
+    const timezoneOffset = date.getTimezoneOffset();
+
+    switch (token) {
+      // Hours and optional minutes
+      case "x":
+        return formatTimezoneWithOptionalMinutes(timezoneOffset);
+
+      // Hours, minutes and optional seconds without `:` delimiter
+      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+      // so this token always has the same output as `xx`
+      case "xxxx":
+      case "xx": // Hours and minutes without `:` delimiter
+        return formatTimezone(timezoneOffset);
+
+      // Hours, minutes and optional seconds with `:` delimiter
+      // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+      // so this token always has the same output as `xxx`
+      case "xxxxx":
+      case "xxx": // Hours and minutes with `:` delimiter
+      default:
+        return formatTimezone(timezoneOffset, ":");
+    }
+  },
+
+  // Timezone (GMT)
+  O: function (date, token, _localize) {
+    const timezoneOffset = date.getTimezoneOffset();
+
+    switch (token) {
+      // Short
+      case "O":
+      case "OO":
+      case "OOO":
+        return "GMT" + formatTimezoneShort(timezoneOffset, ":");
+      // Long
+      case "OOOO":
+      default:
+        return "GMT" + formatTimezone(timezoneOffset, ":");
+    }
+  },
+
+  // Timezone (specific non-location)
+  z: function (date, token, _localize) {
+    const timezoneOffset = date.getTimezoneOffset();
+
+    switch (token) {
+      // Short
+      case "z":
+      case "zz":
+      case "zzz":
+        return "GMT" + formatTimezoneShort(timezoneOffset, ":");
+      // Long
+      case "zzzz":
+      default:
+        return "GMT" + formatTimezone(timezoneOffset, ":");
+    }
+  },
+
+  // Seconds timestamp
+  t: function (date, token, _localize) {
+    const timestamp = Math.trunc(date.getTime() / 1000);
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(timestamp, token.length);
+  },
+
+  // Milliseconds timestamp
+  T: function (date, token, _localize) {
+    const timestamp = date.getTime();
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(timestamp, token.length);
+  },
+};
+
+function formatTimezoneShort(offset, delimiter = "") {
+  const sign = offset > 0 ? "-" : "+";
+  const absOffset = Math.abs(offset);
+  const hours = Math.trunc(absOffset / 60);
+  const minutes = absOffset % 60;
+  if (minutes === 0) {
+    return sign + String(hours);
+  }
+  return sign + String(hours) + delimiter + (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(minutes, 2);
+}
+
+function formatTimezoneWithOptionalMinutes(offset, delimiter) {
+  if (offset % 60 === 0) {
+    const sign = offset > 0 ? "-" : "+";
+    return sign + (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(Math.abs(offset) / 60, 2);
+  }
+  return formatTimezone(offset, delimiter);
+}
+
+function formatTimezone(offset, delimiter = "") {
+  const sign = offset > 0 ? "-" : "+";
+  const absOffset = Math.abs(offset);
+  const hours = (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(Math.trunc(absOffset / 60), 2);
+  const minutes = (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_2__.addLeadingZeros)(absOffset % 60, 2);
+  return sign + hours + delimiter + minutes;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/_lib/format/lightFormatters.mjs":
+/*!***************************************************************!*\
+  !*** ./node_modules/date-fns/_lib/format/lightFormatters.mjs ***!
+  \***************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   lightFormatters: () => (/* binding */ lightFormatters)
+/* harmony export */ });
+/* harmony import */ var _addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../addLeadingZeros.mjs */ "./node_modules/date-fns/_lib/addLeadingZeros.mjs");
+
+
+/*
+ * |     | Unit                           |     | Unit                           |
+ * |-----|--------------------------------|-----|--------------------------------|
+ * |  a  | AM, PM                         |  A* |                                |
+ * |  d  | Day of month                   |  D  |                                |
+ * |  h  | Hour [1-12]                    |  H  | Hour [0-23]                    |
+ * |  m  | Minute                         |  M  | Month                          |
+ * |  s  | Second                         |  S  | Fraction of second             |
+ * |  y  | Year (abs)                     |  Y  |                                |
+ *
+ * Letters marked by * are not implemented but reserved by Unicode standard.
+ */
+
+const lightFormatters = {
+  // Year
+  y(date, token) {
+    // From http://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Format_tokens
+    // | Year     |     y | yy |   yyy |  yyyy | yyyyy |
+    // |----------|-------|----|-------|-------|-------|
+    // | AD 1     |     1 | 01 |   001 |  0001 | 00001 |
+    // | AD 12    |    12 | 12 |   012 |  0012 | 00012 |
+    // | AD 123   |   123 | 23 |   123 |  0123 | 00123 |
+    // | AD 1234  |  1234 | 34 |  1234 |  1234 | 01234 |
+    // | AD 12345 | 12345 | 45 | 12345 | 12345 | 12345 |
+
+    const signedYear = date.getFullYear();
+    // Returns 1 for 1 BC (which is year 0 in JavaScript)
+    const year = signedYear > 0 ? signedYear : 1 - signedYear;
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(token === "yy" ? year % 100 : year, token.length);
+  },
+
+  // Month
+  M(date, token) {
+    const month = date.getMonth();
+    return token === "M" ? String(month + 1) : (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(month + 1, 2);
+  },
+
+  // Day of the month
+  d(date, token) {
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getDate(), token.length);
+  },
+
+  // AM or PM
+  a(date, token) {
+    const dayPeriodEnumValue = date.getHours() / 12 >= 1 ? "pm" : "am";
+
+    switch (token) {
+      case "a":
+      case "aa":
+        return dayPeriodEnumValue.toUpperCase();
+      case "aaa":
+        return dayPeriodEnumValue;
+      case "aaaaa":
+        return dayPeriodEnumValue[0];
+      case "aaaa":
+      default:
+        return dayPeriodEnumValue === "am" ? "a.m." : "p.m.";
+    }
+  },
+
+  // Hour [1-12]
+  h(date, token) {
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getHours() % 12 || 12, token.length);
+  },
+
+  // Hour [0-23]
+  H(date, token) {
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getHours(), token.length);
+  },
+
+  // Minute
+  m(date, token) {
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getMinutes(), token.length);
+  },
+
+  // Second
+  s(date, token) {
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(date.getSeconds(), token.length);
+  },
+
+  // Fraction of second
+  S(date, token) {
+    const numberOfDigits = token.length;
+    const milliseconds = date.getMilliseconds();
+    const fractionalSeconds = Math.trunc(
+      milliseconds * Math.pow(10, numberOfDigits - 3),
+    );
+    return (0,_addLeadingZeros_mjs__WEBPACK_IMPORTED_MODULE_0__.addLeadingZeros)(fractionalSeconds, token.length);
+  },
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/_lib/format/longFormatters.mjs":
+/*!**************************************************************!*\
+  !*** ./node_modules/date-fns/_lib/format/longFormatters.mjs ***!
+  \**************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   longFormatters: () => (/* binding */ longFormatters)
+/* harmony export */ });
+const dateLongFormatter = (pattern, formatLong) => {
+  switch (pattern) {
+    case "P":
+      return formatLong.date({ width: "short" });
+    case "PP":
+      return formatLong.date({ width: "medium" });
+    case "PPP":
+      return formatLong.date({ width: "long" });
+    case "PPPP":
+    default:
+      return formatLong.date({ width: "full" });
+  }
+};
+
+const timeLongFormatter = (pattern, formatLong) => {
+  switch (pattern) {
+    case "p":
+      return formatLong.time({ width: "short" });
+    case "pp":
+      return formatLong.time({ width: "medium" });
+    case "ppp":
+      return formatLong.time({ width: "long" });
+    case "pppp":
+    default:
+      return formatLong.time({ width: "full" });
+  }
+};
+
+const dateTimeLongFormatter = (pattern, formatLong) => {
+  const matchResult = pattern.match(/(P+)(p+)?/) || [];
+  const datePattern = matchResult[1];
+  const timePattern = matchResult[2];
+
+  if (!timePattern) {
+    return dateLongFormatter(pattern, formatLong);
+  }
+
+  let dateTimeFormat;
+
+  switch (datePattern) {
+    case "P":
+      dateTimeFormat = formatLong.dateTime({ width: "short" });
+      break;
+    case "PP":
+      dateTimeFormat = formatLong.dateTime({ width: "medium" });
+      break;
+    case "PPP":
+      dateTimeFormat = formatLong.dateTime({ width: "long" });
+      break;
+    case "PPPP":
+    default:
+      dateTimeFormat = formatLong.dateTime({ width: "full" });
+      break;
+  }
+
+  return dateTimeFormat
+    .replace("{{date}}", dateLongFormatter(datePattern, formatLong))
+    .replace("{{time}}", timeLongFormatter(timePattern, formatLong));
+};
+
+const longFormatters = {
+  p: timeLongFormatter,
+  P: dateTimeLongFormatter,
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.mjs":
+/*!************************************************************************!*\
+  !*** ./node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.mjs ***!
+  \************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getTimezoneOffsetInMilliseconds: () => (/* binding */ getTimezoneOffsetInMilliseconds)
+/* harmony export */ });
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+
+
+/**
+ * Google Chrome as of 67.0.3396.87 introduced timezones with offset that includes seconds.
+ * They usually appear for dates that denote time before the timezones were introduced
+ * (e.g. for 'Europe/Prague' timezone the offset is GMT+00:57:44 before 1 October 1891
+ * and GMT+01:00:00 after that date)
+ *
+ * Date#getTimezoneOffset returns the offset in minutes and would return 57 for the example above,
+ * which would lead to incorrect calculations.
+ *
+ * This function returns the timezone offset in milliseconds that takes seconds in account.
+ */
+function getTimezoneOffsetInMilliseconds(date) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  const utcDate = new Date(
+    Date.UTC(
+      _date.getFullYear(),
+      _date.getMonth(),
+      _date.getDate(),
+      _date.getHours(),
+      _date.getMinutes(),
+      _date.getSeconds(),
+      _date.getMilliseconds(),
+    ),
+  );
+  utcDate.setUTCFullYear(_date.getFullYear());
+  return +date - +utcDate;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/_lib/protectedTokens.mjs":
+/*!********************************************************!*\
+  !*** ./node_modules/date-fns/_lib/protectedTokens.mjs ***!
+  \********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isProtectedDayOfYearToken: () => (/* binding */ isProtectedDayOfYearToken),
+/* harmony export */   isProtectedWeekYearToken: () => (/* binding */ isProtectedWeekYearToken),
+/* harmony export */   warnOrThrowProtectedError: () => (/* binding */ warnOrThrowProtectedError)
+/* harmony export */ });
+const dayOfYearTokenRE = /^D+$/;
+const weekYearTokenRE = /^Y+$/;
+
+const throwTokens = ["D", "DD", "YY", "YYYY"];
+
+function isProtectedDayOfYearToken(token) {
+  return dayOfYearTokenRE.test(token);
+}
+
+function isProtectedWeekYearToken(token) {
+  return weekYearTokenRE.test(token);
+}
+
+function warnOrThrowProtectedError(token, format, input) {
+  const _message = message(token, format, input);
+  console.warn(_message);
+  if (throwTokens.includes(token)) throw new RangeError(_message);
+}
+
+function message(token, format, input) {
+  const subject = token[0] === "Y" ? "years" : "days of the month";
+  return `Use \`${token.toLowerCase()}\` instead of \`${token}\` (in \`${format}\`) for formatting ${subject} to the input \`${input}\`; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md`;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/constants.mjs":
+/*!*********************************************!*\
+  !*** ./node_modules/date-fns/constants.mjs ***!
+  \*********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   daysInWeek: () => (/* binding */ daysInWeek),
+/* harmony export */   daysInYear: () => (/* binding */ daysInYear),
+/* harmony export */   maxTime: () => (/* binding */ maxTime),
+/* harmony export */   millisecondsInDay: () => (/* binding */ millisecondsInDay),
+/* harmony export */   millisecondsInHour: () => (/* binding */ millisecondsInHour),
+/* harmony export */   millisecondsInMinute: () => (/* binding */ millisecondsInMinute),
+/* harmony export */   millisecondsInSecond: () => (/* binding */ millisecondsInSecond),
+/* harmony export */   millisecondsInWeek: () => (/* binding */ millisecondsInWeek),
+/* harmony export */   minTime: () => (/* binding */ minTime),
+/* harmony export */   minutesInDay: () => (/* binding */ minutesInDay),
+/* harmony export */   minutesInHour: () => (/* binding */ minutesInHour),
+/* harmony export */   minutesInMonth: () => (/* binding */ minutesInMonth),
+/* harmony export */   minutesInYear: () => (/* binding */ minutesInYear),
+/* harmony export */   monthsInQuarter: () => (/* binding */ monthsInQuarter),
+/* harmony export */   monthsInYear: () => (/* binding */ monthsInYear),
+/* harmony export */   quartersInYear: () => (/* binding */ quartersInYear),
+/* harmony export */   secondsInDay: () => (/* binding */ secondsInDay),
+/* harmony export */   secondsInHour: () => (/* binding */ secondsInHour),
+/* harmony export */   secondsInMinute: () => (/* binding */ secondsInMinute),
+/* harmony export */   secondsInMonth: () => (/* binding */ secondsInMonth),
+/* harmony export */   secondsInQuarter: () => (/* binding */ secondsInQuarter),
+/* harmony export */   secondsInWeek: () => (/* binding */ secondsInWeek),
+/* harmony export */   secondsInYear: () => (/* binding */ secondsInYear)
+/* harmony export */ });
+/**
+ * @module constants
+ * @summary Useful constants
+ * @description
+ * Collection of useful date constants.
+ *
+ * The constants could be imported from `date-fns/constants`:
+ *
+ * ```ts
+ * import { maxTime, minTime } from "./constants/date-fns/constants";
+ *
+ * function isAllowedTime(time) {
+ *   return time <= maxTime && time >= minTime;
+ * }
+ * ```
+ */
+
+/**
+ * @constant
+ * @name daysInWeek
+ * @summary Days in 1 week.
+ */
+const daysInWeek = 7;
+
+/**
+ * @constant
+ * @name daysInYear
+ * @summary Days in 1 year.
+ *
+ * @description
+ * How many days in a year.
+ *
+ * One years equals 365.2425 days according to the formula:
+ *
+ * > Leap year occures every 4 years, except for years that are divisable by 100 and not divisable by 400.
+ * > 1 mean year = (365+1/4-1/100+1/400) days = 365.2425 days
+ */
+const daysInYear = 365.2425;
+
+/**
+ * @constant
+ * @name maxTime
+ * @summary Maximum allowed time.
+ *
+ * @example
+ * import { maxTime } from "./constants/date-fns/constants";
+ *
+ * const isValid = 8640000000000001 <= maxTime;
+ * //=> false
+ *
+ * new Date(8640000000000001);
+ * //=> Invalid Date
+ */
+const maxTime = Math.pow(10, 8) * 24 * 60 * 60 * 1000;
+
+/**
+ * @constant
+ * @name minTime
+ * @summary Minimum allowed time.
+ *
+ * @example
+ * import { minTime } from "./constants/date-fns/constants";
+ *
+ * const isValid = -8640000000000001 >= minTime;
+ * //=> false
+ *
+ * new Date(-8640000000000001)
+ * //=> Invalid Date
+ */
+const minTime = -maxTime;
+
+/**
+ * @constant
+ * @name millisecondsInWeek
+ * @summary Milliseconds in 1 week.
+ */
+const millisecondsInWeek = 604800000;
+
+/**
+ * @constant
+ * @name millisecondsInDay
+ * @summary Milliseconds in 1 day.
+ */
+const millisecondsInDay = 86400000;
+
+/**
+ * @constant
+ * @name millisecondsInMinute
+ * @summary Milliseconds in 1 minute
+ */
+const millisecondsInMinute = 60000;
+
+/**
+ * @constant
+ * @name millisecondsInHour
+ * @summary Milliseconds in 1 hour
+ */
+const millisecondsInHour = 3600000;
+
+/**
+ * @constant
+ * @name millisecondsInSecond
+ * @summary Milliseconds in 1 second
+ */
+const millisecondsInSecond = 1000;
+
+/**
+ * @constant
+ * @name minutesInYear
+ * @summary Minutes in 1 year.
+ */
+const minutesInYear = 525600;
+
+/**
+ * @constant
+ * @name minutesInMonth
+ * @summary Minutes in 1 month.
+ */
+const minutesInMonth = 43200;
+
+/**
+ * @constant
+ * @name minutesInDay
+ * @summary Minutes in 1 day.
+ */
+const minutesInDay = 1440;
+
+/**
+ * @constant
+ * @name minutesInHour
+ * @summary Minutes in 1 hour.
+ */
+const minutesInHour = 60;
+
+/**
+ * @constant
+ * @name monthsInQuarter
+ * @summary Months in 1 quarter.
+ */
+const monthsInQuarter = 3;
+
+/**
+ * @constant
+ * @name monthsInYear
+ * @summary Months in 1 year.
+ */
+const monthsInYear = 12;
+
+/**
+ * @constant
+ * @name quartersInYear
+ * @summary Quarters in 1 year
+ */
+const quartersInYear = 4;
+
+/**
+ * @constant
+ * @name secondsInHour
+ * @summary Seconds in 1 hour.
+ */
+const secondsInHour = 3600;
+
+/**
+ * @constant
+ * @name secondsInMinute
+ * @summary Seconds in 1 minute.
+ */
+const secondsInMinute = 60;
+
+/**
+ * @constant
+ * @name secondsInDay
+ * @summary Seconds in 1 day.
+ */
+const secondsInDay = secondsInHour * 24;
+
+/**
+ * @constant
+ * @name secondsInWeek
+ * @summary Seconds in 1 week.
+ */
+const secondsInWeek = secondsInDay * 7;
+
+/**
+ * @constant
+ * @name secondsInYear
+ * @summary Seconds in 1 year.
+ */
+const secondsInYear = secondsInDay * daysInYear;
+
+/**
+ * @constant
+ * @name secondsInMonth
+ * @summary Seconds in 1 month
+ */
+const secondsInMonth = secondsInYear / 12;
+
+/**
+ * @constant
+ * @name secondsInQuarter
+ * @summary Seconds in 1 quarter.
+ */
+const secondsInQuarter = secondsInMonth * 3;
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/constructFrom.mjs":
+/*!*************************************************!*\
+  !*** ./node_modules/date-fns/constructFrom.mjs ***!
+  \*************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   constructFrom: () => (/* binding */ constructFrom),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * @name constructFrom
+ * @category Generic Helpers
+ * @summary Constructs a date using the reference date and the value
+ *
+ * @description
+ * The function constructs a new date using the constructor from the reference
+ * date and the given value. It helps to build generic functions that accept
+ * date extensions.
+ *
+ * It defaults to `Date` if the passed reference date is a number or a string.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The reference date to take constructor from
+ * @param value - The value to create the date
+ *
+ * @returns Date initialized using the given date and value
+ *
+ * @example
+ * import { constructFrom } from 'date-fns'
+ *
+ * // A function that clones a date preserving the original type
+ * function cloneDate<DateType extends Date(date: DateType): DateType {
+ *   return constructFrom(
+ *     date, // Use contrustor from the given date
+ *     date.getTime() // Use the date value to create a new date
+ *   )
+ * }
+ */
+function constructFrom(date, value) {
+  if (date instanceof Date) {
+    return new date.constructor(value);
+  } else {
+    return new Date(value);
+  }
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (constructFrom);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/differenceInCalendarDays.mjs":
+/*!************************************************************!*\
+  !*** ./node_modules/date-fns/differenceInCalendarDays.mjs ***!
+  \************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   differenceInCalendarDays: () => (/* binding */ differenceInCalendarDays)
+/* harmony export */ });
+/* harmony import */ var _constants_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants.mjs */ "./node_modules/date-fns/constants.mjs");
+/* harmony import */ var _startOfDay_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./startOfDay.mjs */ "./node_modules/date-fns/startOfDay.mjs");
+/* harmony import */ var _lib_getTimezoneOffsetInMilliseconds_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_lib/getTimezoneOffsetInMilliseconds.mjs */ "./node_modules/date-fns/_lib/getTimezoneOffsetInMilliseconds.mjs");
+
+
+
+
+/**
+ * @name differenceInCalendarDays
+ * @category Day Helpers
+ * @summary Get the number of calendar days between the given dates.
+ *
+ * @description
+ * Get the number of calendar days between the given dates. This means that the times are removed
+ * from the dates and then the difference in days is calculated.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ *
+ * @returns The number of calendar days
+ *
+ * @example
+ * // How many calendar days are between
+ * // 2 July 2011 23:00:00 and 2 July 2012 00:00:00?
+ * const result = differenceInCalendarDays(
+ *   new Date(2012, 6, 2, 0, 0),
+ *   new Date(2011, 6, 2, 23, 0)
+ * )
+ * //=> 366
+ * // How many calendar days are between
+ * // 2 July 2011 23:59:00 and 3 July 2011 00:01:00?
+ * const result = differenceInCalendarDays(
+ *   new Date(2011, 6, 3, 0, 1),
+ *   new Date(2011, 6, 2, 23, 59)
+ * )
+ * //=> 1
+ */
+function differenceInCalendarDays(dateLeft, dateRight) {
+  const startOfDayLeft = (0,_startOfDay_mjs__WEBPACK_IMPORTED_MODULE_0__.startOfDay)(dateLeft);
+  const startOfDayRight = (0,_startOfDay_mjs__WEBPACK_IMPORTED_MODULE_0__.startOfDay)(dateRight);
+
+  const timestampLeft =
+    +startOfDayLeft - (0,_lib_getTimezoneOffsetInMilliseconds_mjs__WEBPACK_IMPORTED_MODULE_1__.getTimezoneOffsetInMilliseconds)(startOfDayLeft);
+  const timestampRight =
+    +startOfDayRight - (0,_lib_getTimezoneOffsetInMilliseconds_mjs__WEBPACK_IMPORTED_MODULE_1__.getTimezoneOffsetInMilliseconds)(startOfDayRight);
+
+  // Round the number of days to the nearest integer because the number of
+  // milliseconds in a day is not constant (e.g. it's different in the week of
+  // the daylight saving time clock shift).
+  return Math.round((timestampLeft - timestampRight) / _constants_mjs__WEBPACK_IMPORTED_MODULE_2__.millisecondsInDay);
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (differenceInCalendarDays);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/format.mjs":
+/*!******************************************!*\
+  !*** ./node_modules/date-fns/format.mjs ***!
+  \******************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   format: () => (/* binding */ format),
+/* harmony export */   formatDate: () => (/* binding */ format),
+/* harmony export */   formatters: () => (/* reexport safe */ _lib_format_formatters_mjs__WEBPACK_IMPORTED_MODULE_0__.formatters),
+/* harmony export */   longFormatters: () => (/* reexport safe */ _lib_format_longFormatters_mjs__WEBPACK_IMPORTED_MODULE_1__.longFormatters)
+/* harmony export */ });
+/* harmony import */ var _lib_defaultLocale_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_lib/defaultLocale.mjs */ "./node_modules/date-fns/locale/en-US.mjs");
+/* harmony import */ var _lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_lib/defaultOptions.mjs */ "./node_modules/date-fns/_lib/defaultOptions.mjs");
+/* harmony import */ var _lib_format_formatters_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/format/formatters.mjs */ "./node_modules/date-fns/_lib/format/formatters.mjs");
+/* harmony import */ var _lib_format_longFormatters_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_lib/format/longFormatters.mjs */ "./node_modules/date-fns/_lib/format/longFormatters.mjs");
+/* harmony import */ var _lib_protectedTokens_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./_lib/protectedTokens.mjs */ "./node_modules/date-fns/_lib/protectedTokens.mjs");
+/* harmony import */ var _isValid_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./isValid.mjs */ "./node_modules/date-fns/isValid.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+
+
+
+
+
+
+
+
+// Rexports of internal for libraries to use.
+// See: https://github.com/date-fns/date-fns/issues/3638#issuecomment-1877082874
+
+
+// This RegExp consists of three parts separated by `|`:
+// - [yYQqMLwIdDecihHKkms]o matches any available ordinal number token
+//   (one of the certain letters followed by `o`)
+// - (\w)\1* matches any sequences of the same letter
+// - '' matches two quote characters in a row
+// - '(''|[^'])+('|$) matches anything surrounded by two quote characters ('),
+//   except a single quote symbol, which ends the sequence.
+//   Two quote characters do not end the sequence.
+//   If there is no matching single quote
+//   then the sequence will continue until the end of the string.
+// - . matches any single character unmatched by previous parts of the RegExps
+const formattingTokensRegExp =
+  /[yYQqMLwIdDecihHKkms]o|(\w)\1*|''|'(''|[^'])+('|$)|./g;
+
+// This RegExp catches symbols escaped by quotes, and also
+// sequences of symbols P, p, and the combinations like `PPPPPPPppppp`
+const longFormattingTokensRegExp = /P+p+|P+|p+|''|'(''|[^'])+('|$)|./g;
+
+const escapedStringRegExp = /^'([^]*?)'?$/;
+const doubleQuoteRegExp = /''/g;
+const unescapedLatinCharacterRegExp = /[a-zA-Z]/;
+
+
+
+/**
+ * The {@link format} function options.
+ */
+
+/**
+ * @name format
+ * @alias formatDate
+ * @category Common Helpers
+ * @summary Format the date.
+ *
+ * @description
+ * Return the formatted date string in the given format. The result may vary by locale.
+ *
+ * > ⚠️ Please note that the `format` tokens differ from Moment.js and other libraries.
+ * > See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * The characters wrapped between two single quotes characters (') are escaped.
+ * Two single quotes in a row, whether inside or outside a quoted sequence, represent a 'real' single quote.
+ * (see the last example)
+ *
+ * Format of the string is based on Unicode Technical Standard #35:
+ * https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ * with a few additions (see note 7 below the table).
+ *
+ * Accepted patterns:
+ * | Unit                            | Pattern | Result examples                   | Notes |
+ * |---------------------------------|---------|-----------------------------------|-------|
+ * | Era                             | G..GGG  | AD, BC                            |       |
+ * |                                 | GGGG    | Anno Domini, Before Christ        | 2     |
+ * |                                 | GGGGG   | A, B                              |       |
+ * | Calendar year                   | y       | 44, 1, 1900, 2017                 | 5     |
+ * |                                 | yo      | 44th, 1st, 0th, 17th              | 5,7   |
+ * |                                 | yy      | 44, 01, 00, 17                    | 5     |
+ * |                                 | yyy     | 044, 001, 1900, 2017              | 5     |
+ * |                                 | yyyy    | 0044, 0001, 1900, 2017            | 5     |
+ * |                                 | yyyyy   | ...                               | 3,5   |
+ * | Local week-numbering year       | Y       | 44, 1, 1900, 2017                 | 5     |
+ * |                                 | Yo      | 44th, 1st, 1900th, 2017th         | 5,7   |
+ * |                                 | YY      | 44, 01, 00, 17                    | 5,8   |
+ * |                                 | YYY     | 044, 001, 1900, 2017              | 5     |
+ * |                                 | YYYY    | 0044, 0001, 1900, 2017            | 5,8   |
+ * |                                 | YYYYY   | ...                               | 3,5   |
+ * | ISO week-numbering year         | R       | -43, 0, 1, 1900, 2017             | 5,7   |
+ * |                                 | RR      | -43, 00, 01, 1900, 2017           | 5,7   |
+ * |                                 | RRR     | -043, 000, 001, 1900, 2017        | 5,7   |
+ * |                                 | RRRR    | -0043, 0000, 0001, 1900, 2017     | 5,7   |
+ * |                                 | RRRRR   | ...                               | 3,5,7 |
+ * | Extended year                   | u       | -43, 0, 1, 1900, 2017             | 5     |
+ * |                                 | uu      | -43, 01, 1900, 2017               | 5     |
+ * |                                 | uuu     | -043, 001, 1900, 2017             | 5     |
+ * |                                 | uuuu    | -0043, 0001, 1900, 2017           | 5     |
+ * |                                 | uuuuu   | ...                               | 3,5   |
+ * | Quarter (formatting)            | Q       | 1, 2, 3, 4                        |       |
+ * |                                 | Qo      | 1st, 2nd, 3rd, 4th                | 7     |
+ * |                                 | QQ      | 01, 02, 03, 04                    |       |
+ * |                                 | QQQ     | Q1, Q2, Q3, Q4                    |       |
+ * |                                 | QQQQ    | 1st quarter, 2nd quarter, ...     | 2     |
+ * |                                 | QQQQQ   | 1, 2, 3, 4                        | 4     |
+ * | Quarter (stand-alone)           | q       | 1, 2, 3, 4                        |       |
+ * |                                 | qo      | 1st, 2nd, 3rd, 4th                | 7     |
+ * |                                 | qq      | 01, 02, 03, 04                    |       |
+ * |                                 | qqq     | Q1, Q2, Q3, Q4                    |       |
+ * |                                 | qqqq    | 1st quarter, 2nd quarter, ...     | 2     |
+ * |                                 | qqqqq   | 1, 2, 3, 4                        | 4     |
+ * | Month (formatting)              | M       | 1, 2, ..., 12                     |       |
+ * |                                 | Mo      | 1st, 2nd, ..., 12th               | 7     |
+ * |                                 | MM      | 01, 02, ..., 12                   |       |
+ * |                                 | MMM     | Jan, Feb, ..., Dec                |       |
+ * |                                 | MMMM    | January, February, ..., December  | 2     |
+ * |                                 | MMMMM   | J, F, ..., D                      |       |
+ * | Month (stand-alone)             | L       | 1, 2, ..., 12                     |       |
+ * |                                 | Lo      | 1st, 2nd, ..., 12th               | 7     |
+ * |                                 | LL      | 01, 02, ..., 12                   |       |
+ * |                                 | LLL     | Jan, Feb, ..., Dec                |       |
+ * |                                 | LLLL    | January, February, ..., December  | 2     |
+ * |                                 | LLLLL   | J, F, ..., D                      |       |
+ * | Local week of year              | w       | 1, 2, ..., 53                     |       |
+ * |                                 | wo      | 1st, 2nd, ..., 53th               | 7     |
+ * |                                 | ww      | 01, 02, ..., 53                   |       |
+ * | ISO week of year                | I       | 1, 2, ..., 53                     | 7     |
+ * |                                 | Io      | 1st, 2nd, ..., 53th               | 7     |
+ * |                                 | II      | 01, 02, ..., 53                   | 7     |
+ * | Day of month                    | d       | 1, 2, ..., 31                     |       |
+ * |                                 | do      | 1st, 2nd, ..., 31st               | 7     |
+ * |                                 | dd      | 01, 02, ..., 31                   |       |
+ * | Day of year                     | D       | 1, 2, ..., 365, 366               | 9     |
+ * |                                 | Do      | 1st, 2nd, ..., 365th, 366th       | 7     |
+ * |                                 | DD      | 01, 02, ..., 365, 366             | 9     |
+ * |                                 | DDD     | 001, 002, ..., 365, 366           |       |
+ * |                                 | DDDD    | ...                               | 3     |
+ * | Day of week (formatting)        | E..EEE  | Mon, Tue, Wed, ..., Sun           |       |
+ * |                                 | EEEE    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 | EEEEE   | M, T, W, T, F, S, S               |       |
+ * |                                 | EEEEEE  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * | ISO day of week (formatting)    | i       | 1, 2, 3, ..., 7                   | 7     |
+ * |                                 | io      | 1st, 2nd, ..., 7th                | 7     |
+ * |                                 | ii      | 01, 02, ..., 07                   | 7     |
+ * |                                 | iii     | Mon, Tue, Wed, ..., Sun           | 7     |
+ * |                                 | iiii    | Monday, Tuesday, ..., Sunday      | 2,7   |
+ * |                                 | iiiii   | M, T, W, T, F, S, S               | 7     |
+ * |                                 | iiiiii  | Mo, Tu, We, Th, Fr, Sa, Su        | 7     |
+ * | Local day of week (formatting)  | e       | 2, 3, 4, ..., 1                   |       |
+ * |                                 | eo      | 2nd, 3rd, ..., 1st                | 7     |
+ * |                                 | ee      | 02, 03, ..., 01                   |       |
+ * |                                 | eee     | Mon, Tue, Wed, ..., Sun           |       |
+ * |                                 | eeee    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 | eeeee   | M, T, W, T, F, S, S               |       |
+ * |                                 | eeeeee  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * | Local day of week (stand-alone) | c       | 2, 3, 4, ..., 1                   |       |
+ * |                                 | co      | 2nd, 3rd, ..., 1st                | 7     |
+ * |                                 | cc      | 02, 03, ..., 01                   |       |
+ * |                                 | ccc     | Mon, Tue, Wed, ..., Sun           |       |
+ * |                                 | cccc    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 | ccccc   | M, T, W, T, F, S, S               |       |
+ * |                                 | cccccc  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * | AM, PM                          | a..aa   | AM, PM                            |       |
+ * |                                 | aaa     | am, pm                            |       |
+ * |                                 | aaaa    | a.m., p.m.                        | 2     |
+ * |                                 | aaaaa   | a, p                              |       |
+ * | AM, PM, noon, midnight          | b..bb   | AM, PM, noon, midnight            |       |
+ * |                                 | bbb     | am, pm, noon, midnight            |       |
+ * |                                 | bbbb    | a.m., p.m., noon, midnight        | 2     |
+ * |                                 | bbbbb   | a, p, n, mi                       |       |
+ * | Flexible day period             | B..BBB  | at night, in the morning, ...     |       |
+ * |                                 | BBBB    | at night, in the morning, ...     | 2     |
+ * |                                 | BBBBB   | at night, in the morning, ...     |       |
+ * | Hour [1-12]                     | h       | 1, 2, ..., 11, 12                 |       |
+ * |                                 | ho      | 1st, 2nd, ..., 11th, 12th         | 7     |
+ * |                                 | hh      | 01, 02, ..., 11, 12               |       |
+ * | Hour [0-23]                     | H       | 0, 1, 2, ..., 23                  |       |
+ * |                                 | Ho      | 0th, 1st, 2nd, ..., 23rd          | 7     |
+ * |                                 | HH      | 00, 01, 02, ..., 23               |       |
+ * | Hour [0-11]                     | K       | 1, 2, ..., 11, 0                  |       |
+ * |                                 | Ko      | 1st, 2nd, ..., 11th, 0th          | 7     |
+ * |                                 | KK      | 01, 02, ..., 11, 00               |       |
+ * | Hour [1-24]                     | k       | 24, 1, 2, ..., 23                 |       |
+ * |                                 | ko      | 24th, 1st, 2nd, ..., 23rd         | 7     |
+ * |                                 | kk      | 24, 01, 02, ..., 23               |       |
+ * | Minute                          | m       | 0, 1, ..., 59                     |       |
+ * |                                 | mo      | 0th, 1st, ..., 59th               | 7     |
+ * |                                 | mm      | 00, 01, ..., 59                   |       |
+ * | Second                          | s       | 0, 1, ..., 59                     |       |
+ * |                                 | so      | 0th, 1st, ..., 59th               | 7     |
+ * |                                 | ss      | 00, 01, ..., 59                   |       |
+ * | Fraction of second              | S       | 0, 1, ..., 9                      |       |
+ * |                                 | SS      | 00, 01, ..., 99                   |       |
+ * |                                 | SSS     | 000, 001, ..., 999                |       |
+ * |                                 | SSSS    | ...                               | 3     |
+ * | Timezone (ISO-8601 w/ Z)        | X       | -08, +0530, Z                     |       |
+ * |                                 | XX      | -0800, +0530, Z                   |       |
+ * |                                 | XXX     | -08:00, +05:30, Z                 |       |
+ * |                                 | XXXX    | -0800, +0530, Z, +123456          | 2     |
+ * |                                 | XXXXX   | -08:00, +05:30, Z, +12:34:56      |       |
+ * | Timezone (ISO-8601 w/o Z)       | x       | -08, +0530, +00                   |       |
+ * |                                 | xx      | -0800, +0530, +0000               |       |
+ * |                                 | xxx     | -08:00, +05:30, +00:00            | 2     |
+ * |                                 | xxxx    | -0800, +0530, +0000, +123456      |       |
+ * |                                 | xxxxx   | -08:00, +05:30, +00:00, +12:34:56 |       |
+ * | Timezone (GMT)                  | O...OOO | GMT-8, GMT+5:30, GMT+0            |       |
+ * |                                 | OOOO    | GMT-08:00, GMT+05:30, GMT+00:00   | 2     |
+ * | Timezone (specific non-locat.)  | z...zzz | GMT-8, GMT+5:30, GMT+0            | 6     |
+ * |                                 | zzzz    | GMT-08:00, GMT+05:30, GMT+00:00   | 2,6   |
+ * | Seconds timestamp               | t       | 512969520                         | 7     |
+ * |                                 | tt      | ...                               | 3,7   |
+ * | Milliseconds timestamp          | T       | 512969520900                      | 7     |
+ * |                                 | TT      | ...                               | 3,7   |
+ * | Long localized date             | P       | 04/29/1453                        | 7     |
+ * |                                 | PP      | Apr 29, 1453                      | 7     |
+ * |                                 | PPP     | April 29th, 1453                  | 7     |
+ * |                                 | PPPP    | Friday, April 29th, 1453          | 2,7   |
+ * | Long localized time             | p       | 12:00 AM                          | 7     |
+ * |                                 | pp      | 12:00:00 AM                       | 7     |
+ * |                                 | ppp     | 12:00:00 AM GMT+2                 | 7     |
+ * |                                 | pppp    | 12:00:00 AM GMT+02:00             | 2,7   |
+ * | Combination of date and time    | Pp      | 04/29/1453, 12:00 AM              | 7     |
+ * |                                 | PPpp    | Apr 29, 1453, 12:00:00 AM         | 7     |
+ * |                                 | PPPppp  | April 29th, 1453 at ...           | 7     |
+ * |                                 | PPPPpppp| Friday, April 29th, 1453 at ...   | 2,7   |
+ * Notes:
+ * 1. "Formatting" units (e.g. formatting quarter) in the default en-US locale
+ *    are the same as "stand-alone" units, but are different in some languages.
+ *    "Formatting" units are declined according to the rules of the language
+ *    in the context of a date. "Stand-alone" units are always nominative singular:
+ *
+ *    `format(new Date(2017, 10, 6), 'do LLLL', {locale: cs}) //=> '6. listopad'`
+ *
+ *    `format(new Date(2017, 10, 6), 'do MMMM', {locale: cs}) //=> '6. listopadu'`
+ *
+ * 2. Any sequence of the identical letters is a pattern, unless it is escaped by
+ *    the single quote characters (see below).
+ *    If the sequence is longer than listed in table (e.g. `EEEEEEEEEEE`)
+ *    the output will be the same as default pattern for this unit, usually
+ *    the longest one (in case of ISO weekdays, `EEEE`). Default patterns for units
+ *    are marked with "2" in the last column of the table.
+ *
+ *    `format(new Date(2017, 10, 6), 'MMM') //=> 'Nov'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMM') //=> 'November'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMMM') //=> 'N'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMMMM') //=> 'November'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMMMMM') //=> 'November'`
+ *
+ * 3. Some patterns could be unlimited length (such as `yyyyyyyy`).
+ *    The output will be padded with zeros to match the length of the pattern.
+ *
+ *    `format(new Date(2017, 10, 6), 'yyyyyyyy') //=> '00002017'`
+ *
+ * 4. `QQQQQ` and `qqqqq` could be not strictly numerical in some locales.
+ *    These tokens represent the shortest form of the quarter.
+ *
+ * 5. The main difference between `y` and `u` patterns are B.C. years:
+ *
+ *    | Year | `y` | `u` |
+ *    |------|-----|-----|
+ *    | AC 1 |   1 |   1 |
+ *    | BC 1 |   1 |   0 |
+ *    | BC 2 |   2 |  -1 |
+ *
+ *    Also `yy` always returns the last two digits of a year,
+ *    while `uu` pads single digit years to 2 characters and returns other years unchanged:
+ *
+ *    | Year | `yy` | `uu` |
+ *    |------|------|------|
+ *    | 1    |   01 |   01 |
+ *    | 14   |   14 |   14 |
+ *    | 376  |   76 |  376 |
+ *    | 1453 |   53 | 1453 |
+ *
+ *    The same difference is true for local and ISO week-numbering years (`Y` and `R`),
+ *    except local week-numbering years are dependent on `options.weekStartsOn`
+ *    and `options.firstWeekContainsDate` (compare [getISOWeekYear](https://date-fns.org/docs/getISOWeekYear)
+ *    and [getWeekYear](https://date-fns.org/docs/getWeekYear)).
+ *
+ * 6. Specific non-location timezones are currently unavailable in `date-fns`,
+ *    so right now these tokens fall back to GMT timezones.
+ *
+ * 7. These patterns are not in the Unicode Technical Standard #35:
+ *    - `i`: ISO day of week
+ *    - `I`: ISO week of year
+ *    - `R`: ISO week-numbering year
+ *    - `t`: seconds timestamp
+ *    - `T`: milliseconds timestamp
+ *    - `o`: ordinal number modifier
+ *    - `P`: long localized date
+ *    - `p`: long localized time
+ *
+ * 8. `YY` and `YYYY` tokens represent week-numbering years but they are often confused with years.
+ *    You should enable `options.useAdditionalWeekYearTokens` to use them. See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * 9. `D` and `DD` tokens represent days of the year but they are often confused with days of the month.
+ *    You should enable `options.useAdditionalDayOfYearTokens` to use them. See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ * @param format - The string of tokens
+ * @param options - An object with options
+ *
+ * @returns The formatted date string
+ *
+ * @throws `date` must not be Invalid Date
+ * @throws `options.locale` must contain `localize` property
+ * @throws `options.locale` must contain `formatLong` property
+ * @throws use `yyyy` instead of `YYYY` for formatting years using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws use `yy` instead of `YY` for formatting years using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws use `d` instead of `D` for formatting days of the month using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws use `dd` instead of `DD` for formatting days of the month using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws format string contains an unescaped latin alphabet character
+ *
+ * @example
+ * // Represent 11 February 2014 in middle-endian format:
+ * const result = format(new Date(2014, 1, 11), 'MM/dd/yyyy')
+ * //=> '02/11/2014'
+ *
+ * @example
+ * // Represent 2 July 2014 in Esperanto:
+ * import { eoLocale } from 'date-fns/locale/eo'
+ * const result = format(new Date(2014, 6, 2), "do 'de' MMMM yyyy", {
+ *   locale: eoLocale
+ * })
+ * //=> '2-a de julio 2014'
+ *
+ * @example
+ * // Escape string by single quote characters:
+ * const result = format(new Date(2014, 6, 2, 15), "h 'o''clock'")
+ * //=> "3 o'clock"
+ */
+function format(date, formatStr, options) {
+  const defaultOptions = (0,_lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_2__.getDefaultOptions)();
+  const locale = options?.locale ?? defaultOptions.locale ?? _lib_defaultLocale_mjs__WEBPACK_IMPORTED_MODULE_3__.enUS;
+
+  const firstWeekContainsDate =
+    options?.firstWeekContainsDate ??
+    options?.locale?.options?.firstWeekContainsDate ??
+    defaultOptions.firstWeekContainsDate ??
+    defaultOptions.locale?.options?.firstWeekContainsDate ??
+    1;
+
+  const weekStartsOn =
+    options?.weekStartsOn ??
+    options?.locale?.options?.weekStartsOn ??
+    defaultOptions.weekStartsOn ??
+    defaultOptions.locale?.options?.weekStartsOn ??
+    0;
+
+  const originalDate = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_4__.toDate)(date);
+
+  if (!(0,_isValid_mjs__WEBPACK_IMPORTED_MODULE_5__.isValid)(originalDate)) {
+    throw new RangeError("Invalid time value");
+  }
+
+  let parts = formatStr
+    .match(longFormattingTokensRegExp)
+    .map((substring) => {
+      const firstCharacter = substring[0];
+      if (firstCharacter === "p" || firstCharacter === "P") {
+        const longFormatter = _lib_format_longFormatters_mjs__WEBPACK_IMPORTED_MODULE_1__.longFormatters[firstCharacter];
+        return longFormatter(substring, locale.formatLong);
+      }
+      return substring;
+    })
+    .join("")
+    .match(formattingTokensRegExp)
+    .map((substring) => {
+      // Replace two single quote characters with one single quote character
+      if (substring === "''") {
+        return { isToken: false, value: "'" };
+      }
+
+      const firstCharacter = substring[0];
+      if (firstCharacter === "'") {
+        return { isToken: false, value: cleanEscapedString(substring) };
+      }
+
+      if (_lib_format_formatters_mjs__WEBPACK_IMPORTED_MODULE_0__.formatters[firstCharacter]) {
+        return { isToken: true, value: substring };
+      }
+
+      if (firstCharacter.match(unescapedLatinCharacterRegExp)) {
+        throw new RangeError(
+          "Format string contains an unescaped latin alphabet character `" +
+            firstCharacter +
+            "`",
+        );
+      }
+
+      return { isToken: false, value: substring };
+    });
+
+  // invoke localize preprocessor (only for french locales at the moment)
+  if (locale.localize.preprocessor) {
+    parts = locale.localize.preprocessor(originalDate, parts);
+  }
+
+  const formatterOptions = {
+    firstWeekContainsDate,
+    weekStartsOn,
+    locale,
+  };
+
+  return parts
+    .map((part) => {
+      if (!part.isToken) return part.value;
+
+      const token = part.value;
+
+      if (
+        (!options?.useAdditionalWeekYearTokens &&
+          (0,_lib_protectedTokens_mjs__WEBPACK_IMPORTED_MODULE_6__.isProtectedWeekYearToken)(token)) ||
+        (!options?.useAdditionalDayOfYearTokens &&
+          (0,_lib_protectedTokens_mjs__WEBPACK_IMPORTED_MODULE_6__.isProtectedDayOfYearToken)(token))
+      ) {
+        (0,_lib_protectedTokens_mjs__WEBPACK_IMPORTED_MODULE_6__.warnOrThrowProtectedError)(token, formatStr, String(date));
+      }
+
+      const formatter = _lib_format_formatters_mjs__WEBPACK_IMPORTED_MODULE_0__.formatters[token[0]];
+      return formatter(originalDate, token, locale.localize, formatterOptions);
+    })
+    .join("");
+}
+
+function cleanEscapedString(input) {
+  const matched = input.match(escapedStringRegExp);
+
+  if (!matched) {
+    return input;
+  }
+
+  return matched[1].replace(doubleQuoteRegExp, "'");
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (format);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/getDayOfYear.mjs":
+/*!************************************************!*\
+  !*** ./node_modules/date-fns/getDayOfYear.mjs ***!
+  \************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   getDayOfYear: () => (/* binding */ getDayOfYear)
+/* harmony export */ });
+/* harmony import */ var _differenceInCalendarDays_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./differenceInCalendarDays.mjs */ "./node_modules/date-fns/differenceInCalendarDays.mjs");
+/* harmony import */ var _startOfYear_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfYear.mjs */ "./node_modules/date-fns/startOfYear.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+
+
+
+
+/**
+ * @name getDayOfYear
+ * @category Day Helpers
+ * @summary Get the day of the year of the given date.
+ *
+ * @description
+ * Get the day of the year of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The day of year
+ *
+ * @example
+ * // Which day of the year is 2 July 2014?
+ * const result = getDayOfYear(new Date(2014, 6, 2))
+ * //=> 183
+ */
+function getDayOfYear(date) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  const diff = (0,_differenceInCalendarDays_mjs__WEBPACK_IMPORTED_MODULE_1__.differenceInCalendarDays)(_date, (0,_startOfYear_mjs__WEBPACK_IMPORTED_MODULE_2__.startOfYear)(_date));
+  const dayOfYear = diff + 1;
+  return dayOfYear;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getDayOfYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/getISOWeek.mjs":
+/*!**********************************************!*\
+  !*** ./node_modules/date-fns/getISOWeek.mjs ***!
+  \**********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   getISOWeek: () => (/* binding */ getISOWeek)
+/* harmony export */ });
+/* harmony import */ var _constants_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants.mjs */ "./node_modules/date-fns/constants.mjs");
+/* harmony import */ var _startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfISOWeek.mjs */ "./node_modules/date-fns/startOfISOWeek.mjs");
+/* harmony import */ var _startOfISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfISOWeekYear.mjs */ "./node_modules/date-fns/startOfISOWeekYear.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+
+
+
+
+
+/**
+ * @name getISOWeek
+ * @category ISO Week Helpers
+ * @summary Get the ISO week of the given date.
+ *
+ * @description
+ * Get the ISO week of the given date.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The ISO week
+ *
+ * @example
+ * // Which week of the ISO-week numbering year is 2 January 2005?
+ * const result = getISOWeek(new Date(2005, 0, 2))
+ * //=> 53
+ */
+function getISOWeek(date) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  const diff = +(0,_startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfISOWeek)(_date) - +(0,_startOfISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__.startOfISOWeekYear)(_date);
+
+  // Round the number of weeks to the nearest integer because the number of
+  // milliseconds in a week is not constant (e.g. it's different in the week of
+  // the daylight saving time clock shift).
+  return Math.round(diff / _constants_mjs__WEBPACK_IMPORTED_MODULE_3__.millisecondsInWeek) + 1;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getISOWeek);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/getISOWeekYear.mjs":
+/*!**************************************************!*\
+  !*** ./node_modules/date-fns/getISOWeekYear.mjs ***!
+  \**************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   getISOWeekYear: () => (/* binding */ getISOWeekYear)
+/* harmony export */ });
+/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/date-fns/constructFrom.mjs");
+/* harmony import */ var _startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfISOWeek.mjs */ "./node_modules/date-fns/startOfISOWeek.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+
+
+
+
+/**
+ * @name getISOWeekYear
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Get the ISO week-numbering year of the given date.
+ *
+ * @description
+ * Get the ISO week-numbering year of the given date,
+ * which always starts 3 days before the year's first Thursday.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The ISO week-numbering year
+ *
+ * @example
+ * // Which ISO-week numbering year is 2 January 2005?
+ * const result = getISOWeekYear(new Date(2005, 0, 2))
+ * //=> 2004
+ */
+function getISOWeekYear(date) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  const year = _date.getFullYear();
+
+  const fourthOfJanuaryOfNextYear = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(date, 0);
+  fourthOfJanuaryOfNextYear.setFullYear(year + 1, 0, 4);
+  fourthOfJanuaryOfNextYear.setHours(0, 0, 0, 0);
+  const startOfNextYear = (0,_startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_2__.startOfISOWeek)(fourthOfJanuaryOfNextYear);
+
+  const fourthOfJanuaryOfThisYear = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(date, 0);
+  fourthOfJanuaryOfThisYear.setFullYear(year, 0, 4);
+  fourthOfJanuaryOfThisYear.setHours(0, 0, 0, 0);
+  const startOfThisYear = (0,_startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_2__.startOfISOWeek)(fourthOfJanuaryOfThisYear);
+
+  if (_date.getTime() >= startOfNextYear.getTime()) {
+    return year + 1;
+  } else if (_date.getTime() >= startOfThisYear.getTime()) {
+    return year;
+  } else {
+    return year - 1;
+  }
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getISOWeekYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/getWeek.mjs":
+/*!*******************************************!*\
+  !*** ./node_modules/date-fns/getWeek.mjs ***!
+  \*******************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   getWeek: () => (/* binding */ getWeek)
+/* harmony export */ });
+/* harmony import */ var _constants_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants.mjs */ "./node_modules/date-fns/constants.mjs");
+/* harmony import */ var _startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./startOfWeek.mjs */ "./node_modules/date-fns/startOfWeek.mjs");
+/* harmony import */ var _startOfWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfWeekYear.mjs */ "./node_modules/date-fns/startOfWeekYear.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+
+
+
+
+
+/**
+ * The {@link getWeek} function options.
+ */
+
+/**
+ * @name getWeek
+ * @category Week Helpers
+ * @summary Get the local week index of the given date.
+ *
+ * @description
+ * Get the local week index of the given date.
+ * The exact calculation depends on the values of
+ * `options.weekStartsOn` (which is the index of the first day of the week)
+ * and `options.firstWeekContainsDate` (which is the day of January, which is always in
+ * the first week of the week-numbering year)
+ *
+ * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ * @param options - An object with options
+ *
+ * @returns The week
+ *
+ * @example
+ * // Which week of the local week numbering year is 2 January 2005 with default options?
+ * const result = getWeek(new Date(2005, 0, 2))
+ * //=> 2
+ *
+ * @example
+ * // Which week of the local week numbering year is 2 January 2005,
+ * // if Monday is the first day of the week,
+ * // and the first week of the year always contains 4 January?
+ * const result = getWeek(new Date(2005, 0, 2), {
+ *   weekStartsOn: 1,
+ *   firstWeekContainsDate: 4
+ * })
+ * //=> 53
+ */
+
+function getWeek(date, options) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  const diff = +(0,_startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_1__.startOfWeek)(_date, options) - +(0,_startOfWeekYear_mjs__WEBPACK_IMPORTED_MODULE_2__.startOfWeekYear)(_date, options);
+
+  // Round the number of weeks to the nearest integer because the number of
+  // milliseconds in a week is not constant (e.g. it's different in the week of
+  // the daylight saving time clock shift).
+  return Math.round(diff / _constants_mjs__WEBPACK_IMPORTED_MODULE_3__.millisecondsInWeek) + 1;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getWeek);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/getWeekYear.mjs":
+/*!***********************************************!*\
+  !*** ./node_modules/date-fns/getWeekYear.mjs ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   getWeekYear: () => (/* binding */ getWeekYear)
+/* harmony export */ });
+/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/date-fns/constructFrom.mjs");
+/* harmony import */ var _startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./startOfWeek.mjs */ "./node_modules/date-fns/startOfWeek.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_lib/defaultOptions.mjs */ "./node_modules/date-fns/_lib/defaultOptions.mjs");
+
+
+
+
+
+/**
+ * The {@link getWeekYear} function options.
+ */
+
+/**
+ * @name getWeekYear
+ * @category Week-Numbering Year Helpers
+ * @summary Get the local week-numbering year of the given date.
+ *
+ * @description
+ * Get the local week-numbering year of the given date.
+ * The exact calculation depends on the values of
+ * `options.weekStartsOn` (which is the index of the first day of the week)
+ * and `options.firstWeekContainsDate` (which is the day of January, which is always in
+ * the first week of the week-numbering year)
+ *
+ * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ * @param options - An object with options.
+ *
+ * @returns The local week-numbering year
+ *
+ * @example
+ * // Which week numbering year is 26 December 2004 with the default settings?
+ * const result = getWeekYear(new Date(2004, 11, 26))
+ * //=> 2005
+ *
+ * @example
+ * // Which week numbering year is 26 December 2004 if week starts on Saturday?
+ * const result = getWeekYear(new Date(2004, 11, 26), { weekStartsOn: 6 })
+ * //=> 2004
+ *
+ * @example
+ * // Which week numbering year is 26 December 2004 if the first week contains 4 January?
+ * const result = getWeekYear(new Date(2004, 11, 26), { firstWeekContainsDate: 4 })
+ * //=> 2004
+ */
+function getWeekYear(date, options) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  const year = _date.getFullYear();
+
+  const defaultOptions = (0,_lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_1__.getDefaultOptions)();
+  const firstWeekContainsDate =
+    options?.firstWeekContainsDate ??
+    options?.locale?.options?.firstWeekContainsDate ??
+    defaultOptions.firstWeekContainsDate ??
+    defaultOptions.locale?.options?.firstWeekContainsDate ??
+    1;
+
+  const firstWeekOfNextYear = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_2__.constructFrom)(date, 0);
+  firstWeekOfNextYear.setFullYear(year + 1, 0, firstWeekContainsDate);
+  firstWeekOfNextYear.setHours(0, 0, 0, 0);
+  const startOfNextYear = (0,_startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_3__.startOfWeek)(firstWeekOfNextYear, options);
+
+  const firstWeekOfThisYear = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_2__.constructFrom)(date, 0);
+  firstWeekOfThisYear.setFullYear(year, 0, firstWeekContainsDate);
+  firstWeekOfThisYear.setHours(0, 0, 0, 0);
+  const startOfThisYear = (0,_startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_3__.startOfWeek)(firstWeekOfThisYear, options);
+
+  if (_date.getTime() >= startOfNextYear.getTime()) {
+    return year + 1;
+  } else if (_date.getTime() >= startOfThisYear.getTime()) {
+    return year;
+  } else {
+    return year - 1;
+  }
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getWeekYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/isDate.mjs":
+/*!******************************************!*\
+  !*** ./node_modules/date-fns/isDate.mjs ***!
+  \******************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   isDate: () => (/* binding */ isDate)
+/* harmony export */ });
+/**
+ * @name isDate
+ * @category Common Helpers
+ * @summary Is the given value a date?
+ *
+ * @description
+ * Returns true if the given value is an instance of Date. The function works for dates transferred across iframes.
+ *
+ * @param value - The value to check
+ *
+ * @returns True if the given value is a date
+ *
+ * @example
+ * // For a valid date:
+ * const result = isDate(new Date())
+ * //=> true
+ *
+ * @example
+ * // For an invalid date:
+ * const result = isDate(new Date(NaN))
+ * //=> true
+ *
+ * @example
+ * // For some value:
+ * const result = isDate('2014-02-31')
+ * //=> false
+ *
+ * @example
+ * // For an object:
+ * const result = isDate({})
+ * //=> false
+ */
+function isDate(value) {
+  return (
+    value instanceof Date ||
+    (typeof value === "object" &&
+      Object.prototype.toString.call(value) === "[object Date]")
+  );
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (isDate);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/isValid.mjs":
+/*!*******************************************!*\
+  !*** ./node_modules/date-fns/isValid.mjs ***!
+  \*******************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   isValid: () => (/* binding */ isValid)
+/* harmony export */ });
+/* harmony import */ var _isDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isDate.mjs */ "./node_modules/date-fns/isDate.mjs");
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+
+
+
+/**
+ * @name isValid
+ * @category Common Helpers
+ * @summary Is the given date valid?
+ *
+ * @description
+ * Returns false if argument is Invalid Date and true otherwise.
+ * Argument is converted to Date using `toDate`. See [toDate](https://date-fns.org/docs/toDate)
+ * Invalid Date is a Date, whose time value is NaN.
+ *
+ * Time value of Date: http://es5.github.io/#x15.9.1.1
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is valid
+ *
+ * @example
+ * // For the valid date:
+ * const result = isValid(new Date(2014, 1, 31))
+ * //=> true
+ *
+ * @example
+ * // For the value, convertable into a date:
+ * const result = isValid(1393804800000)
+ * //=> true
+ *
+ * @example
+ * // For the invalid date:
+ * const result = isValid(new Date(''))
+ * //=> false
+ */
+function isValid(date) {
+  if (!(0,_isDate_mjs__WEBPACK_IMPORTED_MODULE_0__.isDate)(date) && typeof date !== "number") {
+    return false;
+  }
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_1__.toDate)(date);
+  return !isNaN(Number(_date));
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (isValid);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/_lib/buildFormatLongFn.mjs":
+/*!*****************************************************************!*\
+  !*** ./node_modules/date-fns/locale/_lib/buildFormatLongFn.mjs ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   buildFormatLongFn: () => (/* binding */ buildFormatLongFn)
+/* harmony export */ });
+function buildFormatLongFn(args) {
+  return (options = {}) => {
+    // TODO: Remove String()
+    const width = options.width ? String(options.width) : args.defaultWidth;
+    const format = args.formats[width] || args.formats[args.defaultWidth];
+    return format;
+  };
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/_lib/buildLocalizeFn.mjs":
+/*!***************************************************************!*\
+  !*** ./node_modules/date-fns/locale/_lib/buildLocalizeFn.mjs ***!
+  \***************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   buildLocalizeFn: () => (/* binding */ buildLocalizeFn)
+/* harmony export */ });
+/* eslint-disable no-unused-vars */
+
+/**
+ * The localize function argument callback which allows to convert raw value to
+ * the actual type.
+ *
+ * @param value - The value to convert
+ *
+ * @returns The converted value
+ */
+
+/**
+ * The map of localized values for each width.
+ */
+
+/**
+ * The index type of the locale unit value. It types conversion of units of
+ * values that don't start at 0 (i.e. quarters).
+ */
+
+/**
+ * Converts the unit value to the tuple of values.
+ */
+
+/**
+ * The tuple of localized era values. The first element represents BC,
+ * the second element represents AD.
+ */
+
+/**
+ * The tuple of localized quarter values. The first element represents Q1.
+ */
+
+/**
+ * The tuple of localized day values. The first element represents Sunday.
+ */
+
+/**
+ * The tuple of localized month values. The first element represents January.
+ */
+
+function buildLocalizeFn(args) {
+  return (value, options) => {
+    const context = options?.context ? String(options.context) : "standalone";
+
+    let valuesArray;
+    if (context === "formatting" && args.formattingValues) {
+      const defaultWidth = args.defaultFormattingWidth || args.defaultWidth;
+      const width = options?.width ? String(options.width) : defaultWidth;
+
+      valuesArray =
+        args.formattingValues[width] || args.formattingValues[defaultWidth];
+    } else {
+      const defaultWidth = args.defaultWidth;
+      const width = options?.width ? String(options.width) : args.defaultWidth;
+
+      valuesArray = args.values[width] || args.values[defaultWidth];
+    }
+    const index = args.argumentCallback ? args.argumentCallback(value) : value;
+
+    // @ts-expect-error - For some reason TypeScript just don't want to match it, no matter how hard we try. I challenge you to try to remove it!
+    return valuesArray[index];
+  };
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/_lib/buildMatchFn.mjs":
+/*!************************************************************!*\
+  !*** ./node_modules/date-fns/locale/_lib/buildMatchFn.mjs ***!
+  \************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   buildMatchFn: () => (/* binding */ buildMatchFn)
+/* harmony export */ });
+function buildMatchFn(args) {
+  return (string, options = {}) => {
+    const width = options.width;
+
+    const matchPattern =
+      (width && args.matchPatterns[width]) ||
+      args.matchPatterns[args.defaultMatchWidth];
+    const matchResult = string.match(matchPattern);
+
+    if (!matchResult) {
+      return null;
+    }
+    const matchedString = matchResult[0];
+
+    const parsePatterns =
+      (width && args.parsePatterns[width]) ||
+      args.parsePatterns[args.defaultParseWidth];
+
+    const key = Array.isArray(parsePatterns)
+      ? findIndex(parsePatterns, (pattern) => pattern.test(matchedString))
+      : // eslint-disable-next-line @typescript-eslint/no-explicit-any -- I challange you to fix the type
+        findKey(parsePatterns, (pattern) => pattern.test(matchedString));
+
+    let value;
+
+    value = args.valueCallback ? args.valueCallback(key) : key;
+    value = options.valueCallback
+      ? // eslint-disable-next-line @typescript-eslint/no-explicit-any -- I challange you to fix the type
+        options.valueCallback(value)
+      : value;
+
+    const rest = string.slice(matchedString.length);
+
+    return { value, rest };
+  };
+}
+
+function findKey(object, predicate) {
+  for (const key in object) {
+    if (
+      Object.prototype.hasOwnProperty.call(object, key) &&
+      predicate(object[key])
+    ) {
+      return key;
+    }
+  }
+  return undefined;
+}
+
+function findIndex(array, predicate) {
+  for (let key = 0; key < array.length; key++) {
+    if (predicate(array[key])) {
+      return key;
+    }
+  }
+  return undefined;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/_lib/buildMatchPatternFn.mjs":
+/*!*******************************************************************!*\
+  !*** ./node_modules/date-fns/locale/_lib/buildMatchPatternFn.mjs ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   buildMatchPatternFn: () => (/* binding */ buildMatchPatternFn)
+/* harmony export */ });
+function buildMatchPatternFn(args) {
+  return (string, options = {}) => {
+    const matchResult = string.match(args.matchPattern);
+    if (!matchResult) return null;
+    const matchedString = matchResult[0];
+
+    const parseResult = string.match(args.parsePattern);
+    if (!parseResult) return null;
+    let value = args.valueCallback
+      ? args.valueCallback(parseResult[0])
+      : parseResult[0];
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- I challange you to fix the type
+    value = options.valueCallback ? options.valueCallback(value) : value;
+
+    const rest = string.slice(matchedString.length);
+
+    return { value, rest };
+  };
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/en-US.mjs":
+/*!************************************************!*\
+  !*** ./node_modules/date-fns/locale/en-US.mjs ***!
+  \************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   enUS: () => (/* binding */ enUS)
+/* harmony export */ });
+/* harmony import */ var _en_US_lib_formatDistance_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./en-US/_lib/formatDistance.mjs */ "./node_modules/date-fns/locale/en-US/_lib/formatDistance.mjs");
+/* harmony import */ var _en_US_lib_formatLong_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./en-US/_lib/formatLong.mjs */ "./node_modules/date-fns/locale/en-US/_lib/formatLong.mjs");
+/* harmony import */ var _en_US_lib_formatRelative_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./en-US/_lib/formatRelative.mjs */ "./node_modules/date-fns/locale/en-US/_lib/formatRelative.mjs");
+/* harmony import */ var _en_US_lib_localize_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./en-US/_lib/localize.mjs */ "./node_modules/date-fns/locale/en-US/_lib/localize.mjs");
+/* harmony import */ var _en_US_lib_match_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./en-US/_lib/match.mjs */ "./node_modules/date-fns/locale/en-US/_lib/match.mjs");
+
+
+
+
+
+
+/**
+ * @category Locales
+ * @summary English locale (United States).
+ * @language English
+ * @iso-639-2 eng
+ * @author Sasha Koss [@kossnocorp](https://github.com/kossnocorp)
+ * @author Lesha Koss [@leshakoss](https://github.com/leshakoss)
+ */
+const enUS = {
+  code: "en-US",
+  formatDistance: _en_US_lib_formatDistance_mjs__WEBPACK_IMPORTED_MODULE_0__.formatDistance,
+  formatLong: _en_US_lib_formatLong_mjs__WEBPACK_IMPORTED_MODULE_1__.formatLong,
+  formatRelative: _en_US_lib_formatRelative_mjs__WEBPACK_IMPORTED_MODULE_2__.formatRelative,
+  localize: _en_US_lib_localize_mjs__WEBPACK_IMPORTED_MODULE_3__.localize,
+  match: _en_US_lib_match_mjs__WEBPACK_IMPORTED_MODULE_4__.match,
+  options: {
+    weekStartsOn: 0 /* Sunday */,
+    firstWeekContainsDate: 1,
+  },
+};
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (enUS);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/en-US/_lib/formatDistance.mjs":
+/*!********************************************************************!*\
+  !*** ./node_modules/date-fns/locale/en-US/_lib/formatDistance.mjs ***!
+  \********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   formatDistance: () => (/* binding */ formatDistance)
+/* harmony export */ });
+const formatDistanceLocale = {
+  lessThanXSeconds: {
+    one: "less than a second",
+    other: "less than {{count}} seconds",
+  },
+
+  xSeconds: {
+    one: "1 second",
+    other: "{{count}} seconds",
+  },
+
+  halfAMinute: "half a minute",
+
+  lessThanXMinutes: {
+    one: "less than a minute",
+    other: "less than {{count}} minutes",
+  },
+
+  xMinutes: {
+    one: "1 minute",
+    other: "{{count}} minutes",
+  },
+
+  aboutXHours: {
+    one: "about 1 hour",
+    other: "about {{count}} hours",
+  },
+
+  xHours: {
+    one: "1 hour",
+    other: "{{count}} hours",
+  },
+
+  xDays: {
+    one: "1 day",
+    other: "{{count}} days",
+  },
+
+  aboutXWeeks: {
+    one: "about 1 week",
+    other: "about {{count}} weeks",
+  },
+
+  xWeeks: {
+    one: "1 week",
+    other: "{{count}} weeks",
+  },
+
+  aboutXMonths: {
+    one: "about 1 month",
+    other: "about {{count}} months",
+  },
+
+  xMonths: {
+    one: "1 month",
+    other: "{{count}} months",
+  },
+
+  aboutXYears: {
+    one: "about 1 year",
+    other: "about {{count}} years",
+  },
+
+  xYears: {
+    one: "1 year",
+    other: "{{count}} years",
+  },
+
+  overXYears: {
+    one: "over 1 year",
+    other: "over {{count}} years",
+  },
+
+  almostXYears: {
+    one: "almost 1 year",
+    other: "almost {{count}} years",
+  },
+};
+
+const formatDistance = (token, count, options) => {
+  let result;
+
+  const tokenValue = formatDistanceLocale[token];
+  if (typeof tokenValue === "string") {
+    result = tokenValue;
+  } else if (count === 1) {
+    result = tokenValue.one;
+  } else {
+    result = tokenValue.other.replace("{{count}}", count.toString());
+  }
+
+  if (options?.addSuffix) {
+    if (options.comparison && options.comparison > 0) {
+      return "in " + result;
+    } else {
+      return result + " ago";
+    }
+  }
+
+  return result;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/en-US/_lib/formatLong.mjs":
+/*!****************************************************************!*\
+  !*** ./node_modules/date-fns/locale/en-US/_lib/formatLong.mjs ***!
+  \****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   formatLong: () => (/* binding */ formatLong)
+/* harmony export */ });
+/* harmony import */ var _lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildFormatLongFn.mjs */ "./node_modules/date-fns/locale/_lib/buildFormatLongFn.mjs");
+
+
+const dateFormats = {
+  full: "EEEE, MMMM do, y",
+  long: "MMMM do, y",
+  medium: "MMM d, y",
+  short: "MM/dd/yyyy",
+};
+
+const timeFormats = {
+  full: "h:mm:ss a zzzz",
+  long: "h:mm:ss a z",
+  medium: "h:mm:ss a",
+  short: "h:mm a",
+};
+
+const dateTimeFormats = {
+  full: "{{date}} 'at' {{time}}",
+  long: "{{date}} 'at' {{time}}",
+  medium: "{{date}}, {{time}}",
+  short: "{{date}}, {{time}}",
+};
+
+const formatLong = {
+  date: (0,_lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
+    formats: dateFormats,
+    defaultWidth: "full",
+  }),
+
+  time: (0,_lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
+    formats: timeFormats,
+    defaultWidth: "full",
+  }),
+
+  dateTime: (0,_lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
+    formats: dateTimeFormats,
+    defaultWidth: "full",
+  }),
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/en-US/_lib/formatRelative.mjs":
+/*!********************************************************************!*\
+  !*** ./node_modules/date-fns/locale/en-US/_lib/formatRelative.mjs ***!
+  \********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   formatRelative: () => (/* binding */ formatRelative)
+/* harmony export */ });
+const formatRelativeLocale = {
+  lastWeek: "'last' eeee 'at' p",
+  yesterday: "'yesterday at' p",
+  today: "'today at' p",
+  tomorrow: "'tomorrow at' p",
+  nextWeek: "eeee 'at' p",
+  other: "P",
+};
+
+const formatRelative = (token, _date, _baseDate, _options) =>
+  formatRelativeLocale[token];
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/en-US/_lib/localize.mjs":
+/*!**************************************************************!*\
+  !*** ./node_modules/date-fns/locale/en-US/_lib/localize.mjs ***!
+  \**************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   localize: () => (/* binding */ localize)
+/* harmony export */ });
+/* harmony import */ var _lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildLocalizeFn.mjs */ "./node_modules/date-fns/locale/_lib/buildLocalizeFn.mjs");
+
+
+const eraValues = {
+  narrow: ["B", "A"],
+  abbreviated: ["BC", "AD"],
+  wide: ["Before Christ", "Anno Domini"],
+};
+
+const quarterValues = {
+  narrow: ["1", "2", "3", "4"],
+  abbreviated: ["Q1", "Q2", "Q3", "Q4"],
+  wide: ["1st quarter", "2nd quarter", "3rd quarter", "4th quarter"],
+};
+
+// Note: in English, the names of days of the week and months are capitalized.
+// If you are making a new locale based on this one, check if the same is true for the language you're working on.
+// Generally, formatted dates should look like they are in the middle of a sentence,
+// e.g. in Spanish language the weekdays and months should be in the lowercase.
+const monthValues = {
+  narrow: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
+  abbreviated: [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ],
+
+  wide: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ],
+};
+
+const dayValues = {
+  narrow: ["S", "M", "T", "W", "T", "F", "S"],
+  short: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+  abbreviated: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  wide: [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ],
+};
+
+const dayPeriodValues = {
+  narrow: {
+    am: "a",
+    pm: "p",
+    midnight: "mi",
+    noon: "n",
+    morning: "morning",
+    afternoon: "afternoon",
+    evening: "evening",
+    night: "night",
+  },
+  abbreviated: {
+    am: "AM",
+    pm: "PM",
+    midnight: "midnight",
+    noon: "noon",
+    morning: "morning",
+    afternoon: "afternoon",
+    evening: "evening",
+    night: "night",
+  },
+  wide: {
+    am: "a.m.",
+    pm: "p.m.",
+    midnight: "midnight",
+    noon: "noon",
+    morning: "morning",
+    afternoon: "afternoon",
+    evening: "evening",
+    night: "night",
+  },
+};
+
+const formattingDayPeriodValues = {
+  narrow: {
+    am: "a",
+    pm: "p",
+    midnight: "mi",
+    noon: "n",
+    morning: "in the morning",
+    afternoon: "in the afternoon",
+    evening: "in the evening",
+    night: "at night",
+  },
+  abbreviated: {
+    am: "AM",
+    pm: "PM",
+    midnight: "midnight",
+    noon: "noon",
+    morning: "in the morning",
+    afternoon: "in the afternoon",
+    evening: "in the evening",
+    night: "at night",
+  },
+  wide: {
+    am: "a.m.",
+    pm: "p.m.",
+    midnight: "midnight",
+    noon: "noon",
+    morning: "in the morning",
+    afternoon: "in the afternoon",
+    evening: "in the evening",
+    night: "at night",
+  },
+};
+
+const ordinalNumber = (dirtyNumber, _options) => {
+  const number = Number(dirtyNumber);
+
+  // If ordinal numbers depend on context, for example,
+  // if they are different for different grammatical genders,
+  // use `options.unit`.
+  //
+  // `unit` can be 'year', 'quarter', 'month', 'week', 'date', 'dayOfYear',
+  // 'day', 'hour', 'minute', 'second'.
+
+  const rem100 = number % 100;
+  if (rem100 > 20 || rem100 < 10) {
+    switch (rem100 % 10) {
+      case 1:
+        return number + "st";
+      case 2:
+        return number + "nd";
+      case 3:
+        return number + "rd";
+    }
+  }
+  return number + "th";
+};
+
+const localize = {
+  ordinalNumber,
+
+  era: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+    values: eraValues,
+    defaultWidth: "wide",
+  }),
+
+  quarter: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+    values: quarterValues,
+    defaultWidth: "wide",
+    argumentCallback: (quarter) => quarter - 1,
+  }),
+
+  month: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+    values: monthValues,
+    defaultWidth: "wide",
+  }),
+
+  day: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+    values: dayValues,
+    defaultWidth: "wide",
+  }),
+
+  dayPeriod: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+    values: dayPeriodValues,
+    defaultWidth: "wide",
+    formattingValues: formattingDayPeriodValues,
+    defaultFormattingWidth: "wide",
+  }),
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/en-US/_lib/match.mjs":
+/*!***********************************************************!*\
+  !*** ./node_modules/date-fns/locale/en-US/_lib/match.mjs ***!
+  \***********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   match: () => (/* binding */ match)
+/* harmony export */ });
+/* harmony import */ var _lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../_lib/buildMatchFn.mjs */ "./node_modules/date-fns/locale/_lib/buildMatchFn.mjs");
+/* harmony import */ var _lib_buildMatchPatternFn_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildMatchPatternFn.mjs */ "./node_modules/date-fns/locale/_lib/buildMatchPatternFn.mjs");
+
+
+
+const matchOrdinalNumberPattern = /^(\d+)(th|st|nd|rd)?/i;
+const parseOrdinalNumberPattern = /\d+/i;
+
+const matchEraPatterns = {
+  narrow: /^(b|a)/i,
+  abbreviated: /^(b\.?\s?c\.?|b\.?\s?c\.?\s?e\.?|a\.?\s?d\.?|c\.?\s?e\.?)/i,
+  wide: /^(before christ|before common era|anno domini|common era)/i,
+};
+const parseEraPatterns = {
+  any: [/^b/i, /^(a|c)/i],
+};
+
+const matchQuarterPatterns = {
+  narrow: /^[1234]/i,
+  abbreviated: /^q[1234]/i,
+  wide: /^[1234](th|st|nd|rd)? quarter/i,
+};
+const parseQuarterPatterns = {
+  any: [/1/i, /2/i, /3/i, /4/i],
+};
+
+const matchMonthPatterns = {
+  narrow: /^[jfmasond]/i,
+  abbreviated: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i,
+  wide: /^(january|february|march|april|may|june|july|august|september|october|november|december)/i,
+};
+const parseMonthPatterns = {
+  narrow: [
+    /^j/i,
+    /^f/i,
+    /^m/i,
+    /^a/i,
+    /^m/i,
+    /^j/i,
+    /^j/i,
+    /^a/i,
+    /^s/i,
+    /^o/i,
+    /^n/i,
+    /^d/i,
+  ],
+
+  any: [
+    /^ja/i,
+    /^f/i,
+    /^mar/i,
+    /^ap/i,
+    /^may/i,
+    /^jun/i,
+    /^jul/i,
+    /^au/i,
+    /^s/i,
+    /^o/i,
+    /^n/i,
+    /^d/i,
+  ],
+};
+
+const matchDayPatterns = {
+  narrow: /^[smtwf]/i,
+  short: /^(su|mo|tu|we|th|fr|sa)/i,
+  abbreviated: /^(sun|mon|tue|wed|thu|fri|sat)/i,
+  wide: /^(sunday|monday|tuesday|wednesday|thursday|friday|saturday)/i,
+};
+const parseDayPatterns = {
+  narrow: [/^s/i, /^m/i, /^t/i, /^w/i, /^t/i, /^f/i, /^s/i],
+  any: [/^su/i, /^m/i, /^tu/i, /^w/i, /^th/i, /^f/i, /^sa/i],
+};
+
+const matchDayPeriodPatterns = {
+  narrow: /^(a|p|mi|n|(in the|at) (morning|afternoon|evening|night))/i,
+  any: /^([ap]\.?\s?m\.?|midnight|noon|(in the|at) (morning|afternoon|evening|night))/i,
+};
+const parseDayPeriodPatterns = {
+  any: {
+    am: /^a/i,
+    pm: /^p/i,
+    midnight: /^mi/i,
+    noon: /^no/i,
+    morning: /morning/i,
+    afternoon: /afternoon/i,
+    evening: /evening/i,
+    night: /night/i,
+  },
+};
+
+const match = {
+  ordinalNumber: (0,_lib_buildMatchPatternFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildMatchPatternFn)({
+    matchPattern: matchOrdinalNumberPattern,
+    parsePattern: parseOrdinalNumberPattern,
+    valueCallback: (value) => parseInt(value, 10),
+  }),
+
+  era: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_1__.buildMatchFn)({
+    matchPatterns: matchEraPatterns,
+    defaultMatchWidth: "wide",
+    parsePatterns: parseEraPatterns,
+    defaultParseWidth: "any",
+  }),
+
+  quarter: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_1__.buildMatchFn)({
+    matchPatterns: matchQuarterPatterns,
+    defaultMatchWidth: "wide",
+    parsePatterns: parseQuarterPatterns,
+    defaultParseWidth: "any",
+    valueCallback: (index) => index + 1,
+  }),
+
+  month: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_1__.buildMatchFn)({
+    matchPatterns: matchMonthPatterns,
+    defaultMatchWidth: "wide",
+    parsePatterns: parseMonthPatterns,
+    defaultParseWidth: "any",
+  }),
+
+  day: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_1__.buildMatchFn)({
+    matchPatterns: matchDayPatterns,
+    defaultMatchWidth: "wide",
+    parsePatterns: parseDayPatterns,
+    defaultParseWidth: "any",
+  }),
+
+  dayPeriod: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_1__.buildMatchFn)({
+    matchPatterns: matchDayPeriodPatterns,
+    defaultMatchWidth: "any",
+    parsePatterns: parseDayPeriodPatterns,
+    defaultParseWidth: "any",
+  }),
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/ko.mjs":
+/*!*********************************************!*\
+  !*** ./node_modules/date-fns/locale/ko.mjs ***!
+  \*********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   ko: () => (/* binding */ ko)
+/* harmony export */ });
+/* harmony import */ var _ko_lib_formatDistance_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ko/_lib/formatDistance.mjs */ "./node_modules/date-fns/locale/ko/_lib/formatDistance.mjs");
+/* harmony import */ var _ko_lib_formatLong_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ko/_lib/formatLong.mjs */ "./node_modules/date-fns/locale/ko/_lib/formatLong.mjs");
+/* harmony import */ var _ko_lib_formatRelative_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ko/_lib/formatRelative.mjs */ "./node_modules/date-fns/locale/ko/_lib/formatRelative.mjs");
+/* harmony import */ var _ko_lib_localize_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ko/_lib/localize.mjs */ "./node_modules/date-fns/locale/ko/_lib/localize.mjs");
+/* harmony import */ var _ko_lib_match_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ko/_lib/match.mjs */ "./node_modules/date-fns/locale/ko/_lib/match.mjs");
+
+
+
+
+
+
+/**
+ * @category Locales
+ * @summary Korean locale.
+ * @language Korean
+ * @iso-639-2 kor
+ * @author Hong Chulju [@angdev](https://github.com/angdev)
+ * @author Lee Seoyoen [@iamssen](https://github.com/iamssen)
+ * @author Taiki IKeda [@so99ynoodles](https://github.com/so99ynoodles)
+ */
+const ko = {
+  code: "ko",
+  formatDistance: _ko_lib_formatDistance_mjs__WEBPACK_IMPORTED_MODULE_0__.formatDistance,
+  formatLong: _ko_lib_formatLong_mjs__WEBPACK_IMPORTED_MODULE_1__.formatLong,
+  formatRelative: _ko_lib_formatRelative_mjs__WEBPACK_IMPORTED_MODULE_2__.formatRelative,
+  localize: _ko_lib_localize_mjs__WEBPACK_IMPORTED_MODULE_3__.localize,
+  match: _ko_lib_match_mjs__WEBPACK_IMPORTED_MODULE_4__.match,
+  options: {
+    weekStartsOn: 0 /* Sunday */,
+    firstWeekContainsDate: 1,
+  },
+};
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ko);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/ko/_lib/formatDistance.mjs":
+/*!*****************************************************************!*\
+  !*** ./node_modules/date-fns/locale/ko/_lib/formatDistance.mjs ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   formatDistance: () => (/* binding */ formatDistance)
+/* harmony export */ });
+const formatDistanceLocale = {
+  lessThanXSeconds: {
+    one: "1초 미만",
+    other: "{{count}}초 미만",
+  },
+
+  xSeconds: {
+    one: "1초",
+    other: "{{count}}초",
+  },
+
+  halfAMinute: "30초",
+
+  lessThanXMinutes: {
+    one: "1분 미만",
+    other: "{{count}}분 미만",
+  },
+
+  xMinutes: {
+    one: "1분",
+    other: "{{count}}분",
+  },
+
+  aboutXHours: {
+    one: "약 1시간",
+    other: "약 {{count}}시간",
+  },
+
+  xHours: {
+    one: "1시간",
+    other: "{{count}}시간",
+  },
+
+  xDays: {
+    one: "1일",
+    other: "{{count}}일",
+  },
+
+  aboutXWeeks: {
+    one: "약 1주",
+    other: "약 {{count}}주",
+  },
+
+  xWeeks: {
+    one: "1주",
+    other: "{{count}}주",
+  },
+
+  aboutXMonths: {
+    one: "약 1개월",
+    other: "약 {{count}}개월",
+  },
+
+  xMonths: {
+    one: "1개월",
+    other: "{{count}}개월",
+  },
+
+  aboutXYears: {
+    one: "약 1년",
+    other: "약 {{count}}년",
+  },
+
+  xYears: {
+    one: "1년",
+    other: "{{count}}년",
+  },
+
+  overXYears: {
+    one: "1년 이상",
+    other: "{{count}}년 이상",
+  },
+
+  almostXYears: {
+    one: "거의 1년",
+    other: "거의 {{count}}년",
+  },
+};
+
+const formatDistance = (token, count, options) => {
+  let result;
+
+  const tokenValue = formatDistanceLocale[token];
+  if (typeof tokenValue === "string") {
+    result = tokenValue;
+  } else if (count === 1) {
+    result = tokenValue.one;
+  } else {
+    result = tokenValue.other.replace("{{count}}", count.toString());
+  }
+
+  if (options?.addSuffix) {
+    if (options.comparison && options.comparison > 0) {
+      return result + " 후";
+    } else {
+      return result + " 전";
+    }
+  }
+
+  return result;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/ko/_lib/formatLong.mjs":
+/*!*************************************************************!*\
+  !*** ./node_modules/date-fns/locale/ko/_lib/formatLong.mjs ***!
+  \*************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   formatLong: () => (/* binding */ formatLong)
+/* harmony export */ });
+/* harmony import */ var _lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildFormatLongFn.mjs */ "./node_modules/date-fns/locale/_lib/buildFormatLongFn.mjs");
+
+
+const dateFormats = {
+  full: "y년 M월 d일 EEEE",
+  long: "y년 M월 d일",
+  medium: "y.MM.dd",
+  short: "y.MM.dd",
+};
+
+const timeFormats = {
+  full: "a H시 mm분 ss초 zzzz",
+  long: "a H:mm:ss z",
+  medium: "HH:mm:ss",
+  short: "HH:mm",
+};
+
+const dateTimeFormats = {
+  full: "{{date}} {{time}}",
+  long: "{{date}} {{time}}",
+  medium: "{{date}} {{time}}",
+  short: "{{date}} {{time}}",
+};
+
+const formatLong = {
+  date: (0,_lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
+    formats: dateFormats,
+    defaultWidth: "full",
+  }),
+
+  time: (0,_lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
+    formats: timeFormats,
+    defaultWidth: "full",
+  }),
+
+  dateTime: (0,_lib_buildFormatLongFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildFormatLongFn)({
+    formats: dateTimeFormats,
+    defaultWidth: "full",
+  }),
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/ko/_lib/formatRelative.mjs":
+/*!*****************************************************************!*\
+  !*** ./node_modules/date-fns/locale/ko/_lib/formatRelative.mjs ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   formatRelative: () => (/* binding */ formatRelative)
+/* harmony export */ });
+const formatRelativeLocale = {
+  lastWeek: "'지난' eeee p",
+  yesterday: "'어제' p",
+  today: "'오늘' p",
+  tomorrow: "'내일' p",
+  nextWeek: "'다음' eeee p",
+  other: "P",
+};
+
+const formatRelative = (token, _date, _baseDate, _options) =>
+  formatRelativeLocale[token];
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/ko/_lib/localize.mjs":
+/*!***********************************************************!*\
+  !*** ./node_modules/date-fns/locale/ko/_lib/localize.mjs ***!
+  \***********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   localize: () => (/* binding */ localize)
+/* harmony export */ });
+/* harmony import */ var _lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildLocalizeFn.mjs */ "./node_modules/date-fns/locale/_lib/buildLocalizeFn.mjs");
+
+
+const eraValues = {
+  narrow: ["BC", "AD"],
+  abbreviated: ["BC", "AD"],
+  wide: ["기원전", "서기"],
+};
+
+const quarterValues = {
+  narrow: ["1", "2", "3", "4"],
+  abbreviated: ["Q1", "Q2", "Q3", "Q4"],
+  wide: ["1분기", "2분기", "3분기", "4분기"],
+};
+
+const monthValues = {
+  narrow: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+
+  abbreviated: [
+    "1월",
+    "2월",
+    "3월",
+    "4월",
+    "5월",
+    "6월",
+    "7월",
+    "8월",
+    "9월",
+    "10월",
+    "11월",
+    "12월",
+  ],
+
+  wide: [
+    "1월",
+    "2월",
+    "3월",
+    "4월",
+    "5월",
+    "6월",
+    "7월",
+    "8월",
+    "9월",
+    "10월",
+    "11월",
+    "12월",
+  ],
+};
+
+const dayValues = {
+  narrow: ["일", "월", "화", "수", "목", "금", "토"],
+  short: ["일", "월", "화", "수", "목", "금", "토"],
+  abbreviated: ["일", "월", "화", "수", "목", "금", "토"],
+  wide: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"],
+};
+
+const dayPeriodValues = {
+  narrow: {
+    am: "오전",
+    pm: "오후",
+    midnight: "자정",
+    noon: "정오",
+    morning: "아침",
+    afternoon: "오후",
+    evening: "저녁",
+    night: "밤",
+  },
+  abbreviated: {
+    am: "오전",
+    pm: "오후",
+    midnight: "자정",
+    noon: "정오",
+    morning: "아침",
+    afternoon: "오후",
+    evening: "저녁",
+    night: "밤",
+  },
+  wide: {
+    am: "오전",
+    pm: "오후",
+    midnight: "자정",
+    noon: "정오",
+    morning: "아침",
+    afternoon: "오후",
+    evening: "저녁",
+    night: "밤",
+  },
+};
+
+const formattingDayPeriodValues = {
+  narrow: {
+    am: "오전",
+    pm: "오후",
+    midnight: "자정",
+    noon: "정오",
+    morning: "아침",
+    afternoon: "오후",
+    evening: "저녁",
+    night: "밤",
+  },
+  abbreviated: {
+    am: "오전",
+    pm: "오후",
+    midnight: "자정",
+    noon: "정오",
+    morning: "아침",
+    afternoon: "오후",
+    evening: "저녁",
+    night: "밤",
+  },
+  wide: {
+    am: "오전",
+    pm: "오후",
+    midnight: "자정",
+    noon: "정오",
+    morning: "아침",
+    afternoon: "오후",
+    evening: "저녁",
+    night: "밤",
+  },
+};
+
+const ordinalNumber = (dirtyNumber, options) => {
+  const number = Number(dirtyNumber);
+  const unit = String(options?.unit);
+
+  switch (unit) {
+    case "minute":
+    case "second":
+      return String(number);
+    case "date":
+      return number + "일";
+    default:
+      return number + "번째";
+  }
+};
+
+const localize = {
+  ordinalNumber,
+
+  era: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+    values: eraValues,
+    defaultWidth: "wide",
+  }),
+
+  quarter: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+    values: quarterValues,
+    defaultWidth: "wide",
+    argumentCallback: (quarter) => quarter - 1,
+  }),
+
+  month: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+    values: monthValues,
+    defaultWidth: "wide",
+  }),
+
+  day: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+    values: dayValues,
+    defaultWidth: "wide",
+  }),
+
+  dayPeriod: (0,_lib_buildLocalizeFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildLocalizeFn)({
+    values: dayPeriodValues,
+    defaultWidth: "wide",
+    formattingValues: formattingDayPeriodValues,
+    defaultFormattingWidth: "wide",
+  }),
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/ko/_lib/match.mjs":
+/*!********************************************************!*\
+  !*** ./node_modules/date-fns/locale/ko/_lib/match.mjs ***!
+  \********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   match: () => (/* binding */ match)
+/* harmony export */ });
+/* harmony import */ var _lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../_lib/buildMatchFn.mjs */ "./node_modules/date-fns/locale/_lib/buildMatchFn.mjs");
+/* harmony import */ var _lib_buildMatchPatternFn_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_lib/buildMatchPatternFn.mjs */ "./node_modules/date-fns/locale/_lib/buildMatchPatternFn.mjs");
+
+
+
+const matchOrdinalNumberPattern = /^(\d+)(일|번째)?/i;
+const parseOrdinalNumberPattern = /\d+/i;
+
+const matchEraPatterns = {
+  narrow: /^(b\.?\s?c\.?|b\.?\s?c\.?\s?e\.?|a\.?\s?d\.?|c\.?\s?e\.?)/i,
+  abbreviated: /^(b\.?\s?c\.?|b\.?\s?c\.?\s?e\.?|a\.?\s?d\.?|c\.?\s?e\.?)/i,
+  wide: /^(기원전|서기)/i,
+};
+const parseEraPatterns = {
+  any: [/^(bc|기원전)/i, /^(ad|서기)/i],
+};
+
+const matchQuarterPatterns = {
+  narrow: /^[1234]/i,
+  abbreviated: /^q[1234]/i,
+  wide: /^[1234]사?분기/i,
+};
+const parseQuarterPatterns = {
+  any: [/1/i, /2/i, /3/i, /4/i],
+};
+
+const matchMonthPatterns = {
+  narrow: /^(1[012]|[123456789])/,
+  abbreviated: /^(1[012]|[123456789])월/i,
+  wide: /^(1[012]|[123456789])월/i,
+};
+const parseMonthPatterns = {
+  any: [
+    /^1월?$/,
+    /^2/,
+    /^3/,
+    /^4/,
+    /^5/,
+    /^6/,
+    /^7/,
+    /^8/,
+    /^9/,
+    /^10/,
+    /^11/,
+    /^12/,
+  ],
+};
+
+const matchDayPatterns = {
+  narrow: /^[일월화수목금토]/,
+  short: /^[일월화수목금토]/,
+  abbreviated: /^[일월화수목금토]/,
+  wide: /^[일월화수목금토]요일/,
+};
+const parseDayPatterns = {
+  any: [/^일/, /^월/, /^화/, /^수/, /^목/, /^금/, /^토/],
+};
+
+const matchDayPeriodPatterns = {
+  any: /^(am|pm|오전|오후|자정|정오|아침|저녁|밤)/i,
+};
+const parseDayPeriodPatterns = {
+  any: {
+    am: /^(am|오전)/i,
+    pm: /^(pm|오후)/i,
+    midnight: /^자정/i,
+    noon: /^정오/i,
+    morning: /^아침/i,
+    afternoon: /^오후/i,
+    evening: /^저녁/i,
+    night: /^밤/i,
+  },
+};
+
+const match = {
+  ordinalNumber: (0,_lib_buildMatchPatternFn_mjs__WEBPACK_IMPORTED_MODULE_0__.buildMatchPatternFn)({
+    matchPattern: matchOrdinalNumberPattern,
+    parsePattern: parseOrdinalNumberPattern,
+    valueCallback: (value) => parseInt(value, 10),
+  }),
+
+  era: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_1__.buildMatchFn)({
+    matchPatterns: matchEraPatterns,
+    defaultMatchWidth: "wide",
+    parsePatterns: parseEraPatterns,
+    defaultParseWidth: "any",
+  }),
+
+  quarter: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_1__.buildMatchFn)({
+    matchPatterns: matchQuarterPatterns,
+    defaultMatchWidth: "wide",
+    parsePatterns: parseQuarterPatterns,
+    defaultParseWidth: "any",
+    valueCallback: (index) => index + 1,
+  }),
+
+  month: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_1__.buildMatchFn)({
+    matchPatterns: matchMonthPatterns,
+    defaultMatchWidth: "wide",
+    parsePatterns: parseMonthPatterns,
+    defaultParseWidth: "any",
+  }),
+
+  day: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_1__.buildMatchFn)({
+    matchPatterns: matchDayPatterns,
+    defaultMatchWidth: "wide",
+    parsePatterns: parseDayPatterns,
+    defaultParseWidth: "any",
+  }),
+
+  dayPeriod: (0,_lib_buildMatchFn_mjs__WEBPACK_IMPORTED_MODULE_1__.buildMatchFn)({
+    matchPatterns: matchDayPeriodPatterns,
+    defaultMatchWidth: "any",
+    parsePatterns: parseDayPeriodPatterns,
+    defaultParseWidth: "any",
+  }),
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/parseISO.mjs":
+/*!********************************************!*\
+  !*** ./node_modules/date-fns/parseISO.mjs ***!
+  \********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   parseISO: () => (/* binding */ parseISO)
+/* harmony export */ });
+/* harmony import */ var _constants_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.mjs */ "./node_modules/date-fns/constants.mjs");
+
+
+/**
+ * The {@link parseISO} function options.
+ */
+
+/**
+ * @name parseISO
+ * @category Common Helpers
+ * @summary Parse ISO string
+ *
+ * @description
+ * Parse the given string in ISO 8601 format and return an instance of Date.
+ *
+ * Function accepts complete ISO 8601 formats as well as partial implementations.
+ * ISO 8601: http://en.wikipedia.org/wiki/ISO_8601
+ *
+ * If the argument isn't a string, the function cannot parse the string or
+ * the values are invalid, it returns Invalid Date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param argument - The value to convert
+ * @param options - An object with options
+ *
+ * @returns The parsed date in the local time zone
+ *
+ * @example
+ * // Convert string '2014-02-11T11:30:30' to date:
+ * const result = parseISO('2014-02-11T11:30:30')
+ * //=> Tue Feb 11 2014 11:30:30
+ *
+ * @example
+ * // Convert string '+02014101' to date,
+ * // if the additional number of digits in the extended year format is 1:
+ * const result = parseISO('+02014101', { additionalDigits: 1 })
+ * //=> Fri Apr 11 2014 00:00:00
+ */
+function parseISO(argument, options) {
+  const additionalDigits = options?.additionalDigits ?? 2;
+  const dateStrings = splitDateString(argument);
+
+  let date;
+  if (dateStrings.date) {
+    const parseYearResult = parseYear(dateStrings.date, additionalDigits);
+    date = parseDate(parseYearResult.restDateString, parseYearResult.year);
+  }
+
+  if (!date || isNaN(date.getTime())) {
+    return new Date(NaN);
+  }
+
+  const timestamp = date.getTime();
+  let time = 0;
+  let offset;
+
+  if (dateStrings.time) {
+    time = parseTime(dateStrings.time);
+    if (isNaN(time)) {
+      return new Date(NaN);
+    }
+  }
+
+  if (dateStrings.timezone) {
+    offset = parseTimezone(dateStrings.timezone);
+    if (isNaN(offset)) {
+      return new Date(NaN);
+    }
+  } else {
+    const dirtyDate = new Date(timestamp + time);
+    // JS parsed string assuming it's in UTC timezone
+    // but we need it to be parsed in our timezone
+    // so we use utc values to build date in our timezone.
+    // Year values from 0 to 99 map to the years 1900 to 1999
+    // so set year explicitly with setFullYear.
+    const result = new Date(0);
+    result.setFullYear(
+      dirtyDate.getUTCFullYear(),
+      dirtyDate.getUTCMonth(),
+      dirtyDate.getUTCDate(),
+    );
+    result.setHours(
+      dirtyDate.getUTCHours(),
+      dirtyDate.getUTCMinutes(),
+      dirtyDate.getUTCSeconds(),
+      dirtyDate.getUTCMilliseconds(),
+    );
+    return result;
+  }
+
+  return new Date(timestamp + time + offset);
+}
+
+const patterns = {
+  dateTimeDelimiter: /[T ]/,
+  timeZoneDelimiter: /[Z ]/i,
+  timezone: /([Z+-].*)$/,
+};
+
+const dateRegex =
+  /^-?(?:(\d{3})|(\d{2})(?:-?(\d{2}))?|W(\d{2})(?:-?(\d{1}))?|)$/;
+const timeRegex =
+  /^(\d{2}(?:[.,]\d*)?)(?::?(\d{2}(?:[.,]\d*)?))?(?::?(\d{2}(?:[.,]\d*)?))?$/;
+const timezoneRegex = /^([+-])(\d{2})(?::?(\d{2}))?$/;
+
+function splitDateString(dateString) {
+  const dateStrings = {};
+  const array = dateString.split(patterns.dateTimeDelimiter);
+  let timeString;
+
+  // The regex match should only return at maximum two array elements.
+  // [date], [time], or [date, time].
+  if (array.length > 2) {
+    return dateStrings;
+  }
+
+  if (/:/.test(array[0])) {
+    timeString = array[0];
+  } else {
+    dateStrings.date = array[0];
+    timeString = array[1];
+    if (patterns.timeZoneDelimiter.test(dateStrings.date)) {
+      dateStrings.date = dateString.split(patterns.timeZoneDelimiter)[0];
+      timeString = dateString.substr(
+        dateStrings.date.length,
+        dateString.length,
+      );
+    }
+  }
+
+  if (timeString) {
+    const token = patterns.timezone.exec(timeString);
+    if (token) {
+      dateStrings.time = timeString.replace(token[1], "");
+      dateStrings.timezone = token[1];
+    } else {
+      dateStrings.time = timeString;
+    }
+  }
+
+  return dateStrings;
+}
+
+function parseYear(dateString, additionalDigits) {
+  const regex = new RegExp(
+    "^(?:(\\d{4}|[+-]\\d{" +
+      (4 + additionalDigits) +
+      "})|(\\d{2}|[+-]\\d{" +
+      (2 + additionalDigits) +
+      "})$)",
+  );
+
+  const captures = dateString.match(regex);
+  // Invalid ISO-formatted year
+  if (!captures) return { year: NaN, restDateString: "" };
+
+  const year = captures[1] ? parseInt(captures[1]) : null;
+  const century = captures[2] ? parseInt(captures[2]) : null;
+
+  // either year or century is null, not both
+  return {
+    year: century === null ? year : century * 100,
+    restDateString: dateString.slice((captures[1] || captures[2]).length),
+  };
+}
+
+function parseDate(dateString, year) {
+  // Invalid ISO-formatted year
+  if (year === null) return new Date(NaN);
+
+  const captures = dateString.match(dateRegex);
+  // Invalid ISO-formatted string
+  if (!captures) return new Date(NaN);
+
+  const isWeekDate = !!captures[4];
+  const dayOfYear = parseDateUnit(captures[1]);
+  const month = parseDateUnit(captures[2]) - 1;
+  const day = parseDateUnit(captures[3]);
+  const week = parseDateUnit(captures[4]);
+  const dayOfWeek = parseDateUnit(captures[5]) - 1;
+
+  if (isWeekDate) {
+    if (!validateWeekDate(year, week, dayOfWeek)) {
+      return new Date(NaN);
+    }
+    return dayOfISOWeekYear(year, week, dayOfWeek);
+  } else {
+    const date = new Date(0);
+    if (
+      !validateDate(year, month, day) ||
+      !validateDayOfYearDate(year, dayOfYear)
+    ) {
+      return new Date(NaN);
+    }
+    date.setUTCFullYear(year, month, Math.max(dayOfYear, day));
+    return date;
+  }
+}
+
+function parseDateUnit(value) {
+  return value ? parseInt(value) : 1;
+}
+
+function parseTime(timeString) {
+  const captures = timeString.match(timeRegex);
+  if (!captures) return NaN; // Invalid ISO-formatted time
+
+  const hours = parseTimeUnit(captures[1]);
+  const minutes = parseTimeUnit(captures[2]);
+  const seconds = parseTimeUnit(captures[3]);
+
+  if (!validateTime(hours, minutes, seconds)) {
+    return NaN;
+  }
+
+  return (
+    hours * _constants_mjs__WEBPACK_IMPORTED_MODULE_0__.millisecondsInHour + minutes * _constants_mjs__WEBPACK_IMPORTED_MODULE_0__.millisecondsInMinute + seconds * 1000
+  );
+}
+
+function parseTimeUnit(value) {
+  return (value && parseFloat(value.replace(",", "."))) || 0;
+}
+
+function parseTimezone(timezoneString) {
+  if (timezoneString === "Z") return 0;
+
+  const captures = timezoneString.match(timezoneRegex);
+  if (!captures) return 0;
+
+  const sign = captures[1] === "+" ? -1 : 1;
+  const hours = parseInt(captures[2]);
+  const minutes = (captures[3] && parseInt(captures[3])) || 0;
+
+  if (!validateTimezone(hours, minutes)) {
+    return NaN;
+  }
+
+  return sign * (hours * _constants_mjs__WEBPACK_IMPORTED_MODULE_0__.millisecondsInHour + minutes * _constants_mjs__WEBPACK_IMPORTED_MODULE_0__.millisecondsInMinute);
+}
+
+function dayOfISOWeekYear(isoWeekYear, week, day) {
+  const date = new Date(0);
+  date.setUTCFullYear(isoWeekYear, 0, 4);
+  const fourthOfJanuaryDay = date.getUTCDay() || 7;
+  const diff = (week - 1) * 7 + day + 1 - fourthOfJanuaryDay;
+  date.setUTCDate(date.getUTCDate() + diff);
+  return date;
+}
+
+// Validation functions
+
+// February is null to handle the leap year (using ||)
+const daysInMonths = [31, null, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+function isLeapYearIndex(year) {
+  return year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0);
+}
+
+function validateDate(year, month, date) {
+  return (
+    month >= 0 &&
+    month <= 11 &&
+    date >= 1 &&
+    date <= (daysInMonths[month] || (isLeapYearIndex(year) ? 29 : 28))
+  );
+}
+
+function validateDayOfYearDate(year, dayOfYear) {
+  return dayOfYear >= 1 && dayOfYear <= (isLeapYearIndex(year) ? 366 : 365);
+}
+
+function validateWeekDate(_year, week, day) {
+  return week >= 1 && week <= 53 && day >= 0 && day <= 6;
+}
+
+function validateTime(hours, minutes, seconds) {
+  if (hours === 24) {
+    return minutes === 0 && seconds === 0;
+  }
+
+  return (
+    seconds >= 0 &&
+    seconds < 60 &&
+    minutes >= 0 &&
+    minutes < 60 &&
+    hours >= 0 &&
+    hours < 25
+  );
+}
+
+function validateTimezone(_hours, minutes) {
+  return minutes >= 0 && minutes <= 59;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (parseISO);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/startOfDay.mjs":
+/*!**********************************************!*\
+  !*** ./node_modules/date-fns/startOfDay.mjs ***!
+  \**********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   startOfDay: () => (/* binding */ startOfDay)
+/* harmony export */ });
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+
+
+/**
+ * @name startOfDay
+ * @category Day Helpers
+ * @summary Return the start of a day for the given date.
+ *
+ * @description
+ * Return the start of a day for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of a day
+ *
+ * @example
+ * // The start of a day for 2 September 2014 11:55:00:
+ * const result = startOfDay(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 02 2014 00:00:00
+ */
+function startOfDay(date) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  _date.setHours(0, 0, 0, 0);
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (startOfDay);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/startOfISOWeek.mjs":
+/*!**************************************************!*\
+  !*** ./node_modules/date-fns/startOfISOWeek.mjs ***!
+  \**************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   startOfISOWeek: () => (/* binding */ startOfISOWeek)
+/* harmony export */ });
+/* harmony import */ var _startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./startOfWeek.mjs */ "./node_modules/date-fns/startOfWeek.mjs");
+
+
+/**
+ * @name startOfISOWeek
+ * @category ISO Week Helpers
+ * @summary Return the start of an ISO week for the given date.
+ *
+ * @description
+ * Return the start of an ISO week for the given date.
+ * The result will be in the local timezone.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of an ISO week
+ *
+ * @example
+ * // The start of an ISO week for 2 September 2014 11:55:00:
+ * const result = startOfISOWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Mon Sep 01 2014 00:00:00
+ */
+function startOfISOWeek(date) {
+  return (0,_startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_0__.startOfWeek)(date, { weekStartsOn: 1 });
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (startOfISOWeek);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/startOfISOWeekYear.mjs":
+/*!******************************************************!*\
+  !*** ./node_modules/date-fns/startOfISOWeekYear.mjs ***!
+  \******************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   startOfISOWeekYear: () => (/* binding */ startOfISOWeekYear)
+/* harmony export */ });
+/* harmony import */ var _getISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getISOWeekYear.mjs */ "./node_modules/date-fns/getISOWeekYear.mjs");
+/* harmony import */ var _startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./startOfISOWeek.mjs */ "./node_modules/date-fns/startOfISOWeek.mjs");
+/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/date-fns/constructFrom.mjs");
+
+
+
+
+/**
+ * @name startOfISOWeekYear
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Return the start of an ISO week-numbering year for the given date.
+ *
+ * @description
+ * Return the start of an ISO week-numbering year,
+ * which always starts 3 days before the year's first Thursday.
+ * The result will be in the local timezone.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of an ISO week-numbering year
+ *
+ * @example
+ * // The start of an ISO week-numbering year for 2 July 2005:
+ * const result = startOfISOWeekYear(new Date(2005, 6, 2))
+ * //=> Mon Jan 03 2005 00:00:00
+ */
+function startOfISOWeekYear(date) {
+  const year = (0,_getISOWeekYear_mjs__WEBPACK_IMPORTED_MODULE_0__.getISOWeekYear)(date);
+  const fourthOfJanuary = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(date, 0);
+  fourthOfJanuary.setFullYear(year, 0, 4);
+  fourthOfJanuary.setHours(0, 0, 0, 0);
+  return (0,_startOfISOWeek_mjs__WEBPACK_IMPORTED_MODULE_2__.startOfISOWeek)(fourthOfJanuary);
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (startOfISOWeekYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/startOfWeek.mjs":
+/*!***********************************************!*\
+  !*** ./node_modules/date-fns/startOfWeek.mjs ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   startOfWeek: () => (/* binding */ startOfWeek)
+/* harmony export */ });
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultOptions.mjs */ "./node_modules/date-fns/_lib/defaultOptions.mjs");
+
+
+
+/**
+ * The {@link startOfWeek} function options.
+ */
+
+/**
+ * @name startOfWeek
+ * @category Week Helpers
+ * @summary Return the start of a week for the given date.
+ *
+ * @description
+ * Return the start of a week for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ * @param options - An object with options
+ *
+ * @returns The start of a week
+ *
+ * @example
+ * // The start of a week for 2 September 2014 11:55:00:
+ * const result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Sun Aug 31 2014 00:00:00
+ *
+ * @example
+ * // If the week starts on Monday, the start of the week for 2 September 2014 11:55:00:
+ * const result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0), { weekStartsOn: 1 })
+ * //=> Mon Sep 01 2014 00:00:00
+ */
+function startOfWeek(date, options) {
+  const defaultOptions = (0,_lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_0__.getDefaultOptions)();
+  const weekStartsOn =
+    options?.weekStartsOn ??
+    options?.locale?.options?.weekStartsOn ??
+    defaultOptions.weekStartsOn ??
+    defaultOptions.locale?.options?.weekStartsOn ??
+    0;
+
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_1__.toDate)(date);
+  const day = _date.getDay();
+  const diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn;
+
+  _date.setDate(_date.getDate() - diff);
+  _date.setHours(0, 0, 0, 0);
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (startOfWeek);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/startOfWeekYear.mjs":
+/*!***************************************************!*\
+  !*** ./node_modules/date-fns/startOfWeekYear.mjs ***!
+  \***************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   startOfWeekYear: () => (/* binding */ startOfWeekYear)
+/* harmony export */ });
+/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/date-fns/constructFrom.mjs");
+/* harmony import */ var _getWeekYear_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getWeekYear.mjs */ "./node_modules/date-fns/getWeekYear.mjs");
+/* harmony import */ var _startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./startOfWeek.mjs */ "./node_modules/date-fns/startOfWeek.mjs");
+/* harmony import */ var _lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_lib/defaultOptions.mjs */ "./node_modules/date-fns/_lib/defaultOptions.mjs");
+
+
+
+
+
+/**
+ * The {@link startOfWeekYear} function options.
+ */
+
+/**
+ * @name startOfWeekYear
+ * @category Week-Numbering Year Helpers
+ * @summary Return the start of a local week-numbering year for the given date.
+ *
+ * @description
+ * Return the start of a local week-numbering year.
+ * The exact calculation depends on the values of
+ * `options.weekStartsOn` (which is the index of the first day of the week)
+ * and `options.firstWeekContainsDate` (which is the day of January, which is always in
+ * the first week of the week-numbering year)
+ *
+ * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ * @param options - An object with options
+ *
+ * @returns The start of a week-numbering year
+ *
+ * @example
+ * // The start of an a week-numbering year for 2 July 2005 with default settings:
+ * const result = startOfWeekYear(new Date(2005, 6, 2))
+ * //=> Sun Dec 26 2004 00:00:00
+ *
+ * @example
+ * // The start of a week-numbering year for 2 July 2005
+ * // if Monday is the first day of week
+ * // and 4 January is always in the first week of the year:
+ * const result = startOfWeekYear(new Date(2005, 6, 2), {
+ *   weekStartsOn: 1,
+ *   firstWeekContainsDate: 4
+ * })
+ * //=> Mon Jan 03 2005 00:00:00
+ */
+function startOfWeekYear(date, options) {
+  const defaultOptions = (0,_lib_defaultOptions_mjs__WEBPACK_IMPORTED_MODULE_0__.getDefaultOptions)();
+  const firstWeekContainsDate =
+    options?.firstWeekContainsDate ??
+    options?.locale?.options?.firstWeekContainsDate ??
+    defaultOptions.firstWeekContainsDate ??
+    defaultOptions.locale?.options?.firstWeekContainsDate ??
+    1;
+
+  const year = (0,_getWeekYear_mjs__WEBPACK_IMPORTED_MODULE_1__.getWeekYear)(date, options);
+  const firstWeek = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_2__.constructFrom)(date, 0);
+  firstWeek.setFullYear(year, 0, firstWeekContainsDate);
+  firstWeek.setHours(0, 0, 0, 0);
+  const _date = (0,_startOfWeek_mjs__WEBPACK_IMPORTED_MODULE_3__.startOfWeek)(firstWeek, options);
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (startOfWeekYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/startOfYear.mjs":
+/*!***********************************************!*\
+  !*** ./node_modules/date-fns/startOfYear.mjs ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   startOfYear: () => (/* binding */ startOfYear)
+/* harmony export */ });
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/date-fns/constructFrom.mjs");
+
+
+
+/**
+ * @name startOfYear
+ * @category Year Helpers
+ * @summary Return the start of a year for the given date.
+ *
+ * @description
+ * Return the start of a year for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of a year
+ *
+ * @example
+ * // The start of a year for 2 September 2014 11:55:00:
+ * const result = startOfYear(new Date(2014, 8, 2, 11, 55, 00))
+ * //=> Wed Jan 01 2014 00:00:00
+ */
+function startOfYear(date) {
+  const cleanDate = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  const _date = (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(date, 0);
+  _date.setFullYear(cleanDate.getFullYear(), 0, 1);
+  _date.setHours(0, 0, 0, 0);
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (startOfYear);
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/toDate.mjs":
+/*!******************************************!*\
+  !*** ./node_modules/date-fns/toDate.mjs ***!
+  \******************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   toDate: () => (/* binding */ toDate)
+/* harmony export */ });
+/**
+ * @name toDate
+ * @category Common Helpers
+ * @summary Convert the given argument to an instance of Date.
+ *
+ * @description
+ * Convert the given argument to an instance of Date.
+ *
+ * If the argument is an instance of Date, the function returns its clone.
+ *
+ * If the argument is a number, it is treated as a timestamp.
+ *
+ * If the argument is none of the above, the function returns Invalid Date.
+ *
+ * **Note**: *all* Date arguments passed to any *date-fns* function is processed by `toDate`.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param argument - The value to convert
+ *
+ * @returns The parsed date in the local time zone
+ *
+ * @example
+ * // Clone the date:
+ * const result = toDate(new Date(2014, 1, 11, 11, 30, 30))
+ * //=> Tue Feb 11 2014 11:30:30
+ *
+ * @example
+ * // Convert the timestamp to date:
+ * const result = toDate(1392098430000)
+ * //=> Tue Feb 11 2014 11:30:30
+ */
+function toDate(argument) {
+  const argStr = Object.prototype.toString.call(argument);
+
+  // Clone the date
+  if (
+    argument instanceof Date ||
+    (typeof argument === "object" && argStr === "[object Date]")
+  ) {
+    // Prevent the date to lose the milliseconds when passed to new Date() in IE10
+    return new argument.constructor(+argument);
+  } else if (
+    typeof argument === "number" ||
+    argStr === "[object Number]" ||
+    typeof argument === "string" ||
+    argStr === "[object String]"
+  ) {
+    // TODO: Can we get rid of as?
+    return new Date(argument);
+  } else {
+    // TODO: Can we get rid of as?
+    return new Date(NaN);
+  }
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (toDate);
 
 
 /***/ }),

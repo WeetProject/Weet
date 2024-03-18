@@ -462,9 +462,9 @@ input[type="date"]:not(.has-value):before{
     position: absolute;
     left: -110px;
     top: 24px;
-    border: 1px solid #dadada;
+    border: 3px solid #ededed;
     padding: 10px;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     width: 260px;
     border-radius: 5px;
 }
@@ -472,9 +472,27 @@ input[type="date"]:not(.has-value):before{
     border: 1px solid #084AFF;
 }
 .reservation_fail{
-    border: 1px solid #ff0000;
+    border: 3px solid #ff0000;
 }
-
+.reservation_complete {
+    width: 100%;
+    padding-bottom: 50px;
+    margin: 0px auto 30px auto;
+}
+.reservation_complete_icon{
+    margin: 0 auto;
+    color: #084AFF;
+}
+.reservation_cancel_icon{
+    margin: 0 auto;
+    color: #ff3e3e;
+}
+.reservation_complete_msg{
+    padding: 20px 0 50px 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+}
 @include mobile {
     .reservation_layout{
         width: 100vw;

@@ -1,5 +1,6 @@
 <template>
     <div class="reservation_layout">
+        <!-- 최상단 1,2,3 -->
         <div class="reservation_header text-center">
             <div class="reservation_header_box">
                 <span>예약정보확인</span>    
@@ -11,56 +12,62 @@
             </div>
             <div class="reservation_header_box">
                 <span>결제 완료</span>    
-                <div class="reservation_header_ball_2">3</div>
+                <div :class=" pageflg==='2' ? 'reservation_header_ball_1' : 'reservation_header_ball_2'">3</div>
             </div>
         </div>
+        <!-- 123 뒤 프로그레스 바 -->
         <div class="reservation_progress_box">
             <div class="h-4 bg-gray-200 rounded reservation_progress_gray">
                 <!-- 0314 한줄로 변경 -->
                 <!-- <div class="h-full rounded reservation_progress_blue w-1/4"  v-if="this.pageflg==='0'"></div>
                 <div class="h-full rounded reservation_progress_blue w-3/4" v-if="this.pageflg==='1'"></div> -->
-                <div class="h-full rounded reservation_progress_blue" :class=" pageflg==='0' ? 'w-1/4' : 'w-3/4'"></div>
+                <!-- 0318 데이터에 값불러오는 형태로 변형 -->
+                <!-- <div class="h-full rounded reservation_progress_blue" :class=" pageflg==='0' ? 'w-1/4' : 'w-3/4'"></div> -->
+                <div class="h-full rounded reservation_progress_blue" :class="progressWidth[pageflg]"></div>
             </div>      
         </div>
-
-        <div class="reservation_body">
+        <!-- 예약내역 -->
+        <div class="reservation_body" v-if="pageflg !=='2'&&pageflg !=='3'">
             <div class="reservation_title_1">
-                ㅁㅁㅁ 여행
+                항공권 정보
             </div>
             <div class="reservation_to_tiket_title">
                 <div>가는편</div>
-                <div>3월 11일(일)</div>
+                <div v-if="departureDate1===arrivalDate1">{{ arrivalDate1 }}</div>
+                <div v-else>{{ departureDate1 }}~{{ arrivalDate1 }}</div>
                 <div>소요시간 1시간 45분</div>
             </div>
             <div class="reservation_to_tiket_info">
                 <div class="reservation_to_tiket_time text-center">
-                    <div>08:50</div>
-                    <div>10:35</div>
+                    <div>{{ departureTime1 }}</div>
+                    <div>{{ arrivalTime1 }}</div>
                 </div>
                 <div class="reservation_to_tiket_time_type">
-                    <div>INC 서울 인천국제공항 T2</div>
-                    <div>진에어 LI233 보잉 777-200 일반석</div>
-                    <div>KIX 오사카 간사이공항 T1</div>
+                    <div>{{ departureAirport1 }}</div>
+                    <div>{{ departureAirplane }}</div>
+                    <div>{{ arrivalAirport1 }}</div>
                 </div>
             </div>
             <div class="reservation_to_tiket_title">
                 <div>오는편</div>
-                <div>3월 13일(일)</div>
+                <div v-if="departureDate2===arrivalDate2">{{ arrivalDate2 }}</div>
+                <div v-else>{{ departureDate2 }}~{{ arrivalDate2 }}</div>
                 <div>소요시간 1시간 45분</div>
             </div>
             <div class="reservation_to_tiket_info">
                 <div class="reservation_to_tiket_time text-center">
-                    <div>09:20</div>
-                    <div>11:05</div>
+                    <div>{{ departureTime2 }}</div>
+                    <div>{{ arrivalTime2 }}</div>
                 </div>
                 <div class="reservation_to_tiket_time_type">
-                    <div>KIX 오사카 간사이공항 T1</div>
-                    <div>진에어 LI232 보잉 777-200 일반석</div>
-                    <div>INC 서울 인천국제공항 T2</div>
+                    <div>{{ departureAirport2 }}</div>
+                    <div>{{ arrivalAirplane }}</div>
+                    <div>{{ arrivalAirport2 }}</div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- 첫페이지 -->
     <div class="reservation_gray_bg" v-if="pageflg==='0'">
         <div class="reservation_body">
             <div class="reservation_title_2">나의 항공권</div>
@@ -306,6 +313,7 @@
             </div>
         </div>
     </div>
+    <!-- 중간페이지 -->
     <div v-if="pageflg==='1'" class="reservation_body">
         <div class="reservation_spacebetween mb-10">
             <div class="reservation_switch">
@@ -334,12 +342,13 @@
                                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
                             </svg>
                             <div class="reservation_popover" v-if="popoverFlg">
-                                <div class="font-bold text-2xl mb-2">탑승자명</div>
+                                <div class="font-bold text-xl mb-2">탑승자명</div>
                                 <div class="text-sm mb-4">{{ lastName }}/{{ firstName }}</div>
-                                <div class="font-bold text-2xl mb-2">연락받을메일</div>
+                                <div class="font-bold text-xl mb-2">연락받을메일</div>
                                 <div class="text-sm mb-4">{{ email }}</div>
-                                <div class="font-bold text-2xl mb-4">여권번호</div>
-                                <div class="text-sm mb-2">{{ passPortNum }}</div>
+                                <div class="font-bold text-xl mb-2">여권번호</div>
+                                <div class="text-sm mb-4">{{ passPortNum }}</div>
+                                <div class="font-bold text-xs mb-2 text-red-500">※ 결제 후 수정이 불가능 합니다.</div>
                             </div>
                         </div>
                     </div>
@@ -379,26 +388,73 @@
         </div>
         <div class="grid gap-4 mb-4 md:grid-cols-2">
             <div class="reservation_next_btn w-full text-center font-bold cursor-pointer w-full" @click="changeFlg(0)">이전</div>
-            <div class="reservation_next_btn w-full text-center font-bold cursor-pointer w-full">결제</div>
+            <div class="reservation_next_btn w-full text-center font-bold cursor-pointer w-full" @click="requestPay()">결제</div>
         </div>
+    </div>
+    <!-- 결제완료 -->
+    <div v-if="pageflg==='2'" class="reservation_body reservation_complete text-center">
+        <svg class="w-[60px] h-[60px] text-gray-800 dark:text-white reservation_complete_icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+        </svg>
+        <div class="reservation_complete_msg">
+            결제가 완료되었습니다.
+        </div>
+        <button type="button" class="py-2.5 px-5 me-2 mb-2 text-sm  text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 font-bold" @click="clickMain(1)">메인으로</button>
+    </div>
+    <!-- 결제취소 및 에러 -->
+    <div v-if="pageflg==='3'" class="reservation_body reservation_complete text-center">
+        <svg class="w-[60px] h-[60px] text-gray-800 dark:text-white reservation_cancel_icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+        </svg>
+        <div class="reservation_complete_msg">
+            결제가 취소되었습니다.
+        </div>
+        <button type="button" class="py-2.5 px-5 me-2 mb-2 text-sm  text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 font-bold" @click="clickMain(0)">처음으로</button>
+        <button type="button" class="py-2.5 px-5 me-2 mb-2 text-sm  text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 font-bold" @click="clickMain(1)">메인으로</button>
     </div>
 </template>
 <script>
+import { format, parseISO } from 'date-fns';
+import { ko } from 'date-fns/locale';
+
 export default {
 	name: 'ReservationComponent',
 	data() {
-		return {
+        return {
+            // api받아온거
+            departureAt1: '2021-11-01T11:35:00',
+            arrivalAt1: '2021-11-02T15:35:00',
+            departureAt2: '2021-11-21T12:35:00',
+            arrivalAt2: '2021-11-21T17:35:00',
+            departureAirplane: '진에어 LI233 보잉 777-200',
+            arrivalAirplane: '진에어 LI232 보잉 777-200',
+            // 가는편 = 1
+            departureAirport1: 'INC 서울 인천국제공항 T2',
+            departureDate1: '',
+            departureTime1: '',
+            arrivalAirport1: 'KIX 오사카 간사이공항 T1',
+            arrivalDate1: '',
+            arrivalTime1: '',
+            // 오는편 = 2
+            departureAirport2: 'KIX 오사카 간사이공항 T1',
+            departureDate2: '',
+            departureTime2: '',
+            arrivalAirport2: 'INC 서울 인천국제공항 T2',
+            arrivalDate2: '',
+            arrivalTime2: '',
+            // 연락처
 			fullName: '',
 			email: '',
 			phone: '',
+            // 연락처 플레이스홀더용
             contactNamePlaceholder: '',
             contactEmailPlaceholder: '',
             contactNumPlaceholder: '',
-            ticketPrice:'230043',
-            refundPrice100:'',
-            refundPrice80:'',
+            // 가격
+            ticketPrice:'1',
             insurancePrice:0,
             totalPrice: 0,
+            // 여행기간
             day: 4,
             refund: "0",
             refundPrice: 0,
@@ -429,13 +485,20 @@ export default {
             emailValFlg:"0",
             phoneValMsg:["","연락처는 필수 입력 사항 입니다","-를 제외한 11자리를 입력해 주세요","연락처의 형식이 유효하지 않습니다."],
             phoneValFlg:"0",
+            progressWidth:["w-1/4","w-3/4","w-full","w-3/4"],
 		}
 	},
     
 	created() {
-        this.sumTotalPrice(),
-        this.addInsurancePrice()
+        // 결제api 스크립트 불러오기
+        this.sumTotalPrice();
+        this.addInsurancePrice();
+        IMP.init('imp68563753');
 	},
+
+    mounted() {
+        this.formatDateTime();
+    },
 
     watch: {
 		refund(){
@@ -695,9 +758,95 @@ export default {
                 this.passPortDateValFlg = "0";
             }, 50);
         },
+        // 결제완료후 메인으로
+        clickMain(i){
+            // 예약 첫페이지로 0
+            if(i===0){
+                this.pageflg="0"
+            }
+            // 메인으로 1
+            if(i===1){
+                // 쿠키클리어 한뒤 라우터 푸쉬
+                this.$router.push('/')
+            }
+        },
+        // 결제기능
+        requestPay: function () {
+            IMP.request_pay({ // param
+                pg: "kakaopay",
+                pay_method: "card",
+                name: "weet 항공권",
+                amount: this.totalPrice,
+                buyer_email: this.email,
+                buyer_name: this.fullName,
+                buyer_tel: this.phone,
+            }, res => { // callback
+                if (res.success) {
+                    this.addReservation()
+                    this.pageflg="2"
+                } else {
+                    this.pageflg="3"
+                }
+            });
+        },
+        // 예약테이블 저장
+        addReservation(){
+            const URL = '/reservation'
+            const formData = new FormData();
+            formData.append('reservation_flight_number1', this.departureAirplane);
+            formData.append('reservation_departure_airport1', this.departureAirport1);
+            formData.append('reservation_departure_time1', this.departureAt1);
+            formData.append('reservation_arrival_airport1', this.arrivalAirport1);
+            formData.append('reservation_arrival_time1', this.arrivalAt1);
+            if(this.arrivalAirplane !== ''){
+                formData.append('reservation_flight_number2', this.arrivalAirplane);
+                formData.append('reservation_departure_airport2', this.departureAirport2);
+                formData.append('reservation_departure_time2', this.departureAt2);
+                formData.append('reservation_arrival_airport2', this.arrivalAirport2);
+                formData.append('reservation_arrival_time2', this.arrivalAt2);
+            }
+            formData.append('reservation_last_name', this.lastName);
+            formData.append('reservation_first_name', this.firstName);
+            formData.append('reservation_gender', this.gender);
+            formData.append('reservation_birth_date', this.birthDate);
+            formData.append('reservation_country', this.country);
+            formData.append('reservation_id_card', this.idCard);
+            formData.append('reservation_passport_num', this.passPortNum);
+            formData.append('reservation_full_name', this.fullName);
+            formData.append('reservation_email', this.email);
+            formData.append('reservation_phone', this.phone);
+            axios.post(URL,formData)
+            .then(res => {
+                if(res.data.code === "0"){
+                    alert('성공')
+                }
+            })
+            .catch(err => {
+                alert('실패')
+            })
+        },
+        formatDateTime() {
+            // 출발일, 도착일, 출발시간, 도착시간 포맷
+            this.formatDateTimeSingle('1', this.departureAt1, this.arrivalAt1);
+            this.formatDateTimeSingle('2', this.departureAt2, this.arrivalAt2);
+        },
+        formatDateTimeSingle(number, departureAt, arrivalAt) {
+            const departureDate = parseISO(departureAt);
+            const arrivalDate = parseISO(arrivalAt);
+            // 출발일 포맷
+            this[`departureDate${number}`] = format(departureDate, "MM월dd일 (EEEE)", { locale: ko });
+            // 도착일 포맷  
+            this[`arrivalDate${number}`] = format(arrivalDate, "MM월dd일 (EEEE)", { locale: ko });
+            // 출발시간 포맷
+            this[`departureTime${number}`] = format(departureDate, "HH:mm");
+            // 도착시간 포맷
+            this[`arrivalTime${number}`] = format(arrivalDate, "HH:mm");
+        }
 	},
 }
+
 </script>
+<!-- <script src="https://cdn.portone.io/v2/browser-sdk.js"></script> -->
 <style lang="scss">
 	@import '../../sass/Reservation/reservation.scss';
 </style>

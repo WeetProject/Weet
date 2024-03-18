@@ -41,3 +41,7 @@
 6. JWT
     - 참고 : https://hacktam.kr/etclec/120?sca=php
     - composer require tymon/jwt-auth
+
+7. 날짜초기화 라이브러리
+    - 참고 : https://date-fns.org
+    - npm install date-fns

@@ -20,5 +20,6 @@
             <Footer-Component></Footer-Component>
         </div>
     </div>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </body>
 </html>
