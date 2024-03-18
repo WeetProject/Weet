@@ -91,7 +91,12 @@
                                 <span>이메일</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input id="user_email" name="user_email" v-model="frmUserData.userEmail" type="email" placeholder="email">
+                                <input id="user_email" name="user_email" v-model="frmUserData.userEmail" @input="validateUserEmail" type="email" placeholder="이메일을 입력해주세요">
+                                <div class="regist_message_container">
+                                    <div class="error_message text-xs text-red-500" v-if="errors.userEmail">{{ errors.userEmail }}</div>
+                                    <div class="success_message text-xs text-blue-500" v-else-if="!errors.userEmail && frmUserData.userEmail">유효한 이메일입니다.</div>
+                                    <div class="error_message text-xs text-red-500" v-else-if="RegistrationErrorMessage.userEmail">{{ RegistrationErrorMessage.userEmail }}</div>
+                                </div>
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
@@ -99,7 +104,12 @@
                                 <span>비밀번호</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input id="user_password" name="user_password" v-model="frmUserData.userPassword" type="password" placeholder="password">
+                                <input id="user_password" name="user_password" v-model="frmUserData.userPassword" @input="validateUserPassword" type="password" placeholder="영대소문자,숫자,특수문자(!@#)를 포함한 8~16자" minlength="8" maxlength="17">
+                                <div class="regist_message_container">
+                                    <div class="error_message text-xs text-red-500" v-if="errors.userPassword">{{ errors.userPassword }}</div>
+                                    <div class="success_message text-xs text-blue-500" v-else-if="!errors.userPassword && frmUserData.userPassword">유효한 비밀번호입니다.</div>
+                                    <div class="error_message text-xs text-red-500" v-else-if="RegistrationErrorMessage.userPassword">{{ RegistrationErrorMessage.userPassword }}</div>
+                                </div>
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
@@ -107,7 +117,12 @@
                                 <span>비밀번호 확인</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input v-model="frmUserData.userPasswordChk" type="password" placeholder="password chk">
+                                <input v-model="frmUserData.userPasswordChk" @input="validateUserPasswordChk" type="password" placeholder="영대소문자,숫자,특수문자(!@#)를 포함한 8~16자" minlength="8" maxlength="17">
+                                <div class="regist_message_container">
+                                    <div class="error_message text-xs text-red-500" v-if="errors.userPasswordChk">{{ errors.userPasswordChk }}</div>
+                                    <div class="success_message text-xs text-blue-500" v-else-if="!errors.userPasswordChk && frmUserData.userPasswordChk">비밀번호가 일치합니다.</div>
+                                    <div class="error_message text-xs text-red-500" v-else-if="RegistrationErrorMessage.userPasswordChk">{{ RegistrationErrorMessage.userPasswordChk }}</div>
+                                </div>
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
@@ -115,7 +130,7 @@
                                 <span>이름</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input id="user_name" name="user_name" v-model="frmUserData.userName" type="text" placeholder="name">
+                                <input id="user_name" name="user_name" v-model="frmUserData.userName" type="text" placeholder="최소 2글자 이상">
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
@@ -123,7 +138,7 @@
                                 <span>연락처</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input id="user_tel" name="user_tel" v-model="frmUserData.userTel" type="tel" placeholder="tel">
+                                <input id="user_tel" name="user_tel" v-model="frmUserData.userTel" type="tel" placeholder="'-'없이 숫자만 입력해주세요">
                             </div>    
                         </div>
                         <div class="regist_user_info_box_content">
@@ -145,7 +160,7 @@
                                 <span>상세주소</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input id="user_detail_address" name="user_detail_address" v-model="frmUserAddressData.userDetailAddress" type="address" placeholder="address">
+                                <input id="user_detail_address" name="user_detail_address" v-model="frmUserAddressData.userDetailAddress" type="address" placeholder="나머지 주소를 입력해주세요">
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
@@ -238,6 +253,17 @@ export default {
                 userDetailAddress: '',
             },
 
+            errors: {},
+
+            RegistrationErrorMessage: {
+                userEmail: '',
+                userPassword: '',
+                userPasswordChk: '',
+                userName: '',
+                userTel: '',
+                userBirthDate: '',
+                userDetailAddress: '',
+            },
         }
     },
     methods: {
@@ -345,9 +371,35 @@ export default {
             }
             console.log(data);
         },
-    },
 
-    
+        // 이메일 실시간 유효성 체크
+        validateUserEmail() {
+            if (!this.frmUserData.userEmail.match(/^\S+@\S+\.\S+$/)) {
+                this.errors.userEmail = '이메일 양식이 맞지 않습니다.';
+                // this.EmailDoubleCheck = null;
+            } else {
+                this.errors.userEmail = '';
+                // this.EmailDoubleCheck = null;
+            }
+        },
+        // 패스워드 실시간 유효성 체크
+        validateUserPassword() {
+            if (!this.frmUserData.userPassword.match(/^(?=.*[a-zA-Z])(?=.*[!@#]).+$/)) {
+                this.errors.userPassword = '패스워드 양식이 맞지 않습니다.';
+            } else {
+                this.errors.userPassword = '';
+            }
+            
+        },
+        //
+        validateUserPasswordChk() {
+            if (this.frmUserData.userPasswordChk !== this.frmUserData.userPassword) {
+                this.errors.userPasswordChk = '입력한 패스워드와 일치하지 않습니다.';
+            } else {
+                this.errors.userPasswordChk = '';
+            }
+        },
+    },
 }
 
 </script>

@@ -130,7 +130,7 @@
             text-align: center;
             justify-content: center;
             flex-direction: column;
-            margin: 20px 0;
+            margin: 10px 0;
             // margin-left: 20px;
 
             // div {
@@ -140,7 +140,8 @@
             &_content {
                 // border-collapse: separate;
                 // border-spacing: 10px 10px;
-                margin-bottom: 22px;
+                // margin-bottom: 22px;
+                margin: 15px 0;
                 display: flex;
                 justify-content: space-between;
 
@@ -169,9 +170,11 @@
                 border-radius: 5px;
                 margin-right: 5px;
                 width: 400px;
+                position: relative;
 
                 input {
                     width: 100%;
+
                 }
 
                 :focus {
@@ -179,6 +182,11 @@
                     border: none;
                     // border-bottom: 1px solid;
                 }
+            }
+
+            
+            input::placeholder {
+                font-size: 12px;
             }
 
             &_input_postcode {
@@ -243,6 +251,16 @@
                     display: flex;
                 }
             }
+
+            .regist_message_container {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                margin: 5px 5px; /* 추가적인 여백을 위해 설정 */
+                text-align: start;
+            }
+
         }
     }
 }
