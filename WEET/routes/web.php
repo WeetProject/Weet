@@ -88,4 +88,5 @@ Route::middleware(['adminValidation'])->group(function () {
 
 Route::middleware(['userValidation'])->group(function() {
     Route::post('/signup', [UserController::class, 'store']);
+    Route::post('/signupEmailDoubleChk', [UserController::class, 'emailDoubleChk']);
 });

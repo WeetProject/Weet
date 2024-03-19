@@ -30,5 +30,25 @@ class UserController extends Controller
         return response()->json(['msg' => '회원가입성공']);
     }
 
+    // 이메일 중복체크
+    public function emailDoubleChk(Request $request) {
+
+        $userEmail = $request->only('user_email');
+        Log::debug("==============이메일============");
+        Log::debug($userEmail);
+
+        $result = User::where('user_email', $userEmail)->first();
+
+        if ($result) {
+            return response()->json([
+                'message' => false,
+            ]);
+        } else {
+            return response()->json([
+                'message' => true,
+            ]);
+        }
+    }
+
 
 }
