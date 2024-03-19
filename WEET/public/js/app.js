@@ -21811,43 +21811,32 @@ __webpack_require__.r(__webpack_exports__);
     postEmailDoubleCheck: function postEmailDoubleCheck() {
       var _this3 = this;
       var url = '/signupEmailDoubleChk';
-
-      // let frm = new FormData();
-      // frm.append('user_email', this.frmUserData.userEmail);
-      // console.log('오나',this.frmUserData.userEmail);
-
-      // axios.post(url, frm)
-      // .then(res => {
-
-      //     if(this.frmUserData.userEmail) {
-      //         this.EmailDoubleCheck = true;
-      //     } else if(!this.frmUserData.userEmail) {
-      //         this.EmailDoubleCheck = false;
-      //     }
-
-      // })
-      // .catch(err => {
-      //     if (err.response.data.errors) {
-      //         this.RegistrationErrorMessage = err.response.data.errors;
-      //     } else {
-      //     // 예상치 못한 다른 종류의 에러 처리
-      //         console.error('Unexpected error:', err);
-      //     }
-      // });
-
-      if (this.frmUserData.userEmail && this.errors.userEmail === '') {
-        var frm = new FormData();
-        frm.append('user_email', this.frmUserData.userEmail);
-        axios__WEBPACK_IMPORTED_MODULE_0___default().post(url, frm).then(function (res) {
-          _this3.EmailDoubleCheck = res.data.message;
-        })["catch"](function (err) {
-          console.error('이메일 중복 확인 오류:', err);
-        });
-      } else {
-        // 이메일이 유효하지 않은 경우 처리
-        // this.EmailDoubleCheck = null;
-        // this.EmailDoubleerror = '이미 가입된 이메일 입니다.';
-      }
+      var frm = new FormData();
+      frm.append('user_Email', this.frmUserData.userEmail);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(url, frm).then(function (res) {
+        if (res.data.message) {
+          // 성공 메시지 표시
+          if (confirm('사용 가능한 이메일입니다. 확인하시겠습니까?')) {
+            _this3.EmailDoubleCheck = true;
+          }
+        } else if (res.data.message === false) {
+          _this3.EmailDoubleerror = '이미 존재하는 이메일입니다.';
+          // 에러 메시지 표시
+          if (confirm('이미 존재하는 이메일입니다. 확인하시겠습니까?')) {
+            _this3.EmailDoubleCheck = false;
+          }
+        }
+      })["catch"](function (err) {
+        if (err.response.data.errors) {
+          // 에러 메시지 표시
+          alert('에러: 중복 확인에 실패하였습니다.');
+          // 에러 메시지 저장
+          _this3.RegistrationErrorMessage = err.response.data.errors;
+        } else {
+          // 다른 종류의 예상치 못한 에러 처리
+          console.error('예상치 못한 에러:', err);
+        }
+      });
     },
     // 이메일 실시간 유효성 체크
     validateUserEmail: function validateUserEmail() {
