@@ -21017,7 +21017,9 @@ __webpack_require__.r(__webpack_exports__);
     closeModal: function closeModal() {
       this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
       this.showmodal = false;
-    }
+    },
+    // 로그인
+    submitUserLoginData: function submitUserLoginData() {}
   }
   // mounted() {
   // 	this.toggleModal();
@@ -21760,56 +21762,55 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submitFrmUserData: function submitFrmUserData() {
-      var url = '/signup';
-      var header = {
-        headers: {
-          "Content-Type": 'multipart/form-data'
+      var _this = this;
+      if (this.EmailDoubleCheck) {
+        var url = '/signup';
+        var header = {
+          headers: {
+            "Content-Type": 'multipart/form-data'
+          }
+        };
+        var frm = new FormData();
+        this.frmUserData.userTermsofUse = this.frmUserData.userTermsofUse ? 1 : 0;
+        var genderValue = '';
+        if (this.frmUserData.userGender === '남자') {
+          genderValue = 'M';
+        } else if (this.frmUserData.userGender === '여자') {
+          genderValue = 'F';
         }
-      };
-      var frm = new FormData();
-      this.frmUserData.userTermsofUse = this.frmUserData.userTermsofUse ? 1 : 0;
-      var genderValue = '';
-      if (this.frmUserData.userGender === '남자') {
-        genderValue = 'M';
-      } else if (this.frmUserData.userGender === '여자') {
-        genderValue = 'F';
+        frm.append('user_email', this.frmUserData.userEmail);
+        frm.append('user_password', this.frmUserData.userPassword);
+        frm.append('user_password_chk', this.frmUserData.userPasswordChk);
+        frm.append('user_name', this.frmUserData.userName);
+        frm.append('user_tel', this.frmUserData.userTel);
+        // frm.append('user_gender', this.frmUserData.userGender);
+        frm.append('user_gender', genderValue);
+        frm.append('user_birthdate', this.frmUserData.userBirthDate);
+        frm.append('user_detail_address', this.frmUserAddressData.userDetailAddress);
+        frm.append('user_basic_address', this.frmUserAddressData.userBasicAddress);
+        frm.append('user_postcode', this.frmUserAddressData.userPostcode);
+
+        // 첫번째방법 : 이메일 중복체크안해도 회원가입완료됨. 기본 빈값만 체크 후 넘어감.
+        axios__WEBPACK_IMPORTED_MODULE_0___default().post(url, frm, header).then(function (res) {
+          alert('회원가입이 완료되었습니다.');
+          _this.$router.push('/');
+        })["catch"](function (err) {
+          console.error(err);
+          // if( !this.frmUserAddressData && this.frmUserData ) {
+          if (!_this.frmUserData.userEmail || !_this.frmUserData.userPassword || !_this.frmUserData.userPasswordChk || !_this.frmUserData.userName || !_this.frmUserData.userTel || !_this.frmUserData.userBirthDate || !_this.frmUserData.userGender || !_this.frmUserAddressData.userDetailAddress || !_this.frmUserAddressData.userBasicAddress || !_this.frmUserAddressData.userPostcode) {
+            alert('필수입력사항을 확인해주세요.');
+          }
+          // } else if( err.response.data.errors === false) {
+          //     alert('이메일 중복 체크를 해주세요.');
+          // }
+          else {
+            alert('사용중인 이메일입니다. 이메일을 다시 확인해주세요');
+            console.error('Unexpected error:', err);
+          }
+        });
+      } else {
+        alert('이메일 중복체크 해주세요');
       }
-      frm.append('user_email', this.frmUserData.userEmail);
-      frm.append('user_password', this.frmUserData.userPassword);
-      frm.append('user_password_chk', this.frmUserData.userPasswordChk);
-      frm.append('user_name', this.frmUserData.userName);
-      frm.append('user_tel', this.frmUserData.userTel);
-      // frm.append('user_gender', this.frmUserData.userGender);
-      frm.append('user_gender', genderValue);
-      frm.append('user_birthdate', this.frmUserData.userBirthDate);
-      frm.append('user_detail_address', this.frmUserAddressData.userDetailAddress);
-      frm.append('user_basic_address', this.frmUserAddressData.userBasicAddress);
-      frm.append('user_postcode', this.frmUserAddressData.userPostcode);
-
-      // 첫번째방법 : 이메일 중복체크안해도 회원가입완료됨. 기본 빈값만 체크 후 넘어감.
-      // axios.post(url, frm, header)
-      //     .then( res => {
-      //         alert('회원가입이 완료되었습니다.');
-      //         this.$router.push('/');
-      //     })
-      //     .catch( err => {
-
-      //         console.error(err);
-      //         // if( !this.frmUserAddressData && this.frmUserData ) {
-      //         if( !this.frmUserData.userEmail || !this.frmUserData.userPassword || !this.frmUserData.userPasswordChk || 
-      //             !this.frmUserData.userName || !this.frmUserData.userTel || !this.frmUserData.userBirthDate || 
-      //             !this.frmUserData.userGender || !this.frmUserAddressData.userDetailAddress || 
-      //             !this.frmUserAddressData.userBasicAddress || !this.frmUserAddressData.userPostcode ) {
-      //             alert('필수입력사항을 확인해주세요.');
-      //         }
-      //         // } else if( err.response.data.errors === false) {
-      //         //     alert('이메일 중복 체크를 해주세요.');
-      //         // }
-      //         else {
-      //             alert('사용중인 이메일입니다. 이메일을 다시 확인해주세요');
-      //             console.error('Unexpected error:', err);
-      //         }
-      //     })
 
       // 두번째방법 : 
       // 이메일 중복 체크를 수행하고 회원가입 완료
@@ -21879,7 +21880,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     // 우편번호+기본주소(basicAddress) 입력 함수
     openDaumPostcode: function openDaumPostcode() {
-      var _this = this;
+      var _this2 = this;
       if (typeof daum === 'undefined') {
         // 스크립트를 동적으로 로드하고 로드되면 콜백을 실행합니다.
         var script = document.createElement('script');
@@ -21888,7 +21889,7 @@ __webpack_require__.r(__webpack_exports__);
           // 로드가 완료되면 daum.Postcode를 사용할 수 있습니다.
           new daum.Postcode({
             oncomplete: function oncomplete(data) {
-              _this.handleAddressComplete(data);
+              _this2.handleAddressComplete(data);
             }
           }).open();
         };
@@ -21897,7 +21898,7 @@ __webpack_require__.r(__webpack_exports__);
         // 이미 로드되었으면 바로 실행합니다.
         new daum.Postcode({
           oncomplete: function oncomplete(data) {
-            _this.handleAddressComplete(data);
+            _this2.handleAddressComplete(data);
           }
         }).open();
       }
@@ -21923,7 +21924,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     // 이메일 중복체크
     postEmailDoubleCheck: function postEmailDoubleCheck() {
-      var _this2 = this;
+      var _this3 = this;
       var url = '/signupEmailDoubleChk';
       var frm = new FormData();
       frm.append('user_email', this.frmUserData.userEmail);
@@ -21931,13 +21932,13 @@ __webpack_require__.r(__webpack_exports__);
         if (res.data.message) {
           // 성공 메시지 표시
           if (confirm('사용 가능한 이메일입니다. 확인하시겠습니까?')) {
-            _this2.EmailDoubleCheck = true;
+            _this3.EmailDoubleCheck = true;
           }
         } else if (res.data.message === false) {
           // this.EmailDoubleerror = '이미 존재하는 이메일입니다.';
           // 에러 메시지 표시
           if (confirm('이미 존재하는 이메일입니다. 확인하시겠습니까?')) {
-            _this2.EmailDoubleCheck = false;
+            _this3.EmailDoubleCheck = false;
           }
         }
       })["catch"](function (err) {
@@ -21945,7 +21946,7 @@ __webpack_require__.r(__webpack_exports__);
           // 에러 메시지 표시
           alert('에러: 중복 확인에 실패하였습니다.');
           // 에러 메시지 저장
-          _this2.RegistrationErrorMessage = err.response.data.errors;
+          _this3.RegistrationErrorMessage = err.response.data.errors;
         } else {
           // 다른 종류의 예상치 못한 에러 처리
           console.error('예상치 못한 에러:', err);
@@ -22351,14 +22352,48 @@ var _hoisted_9 = {
 var _hoisted_10 = {
   "class": "modal-content"
 };
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex scene\" style=\"width:300px;\"><section class=\"card\"><div class=\"login_modal\"><div class=\"login_modal_headline\"><div class=\"card__heading\"><img src=\"" + _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\"></div></div><div class=\"login_modal_text\"><div class=\"login_modal_text_comment\"><p>한눈에 예매 항공권을 확인하고</p><p>다양한 항공권 가격을 비교해보세요</p></div></div><form class=\"card__form\"><div class=\"card__form_email\"><label for=\"email\">Email:</label><input id=\"email\" class=\"card__input\" type=\"email\"></div><div class=\"card__form_pw\"><label for=\"password\">Password:</label><input id=\"password\" class=\"card__input\" type=\"password\"></div><div class=\"card__form_button\"><div><button class=\"card__button\" type=\"button\"><span>Login</span></button></div><div><button class=\"card__button\" type=\"button\"><span><a href=\"/signup\">Sign Up</a></span></button></div></div><hr><div class=\"card__social_login_text\"><p>- Social Login -</p></div><div class=\"card__social_btn\"><button class=\"card__social_btn_google\"><img src=\"" + _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__["default"] + "\" alt=\"\"></button><button class=\"card__social_btn_kakao\"><img src=\"" + _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__["default"] + "\" alt=\"\"></button></div></form></div></section></div>", 1);
+var _hoisted_11 = {
+  "class": "flex scene",
+  style: {
+    "width": "300px"
+  }
+};
+var _hoisted_12 = {
+  "class": "card"
+};
+var _hoisted_13 = {
+  "class": "login_modal"
+};
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"login_modal_headline\"><div class=\"card__heading\"><img src=\"" + _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"\"></div></div><div class=\"login_modal_text\"><div class=\"login_modal_text_comment\"><p>한눈에 예매 항공권을 확인하고</p><p>다양한 항공권 가격을 비교해보세요</p></div></div>", 2);
+var _hoisted_16 = {
+  "class": "card__form"
+};
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"card__form_email\"><label for=\"email\">Email:</label><input id=\"email\" class=\"card__input\" type=\"email\"></div><div class=\"card__form_pw\"><label for=\"password\">Password:</label><input id=\"password\" class=\"card__input\" type=\"password\"></div>", 2);
+var _hoisted_19 = {
+  "class": "card__form_button"
+};
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Login", -1 /* HOISTED */);
+var _hoisted_21 = [_hoisted_20];
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  "class": "card__button",
+  type: "button"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  href: "/signup"
+}, "Sign Up")])])], -1 /* HOISTED */);
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<hr><div class=\"card__social_login_text\"><p>- Social Login -</p></div><div class=\"card__social_btn\"><button class=\"card__social_btn_google\"><img src=\"" + _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__["default"] + "\" alt=\"\"></button><button class=\"card__social_btn_kakao\"><img src=\"" + _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__["default"] + "\" alt=\"\"></button></div>", 3);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return !['/admin', '/admin/index'].includes(_ctx.$route.fullPath) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.toggleModal && $options.toggleModal.apply($options, arguments);
     })
-  }, "login"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent v-if=\"showmodal\" @closeModal=\"closemodal\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"/login\">login</a> ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인모달 "), $data.showmodal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, "login"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent v-if=\"showmodal\" @closeModal=\"closemodal\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"/login\">login</a> ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인모달 "), $data.showmodal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "card__button",
+    type: "button",
     onClick: _cache[1] || (_cache[1] = function ($event) {
+      return $options.submitUserLoginData();
+    })
+  }, [].concat(_hoisted_21))]), _hoisted_22]), _hoisted_23])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[2] || (_cache[2] = function ($event) {
       return $data.showmodal = false;
     })
   }, "Close")])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 로그인 모달 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent v-if=\"showmodal\" @click=\"closeModal\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent /> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
@@ -23408,16 +23443,9 @@ var _hoisted_27 = {
 var _hoisted_28 = {
   "class": "regist_user_info_box_email_chk"
 };
-var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  xmlns: "http://www.w3.org/2000/svg",
-  width: "30",
-  height: "30",
-  fill: "currentColor",
-  "class": "bi bi-check-all",
-  viewBox: "0 0 16 16"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   d: "M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486z"
-})], -1 /* HOISTED */);
+}, null, -1 /* HOISTED */);
 var _hoisted_30 = [_hoisted_29];
 var _hoisted_31 = {
   "class": "regist_user_info_box_content"
@@ -23678,7 +23706,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[4] || (_cache[4] = function () {
       return $options.postEmailDoubleCheck && $options.postEmailDoubleCheck.apply($options, arguments);
     })
-  }, [].concat(_hoisted_30))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [_hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "30",
+    height: "30",
+    fill: "currentColor",
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["bi bi-check-all", $data.EmailDoubleCheck ? 'text-blue-500' : '']),
+    viewBox: "0 0 16 16"
+  }, [].concat(_hoisted_30), 2 /* CLASS */))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [_hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     id: "user_password",
     name: "user_password",
     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
@@ -23793,7 +23828,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[22] || (_cache[22] = function ($event) {
       return $options.submitFrmUserData();
     })
-  }, "Submit")])])])], 2 /* CLASS */)]);
+  }, "SIGNUP")])])])], 2 /* CLASS */)]);
 }
 
 /***/ }),

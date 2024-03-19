@@ -52,5 +52,43 @@ class UserController extends Controller
         }
     }
 
+    // 로그인
+    public function loginPost(Request $request) {
+        
+        $result = User::where('user_email', $request->userEmail)->first();
+
+        if(!$result || !(Hash::check($request->userPassword, $result->userPassword))) {
+            return response()->json([
+                'success' => false,
+                'message' => '아이디와 비밀번호를 확인해주세요.',
+            ]);
+        }
+
+        // 유저 인증 작업
+        Auth::login($result);
+        session(['user' => $result]);
+        session()->save();
+
+        $userId = Auth::id();
+        Log::debug($userId);
+
+        if (Auth::check()) {
+
+            $sessionDataCheck = Auth::check();
+            Log::debug($sessionDataCheck);
+
+            return response()->json([
+                'success' => true,
+                'message' => '로그인이 성공적으로 수행되었습니다.',
+                'sessionDataCheck' => $sessionDataCheck,
+                'userId' => $userId,
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => '인증 에러가 발생했습니다.',
+            ]);
+        }
+    }
 
 }

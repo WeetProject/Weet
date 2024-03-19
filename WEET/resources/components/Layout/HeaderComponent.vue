@@ -55,7 +55,7 @@
 
 											<div class="card__form_button">
 												<div>
-													<button class="card__button" type="button">
+													<button class="card__button" type="button" @click="submitUserLoginData()">
 														<span>Login</span>
 													</button>
 												</div>  
@@ -136,6 +136,11 @@ import store from '../../js/store.js';
             	this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
 				this.showmodal = false;
         	},
+
+			// 로그인
+			submitUserLoginData() {
+
+			},
     	},
 		// mounted() {
 		// 	this.toggleModal();

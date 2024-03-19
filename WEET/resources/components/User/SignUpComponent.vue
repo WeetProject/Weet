@@ -101,7 +101,7 @@
                             </div>
                             <div class="regist_user_info_box_email_chk">
                                 <button class="text-xs text-center font-bold" @click="postEmailDoubleCheck">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check-all" :class=" EmailDoubleCheck ? 'text-blue-500' : ''" viewBox="0 0 16 16">
                                         <path d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486z"/>
                                     </svg>
                                 </button>
@@ -240,7 +240,7 @@
                         <button class="regist_button_cancel" @click="signFlg1=false; signFlg2=true;">PRE</button>
                     </div>
                     <div class="regist_button_nxt">
-                        <button class="regist_button_next" type="submit" @click="submitFrmUserData()">Submit</button>
+                        <button class="regist_button_next" type="submit" @click="submitFrmUserData()">SIGNUP</button>
                     </div>
                 </div>    
             </main>
@@ -296,60 +296,64 @@ export default {
     methods: {
 
         submitFrmUserData() {
-            const url = '/signup';
-            const header = {
-                headers: {
-                    "Content-Type": 'multipart/form-data',
-                },
-            };
+            if(this.EmailDoubleCheck) {
+                const url = '/signup';
+                const header = {
+                    headers: {
+                        "Content-Type": 'multipart/form-data',
+                    },
+                };
 
-            let frm = new FormData();
-            this.frmUserData.userTermsofUse = this.frmUserData.userTermsofUse ? 1 : 0;
+                let frm = new FormData();
+                this.frmUserData.userTermsofUse = this.frmUserData.userTermsofUse ? 1 : 0;
 
-            let genderValue = '';
+                let genderValue = '';
 
-            if(this.frmUserData.userGender === '남자') {
-                genderValue = 'M';
-            } else if(this.frmUserData.userGender === '여자') {
-                genderValue = 'F';
-            }
+                if(this.frmUserData.userGender === '남자') {
+                    genderValue = 'M';
+                } else if(this.frmUserData.userGender === '여자') {
+                    genderValue = 'F';
+                }
 
-            frm.append('user_email', this.frmUserData.userEmail);
-            frm.append('user_password', this.frmUserData.userPassword);
-            frm.append('user_password_chk', this.frmUserData.userPasswordChk);
-            frm.append('user_name', this.frmUserData.userName);
-            frm.append('user_tel', this.frmUserData.userTel);
-            // frm.append('user_gender', this.frmUserData.userGender);
-            frm.append('user_gender', genderValue);
-            frm.append('user_birthdate', this.frmUserData.userBirthDate);
-            frm.append('user_detail_address', this.frmUserAddressData.userDetailAddress);
-            frm.append('user_basic_address', this.frmUserAddressData.userBasicAddress);
-            frm.append('user_postcode', this.frmUserAddressData.userPostcode);
+                frm.append('user_email', this.frmUserData.userEmail);
+                frm.append('user_password', this.frmUserData.userPassword);
+                frm.append('user_password_chk', this.frmUserData.userPasswordChk);
+                frm.append('user_name', this.frmUserData.userName);
+                frm.append('user_tel', this.frmUserData.userTel);
+                // frm.append('user_gender', this.frmUserData.userGender);
+                frm.append('user_gender', genderValue);
+                frm.append('user_birthdate', this.frmUserData.userBirthDate);
+                frm.append('user_detail_address', this.frmUserAddressData.userDetailAddress);
+                frm.append('user_basic_address', this.frmUserAddressData.userBasicAddress);
+                frm.append('user_postcode', this.frmUserAddressData.userPostcode);
 
-            // 첫번째방법 : 이메일 중복체크안해도 회원가입완료됨. 기본 빈값만 체크 후 넘어감.
-            // axios.post(url, frm, header)
-            //     .then( res => {
-            //         alert('회원가입이 완료되었습니다.');
-            //         this.$router.push('/');
-            //     })
-            //     .catch( err => {
+                // 첫번째방법 : 이메일 중복체크안해도 회원가입완료됨. 기본 빈값만 체크 후 넘어감.
+                axios.post(url, frm, header)
+                    .then( res => {
+                        alert('회원가입이 완료되었습니다.');
+                        this.$router.push('/');
+                    })
+                    .catch( err => {
 
-            //         console.error(err);
-            //         // if( !this.frmUserAddressData && this.frmUserData ) {
-            //         if( !this.frmUserData.userEmail || !this.frmUserData.userPassword || !this.frmUserData.userPasswordChk || 
-            //             !this.frmUserData.userName || !this.frmUserData.userTel || !this.frmUserData.userBirthDate || 
-            //             !this.frmUserData.userGender || !this.frmUserAddressData.userDetailAddress || 
-            //             !this.frmUserAddressData.userBasicAddress || !this.frmUserAddressData.userPostcode ) {
-            //             alert('필수입력사항을 확인해주세요.');
-            //         }
-            //         // } else if( err.response.data.errors === false) {
-            //         //     alert('이메일 중복 체크를 해주세요.');
-            //         // }
-            //         else {
-            //             alert('사용중인 이메일입니다. 이메일을 다시 확인해주세요');
-            //             console.error('Unexpected error:', err);
-            //         }
-            //     })
+                        console.error(err);
+                        // if( !this.frmUserAddressData && this.frmUserData ) {
+                        if( !this.frmUserData.userEmail || !this.frmUserData.userPassword || !this.frmUserData.userPasswordChk || 
+                            !this.frmUserData.userName || !this.frmUserData.userTel || !this.frmUserData.userBirthDate || 
+                            !this.frmUserData.userGender || !this.frmUserAddressData.userDetailAddress || 
+                            !this.frmUserAddressData.userBasicAddress || !this.frmUserAddressData.userPostcode ) {
+                            alert('필수입력사항을 확인해주세요.');
+                        }
+                        // } else if( err.response.data.errors === false) {
+                        //     alert('이메일 중복 체크를 해주세요.');
+                        // }
+                        else {
+                            alert('사용중인 이메일입니다. 이메일을 다시 확인해주세요');
+                            console.error('Unexpected error:', err);
+                        }
+                    })
+                } else {
+                    alert('이메일 중복체크 해주세요');
+                }
 
             // 두번째방법 : 
             // 이메일 중복 체크를 수행하고 회원가입 완료
