@@ -100,7 +100,7 @@
                                 </div>
                             </div>
                             <div class="regist_user_info_box_email_chk">
-                                <button class="text-xs text-center font-bold" @click="postEmailDoubleCheck()">
+                                <button class="text-xs text-center font-bold" @click="postEmailDoubleCheck">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
                                         <path d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486z"/>
                                     </svg>
@@ -304,7 +304,7 @@ export default {
             };
 
             let frm = new FormData();
-            this.frmUserData.UserTermsofUse = this.frmUserData.UserTermsofUse ? 1 : 0;
+            this.frmUserData.userTermsofUse = this.frmUserData.userTermsofUse ? 1 : 0;
 
             let genderValue = '';
 
@@ -326,23 +326,89 @@ export default {
             frm.append('user_basic_address', this.frmUserAddressData.userBasicAddress);
             frm.append('user_postcode', this.frmUserAddressData.userPostcode);
 
-            axios.post(url, frm, header)
-                .then( res => {
-                    alert('회원가입이 완료되었습니다.');
-                    this.$router.push('/');
-                })
-                .catch( err => {
-                    // if( !this.frmUserAddressData && this.frmUserData ) {
-                    if( !this.frmUserData.userEmail || !this.frmUserData.userPassword || !this.frmUserData.userPasswordChk || 
-                        !this.frmUserData.userName || !this.frmUserData.userTel || !this.frmUserData.userBirthDate || 
-                        !this.frmUserData.userGender || !this.frmUserAddressData.userDetailAddress || 
-                        !this.frmUserAddressData.userBasicAddress || !this.frmUserAddressData.userPostcode ) {
-                        alert('필수입력사항을 확인해주세요.');
-                    }
-                    else {
-                        console.error('Unexpected error:', err);
-                    }
-                })
+            // 첫번째방법 : 이메일 중복체크안해도 회원가입완료됨. 기본 빈값만 체크 후 넘어감.
+            // axios.post(url, frm, header)
+            //     .then( res => {
+            //         alert('회원가입이 완료되었습니다.');
+            //         this.$router.push('/');
+            //     })
+            //     .catch( err => {
+
+            //         console.error(err);
+            //         // if( !this.frmUserAddressData && this.frmUserData ) {
+            //         if( !this.frmUserData.userEmail || !this.frmUserData.userPassword || !this.frmUserData.userPasswordChk || 
+            //             !this.frmUserData.userName || !this.frmUserData.userTel || !this.frmUserData.userBirthDate || 
+            //             !this.frmUserData.userGender || !this.frmUserAddressData.userDetailAddress || 
+            //             !this.frmUserAddressData.userBasicAddress || !this.frmUserAddressData.userPostcode ) {
+            //             alert('필수입력사항을 확인해주세요.');
+            //         }
+            //         // } else if( err.response.data.errors === false) {
+            //         //     alert('이메일 중복 체크를 해주세요.');
+            //         // }
+            //         else {
+            //             alert('사용중인 이메일입니다. 이메일을 다시 확인해주세요');
+            //             console.error('Unexpected error:', err);
+            //         }
+            //     })
+
+            // 두번째방법 : 
+            // 이메일 중복 체크를 수행하고 회원가입 완료
+            // this.postEmailDoubleCheck(this.frmUserData.userEmail)
+            //     .then((emailCheckResult) => {
+            //         if (emailCheckResult) {
+            //             // 이메일 중복이 없으면 회원가입 완료
+            //             axios.post(url, frm, header)
+            //                 .then(res => {
+            //                     alert('회원가입이 완료되었습니다.');
+            //                     this.$router.push('/');
+            //                 })
+            //                 .catch(err => {
+            //                     if( !this.frmUserData.userEmail || !this.frmUserData.userPassword || !this.frmUserData.userPasswordChk || 
+            //                         !this.frmUserData.userName || !this.frmUserData.userTel || !this.frmUserData.userBirthDate || 
+            //                         !this.frmUserData.userGender || !this.frmUserAddressData.userDetailAddress || 
+            //                         !this.frmUserAddressData.userBasicAddress || !this.frmUserAddressData.userPostcode ) {
+            //                         alert('필수입력사항을 확인해주세요.');
+            //                     }
+            //                     console.error('Unexpected error:', err);
+            //                 });
+            //         }
+            //             // 이메일 중복이 있으면 사용자에게 알림
+            //             alert('중복된 이메일입니다.');
+                    
+            //     })
+            //     .catch(err => {
+            //         console.error('이메일 중복 체크 오류:', err);
+            //     });
+
+            // 세번째방법 : 없는 이메일이면 중복체크 안하고 바로 회원가입처리되버림
+            // axios.post(url, frm, header)
+            //     .then(res => {
+            //         // 이메일 중복 체크를 수행하고 회원가입 완료
+            //         this.postEmailDoubleCheck(this.frmUserData.userEmail)
+            //             .then((emailCheckResult) => {
+            //                 if (emailCheckResult) {
+            //                     alert('회원가입이 완료되었습니다.');
+            //                     this.$router.push('/');
+            //                 } else {
+            //                     alert('중복된 이메일입니다.');
+            //                 }
+            //             })
+            //             .catch(err => {
+            //                 console.error('이메일 중복 체크 오류:', err);
+            //             });
+            //     })
+            //     .catch(err => {
+            //         console.error(err);
+            //         if (!this.frmUserData.userEmail || !this.frmUserData.userPassword || !this.frmUserData.userPasswordChk || 
+            //             !this.frmUserData.userName || !this.frmUserData.userTel || !this.frmUserData.userBirthDate || 
+            //             !this.frmUserData.userGender || !this.frmUserAddressData.userDetailAddress || 
+            //             !this.frmUserAddressData.userBasicAddress || !this.frmUserAddressData.userPostcode ) {
+            //             alert('필수입력사항을 확인해주세요.');
+            //         } else {
+            //             alert('사용중인 이메일입니다. 이메일을 다시 확인해주세요');
+            //         }
+            //     });
+
         },
 
         moveToNext() {
@@ -408,7 +474,7 @@ export default {
             const url = '/signupEmailDoubleChk';
 
             let frm = new FormData();
-            frm.append('user_Email', this.frmUserData.userEmail);
+            frm.append('user_email', this.frmUserData.userEmail);
 
             axios.post(url, frm)
             .then(res => {
@@ -418,7 +484,7 @@ export default {
                         this.EmailDoubleCheck = true;
                     }
                 } else if (res.data.message === false) {
-                    this.EmailDoubleerror = '이미 존재하는 이메일입니다.';
+                    // this.EmailDoubleerror = '이미 존재하는 이메일입니다.';
                     // 에러 메시지 표시
                     if (confirm('이미 존재하는 이메일입니다. 확인하시겠습니까?')) {
                         this.EmailDoubleCheck = false;

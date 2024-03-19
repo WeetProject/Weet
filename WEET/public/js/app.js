@@ -21717,7 +21717,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submitFrmUserData: function submitFrmUserData() {
-      var _this = this;
       var url = '/signup';
       var header = {
         headers: {
@@ -21725,7 +21724,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       var frm = new FormData();
-      this.frmUserData.UserTermsofUse = this.frmUserData.UserTermsofUse ? 1 : 0;
+      this.frmUserData.userTermsofUse = this.frmUserData.userTermsofUse ? 1 : 0;
       var genderValue = '';
       if (this.frmUserData.userGender === '남자') {
         genderValue = 'M';
@@ -21743,17 +21742,89 @@ __webpack_require__.r(__webpack_exports__);
       frm.append('user_detail_address', this.frmUserAddressData.userDetailAddress);
       frm.append('user_basic_address', this.frmUserAddressData.userBasicAddress);
       frm.append('user_postcode', this.frmUserAddressData.userPostcode);
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post(url, frm, header).then(function (res) {
-        alert('회원가입이 완료되었습니다.');
-        _this.$router.push('/');
-      })["catch"](function (err) {
-        // if( !this.frmUserAddressData && this.frmUserData ) {
-        if (!_this.frmUserData.userEmail || !_this.frmUserData.userPassword || !_this.frmUserData.userPasswordChk || !_this.frmUserData.userName || !_this.frmUserData.userTel || !_this.frmUserData.userBirthDate || !_this.frmUserData.userGender || !_this.frmUserAddressData.userDetailAddress || !_this.frmUserAddressData.userBasicAddress || !_this.frmUserAddressData.userPostcode) {
-          alert('필수입력사항을 확인해주세요.');
-        } else {
-          console.error('Unexpected error:', err);
-        }
-      });
+
+      // 첫번째방법 : 이메일 중복체크안해도 회원가입완료됨. 기본 빈값만 체크 후 넘어감.
+      // axios.post(url, frm, header)
+      //     .then( res => {
+      //         alert('회원가입이 완료되었습니다.');
+      //         this.$router.push('/');
+      //     })
+      //     .catch( err => {
+
+      //         console.error(err);
+      //         // if( !this.frmUserAddressData && this.frmUserData ) {
+      //         if( !this.frmUserData.userEmail || !this.frmUserData.userPassword || !this.frmUserData.userPasswordChk || 
+      //             !this.frmUserData.userName || !this.frmUserData.userTel || !this.frmUserData.userBirthDate || 
+      //             !this.frmUserData.userGender || !this.frmUserAddressData.userDetailAddress || 
+      //             !this.frmUserAddressData.userBasicAddress || !this.frmUserAddressData.userPostcode ) {
+      //             alert('필수입력사항을 확인해주세요.');
+      //         }
+      //         // } else if( err.response.data.errors === false) {
+      //         //     alert('이메일 중복 체크를 해주세요.');
+      //         // }
+      //         else {
+      //             alert('사용중인 이메일입니다. 이메일을 다시 확인해주세요');
+      //             console.error('Unexpected error:', err);
+      //         }
+      //     })
+
+      // 두번째방법 : 
+      // 이메일 중복 체크를 수행하고 회원가입 완료
+      // this.postEmailDoubleCheck(this.frmUserData.userEmail)
+      //     .then((emailCheckResult) => {
+      //         if (emailCheckResult) {
+      //             // 이메일 중복이 없으면 회원가입 완료
+      //             axios.post(url, frm, header)
+      //                 .then(res => {
+      //                     alert('회원가입이 완료되었습니다.');
+      //                     this.$router.push('/');
+      //                 })
+      //                 .catch(err => {
+      //                     if( !this.frmUserData.userEmail || !this.frmUserData.userPassword || !this.frmUserData.userPasswordChk || 
+      //                         !this.frmUserData.userName || !this.frmUserData.userTel || !this.frmUserData.userBirthDate || 
+      //                         !this.frmUserData.userGender || !this.frmUserAddressData.userDetailAddress || 
+      //                         !this.frmUserAddressData.userBasicAddress || !this.frmUserAddressData.userPostcode ) {
+      //                         alert('필수입력사항을 확인해주세요.');
+      //                     }
+      //                     console.error('Unexpected error:', err);
+      //                 });
+      //         }
+      //             // 이메일 중복이 있으면 사용자에게 알림
+      //             alert('중복된 이메일입니다.');
+
+      //     })
+      //     .catch(err => {
+      //         console.error('이메일 중복 체크 오류:', err);
+      //     });
+
+      // 세번째방법 : 없는 이메일이면 중복체크 안하고 바로 회원가입처리되버림
+      // axios.post(url, frm, header)
+      //     .then(res => {
+      //         // 이메일 중복 체크를 수행하고 회원가입 완료
+      //         this.postEmailDoubleCheck(this.frmUserData.userEmail)
+      //             .then((emailCheckResult) => {
+      //                 if (emailCheckResult) {
+      //                     alert('회원가입이 완료되었습니다.');
+      //                     this.$router.push('/');
+      //                 } else {
+      //                     alert('중복된 이메일입니다.');
+      //                 }
+      //             })
+      //             .catch(err => {
+      //                 console.error('이메일 중복 체크 오류:', err);
+      //             });
+      //     })
+      //     .catch(err => {
+      //         console.error(err);
+      //         if (!this.frmUserData.userEmail || !this.frmUserData.userPassword || !this.frmUserData.userPasswordChk || 
+      //             !this.frmUserData.userName || !this.frmUserData.userTel || !this.frmUserData.userBirthDate || 
+      //             !this.frmUserData.userGender || !this.frmUserAddressData.userDetailAddress || 
+      //             !this.frmUserAddressData.userBasicAddress || !this.frmUserAddressData.userPostcode ) {
+      //             alert('필수입력사항을 확인해주세요.');
+      //         } else {
+      //             alert('사용중인 이메일입니다. 이메일을 다시 확인해주세요');
+      //         }
+      //     });
     },
     moveToNext: function moveToNext() {
       if (this.frmUserData.userTermsofUse) {
@@ -21765,7 +21836,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     // 우편번호+기본주소(basicAddress) 입력 함수
     openDaumPostcode: function openDaumPostcode() {
-      var _this2 = this;
+      var _this = this;
       if (typeof daum === 'undefined') {
         // 스크립트를 동적으로 로드하고 로드되면 콜백을 실행합니다.
         var script = document.createElement('script');
@@ -21774,7 +21845,7 @@ __webpack_require__.r(__webpack_exports__);
           // 로드가 완료되면 daum.Postcode를 사용할 수 있습니다.
           new daum.Postcode({
             oncomplete: function oncomplete(data) {
-              _this2.handleAddressComplete(data);
+              _this.handleAddressComplete(data);
             }
           }).open();
         };
@@ -21783,7 +21854,7 @@ __webpack_require__.r(__webpack_exports__);
         // 이미 로드되었으면 바로 실행합니다.
         new daum.Postcode({
           oncomplete: function oncomplete(data) {
-            _this2.handleAddressComplete(data);
+            _this.handleAddressComplete(data);
           }
         }).open();
       }
@@ -21809,21 +21880,21 @@ __webpack_require__.r(__webpack_exports__);
     },
     // 이메일 중복체크
     postEmailDoubleCheck: function postEmailDoubleCheck() {
-      var _this3 = this;
+      var _this2 = this;
       var url = '/signupEmailDoubleChk';
       var frm = new FormData();
-      frm.append('user_Email', this.frmUserData.userEmail);
+      frm.append('user_email', this.frmUserData.userEmail);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post(url, frm).then(function (res) {
         if (res.data.message) {
           // 성공 메시지 표시
           if (confirm('사용 가능한 이메일입니다. 확인하시겠습니까?')) {
-            _this3.EmailDoubleCheck = true;
+            _this2.EmailDoubleCheck = true;
           }
         } else if (res.data.message === false) {
-          _this3.EmailDoubleerror = '이미 존재하는 이메일입니다.';
+          // this.EmailDoubleerror = '이미 존재하는 이메일입니다.';
           // 에러 메시지 표시
           if (confirm('이미 존재하는 이메일입니다. 확인하시겠습니까?')) {
-            _this3.EmailDoubleCheck = false;
+            _this2.EmailDoubleCheck = false;
           }
         }
       })["catch"](function (err) {
@@ -21831,7 +21902,7 @@ __webpack_require__.r(__webpack_exports__);
           // 에러 메시지 표시
           alert('에러: 중복 확인에 실패하였습니다.');
           // 에러 메시지 저장
-          _this3.RegistrationErrorMessage = err.response.data.errors;
+          _this2.RegistrationErrorMessage = err.response.data.errors;
         } else {
           // 다른 종류의 예상치 못한 에러 처리
           console.error('예상치 못한 에러:', err);
@@ -23561,8 +23632,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     placeholder: "이메일을 입력해주세요"
   }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.frmUserData.userEmail]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [$data.errors.userEmail ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.errors.userEmail), 1 /* TEXT */)) : !$data.errors.userEmail && $data.frmUserData.userEmail && $data.EmailDoubleCheck ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_25, "유효한 이메일입니다.")) : !$data.EmailDoubleCheck ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.EmailDoubleerror), 1 /* TEXT */)) : $data.RegistrationErrorMessage.userEmail ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.RegistrationErrorMessage.userEmail), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "text-xs text-center font-bold",
-    onClick: _cache[4] || (_cache[4] = function ($event) {
-      return $options.postEmailDoubleCheck();
+    onClick: _cache[4] || (_cache[4] = function () {
+      return $options.postEmailDoubleCheck && $options.postEmailDoubleCheck.apply($options, arguments);
     })
   }, [].concat(_hoisted_30))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [_hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     id: "user_password",

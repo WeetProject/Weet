@@ -33,11 +33,13 @@ class UserController extends Controller
     // 이메일 중복체크
     public function emailDoubleChk(Request $request) {
 
-        $userEmail = $request->only('user_email');
+        $userEmail = $request->input('user_email');
         Log::debug("==============이메일============");
         Log::debug($userEmail);
 
         $result = User::where('user_email', $userEmail)->first();
+        Log::debug("==============체크한이메일============");
+        Log::debug($result);
 
         if ($result) {
             return response()->json([
