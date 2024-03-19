@@ -145,7 +145,7 @@
                         <fieldset class="reservation_input">
                             <legend >국적</legend>
                             <select id="" class="w-full" v-model="country">
-                                <option value="">대한민국</option>
+                                <option value="KOR">대한민국</option>
                             </select>
                         </fieldset>
                         <div v-if="birthDateValFlg!=='0'&&birthDateValFlg!=='9'" class="text-red-600 text-xs font-bold col-span-3">{{ birthDateValMsg[birthDateValFlg] }}</div>
@@ -154,7 +154,7 @@
                         <fieldset class="reservation_input">
                             <legend >신분증 종류</legend>
                             <select id=""  class="w-full" v-model="idCard">
-                                <option value="">여권</option>
+                                <option value="passport">여권</option>
                             </select>
                         </fieldset>
                         <input type="text" class="reservation_input" placeholder="여권번호" v-model="passPortNum" :class="passPortNumValFlg!=='9'&&passPortNumValFlg!=='0'?'reservation_fail':''" @input="koreaPassPortNum">
@@ -176,11 +176,11 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check reservation_icon_blue" viewBox="0 0 16 16">
                                 <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
                             </svg>
-                            취소 시 ,<span><span class="reservation_icon_blue">{{ ticketPrice }}원</span>을(를) 환불 받으실수 있습니다</span></div>
+                            취소 시 ,<span><span class="reservation_icon_blue">{{ ticketPrices }}원</span>을(를) 환불 받으실수 있습니다</span></div>
                     </div>
                     <div>
                         <span class="pr-3">
-                            <span class="reservation_icon_deepblue">{{ Math.ceil(ticketPrice * 0.15) }}원</span>/1인당
+                            <span class="reservation_icon_deepblue">{{ Math.ceil(ticketPrices * 0.15) }}원</span>/1인당
                         </span>
                         <input type="radio" name="refund" class="cursor-pointer" id="reservation_refund_100" v-model="refund" value="2">
                     </div>
@@ -193,11 +193,11 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check reservation_icon_blue" viewBox="0 0 16 16">
                                 <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
                             </svg>
-                            취소 시 ,<span><span class="reservation_icon_blue">{{ Math.ceil(ticketPrice * 0.8) }}원</span>을(를) 환불 받으실수 있습니다</span></div>
+                            취소 시 ,<span><span class="reservation_icon_blue">{{ Math.ceil(ticketPrices * 0.8) }}원</span>을(를) 환불 받으실수 있습니다</span></div>
                     </div>
                     <div>
                         <span class="pr-3">
-                            <span class="reservation_icon_deepblue">{{ Math.ceil(ticketPrice * 0.1) }}원</span>/1인당
+                            <span class="reservation_icon_deepblue">{{ Math.ceil(ticketPrices * 0.1) }}원</span>/1인당
                         </span>
                         <input type="radio" name="refund" class="cursor-pointer" id="reservation_refund_80" v-model="refund" value="1">
                     </div>
@@ -352,7 +352,7 @@
                             </div>
                         </div>
                     </div>
-                    <div>{{ ticketPrice }}원</div>
+                    <div>{{ ticketPrices }}원</div>
                 </div>
                 <div class="text-sm mb-4">탑승객</div>
                 <div class="font-bold text-sm mb-2">수하물</div>
@@ -372,8 +372,8 @@
                 <div class="text-sm mb-2 reservation_spacebetween" v-if="insurance==='1'||refund==='1'||refund==='2'">
                     <div v-if="refund==='1'">환불80%</div>
                     <div v-if="refund==='2'">환불100%</div>
-                    <div class="reservation_icon_blue" v-if="refund==='1'">{{ Math.ceil(ticketPrice * 0.1) }}원</div>
-                    <div class="reservation_icon_blue" v-if="refund==='2'">{{ Math.ceil(ticketPrice * 0.15) }}원</div>
+                    <div class="reservation_icon_blue" v-if="refund==='1'">{{ Math.ceil(ticketPrices * 0.1) }}원</div>
+                    <div class="reservation_icon_blue" v-if="refund==='2'">{{ Math.ceil(ticketPrices * 0.15) }}원</div>
                 </div>
                 <div class="text-sm mb-2 reservation_spacebetween" v-if="insurance==='1'||refund==='1'||refund==='2'">
                     <div v-if="insurance==='1'">여행자보험</div>
@@ -427,11 +427,14 @@ export default {
             departureAt2: '2021-11-21T12:35:00',
             arrivalAt2: '2021-11-21T17:35:00',
             departureAirplane: '진에어 LI233 보잉 777-200',
+            departureAirplaneNum: '322',
             arrivalAirplane: '진에어 LI232 보잉 777-200',
+            arrivalAirplaneNum: '232',
             // 가는편 = 1
             departureAirport1: 'INC 서울 인천국제공항 T2',
             departureDate1: '',
             departureTime1: '',
+            departureTicketPrice: 158000,
             arrivalAirport1: 'KIX 오사카 간사이공항 T1',
             arrivalDate1: '',
             arrivalTime1: '',
@@ -442,6 +445,7 @@ export default {
             arrivalAirport2: 'INC 서울 인천국제공항 T2',
             arrivalDate2: '',
             arrivalTime2: '',
+            arrivalTicketPrice: 130000,
             // 연락처
 			fullName: '',
 			email: '',
@@ -451,7 +455,7 @@ export default {
             contactEmailPlaceholder: '',
             contactNumPlaceholder: '',
             // 가격
-            ticketPrice:'1',
+            ticketPrices: 0,
             insurancePrice:0,
             totalPrice: 0,
             // 여행기간
@@ -465,8 +469,8 @@ export default {
             lastName: '',
             gender: 'M',
             birthDate: '',
-            country: '',
-            idCard: '',
+            country: 'KOR',
+            idCard: 'passport',
             passPortNum: '',
             passPortDate: '',
             lastNameValMsg:["","이름(성)은 필수 입력 사항 입니다.","이름(성)은 0~50 글자 사이로 입력해 주세요.","이름(성)은 영문만 입력 가능합니다."],
@@ -491,6 +495,7 @@ export default {
     
 	created() {
         // 결제api 스크립트 불러오기
+        this.sumTicketPrice();
         this.sumTotalPrice();
         this.addInsurancePrice();
         IMP.init('imp68563753');
@@ -559,21 +564,25 @@ export default {
             if(i===0){
                 this.refundPrice = 0
             }else if(i===1){
-                this.refundPrice =  Math.ceil(this.ticketPrice * 0.1)
+                this.refundPrice =  Math.ceil(this.ticketPrices * 0.1)
             }else if(i===2){
-                this.refundPrice =  Math.ceil(this.ticketPrice * 0.15)
+                this.refundPrice =  Math.ceil(this.ticketPrices * 0.15)
             }
         },
         // 보험 가격 더하기
         addInsurancePrice(){
             this.insurancePrice = 3000*this.day
         },
+        // 티켓 금액 합
+        sumTicketPrice(){
+            this.ticketPrices = this.departureTicketPrice + this.arrivalTicketPrice 
+        },
         // 최종 금액
         sumTotalPrice(){            
             if(this.insurance==="1"){
-                this.totalPrice = parseInt(this.ticketPrice)+this.refundPrice+this.insurancePrice
+                this.totalPrice = parseInt(this.ticketPrices)+this.refundPrice+this.insurancePrice
             }else{
-                this.totalPrice = parseInt(this.ticketPrice)+this.refundPrice
+                this.totalPrice = parseInt(this.ticketPrices)+this.refundPrice
             }
         },
         // 페이지플래그 변경
@@ -783,27 +792,56 @@ export default {
             }, res => { // callback
                 if (res.success) {
                     this.addReservation()
-                    this.pageflg="2"
                 } else {
                     this.pageflg="3"
                 }
             });
         },
+        // 결제테이블 저장
+        addPayment(){
+            console.log(this.departureAirplaneNum)
+            const URL = '/payment'
+            const formData = new FormData();
+            formData.append('payment_flg', '0');
+            formData.append('payment_price1', this.departureTicketPrice);
+            formData.append('reservation_flight_number1', this.departureAirplaneNum);
+            formData.append('reservation_departure_airport1', this.departureAirport1);
+            formData.append('reservation_departure_time1', this.departureAt1);
+            if(this.arrivalAirplaneNum !== ''){
+                formData.append('payment_price2', this.arrivalTicketPrice);
+                formData.append('reservation_flight_number2', this.arrivalAirplaneNum);
+                formData.append('reservation_departure_airport2', this.departureAirport2);
+                formData.append('reservation_departure_time2', this.departureAt2);
+            }
+            axios.post(URL,formData)
+            .then(res => {
+                if(res.data.code === "0"){
+                    this.pageflg="2"
+                }else{
+                    alert(res.data.errorMsg);
+                }
+            })
+            .catch(err => {
+                alert('실패')
+            })
+        },
         // 예약테이블 저장
         addReservation(){
             const URL = '/reservation'
             const formData = new FormData();
-            formData.append('reservation_flight_number1', this.departureAirplane);
+            formData.append('reservation_flight_number1', this.departureAirplaneNum);
             formData.append('reservation_departure_airport1', this.departureAirport1);
             formData.append('reservation_departure_time1', this.departureAt1);
             formData.append('reservation_arrival_airport1', this.arrivalAirport1);
             formData.append('reservation_arrival_time1', this.arrivalAt1);
-            if(this.arrivalAirplane !== ''){
-                formData.append('reservation_flight_number2', this.arrivalAirplane);
+            formData.append('reservation_ticket_price1', this.departureTicketPrice);
+            if(this.arrivalAirplaneNum !== ''){
+                formData.append('reservation_flight_number2', this.arrivalAirplaneNum);
                 formData.append('reservation_departure_airport2', this.departureAirport2);
                 formData.append('reservation_departure_time2', this.departureAt2);
                 formData.append('reservation_arrival_airport2', this.arrivalAirport2);
                 formData.append('reservation_arrival_time2', this.arrivalAt2);
+                formData.append('reservation_ticket_price2', this.arrivalTicketPrice);
             }
             formData.append('reservation_last_name', this.lastName);
             formData.append('reservation_first_name', this.firstName);
@@ -812,17 +850,22 @@ export default {
             formData.append('reservation_country', this.country);
             formData.append('reservation_id_card', this.idCard);
             formData.append('reservation_passport_num', this.passPortNum);
+            formData.append('reservation_passport_date', this.passPortDate);
             formData.append('reservation_full_name', this.fullName);
             formData.append('reservation_email', this.email);
             formData.append('reservation_phone', this.phone);
+            formData.append('reservation_refund_flg', this.refund);
+            formData.append('reservation_insurance_flg', this.insurance);
             axios.post(URL,formData)
             .then(res => {
                 if(res.data.code === "0"){
-                    alert('성공')
+                    this.addPayment()
+                }else{
+                    alert(res.data.errorMsg);
                 }
             })
             .catch(err => {
-                alert('실패')
+                console.log('')
             })
         },
         formatDateTime() {
