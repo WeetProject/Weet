@@ -88,20 +88,28 @@
                     <div class="regist_user_info_box">
                         <div class="regist_user_info_box_content">
                             <div class="regist_user_info_box_label">
-                                <span>이메일</span>
+                                <span class="font-bold">이메일</span><span style="color: red;">*</span>
                             </div>
                             <div class="regist_user_info_box_input">
                                 <input id="user_email" name="user_email" v-model="frmUserData.userEmail" @input="validateUserEmail" type="email" placeholder="이메일을 입력해주세요">
                                 <div class="regist_message_container">
                                     <div class="error_message text-xs text-red-500" v-if="errors.userEmail">{{ errors.userEmail }}</div>
-                                    <div class="success_message text-xs text-blue-500" v-else-if="!errors.userEmail && frmUserData.userEmail">유효한 이메일입니다.</div>
+                                    <div class="success_message text-xs text-blue-500" v-else-if="!errors.userEmail && frmUserData.userEmail && EmailDoubleCheck">유효한 이메일입니다.</div>
+                                    <div class="error_message text-xs text-red-500" v-else-if="!EmailDoubleCheck">{{ EmailDoubleerror }}</div>
                                     <div class="error_message text-xs text-red-500" v-else-if="RegistrationErrorMessage.userEmail">{{ RegistrationErrorMessage.userEmail }}</div>
                                 </div>
+                            </div>
+                            <div class="regist_user_info_box_email_chk">
+                                <button class="text-xs text-center font-bold" @click="postEmailDoubleCheck()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
+                                        <path d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486z"/>
+                                    </svg>
+                                </button>
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
                             <div class="regist_user_info_box_label">
-                                <span>비밀번호</span>
+                                <span class="font-bold">비밀번호</span><span style="color: red;">*</span>
                             </div>
                             <div class="regist_user_info_box_input">
                                 <input id="user_password" name="user_password" v-model="frmUserData.userPassword" @input="validateUserPassword" type="password" placeholder="영대소문자,숫자,특수문자(!@#)를 포함한 8~16자" minlength="8" maxlength="17">
@@ -114,7 +122,7 @@
                         </div>
                         <div class="regist_user_info_box_content">
                             <div class="regist_user_info_box_label">
-                                <span>비밀번호 확인</span>
+                                <span class="font-bold">비밀번호 확인</span><span style="color: red;">*</span>
                             </div>
                             <div class="regist_user_info_box_input">
                                 <input v-model="frmUserData.userPasswordChk" @input="validateUserPasswordChk" type="password" placeholder="영대소문자,숫자,특수문자(!@#)를 포함한 8~16자" minlength="8" maxlength="17">
@@ -127,29 +135,39 @@
                         </div>
                         <div class="regist_user_info_box_content">
                             <div class="regist_user_info_box_label">
-                                <span>이름</span>
+                                <span class="font-bold">이름</span><span style="color: red;">*</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input id="user_name" name="user_name" v-model="frmUserData.userName" type="text" placeholder="최소 2글자 이상">
+                                <input id="user_name" name="user_name" v-model="frmUserData.userName" @input="validateUserName" type="text" placeholder="최소 2글자 이상">
+                                <div class="regist_message_container">
+                                    <div class="error_message text-xs text-red-500" v-if="errors.userName">{{ errors.userName }}</div>
+                                    <div class="success_message text-xs text-blue-500" v-else-if="!errors.userName && frmUserData.userName"></div>
+                                    <div class="error_message text-xs text-red-500" v-else-if="RegistrationErrorMessage.userName">{{ RegistrationErrorMessage.userName }}</div>
+                                </div>
                             </div>
                         </div>
                         <div class="regist_user_info_box_content">
                             <div class="regist_user_info_box_label">
-                                <span>연락처</span>
+                                <span class="font-bold">연락처</span><span style="color: red;">*</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input id="user_tel" name="user_tel" v-model="frmUserData.userTel" type="tel" placeholder="'-'없이 숫자만 입력해주세요">
+                                <input id="user_tel" name="user_tel" v-model="frmUserData.userTel" @input="validateUserTel" type="tel" placeholder="'-'없이 숫자만 입력해주세요">
+                                <div class="regist_message_container">
+                                    <div class="error_message text-xs text-red-500" v-if="errors.userTel">{{ errors.userTel }}</div>
+                                    <div class="success_message text-xs text-blue-500" v-else-if="!errors.userTel && frmUserData.userTel"></div>
+                                    <div class="error_message text-xs text-red-500" v-else-if="RegistrationErrorMessage.userTel">{{ RegistrationErrorMessage.userTel }}</div>
+                                </div>
                             </div>    
                         </div>
                         <div class="regist_user_info_box_content">
                             <div class="regist_user_info_box_label_postcode">
-                                <span>우편번호</span>
+                                <span class="font-bold">우편번호</span><span style="color: red;">*</span>
                             </div>
                             <div class="regist_user_info_box_input_postcode">
                                 <input id="user_postcode" name="user_postcode" v-model="frmUserAddressData.userPostcode" type="text" placeholder="">
                             </div>
                             <div class="regist_user_info_box_input_search">
-                                <button type="button" @click="openDaumPostcode()">검색</button>
+                                <button class="font-bold" type="button" @click="openDaumPostcode()">검색</button>
                             </div>
                             <div class="regist_user_info_box_input_basic_address">
                                 <input id="user_basic_address" name="user_basic_address" v-model="frmUserAddressData.userBasicAddress" type="text" placeholder="">
@@ -157,7 +175,7 @@
                         </div>
                         <div class="regist_user_info_box_content">
                             <div class="regist_user_info_box_label">
-                                <span>상세주소</span>
+                                <span class="font-bold">상세주소</span><span style="color: red;">*</span>
                             </div>
                             <div class="regist_user_info_box_input">
                                 <input id="user_detail_address" name="user_detail_address" v-model="frmUserAddressData.userDetailAddress" type="address" placeholder="나머지 주소를 입력해주세요">
@@ -165,7 +183,7 @@
                         </div>
                         <div class="regist_user_info_box_content">
                             <div class="regist_user_info_box_label">
-                                <span>성별</span>
+                                <span class="font-bold">성별</span><span style="color: red;">*</span>
                             </div>
                             <!-- <div class="regist_user_info_box_input_gender"> -->
                             <div class="regist_user_info_box_input">
@@ -203,10 +221,15 @@
                         </div>
                         <div class="regist_user_info_box_content">
                             <div class="regist_user_info_box_label">
-                                <span>생년월일</span>
+                                <span class="font-bold">생년월일</span><span style="color: red;">*</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input id="user_birthdate" name="user_birthdate" v-model="frmUserData.userBirthDate" type="date" placeholder="">
+                                <input id="user_birthdate" name="user_birthdate" v-model="frmUserData.userBirthDate" @input="validateUserBirthDate" type="date" placeholder="">
+                                <div class="regist_message_container">
+                                    <div class="error_message" v-if="RegistrationErrorMessage.userBirthDate && !frmUserData.userBirthDate">{{ RegistrationErrorMessage.userBirthDate }}</div>
+                                    <div class="error_message" v-if="errors.userBirthDate && !frmUserData.userBirthDate">{{ errors.userBirthDate }}</div>
+                                    <div class="success_message" v-if="!errors.userBirthDate && frmUserData.userBirthDate"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -264,6 +287,10 @@ export default {
                 userBirthDate: '',
                 userDetailAddress: '',
             },
+
+            EmailDoubleCheck: false,
+
+            EmailDoubleerror: '',
         }
     },
     methods: {
@@ -305,7 +332,11 @@ export default {
                     this.$router.push('/');
                 })
                 .catch( err => {
-                    if( !this.frmUserAddressData && this.frmUserData ) {
+                    // if( !this.frmUserAddressData && this.frmUserData ) {
+                    if( !this.frmUserData.userEmail || !this.frmUserData.userPassword || !this.frmUserData.userPasswordChk || 
+                        !this.frmUserData.userName || !this.frmUserData.userTel || !this.frmUserData.userBirthDate || 
+                        !this.frmUserData.userGender || !this.frmUserAddressData.userDetailAddress || 
+                        !this.frmUserAddressData.userBasicAddress || !this.frmUserAddressData.userPostcode ) {
                         alert('필수입력사항을 확인해주세요.');
                     }
                     else {
@@ -372,14 +403,59 @@ export default {
             console.log(data);
         },
 
+        // 이메일 중복체크
+        postEmailDoubleCheck() {
+            const url = '/signupEmailDoubleChk';
+
+            // let frm = new FormData();
+            // frm.append('user_email', this.frmUserData.userEmail);
+            // console.log('오나',this.frmUserData.userEmail);
+
+            // axios.post(url, frm)
+            // .then(res => {
+                
+            //     if(this.frmUserData.userEmail) {
+            //         this.EmailDoubleCheck = true;
+            //     } else if(!this.frmUserData.userEmail) {
+            //         this.EmailDoubleCheck = false;
+            //     }
+
+            // })
+            // .catch(err => {
+            //     if (err.response.data.errors) {
+            //         this.RegistrationErrorMessage = err.response.data.errors;
+            //     } else {
+            //     // 예상치 못한 다른 종류의 에러 처리
+            //         console.error('Unexpected error:', err);
+            //     }
+            // });
+
+            if (this.frmUserData.userEmail && this.errors.userEmail === '') {
+                let frm = new FormData();
+                frm.append('user_email', this.frmUserData.userEmail);
+
+                axios.post(url, frm)
+                .then(res => {
+                    this.EmailDoubleCheck = res.data.message;
+                })
+                .catch(err => {
+                    console.error('이메일 중복 확인 오류:', err);
+                });
+            } else {
+                // 이메일이 유효하지 않은 경우 처리
+                // this.EmailDoubleCheck = null;
+                // this.EmailDoubleerror = '이미 가입된 이메일 입니다.';
+            }
+        },
+
         // 이메일 실시간 유효성 체크
         validateUserEmail() {
             if (!this.frmUserData.userEmail.match(/^\S+@\S+\.\S+$/)) {
                 this.errors.userEmail = '이메일 양식이 맞지 않습니다.';
-                // this.EmailDoubleCheck = null;
+                this.EmailDoubleCheck = null;
             } else {
                 this.errors.userEmail = '';
-                // this.EmailDoubleCheck = null;
+                this.EmailDoubleCheck = null;
             }
         },
         // 패스워드 실시간 유효성 체크
@@ -397,6 +473,41 @@ export default {
                 this.errors.userPasswordChk = '입력한 패스워드와 일치하지 않습니다.';
             } else {
                 this.errors.userPasswordChk = '';
+            }
+        },
+        validateUserName() {
+            if (!this.frmUserData.userName.match(/^[a-zA-Z가-힣 ]+$/)) {
+                this.errors.userName = '이름을 다시 한 번 확인해주세요.';
+            } else {
+                this.errors.userName = '';
+            }
+        },
+        // validateUserBirthDate() {
+        //     if (!this.frmUserData.userBirthDate.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        //         this.errors.userBirthDate = '생년월일을 다시 한 번 확인해주세요.';
+        //     } else {
+        //         this.errors.userBirthDate = '';
+        //     }
+        // },
+        validateUserBirthDate() {
+            // Get current date
+            const currentDate = new Date();
+
+            // Parse user's birthdate
+            const userBirthDate = new Date(this.frmUserData.userBirthDate);
+
+            // Compare birthdate with start date (1900-01-01) and current date
+            if (userBirthDate < new Date('1900-01-01') || userBirthDate > currentDate) {
+                this.errors.userBirthDate = '올바른 생년월일을 입력하세요.';
+            } else {
+                this.errors.userBirthDate = '';
+            }
+        },
+        validateUserTel() {
+            if (!this.frmUserData.userTel.match(/^01[016789]\d{7,8}$/)) {
+                this.errors.userTel = '연락처가 올바르지 않습니다.';
+            } else {
+                this.errors.userTel = '';
             }
         },
     },
