@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +29,17 @@ Route::get('/mypage', function () {
     return view('welcome');
 });
 
-Route::get('/reservation', function () {
-    return view('welcome');
+// reservation 그룹
+Route::prefix('reservation')->group(function() {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    // 예약기능
+    Route::post('/', [ReservationController::class, 'reservationPost']);
 });
+
+// payment 결제기능
+Route::post('/payment', [PaymentController::class, 'paymentPost']);
 
 Route::get('/signup', function () {
     return view('welcome');

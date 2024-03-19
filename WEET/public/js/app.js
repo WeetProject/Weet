@@ -21076,11 +21076,14 @@ __webpack_require__.r(__webpack_exports__);
       departureAt2: '2021-11-21T12:35:00',
       arrivalAt2: '2021-11-21T17:35:00',
       departureAirplane: '진에어 LI233 보잉 777-200',
+      departureAirplaneNum: '322',
       arrivalAirplane: '진에어 LI232 보잉 777-200',
+      arrivalAirplaneNum: '232',
       // 가는편 = 1
       departureAirport1: 'INC 서울 인천국제공항 T2',
       departureDate1: '',
       departureTime1: '',
+      departureTicketPrice: 158000,
       arrivalAirport1: 'KIX 오사카 간사이공항 T1',
       arrivalDate1: '',
       arrivalTime1: '',
@@ -21091,6 +21094,7 @@ __webpack_require__.r(__webpack_exports__);
       arrivalAirport2: 'INC 서울 인천국제공항 T2',
       arrivalDate2: '',
       arrivalTime2: '',
+      arrivalTicketPrice: 130000,
       // 연락처
       fullName: '',
       email: '',
@@ -21100,7 +21104,7 @@ __webpack_require__.r(__webpack_exports__);
       contactEmailPlaceholder: '',
       contactNumPlaceholder: '',
       // 가격
-      ticketPrice: '1',
+      ticketPrices: 0,
       insurancePrice: 0,
       totalPrice: 0,
       // 여행기간
@@ -21114,8 +21118,8 @@ __webpack_require__.r(__webpack_exports__);
       lastName: '',
       gender: 'M',
       birthDate: '',
-      country: '',
-      idCard: '',
+      country: 'KOR',
+      idCard: 'passport',
       passPortNum: '',
       passPortDate: '',
       lastNameValMsg: ["", "이름(성)은 필수 입력 사항 입니다.", "이름(성)은 0~50 글자 사이로 입력해 주세요.", "이름(성)은 영문만 입력 가능합니다."],
@@ -21139,6 +21143,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     // 결제api 스크립트 불러오기
+    this.sumTicketPrice();
     this.sumTotalPrice();
     this.addInsurancePrice();
     IMP.init('imp68563753');
@@ -21204,21 +21209,25 @@ __webpack_require__.r(__webpack_exports__);
       if (i === 0) {
         this.refundPrice = 0;
       } else if (i === 1) {
-        this.refundPrice = Math.ceil(this.ticketPrice * 0.1);
+        this.refundPrice = Math.ceil(this.ticketPrices * 0.1);
       } else if (i === 2) {
-        this.refundPrice = Math.ceil(this.ticketPrice * 0.15);
+        this.refundPrice = Math.ceil(this.ticketPrices * 0.15);
       }
     },
     // 보험 가격 더하기
     addInsurancePrice: function addInsurancePrice() {
       this.insurancePrice = 3000 * this.day;
     },
+    // 티켓 금액 합
+    sumTicketPrice: function sumTicketPrice() {
+      this.ticketPrices = this.departureTicketPrice + this.arrivalTicketPrice;
+    },
     // 최종 금액
     sumTotalPrice: function sumTotalPrice() {
       if (this.insurance === "1") {
-        this.totalPrice = parseInt(this.ticketPrice) + this.refundPrice + this.insurancePrice;
+        this.totalPrice = parseInt(this.ticketPrices) + this.refundPrice + this.insurancePrice;
       } else {
-        this.totalPrice = parseInt(this.ticketPrice) + this.refundPrice;
+        this.totalPrice = parseInt(this.ticketPrices) + this.refundPrice;
       }
     },
     // 페이지플래그 변경
@@ -21439,27 +21448,56 @@ __webpack_require__.r(__webpack_exports__);
         // callback
         if (res.success) {
           _this2.addReservation();
-          _this2.pageflg = "2";
         } else {
           _this2.pageflg = "3";
         }
       });
     },
+    // 결제테이블 저장
+    addPayment: function addPayment() {
+      var _this3 = this;
+      console.log(this.departureAirplaneNum);
+      var URL = '/payment';
+      var formData = new FormData();
+      formData.append('payment_flg', '0');
+      formData.append('payment_price1', this.departureTicketPrice);
+      formData.append('reservation_flight_number1', this.departureAirplaneNum);
+      formData.append('reservation_departure_airport1', this.departureAirport1);
+      formData.append('reservation_departure_time1', this.departureAt1);
+      if (this.arrivalAirplaneNum !== '') {
+        formData.append('payment_price2', this.arrivalTicketPrice);
+        formData.append('reservation_flight_number2', this.arrivalAirplaneNum);
+        formData.append('reservation_departure_airport2', this.departureAirport2);
+        formData.append('reservation_departure_time2', this.departureAt2);
+      }
+      axios.post(URL, formData).then(function (res) {
+        if (res.data.code === "0") {
+          _this3.pageflg = "2";
+        } else {
+          alert(res.data.errorMsg);
+        }
+      })["catch"](function (err) {
+        alert('실패');
+      });
+    },
     // 예약테이블 저장
     addReservation: function addReservation() {
+      var _this4 = this;
       var URL = '/reservation';
       var formData = new FormData();
-      formData.append('reservation_flight_number1', this.departureAirplane);
+      formData.append('reservation_flight_number1', this.departureAirplaneNum);
       formData.append('reservation_departure_airport1', this.departureAirport1);
       formData.append('reservation_departure_time1', this.departureAt1);
       formData.append('reservation_arrival_airport1', this.arrivalAirport1);
       formData.append('reservation_arrival_time1', this.arrivalAt1);
-      if (this.arrivalAirplane !== '') {
-        formData.append('reservation_flight_number2', this.arrivalAirplane);
+      formData.append('reservation_ticket_price1', this.departureTicketPrice);
+      if (this.arrivalAirplaneNum !== '') {
+        formData.append('reservation_flight_number2', this.arrivalAirplaneNum);
         formData.append('reservation_departure_airport2', this.departureAirport2);
         formData.append('reservation_departure_time2', this.departureAt2);
         formData.append('reservation_arrival_airport2', this.arrivalAirport2);
         formData.append('reservation_arrival_time2', this.arrivalAt2);
+        formData.append('reservation_ticket_price2', this.arrivalTicketPrice);
       }
       formData.append('reservation_last_name', this.lastName);
       formData.append('reservation_first_name', this.firstName);
@@ -21468,15 +21506,20 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('reservation_country', this.country);
       formData.append('reservation_id_card', this.idCard);
       formData.append('reservation_passport_num', this.passPortNum);
+      formData.append('reservation_passport_date', this.passPortDate);
       formData.append('reservation_full_name', this.fullName);
       formData.append('reservation_email', this.email);
       formData.append('reservation_phone', this.phone);
+      formData.append('reservation_refund_flg', this.refund);
+      formData.append('reservation_insurance_flg', this.insurance);
       axios.post(URL, formData).then(function (res) {
         if (res.data.code === "0") {
-          alert('성공');
+          _this4.addPayment();
+        } else {
+          alert(res.data.errorMsg);
         }
       })["catch"](function (err) {
-        alert('실패');
+        console.log('');
       });
     },
     formatDateTime: function formatDateTime() {
@@ -22354,7 +22397,7 @@ var _hoisted_45 = {
 };
 var _hoisted_46 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("legend", null, "국적", -1 /* HOISTED */);
 var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  value: ""
+  value: "KOR"
 }, "대한민국", -1 /* HOISTED */);
 var _hoisted_48 = [_hoisted_47];
 var _hoisted_49 = {
@@ -22369,7 +22412,7 @@ var _hoisted_51 = {
 };
 var _hoisted_52 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("legend", null, "신분증 종류", -1 /* HOISTED */);
 var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  value: ""
+  value: "passport"
 }, "여권", -1 /* HOISTED */);
 var _hoisted_54 = [_hoisted_53];
 var _hoisted_55 = {
@@ -22786,7 +22829,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
       return $data.passPortDate = $event;
     })
-  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.passPortDate]]), $data.passPortNumValFlg !== '0' && $data.passPortNumValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_55, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.passPortNumValMsg[$data.passPortNumValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.passPortDateValFlg !== '0' && $data.passPortDateValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_56, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.passPortDateValMsg[$data.passPortDateValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), _hoisted_57]), _hoisted_58, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_59, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_60, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_61, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_62, [_hoisted_63, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 취소 시 ,"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_64, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.ticketPrice) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("을(를) 환불 받으실수 있습니다")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_65, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_66, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.15)) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("/1인당 ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.passPortDate]]), $data.passPortNumValFlg !== '0' && $data.passPortNumValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_55, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.passPortNumValMsg[$data.passPortNumValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.passPortDateValFlg !== '0' && $data.passPortDateValFlg !== '9' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_56, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.passPortDateValMsg[$data.passPortDateValFlg]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), _hoisted_57]), _hoisted_58, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_59, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_60, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_61, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_62, [_hoisted_63, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 취소 시 ,"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_64, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.ticketPrices) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("을(를) 환불 받으실수 있습니다")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_65, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_66, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrices * 0.15)) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("/1인당 ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "radio",
     name: "refund",
     "class": "cursor-pointer",
@@ -22795,7 +22838,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.refund = $event;
     }),
     value: "2"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.refund]])]), _hoisted_67]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_69, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_70, [_hoisted_71, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 취소 시 ,"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_72, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.8)) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("을(를) 환불 받으실수 있습니다")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_73, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_74, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.1)) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("/1인당 ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.refund]])]), _hoisted_67]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_69, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_70, [_hoisted_71, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 취소 시 ,"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_72, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrices * 0.8)) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("을(를) 환불 받으실수 있습니다")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_73, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_74, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrices * 0.1)) + "원", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("/1인당 ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "radio",
     name: "refund",
     "class": "cursor-pointer",
@@ -22909,7 +22952,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onMouseleave: _cache[28] || (_cache[28] = function ($event) {
       return $data.popoverFlg = false;
     })
-  }, [_hoisted_132, $data.popoverFlg ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_133, [_hoisted_134, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_135, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.lastName) + "/" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.firstName), 1 /* TEXT */), _hoisted_136, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_137, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.email), 1 /* TEXT */), _hoisted_138, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_139, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.passPortNum), 1 /* TEXT */), _hoisted_140])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 32 /* NEED_HYDRATION */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.ticketPrice) + "원", 1 /* TEXT */)]), _hoisted_141, $data.insurance === '1' || $data.refund === '1' || $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("hr", _hoisted_146)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.insurance === '1' || $data.refund === '1' || $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_147, [$data.refund === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_148, "환불80%")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_149, "환불100%")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.refund === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_150, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.1)) + "원", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_151, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrice * 0.15)) + "원", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.insurance === '1' || $data.refund === '1' || $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_152, [$data.insurance === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_153, "여행자보험")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.insurance === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_154, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.insurancePrice) + "원", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_155, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_156, [_hoisted_157, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_158, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.totalPrice) + "원", 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_159, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, [_hoisted_132, $data.popoverFlg ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_133, [_hoisted_134, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_135, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.lastName) + "/" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.firstName), 1 /* TEXT */), _hoisted_136, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_137, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.email), 1 /* TEXT */), _hoisted_138, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_139, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.passPortNum), 1 /* TEXT */), _hoisted_140])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 32 /* NEED_HYDRATION */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.ticketPrices) + "원", 1 /* TEXT */)]), _hoisted_141, $data.insurance === '1' || $data.refund === '1' || $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("hr", _hoisted_146)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.insurance === '1' || $data.refund === '1' || $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_147, [$data.refund === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_148, "환불80%")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_149, "환불100%")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.refund === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_150, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrices * 0.1)) + "원", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_151, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Math.ceil($data.ticketPrices * 0.15)) + "원", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.insurance === '1' || $data.refund === '1' || $data.refund === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_152, [$data.insurance === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_153, "여행자보험")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.insurance === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_154, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.insurancePrice) + "원", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_155, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_156, [_hoisted_157, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_158, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.totalPrice) + "원", 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_159, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "reservation_next_btn w-full text-center font-bold cursor-pointer w-full",
     onClick: _cache[29] || (_cache[29] = function ($event) {
       return $options.changeFlg(0);
