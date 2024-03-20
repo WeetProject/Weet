@@ -43,19 +43,19 @@
 										<form class="card__form">
 											<div class="card__form_email">
 												
-												<label for="email">Email:</label>
-													<input id="email" class="card__input" type="email" />
+												<label for="email">Email</label>
+													<input id="email" class="card__input" type="email" v-model="frmUserLoginData.userEmail" />
 											</div>
 											<div class="card__form_pw">
 												
-												<label for="password">Password:</label>
-													<input id="password" class="card__input" type="password" />
+												<label for="password">Password</label>
+													<input id="password" class="card__input" type="password" v-model="frmUserLoginData.userPassword" />
 											</div>
 						
 
 											<div class="card__form_button">
 												<div>
-													<button class="card__button" type="button" @click="submitUserLoginData()">
+													<button class="card__button" type="button" @click="submitUserLoginData">
 														<span>Login</span>
 													</button>
 												</div>  
@@ -83,7 +83,7 @@
 									</section>
 								</div>
 								<div>
-									<button @click="showmodal = false">Close</button>
+									<button @click="closeModal">Close</button>
 								</div>
 							</div>
 						</div>
@@ -115,6 +115,10 @@ import store from '../../js/store.js';
         data() {
             return {
                 showmodal: false,
+				frmUserLoginData: {
+                	userEmail: '',
+                	userPassword: '',
+            	},
             }
 	    },
 
@@ -139,7 +143,7 @@ import store from '../../js/store.js';
 
 			// 로그인
 			submitUserLoginData() {
-
+				this.$store.dispatch('submitUserLoginData', this.frmUserLoginData);
 			},
     	},
 		// mounted() {
