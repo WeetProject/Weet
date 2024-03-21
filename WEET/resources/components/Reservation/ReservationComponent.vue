@@ -451,7 +451,7 @@ export default {
             arrivalAirport2: 'INC 서울 인천국제공항 T2',
             arrivalDate2: '',
             arrivalTime2: '',
-            // arrivalTicketPrice: 130000,
+            arrivalTicketPrice: 130000,
             // 연락처
 			fullName: '',
 			email: '',
