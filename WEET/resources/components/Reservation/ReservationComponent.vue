@@ -31,38 +31,42 @@
             <div class="reservation_title_1">
                 항공권 정보
             </div>
-            <div class="reservation_to_tiket_title">
-                <div>가는편</div>
-                <div v-if="departureDate1===arrivalDate1">{{ arrivalDate1 }}</div>
-                <div v-else>{{ departureDate1 }}~{{ arrivalDate1 }}</div>
-                <div>소요시간 1시간 45분</div>
-            </div>
-            <div class="reservation_to_tiket_info">
-                <div class="reservation_to_tiket_time text-center">
-                    <div>{{ departureTime1 }}</div>
-                    <div>{{ arrivalTime1 }}</div>
+            <div>
+                <div class="reservation_to_tiket_title">
+                    <div>가는편</div>
+                    <div v-if="departureDate1===arrivalDate1">{{ arrivalDate1 }}</div>
+                    <div v-else>{{ departureDate1 }}~{{ arrivalDate1 }}</div>
+                    <div>소요시간 {{ flightTime1 }}</div>
                 </div>
-                <div class="reservation_to_tiket_time_type">
-                    <div>{{ departureAirport1 }}</div>
-                    <div>{{ departureAirplane }}</div>
-                    <div>{{ arrivalAirport1 }}</div>
+                <div class="reservation_to_tiket_info">
+                    <div class="reservation_to_tiket_time text-center">
+                        <div>{{ departureTime1 }}</div>
+                        <div>{{ arrivalTime1 }}</div>
+                    </div>
+                    <div class="reservation_to_tiket_time_type">
+                        <div>{{ departureAirport1 }}</div>
+                        <div>{{ departureAirplane }}</div>
+                        <div>{{ arrivalAirport1 }}</div>
+                    </div>
                 </div>
             </div>
-            <div class="reservation_to_tiket_title">
-                <div>오는편</div>
-                <div v-if="departureDate2===arrivalDate2">{{ arrivalDate2 }}</div>
-                <div v-else>{{ departureDate2 }}~{{ arrivalDate2 }}</div>
-                <div>소요시간 1시간 45분</div>
-            </div>
-            <div class="reservation_to_tiket_info">
-                <div class="reservation_to_tiket_time text-center">
-                    <div>{{ departureTime2 }}</div>
-                    <div>{{ arrivalTime2 }}</div>
+            <div v-if="departureAt2!==''">
+                <div class="reservation_to_tiket_title">
+                    <div>오는편</div>
+                    <div v-if="departureDate2===arrivalDate2">{{ arrivalDate2 }}</div>
+                    <div v-else>{{ departureDate2 }}~{{ arrivalDate2 }}</div>
+                    <div>소요시간 {{ flightTime2 }}</div>
                 </div>
-                <div class="reservation_to_tiket_time_type">
-                    <div>{{ departureAirport2 }}</div>
-                    <div>{{ arrivalAirplane }}</div>
-                    <div>{{ arrivalAirport2 }}</div>
+                <div class="reservation_to_tiket_info">
+                    <div class="reservation_to_tiket_time text-center">
+                        <div>{{ departureTime2 }}</div>
+                        <div>{{ arrivalTime2 }}</div>
+                    </div>
+                    <div class="reservation_to_tiket_time_type">
+                        <div>{{ departureAirport2 }}</div>
+                        <div>{{ arrivalAirplane }}</div>
+                        <div>{{ arrivalAirport2 }}</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -219,8 +223,8 @@
                     <label for="reservation_refund_0" class="reservation_radio_label absolute right-0 top-0 cursor-pointer w-full h-full"/>
                 </div>
             </div>
-            <div class="reservation_title_3">안전한 여행을 위한 해외 보험 서비스</div>
-            <div class="reservation_refund_box">
+            <div class="reservation_title_3" v-if="departureAt2!==''">안전한 여행을 위한 해외 보험 서비스</div>
+            <div class="reservation_refund_box" v-if="departureAt2!==''">
                 <span class="reservation_title_4">해외여행 보험서비스</span>
                 <div class="reservation_icon_flex text-xs">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check reservation_icon_blue" viewBox="0 0 16 16">
@@ -246,12 +250,12 @@
                     </svg>
                     해외여행 중단 보상 30만원 보장
                 </div>
-                <div class="cursor-pointer reservation_icon_deepblue text-sm mb-3">
+                <!-- <div class="cursor-pointer reservation_icon_deepblue text-sm mb-3">
                     보장내역 자세히 보기 》
-                </div>
+                </div> -->
                 <hr>
                 <div class="text-sm">
-                    <span>기간 및 보장범위: 2024년03월10일 00:00</span> ㅡ <span>2024년03월13일 00:00</span>
+                    <span>기간 및 보장범위: {{ arrivalDate1 }} 00:00</span> ㅡ <span>{{ departureDate2 }} 00:00</span>
                 </div>
                 <div class="text-sm mb-2">
                     총 보험료: <span class="reservation_icon_deepblue font-black">{{ insurancePrice }}원</span>
@@ -414,7 +418,7 @@
     </div>
 </template>
 <script>
-import { format, parseISO } from 'date-fns';
+import { format, parseISO,differenceInDays,differenceInSeconds } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
 export default {
@@ -422,9 +426,11 @@ export default {
 	data() {
         return {
             // api받아온거
-            departureAt1: '2021-11-01T11:35:00',
-            arrivalAt1: '2021-11-02T15:35:00',
-            departureAt2: '2021-11-21T12:35:00',
+            departureAt1: '2021-11-01T19:35:00',
+            arrivalAt1: '2021-11-02T02:15:00',
+            departureAt2: '',
+            departureAt2: '2021-11-21T08:35:00',
+            arrivalAt2: '',
             arrivalAt2: '2021-11-21T17:35:00',
             departureAirplane: '진에어 LI233 보잉 777-200',
             departureAirplaneNum: '322',
@@ -459,7 +465,7 @@ export default {
             insurancePrice:0,
             totalPrice: 0,
             // 여행기간
-            day: 4,
+            day: 0,
             refund: "0",
             refundPrice: 0,
             insurance: "0",
@@ -490,20 +496,19 @@ export default {
             phoneValMsg:["","연락처는 필수 입력 사항 입니다","-를 제외한 11자리를 입력해 주세요","연락처의 형식이 유효하지 않습니다."],
             phoneValFlg:"0",
             progressWidth:["w-1/4","w-3/4","w-full","w-3/4"],
+            flightTime1:'',
+            flightTime2:'',
 		}
 	},
     
 	created() {
         // 결제api 스크립트 불러오기
+        this.formatDateTime();
         this.sumTicketPrice();
         this.sumTotalPrice();
         this.addInsurancePrice();
         IMP.init('imp68563753');
 	},
-
-    mounted() {
-        this.formatDateTime();
-    },
 
     watch: {
 		refund(){
@@ -575,7 +580,11 @@ export default {
         },
         // 티켓 금액 합
         sumTicketPrice(){
-            this.ticketPrices = this.departureTicketPrice + this.arrivalTicketPrice 
+            if(this.departureAt2!==''){
+                this.ticketPrices = this.departureTicketPrice + this.arrivalTicketPrice 
+            }else{
+                this.ticketPrices = this.departureTicketPrice
+            }
         },
         // 최종 금액
         sumTotalPrice(){            
@@ -868,12 +877,18 @@ export default {
                 console.log('')
             })
         },
+        // 데이터 메소드호출용
         formatDateTime() {
             // 출발일, 도착일, 출발시간, 도착시간 포맷
-            this.formatDateTimeSingle('1', this.departureAt1, this.arrivalAt1);
-            this.formatDateTimeSingle('2', this.departureAt2, this.arrivalAt2);
+            this.formatDayHour('1', this.departureAt1, this.arrivalAt1);
+            if(this.departureAt2!==''){
+                this.formatDayHour('2', this.departureAt2, this.arrivalAt2);
+                this.getDifferenceDay()
+                this.formatDayHour('2', this.departureAt2, this.arrivalAt2);
+            }
         },
-        formatDateTimeSingle(number, departureAt, arrivalAt) {
+        // 데이터 타입 포멧
+        formatDayHour(number, departureAt, arrivalAt) {
             const departureDate = parseISO(departureAt);
             const arrivalDate = parseISO(arrivalAt);
             // 출발일 포맷
@@ -884,7 +899,20 @@ export default {
             this[`departureTime${number}`] = format(departureDate, "HH:mm");
             // 도착시간 포맷
             this[`arrivalTime${number}`] = format(arrivalDate, "HH:mm");
-        }
+            // 여행시간 계산 및 포맷
+            const timeDifference = differenceInSeconds(arrivalDate, departureDate);
+            const hours = Math.floor(timeDifference / 3600);
+            const minutes = Math.floor((timeDifference % 3600) / 60);
+            this[`flightTime${number}`] = `${hours}시간 ${minutes}분`;
+        },
+        // 여행기간 계산
+        getDifferenceDay() {
+            const go = parseISO(this.arrivalAt1);
+            const back  = parseISO(this.departureAt2);
+            // 절대값 지정
+            this.day = Math.abs(differenceInDays(go, back));
+            console.log(this.day)
+        },
 	},
 }
 
