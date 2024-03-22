@@ -91,3 +91,5 @@ Route::middleware(['userValidation'])->group(function() {
     Route::post('/signupEmailDoubleChk', [UserController::class, 'emailDoubleChk']);
     Route::post('/login', [UserController::class, 'loginPost']);
 });
+
+Route::get('/logout', [UserController::class, 'logout']);

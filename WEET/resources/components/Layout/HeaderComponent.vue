@@ -15,10 +15,18 @@
 						</svg>
 					</button>
 					<div class="header_nav_login_btn">
-						<div class="header_nav_login_btn_user">
+						<div v-if="!frmUserLoginData" class="header_nav_login_btn_user">
 							<button @click="toggleModal">login</button>
 							<!-- <LoginComponent v-if="showmodal" @closeModal="closemodal" /> -->
 							<!-- <a href="/login">login</a> -->
+						</div>
+						<div v-if="frmUserLoginData" class="header_nav_login_btn_user">
+							<div style="margin: 0 5px 0 0;">
+								<button>mypage</button>
+							</div>
+							<div>
+								<button @click="logout">logout</button>
+							</div>
 						</div>
 
 					<!-- 로그인모달 -->
@@ -128,15 +136,24 @@ import store from '../../js/store.js';
 			}
 		},
 
+		mounted() {
+			// axios.get('/getUserData')
+			// .then(response2 => {
+			// 	if (response2.data.userChk) {
+			// 		alert('로그인 성공\n로그인에 성공했습니다.');
+			// 		// this.$store.commit('setSaveToLocalStorage', response2.data);
+			// 		this.$store.commit('setUserLoginChk', response2.data.sessionDataCheck);
+			// 		this.$store.commit('setUserID', response2.data.userId);
+			// 	}
+			// })
+			// .catch(error => {
+			// 	console.error('Error fetching data:', error);
+			// });
+			// window.addEventListener('scroll', this.handleScroll);
+		},
+
 		methods: {
-        	// toggleModal() {
-			// 	// 모달을 열고 닫는 토글 메서드
-            // 	// this.showmodal = !this.showmodal;
-            // 	this.showmodal = true; // 모달을 열고 닫는 토글 메서드
-        	// },
-        	// closeModal() {
-            // 	this.showmodal = false; // 모달을 닫는 메서드
-        	// }
+
 			// 모달 토글 액션을 Store에 커밋
 			toggleModal() {
 				this.$store.commit('setToggleModal');
@@ -151,6 +168,12 @@ import store from '../../js/store.js';
 			submitUserLoginData() {
 				this.$store.dispatch('submitUserLoginData', this.frmUserLoginData);
 			},
+
+			// 로그아웃
+			logout() {
+				this.$store.dispatch('logout');
+				localStorage.clear();
+        	},
     	},
 		// mounted() {
 		// 	this.toggleModal();

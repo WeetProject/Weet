@@ -70,7 +70,7 @@ class UserController extends Controller
             ]);
         }
 
-        // // 유저 인증 작업
+        // 유저 인증 작업
         Auth::login($result);
         session(['user' => $result]);
         session()->save();
@@ -95,6 +95,23 @@ class UserController extends Controller
                 'message' => '인증 에러가 발생했습니다.',
             ]);
         }
+    }
+
+    // 로그아웃
+    public function logout(Request $request) {
+
+        Log::debug("**************로그인정보*************");
+        Log::debug($request);
+
+        // 로그아웃 처리
+        Auth::logout();
+
+        $sessionDataCheck = Auth::check();
+
+        return response()->json([
+            'message' => '로그아웃 성공',
+            'sessionDataCheck' => $sessionDataCheck,
+        ]);
     }
 
 }

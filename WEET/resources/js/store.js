@@ -14,6 +14,8 @@ const store = createStore({
                 userEmail: '',
                 userID: null,
             },
+            userLoginChk: null,
+            userID: null,
         }
     },
 
@@ -32,7 +34,13 @@ const store = createStore({
 		},
         setUserData(state, userData) {
             state.userData = userData;
-        }
+        },
+        setUserLoginChk(state, userLoginChk) {
+            state.userLoginChk = userLoginChk;
+        },
+        setUserID(state, userID) {
+            state.userID = userID;
+        },
     
     },
 
@@ -97,7 +105,57 @@ const store = createStore({
                 console.error('오류 발생:', err);
                 alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
             });
-        }
+        },
+
+        // 유저 logout
+        // logout(context, data) {
+        //     const url = '/logout';
+        //     const header = {
+        //         headers: {
+        //             "Content-Type": 'application/json',
+        //         },
+        //     };
+        
+        //     axios.get(url, header)
+        //     .then(res => {
+        //         context.commit('setUserLoginChk', res.data.sessionDataCheck);
+        //         localStorage.clear();
+                
+        //         Swal.fire({
+        //             icon: 'success',
+        //             title: '로그아웃 성공',
+        //             text: '로그아웃에 성공했습니다.',
+        //             confirmButtonText: '확인'
+        //         }).then(() => {
+        //             // 확인 버튼을 눌렀을 때 실행할 코드
+        //             location.reload();
+        //         });
+        //     })
+        //     .catch(err => {
+        //         console.log(err.response.data);
+        //     });
+        // },
+        logout(context, data) {
+            const url = '/logout';
+            const header = {
+                headers: {
+                    "Content-Type": 'application/json',
+                },
+            };
+        
+            axios.get(url, header)
+            .then(res => {
+                context.commit('setUserLoginChk', res.data.sessionDataCheck);
+                localStorage.clear();
+        
+                if (confirm('로그아웃 성공\n로그아웃에 성공했습니다. 페이지를 새로고침 하시겠습니까?')) {
+                    location.reload();
+                }
+            })
+            .catch(err => {
+                console.log(err.response.data);
+            });
+        },
         
     }
 });
