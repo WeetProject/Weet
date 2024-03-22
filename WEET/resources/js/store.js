@@ -8,7 +8,7 @@ const store = createStore({
 
     state() {
         return {
-            showModal: false,
+            showmodal: false,
 			adminToken: null,
             userData: {
                 userEmail: '',
@@ -19,11 +19,14 @@ const store = createStore({
 
     mutations: {
         setToggleModal(state) {
-            state.showModal = true;
+            state.showmodal = true;
         },
         setCloseModal(state) {
-            state.showModal = false;
+            state.showmodal = false;
         },
+        // loginSuccess(state) {
+        //     state.isLoggedIn = true;
+        // },
 		setAdminToken(state, token) {
 			state.adminToken = token;
 		},

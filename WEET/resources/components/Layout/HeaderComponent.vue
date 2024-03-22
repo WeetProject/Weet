@@ -122,6 +122,12 @@ import store from '../../js/store.js';
             }
 	    },
 
+		computed: {
+			showModal() {
+				return this.$store.state.showModal;
+			}
+		},
+
 		methods: {
         	// toggleModal() {
 			// 	// 모달을 열고 닫는 토글 메서드

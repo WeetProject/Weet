@@ -21004,6 +21004,11 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  computed: {
+    showModal: function showModal() {
+      return this.$store.state.showModal;
+    }
+  },
   methods: {
     // toggleModal() {
     // 	// 모달을 열고 닫는 토글 메서드
@@ -24046,7 +24051,7 @@ __webpack_require__.r(__webpack_exports__);
 var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)({
   state: function state() {
     return {
-      showModal: false,
+      showmodal: false,
       adminToken: null,
       userData: {
         userEmail: '',
@@ -24056,11 +24061,14 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)({
   },
   mutations: {
     setToggleModal: function setToggleModal(state) {
-      state.showModal = true;
+      state.showmodal = true;
     },
     setCloseModal: function setCloseModal(state) {
-      state.showModal = false;
+      state.showmodal = false;
     },
+    // loginSuccess(state) {
+    //     state.isLoggedIn = true;
+    // },
     setAdminToken: function setAdminToken(state, token) {
       state.adminToken = token;
     },
