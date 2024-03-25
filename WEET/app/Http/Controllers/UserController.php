@@ -63,6 +63,7 @@ class UserController extends Controller
         Log::debug("===========================유저데이터==================");
         Log::debug($result);
 
+
         if(!$result || !(Hash::check($request->userPassword, $result->user_password))) {
             return response()->json([
                 'success' => false,
@@ -76,7 +77,9 @@ class UserController extends Controller
         session()->save();
 
         $userId = Auth::id();
+        $userEmail = Auth::user()->user_email;
         Log::debug($userId);
+        Log::debug($userEmail);
 
         if (Auth::check()) {
 
@@ -88,6 +91,7 @@ class UserController extends Controller
                 'message' => '로그인이 성공적으로 수행되었습니다.',
                 'sessionDataCheck' => $sessionDataCheck,
                 'userId' => $userId,
+                'userEmail' => $userEmail, 
             ]);
         } else {
             return response()->json([
@@ -98,15 +102,34 @@ class UserController extends Controller
     }
 
     // 로그아웃
-    public function logout(Request $request) {
+    // public function logout(Request $request) {
+
+    //     Log::debug("**************로그인정보*************");
+    //     Log::debug($request);
+
+    //     // 로그아웃 처리
+    //     Auth::logout();
+
+    //     $sessionDataCheck = Auth::check();
+
+    //     return response()->json([
+    //         'message' => '로그아웃 성공',
+    //         'sessionDataCheck' => $sessionDataCheck,
+    //     ]);
+    // }
+
+    public function logout() {
 
         Log::debug("**************로그인정보*************");
-        Log::debug($request);
+        // Log::debug($request);
 
         // 로그아웃 처리
         Auth::logout();
 
         $sessionDataCheck = Auth::check();
+        
+        Log::debug("**************세션데이터*************");
+        Log::debug($sessionDataCheck);
 
         return response()->json([
             'message' => '로그아웃 성공',
