@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminSignUpController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PaymentController;
@@ -53,15 +54,15 @@ Route::get('/login', function () {
 
 
 
-// Admin
-// Admin Login 화면 이동
-Route::get('/admin', function () {
-    return view('welcome');
-});
-
-Route::middleware(['adminValidation'])->group(function () {
-    // 로그인 처리
-    Route::post('/admin', [AdminAuthController::class, 'adminPostLogin'])->name('adminPostLogin');
+// ### Admin Auth & Sign Up ###
+Route::middleware('adminValidation')->prefix('admin')->group(function() {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    Route::post('/', [AdminAuthController::class, 'adminLogin'])->name('adminLogin');
+    Route::get('/logout', [AdminAuthController::class, 'adminLogout']);
+    Route::post('/', [AdminSignUpController::class, 'adminNumberCheck'])->name('adminNumberCheck');
+    Route::post('/', [AdminSignUpController::class, 'adminSignUp'])->name('adminSignUp');
 });
 
 

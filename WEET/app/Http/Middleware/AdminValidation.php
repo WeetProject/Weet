@@ -4,32 +4,59 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class AdminValidation
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-     */
     public function handle(Request $request, Closure $next)
     {   
-        // Admin 유효성 검사
+        // /admin 접속 시 GET일 때 유효성 검사 진행 패스
+        if ($request->isMethod('get')) {
+            return $next($request);
+        }
+        
         Log::debug("### Admin 유효성 검사 시작 ###");
 
-        // 회원가입, 로그인 시도 요청 확인
-        $isAdminRequest = $request->isMethod('post') && $request->route()->getName() == 'adminPostRegister';
+        $requestData = $request->all();
+        Log::debug("### Admin 요청 데이터: " . json_encode($requestData) . "###");
+        
+        $isAdminSignUpRequest = $request->method() === 'POST' && $request->route()->getName() == 'adminSignUp' && $request->has('admin_password_confirm');
 
-        // Admin 유효성 검사 목록 : 회원가입
-        $adminRegisterValidation = [
+        Log::debug("### Admin 요청: " . ($isAdminSignUpRequest ? "회원가입" : "로그인") . " ###");
+
+        // 유효성 검사 선택(Admin 회원가입 or 로그인)
+        $adminValidation = $isAdminSignUpRequest ? $this->adminSignUpValidationRule() : $this->adminLoginValidationRule();
+
+        // 유효성 검사 진행
+        $adminValidator = Validator::make($request->all(), $adminValidation);
+
+        // 유효성 검사 결과
+        if ($isAdminSignUpRequest) {
+            if ($adminValidator->fails()) {
+                return $this->adminSignUpValidationFailure($adminValidator);
+            }
+        } else {
+            if ($adminValidator->fails()) {
+                return $this->adminLoginValidationFailure($adminValidator);
+            }
+        }
+
+        // 유효성 검사 결과 LOG
+        $adminValidatorMsg = $isAdminSignUpRequest ? "회원가입" : "로그인";
+        Log::debug("### Admin 유효성 검사 성공: $adminValidatorMsg ###");
+
+        return $next($request);
+    }
+
+    // Admin 추가 유효성 검사 규칙
+    private function adminSignUpValidationRule() 
+    {
+        return [
             'admin_number' => [
 				'required', 
 				'regex:/^\d{1,10}$/', 
-				'unique:Admin,admin_number'
+				'unique:admins,admin_number'
 			],
             'admin_password' => [
                 'required',
@@ -51,9 +78,12 @@ class AdminValidation
 				'regex:/^[\p{Hangul}]{1,5}$/u'
 			],
         ];
+    }
 
-        // Admin 유효성 검사 목록 : 로그인
-		$adminLoginValidation = [
+    // 로그인 유효성 검사 규칙
+    private function adminLoginValidationRule() 
+    {
+		return [
             'admin_number' => [
 				'required', 
 				'regex:/^\d{1,10}$/',
@@ -64,28 +94,30 @@ class AdminValidation
                 'regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/',
             ],
         ];
+    }
 
-        // 유효성 검사 선택
-        $adminValidation = $isAdminRequest ? $adminRegisterValidation : $adminLoginValidation;
+    // Admin 회원가입에 대한 유효성 검사 실패 시 처리
+    private function adminSignUpValidationFailure($validator)
+    {   
+        $error = "입력하신 정보를 다시 확인해주세요.";
+        $logMessage = "Admin 추가 유효성 검사 실패";
+        Log::debug("### $logMessage ###");
+        return response()->json([
+            'code' => 'AV01',
+            'error' => $error
+        ], 422);
+    }
 
-		// 유효성 검사 수행
-        $adminValidator = Validator::make($request->all(), $adminValidation);
-
-		// 유효성 검사 결과 리턴
-        if ($adminValidator->passes()) {
-            // 유효성 검사 통과 시 로그 남기기
-            $logMsg = $isAdminRequest ? "회원가입" : "로그인";
-            Log::debug("### Admin 유효성 검사 성공: $logMsg ###");
-        } else {
-            $errorMsg = $isAdminRequest ? "회원가입" : "로그인";
-            Log::debug("### Admin 유효성 검사 실패: $errorMsg ###");
-            return response()->json([
-                'code' => $isAdminRequest ? 'val01' : 'val02',
-                'error' => $errorMsg,
-                'errors' => $adminValidator->errors(),
-            ], 422);
-        }
-
-        return $next($request);
+    // Admin 로그인에 대한 유효성 검사 실패 시 처리
+    private function adminLoginValidationFailure($validator)
+    {   
+        $error = "사번과 비밀번호를 다시 확인해주세요.";
+        $logMessage = "Admin 로그인 유효성 검사 실패";
+        Log::debug("### $logMessage ###");
+        return response()->json([
+            'code' => 'AV02',
+            'error' => $error
+        ], 422);
     }
 }
+

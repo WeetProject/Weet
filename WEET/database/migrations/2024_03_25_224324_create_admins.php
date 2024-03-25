@@ -21,8 +21,8 @@ return new class extends Migration
             $table->integer('admin_flg')->default(0);
             // admin 권한 플래그
             // integer 생성 / default : 0
-            // 0 서브, 1 메인, 2 루트
-
+            // 0 승인 전, 1 sub Admin, 2 root Admin
+            
             $table->string('admin_number', 50)->unique();
             // admin number
             // varchar 생성(50) / default : unique, not null
@@ -34,6 +34,9 @@ return new class extends Migration
             $table->string('admin_name', 50);
             // admin 이름
             // varchar 생성(50) / default : not null
+
+            $table->rememberToken();
+            // 로그인 상태 유지 목적
 
             $table->timestamps();
             // created_at, updated_at 라라벨 내부 설정 값으로 자동 생성 / default : null
@@ -50,6 +53,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admin');
+        Schema::dropIfExists('admins');
     }
 };
