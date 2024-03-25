@@ -166,6 +166,7 @@ import store from '../../js/store.js';
 
 			// 로그인
 			submitUserLoginData() {
+				console.log("로그인정보");
 				this.$store.dispatch('submitUserLoginData', this.frmUserLoginData);
 			},
 

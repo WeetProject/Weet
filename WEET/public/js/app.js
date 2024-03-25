@@ -21036,6 +21036,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     // 로그인
     submitUserLoginData: function submitUserLoginData() {
+      console.log("로그인정보");
       this.$store.dispatch('submitUserLoginData', this.frmUserLoginData);
     },
     // 로그아웃
@@ -24125,8 +24126,17 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)({
         console.log(res);
         if (res.data.success) {
           context.commit('setUserData', res.data.userData);
+
+          // const loginUserData = res.data.userData.userID;
+          console.log("백처리", res.data);
+          // console.log(res.data.userData);
+          // localStorage.setItem('loginUser', userId);
+          // localStorage.setItem('loginUserId', res.data.userId);
+          // localStorage.setItem('loginUserEmail', res.data.userEmail);
+          localStorage.setItem('setUserData', res.data.userData);
           alert('로그인 성공. 페이지를 새로 고칩니다.');
           location.reload();
+          // this.$router.push('/');
         } else {
           alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
         }
