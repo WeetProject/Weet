@@ -2,27 +2,25 @@
 
 namespace App\Models;
 
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-// use App\Models\Notice;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Admin extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable, SoftDeletes;
 
     protected $primaryKey = 'admin_id';
-    protected $table = 'admin';
+    protected $table = 'admins';
 
     public $timestamps = true;
 
-    protected $guarded =[
+    protected $fillable =[
         'admin_flg',
         'admin_number',
-        'admin_password',
+        'password',
         'admin_name',
     ];
 
@@ -42,19 +40,6 @@ class Admin extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims()
     {
-		// Admin 권한 판별
-		$role = '';
-		if ($this->admin_flg === '1') {
-			$role = 'rootAdmin';
-		} elseif ($this->admin_flg === '2') {
-			$role = 'subAdmin';
-		}
-
-		// Admin 권한, pk, 이름 return
-		return [
-			'role' => $role,
-			'admin_id' => $this->id,
-			'admin_name' => $this->name,
-		];
+        return [];
     }
 }

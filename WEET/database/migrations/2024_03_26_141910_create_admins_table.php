@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admin', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->id('admin_id');
             // admin PK
             // default : big_int, pk, auto_increment
@@ -27,16 +27,13 @@ return new class extends Migration
             // admin number
             // varchar 생성(50) / default : unique, not null
 
-            $table->string('admin_password', 200);
+            $table->string('password', 200);
             // admin 비밀번호
             // varchar 생성(30) / default : not null            
             
             $table->string('admin_name', 50);
             // admin 이름
             // varchar 생성(50) / default : not null
-
-            $table->rememberToken();
-            // 로그인 상태 유지 목적
 
             $table->timestamps();
             // created_at, updated_at 라라벨 내부 설정 값으로 자동 생성 / default : null

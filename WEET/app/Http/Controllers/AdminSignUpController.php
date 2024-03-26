@@ -82,7 +82,7 @@ class AdminSignUpController extends Controller
             log::debug("### 롤백 사유 ###" . $e->getMessage());
             return response()->json([
                 'code' => 'ASU03',
-                'error' => $errorMsg
+                'error' => $error
             ], 400);
         }
     }
