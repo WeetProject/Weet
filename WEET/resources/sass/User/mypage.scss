@@ -1,73 +1,160 @@
 @import "../mixin";
+// @import "../app.scss";
 
 @include desktop {
     .mypage_container {
-        width: 1000px;
+        width: 1200px;
         margin: 0 auto;
+        display: flex;
+        text-align: center;
+    }
 
-        .mypage_banner_section {
-            width: 100%;
-            height: 200px;
-            margin: 0 auto;
-            // background-image: url("../../../public/images/banner.JPG");
-            // background-size: cover;
-            background-color: #BECDFF;
+    // 사이드 메뉴
+    .mypage_side_view {
+        width: 20%;
+        margin-right: 10px;
+        background-color: #ededed;
+        // text-align: center;
+        display: grid;
+        align-items: center;
+        align-content: space-evenly;
+
+        li {
+            // line-height: 20vh;
+            cursor: pointer;
         }
 
-        .mypage_main_section {
-            width: 100%;
-            display: flex;
+        &_user_info {
+            padding: 10px;
 
-            &_top {
-                width: 30%;
-                display: inline-block;
-                margin-right: 50px;
-                border: 1px solid $layout-background-color;
+            &_name {
 
-                &_profile {
-                    width: 100px;
-                    height: 100px;
-                    border-radius: 50%;
-                    background-color: #0B2161;
-                    position: relative;
-                    top: 0;
-                    left: 1rem;
+                span {
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                }
+            }
 
-                    p {
-                        color: #FFFFFF;
-                        position: absolute;
-                        top: 2rem;
-                        left: 2rem;
+            &_email {
+
+                span {
+                    font-size: 0.9rem;
+                }
+            }
+        }
+
+        &_tab {
+
+            &_list {
+                list-style: none;
+                display: grid;
+                grid-template-columns: 1fr; /* 한 열에 하나의 아이템 */
+                gap: 50px;
+                font-weight: 600;
+                color: $main-font-color;
+            }
+        }
+    }
+
+    // 메인 컨텐츠
+    .mypage_main_view {
+        width: 80%;
+        margin: auto 0;
+        // background-color: #ededed;
+
+        &_tab {
+
+        }
+
+        &_user_info_box {
+
+            &_content {
+                display: flex;
+                align-items: center;
+                padding: 10px;
+
+                &_label {
+                    border: 1px solid #ededed;
+                    border-radius: 5px;
+                    padding: 10px;
+                    // margin: auto 0;
+                    width: 30%;
+                }
+
+                &_input {
+                    margin: auto;
+                    padding: 10px;
+                    border: 1px solid #ededed;
+                    border-radius: 5px;
+                    width: 60%;
+
+                    input {
+                        width: 100%;
+                    }
+
+                    :focus {
+                        outline: none;
+                        border: none;
                     }
                 }
 
-                &_mention {
-                    text-align: center;
-                    margin: 30px;
+                &_span {
+                    margin: auto;
+                    padding: 10px;
+                    border: 1px solid #ededed;
+                    border-radius: 5px;
+                    width: 60%;
                 }
 
-                &_content {
-                    li {
-                        width: 85%;
-                        margin-left: 62px;
-                        margin-bottom: 20px;
-                        border-bottom: 1px solid $layout-background-color;
+                &_postcode_div {
+                    display: flex;
+                    // text-align: center;
+                    width: 80%;
+                    margin: auto 0;
 
-                        p {
-                            display: inline;
+                    &_label {
+                        border: 1px solid #ededed;
+                        border-radius: 5px;
+                        padding: 10px;
+                    }
+
+                    &_input {
+                        margin: auto;
+                        padding: 10px;
+                        border: 1px solid #ededed;
+                        border-radius: 5px;
+                        width: 30%;
+
+                        input {
+                            width: 100%;
+                        }
+    
+                        :focus {
+                            outline: none;
+                            border: none;
+                        }
+                    }
+
+                    &_input2 {
+                        margin: auto;
+                        padding: 10px;
+                        border: 1px solid #ededed;
+                        border-radius: 5px;
+                        width: 60%;
+
+                        input {
+                            width: 100%;
+                        }
+    
+                        :focus {
+                            outline: none;
+                            border: none;
                         }
                     }
                 }
             }
 
-            &_bottom {
-                width: 60%;
-                display: inline-block;
-                margin: 0 auto;
-                border: 1px solid $layout-background-color;
-
-            }
         }
     }
-
 }
+

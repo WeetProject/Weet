@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminSignUpController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\MyPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,3 +95,5 @@ Route::middleware(['userValidation'])->group(function() {
 });
 
 Route::get('/logout', [UserController::class, 'logout']);
+
+Route::get('/getMyPage', [MyPageController::class, 'getMyPageData']);
