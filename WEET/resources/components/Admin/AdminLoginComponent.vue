@@ -59,17 +59,17 @@ export default {
 			
 			axios.post(URL, adminLoginFormData)
 			.then(response => {
-				console.log("response ", response.data)
-
-					// if(response.data.code === "AL00") {
-					// 	const loginAdminName = response.data.loginAdminAccountInfo.admin_name;
-					// 	const loginAdminFlg = response.data.loginAdminAccountInfo.admin_flg;
-					// 	localStorage.setItem('loginAdminName', loginAdminName);
-					// 	localStorage.setItem('loginAdminFlg', loginAdminFlg);
-					// 	this.$router.push('/admin/index'); 
-					// } else {                
-					// 	this.error = error.response.data.error;
-					// }
+					if(response.data.code === "AL00") {
+						const token = response.data.token
+						const loginAdminName = response.data.admin_name;
+						const loginAdminFlg = response.data.admin_flg;
+						localStorage.setItem('token', token)
+						localStorage.setItem('loginAdminName', loginAdminName);
+						localStorage.setItem('loginAdminFlg', loginAdminFlg);
+						this.$router.push('/admin/index'); 
+					} else {                
+						this.error = error.response.data.error;
+					}
 				})
 				.catch(error => {             
 					console.log(error.response);

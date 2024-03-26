@@ -20883,22 +20883,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     adminLogin: function adminLogin() {
+      var _this = this;
       var URL = '/admin';
       var adminLoginFormData = new FormData();
       adminLoginFormData.append('admin_number', this.admin_number);
       adminLoginFormData.append('password', this.password);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, adminLoginFormData).then(function (response) {
-        console.log("response ", response.data);
-
-        // if(response.data.code === "AL00") {
-        // 	const loginAdminName = response.data.loginAdminAccountInfo.admin_name;
-        // 	const loginAdminFlg = response.data.loginAdminAccountInfo.admin_flg;
-        // 	localStorage.setItem('loginAdminName', loginAdminName);
-        // 	localStorage.setItem('loginAdminFlg', loginAdminFlg);
-        // 	this.$router.push('/admin/index'); 
-        // } else {                
-        // 	this.error = error.response.data.error;
-        // }
+        if (response.data.code === "AL00") {
+          var token = response.data.token;
+          var loginAdminName = response.data.admin_name;
+          var loginAdminFlg = response.data.admin_flg;
+          localStorage.setItem('token', token);
+          localStorage.setItem('loginAdminName', loginAdminName);
+          localStorage.setItem('loginAdminFlg', loginAdminFlg);
+          _this.$router.push('/admin/index');
+        } else {
+          _this.error = error.response.data.error;
+        }
       })["catch"](function (error) {
         console.log(error.response);
       });

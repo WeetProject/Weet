@@ -58,14 +58,14 @@ class AdminValidation
 				'regex:/^\d{1,10}$/', 
 				'unique:admins,admin_number'
 			],
-            'admin_password' => [
+            'password' => [
                 'required',
                 'string',
                 'min:8',
                 'regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/',
                 'max:20',
             ],
-            'admin_password_confirm' => [
+            'password_confirm' => [
                 'required',
                 'string',
                 'min:8',
