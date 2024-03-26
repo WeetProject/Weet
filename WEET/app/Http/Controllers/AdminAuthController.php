@@ -99,13 +99,18 @@ class AdminAuthController extends Controller
                 Cache::forget('Admin로그인시도' . $request->admin_number);
                 Log::debug("### 사원번호 {$request->admin_number} 로그인 시도 횟수: $loginAttempt 초기화 ###");
 
-                $credentials = $request->only('admin_number', 'password');
+                $tokenInfo = $request->only('admin_number', 'password', 'admin_name', 'admin_flg');
 
-                log::debug($credentials);
+                log::debug($tokenInfo);
 
                 try {
-                    if (!$token = JWTAuth::attempt($credentials)) {
-                        return response()->json("Failed to create token", 500);
+                    if (!$token = JWTAuth::attempt($tokenInfo)) {
+                        Log::debug("### Admin인증 실패(토큰) : 토큰 생성 실패 ###");
+                        $error = "오류가 발생했습니다. 페이지를 새로고침 후 재 로그인해주세요";
+                        return response()->json([
+                            'code' => 'ALI06',
+                            'error' => $error
+                        ], 500);
                     }
                     return response()->json([
                         'code' => 'ALI00',
@@ -117,7 +122,7 @@ class AdminAuthController extends Controller
                     Log::debug("### Admin인증 실패(토큰) : " . $e->getMessage() .  "###");
                     $error = "오류가 발생했습니다. 페이지를 새로고침 후 재 로그인해주세요";
                     return response()->json([
-                        'code' => 'ALI06',
+                        'code' => 'ALI07',
                         'error' => $error
                     ]);
                 }
@@ -126,7 +131,7 @@ class AdminAuthController extends Controller
             $error = "서버 오류가 발생했습니다. 페이지를 새로고침 후 재 로그인해주세요";
             Log::debug("### Admin인증 실패(예외): " . $e->getMessage() . "###");
             return response()->json([
-                'code' => 'AL04',
+                'code' => 'ALI08',
                 'error' => $error
             ], 500);
         }  
