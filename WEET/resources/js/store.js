@@ -20,9 +20,11 @@ const store = createStore({
     },
 
     mutations: {
+        // 모달 오픈
         setToggleModal(state) {
             state.showmodal = true;
         },
+        // 모달 클로즈
         setCloseModal(state) {
             state.showmodal = false;
         },
@@ -32,14 +34,29 @@ const store = createStore({
 		setAdminToken(state, token) {
 			state.adminToken = token;
 		},
+        // 로그인 시 유저 데이터
         setUserData(state, userData) {
             state.userData = userData;
         },
+        // 유저 로그인 체크
         setUserLoginChk(state, userLoginChk) {
             state.userLoginChk = userLoginChk;
         },
+        // 로그인했을 때 유저ID값
         setUserID(state, userID) {
             state.userID = userID;
+        },
+        // 유저 로그인 정보 저장용
+        setSaveToLocalStorage(state, data) {
+            state.userData.userCheck = data.sessionDataCheck;
+            state.userData.userID = data.userID;
+            localStorage.setItem('userID', data.userId);
+            localStorage.setItem('userCheck', data.sessionDataCheck);
+
+            // 로컬스토리지의 정보 삭제부분(시간설정)
+            setTimeout(function() {
+                localStorage.clear();
+            }, 2 * 60 * 60 * 1000);
         },
     
     },
@@ -99,6 +116,7 @@ const store = createStore({
                 console.log(res);
 
                 if (res.data.success) {
+                    context.commit('setSaveToLocalStorage', res.data);
                     context.commit('setUserData', res.data.userData);
                     context.commit('setUserLoginChk', res.data.sessionDataCheck);
                     context.commit('setUserID', res.data.userId);

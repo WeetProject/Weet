@@ -21004,26 +21004,14 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  computed: {
-    showModal: function showModal() {
-      return this.$store.state.showModal;
-    }
+  computed: {},
+  // 로컬스토리지에 유저정보 저장
+  // created() : Vue애플리케이션이 생성된 후 컴포넌트가 생성되고 
+  // DOM이 렌더링되기 직전에 호출되는 시점
+  created: function created() {
+    this.loadUserLoginStatus();
   },
-  mounted: function mounted() {
-    // axios.get('/getUserData')
-    // .then(response2 => {
-    // 	if (response2.data.userChk) {
-    // 		alert('로그인 성공\n로그인에 성공했습니다.');
-    // 		// this.$store.commit('setSaveToLocalStorage', response2.data);
-    // 		this.$store.commit('setUserLoginChk', response2.data.sessionDataCheck);
-    // 		this.$store.commit('setUserID', response2.data.userId);
-    // 	}
-    // })
-    // .catch(error => {
-    // 	console.error('Error fetching data:', error);
-    // });
-    // window.addEventListener('scroll', this.handleScroll);
-  },
+  mounted: function mounted() {},
   methods: {
     // 모달 토글 액션을 Store에 커밋
     toggleModal: function toggleModal() {
@@ -21050,6 +21038,15 @@ __webpack_require__.r(__webpack_exports__);
     logout: function logout() {
       this.$store.dispatch('logout');
       localStorage.clear();
+    },
+    // 로컬스토리지에 있는 유저 정보를 저장하기 위한 함수.
+    loadUserLoginStatus: function loadUserLoginStatus() {
+      var userLoginChk = localStorage.getItem('userCheck');
+      var userID = localStorage.getItem('userID');
+      if (userLoginChk !== null) {
+        this.$store.commit('setUserLoginChk', userLoginChk);
+        this.$store.commit('setUserID', userID);
+      }
     }
   }
   // mounted() {
@@ -24068,9 +24065,11 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)({
     };
   },
   mutations: {
+    // 모달 오픈
     setToggleModal: function setToggleModal(state) {
       state.showmodal = true;
     },
+    // 모달 클로즈
     setCloseModal: function setCloseModal(state) {
       state.showmodal = false;
     },
@@ -24080,14 +24079,29 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)({
     setAdminToken: function setAdminToken(state, token) {
       state.adminToken = token;
     },
+    // 로그인 시 유저 데이터
     setUserData: function setUserData(state, userData) {
       state.userData = userData;
     },
+    // 유저 로그인 체크
     setUserLoginChk: function setUserLoginChk(state, userLoginChk) {
       state.userLoginChk = userLoginChk;
     },
+    // 로그인했을 때 유저ID값
     setUserID: function setUserID(state, userID) {
       state.userID = userID;
+    },
+    // 유저 로그인 정보 저장용
+    setSaveToLocalStorage: function setSaveToLocalStorage(state, data) {
+      state.userData.userCheck = data.sessionDataCheck;
+      state.userData.userID = data.userID;
+      localStorage.setItem('userID', data.userId);
+      localStorage.setItem('userCheck', data.sessionDataCheck);
+
+      // 로컬스토리지의 정보 삭제부분(시간설정)
+      setTimeout(function () {
+        localStorage.clear();
+      }, 2 * 60 * 60 * 1000);
     }
   },
   actions: {
@@ -24142,6 +24156,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)({
         context.dispatch('closeLoginModal');
         console.log(res);
         if (res.data.success) {
+          context.commit('setSaveToLocalStorage', res.data);
           context.commit('setUserData', res.data.userData);
           context.commit('setUserLoginChk', res.data.sessionDataCheck);
           context.commit('setUserID', res.data.userId);

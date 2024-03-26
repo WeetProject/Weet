@@ -133,25 +133,18 @@ import store from '../../js/store.js';
 	    },
 
 		computed: {
-			showModal() {
-				return this.$store.state.showModal;
-			}
+			
 		},
 
+		// 로컬스토리지에 유저정보 저장
+		// created() : Vue애플리케이션이 생성된 후 컴포넌트가 생성되고 
+		// DOM이 렌더링되기 직전에 호출되는 시점
+		created() {
+        	this.loadUserLoginStatus();
+    	},
+
 		mounted() {
-			// axios.get('/getUserData')
-			// .then(response2 => {
-			// 	if (response2.data.userChk) {
-			// 		alert('로그인 성공\n로그인에 성공했습니다.');
-			// 		// this.$store.commit('setSaveToLocalStorage', response2.data);
-			// 		this.$store.commit('setUserLoginChk', response2.data.sessionDataCheck);
-			// 		this.$store.commit('setUserID', response2.data.userId);
-			// 	}
-			// })
-			// .catch(error => {
-			// 	console.error('Error fetching data:', error);
-			// });
-			// window.addEventListener('scroll', this.handleScroll);
+			
 		},
 
 		methods: {
@@ -183,6 +176,17 @@ import store from '../../js/store.js';
 			logout() {
 				this.$store.dispatch('logout');
 				localStorage.clear();
+        	},
+
+			// 로컬스토리지에 있는 유저 정보를 저장하기 위한 함수.
+			loadUserLoginStatus() {
+				const userLoginChk = localStorage.getItem('userCheck');
+				const userID = localStorage.getItem('userID');
+
+				if (userLoginChk !== null) {
+					this.$store.commit('setUserLoginChk', userLoginChk);
+					this.$store.commit('setUserID', userID);
+				}
         	},
     	},
 		// mounted() {
