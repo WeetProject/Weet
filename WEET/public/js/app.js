@@ -20877,7 +20877,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       admin_number: '',
-      admin_password: '',
+      password: '',
       error: ''
     };
   },
@@ -20886,7 +20886,7 @@ __webpack_require__.r(__webpack_exports__);
       var URL = '/admin';
       var adminLoginFormData = new FormData();
       adminLoginFormData.append('admin_number', this.admin_number);
-      adminLoginFormData.append('admin_password', this.admin_password);
+      adminLoginFormData.append('password', this.password);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, adminLoginFormData).then(function (response) {
         console.log("response ", response.data);
 
@@ -22272,14 +22272,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.admin_number]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "text-base admin_login_input",
     type: "password",
-    name: "admin_password",
-    id: "admin_password",
+    name: "password",
+    id: "password",
     autocomplete: "off",
     placeholder: "Enter your Password",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return $data.admin_password = $event;
+      return $data.password = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.admin_password]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.password]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_login_button",
     type: "submit",
     onClick: _cache[2] || (_cache[2] = function () {

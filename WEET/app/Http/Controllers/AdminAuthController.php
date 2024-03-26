@@ -23,13 +23,10 @@ class AdminAuthController extends Controller
             return response()->json("Admin account not found", 404);
         }
 
-        $credentials = [
-            'admin_number' => $loginAdminAccount->admin_number,
-            'admin_password' => $loginAdminAccount->admin_password,
-        ];
+        $credentials = $request->only('admin_number', 'password');
 
         log::debug($credentials);
-        
+
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json("Failed to create token", 500);

@@ -88,7 +88,7 @@ class AdminValidation
 				'required', 
 				'regex:/^\d{1,10}$/',
 			],
-            'admin_password' => [
+            'password' => [
                 'required',
                 'string',
                 'regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/',
