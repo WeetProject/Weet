@@ -61,9 +61,10 @@ Route::middleware('adminValidation')->prefix('admin')->group(function() {
     });
     Route::post('/', [AdminAuthController::class, 'adminLogin'])->name('adminLogin');
     Route::get('/logout', [AdminAuthController::class, 'adminLogout']);
-    Route::post('/', [AdminSignUpController::class, 'adminNumberCheck'])->name('adminNumberCheck');
-    Route::post('/', [AdminSignUpController::class, 'adminSignUp'])->name('adminSignUp');
+    // Route::post('/', [AdminSignUpController::class, 'adminNumberCheck'])->name('adminNumberCheck');
+    // Route::post('/', [AdminSignUpController::class, 'adminSignUp'])->name('adminSignUp');
 });
+
 
 
 
