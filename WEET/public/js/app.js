@@ -21029,6 +21029,12 @@ __webpack_require__.r(__webpack_exports__);
     toggleModal: function toggleModal() {
       this.$store.commit('setToggleModal');
       this.showmodal = true;
+      // if (!this.$store.state.userLoginChk) {
+      // 	this.$store.commit('setToggleModal');
+      // 	this.showmodal = true;
+      // } else {
+      // 	this.closeModal();
+      // }
     },
     closeModal: function closeModal() {
       this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
@@ -21038,6 +21044,7 @@ __webpack_require__.r(__webpack_exports__);
     submitUserLoginData: function submitUserLoginData() {
       console.log("로그인정보");
       this.$store.dispatch('submitUserLoginData', this.frmUserLoginData);
+      this.showmodal = false;
     },
     // 로그아웃
     logout: function logout() {
@@ -22341,7 +22348,9 @@ var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   style: {
     "margin": "0 5px 0 0"
   }
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", null, "mypage")], -1 /* HOISTED */);
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  href: "/mypage"
+}, "mypage")])], -1 /* HOISTED */);
 var _hoisted_11 = {
   key: 2,
   "class": "modal"
@@ -22390,11 +22399,11 @@ var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, "Sign Up")])])], -1 /* HOISTED */);
 var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<hr><div class=\"card__social_login_text\"><p>- Social Login -</p></div><div class=\"card__social_btn\"><button class=\"card__social_btn_google\"><img src=\"" + _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__["default"] + "\" alt=\"\"></button><button class=\"card__social_btn_kakao\"><img src=\"" + _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__["default"] + "\" alt=\"\"></button></div>", 3);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return !['/admin', '/admin/index'].includes(_ctx.$route.fullPath) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [!$data.frmUserLoginData ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  return !['/admin', '/admin/index'].includes(_ctx.$route.fullPath) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [!_ctx.$store.state.userLoginChk ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.toggleModal && $options.toggleModal.apply($options, arguments);
     })
-  }, "login"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent v-if=\"showmodal\" @closeModal=\"closemodal\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"/login\">login</a> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.frmUserLoginData ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, "login"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent v-if=\"showmodal\" @closeModal=\"closemodal\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"/login\">login</a> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.$store.state.userLoginChk ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[1] || (_cache[1] = function () {
       return $options.logout && $options.logout.apply($options, arguments);
     })
@@ -24107,6 +24116,14 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)({
         alert('네트워크 오류가 발생했습니다. 페이지를 새로고침 후 다시 로그인해주세요');
       });
     },
+    openLoginModal: function openLoginModal(_ref3) {
+      var commit = _ref3.commit;
+      commit('setToggleModal');
+    },
+    closeLoginModal: function closeLoginModal(_ref4) {
+      var commit = _ref4.commit;
+      commit('setCloseModal');
+    },
     // 유저 login
     submitUserLoginData: function submitUserLoginData(context, data) {
       var url = '/login';
@@ -24122,10 +24139,13 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)({
         userPassword: data.userPassword
       };
       axios__WEBPACK_IMPORTED_MODULE_1___default().post(url, requestData, header).then(function (res) {
-        // context.dispatch('setCloseModal');
+        context.dispatch('closeLoginModal');
         console.log(res);
         if (res.data.success) {
           context.commit('setUserData', res.data.userData);
+          context.commit('setUserLoginChk', res.data.sessionDataCheck);
+          context.commit('setUserID', res.data.userId);
+          // context.commit('setCloseModal');
 
           // const loginUserData = res.data.userData.userID;
           console.log("백처리", res.data);
@@ -24135,8 +24155,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)({
           // localStorage.setItem('loginUserEmail', res.data.userEmail);
           localStorage.setItem('setUserData', res.data.userData);
           alert('로그인 성공. 페이지를 새로 고칩니다.');
-          location.reload();
+          // location.reload();
           // this.$router.push('/');
+          _js_router_js__WEBPACK_IMPORTED_MODULE_0__["default"].push('/');
         } else {
           alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
         }

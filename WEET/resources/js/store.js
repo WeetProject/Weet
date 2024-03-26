@@ -71,6 +71,13 @@ const store = createStore({
             });
         },
 
+        openLoginModal({ commit }) {
+            commit('setToggleModal');
+        },
+        closeLoginModal({ commit }) {
+            commit('setCloseModal');
+        },
+
         // 유저 login
         submitUserLoginData(context, data) {
             const url = '/login';
@@ -88,11 +95,14 @@ const store = createStore({
         
             axios.post(url, requestData, header)
             .then(res => { 
-                // context.dispatch('setCloseModal');
+                context.dispatch('closeLoginModal');
                 console.log(res);
 
                 if (res.data.success) {
                     context.commit('setUserData', res.data.userData);
+                    context.commit('setUserLoginChk', res.data.sessionDataCheck);
+                    context.commit('setUserID', res.data.userId);
+                    // context.commit('setCloseModal');
 
                     // const loginUserData = res.data.userData.userID;
                     console.log("백처리", res.data);
@@ -103,8 +113,9 @@ const store = createStore({
 					localStorage.setItem('setUserData', res.data.userData);
 
                     alert('로그인 성공. 페이지를 새로 고칩니다.');
-                    location.reload();
+                    // location.reload();
                     // this.$router.push('/');
+                    router.push('/');
                 } else {
                     alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
                 }

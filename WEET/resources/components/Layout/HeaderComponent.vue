@@ -15,14 +15,16 @@
 						</svg>
 					</button>
 					<div class="header_nav_login_btn">
-						<div v-if="!frmUserLoginData" class="header_nav_login_btn_user">
+						<div v-if="!$store.state.userLoginChk" class="header_nav_login_btn_user">
 							<button @click="toggleModal">login</button>
 							<!-- <LoginComponent v-if="showmodal" @closeModal="closemodal" /> -->
 							<!-- <a href="/login">login</a> -->
 						</div>
-						<div v-if="frmUserLoginData" class="header_nav_login_btn_user">
+						<div v-if="$store.state.userLoginChk" class="header_nav_login_btn_user">
 							<div style="margin: 0 5px 0 0;">
-								<button>mypage</button>
+								<button>
+									<a href="/mypage">mypage</a>
+								</button>
 							</div>
 							<div>
 								<button @click="logout">logout</button>
@@ -158,6 +160,12 @@ import store from '../../js/store.js';
 			toggleModal() {
 				this.$store.commit('setToggleModal');
 				this.showmodal = true;
+				// if (!this.$store.state.userLoginChk) {
+				// 	this.$store.commit('setToggleModal');
+				// 	this.showmodal = true;
+				// } else {
+				// 	this.closeModal();
+				// }
     		},
 			closeModal() {
             	this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
@@ -168,6 +176,7 @@ import store from '../../js/store.js';
 			submitUserLoginData() {
 				console.log("로그인정보");
 				this.$store.dispatch('submitUserLoginData', this.frmUserLoginData);
+				this.showmodal = false;
 			},
 
 			// 로그아웃
