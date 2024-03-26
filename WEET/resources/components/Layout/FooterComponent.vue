@@ -83,14 +83,26 @@
                 </a>
             </div>
             <div class="header_mobile_nav_icon_user">
-                <!-- <a href="/login"> -->
-                    <button @click="toggleModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                        </svg>
-                    </button>
-                <!-- </a> -->
+                
+                    <div v-if="!$store.state.userLoginChk">
+                        <button @click="toggleModal">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div v-if="$store.state.userLoginChk">
+                        <button>
+                            <a href="/mypage">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg>
+                            </a>
+                        </button>
+                    </div>
+                
             </div>
         </div>
         <!-- 로그인 모달 -->
@@ -118,19 +130,19 @@
 										<form class="card__form">
 											<div class="card__form_email">
 												
-												<label for="email">Email:</label>
-													<input id="email" class="card__input" type="email" />
+												<label for="email">Email</label>
+													<input id="email" class="card__input" type="email" v-model="frmUserLoginData.userEmail" />
 											</div>
 											<div class="card__form_pw">
 												
-												<label for="password">Password:</label>
-													<input id="password" class="card__input" type="password" />
+												<label for="password">Password</label>
+													<input id="password" class="card__input" type="password" v-model="frmUserLoginData.userPassword" />
 											</div>
 						
 
 											<div class="card__form_button">
 												<div>
-													<button class="card__button" type="button">
+													<button class="card__button" type="button" @click="submitUserLoginData">
 														<span>Login</span>
 													</button>
 												</div>  
@@ -158,7 +170,8 @@
 									</section>
 								</div>
 								<div>
-									<button @click="showmodal = false">Close</button>
+									<!-- <button @click="showmodal = false">Close</button> -->
+									<button @click="closeModal">Close</button>
 								</div>
 							</div>
 						</div>
@@ -178,11 +191,15 @@ export default {
 	// 		LoginComponent,
 	// 	},
 
-        data() {
-            return {
-                showmodal: false,
-            }
-	    },
+    data() {
+        return {
+            showmodal: false,
+            frmUserLoginData: {
+                userEmail: '',
+                userPassword: '',
+            },
+        }
+    },
 
     methods: {
         // adjustFooterPosition() {
@@ -198,14 +215,6 @@ export default {
         //         footer.style.bottom = 'auto';
         //     }
         // }
-        // toggleModal() {
-		// 		// 모달을 열고 닫는 토글 메서드
-        //     	// this.showmodal = !this.showmodal;
-        //     	this.showmodal = true; // 모달을 열고 닫는 토글 메서드
-        // 	},
-        // closeModal() {
-        //     	this.showmodal = false; // 모달을 닫는 메서드
-        // 	}
         toggleModal() {
 			this.$store.commit('setToggleModal');
             this.showmodal = true;
@@ -213,6 +222,29 @@ export default {
         closeModal() {
             this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
             this.showmodal = false;
+        },
+        // 로그인
+        submitUserLoginData() {
+            console.log("로그인정보");
+            this.$store.dispatch('submitUserLoginData', this.frmUserLoginData);
+            this.showmodal = false;
+        },
+
+        // 로그아웃
+        logout() {
+            this.$store.dispatch('logout');
+            localStorage.clear();
+        },
+
+        // 로컬스토리지에 있는 유저 정보를 저장하기 위한 함수.
+        loadUserLoginStatus() {
+            const userLoginChk = localStorage.getItem('userCheck');
+            const userID = localStorage.getItem('userID');
+
+            if (userLoginChk !== null) {
+                this.$store.commit('setUserLoginChk', userLoginChk);
+                this.$store.commit('setUserID', userID);
+            }
         },
     },
     
