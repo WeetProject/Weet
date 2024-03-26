@@ -79,7 +79,8 @@ class AdminAuthController extends Controller
     
             // Admin_flg 저장
             $adminFlg = $loginAdminAccount->admin_flg;
-            log::debug($adminFlg);
+            // Admin_name 저장
+            $adminName = $loginAdminAccount->admin_name;
     
             // 로그인 성공 시 토큰 처리
             if ($adminFlg === '0') {
@@ -99,9 +100,7 @@ class AdminAuthController extends Controller
                 Cache::forget('Admin로그인시도' . $request->admin_number);
                 Log::debug("### 사원번호 {$request->admin_number} 로그인 시도 횟수: $loginAttempt 초기화 ###");
 
-                $tokenInfo = $request->only('admin_number', 'password', 'admin_name', 'admin_flg');
-
-                log::debug($tokenInfo);
+                $tokenInfo = $request->only('admin_number', 'password');
 
                 try {
                     if (!$token = JWTAuth::attempt($tokenInfo)) {
@@ -115,8 +114,8 @@ class AdminAuthController extends Controller
                     return response()->json([
                         'code' => 'ALI00',
                         'token' => $token,
-                        'admin_name' => $loginAdminAccount->admin_name,
-                        'admin_flg' => $loginAdminAccount->admin_flg
+                        'adminFlg' => $adminFlg,
+                        'adminName' => $adminName
                     ], 200);
                 } catch (JWTException $e) {
                     Log::debug("### Admin인증 실패(토큰) : " . $e->getMessage() .  "###");

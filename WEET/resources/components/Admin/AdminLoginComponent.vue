@@ -9,15 +9,15 @@
 					<svg class="admin_login_input_svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
 					</svg>
-					<input v-model="admin_number" class="text-base admin_login_input" type="text" name="admin_number" id="admin_number" 
-					autocomplete="off" placeholder="Enter your ID" @input="clearError">
+					<input class="text-base admin_login_input" type="text" name="admin_number" id="admin_number" 
+					autocomplete="off" placeholder="Enter your ID" @input="clearError" v-model="admin_number">
 				</div>
 				<div class="admin_login_input_area">
 					<svg class="admin_login_input_svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
 					</svg>
-					<input v-model="password" class="text-base admin_login_input" type="password" name="password" id="password" 
-					autocomplete="off" placeholder="Enter your Password" @input="clearError">
+					<input class="text-base admin_login_input" type="password" name="password" id="password" 
+					autocomplete="off" placeholder="Enter your Password" @input="clearError" v-model="password">
 				</div>				
 				<div class="admin_login_button_area">
 					<button class="admin_login_button" type="submit" @click="adminLogin">
@@ -64,14 +64,17 @@ export default {
 				.then(response => {
 					if(response.data.code === "ALI00") {
 						const token = response.data.token
-						console.log(token);
+						const adminFlg = response.data.adminFlg
+						const adminName = response.data.adminName
 						localStorage.setItem('token', token)
+						localStorage.setItem('adminFlg', adminFlg)
+						localStorage.setItem('adminName', adminName)
 						this.$router.push('/admin/index'); 
 					} else {                
 						this.error = error.response.data.error;
 					}
 				})
-				.catch(error => {             
+				.catch(error => {
 					this.error = error.response.data.error;
 				});			
         },

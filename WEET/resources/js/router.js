@@ -32,7 +32,14 @@ const routes = [
 	},
 	{
 		path: '/admin/index',
-		component: AdminIndexComponent
+		component: AdminIndexComponent,
+		beforeEnter: (to, from, next) => {
+            if (!localStorage.getItem('token')) {
+                next('/admin');
+            } else {
+                next();
+            }
+        },
 	},
 	{
 		path: '/signup',

@@ -45,3 +45,6 @@
 7. 날짜초기화 라이브러리
     - 참고 : https://date-fns.org
     - npm install date-fns
+
+8. jwt 토큰 decode
+    - npm install vue-jwt-decode
