@@ -55,8 +55,8 @@ export default {
 				admin_number: '',
 				password: '',
 			},			
-			adminLoginError: '', // 에러 출력용
-			adminLoginAlertError: '', // 에러 Alert출력용
+			adminLoginError: '', // Admin 로그인 에러 출력용
+			adminLoginAlertError: '', // Admin 로그인 에러 Alert출력용
         }
     },
 

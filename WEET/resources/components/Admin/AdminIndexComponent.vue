@@ -59,7 +59,7 @@
 								</li>
 							</ul>
 						</li>
-						<li class="admin_index_left_nav_li">
+						<li class="admin_index_left_nav_li" v-if="adminAuthority">
 							<a class="admin_index_left_nav_dropdown_a" href="#" @click="toggleAdminDropdown">
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 admin_index_left_nav_dropdown_left_svg">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
@@ -106,11 +106,14 @@
 							<span class="mb-5 text-xl font-bold">반가워요, {{ adminNameInfo }} 관리자님!</span>
 							<span>시스템 관리를 간편하고 효율적으로 할 수 있도록 도와드릴게요.</span>
 						</div>
-						<a href="#">
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-							</svg>
-						</a>
+						<div class="admin_index_right_top_logout_area">
+							<a class="admin_index_right_top_logout_a" href="/admin" @click="adminLogout" v-if="adminToken">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
+								</svg>
+								Log Out
+							</a>
+						</div>
 					</div>	
 				</div>
 				<div class="admin_index_right_middle_container">
@@ -201,7 +204,6 @@
 </template>
 <script>
 import axios from 'axios';
-import VueJwtDecode from 'vue-jwt-decode'
 export default {
     name:'AdminIndexComponent',
     
@@ -209,9 +211,12 @@ export default {
 		return {
 			userDropdown: false,
 			adminDropdown: false,
+			// admin 로그인 데이터
 			adminToken: '',
 			adminFlgInfo: '',
 			adminNameInfo: '',			
+			adminAuthority: false, // Admin 메뉴 권한 확인용
+			adminLogoutAlertError: '', // Admin 로그아웃 에러 Alert출력용
 		};
 	},
 
@@ -220,15 +225,13 @@ export default {
 		this.adminFlgInfo = localStorage.getItem('adminFlg');
 		this.adminNameInfo = localStorage.getItem('adminName');
 
-		console.log('Token:', this.adminToken);
-		console.log('Admin Flag:', this.adminFlgInfo);
-		console.log('Admin Name:', this.adminNameInfo);
-
-		if (this.adminToken && this.adminFlgInfo && this.adminNameInfo) {
+		if(this.adminToken && this.adminFlgInfo && this.adminNameInfo) {
 			if(this.adminFlgInfo === '1') {
-				this.adminFlgInfo = 'Sub'
+				this.adminFlgInfo = 'Sub Admin';
+				this.adminAuthority = false;
 			} else if(this.adminFlgInfo === '2') {
-				this.adminFlgInfo = 'Root'
+				this.adminFlgInfo = 'Root Admin';
+				this.adminAuthority = true;
 			} else {
 				alert("로그인을 다시 해주세요.");
 				this.$router.push('/admin');
@@ -242,6 +245,31 @@ export default {
 		},
 		toggleAdminDropdown() {
 			this.adminDropdown = !this.adminDropdown;
+		},
+
+		adminLogout() {
+			const URL = '/admin/logout';
+			const token = localStorage.getItem('token');
+			const config = {
+				headers: {
+					'Authorization': `Bearer ${token}`
+				}
+			};
+			axios.get(URL, config)
+			.then(response => {
+				if(response.data.code === "ALO00") {
+						localStorage.clear();
+						alert('로그아웃 되었습니다.');
+						this.$router.push('/admin'); 
+					} else {                
+						this.adminLogoutAlertError = response.data.error
+						alert(this.adminLogoutAlertError);
+					}
+			})
+			.catch(error => {
+				this.adminLogoutAlertError = error.response.data.error
+				alert(this.adminLogoutAlertError);
+			});
 		},
 
 	}

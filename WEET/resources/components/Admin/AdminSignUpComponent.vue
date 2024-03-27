@@ -115,8 +115,8 @@ export default {
                 adminValidationErrorPasswordConfirm: '',
                 adminValidationErrorAdminName: '',
             },
-            adminSignUpError: '', // 에러 출력용
-			success: '', // 성공 출력용
+            adminSignUpError: '', // Admin 회원가입 에러 출력용
+			adminSuccess: '', // Admin 회원가입 성공 출력용
         }
     },
 
@@ -141,8 +141,8 @@ export default {
 			axios.post(URL, adminSignupFormData)
 				.then(response => {
 					if(response.data.code === "ASU00") {
-						this.success = response.data.success;
-                        alert(this.success);
+						this.adminSuccess = response.data.success;
+                        alert(this.adminSuccess);
 						this.$router.push('/admin'); 
 					} else {                
 						this.adminSignUpError = error.response.data.error;

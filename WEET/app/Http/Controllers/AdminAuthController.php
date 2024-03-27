@@ -102,7 +102,7 @@ class AdminAuthController extends Controller
 
                 // 로그인 시도 횟수 초기화
                 Cache::forget('Admin로그인시도' . $request->admin_number);
-                Log::debug("### 사원번호 {$request->admin_number} 로그인 시도 횟수: $loginAttempt 초기화 ###");
+                Log::debug("### 사원번호 {$request->admin_number} 로그인 시도 횟수: $adminLoginAttempt 초기화 ###");
 
                 $tokenInfo = $request->only('admin_number', 'password');
 
@@ -143,25 +143,31 @@ class AdminAuthController extends Controller
     public function adminLogout() {
         try {
             // 사용 중인 토큰 수집
-            $adminToken = JWTAuth::parseToken();
-            // 토큰 무효화
-            $adminToken->invalidate();
+            $adminToken = JWTAuth::getToken();
+            if ($adminToken) {
+                // 토큰 무효화
+                JWTAuth::invalidate($adminToken);
+                Log::debug("### Admin 로그아웃 : 토큰 무효화 완료 ###");
+            } else {
+                Log::debug("### Admin 로그아웃 : 토큰 없음 ###");
+            }
+            
         } catch (Exception $e) {
             $error = "로그아웃 중에 오류가 발생했습니다. 페이지를 새로고침 후 재 로그아웃해주세요";
-            Log::debug('로그아웃 시 예외 발생: ' . $e->getMessage());
+            Log::debug("### 로그아웃 시 예외 발생: " . $e->getMessage() . "###");
             return response()->json([
-                'code' => 'AL04',
+                'code' => 'ALO01',
                 'error' => $error
             ], 500);
-        }
-    
+        }    
         // 로그아웃
         Auth::logout();
+        Log::debug("### Admin 로그아웃 : 로그아웃 처리완료 ###");
         // 세션 파기
         Session::flush();
-    
+        Log::debug("### Admin 로그아웃 : 세션 파기 완료 ###");
         return response()->json([
-            'code' => 'AL00'
+            'code' => 'ALO00'
         ], 200);
     }
 }
