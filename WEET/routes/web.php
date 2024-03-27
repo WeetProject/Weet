@@ -60,13 +60,15 @@ Route::middleware('adminValidation')->prefix('admin')->group(function() {
     Route::get('/', function () {
         return view('welcome');
     });
+    Route::get('/signup', function () {
+        return view('welcome');
+    });
     Route::get('/index', function () {
         return view('welcome');
     });
     Route::post('/', [AdminAuthController::class, 'adminLogin'])->name('adminLogin');
     Route::get('/logout', [AdminAuthController::class, 'adminLogout']);
-    // Route::post('/', [AdminSignUpController::class, 'adminNumberCheck'])->name('adminNumberCheck');
-    // Route::post('/', [AdminSignUpController::class, 'adminSignUp'])->name('adminSignUp');
+    Route::post('/signup', [AdminSignUpController::class, 'adminSignUp'])->name('adminSignUp');
 });
 
 

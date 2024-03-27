@@ -21,7 +21,7 @@ class AdminValidation
         $requestData = $request->all();
         Log::debug("### Admin 요청 데이터: " . json_encode($requestData) . "###");
         
-        $isAdminSignUpRequest = $request->method() === 'POST' && $request->route()->getName() == 'adminSignUp' && $request->has('admin_password_confirm');
+        $isAdminSignUpRequest = $request->method() === 'POST' && $request->route()->getName() == 'adminSignUp' && $request->has('password_confirm');
 
         Log::debug("### Admin 요청: " . ($isAdminSignUpRequest ? "회원가입" : "로그인") . " ###");
 
@@ -71,11 +71,11 @@ class AdminValidation
                 'min:8',
                 'regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/',
                 'max:20',
-                'same:admin_password',
+                'same:password',
             ],
             'admin_name' => [
 				'required', 
-				'regex:/^[\p{Hangul}]{1,5}$/u'
+				'regex:/^[가-힣]{1,50}$/'
 			],
         ];
     }
@@ -99,13 +99,24 @@ class AdminValidation
     // Admin 회원가입에 대한 유효성 검사 실패 시 처리
     private function adminSignUpValidationFailure($validator)
     {   
-        $error = "입력하신 정보를 다시 확인해주세요.";
-        $logMessage = "Admin 추가 유효성 검사 실패";
-        Log::debug("### $logMessage ###");
-        return response()->json([
-            'code' => 'AV01',
-            'error' => $error
-        ], 422);
+        if ($validator->errors()->has('admin_number')) {
+            $confirmAdminNumber = $validator->getData()['admin_number'];
+            $error = "입력하신 사원번호는 이미 사용중입니다.";
+            $logMessage = "Admin 추가 유효성 검사 실패 / 사원번호 중복";
+            Log::debug("### $logMessage ###");
+            return response()->json([
+                'code' => 'AV01',
+                'error' => $error
+            ], 422);
+        } else {
+            $error = "입력하신 정보를 다시 확인해주세요.";
+            $logMessage = "Admin 추가 유효성 검사 실패";
+            Log::debug("### $logMessage ###");
+            return response()->json([
+                'code' => 'AV01',
+                'error' => $error
+            ], 422);
+        }        
     }
 
     // Admin 로그인에 대한 유효성 검사 실패 시 처리

@@ -514,6 +514,10 @@ video {
   margin-left: auto;
   margin-right: auto;
 }
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -543,6 +547,24 @@ video {
 }
 .mt-3 {
   margin-top: 0.75rem;
+}
+.ml-3 {
+  margin-left: 0.75rem;
+}
+.mr-3 {
+  margin-right: 0.75rem;
+}
+.ml-5 {
+  margin-left: 1.25rem;
+}
+.ml-10 {
+  margin-left: 2.5rem;
+}
+.mr-10 {
+  margin-right: 2.5rem;
+}
+.mt-5 {
+  margin-top: 1.25rem;
 }
 .box-border {
   box-sizing: border-box;

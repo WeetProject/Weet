@@ -19,17 +19,17 @@ class AdminAuthController extends Controller
 	public function adminLogin(Request $request) {
         try {
             // 로그인 최대 시도 횟수(5회)
-            $maxLoginAttempt = 6;
+            $maxAdminLoginAttempt = 6;
             // 5회 초과 10분간 로그인 시도 차단(10분)
-            $loginLockTime = 600;
+            $adminLoginLockTime = 600;
 
             // 실패한 로그인 시도 횟수 확인
-            $loginAttempt = Cache::get('Admin로그인시도' . $request->admin_number, 1);
-            Log::debug("### 사원번호 {$request->admin_number} 로그인 시도 횟수: $loginAttempt ###");
+            $adminLoginAttempt = Cache::get('Admin로그인시도' . $request->admin_number, 1);
+            Log::debug("### 사원번호 {$request->admin_number} 로그인 시도 횟수: $adminLoginAttempt ###");
 
             // 로그인 최대 시도 횟수 초과
-            if ($loginAttempt > $maxLoginAttempt) {
-                Cache::put('Admin로그인차단' . $request->admin_number, true, $loginLockTime);
+            if ($adminLoginAttempt > $maxAdminLoginAttempt) {
+                Cache::put('Admin로그인차단' . $request->admin_number, true, $adminLoginLockTime);
                 $error = "로그인 시도가 너무 많습니다. 약 10분 후 재 로그인해주세요";
                 return response()->json([
                     'code' => 'ALI01',
@@ -38,10 +38,11 @@ class AdminAuthController extends Controller
             }
 
             // 로그인 최대 시도 횟수 초과 계정 확인
-            $loginAttemptBlock = Cache::get('Admin로그인차단계정' . $request->admin_number, false);
-            if ($loginAttemptBlock) {
+            $adminLoginAttemptBlock = Cache::get('Admin로그인차단계정' . $request->admin_number, false);
+            if ($adminLoginAttemptBlock) {
                 // 사용자가 차단 중인 경우
                 $error = "로그인 시도가 너무 많습니다. 약 10분 후 재 로그인해주세요";
+                // 429 catch 데이터 리턴
                 return response()->json([
                     'code' => 'ALI01',
                     'error' => $error
@@ -50,13 +51,14 @@ class AdminAuthController extends Controller
             
             // 로그인 계정 정보 조회
             $loginAdminAccount = Admin::where('admin_number', $request->admin_number)->first();
+            Log::debug($loginAdminAccount);
     
             // 로그인 실패 처리(사번 불일치)
             if (!$loginAdminAccount) {
                 // 로그인 시도 횟수 추가
                 Cache::increment('Admin로그인시도' . $request->admin_number);
-                $loginAttempt = Cache::get('Admin로그인시도' . $request->admin_number, 0);
-                Log::debug("### 사원번호 {$request->admin_number} 로그인 시도 횟수: $loginAttempt ###");
+                $adminLoginAttempt = Cache::get('Admin로그인시도' . $request->admin_number, 0);
+                Log::debug("### 사원번호 {$request->admin_number} 로그인 시도 횟수: $adminLoginAttempt ###");
                 $error = "사원번호를 다시 확인해주세요";
                 Log::debug("### Admin인증 실패 : 사원번호 불일치 ###");
                 return response()->json([
@@ -83,14 +85,16 @@ class AdminAuthController extends Controller
             $adminName = $loginAdminAccount->admin_name;
     
             // 로그인 성공 시 토큰 처리
-            if ($adminFlg === '0') {
+            if ((int)$adminFlg === 0) {
                 $error = "로그인 권한이 필요합니다.";
+                // 로그인 시도 횟수 추가
+                Cache::increment('Admin로그인시도' . $request->admin_number);
                 Log::debug("### Admin인증 실패 : 권한 없음 ###");
                 return response()->json([
                     'code' => 'ALI05',
                     'error' => $error
                 ], 400);
-            } else if ($adminFlg == '1' || $adminFlg == '2') {
+            } else if ($adminFlg == 1 || $adminFlg == 2) {
                 // sub Admin 또는 root Admin 로그인 처리
                 Auth::login($loginAdminAccount);
                 // 토큰 생성

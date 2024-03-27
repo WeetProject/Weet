@@ -203,7 +203,7 @@
 import axios from 'axios';
 import VueJwtDecode from 'vue-jwt-decode'
 export default {
-    name:'AdminComponent',
+    name:'AdminIndexComponent',
     
 	data() {
 		return {

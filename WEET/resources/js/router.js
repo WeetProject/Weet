@@ -5,9 +5,12 @@ import TestComponent from '../components/TestComponent.vue';
 import MypageComponent from '../components/User/MypageComponent.vue';
 import ReservationComponent from '../components/Reservation/ReservationComponent.vue';
 import SignUpComponent from '../components/User/SignUpComponent.vue';
-import AdminLoginComponent from '../components/Admin/AdminLoginComponent.vue';
-import AdminIndexComponent from '../components/Admin/AdminIndexComponent.vue';
 import LoginComponent from '../components/User/LoginComponent.vue';
+
+// Admin
+import AdminLoginComponent from '../components/Admin/AdminLoginComponent.vue';
+import AdminSignUpComponent from '../components/Admin/AdminSignUpComponent.vue';
+import AdminIndexComponent from '../components/Admin/AdminIndexComponent.vue';
 
 const routes = [
 	{
@@ -29,6 +32,10 @@ const routes = [
 	{
 		path: '/admin',
 		component: AdminLoginComponent
+	},
+	{
+		path: '/admin/signup',
+		component: AdminSignUpComponent
 	},
 	{
 		path: '/admin/index',

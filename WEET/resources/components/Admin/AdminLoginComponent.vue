@@ -7,18 +7,21 @@
 				</div>
 				<div class="admin_login_input_area">
 					<svg class="admin_login_input_svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-					</svg>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+                    </svg>
 					<input class="text-base admin_login_input" type="text" name="admin_number" id="admin_number" 
-					autocomplete="off" placeholder="Enter your ID" @input="clearError" v-model="admin_number">
+					autocomplete="off" placeholder="Enter your ID" @input="clearAdminLoginError" v-model="adminLoginFormData.admin_number">
 				</div>
 				<div class="admin_login_input_area">
 					<svg class="admin_login_input_svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
 					</svg>
 					<input class="text-base admin_login_input" type="password" name="password" id="password" 
-					autocomplete="off" placeholder="Enter your Password" @input="clearError" v-model="password">
-				</div>				
+					autocomplete="off" placeholder="Enter your Password" @input="clearAdminLoginError" v-model="adminLoginFormData.password">
+				</div>
+				<div class="w-full text-center admin_login_error_area">
+					<span class="font-semibold text-rose-600">{{ adminLoginError }}</span>
+				</div>		
 				<div class="admin_login_button_area">
 					<button class="admin_login_button" type="submit" @click="adminLogin">
 						<div class="admin_login_button_text_area">
@@ -29,9 +32,9 @@
 						</div>
 					</button>
 				</div>
-				<div class="w-full text-center admin_login_error_area">
-					<span class="font-semibold text-rose-600">{{ error }}</span>
-				</div>
+				<div class="w-full mb-5 text-center admin_login_signup_area">
+					<router-link to="/admin/signup" class="font-semibold admin_login_signup_area">admin 등록↗</router-link>
+				</div>				
 			</div>
 
 			<div class="admin_login_right_section">
@@ -47,21 +50,30 @@ export default {
 
 	data() {
         return {
-			admin_number: '',
-			password: '',
-			error: '',
+			// Admin 로그인 데이터
+			adminLoginFormData: {
+				admin_number: '',
+				password: '',
+			},			
+			adminLoginError: '', // 에러 출력용
+			adminLoginAlertError: '', // 에러 Alert출력용
         }
     },
 
 	methods: {
 		adminLogin() {
+			if(!(this.adminLoginFormData.admin_number && this.adminLoginFormData.password)) {
+				this.adminLoginError = '사원번호 또는 비밀번호를 입력해주세요.';
+				return;
+            } 
 			const URL = '/admin';
 			const adminLoginFormData = new FormData();
-			adminLoginFormData.append('admin_number', this.admin_number);
-			adminLoginFormData.append('password', this.password);
+			adminLoginFormData.append('admin_number', this.adminLoginFormData.admin_number);
+			adminLoginFormData.append('password', this.adminLoginFormData.password);
 			
 			axios.post(URL, adminLoginFormData)
 				.then(response => {
+					console.log('응답 데이터:', response.data);
 					if(response.data.code === "ALI00") {
 						const token = response.data.token
 						const adminFlg = response.data.adminFlg
@@ -70,17 +82,19 @@ export default {
 						localStorage.setItem('adminFlg', adminFlg)
 						localStorage.setItem('adminName', adminName)
 						this.$router.push('/admin/index'); 
-					} else {                
-						this.error = error.response.data.error;
+					} else {
+						this.adminLoginError = response.data.error;
 					}
 				})
 				.catch(error => {
-					this.error = error.response.data.error;
+					this.adminLoginAlertError = error.response.data.error
+					alert(this.adminLoginAlertError);
 				});			
         },
 
-		clearError() {
-			this.error = '';
+		// 에러 초기화
+		clearAdminLoginError() {
+			this.adminLoginError = '';
 		}
 	}
 }
