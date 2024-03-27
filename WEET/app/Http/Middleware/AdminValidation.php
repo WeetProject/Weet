@@ -49,14 +49,13 @@ class AdminValidation
         return $next($request);
     }
 
-    // Admin 추가 유효성 검사 규칙
+    // Admin 회원가입 유효성 검사 규칙
     private function adminSignUpValidationRule() 
     {
         return [
             'admin_number' => [
 				'required', 
-				'regex:/^\d{1,10}$/', 
-				'unique:admins,admin_number'
+				'regex:/^1\d{4}$/',
 			],
             'password' => [
                 'required',
@@ -99,24 +98,13 @@ class AdminValidation
     // Admin 회원가입에 대한 유효성 검사 실패 시 처리
     private function adminSignUpValidationFailure($validator)
     {   
-        if ($validator->errors()->has('admin_number')) {
-            $confirmAdminNumber = $validator->getData()['admin_number'];
-            $error = "입력하신 사원번호는 이미 사용중입니다.";
-            $logMessage = "Admin 추가 유효성 검사 실패 / 사원번호 중복";
-            Log::debug("### $logMessage ###");
-            return response()->json([
-                'code' => 'AV01',
-                'error' => $error
-            ], 422);
-        } else {
-            $error = "입력하신 정보를 다시 확인해주세요.";
-            $logMessage = "Admin 추가 유효성 검사 실패";
-            Log::debug("### $logMessage ###");
-            return response()->json([
-                'code' => 'AV01',
-                'error' => $error
-            ], 422);
-        }        
+        $error = "입력하신 정보를 다시 확인해주세요.";
+        $logMessage = "Admin 추가 유효성 검사 실패";
+        Log::debug("### $logMessage ###");
+        return response()->json([
+            'code' => 'AV01',
+            'error' => $error
+        ], 422);
     }
 
     // Admin 로그인에 대한 유효성 검사 실패 시 처리

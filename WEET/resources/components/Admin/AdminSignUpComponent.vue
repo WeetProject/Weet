@@ -10,7 +10,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
                     </svg>
 					<input class="text-base admin_signup_input" type="text"
-                        name="admin_number" id="admin_number" 
+                        name="admin_number" id="admin_number" maxlength="5"
                         autocomplete="off" placeholder="사원번호" 
                         @input="handleAdminNumberInput" v-model="adminSignupFormData.admin_number">
 				</div>
@@ -58,7 +58,7 @@
 				</div>
 				<div class="admin_signup_button_area">
                     <div class="mx-5 admin_signup_cancel_button">						
-						<button class="admin_cancel_button" type="button" @click="">
+						<button class="admin_cancel_button" type="button">
 							<div class="admin_cancel_button_text_area">
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="admin_signup_svg">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
@@ -77,7 +77,7 @@
                             </div>
                         </button>
                     </div>
-				</div>				
+				</div>
 			</div>
 
 			<div class="admin_signup_right_section">
@@ -128,8 +128,8 @@ export default {
         adminSignUp() {
             if(!(this.adminSignupFormData.admin_number && this.adminSignupFormData.password
                 && this.adminSignupFormData.password_confirm && this.adminSignupFormData.admin_name)) {
-                    this.adminSignUpError = '입력사항을 모두 입력해주세요.';
-                    return;
+				this.adminSignUpError = '입력사항을 모두 입력해주세요.';
+				return;
             } 
 			const URL = '/admin/signup';
 			const adminSignupFormData = new FormData();
@@ -142,75 +142,77 @@ export default {
 				.then(response => {
 					if(response.data.code === "ASU00") {
 						this.success = response.data.success;
-                        alert(success);
+                        alert(this.success);
 						this.$router.push('/admin'); 
 					} else {                
-						this.error = error.response.data.error;
+						this.adminSignUpError = error.response.data.error;
 					}
 				})
 				.catch(error => {
-					this.error = error.response.data.error;
+					this.adminSignUpError = error.response.data.error;
 				});			
         },
 
-        // 유효성 검사 에러 초기화
-        clearValidationError(inputName) {
-			this.adminValidationError[inputName] = '';
-        },
-
-        // 사번 유효성 검사
-        validationAdminNumber()  {
-			if (!this.adminSignupFormData.admin_number.match(/^\d{1,10}$/)) {
-				this.adminValidationError.adminValidationErrorAdminNumber = '숫자만 입력해주세요.';
-			} else {
-                this.adminValidationError.adminValidationErrorAdminNumber = '';
-            }
-		},
-
-		// 사번 유효성 검사 핸들러(유효성 검사 및 에러 초기화)
+		// ### 유효성검사 핸들러(유효성 검사 및 에러 초기화) ###
+		// 사번
         handleAdminNumberInput() {
 			this.validationAdminNumber();
 			if (!this.adminSignupFormData.admin_number) {
-				this.clearValidationError('adminValidationErrorAdminNumber');	
+				this.clearValidationError('adminValidationErrorAdminNumber');
 			}
+			this.adminSignUpError = '';
         },
-        
-
-        // 비밀번호 유효성 검사
-        validationAdminPassword()  {
-			if (!this.adminSignupFormData.password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/)) {
-				this.adminValidationError.adminValidationErrorPassword = '보안이 취약합니다. 영문과 숫자, 특수문자를 포함해주세요';
-			} else {
-                this.adminValidationError.adminValidationErrorPassword = '';
-            }
-		},
-
-		// 비밀번호 유효성 검사 핸들러(유효성 검사 및 에러 초기화)
+		// 비밀번호
         handleAdminPasswordInput() {
             this.validationAdminPassword();
 			if (!this.adminSignupFormData.password) {
-				this.clearValidationError('adminValidationErrorPassword');	
+				this.clearValidationError('adminValidationErrorPassword');
 			}
+			this.adminSignUpError = '';
         },
-        
-        // 비밀번호 일치 여부 유효성 검사
-        validationAdminPasswordConfirm() {
-			if(this.adminSignupFormData.password_confirm !== this.adminSignupFormData.password) {
-				this.adminValidationError.adminValidationErrorPasswordConfirm = '비밀번호와 비밀번호 확인이 일치하지 않습니다';
-			} else {
-                this.adminValidationError.adminValidationErrorPasswordConfirm = '';
-            }
-		},
-
-		// 비밀번호 일치 여부 유효성 검사 핸들러(유효성 검사 및 에러 초기화)
+		// 비밀번호 일치 여부
         handleAdminPasswordConfirmInput() {
             this.validationAdminPasswordConfirm();
 			if (!this.adminSignupFormData.password_confirm) {
-				this.clearValidationError('adminValidationErrorPasswordConfirm');	
+				this.clearValidationError('adminValidationErrorPasswordConfirm');
 			}
+			this.adminSignUpError = '';
+        },
+		// 이름
+        handleAdminNameInput() {
+            this.validationAdminName();
+			if (!this.adminSignupFormData.admin_name) {
+				this.clearValidationError('adminValidationErrorAdminName');
+			}
+			this.adminSignUpError = '';
         },
 
-        // 이름 유효성 검사
+		// ### 유효성 검사 ###
+		// 사번
+		validationAdminNumber()  {
+			if (!this.adminSignupFormData.admin_number.match(/^1\d{4}$/)) {
+				this.adminValidationError.adminValidationErrorAdminNumber = '숫자만 입력해주세요.';
+			} else {
+				this.adminValidationError.adminValidationErrorAdminNumber = '';
+			}
+		},
+		// 비밀번호
+		validationAdminPassword()  {
+			if (!this.adminSignupFormData.password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/)) {
+				this.adminValidationError.adminValidationErrorPassword = '보안이 취약합니다. 영문과 숫자, 특수문자를 포함해주세요';
+			} else {
+				this.adminValidationError.adminValidationErrorPassword = '';
+			}
+		},
+		// 비밀번호 일치 여부
+		validationAdminPasswordConfirm() {
+			if(this.adminSignupFormData.password_confirm !== this.adminSignupFormData.password) {
+				this.adminValidationError.adminValidationErrorPasswordConfirm = '비밀번호와 비밀번호 확인이 일치하지 않습니다';
+			} else {
+				this.adminValidationError.adminValidationErrorPasswordConfirm = '';
+			}
+		},
+		// 이름
         validationAdminName() {
 			if(!this.adminSignupFormData.admin_name.match(/^[가-힣]{1,50}$/)) {
 				this.adminValidationError.adminValidationErrorAdminName = '한글만 입력해주세요.';
@@ -219,12 +221,9 @@ export default {
             }
 		},
 
-		// 이름 유효성 검사 핸들러(유효성 검사 및 에러 초기화)
-        handleAdminNameInput() {
-            this.validationAdminName();
-			if (!this.adminSignupFormData.admin_name) {
-				this.clearValidationError('adminValidationErrorAdminName');	
-			}
+        // 유효성 검사 에러 초기화
+        clearValidationError(inputName) {
+			this.adminValidationError[inputName] = '';
         },
     }
 }
