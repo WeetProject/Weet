@@ -57,15 +57,17 @@
 					<span class="text-xs font-semibold text-rose-600">{{ adminSignUpError }}</span>
 				</div>
 				<div class="admin_signup_button_area">
-                    <div class="mx-5 admin_signup_cancel_button">						
-						<button class="admin_cancel_button" type="button">
-							<div class="admin_cancel_button_text_area">
-								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="admin_signup_svg">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-								</svg>
-								<router-link to="/admin" class="text-base font-semibold">Cancel</router-link>
-							</div>
-						</button>						
+                    <div class="mx-5 admin_signup_cancel_button">
+						<router-link to="/admin" class="flex w-full text-base font-semibold">				
+							<button class="admin_cancel_button" type="button">
+								<div class="admin_cancel_button_text_area">								
+									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="admin_signup_svg">
+										<path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+									</svg>
+									Cancel								
+								</div>
+							</button>	
+						</router-link>					
                     </div>
                     <div class="mx-5 admin_signup_signup_button">
                         <button class="admin_signup_button" type="submit" @click="adminSignUp">
