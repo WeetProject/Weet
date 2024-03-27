@@ -24456,6 +24456,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)({
         }
       };
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url, header).then(function (res) {
+        console.log('로그아웃', res);
         context.commit('setUserLoginChk', res.data.sessionDataCheck);
         localStorage.clear();
         if (confirm('로그아웃 성공\n로그아웃에 성공했습니다. 페이지를 새로고침 하시겠습니까?')) {
