@@ -5,9 +5,9 @@
 				<div class="admin_index_left_info_section">
 					<span class="text-xl font-semibold admin_index_left_info_name_area">
 						<img class="admin_index_left_info_image" src="../../../public/images/WEET_logo.png" alt="">
-						여중기 님</span>
+						{{ adminNameInfo }} 님</span>
 					</div>
-					<p class="mb-5 font-semibold text-center">권한 : Lv2</p>
+					<p class="mb-5 font-semibold text-center">권한 : {{ adminFlgInfo }}</p>
 				<hr>
 				<div class="admin_index_left_search_section">
 					<input class="admin_index_left_search_input" type="search" name="" id="" placeholder="Search here">
@@ -103,7 +103,7 @@
 				<div class="admin_index_right_top_container">
 					<div class="admin_index_right_top_title_section">
 						<div class="admin_index_right_top_title_area">
-							<span class="mb-5 text-xl font-bold">반가워요, 여중기 관리자님!</span>
+							<span class="mb-5 text-xl font-bold">반가워요, {{ adminNameInfo }} 관리자님!</span>
 							<span>시스템 관리를 간편하고 효율적으로 할 수 있도록 도와드릴게요.</span>
 						</div>
 						<a href="#">
@@ -200,14 +200,40 @@
 	</div>
 </template>
 <script>
+import axios from 'axios';
+import VueJwtDecode from 'vue-jwt-decode'
 export default {
     name:'AdminComponent',
     
 	data() {
 		return {
 			userDropdown: false,
-			adminDropdown: false
+			adminDropdown: false,
+			adminToken: '',
+			adminFlgInfo: '',
+			adminNameInfo: '',			
 		};
+	},
+
+	mounted() {
+		this.adminToken = localStorage.getItem('token');
+		this.adminFlgInfo = localStorage.getItem('adminFlg');
+		this.adminNameInfo = localStorage.getItem('adminName');
+
+		console.log('Token:', this.adminToken);
+		console.log('Admin Flag:', this.adminFlgInfo);
+		console.log('Admin Name:', this.adminNameInfo);
+
+		if (this.adminToken && this.adminFlgInfo && this.adminNameInfo) {
+			if(this.adminFlgInfo === '1') {
+				this.adminFlgInfo = 'Sub'
+			} else if(this.adminFlgInfo === '2') {
+				this.adminFlgInfo = 'Root'
+			} else {
+				alert("로그인을 다시 해주세요.");
+				this.$router.push('/admin');
+			}
+		}
 	},
 
 	methods: {
@@ -216,7 +242,8 @@ export default {
 		},
 		toggleAdminDropdown() {
 			this.adminDropdown = !this.adminDropdown;
-		}
+		},
+
 	}
 }
 </script>
