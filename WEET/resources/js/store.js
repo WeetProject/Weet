@@ -158,6 +158,7 @@ const store = createStore({
         
             axios.get(url, header)
             .then(res => {
+                console.log('로그아웃', res);
                 context.commit('setUserLoginChk', res.data.sessionDataCheck);
                 localStorage.clear();
         
