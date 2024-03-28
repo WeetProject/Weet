@@ -107,6 +107,7 @@ class UserController extends Controller
                 'token' => $token,
                 'user_email' => $userEmail,
             ], 200);
+        }
         // JWT 실패======================================================
         // $credentials = $result->only('user_email', 'password');
         // Log::debug("cred");
@@ -131,14 +132,14 @@ class UserController extends Controller
         //         'user_email' => $request->user_email,
         //     ], 200);
 
-        // } catch (JWTException $e) {
-        //     Log::debug("### User인증 실패(토큰) : " . $e->getMessage() .  "###");
-        //     $error = "오류가 발생했습니다. 페이지를 새로고침 후 재 로그인해주세요";
-        //     return response()->json([
-        //         'code' => 'ALI07',
-        //         'error' => $error
-        //     ]);
-        // }
+        catch (JWTException $e) {
+            Log::debug("### User인증 실패(토큰) : " . $e->getMessage() .  "###");
+            $error = "오류가 발생했습니다. 페이지를 새로고침 후 재 로그인해주세요";
+            return response()->json([
+                'code' => 'ALI07',
+                'error' => $error
+            ]);
+        }
         // JWT 실패======================================================
 
         // $userId = Auth::id();
@@ -163,8 +164,8 @@ class UserController extends Controller
         //         'success' => false,
         //         'message' => '인증 에러가 발생했습니다.',
         //     ]);
-        // }
-    }
+        }
+    
 
     // 로그아웃
     // public function logout(Request $request) {
