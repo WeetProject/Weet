@@ -20961,8 +20961,7 @@ __webpack_require__.r(__webpack_exports__);
           _this.adminLoginError = response.data.error;
         }
       })["catch"](function (error) {
-        _this.adminLoginAlertError = error.response.data.error;
-        alert(_this.adminLoginAlertError);
+        _this.adminLoginError = error.response.data.error;
       });
     },
     // 에러 초기화
@@ -22573,7 +22572,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onInput: _cache[0] || (_cache[0] = function () {
       return $options.clearAdminLoginError && $options.clearAdminLoginError.apply($options, arguments);
     }),
-    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+    onKeyup: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
+      return $options.adminLogin && $options.adminLogin.apply($options, arguments);
+    }, ["enter"])),
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $data.adminLoginFormData.admin_number = $event;
     })
   }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminLoginFormData.admin_number]])]), _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
@@ -22583,16 +22585,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "password",
     autocomplete: "off",
     placeholder: "비밀번호",
-    onInput: _cache[2] || (_cache[2] = function () {
+    onInput: _cache[3] || (_cache[3] = function () {
       return $options.clearAdminLoginError && $options.clearAdminLoginError.apply($options, arguments);
     }),
-    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+    onKeyup: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
+      return $options.adminLogin && $options.adminLogin.apply($options, arguments);
+    }, ["enter"])),
+    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return $data.adminLoginFormData.password = $event;
     })
   }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminLoginFormData.password]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminLoginError), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_login_button",
     type: "submit",
-    onClick: _cache[4] || (_cache[4] = function () {
+    onClick: _cache[6] || (_cache[6] = function () {
       return $options.adminLogin && $options.adminLogin.apply($options, arguments);
     })
   }, [].concat(_hoisted_14))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
@@ -22794,7 +22799,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onInput: _cache[0] || (_cache[0] = function () {
       return $options.handleAdminNumberInput && $options.handleAdminNumberInput.apply($options, arguments);
     }),
-    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+    onKeyup: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
+      return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
+    }, ["enter"])),
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $data.adminSignupFormData.admin_number = $event;
     })
   }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.admin_number]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorAdminNumber), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
@@ -22804,10 +22812,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "password",
     autocomplete: "off",
     placeholder: "비밀번호",
-    onInput: _cache[2] || (_cache[2] = function () {
+    onInput: _cache[3] || (_cache[3] = function () {
       return $options.handleAdminPasswordInput && $options.handleAdminPasswordInput.apply($options, arguments);
     }),
-    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+    onKeyup: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
+      return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
+    }, ["enter"])),
+    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return $data.adminSignupFormData.password = $event;
     })
   }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.password]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorPassword), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
@@ -22817,10 +22828,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "password_confirm",
     autocomplete: "off",
     placeholder: "비밀번호 확인",
-    onInput: _cache[4] || (_cache[4] = function () {
+    onInput: _cache[6] || (_cache[6] = function () {
       return $options.handleAdminPasswordConfirmInput && $options.handleAdminPasswordConfirmInput.apply($options, arguments);
     }),
-    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+    onKeyup: _cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
+      return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
+    }, ["enter"])),
+    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
       return $data.adminSignupFormData.password_confirm = $event;
     })
   }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.password_confirm]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorPasswordConfirm), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
@@ -22830,10 +22844,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "admin_name",
     autocomplete: "off",
     placeholder: "이름",
-    onInput: _cache[6] || (_cache[6] = function () {
+    onInput: _cache[9] || (_cache[9] = function () {
       return $options.handleAdminNameInput && $options.handleAdminNameInput.apply($options, arguments);
     }),
-    "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+    onKeyup: _cache[10] || (_cache[10] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
+      return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
+    }, ["enter"])),
+    "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
       return $data.adminSignupFormData.admin_name = $event;
     })
   }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.admin_name]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorAdminName), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminSignUpError), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
@@ -22847,7 +22864,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_signup_button",
     type: "submit",
-    onClick: _cache[8] || (_cache[8] = function () {
+    onClick: _cache[12] || (_cache[12] = function () {
       return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
     })
   }, [].concat(_hoisted_28))])])]), _hoisted_29])]);
