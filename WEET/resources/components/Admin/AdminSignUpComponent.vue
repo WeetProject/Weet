@@ -12,7 +12,8 @@
 					<input class="text-base admin_signup_input" type="text"
                         name="admin_number" id="admin_number" maxlength="5"
                         autocomplete="off" placeholder="사원번호" 
-                        @input="handleAdminNumberInput" v-model="adminSignupFormData.admin_number">
+                        @input="handleAdminNumberInput" @keyup.enter="adminSignUp"
+						v-model="adminSignupFormData.admin_number">
 				</div>
                 <div class="text-center admin_signup_validation_error_area">
                     <span class="text-xs font-semibold text-rose-600">{{ adminValidationError.adminValidationErrorAdminNumber }}</span>
@@ -24,7 +25,8 @@
 					<input class="text-base admin_signup_input" type="password" 
                         name="password" id="password" 
                         autocomplete="off" placeholder="비밀번호"
-                        @input="handleAdminPasswordInput" v-model="adminSignupFormData.password">
+                        @input="handleAdminPasswordInput" @keyup.enter="adminSignUp"
+						v-model="adminSignupFormData.password">
 				</div>
                 <div class="text-center admin_signup_validation_error_area">
                     <span class="text-xs font-semibold text-rose-600">{{ adminValidationError.adminValidationErrorPassword }}</span>
@@ -36,7 +38,8 @@
 					<input class="text-base admin_signup_input" type="password" 
                         name="password_confirm" id="password_confirm" 
                         autocomplete="off" placeholder="비밀번호 확인" 
-                        @input="handleAdminPasswordConfirmInput" v-model="adminSignupFormData.password_confirm">
+                        @input="handleAdminPasswordConfirmInput" @keyup.enter="adminSignUp"
+						v-model="adminSignupFormData.password_confirm">
 				</div>
                 <div class="text-center admin_signup_validation_error_area">
                     <span class="text-xs font-semibold text-rose-600">{{ adminValidationError.adminValidationErrorPasswordConfirm }}</span>
@@ -48,7 +51,8 @@
 					<input class="text-base admin_signup_input" type="text" 
                         name="admin_name" id="admin_name" 
                         autocomplete="off" placeholder="이름"
-                        @input="handleAdminNameInput" v-model="adminSignupFormData.admin_name">
+                        @input="handleAdminNameInput" @keyup.enter="adminSignUp"
+						v-model="adminSignupFormData.admin_name">
 				</div>
                 <div class="text-center admin_signup_validation_error_area">
                     <span class="text-xs font-semibold text-rose-600">{{ adminValidationError.adminValidationErrorAdminName }}</span>

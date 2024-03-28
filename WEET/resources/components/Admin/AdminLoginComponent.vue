@@ -12,7 +12,8 @@
 					<input class="text-base admin_login_input" type="text" 
 						name="admin_number" id="admin_number" maxlength="5"
 						autocomplete="off" placeholder="사원번호" 
-						@input="clearAdminLoginError" v-model="adminLoginFormData.admin_number">
+						@input="clearAdminLoginError" @keyup.enter="adminLogin"
+						v-model="adminLoginFormData.admin_number">
 				</div>
 				<div class="admin_login_error_area"></div>
 				<div class="admin_login_input_area">
@@ -22,7 +23,8 @@
 					<input class="text-base admin_login_input" type="password" 
 						name="password" id="password" 
 						autocomplete="off" placeholder="비밀번호" 
-						@input="clearAdminLoginError" v-model="adminLoginFormData.password">
+						@input="clearAdminLoginError" @keyup.enter="adminLogin"
+						v-model="adminLoginFormData.password">
 				</div>
 				<div class="w-full mt-5 text-center admin_login_error_area">
 					<span class="font-semibold text-rose-600">{{ adminLoginError }}</span>
@@ -66,7 +68,7 @@ export default {
     },
 
 	methods: {
-		adminLogin() {
+		adminLogin() {			
 			if(!(this.adminLoginFormData.admin_number && this.adminLoginFormData.password)) {
 				this.adminLoginError = '사원번호 또는 비밀번호를 입력해주세요.';
 				return;
@@ -92,8 +94,7 @@ export default {
 					}
 				})
 				.catch(error => {
-					this.adminLoginAlertError = error.response.data.error
-					alert(this.adminLoginAlertError);
+					this.adminLoginError = error.response.data.error
 				});			
         },
 

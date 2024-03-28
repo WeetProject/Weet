@@ -91,6 +91,22 @@ class UserController extends Controller
         // session(['user' => $result]);
         // session()->save();
 
+        $userEmail = $result->user_email;
+
+        $tokenInfo = $result->only('user_email', 'password');
+        Log::debug("토큰정보");
+        Log::debug($tokenInfo);
+        // todo 
+        // 필요한 추가데이터 넘겨주기, 로컬스토리지 토큰, 추가데이터 저장
+        // 리멤버 토큰에 토큰 저장
+        // 로그아웃시 user 테이블 리멤버 토큰 초기화
+        try {
+            $token = JWTAuth::fromUser($result);
+            return response()->json([
+                'code' => 'ALI00',
+                'token' => $token,
+                'user_email' => $userEmail,
+            ], 200);
         // JWT 실패======================================================
         // $credentials = $result->only('user_email', 'password');
         // Log::debug("cred");
