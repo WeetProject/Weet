@@ -80,21 +80,17 @@ class UserController extends Controller
         // session(['user' => $result]);
         // session()->save();
 
-        // $userEmail = $request->user_email;
+        $userEmail = $result->user_email;
 
-        $tokenInfo = $result->only('user_email');
+        $tokenInfo = $result->only('user_email', 'password');
         Log::debug("토큰정보");
         Log::debug($tokenInfo);
-
+        // todo 
+        // 필요한 추가데이터 넘겨주기, 로컬스토리지 토큰, 추가데이터 저장
+        // 리멤버 토큰에 토큰 저장
+        // 로그아웃시 user 테이블 리멤버 토큰 초기화
         try {
-            if (!$token = JWTAuth::attempt($tokenInfo)) {
-                Log::debug("### Admin인증 실패(토큰) : 토큰 생성 실패 ###");
-                $error = "오류가 발생했습니다. 페이지를 새로고침 후 재 로그인해주세요";
-                return response()->json([
-                    'code' => 'ALI06',
-                    'error' => $error
-                ], 500);
-            }
+            $token = JWTAuth::fromUser($result);
             return response()->json([
                 'code' => 'ALI00',
                 'token' => $token,
