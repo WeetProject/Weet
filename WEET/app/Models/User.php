@@ -71,6 +71,17 @@ class User extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            // 'user_flg',
+            // 'user_email',
+            // 'password',
+            // 'user_name',
+            // 'user_gender',
+            // 'user_birthdate',
+            // 'user_tel',
+            // 'user_postcode',
+            // 'user_basic_address',
+            // 'user_detail_address'
+        ];
     }
 }

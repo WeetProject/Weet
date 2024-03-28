@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
+// use Illuminate\Support\Facades\Auth;
 
 class UserValidation
 {
@@ -22,6 +23,8 @@ class UserValidation
     // php artisan make:middleware 미들웨어명
     public function handle(Request $request, Closure $next)
     {
+        // Auth::shouldUse('api_users');
+
         // ******************************************로직1****************************************************
         // 유저 정보 목록
         $userBaseKey = [

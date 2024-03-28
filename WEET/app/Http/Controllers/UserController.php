@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Cache;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class UserController extends Controller
 {
@@ -75,40 +76,54 @@ class UserController extends Controller
             ]);
         }
 
+        $token = JWTAuth::fromUser($result);
+        Log::debug("토큰");
+        Log::debug($token);
+
+        return response()->json([
+            'success' => true,
+            'message' => '사용자 로그인 성공',
+            'token' => $token,
+        ]);
+
         // 유저 인증 작업
-        Auth::login($result);
+        // Auth::login($result);
         // session(['user' => $result]);
         // session()->save();
 
-        // $userEmail = $request->user_email;
+        // JWT 실패======================================================
+        // $credentials = $result->only('user_email', 'password');
+        // Log::debug("cred");
+        // Log::debug($credentials);
 
-        $tokenInfo = $result->only('user_email');
-        Log::debug("토큰정보");
-        Log::debug($tokenInfo);
+        // try {
 
-        try {
-            if (!$token = JWTAuth::attempt($tokenInfo)) {
-                Log::debug("### Admin인증 실패(토큰) : 토큰 생성 실패 ###");
-                $error = "오류가 발생했습니다. 페이지를 새로고침 후 재 로그인해주세요";
-                return response()->json([
-                    'code' => 'ALI06',
-                    'error' => $error
-                ], 500);
-            }
-            return response()->json([
-                'code' => 'ALI00',
-                'token' => $token,
-                'user_email' => $userEmail,
-            ], 200);
+        //     if (!$token = JWTAuth::attempt($credentials)) {
+        //         Log::debug("토큰");
+        //         Log::debug($token);
 
-        } catch (JWTException $e) {
-            Log::debug("### User인증 실패(토큰) : " . $e->getMessage() .  "###");
-            $error = "오류가 발생했습니다. 페이지를 새로고침 후 재 로그인해주세요";
-            return response()->json([
-                'code' => 'ALI07',
-                'error' => $error
-            ]);
-        }
+        //         return response()->json([
+        //             'result' => false,
+        //             'code' => 401,
+        //             'message' => '이메일 또는 비밀번호가 올바르지 않습니다.'
+        //         ]);
+        //     }
+
+        //     return response()->json([
+        //         'code' => 'ALI00',
+        //         'token' => $token,
+        //         'user_email' => $request->user_email,
+        //     ], 200);
+
+        // } catch (JWTException $e) {
+        //     Log::debug("### User인증 실패(토큰) : " . $e->getMessage() .  "###");
+        //     $error = "오류가 발생했습니다. 페이지를 새로고침 후 재 로그인해주세요";
+        //     return response()->json([
+        //         'code' => 'ALI07',
+        //         'error' => $error
+        //     ]);
+        // }
+        // JWT 실패======================================================
 
         // $userId = Auth::id();
         // $userEmail = Auth::user()->user_email;
