@@ -40,7 +40,9 @@
 
 6. JWT
     - 참고 : https://hacktam.kr/etclec/120?sca=php
+    - 참고 : https://jwt-auth.readthedocs.io/en/docs/laravel-installation/
     - composer require tymon/jwt-auth
+    - php artisan jwt:secret
 
 7. 날짜초기화 라이브러리
     - 참고 : https://date-fns.org

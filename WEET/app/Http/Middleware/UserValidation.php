@@ -26,8 +26,8 @@ class UserValidation
         // 유저 정보 목록
         $userBaseKey = [
             'user_email',
-            'user_password',
-            'user_password_chk',
+            'password',
+            'password_chk',
             'user_name',
             'user_gender',
             'user_birthdate',
@@ -39,8 +39,8 @@ class UserValidation
 
         $arrBaseValidation = [
             'user_email' => 'regex:/^\S+@\S+\.\S+$/'
-            ,'user_password' => 'required|string|min:8|max:16|regex:/^(?=.*[a-zA-Z])(?=.*[!@#]).+$/'
-            ,'user_password_chk' => 'required|string|same:user_password'
+            ,'password' => 'required|string|min:8|max:16|regex:/^(?=.*[a-zA-Z])(?=.*[!@#]).+$/'
+            ,'password_chk' => 'required|string|same:password'
             ,'user_name' => 'required|string|min:2|regex:/^[a-zA-Z가-힣 ]+$/u'
             ,'user_tel' => 'required|string|regex:/^01[016789]\d{7,8}$/'
             ,'user_birthdate' => 'required|date_format:Y-m-d|before_or_equal:today'

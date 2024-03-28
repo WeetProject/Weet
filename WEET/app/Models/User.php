@@ -9,8 +9,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\softDeletes;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable, softDeletes;
 
@@ -24,7 +25,7 @@ class User extends Authenticatable
     protected $fillable = [
         'user_flg',
         'user_email',
-        'user_password',
+        'password',
         'user_name',
         'user_gender',
         'user_birthdate',
@@ -40,7 +41,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'user_password',
+        'password',
         'remember_token',
     ];
 
@@ -60,5 +61,16 @@ class User extends Authenticatable
 
     protected function serializeDate(DateTimeInterface $date) {
         return $date->format('Y-m-d');
+    }
+
+    // jwt 토큰
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

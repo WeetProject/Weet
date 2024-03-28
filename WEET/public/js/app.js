@@ -22036,8 +22036,8 @@ __webpack_require__.r(__webpack_exports__);
           genderValue = 'F';
         }
         frm.append('user_email', this.frmUserData.userEmail);
-        frm.append('user_password', this.frmUserData.userPassword);
-        frm.append('user_password_chk', this.frmUserData.userPasswordChk);
+        frm.append('password', this.frmUserData.userPassword);
+        frm.append('password_chk', this.frmUserData.userPasswordChk);
         frm.append('user_name', this.frmUserData.userName);
         frm.append('user_tel', this.frmUserData.userTel);
         // frm.append('user_gender', this.frmUserData.userGender);
@@ -22186,6 +22186,7 @@ __webpack_require__.r(__webpack_exports__);
       var frm = new FormData();
       frm.append('user_email', this.frmUserData.userEmail);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post(url, frm).then(function (res) {
+        console.log(res);
         if (res.data.message) {
           // 성공 메시지 표시
           if (confirm('사용 가능한 이메일입니다. 확인하시겠습니까?')) {
@@ -24155,7 +24156,7 @@ var _hoisted_7 = {
 var _hoisted_8 = {
   "class": "mypage_main_view_user_info_box"
 };
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">이메일</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>roseok624@gmail.com</span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input id=\"user_password\" name=\"user_password\" type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPassword&quot;&gt;{{ errors.userPassword }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPassword &amp;&amp; frmUserData.userPassword&quot;&gt;유효한 비밀번호입니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPassword&quot;&gt;{{ RegistrationErrorMessage.userPassword }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호 확인</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPasswordChk&quot;&gt;{{ errors.userPasswordChk }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPasswordChk &amp;&amp; frmUserData.userPasswordChk&quot;&gt;비밀번호가 일치합니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPasswordChk&quot;&gt;{{ RegistrationErrorMessage.userPasswordChk }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">이름</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>최현희</span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">연락처</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>010-****-7060</span></div></div></div>", 5);
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">이메일</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>roseok624@gmail.com</span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input id=\"password\" name=\"password\" type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPassword&quot;&gt;{{ errors.userPassword }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPassword &amp;&amp; frmUserData.userPassword&quot;&gt;유효한 비밀번호입니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPassword&quot;&gt;{{ RegistrationErrorMessage.userPassword }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호 확인</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPasswordChk&quot;&gt;{{ errors.userPasswordChk }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPasswordChk &amp;&amp; frmUserData.userPasswordChk&quot;&gt;비밀번호가 일치합니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPasswordChk&quot;&gt;{{ RegistrationErrorMessage.userPasswordChk }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">이름</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>최현희</span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">연락처</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>010-****-7060</span></div></div></div>", 5);
 var _hoisted_14 = {
   "class": "mypage_main_view_user_info_box_content"
 };
@@ -24177,10 +24178,16 @@ var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content_postcode_div\"><div class=\"mypage_main_view_user_info_box_content_postcode_div_label\"><span class=\"font-bold\">상세주소</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_postcode_div_input2\"><input id=\"user_detail_address\" name=\"user_detail_address\" type=\"address\" placeholder=\"나머지 주소를 입력해주세요\"></div></div>", 1);
 var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">성별</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>여</span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">생년월일</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>1993-06-24</span></div></div></div>", 2);
 var _hoisted_23 = {
-  key: 1
+  key: 1,
+  "class": "mypage_main_view_tab"
 };
-var _hoisted_24 = {
-  key: 2
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "mypage_main_view_user_reservation"
+}, null, -1 /* HOISTED */);
+var _hoisted_25 = [_hoisted_24];
+var _hoisted_26 = {
+  key: 2,
+  "class": "mypage_main_view_tab"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
@@ -24201,7 +24208,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[3] || (_cache[3] = function ($event) {
       return _ctx.openDaumPostcode();
     })
-  }, "검색")]), _hoisted_19]), _hoisted_20]), _hoisted_21])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.clickTab === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, " 예매내역이여 ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.clickTab === 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_24, " 찜한내역이여 ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+  }, "검색")]), _hoisted_19]), _hoisted_20]), _hoisted_21])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.clickTab === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, [].concat(_hoisted_25))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.clickTab === 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, " 찜한내역이여 ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
 }
 
 /***/ }),
@@ -24578,8 +24585,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["bi bi-check-all", $data.EmailDoubleCheck ? 'text-blue-500' : '']),
     viewBox: "0 0 16 16"
   }, [].concat(_hoisted_30), 2 /* CLASS */))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [_hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    id: "user_password",
-    name: "user_password",
+    id: "password",
+    name: "password",
     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return $data.frmUserData.userPassword = $event;
     }),
