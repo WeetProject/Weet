@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminSignUpController;
+use App\Http\Controllers\AdminIndexController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PaymentController;
@@ -69,6 +70,8 @@ Route::middleware('adminValidation')->prefix('admin')->group(function() {
     Route::post('/', [AdminAuthController::class, 'adminLogin'])->name('adminLogin');
     Route::get('/logout', [AdminAuthController::class, 'adminLogout']);
     Route::post('/signup', [AdminSignUpController::class, 'adminSignUp'])->name('adminSignUp');
+    Route::get('/index/totalData', [AdminIndexController::class, 'totalUserData']);
+    Route::get('/index/monthlyData', [AdminIndexController::class, 'monthlyData']);
 });
 
 

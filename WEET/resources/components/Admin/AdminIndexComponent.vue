@@ -126,8 +126,8 @@
 							</div>
 							<div class="admin_index_right_middle_number_of_transactions_text">
 								<p class="font-semibold">총 결제 건수</p>
-								<span class="text-3xl font-extrabold">10,000,000 </span>
-								<span class="font-semibold">건</span>
+								<span class="text-3xl font-extrabold">{{ totalUserDataFormat(totalPayment) }} </span>
+								<span class="font-semibold"> 건</span>
 							</div>
 						</div>
 					</div>
@@ -139,9 +139,9 @@
 								</svg>
 							</div>
 							<div class="admin_index_right_middle_paymont_amount_text">
-								<p class="font-semibold">총 결제금액</p>
-								<span class="text-3xl font-extrabold">10,000,000 </span>
-								<span class="font-semibold">원</span>
+								<p class="font-semibold">총 결제 금액</p>
+								<span class="text-3xl font-extrabold">{{ totalUserDataFormat(totalPaymentAmount) }} </span>
+								<span class="font-semibold"> 원</span>
 							</div>
 						</div>
 					</div>
@@ -154,8 +154,8 @@
 							</div>
 							<div class="admin_index_right_middle_register_users_text">
 								<p class="font-semibold">총 이용자 수</p>
-								<span class="text-3xl font-extrabold">10,000,000 </span>
-								<span class="font-semibold">명</span>
+								<span class="text-3xl font-extrabold">{{ totalUserDataFormat(totalUser) }} </span>
+								<span class="font-semibold"> 명</span>
 							</div>
 						</div>
 					</div>					
@@ -163,8 +163,10 @@
 				<div class="admin_index_right_bottom_container">
 					<div class="admin_index_right_bottom_chart_section">
 						<div class="admin_index_right_bottom_chart_area">
-							<p class="mb-5 text-xl font-semibold">월 별, 분기 별 통계</p>
-							<img class="admin_index_right_bottom_chart_image" src="../../../public/images/Admin_chart_ex.png" alt="">
+							<!-- <p class="mb-5 text-xl font-semibold">월 별, 분기 별 통계</p> -->
+							<div id="chart">
+								<apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
+							</div>
 						</div>
 					</div>
 					<div class="admin_index_right_bottom_text_section">
@@ -204,20 +206,81 @@
 </template>
 <script>
 import axios from 'axios';
+import VueApexCharts from "vue3-apexcharts";
 export default {
     name:'AdminIndexComponent',
+
+	components: {
+		apexchart: VueApexCharts,
+    },
     
 	data() {
 		return {
 			userDropdown: false,
 			adminDropdown: false,
-			// admin 로그인 데이터
+			// Admin 로그인 데이터
 			adminToken: '',
 			adminFlgInfo: '',
 			adminNameInfo: '',			
 			adminAuthority: false, // Admin 메뉴 권한 확인용
 			adminLogoutAlertError: '', // Admin 로그아웃 에러 Alert출력용
-		};
+			// Total 데이터 저장용
+			totalPayment: 0,
+			totalPaymentAmount: 0,
+			totalUser: 0,
+			// 통합 데이터 저장용
+			monthlyReservation: [],
+			monthlyPaymentAmount: [],
+			// Index 차트 데이터
+			series: [{
+				name: '예약 건수',
+				color: '#FFB6C1',
+				data: []
+			}, {
+				name: '결제 금액(단위:백만) ',
+				color: '#FFD700',
+				data: []
+			}],
+			chartOptions: {
+				chart: {
+					type: 'bar',
+				},
+				plotOptions: {
+					bar: {
+						horizontal: false,
+						columnWidth: '55%',
+						endingShape: 'rounded',						
+					},
+				},
+				dataLabels: {
+					enabled: false,					
+				},
+				stroke: {
+					show: true,
+					width: 2,
+					colors: ['transparent']
+				},
+				xaxis: {
+					categories: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+				},
+				yaxis: {
+				},
+				fill: {
+					opacity: 1,
+					colors: ['#FFB6C1', '#FFD700'],
+				},
+				tooltip: {
+				}
+			},
+			//
+		}
+	},
+
+	created() {
+		// 총 결제 건수, 총 결제 금액, 총 이용자 수
+		this.totalUserData();
+		// 통합 데이터(월별 예약, 월별 결제)
+		this.monthlyData()
 	},
 
 	mounted() {
@@ -236,17 +299,19 @@ export default {
 				alert("로그인을 다시 해주세요.");
 				this.$router.push('/admin');
 			}
-		}
+		}		
 	},
 
 	methods: {
+		// User 드롭다운
 		toggleUserDropdown() {
 			this.userDropdown = !this.userDropdown;
 		},
+		// Admin 드롭다운
 		toggleAdminDropdown() {
 			this.adminDropdown = !this.adminDropdown;
 		},
-
+		// Admin 로그아웃
 		adminLogout() {
 			const URL = '/admin/logout';
 			const token = localStorage.getItem('token');
@@ -256,22 +321,71 @@ export default {
 				}
 			};
 			axios.get(URL, config)
-			.then(response => {
-				if(response.data.code === "ALO00") {
-						localStorage.clear();
-						alert('로그아웃 되었습니다.');
-						this.$router.push('/admin'); 
-					} else {                
-						this.adminLogoutAlertError = response.data.error
-						alert(this.adminLogoutAlertError);
-					}
-			})
-			.catch(error => {
-				this.adminLogoutAlertError = error.response.data.error
-				alert(this.adminLogoutAlertError);
-			});
+				.then(response => {
+					if(response.data.code === "ALO00") {
+							localStorage.clear();
+							alert('로그아웃 되었습니다.');
+							this.$router.push('/admin'); 
+						} else {                
+							this.adminLogoutAlertError = response.data.error
+							alert(this.adminLogoutAlertError);
+						}
+				})
+				.catch(error => {
+					this.adminLogoutAlertError = error.response.data.error
+					alert(this.adminLogoutAlertError);
+				});
 		},
-
+		// Total 데이터 수신
+		totalUserData() {
+			const URL = '/admin/index/totalData';
+			axios.get(URL)
+				.then(response => {
+					if(response.data.code === "TD00") {
+						this.totalPayment = response.data.totalPayment;
+						this.totalPaymentAmount = response.data.totalPaymentAmount;
+						this.totalUser = response.data.totalUser;
+					} else {
+						console.error('서버 오류');
+					}
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		},
+		// Total 데이터 , 처리
+		totalUserDataFormat(totalUserData) {
+			if (totalUserData && totalUserData.toString().length > 3) {
+				return totalUserData.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			} else {
+				return totalUserData;
+			}
+		},
+		// Monthly 데이터 수신
+		monthlyData() {
+			const URL = '/admin/index/monthlyData';
+			axios.get(URL)
+				.then(response => {
+					if(response.data.code === "MD00") {
+						response.data.monthlyReservation.forEach(monthlyReservation => {
+							this.monthlyReservation.push(monthlyReservation.reservation_count);
+						});
+						response.data.monthlyPaymentAmount.forEach(monthlyPaymentAmount => {
+							// this.monthlyPaymentAmount.push(monthlyPaymentAmount.payment_count);
+							this.series[1].data.push(Math.floor(monthlyPaymentAmount.total_payment));
+						});
+						// // 월별 예약 건수
+						this.series[0].data = this.monthlyReservation;
+						// // 월별 결제 금액
+						// this.series[1].data = this.monthlyPaymentAmount;
+					} else {
+						console.error('서버 오류');
+					}
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		},
 	}
 }
 </script>

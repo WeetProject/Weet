@@ -50,3 +50,7 @@
 
 8. jwt 토큰 decode
     - npm install vue-jwt-decode
+
+9. ApexCharts 라이브러리
+    -npm install --save apexcharts
+    -npm install --save vue3-apexcharts
