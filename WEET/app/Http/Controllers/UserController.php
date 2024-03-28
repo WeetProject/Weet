@@ -76,94 +76,30 @@ class UserController extends Controller
             ]);
         }
 
+        // 유저 인증 작업
+        Auth::login($result);
+
         $token = JWTAuth::fromUser($result);
         Log::debug("토큰");
         Log::debug($token);
+        // $userEmail = $result->user_email;
 
+        // $tokenInfo = $result->only('user_email', 'password');
+        // Log::debug("토큰정보");
+        // Log::debug($tokenInfo);
         return response()->json([
             'success' => true,
             'message' => '사용자 로그인 성공',
-            'token' => $token,
         ]);
 
-        // 유저 인증 작업
-        // Auth::login($result);
-        // session(['user' => $result]);
-        // session()->save();
 
-        $userEmail = $result->user_email;
-
-        $tokenInfo = $result->only('user_email', 'password');
-        Log::debug("토큰정보");
-        Log::debug($tokenInfo);
         // todo 
         // 필요한 추가데이터 넘겨주기, 로컬스토리지 토큰, 추가데이터 저장
         // 리멤버 토큰에 토큰 저장
         // 로그아웃시 user 테이블 리멤버 토큰 초기화
-        try {
-            $token = JWTAuth::fromUser($result);
-            return response()->json([
-                'code' => 'ALI00',
-                'token' => $token,
-                'user_email' => $userEmail,
-            ], 200);
-        }
-        // JWT 실패======================================================
-        // $credentials = $result->only('user_email', 'password');
-        // Log::debug("cred");
-        // Log::debug($credentials);
-
-        // try {
-
-        //     if (!$token = JWTAuth::attempt($credentials)) {
-        //         Log::debug("토큰");
-        //         Log::debug($token);
-
-        //         return response()->json([
-        //             'result' => false,
-        //             'code' => 401,
-        //             'message' => '이메일 또는 비밀번호가 올바르지 않습니다.'
-        //         ]);
-        //     }
-
-        //     return response()->json([
-        //         'code' => 'ALI00',
-        //         'token' => $token,
-        //         'user_email' => $request->user_email,
-        //     ], 200);
-
-        catch (JWTException $e) {
-            Log::debug("### User인증 실패(토큰) : " . $e->getMessage() .  "###");
-            $error = "오류가 발생했습니다. 페이지를 새로고침 후 재 로그인해주세요";
-            return response()->json([
-                'code' => 'ALI07',
-                'error' => $error
-            ]);
-        }
-        // JWT 실패======================================================
-
-        // $userId = Auth::id();
-        // $userEmail = Auth::user()->user_email;
-        // Log::debug($userId);
-        // Log::debug($userEmail);
-
-        // if (Auth::check()) {
-
-        //     $sessionDataCheck = Auth::check();
-        //     Log::debug($sessionDataCheck);
-
-        //     return response()->json([
-        //         'success' => true,
-        //         'message' => '로그인이 성공적으로 수행되었습니다.',
-        //         'sessionDataCheck' => $sessionDataCheck,
-        //         'userId' => $userId,
-        //         'userEmail' => $userEmail, 
-        //     ]);
-        // } else {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => '인증 에러가 발생했습니다.',
-        //     ]);
+        // 1. 프론트에서 디코드 사용해서 정보 사용
+        // 2. 리멤버 토큰 사용(저장 후 로그아웃하면 null로 초기화)
+        
         }
     
 
