@@ -112,7 +112,7 @@
                                 <span class="font-bold">비밀번호</span><span style="color: red;">*</span>
                             </div>
                             <div class="regist_user_info_box_input">
-                                <input id="user_password" name="user_password" v-model="frmUserData.userPassword" @input="validateUserPassword" type="password" placeholder="영대소문자,숫자,특수문자(!@#)를 포함한 8~16자" minlength="8" maxlength="17">
+                                <input id="password" name="password" v-model="frmUserData.userPassword" @input="validateUserPassword" type="password" placeholder="영대소문자,숫자,특수문자(!@#)를 포함한 8~16자" minlength="8" maxlength="17">
                                 <div class="regist_message_container">
                                     <div class="error_message text-xs text-red-500" v-if="errors.userPassword">{{ errors.userPassword }}</div>
                                     <div class="success_message text-xs text-blue-500" v-else-if="!errors.userPassword && frmUserData.userPassword">유효한 비밀번호입니다.</div>
@@ -316,8 +316,8 @@ export default {
                 }
 
                 frm.append('user_email', this.frmUserData.userEmail);
-                frm.append('user_password', this.frmUserData.userPassword);
-                frm.append('user_password_chk', this.frmUserData.userPasswordChk);
+                frm.append('password', this.frmUserData.userPassword);
+                frm.append('password_chk', this.frmUserData.userPasswordChk);
                 frm.append('user_name', this.frmUserData.userName);
                 frm.append('user_tel', this.frmUserData.userTel);
                 // frm.append('user_gender', this.frmUserData.userGender);
@@ -482,6 +482,8 @@ export default {
 
             axios.post(url, frm)
             .then(res => {
+                console.log(res);
+
                 if (res.data.message) {
                     // 성공 메시지 표시
                     if (confirm('사용 가능한 이메일입니다. 확인하시겠습니까?')) {
