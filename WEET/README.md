@@ -53,5 +53,5 @@
     - npm install vue-jwt-decode
 
 9. ApexCharts 라이브러리
-    -npm install --save apexcharts
-    -npm install --save vue3-apexcharts
+    - npm install --save apexcharts
+    - npm install --save vue3-apexcharts
