@@ -170,6 +170,7 @@ import store from '../../js/store.js';
 			submitUserLoginData() {
 				console.log("로그인정보");
 				this.$store.dispatch('submitUserLoginData', this.frmUserLoginData);
+				// this.$router.push('/');
 				this.showmodal = false;
 			},
 

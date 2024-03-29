@@ -21389,6 +21389,7 @@ __webpack_require__.r(__webpack_exports__);
     submitUserLoginData: function submitUserLoginData() {
       console.log("로그인정보");
       this.$store.dispatch('submitUserLoginData', this.frmUserLoginData);
+      // this.$router.push('/');
       this.showmodal = false;
     },
     // 로그아웃
@@ -25172,6 +25173,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
     setSaveToLocalStorage: function setSaveToLocalStorage(state, data) {
       state.userData.userCheck = data.sessionDataCheck;
       state.userData.userID = data.userID;
+      state.userData.setToken = data.token;
       localStorage.setItem('userID', data.userId);
       localStorage.setItem('userCheck', data.sessionDataCheck);
       localStorage.setItem('setToken', data.token);
@@ -25223,6 +25225,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
           context.commit('setUserID', res.data.userId);
           context.commit('setToken', token);
 
+          // router.push('/');
+          // this.$router.push('/');
+
           // const loginUserData = res.data.userData.userID;
           console.log("백처리", res.data);
           // console.log(res.data.userData);
@@ -25232,9 +25237,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
           localStorage.setItem('setUserData', res.data.userData);
           localStorage.setItem('setToken', token);
           alert('로그인 성공. 페이지를 새로 고칩니다.');
-          // location.reload();
+          location.reload();
           // this.$router.push('/');
-          _js_router_js__WEBPACK_IMPORTED_MODULE_0__["default"].push('/');
+          // router.push('/');
         } else {
           alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
         }

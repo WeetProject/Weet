@@ -51,6 +51,7 @@ const store = createStore({
         setSaveToLocalStorage(state, data) {
             state.userData.userCheck = data.sessionDataCheck;
             state.userData.userID = data.userID;
+            state.userData.setToken = data.token;
             localStorage.setItem('userID', data.userId);
             localStorage.setItem('userCheck', data.sessionDataCheck);
             localStorage.setItem('setToken', data.token);
@@ -107,6 +108,9 @@ const store = createStore({
                     context.commit('setUserID', res.data.userId);
                     context.commit('setToken', token);
 
+                    // router.push('/');
+                    // this.$router.push('/');
+
                     // const loginUserData = res.data.userData.userID;
                     console.log("백처리", res.data);
                     // console.log(res.data.userData);
@@ -117,9 +121,9 @@ const store = createStore({
 					localStorage.setItem('setToken', token);
 
                     alert('로그인 성공. 페이지를 새로 고칩니다.');
-                    // location.reload();
+                    location.reload();
                     // this.$router.push('/');
-                    router.push('/');
+                    // router.push('/');
                 } else {
                     alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
                 }
