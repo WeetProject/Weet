@@ -90,6 +90,7 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'message' => '사용자 로그인 성공',
+            'token' => $token,
         ]);
 
 

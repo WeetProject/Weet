@@ -55,3 +55,5 @@
 9. ApexCharts 라이브러리
     - npm install --save apexcharts
     - npm install --save vue3-apexcharts
+
+10. npm audit fix 검색해보기

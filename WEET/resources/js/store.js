@@ -3,6 +3,7 @@ import { createStore } from 'vuex';
 import Vuex from 'vuex';
 import router from '../js/router.js';
 import axios from "axios";
+import jwtDecode from 'vue-jwt-decode';
 
 const store = createStore({
 
@@ -52,11 +53,16 @@ const store = createStore({
             state.userData.userID = data.userID;
             localStorage.setItem('userID', data.userId);
             localStorage.setItem('userCheck', data.sessionDataCheck);
+            localStorage.setItem('setToken', data.token);
 
             // 로컬스토리지의 정보 삭제부분(시간설정)
             setTimeout(function() {
                 localStorage.clear();
             }, 2 * 60 * 60 * 1000);
+        },
+        // 유저 토큰 저장용
+        setToken(state, token) {
+            state.token = token;
         },
     
     },
@@ -89,13 +95,17 @@ const store = createStore({
             .then(res => { 
                 context.dispatch('closeLoginModal');
                 console.log(res);
+                
+				const token = res.data.token;
+				// const decoded = jwtDecode(token);
+				// console.log(decoded);
 
                 if (res.data.success) {
                     context.commit('setSaveToLocalStorage', res.data);
                     context.commit('setUserData', res.data.userData);
                     context.commit('setUserLoginChk', res.data.sessionDataCheck);
                     context.commit('setUserID', res.data.userId);
-                    // context.commit('setCloseModal');
+                    context.commit('setToken', token);
 
                     // const loginUserData = res.data.userData.userID;
                     console.log("백처리", res.data);
@@ -104,6 +114,7 @@ const store = createStore({
 					// localStorage.setItem('loginUserId', res.data.userId);
 					// localStorage.setItem('loginUserEmail', res.data.userEmail);
 					localStorage.setItem('setUserData', res.data.userData);
+					localStorage.setItem('setToken', token);
 
                     alert('로그인 성공. 페이지를 새로 고칩니다.');
                     // location.reload();

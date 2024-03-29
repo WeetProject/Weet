@@ -114,6 +114,7 @@ import LoginComponent from '../User/LoginComponent.vue';
 import axios from 'axios';
 import Vuex from 'vuex';
 import store from '../../js/store.js';
+// import jwtDecode from 'vue-jwt-decode';
 
     export default {
         name: 'HeaderComponent',
@@ -182,10 +183,12 @@ import store from '../../js/store.js';
 			loadUserLoginStatus() {
 				const userLoginChk = localStorage.getItem('userCheck');
 				const userID = localStorage.getItem('userID');
+				const token = localStorage.getItem('token');
 
 				if (userLoginChk !== null) {
 					this.$store.commit('setUserLoginChk', userLoginChk);
 					this.$store.commit('setUserID', userID);
+					this.$store.commit('setToken', token);
 				}
         	},
     	},
