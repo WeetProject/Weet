@@ -56,22 +56,36 @@ Route::get('/login', function () {
 
 
 
-// ### Admin Auth & Sign Up ###
+// ### Admin ###
 Route::middleware('adminValidation')->prefix('admin')->group(function() {
+    // Admin Login
     Route::get('/', function () {
         return view('welcome');
     });
+    // Admin Sign Up
     Route::get('/signup', function () {
         return view('welcome');
     });
+    // Admin Index
     Route::get('/index', function () {
         return view('welcome');
     });
+    // Admin User Management
+    Route::get('/usermanagement', function () {
+        return view('welcome');
+    });
+    // Admin Login 처리
     Route::post('/', [AdminAuthController::class, 'adminLogin'])->name('adminLogin');
+    // Admin Logout 처리
     Route::get('/logout', [AdminAuthController::class, 'adminLogout']);
+    // Admin Sign Up 처리
     Route::post('/signup', [AdminSignUpController::class, 'adminSignUp'])->name('adminSignUp');
+    // Admin Index - Total 데이터 송신
     Route::get('/index/totalData', [AdminIndexController::class, 'totalUserData']);
+    // Admin Index - Monthly 데이터 송신
     Route::get('/index/monthlyData', [AdminIndexController::class, 'monthlyData']);
+    // Admin User Management 데이터 송신
+    // Router::get('/usermanagement', [AdminUserManagementController::class, 'userTotalData']);
 });
 
 

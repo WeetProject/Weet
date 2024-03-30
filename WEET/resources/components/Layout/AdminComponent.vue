@@ -109,15 +109,23 @@
 				</div>
 			</div>
 			<div class="admin_index_right_container">
-				<div class="admin_index_right_top_container">
+				<!-- <div class="admin_index_right_top_container">
 					<div class="admin_index_right_top_title_section">
 						<div class="admin_index_right_top_title_area">
 							<span class="mb-5 text-xl font-bold">반가워요, {{ adminNameInfo }} 관리자님!</span>
 							<span>시스템 관리를 간편하고 효율적으로 할 수 있도록 도와드릴게요.</span>
 						</div>
+						<div class="admin_index_right_top_logout_area">
+							<a class="admin_index_right_top_logout_a" href="/admin" @click="adminLogout" v-if="adminToken">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
+								</svg>
+								Log Out
+							</a>
+						</div>
 					</div>	
-				</div>
-				<div class="admin_index_right_middle_container">
+				</div> -->
+				<!-- <div class="admin_index_right_middle_container">
 					<div class="mr-5 admin_index_right_middle_section">
 						<div class="admin_index_right_middle_number_of_transactions">
 							<div class="admin_index_right_middle_number_of_transactions_image">
@@ -160,11 +168,10 @@
 							</div>
 						</div>
 					</div>					
-				</div>
-				<div class="admin_index_right_bottom_container">
+				</div> -->
+				<!-- <div class="admin_index_right_bottom_container">
 					<div class="admin_index_right_bottom_chart_section">
 						<div class="admin_index_right_bottom_chart_area">
-							<!-- <p class="mb-5 text-xl font-semibold">월 별, 분기 별 통계</p> -->
 							<div id="chart">
 								<apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
 							</div>
@@ -200,88 +207,28 @@
 							</div>
 						</div>						
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
 </template>
 <script>
 import axios from 'axios';
-import VueApexCharts from "vue3-apexcharts";
 export default {
-    name:'AdminIndexComponent',
-
-	components: {
-		apexchart: VueApexCharts,
-    },
+    name:'AdminComponent',
     
 	data() {
 		return {
 			userDropdown: false,
 			adminDropdown: false,
-			// Admin 로그인 데이터
 			adminToken: '',
 			adminFlgInfo: '',
 			adminNameInfo: '',			
 			adminAuthority: false, // Admin 메뉴 권한 확인용
-			adminLogoutAlertError: '', // Admin 로그아웃 에러 Alert출력용
-			// Total 데이터 저장용
-			totalPayment: 0,
-			totalPaymentAmount: 0,
-			totalUser: 0,
-			// 통합 데이터 저장용
-			monthlyReservation: [],
-			monthlyPaymentAmount: [],
-			// Index 차트 데이터
-			series: [{
-				name: '예약 건수',
-				color: '#FFB6C1',
-				data: []
-			}, {
-				name: '결제 금액(단위:백만) ',
-				color: '#FFD700',
-				data: []
-			}],
-			chartOptions: {
-				chart: {
-					type: 'bar',
-				},
-				plotOptions: {
-					bar: {
-						horizontal: false,
-						columnWidth: '55%',
-						endingShape: 'rounded',						
-					},
-				},
-				dataLabels: {
-					enabled: false,					
-				},
-				stroke: {
-					show: true,
-					width: 2,
-					colors: ['transparent']
-				},
-				xaxis: {
-					categories: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-				},
-				yaxis: {
-				},
-				fill: {
-					opacity: 1,
-					colors: ['#FFB6C1', '#FFD700'],
-				},
-				tooltip: {
-				}
-			},
-			//
 		}
 	},
 
-	created() {
-		// 총 결제 건수, 총 결제 금액, 총 이용자 수
-		this.totalUserData();
-		// 통합 데이터(월별 예약, 월별 결제)
-		this.monthlyData()
+	created() { 
 	},
 
 	mounted() {
@@ -300,7 +247,7 @@ export default {
 				alert("로그인을 다시 해주세요.");
 				this.$router.push('/admin');
 			}
-		}		
+		}	
 	},
 
 	methods: {
@@ -335,56 +282,6 @@ export default {
 				.catch(error => {
 					this.adminLogoutAlertError = error.response.data.error
 					alert(this.adminLogoutAlertError);
-				});
-		},
-		// Total 데이터 수신
-		totalUserData() {
-			const URL = '/admin/index/totalData';
-			axios.get(URL)
-				.then(response => {
-					if(response.data.code === "TD00") {
-						this.totalPayment = response.data.totalPayment;
-						this.totalPaymentAmount = response.data.totalPaymentAmount;
-						this.totalUser = response.data.totalUser;
-					} else {
-						console.error('서버 오류');
-					}
-				})
-				.catch(error => {
-					console.error(error);
-				});
-		},
-		// Total 데이터 , 처리
-		totalUserDataFormat(totalUserData) {
-			if (totalUserData && totalUserData.toString().length > 3) {
-				return totalUserData.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			} else {
-				return totalUserData;
-			}
-		},
-		// Monthly 데이터 수신
-		monthlyData() {
-			const URL = '/admin/index/monthlyData';
-			axios.get(URL)
-				.then(response => {
-					if(response.data.code === "MD00") {
-						response.data.monthlyReservation.forEach(monthlyReservation => {
-							this.monthlyReservation.push(monthlyReservation.reservation_count);
-						});
-						response.data.monthlyPaymentAmount.forEach(monthlyPaymentAmount => {
-							// this.monthlyPaymentAmount.push(monthlyPaymentAmount.payment_count);
-							this.series[1].data.push(Math.floor(monthlyPaymentAmount.total_payment));
-						});
-						// // 월별 예약 건수
-						this.series[0].data = this.monthlyReservation;
-						// // 월별 결제 금액
-						// this.series[1].data = this.monthlyPaymentAmount;
-					} else {
-						console.error('서버 오류');
-					}
-				})
-				.catch(error => {
-					console.error(error);
 				});
 		},
 	}

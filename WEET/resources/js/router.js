@@ -11,6 +11,7 @@ import LoginComponent from '../components/User/LoginComponent.vue';
 import AdminLoginComponent from '../components/Admin/AdminLoginComponent.vue';
 import AdminSignUpComponent from '../components/Admin/AdminSignUpComponent.vue';
 import AdminIndexComponent from '../components/Admin/AdminIndexComponent.vue';
+import AdminUserManagementComponent from '../components/Admin/AdminUserManagementComponent.vue';
 
 const routes = [
 	{
@@ -28,26 +29,7 @@ const routes = [
 	{
 		path: '/reservation',
 		component: ReservationComponent
-	},
-	{
-		path: '/admin',
-		component: AdminLoginComponent
-	},
-	{
-		path: '/admin/signup',
-		component: AdminSignUpComponent
-	},
-	{
-		path: '/admin/index',
-		component: AdminIndexComponent,
-		beforeEnter: (to, from, next) => {
-            if (!localStorage.getItem('token')) {
-                next('/admin');
-            } else {
-                next();
-            }
-        },
-	},
+	},	
 	{
 		path: '/signup',
 		component: SignUpComponent
@@ -56,12 +38,62 @@ const routes = [
 		path: '/login',
 		component: LoginComponent
 	},
-	
+	// Admin
+	{
+		path: '/admin',
+		name: 'Admin',
+		component: AdminLoginComponent,
+		meta: {
+			title: 'Admin'
+		}
+	},
+	{
+		path: '/admin/signup',
+		name: 'Admin Signup',
+		component: AdminSignUpComponent,
+		meta: {
+			title: '회원가입'
+		}
+	},
+	{
+		path: '/admin/index',
+		name: 'Admin Index',
+		component: AdminIndexComponent,
+		beforeEnter: (to, from, next) => {
+            if (!localStorage.getItem('token')) {
+                next('/admin');
+            } else {
+                next();
+            }
+        },
+		meta: {
+			title: 'Admin'
+		}
+	},
+	{
+		path: '/admin/usermanagement',
+		component: AdminUserManagementComponent,
+		beforeEnter: (to, from, next) => {
+            if (!localStorage.getItem('token')) {
+                next('/admin');
+            } else {
+                next();
+            }
+        },
+		meta: {
+			title: '이용자 관리'
+		}
+	}
 ];
 
 const router = createRouter({
 	history: createWebHistory(),
 	routes,
 });
+
+router.beforeEach((to, from, next) => {
+	document.title = to.meta.title || '기본 타이틀';
+	next();
+  });
 
 export default router;

@@ -35,9 +35,22 @@
 						width: 100px;
 						height: auto;
 					}
-				}
+				}				
+			}
 
-				
+			.admin_index_left_logout_section {
+				width: 100%;
+				margin-bottom: 20px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				.admin_index_left_logout_a {
+					width: 100%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
 			}
 
 			.admin_index_left_search_section {
@@ -157,20 +170,6 @@
 						width: 100%;
 						display: flex;
 						flex-direction: column;
-					}
-
-					.admin_index_right_top_logout_area {
-						width: 100%;
-						display: flex;
-						justify-content: flex-end;
-						align-items: center;
-
-						.admin_index_right_top_logout_a {
-							width: 100%;
-							display: flex;
-							justify-content: flex-end;
-							align-items: center;
-						}
 					}
 				}					
 			}

@@ -1,0 +1,86 @@
+@import "../mixin";
+
+.admin_user_management_container {
+    width: 1300px;
+    height: 100vh;
+    margin: 0 auto;
+    color: $admin-font-color;
+
+    .admin_user_management_top_container {
+        width: 100%;
+        margin: 10px auto;
+        background-color: #fff;
+        margin-bottom: 10px;
+        padding: 20px;
+        border-radius: 10px;
+
+        .admin_user_management_top_title_section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .admin_user_management_middle_container {
+        width: 100%;
+        margin: 10px auto;
+        background-color: #fff;
+        margin-bottom: 10px;
+        padding: 20px;
+        border-radius: 10px;
+
+        .admin_user_management_middle_section {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .admin_user_management_bottom_title_li {
+                width: 20%;
+            }
+        }
+    }
+
+    .admin_user_management_bottom_container {
+        width: 100%;
+
+        .admin_user_management_bottom_title_ul,
+        .admin_user_management_bottom_content_ul {
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+
+            .admin_user_management_bottom_title_li,
+            .admin_user_management_bottom_content_li {
+                flex: 1;
+
+                &:nth-child(1),
+                &:nth-child(5),
+                &:nth-child(6) {
+                    width: 100px;
+                }
+
+                &:nth-child(4),
+                &:nth-child(7),
+                &:nth-child(8) {
+                    width: 160px;
+                }
+
+                &:nth-child(2),
+                &:nth-child(3) {
+                    width: 200px;
+                }
+            }            
+
+            .admin_user_management_bottom_content_li_current_login {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+}
