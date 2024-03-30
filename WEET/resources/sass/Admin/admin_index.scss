@@ -94,6 +94,10 @@
 						width: 100%;
 						display: flex;
 						align-items: center;
+
+						&:hover {
+							text-decoration: underline;
+						}
 						
 						svg {
 							margin-right: 10px;
@@ -104,6 +108,10 @@
 						width: 100%;
 						display: flex;
 						align-items: center;
+
+						&:hover {
+							text-decoration: underline;
+						}
 						
 						.admin_index_left_nav_dropdown_left_svg {
 							margin-right: 10px;

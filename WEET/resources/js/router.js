@@ -71,7 +71,7 @@ const routes = [
 		}
 	},
 	{
-		path: '/admin/usermanagement',
+		path: '/admin/user/management',
 		component: AdminUserManagementComponent,
 		beforeEnter: (to, from, next) => {
             if (!localStorage.getItem('token')) {
@@ -94,6 +94,6 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 	document.title = to.meta.title || '기본 타이틀';
 	next();
-  });
+});
 
 export default router;

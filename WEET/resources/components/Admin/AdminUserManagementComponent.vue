@@ -118,7 +118,7 @@
 				<div class="admin_user_management_middle_container">
 					<div class="admin_user_management_middle_section">
 						<span class="text-xl font-bold">이용자 목록</span>
-						<select class="mr-10px" name="user" id="admin_flg">
+						<select class="text-center" name="user" id="admin_flg">
 							<option value="1" selected>최신 가입 순</option>
 							<option value="2">최신 로그인 순</option>
 							<option value="3">누적 결제 금액 순</option>
@@ -138,19 +138,18 @@
 						<li class="font-semibold text-center admin_user_management_bottom_title_li">가입일자</li>
 						<li class="font-semibold text-center admin_user_management_bottom_title_li">최신 로그인 이력</li>
 					</ul>
-					<ul class="admin_user_management_bottom_content_ul">
-						<li class="admin_user_management_bottom_content_li">여중기</li>
-						<li class="admin_user_management_bottom_content_li">admin@admin.com</li>
-						<li class="admin_user_management_bottom_content_li">010-5847-1671</li>
-						<li class="admin_user_management_bottom_content_li">M</li>
-						<li class="admin_user_management_bottom_content_li">정상</li>
-						<li class="admin_user_management_bottom_content_li">1991-10-02</li>
-						<li class="admin_user_management_bottom_content_li">2020-03-11</li>
-						<div class="admin_user_management_bottom_content_li_current_login">
-							<li class="admin_user_management_bottom_content_li">2024-03-30</li>
-							<li class="admin_user_management_bottom_content_li">14:59:28</li>
-						</div>
-					</ul>
+					<a href="#">
+						<ul class="admin_user_management_bottom_content_ul">
+							<li class="text-center admin_user_management_bottom_content_li">여중기</li>
+							<li class="text-center admin_user_management_bottom_content_li">admin@admin.com</li>
+							<li class="text-center admin_user_management_bottom_content_li">010-5847-1671</li>
+							<li class="text-center admin_user_management_bottom_content_li">M</li>
+							<li class="text-center admin_user_management_bottom_content_li">1991-10-02</li>
+							<li class="text-center admin_user_management_bottom_content_li">정상</li>
+							<li class="text-center admin_user_management_bottom_content_li">2020-03-11</li>
+							<li class="text-center admin_user_management_bottom_content_li">2024-03-30 14:59:28</li>
+						</ul>
+					</a>
 					<!-- 항공권 예매 탭(최신 결제 순) -->
 					<!-- <ul class="admin_user_management_bottom_title_ul">
 						<li class="admin_user_management_bottom_title_li">이름</li>
@@ -191,6 +190,8 @@ export default {
 			adminFlgInfo: '',
 			adminNameInfo: '',			
 			adminAuthority: false, // Admin 메뉴 권한 확인용
+			// User Management List 데이터 저장용
+			userListData: [],
 		}
 	},
 
@@ -248,6 +249,24 @@ export default {
 				.catch(error => {
 					this.adminLogoutAlertError = error.response.data.error
 					alert(this.adminLogoutAlertError);
+				});
+		},
+
+		// User Management List 데이터 수신
+		userManagementList() {
+			const URL = '/admin/user/management';
+			axios.get(URL)
+				.then(response => {
+					console.log(response);					
+					if(response.data.code === "UML00") {
+						this.userListData = response.data.userManagementList;
+						console.log(this.userListData);	
+					} else {
+						console.error('서버 오류');
+					}
+				})
+				.catch(error => {
+					console.error(error);
 				});
 		},
 	}

@@ -164,7 +164,6 @@
 				<div class="admin_index_right_bottom_container">
 					<div class="admin_index_right_bottom_chart_section">
 						<div class="admin_index_right_bottom_chart_area">
-							<!-- <p class="mb-5 text-xl font-semibold">월 별, 분기 별 통계</p> -->
 							<div id="chart">
 								<apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
 							</div>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminSignUpController;
 use App\Http\Controllers\AdminIndexController;
+use App\Http\Controllers\AdminUserManagementController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\PaymentController;
@@ -71,7 +72,7 @@ Route::middleware('adminValidation')->prefix('admin')->group(function() {
         return view('welcome');
     });
     // Admin User Management
-    Route::get('/usermanagement', function () {
+    Route::get('/user/management', function () {
         return view('welcome');
     });
     // Admin Login 처리
@@ -85,7 +86,7 @@ Route::middleware('adminValidation')->prefix('admin')->group(function() {
     // Admin Index - Monthly 데이터 송신
     Route::get('/index/monthlyData', [AdminIndexController::class, 'monthlyData']);
     // Admin User Management 데이터 송신
-    // Router::get('/usermanagement', [AdminUserManagementController::class, 'userTotalData']);
+    Route::get('/user/management/list', [AdminUserManagementController::class, 'userManagementList']);
 });
 
 

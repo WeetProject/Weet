@@ -555,9 +555,6 @@ video {
 .mt-5 {
   margin-top: 1.25rem;
 }
-.ml-10 {
-  margin-left: 2.5rem;
-}
 .mr-10 {
   margin-right: 2.5rem;
 }
@@ -706,9 +703,6 @@ video {
 }
 .font-semibold {
   font-weight: 600;
-}
-.font-medium {
-  font-weight: 500;
 }
 .text-blue-500 {
   --tw-text-opacity: 1;

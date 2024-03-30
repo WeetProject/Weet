@@ -53,11 +53,16 @@
             padding: 20px;
             border-radius: 10px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
+
+            &:hover {
+                background-color: $admin-index-background-color;
+                text-decoration: underline;
+            }
 
             .admin_user_management_bottom_title_li,
             .admin_user_management_bottom_content_li {
-                flex: 1;
 
                 &:nth-child(1),
                 &:nth-child(5),
@@ -76,11 +81,6 @@
                     width: 200px;
                 }
             }            
-
-            .admin_user_management_bottom_content_li_current_login {
-                display: flex;
-                flex-direction: column;
-            }
         }
     }
 }
