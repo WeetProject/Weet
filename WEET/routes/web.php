@@ -86,7 +86,7 @@ Route::middleware('adminValidation')->prefix('admin')->group(function() {
     // Admin Index - Monthly 데이터 송신
     Route::get('/index/monthlyData', [AdminIndexController::class, 'monthlyData']);
     // Admin User Management 데이터 송신
-    Route::get('/user/management/list', [AdminUserManagementController::class, 'userManagementList']);
+    Route::get('/user/management/userList', [AdminUserManagementController::class, 'userManagementList']);
 });
 
 

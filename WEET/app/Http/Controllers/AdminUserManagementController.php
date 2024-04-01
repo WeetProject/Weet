@@ -17,13 +17,14 @@ class AdminUserManagementController extends Controller
                             'user_name',
                             'user_email',
                             'user_tel',
+                            'user_birthdate',
                             'user_gender',
                             'user_flg',
                             'created_at',
                         DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') AS user_created_at"))
                         ->whereNull('deleted_at')
                         ->orderByDesc('created_at')
-                        ->paginate(8);         
+                        ->paginate(7);         
         
         $error = "오류가 발생했습니다. 페이지를 새로고침 해주세요";
 
