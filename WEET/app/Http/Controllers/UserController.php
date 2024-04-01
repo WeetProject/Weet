@@ -79,9 +79,9 @@ class UserController extends Controller
         // 유저 인증 작업
         Auth::login($result);
 
-        $token = JWTAuth::fromUser($result);
-        Log::debug("토큰");
-        Log::debug($token);
+        $controllerToken = JWTAuth::fromUser($result);
+        Log::debug("==== 토큰생성 ====");
+        Log::debug($controllerToken);
         // $userEmail = $result->user_email;
 
         // $tokenInfo = $result->only('user_email', 'password');
@@ -90,7 +90,7 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'message' => '사용자 로그인 성공',
-            'token' => $token,
+            'token' => $controllerToken,
         ]);
 
 
@@ -123,21 +123,43 @@ class UserController extends Controller
 
     public function logout() {
 
-        Log::debug("**************로그인정보*************");
-        // Log::debug($request);
+        // Log::debug("**************로그인정보*************");
+        // // Log::debug($request);
 
-        // 로그아웃 처리
-        Auth::logout();
-
-        $sessionDataCheck = Auth::check();
+        // $sessionDataCheck = Auth::check();
         
-        Log::debug("**************세션데이터*************");
-        Log::debug($sessionDataCheck);
+        // Log::debug("**************세션데이터*************");
+        // Log::debug($sessionDataCheck);
 
-        return response()->json([
-            'message' => '로그아웃 성공',
-            'sessionDataCheck' => $sessionDataCheck,
-        ]);
+        // return response()->json([
+        //     'message' => '로그아웃 성공',
+        //     'sessionDataCheck' => $sessionDataCheck,
+        // ]);
+
+        try {
+            // 현재 사용자의 토큰 가져오기
+            $token = JWTAuth::getToken();
+            Log::debug("토큰오나");
+            Log::debug($token);
+            
+            if (!$token) {
+                // 토큰이 없으면 에러 반환
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+            
+            // 토큰을 블랙리스트에 추가하여 무효화
+            JWTAuth::invalidate($token);
+
+            // 로그아웃 처리
+            Auth::logout();
+            Session::flush();
+    
+            return response()->json(['message' => 'Successfully logged out']);
+        } catch (JWTException $e) {
+            // 예외 처리
+            return response()->json(['error' => 'Failed to logout'], 500);
+        }
+        
     }
 
 }

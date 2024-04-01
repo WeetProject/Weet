@@ -144,6 +144,7 @@ class AdminAuthController extends Controller
         try {
             // 사용 중인 토큰 수집
             $adminToken = JWTAuth::getToken();
+            Log::debug($adminToken);
             if ($adminToken) {
                 // 토큰 무효화
                 JWTAuth::invalidate($adminToken);

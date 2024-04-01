@@ -16,6 +16,7 @@
 					</button>
 					<div class="header_nav_login_btn">
 						<div v-if="!$store.state.userLoginChk" class="header_nav_login_btn_user">
+							
 							<button @click="toggleModal">login</button>
 							<!-- <LoginComponent v-if="showmodal" @closeModal="closemodal" /> -->
 							<!-- <a href="/login">login</a> -->
