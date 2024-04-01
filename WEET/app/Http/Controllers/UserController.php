@@ -154,10 +154,10 @@ class UserController extends Controller
             Auth::logout();
             Session::flush();
     
-            return response()->json(['message' => 'Successfully logged out']);
+            return response()->json(['message' => 'Success logout']);
         } catch (JWTException $e) {
             // 예외 처리
-            return response()->json(['error' => 'Failed to logout'], 500);
+            return response()->json(['error' => 'Failed logout'], 500);
         }
         
     }
