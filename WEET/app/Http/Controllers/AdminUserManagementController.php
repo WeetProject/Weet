@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Payment;
+use App\Models\Reservation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Pagination\Paginator;
 
 class AdminUserManagementController extends Controller
-{
+{   
+    // 최신 가입 순
     public function userManagementList() {
-        // 페이징 처리
         $userManagementList = User::select(
                             'user_id', 
                             'user_name',
@@ -33,6 +35,32 @@ class AdminUserManagementController extends Controller
             'code' => 'UML00',
             'userManagementList' => $userManagementList,
             'error' => $error
+        ], 200);
+    }
+
+    // 최신 결제 순
+    public function userManagementPaymentList() {
+        // $userManagementPaymentList = Payment::select(
+        //                     'user_id', 
+        //                     'user_name',
+        //                     'user_email',
+        //                     'user_tel',
+        //                     'user_birthdate',
+        //                     'user_gender',
+        //                     'user_flg',
+        //                     'created_at',
+        //                 DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') AS user_created_at"))
+        //                 ->whereNull('deleted_at')
+        //                 ->orderByDesc('created_at')
+        //                 ->paginate(8);         
+
+        $error = "오류가 발생했습니다. 페이지를 새로고침 해주세요";
+        // 데이터 송신 확인용 Log
+        // Log::debug($userManagementPaymentList);
+        return response()->json([
+        'code' => 'UMPL00',
+        'userManagementPaymentList' => $userManagementPaymentList,
+        'error' => $error
         ], 200);
     }
 }
