@@ -11,12 +11,10 @@ const store = createStore({
         return {
             showmodal: false,
 			adminToken: null,
-            userData: {
-                userEmail: '',
-                userID: null,
-            },
+            userData: null,
             userLoginChk: null,
             userID: null,
+            // userToken: null,
         }
     },
 
@@ -49,14 +47,26 @@ const store = createStore({
         },
         // 유저 로그인 정보 저장용
         setSaveToLocalStorage(state, data) {
-            state.userData.userCheck = data.controllerToken;
-            state.userData.userID = data.userID;
+            // state.userData.userCheck = data.controllerToken;
+
+            state.userData.userID = data.userData.user_id;
             state.userData.setToken = data.token;
             state.userData.userLoginChk = data.controllerToken;
-            localStorage.setItem('userID', data.userId);
-            localStorage.setItem('userCheck', data.controllerToken);
+
+            // state.userData = {
+            //     userName: data.userData.userName,
+            //     userEmail: data.userData.userEmail,
+            //     userID: data.userData.user_id,
+            //     setToken: data.token,
+            //     userLoginChk: data.controllerToken
+            // };
+
+            localStorage.setItem('setUserID', data.userData.user_id);
+            // localStorage.setItem('userCheck', data.controllerToken);
             localStorage.setItem('setToken', data.token);
-            localStorage.setItem('userLoginChk', data.controllerToken);
+            localStorage.setItem('setUserLoginChk', data.controllerToken);
+            localStorage.setItem('setUserData', data.userData);
+            // localStorage.setItem('setUserData', JSON.stringify(data.userData));
 
             // 로컬스토리지의 정보 삭제부분(시간설정)
             setTimeout(function() {
@@ -101,15 +111,18 @@ const store = createStore({
                 console.log(requestData);
                 
 				const token = res.data.token;
+                const userData = res.data.userData;
+                const userID = res.data.userData.user_id;
 				// const decoded = jwtDecode(token);
 				console.log(token);
+				console.log(userData);
 				// console.log("유저데이터", res.data.userData);
 
                 if (res.data.success) {
                     context.commit('setSaveToLocalStorage', res.data);
-                    context.commit('setUserData', res.data.userData);
-                    context.commit('setUserLoginChk', res.data.token);
-                    context.commit('setUserID', res.data.userId);
+                    context.commit('setUserData', userData);
+                    context.commit('setUserLoginChk', res.data.controllerToken);
+                    context.commit('setUserID', userID);
                     context.commit('setToken', token);
 
                     // router.push('/');
@@ -122,9 +135,10 @@ const store = createStore({
 					// localStorage.setItem('loginUser', userId);
 					// localStorage.setItem('loginUserId', res.data.userId);
 					// localStorage.setItem('loginUserEmail', res.data.userEmail);
-					localStorage.setItem('setUserData', res.data.userData);
+					localStorage.setItem('setUserData', userData);
 					localStorage.setItem('setToken', token);
 					localStorage.setItem('setUserLoginChk', res.data.token);
+					localStorage.setItem('setSaveToLocalStorage', res.data);
                     
 
                     alert('로그인 성공. 페이지를 새로 고칩니다.');
@@ -191,6 +205,7 @@ const store = createStore({
             .then(res => {
                 console.log('로그아웃', res);
                 // context.commit('setUserLoginChk', false);
+                // this.setSaveToLocalStorage(data);
                 localStorage.clear();
         
                 if (confirm('로그아웃 성공\n로그아웃에 성공했습니다. 페이지를 새로고침 하시겠습니까?')) {

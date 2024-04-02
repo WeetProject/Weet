@@ -173,4 +173,5 @@ Route::middleware(['userValidation'])->group(function() {
 
 Route::get('/logout', [UserController::class, 'logout']);
 
-Route::get('/getMyPage', [MyPageController::class, 'getMyPageData']);
+// Route::middleware(['userValidation'])->get('/getMyPage', [MyPageController::class, 'getMyPageData']);
+Route::post('/mypage', [MyPageController::class, 'getMyPageData']);
