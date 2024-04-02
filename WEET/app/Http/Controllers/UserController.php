@@ -83,7 +83,7 @@ class UserController extends Controller
         Log::debug("==== 토큰생성 ====");
         Log::debug($controllerToken);
         // $userEmail = $result->user_email;
-
+        Log::debug($result->user_id);
         // $tokenInfo = $result->only('user_email', 'password');
         // Log::debug("토큰정보");
         // Log::debug($tokenInfo);
@@ -91,6 +91,8 @@ class UserController extends Controller
             'success' => true,
             'message' => '사용자 로그인 성공',
             'token' => $controllerToken,
+            'userID' => $result->user_id,
+            'userData' => $result,
         ]);
 
 

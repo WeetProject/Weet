@@ -3,7 +3,7 @@
         <div class="mypage_side_view">
             <div class="mypage_side_view_user_info">
                 <div class="mypage_side_view_user_info_name"> 
-                    <span>최현희님의 MyPage</span>
+                    <span>님의 MyPage</span>
                 </div>
                 <div class="mypage_side_view_user_info_email"> 
                     <span>roseok624@gmail.com</span>
@@ -28,7 +28,7 @@
                             </div>
                             <div class="mypage_main_view_user_info_box_content_span">
                                 <div>
-                                    <span>roseok624@gmail.com</span>
+                                    <span>{{ userData.userEmail }}</span>
                                 </div>
                             </div>
                         </div>
@@ -152,25 +152,80 @@ export default {
     data() {
         return {
             clickTab: 0,
-            userInfoData: [],
+            userData: {},
+            userNewInfoData: {
+                userEmail: '',
+                userPassword: '',
+                userPasswordChk: '',
+                userName: '',
+                userBirthDate: '',
+                userGender: '',
+                userTel: '',
+                userTermsofUse: '',
+            },
+
+            frmUserAddressData: {
+                userPostcode: '',
+                userBasicAddress: '',
+                userDetailAddress: '',
+            },
+
+            errors: {},
+
+            RegistrationErrorMessage: {
+                userEmail: '',
+                userPassword: '',
+                userPasswordChk: '',
+                userName: '',
+                userTel: '',
+                userBirthDate: '',
+                userDetailAddress: '',
+            },
         }
+    },
+
+    // computed: {
+    //     userData() {
+    //         return this.$store.state.userData; // Vuex 스토어에서 userData 상태를 가져옵니다.
+    //     }
+    // },
+
+    mounted() {
+        this.fetchData();
     },
 
     methods: {
         fetchData() {
-            axios.get('/getMyPage',{
+            const url = '/mypage';
+            const token = localStorage.getItem('setToken');
+            const userData = localStorage.getItem('setUserData');
+            const userID = localStorage.getItem('userID');
+            console.log(token);
+            console.log(userData);
+            console.log(userID);
 
-            })
+            const header = {
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": 'application/json',
+                },
+            };
+            
+            axios.get(url, header)
             .then(res => {
                 console.log(res);
-                this.userInfoData = res.data.userData;
+                // this.userNewInfoData = res.data.userInfo;
+                this.userData = res.data;
                 // this.userInfoData = $state.userData;
+                // this.userNewInfoData = res.data.userInfo;
+                // this.$store.commit('setUserData', res.data.userData);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
         }
     },
+
 
     
 }

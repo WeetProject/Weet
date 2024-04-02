@@ -510,6 +510,10 @@ video {
 .col-span-3 {
   grid-column: span 3 / span 3;
 }
+.mx-40 {
+  margin-left: 10rem;
+  margin-right: 10rem;
+}
 .mx-5 {
   margin-left: 1.25rem;
   margin-right: 1.25rem;
@@ -521,18 +525,6 @@ video {
 .my-10 {
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
-}
-.mx-20 {
-  margin-left: 5rem;
-  margin-right: 5rem;
-}
-.mx-40 {
-  margin-left: 10rem;
-  margin-right: 10rem;
-}
-.mx-10 {
-  margin-left: 2.5rem;
-  margin-right: 2.5rem;
 }
 .mb-1 {
   margin-bottom: 0.25rem;
@@ -555,6 +547,12 @@ video {
 .me-2 {
   margin-inline-end: 0.5rem;
 }
+.ml-2 {
+  margin-left: 0.5rem;
+}
+.ml-5 {
+  margin-left: 1.25rem;
+}
 .mr-5 {
   margin-right: 1.25rem;
 }
@@ -566,18 +564,6 @@ video {
 }
 .mt-5 {
   margin-top: 1.25rem;
-}
-.ml-5 {
-  margin-left: 1.25rem;
-}
-.ml-10 {
-  margin-left: 2.5rem;
-}
-.mr-10 {
-  margin-right: 2.5rem;
-}
-.ml-2 {
-  margin-left: 0.5rem;
 }
 .box-border {
   box-sizing: border-box;
@@ -626,12 +612,6 @@ video {
 }
 .cursor-pointer {
   cursor: pointer;
-}
-.cursor-none {
-  cursor: none;
-}
-.cursor-default {
-  cursor: default;
 }
 .resize {
   resize: both;
