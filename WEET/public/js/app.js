@@ -21411,9 +21411,11 @@ __webpack_require__.r(__webpack_exports__);
     loadUserLoginStatus: function loadUserLoginStatus() {
       var userLoginChk = localStorage.getItem('userCheck');
       var userID = localStorage.getItem('userID');
+      var token = localStorage.getItem('token');
       if (userLoginChk !== null) {
         this.$store.commit('setUserLoginChk', userLoginChk);
         this.$store.commit('setUserID', userID);
+        this.$store.commit('setToken', token);
       }
     }
   }

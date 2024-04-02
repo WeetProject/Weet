@@ -240,10 +240,12 @@ export default {
         loadUserLoginStatus() {
             const userLoginChk = localStorage.getItem('userCheck');
             const userID = localStorage.getItem('userID');
+            const token = localStorage.getItem('token');
 
             if (userLoginChk !== null) {
                 this.$store.commit('setUserLoginChk', userLoginChk);
                 this.$store.commit('setUserID', userID);
+                this.$store.commit('setToken', token);
             }
         },
     },
