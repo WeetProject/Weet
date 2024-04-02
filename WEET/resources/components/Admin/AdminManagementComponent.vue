@@ -108,97 +108,95 @@
 					</ul>
 				</div>
 			</div>
-			<div class="admin_index_right_container">
-				<div class="admin_index_right_top_container">
-					<div class="admin_index_right_top_title_section">
-						<div class="admin_index_right_top_title_area">
-							<span class="mb-5 text-xl font-bold">반가워요, {{ adminNameInfo }} 관리자님!</span>
-							<span>시스템 관리를 간편하고 효율적으로 할 수 있도록 도와드릴게요.</span>
-						</div>
-					</div>	
+			<div class="admin_management_container">
+				<div class="admin_management_top_container">
+					<div class="admin_management_top_title_section">
+						<span class="mb-5 text-xl font-bold">어드민 계정 관리</span>
+						<span>어드민 계정에 대한 권한 변경 및 탈퇴 처리를 할 수 있어요.</span>
+					</div>
 				</div>
-				<div class="admin_index_right_middle_container">
-					<div class="mr-5 admin_index_right_middle_section">
-						<div class="admin_index_right_middle_number_of_transactions">
-							<div class="admin_index_right_middle_number_of_transactions_image">
-								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-								</svg>							
-							</div>
-							<div class="admin_index_right_middle_number_of_transactions_text">
-								<p class="font-semibold">총 결제 건수</p>
-								<span class="text-3xl font-extrabold">{{ totalUserDataFormat(totalPayment) }} </span>
-								<span class="font-semibold"> 건</span>
-							</div>
-						</div>
+				<div class="admin_management_middle_container">
+					<div class="admin_management_middle_section">
+						<span class="text-xl font-bold">어드민 계정 목록</span>
+						<select class="ml-5 text-center admin_management_select" name="admin_list_select" id="admin_list_select">
+							<option value="1" selected>최신 등록 순</option>
+							<option value="2">권한 순</option>
+						</select>
+                        <!-- 최신 등록 순 Pagination -->
+                        <div class="relative admin_management_pagination_section">
+                            <!-- currentPage 1페이지 아닐 때 -->
+                            <div class="admin_management_pagination_left_button_area">
+                                <div class="admin_management_pagination_first_button_area" v-if="currentPage !== 1">
+                                    <button class="admin_management_pagination_first_button" @click="adminManagementList(1)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
+                                        </svg>
+                                        <span class="font-bold">처음</span>
+                                    </button>
+                                </div>
+                                <div class="ml-2 admin_management_pagination_prev_button_area" v-if="currentPage !== 1">
+                                    <button class="admin_management_pagination_prev_button" @click="adminManagementList(currentPage - 1)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                                        </svg>
+                                        <span class="font-bold">이전</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mx-40 text-center admin_management_pagination_page_span_area">
+                                <span class="text-xl font-bold admin_management_pagination_page_span">{{ adminManagementListData.current_page }} of {{ adminManagementListData.last_page }}</span>
+                            </div>
+                            <!-- lastPage 아닐 때 -->
+                            <div class="admin_management_pagination_right_button_area">
+                                <div class="admin_management_pagination_next_button_area" v-if="currentPage < lastPage">
+                                    <button class="admin_management_pagination_next_button" @click="adminManagementList(currentPage < lastPage ? currentPage + 1 : currentPage)">
+                                        <span class="font-bold">다음</span>
+                                        <svg v-if="currentPage !== lastPage" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                        </svg>
+                                    </button>
+                                </div>						
+                                <div class="ml-2 admin_management_pagination_last_button_area" v-if="currentPage < lastPage">
+                                    <button class="admin_management_pagination_last_button" @click="adminManagementList(lastPage)">
+                                        <span class="font-bold">끝</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
 					</div>
-					<div class="mr-5 admin_index_right_middle_section">
-						<div class="admin_index_right_middle_paymont_amount">
-							<div class="admin_index_right_middle_paymont_amount_image">
-								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
-								</svg>
-							</div>
-							<div class="admin_index_right_middle_paymont_amount_text">
-								<p class="font-semibold">총 결제 금액</p>
-								<span class="text-3xl font-extrabold">{{ totalUserDataFormat(totalPaymentAmount) }} </span>
-								<span class="font-semibold"> 원</span>
-							</div>
-						</div>
-					</div>
-					<div class="admin_index_right_middle_section">
-						<div class="admin_index_right_middle_register_users">
-							<div class="admin_index_right_middle_register_users_image">
-								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-								</svg>
-							</div>
-							<div class="admin_index_right_middle_register_users_text">
-								<p class="font-semibold">총 이용자 수</p>
-								<span class="text-3xl font-extrabold">{{ totalUserDataFormat(totalUser) }} </span>
-								<span class="font-semibold"> 명</span>
-							</div>
-						</div>
-					</div>					
-				</div>
-				<div class="admin_index_right_bottom_container">
-					<div class="admin_index_right_bottom_chart_section">
-						<div class="admin_index_right_bottom_chart_area">
-							<div id="chart">
-								<apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
-							</div>
-						</div>
-					</div>
-					<div class="admin_index_right_bottom_text_section">
-						<div class="mr-5 admin_index_right_bottom_notice_section">
-							<div class="admin_index_right_bottom_notice_title_area">
-								<span class="mb-5 text-xl font-semibold">공지사항</span>
-								<a class="admin_index_right_bottom_notice_title_a" href="#">
-									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-												<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-									</svg>
-								More
-								</a>
-							</div>
-							<div class="admin_index_right_bottom_notice_content_area">
-								
-							</div>
-						</div>
-						<div class=" admin_index_right_bottom_latest_Posts_section">
-							<div class="admin_index_right_bottom_latest_Posts_title_area">
-								<span class="mb-5 text-xl font-semibold">최신 작성 글</span>
-								<a class="admin_index_right_bottom_latest_Posts_title_a" href="#">
-									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-												<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-									</svg>
-								More
-								</a>
-							</div>
-							<div class="admin_index_right_bottom_latest_Posts_content_area">
-								
-							</div>
-						</div>						
-					</div>
+				</div>                
+				<div class="admin_management_bottom_container">
+					<!-- 이용자 탭 -->
+					<ul class="admin_management_bottom_title_ul">
+						<li class="font-semibold text-center admin_management_bottom_title_li">이름</li>
+						<li class="font-semibold text-center admin_management_bottom_title_li">사번</li>
+						<li class="font-semibold text-center admin_management_bottom_title_li">등록일자</li>
+						<li class="font-semibold text-center admin_management_bottom_title_li">권한</li>
+						<li class="font-semibold text-center admin_management_bottom_title_li">변경</li>
+						<li class="font-semibold text-center admin_management_bottom_title_li">탈퇴</li>
+					</ul>
+                    <ul class="admin_management_bottom_content_ul" v-for="adminList in adminListData" :key="adminList">
+                        <li class="text-center admin_management_bottom_content_li">{{ adminList.admin_name }}</li>
+                        <li class="text-center admin_management_bottom_content_li">{{ adminList.admin_number }}</li>
+                        <li class="text-center admin_management_bottom_content_li">{{ adminList.admin_created_at }}</li>
+                        <li class="text-center admin_management_bottom_content_li">
+                            <div>
+                                <select class="text-center admin_management_select" name="admin_flg" id="admin_flg">
+                                    <option :selected="adminList.admin_flg === 'Root'" value="2">Root</option>
+                                    <option :selected="adminList.admin_flg === 'Sub'" value="1">Sub</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="text-center admin_management_bottom_content_li">
+                            <button class="admin_management_bottom_content_update_button" @click="adminManagementUpdate(adminList.admin_number)">변경</button>
+                        </li>
+                        <li class="text-center admin_management_bottom_content_li">
+                            <button class="admin_management_bottom_content_withdrawal_button" @click="adminManagementWithdrawal(adminList.admin_number)">탈퇴</button>
+                        </li>
+                    </ul>          
 				</div>
 			</div>
 		</div>
@@ -206,81 +204,28 @@
 </template>
 <script>
 import axios from 'axios';
-import VueApexCharts from "vue3-apexcharts";
 export default {
-    name:'AdminIndexComponent',
-
-	components: {
-		apexchart: VueApexCharts,
-    },
+    name:'AdminManagementComponent',
     
 	data() {
 		return {
 			userDropdown: false,
 			adminDropdown: false,
-			// Admin 로그인 데이터
 			adminToken: '',
 			adminFlgInfo: '',
 			adminNameInfo: '',			
 			adminAuthority: false, // Admin 메뉴 권한 확인용
-			adminLogoutAlertError: '', // Admin 로그아웃 에러 Alert출력용
-			// Total 데이터 저장용
-			totalPayment: 0,
-			totalPaymentAmount: 0,
-			totalUser: 0,
-			// 통합 데이터 저장용
-			monthlyReservation: [],
-			monthlyPaymentAmount: [],
-			// Index 차트 데이터
-			series: [{
-				name: '예약 건수',
-				color: '#FFB6C1',
-				data: []
-			}, {
-				name: '결제 금액(단위:백만) ',
-				color: '#FFD700',
-				data: []
-			}],
-			chartOptions: {
-				chart: {
-					type: 'bar',
-				},
-				plotOptions: {
-					bar: {
-						horizontal: false,
-						columnWidth: '55%',
-						endingShape: 'rounded',						
-					},
-				},
-				dataLabels: {
-					enabled: false,					
-				},
-				stroke: {
-					show: true,
-					width: 2,
-					colors: ['transparent']
-				},
-				xaxis: {
-					categories: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-				},
-				yaxis: {
-				},
-				fill: {
-					opacity: 1,
-					colors: ['#FFB6C1', '#FFD700'],
-				},
-				tooltip: {
-				}
-			},
-			//
+			// Admin Management List 데이터 저장용
+			adminListData: [],
+			// Pagination 데이터 저장용
+			adminManagementListData: {},
+			currentPage: null,
+			lastPage: null,
 		}
 	},
 
 	created() {
-		// 총 결제 건수, 총 결제 금액, 총 이용자 수
-		this.totalUserData();
-		// 통합 데이터(월별 예약, 월별 결제)
-		this.monthlyData()
+		this.adminManagementList();
 	},
 
 	mounted() {
@@ -299,7 +244,7 @@ export default {
 				alert("로그인을 다시 해주세요.");
 				this.$router.push('/admin');
 			}
-		}		
+		}
 	},
 
 	methods: {
@@ -336,15 +281,28 @@ export default {
 					alert(this.adminLogoutAlertError);
 				});
 		},
-		// Total 데이터 수신
-		totalUserData() {
-			const URL = '/admin/index/totalData';
+
+		// Admin Management List 데이터 수신
+		adminManagementList(page) {
+			const URL = '/admin/management/adminList?page=' + page;
 			axios.get(URL)
-				.then(response => {
-					if(response.data.code === "TD00") {
-						this.totalPayment = response.data.totalPayment;
-						this.totalPaymentAmount = response.data.totalPaymentAmount;
-						this.totalUser = response.data.totalUser;
+				.then(response => {				
+					if(response.data.code === "AML00") {
+						this.adminManagementListData = response.data.adminManagementList;
+						console.log(this.adminManagementListData);
+						this.adminListData = response.data.adminManagementList.data;						
+						this.adminListData.forEach(admin => {
+							// admin_flg / 1, 2 => Sub, Root로 변경
+							if (admin.admin_flg === 1) {
+								admin.admin_flg = 'Sub';
+							} else {
+								admin.admin_flg = 'Root';
+							}
+						});
+						this.currentPage = response.data.adminManagementList.current_page;
+						this.lastPage = response.data.adminManagementList.last_page;
+					} else if(response.data.code === "AMFL00") {
+
 					} else {
 						console.error('서버 오류');
 					}
@@ -353,42 +311,49 @@ export default {
 					console.error(error);
 				});
 		},
-		// Total 데이터 , 처리
-		totalUserDataFormat(totalUserData) {
-			if (totalUserData && totalUserData.toString().length > 3) {
-				return totalUserData.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			} else {
-				return totalUserData;
-			}
-		},
-		// Monthly 데이터 수신
-		monthlyData() {
-			const URL = '/admin/index/monthlyData';
-			axios.get(URL)
-				.then(response => {
-					if(response.data.code === "MD00") {
-						response.data.monthlyReservation.forEach(monthlyReservation => {
-							this.monthlyReservation.push(monthlyReservation.reservation_count);
-						});
-						response.data.monthlyPaymentAmount.forEach(monthlyPaymentAmount => {
-							// this.monthlyPaymentAmount.push(monthlyPaymentAmount.payment_count);
-							this.series[1].data.push(Math.floor(monthlyPaymentAmount.total_payment));
-						});
-						// // 월별 예약 건수
-						this.series[0].data = this.monthlyReservation;
-						// // 월별 결제 금액
-						// this.series[1].data = this.monthlyPaymentAmount;
-					} else {
-						console.error('서버 오류');
+
+        // Admin 권한 변경
+        adminManagementUpdate(admin_number) {
+            const URL = '/admin/management/update';            
+            const formData = new FormData();
+            formData.append('admin_number', admin_number);
+
+            axios.post(URL, formData)
+				.then(response => {                
+					if(response.data.code === "AU00") {
+						alert('권한이 변경되었습니다.');
+                        window.location.reload();
+					} else {                
+						alert(response.data.error);
 					}
 				})
-				.catch(error => {
-					console.error(error);
+				.catch(error => {                
+					alert(error.response.data.error);
 				});
-		},
+        },
+
+        // Admin 탈퇴
+        adminManagementWithdrawal(admin_number) {
+            const URL = '/admin/management/withdrawal';            
+            const formData = new FormData();
+            formData.append('admin_number', admin_number);
+            axios.post(URL, formData)
+				.then(response => {                
+					if(response.data.code === "AW00") {
+						alert('계정이 탈퇴되었습니다.');
+                        window.location.reload();
+					} else {                
+						alert(response.data.error);
+					}
+				})
+				.catch(error => {                
+					alert(error.response.data.error);
+				});
+        },
 	}
 }
 </script>
 <style lang="scss">
     @import '../../sass/Admin/admin_index.scss';
+    @import '../../sass/Admin/admin_management.scss';
 </style>

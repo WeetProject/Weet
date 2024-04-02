@@ -7,11 +7,19 @@ import ReservationComponent from '../components/Reservation/ReservationComponent
 import SignUpComponent from '../components/User/SignUpComponent.vue';
 import LoginComponent from '../components/User/LoginComponent.vue';
 
-// Admin
+// ### Admin ###
+// Admin Login
 import AdminLoginComponent from '../components/Admin/AdminLoginComponent.vue';
+// Admin Sign Up
 import AdminSignUpComponent from '../components/Admin/AdminSignUpComponent.vue';
+// Admin Index
 import AdminIndexComponent from '../components/Admin/AdminIndexComponent.vue';
+// Admin User Management
 import AdminUserManagementComponent from '../components/Admin/AdminUserManagementComponent.vue';
+// Admin Management
+import AdminManagementComponent from '../components/Admin/AdminManagementComponent.vue';
+// Admin Registration
+import AdminRegistrationComponent from '../components/Admin/AdminRegistrationComponent.vue';
 
 const routes = [
 	{
@@ -81,7 +89,35 @@ const routes = [
             }
         },
 		meta: {
-			title: '이용자 관리'
+			title: '이용자 계정관리'
+		}
+	},
+	{
+		path: '/admin/management',
+		component: AdminManagementComponent,
+		beforeEnter: (to, from, next) => {
+            if (!localStorage.getItem('token')) {
+                next('/admin');
+            } else {
+                next();
+            }
+        },
+		meta: {
+			title: '어드민 계정관리'
+		}
+	},
+	{
+		path: '/admin/registration',
+		component: AdminRegistrationComponent,
+		beforeEnter: (to, from, next) => {
+            if (!localStorage.getItem('token')) {
+                next('/admin');
+            } else {
+                next();
+            }
+        },
+		meta: {
+			title: '어드민 가입승인'
 		}
 	}
 ];

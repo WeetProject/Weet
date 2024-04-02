@@ -51,7 +51,7 @@
 							</a>
 							<ul class="admin_index_left_nav_dropdown_ul" v-if="userDropdown">
 								<li>
-									<router-link to="/admin/usermanagement" class="admin_index_left_nav_a">
+									<router-link to="/admin/user/management" class="admin_index_left_nav_a">
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 											<path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
 										</svg>
@@ -88,20 +88,20 @@
 									</a>
 								</li>
 								<li>
-									<a class="admin_index_left_nav_a" href="#">
+									<router-link to="/admin/management" class="admin_index_left_nav_a">
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 											<path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
 										</svg>
 										Management
-									</a>
+									</router-link>
 								</li>
 								<li>
-									<a class="admin_index_left_nav_a" href="#">
+									<router-link to="/admin/registration" class="admin_index_left_nav_a">
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 											<path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
 										</svg>
 										Registration
-									</a>
+									</router-link>
 								</li>
 							</ul>
 						</li>
@@ -111,8 +111,8 @@
 			<div class="admin_user_management_container">
 				<div class="admin_user_management_top_container">
 					<div class="admin_user_management_top_title_section">
-						<span class="mb-5 text-xl font-bold">이용자 관리</span>
-						<span>이용자에 대한 탈퇴처리 및 최근 로그인 이력을 확인할 수 있어요.</span>
+						<span class="mb-5 text-xl font-bold">이용자 계정 관리</span>
+						<span>이용자 계정에 대한 탈퇴처리 및 최근 로그인 이력을 확인할 수 있어요.</span>
 					</div>
 				</div>
 				<div class="admin_user_management_middle_container">
@@ -180,7 +180,7 @@
 						<li class="font-semibold text-center admin_user_management_bottom_title_li">성별</li>
 						<li class="font-semibold text-center admin_user_management_bottom_title_li">활동상태</li>
 						<li class="font-semibold text-center admin_user_management_bottom_title_li">가입일자</li>
-						<li class="font-semibold text-center admin_user_management_bottom_title_li">최신 로그인 이력</li>
+						<li class="font-semibold text-center admin_user_management_bottom_title_li">최근 로그인 이력</li>
 					</ul>
 					<a href="">
 						<ul class="admin_user_management_bottom_content_ul" v-for="userList in userListData" :key="userList">

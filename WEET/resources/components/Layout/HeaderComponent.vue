@@ -1,5 +1,11 @@
 <template>
-	<div v-if="$route && $route.path !== '/admin' && $route.path !== '/admin/signup' && $route.path !== '/admin/index' && $route.path !== '/admin/user/management'">
+	<div v-if="$route && $route.path !== '/admin'
+        && $route.path !== '/admin/index' 
+        && $route.path !== '/admin/signup' 
+        && $route.path !== '/admin/user/management'
+        && $route.path !== '/admin/management'
+		&& $route.path !== '/admin/registration'
+        ">
 		<div class="header_container">
 			<div class="header_nav">
 				<div class="header_nav_logo">
