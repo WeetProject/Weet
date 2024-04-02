@@ -84,7 +84,7 @@ Route::middleware('adminValidation')->prefix('admin')->group(function() {
 
 Route::prefix('admin')->group(function() {
     // Admin Logout 처리
-    Route::get('/logout', 
+    Route::post('/logout', 
         [AdminAuthController::class, 'adminLogout']);
 
     // Admin Index

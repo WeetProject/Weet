@@ -53,19 +53,27 @@ const routes = [
 		component: AdminLoginComponent,
 		meta: {
 			title: 'Admin'
-		}
+		},
+		beforeEnter: (to, from, next) => {
+			const token = localStorage.getItem('token');
+			if (token) {
+				next('/admin/index');
+			} else {
+				next();
+			}
+		},
 	},
 	{
 		path: '/admin/signup',
 		name: 'Admin Signup',
 		component: AdminSignUpComponent,
 		meta: {
-			title: '회원가입'
+			title: '회원가입',
+			requireAuth: true
 		}
 	},	
 	{
 		path: '/admin/index',
-		name: 'Admin Index',
 		component: AdminIndexComponent,
 		beforeEnter: (to, from, next) => {
             if (!localStorage.getItem('token')) {
@@ -75,11 +83,13 @@ const routes = [
             }
         },
 		meta: {
-			title: 'Admin'
+			title: 'Admin',
+			requireAuth: true
 		}
 	},
 	{
 		path: '/admin/user/management',
+		name: 'Admin User Management',
 		component: AdminUserManagementComponent,
 		beforeEnter: (to, from, next) => {
             if (!localStorage.getItem('token')) {
@@ -89,11 +99,13 @@ const routes = [
             }
         },
 		meta: {
-			title: 'User 계정관리'
+			title: 'User 계정관리',
+			requireAuth: true
 		}
 	},
 	{
 		path: '/admin/management',
+		name: 'Admin Management',
 		component: AdminManagementComponent,
 		beforeEnter: (to, from, next) => {
             if (!localStorage.getItem('token')) {
@@ -103,11 +115,13 @@ const routes = [
             }
         },
 		meta: {
-			title: 'Admin 계정관리'
+			title: 'Admin 계정관리',
+			requireAuth: true
 		}
 	},
 	{
 		path: '/admin/registration',
+		name: 'Admin Registration',
 		component: AdminRegistrationComponent,
 		beforeEnter: (to, from, next) => {
             if (!localStorage.getItem('token')) {
@@ -117,7 +131,8 @@ const routes = [
             }
         },
 		meta: {
-			title: 'Admin 가입승인'
+			title: 'Admin 가입승인',
+			requireAuth: true
 		}
 	}
 ];
@@ -128,8 +143,16 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+	// 로그인 여부 확인	
+	const token = localStorage.getItem('token');
+
+	// requireAuth 확인
+	if (to.matched.some(record=>record.meta.requireAuth) && !token) {
+		next('/admin')		
+	}
 	document.title = to.meta.title || '기본 타이틀';
 	next();
 });
+
 
 export default router;

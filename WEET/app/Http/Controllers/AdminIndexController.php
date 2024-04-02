@@ -45,6 +45,9 @@ class AdminIndexController extends Controller
                             ->groupBy(DB::raw('month(created_at)'))
                             ->orderBy(DB::raw('month(created_at)'))
                             ->get();
+        
+        // 데이터 송신 확인용 Log
+        // Log::debug($monthlyReservation);
                         
         $monthlyPaymentAmount = Payment::select(
                         DB::raw('month(created_at) as month'),
@@ -53,9 +56,9 @@ class AdminIndexController extends Controller
                         ->groupBy(DB::raw('month(created_at)'))
                         ->orderBy(DB::raw('month(created_at)'))
                         ->get();
-
-        Log::debug($monthlyReservation);
-        Log::debug($monthlyPaymentAmount);
+        
+        // 데이터 송신 확인용 Log
+        // Log::debug($monthlyPaymentAmount);
 
         return response()->json([
             'code' => 'MD00',

@@ -315,18 +315,18 @@ export default {
 		adminLogout() {
 			const URL = '/admin/logout';
 			const token = localStorage.getItem('token');
-			const config = {
-				headers: {
-					'Authorization': `Bearer ${token}`
-				}
-			};
-			axios.get(URL, config)
+			const header = {
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
+            };
+			console.log(header);
+			axios.post(URL, null ,header)
 				.then(response => {
 					if(response.data.code === "ALO00") {
 							localStorage.clear();
 							alert('로그아웃 되었습니다.');
-							// this.$router.push('/admin');
-							window.location.href = '/admin';
+							this.$router.push('/admin');
 						} else {                
 							this.adminLogoutAlertError = response.data.error
 							alert(this.adminLogoutAlertError);

@@ -20946,17 +20946,17 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       var URL = '/admin/logout';
       var token = localStorage.getItem('token');
-      var config = {
+      var header = {
         headers: {
-          'Authorization': "Bearer ".concat(token)
+          "Authorization": "Bearer ".concat(token)
         }
       };
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL, config).then(function (response) {
+      console.log(header);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, null, header).then(function (response) {
         if (response.data.code === "ALO00") {
           localStorage.clear();
           alert('로그아웃 되었습니다.');
-          // this.$router.push('/admin');
-          window.location.href = '/admin';
+          _this.$router.push('/admin');
         } else {
           _this.adminLogoutAlertError = response.data.error;
           alert(_this.adminLogoutAlertError);
@@ -21152,15 +21152,15 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       var URL = '/admin/logout';
       var token = localStorage.getItem('token');
-      var config = {
+      var header = {
         headers: {
-          'Authorization': "Bearer ".concat(token)
+          "Authorization": "Bearer ".concat(token)
         }
       };
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL, config).then(function (response) {
+      console.log(header);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, null, header).then(function (response) {
         if (response.data.code === "ALO00") {
           localStorage.clear();
-          // localStorage.removeItem('token');
           alert('로그아웃 되었습니다.');
           _this.$router.push('/admin');
         } else {
@@ -21371,12 +21371,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       var URL = '/admin/logout';
       var token = localStorage.getItem('token');
-      var config = {
+      var header = {
         headers: {
-          'Authorization': "Bearer ".concat(token)
+          "Authorization": "Bearer ".concat(token)
         }
       };
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL, config).then(function (response) {
+      console.log(header);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, null, header).then(function (response) {
         if (response.data.code === "ALO00") {
           localStorage.clear();
           alert('로그아웃 되었습니다.');
@@ -21669,12 +21670,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       var URL = '/admin/logout';
       var token = localStorage.getItem('token');
-      var config = {
+      var header = {
         headers: {
-          'Authorization': "Bearer ".concat(token)
+          "Authorization": "Bearer ".concat(token)
         }
       };
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL, config).then(function (response) {
+      console.log(header);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, null, header).then(function (response) {
         if (response.data.code === "ALO00") {
           localStorage.clear();
           alert('로그아웃 되었습니다.');
@@ -27067,17 +27069,25 @@ var routes = [{
   component: _components_Admin_AdminLoginComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
   meta: {
     title: 'Admin'
+  },
+  beforeEnter: function beforeEnter(to, from, next) {
+    var token = localStorage.getItem('token');
+    if (token) {
+      next('/admin/index');
+    } else {
+      next();
+    }
   }
 }, {
   path: '/admin/signup',
   name: 'Admin Signup',
   component: _components_Admin_AdminSignUpComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
   meta: {
-    title: '회원가입'
+    title: '회원가입',
+    requireAuth: true
   }
 }, {
   path: '/admin/index',
-  name: 'Admin Index',
   component: _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
     if (!localStorage.getItem('token')) {
@@ -27087,10 +27097,12 @@ var routes = [{
     }
   },
   meta: {
-    title: 'Admin'
+    title: 'Admin',
+    requireAuth: true
   }
 }, {
   path: '/admin/user/management',
+  name: 'Admin User Management',
   component: _components_Admin_AdminUserManagementComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
     if (!localStorage.getItem('token')) {
@@ -27100,10 +27112,12 @@ var routes = [{
     }
   },
   meta: {
-    title: 'User 계정관리'
+    title: 'User 계정관리',
+    requireAuth: true
   }
 }, {
   path: '/admin/management',
+  name: 'Admin Management',
   component: _components_Admin_AdminManagementComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
     if (!localStorage.getItem('token')) {
@@ -27113,10 +27127,12 @@ var routes = [{
     }
   },
   meta: {
-    title: 'Admin 계정관리'
+    title: 'Admin 계정관리',
+    requireAuth: true
   }
 }, {
   path: '/admin/registration',
+  name: 'Admin Registration',
   component: _components_Admin_AdminRegistrationComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
     if (!localStorage.getItem('token')) {
@@ -27126,7 +27142,8 @@ var routes = [{
     }
   },
   meta: {
-    title: 'Admin 가입승인'
+    title: 'Admin 가입승인',
+    requireAuth: true
   }
 }];
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_13__.createRouter)({
@@ -27134,6 +27151,15 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_13__.createRouter)({
   routes: routes
 });
 router.beforeEach(function (to, from, next) {
+  // 로그인 여부 확인	
+  var token = localStorage.getItem('token');
+
+  // requireAuth 확인
+  if (to.matched.some(function (record) {
+    return record.meta.requireAuth;
+  }) && !token) {
+    next('/admin');
+  }
   document.title = to.meta.title || '기본 타이틀';
   next();
 });
