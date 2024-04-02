@@ -1,5 +1,5 @@
 <template>
-    <div v-if="$route && $route.path !== '/admin' && $route.path !== '/admin/index' && $route.path !== '/admin/signup' && $route.path !== '/admin/usermanagement'">
+    <div v-if="$route && $route.path !== '/admin' && $route.path !== '/admin/index' && $route.path !== '/admin/signup' && $route.path !== '/admin/user/management'">
         <footer>
             <div class="footer_container">
                 <div class="text-center footer_container_text">
