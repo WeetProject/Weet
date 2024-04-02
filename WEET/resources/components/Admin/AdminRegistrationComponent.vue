@@ -180,9 +180,9 @@
                         <li class="text-center admin_registration_bottom_content_li">{{ adminList.admin_created_at }}</li>
                         <li class="text-center admin_registration_bottom_content_li">
                             <select class="text-center admin_registration_select" name="admin_flg" id="admin_flg">
-                                <option :selected="adminList.admin_flg === '권한 없음'" value="0">권한 없음</option>
-                                <option value="2">Root</option>
-                                <option value="1">Sub</option>
+                                <option value="0" selected>{{ adminList.admin_flg }}</option>
+                                <option value="2" v-if="adminList.admin_flg === '권한 없음'">Root</option>
+                                <option value="1" v-if="adminList.admin_flg === '권한 없음'">Sub</option>
                             </select>
                         </li>
                         <li class="text-center admin_registration_bottom_content_li">
@@ -216,6 +216,8 @@ export default {
 			adminRegistrationListData: {},
 			currentPage: null,
 			lastPage: null,
+			// Admin Flg Value 데이터 저장용
+			adminUpdateFlg: null,
 		}
 	},
 
@@ -286,10 +288,10 @@ export default {
 						this.adminRegistrationListData = response.data.adminRegistrationList;
 						console.log(this.adminRegistrationListData);
 						this.adminListData = response.data.adminRegistrationList.data;						
-						this.adminListData.forEach(admin => {
+						this.adminListData.forEach(adminListData => {
 							// admin_flg / 0 => 권한 없음으로 변경
-							if (admin.admin_flg === 0) {
-								admin.admin_flg = '권한 없음';
+							if (adminListData.admin_flg === 0) {
+								adminListData.admin_flg = '권한 없음';
 							}
 						});
 						this.currentPage = response.data.adminRegistrationList.current_page;
@@ -305,10 +307,10 @@ export default {
 
         // Admin 권한 변경
         adminRegistrationUpdate(admin_number) {
-            const adminFlg = document.getElementById('admin_flg').value;
+			const admin_flg = document.getElementById('admin_flg').value;
 
             // 권한 미선택 시 미전송 처리
-            if (adminFlg === "0") {
+            if (admin_flg === "0") {
                 alert('권한을 선택해주세요.');
                 return;
             }
@@ -316,6 +318,7 @@ export default {
             const URL = '/admin/registration/update';            
             const formData = new FormData();
             formData.append('admin_number', admin_number);
+            formData.append('admin_flg', admin_flg);
 
             axios.post(URL, formData)
 				.then(response => {                
@@ -339,7 +342,7 @@ export default {
             axios.post(URL, formData)
 				.then(response => {                
 					if(response.data.code === "ARW00") {
-						alert('가입이 거부되었습니다.');
+						alert(response.data.success);
                         window.location.reload();
 					} else {                
 						alert(response.data.error);

@@ -66,10 +66,12 @@ class AdminWithdrawalController extends Controller
             if ($confirmAdminInfo) {
                 $confirmAdminInfo->delete();
                 Log::debug("### Admin 계정삭제 : 삭제완료 ###");
-                DB::commit();
+                DB::commit();                
+                $success = 'Admin 계정 가입이 거부되었습니다.';
                 Log::debug("### Admin 계정삭제 : 트랜잭션 종료 ###");
                 return response()->json([
-                    'code' => 'AW00',
+                    'code' => 'ARW00',
+                    'success' => $success,
                     'confirmAdminInfo' => $confirmAdminInfo
                 ], 200);
             }
@@ -80,7 +82,7 @@ class AdminWithdrawalController extends Controller
             Log::debug("### Admin 계정삭제 : 롤백 완료 ###");
             Log::debug("### 예외발생 : 롤백완료 ###" . $e->getMessage());
             return response()->json([
-                'code' => 'ARW01', 
+                'code' => 'ARW01',
                 'error' => $error
             ], 400);
         } 

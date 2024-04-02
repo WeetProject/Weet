@@ -19,12 +19,12 @@ class AdminUpdateController extends Controller
             // Admin권한 변경 요청 Admin 정보 저장
             $requestAdminInfo = $request
             ->only(
-                'admin_number',
+                'admin_number'
             );
             // Admin권한 변경 요청 Admin 정보 조회
             $confirmAdminInfo = Admin::where('admin_number',$requestAdminInfo['admin_number'])->first();
 
-            Log::debug("### Admin권한 요청 플래그 : " . $confirmAdminInfo->admin_flg . "###");
+            Log::debug("### Admin권한 요청 플래그 : " . $confirmAdminInfo->admin_flg . " ###");
 
             if ($confirmAdminInfo->admin_flg === 1) {
                 $confirmAdminInfo->admin_flg = 2;
@@ -32,7 +32,7 @@ class AdminUpdateController extends Controller
                 $confirmAdminInfo->admin_flg = 1;
             }
 
-            Log::debug("### Admin권한 변경 플래그 : " . $confirmAdminInfo->admin_flg . "###");
+            Log::debug("### Admin권한 변경 플래그 : " . $confirmAdminInfo->admin_flg . " ###");
 
             // Admin권한 저장
             $confirmAdminInfo->save();
@@ -65,24 +65,40 @@ class AdminUpdateController extends Controller
             $requestAdminInfo = $request
             ->only(
                 'admin_number',
+                'admin_flg'
             );
+            log::debug($requestAdminInfo);
+
+            if ($requestAdminInfo['admin_flg'] == 1) {
+                Log::debug("### Admin권한 요청 플래그 : Sub(1) ###");
+            } else if ($requestAdminInfo['admin_flg'] == 2) {
+                Log::debug("### Admin권한 요청 플래그 : Admin(2) ###");
+            }
+
+
             // Admin권한 변경 요청 Admin 정보 조회
             $confirmAdminInfo = Admin::where('admin_number',$requestAdminInfo['admin_number'])->first();
 
-            Log::debug("### Admin권한 요청 플래그 : " . $confirmAdminInfo->admin_flg . "###");
-
-            if ($confirmAdminInfo->admin_flg === 1) {
-                $confirmAdminInfo->admin_flg = 2;
-            } else if($confirmAdminInfo->admin_flg === 2) {
-                $confirmAdminInfo->admin_flg = 1;
+            if ($confirmAdminInfo->admin_flg === 0) {
+                Log::debug("### Admin권한 DB 저장 플래그 : 권한 없음(0) ###");
             }
+            
 
-            Log::debug("### Admin권한 변경 플래그 : " . $confirmAdminInfo->admin_flg . "###");
+            if ($requestAdminInfo['admin_flg'] == 1) {
+                $confirmAdminInfo->admin_flg = 1;
+            } else if($requestAdminInfo['admin_flg'] == 2) {
+                $confirmAdminInfo->admin_flg = 2;
+            }
 
             // Admin권한 저장
             $confirmAdminInfo->save();
             
-            Log::debug("### Admin권한 변경 : 변경완료 ###");
+            if ($confirmAdminInfo['admin_flg'] == 1) {
+                Log::debug("### Admin권한 변경 : Sub(1) 변경 완료 ###");
+            } else if ($confirmAdminInfo['admin_flg'] == 2) {
+                Log::debug("### Admin권한 변경 : Root(2) 변경 완료 ###");
+            }
+
             DB::commit();
             Log::debug("### Admin권한 변경 : 트랜잭션 종료 ###");
             return response()->json([

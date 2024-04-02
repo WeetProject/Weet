@@ -35,8 +35,12 @@
             align-items: center;
 
             .admin_user_management_select {                
-                border: 1px solid #000;                                
+                // border: 1px solid #000;                                
                 margin-right: 100px;
+
+                &:focus {
+                    outline: none;
+                }
             }
 
             .admin_user_management_pagination_section {

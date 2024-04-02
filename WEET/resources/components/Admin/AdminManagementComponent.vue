@@ -122,7 +122,7 @@
 							<option value="1" selected>최신 등록 순</option>
 							<option value="2">권한 순</option>
 						</select>
-                        <!-- Pagination -->
+                        <!-- 최신 등록 순 Pagination -->
                         <div class="relative admin_management_pagination_section">
                             <!-- currentPage 1페이지 아닐 때 -->
                             <div class="admin_management_pagination_left_button_area">
@@ -301,6 +301,8 @@ export default {
 						});
 						this.currentPage = response.data.adminManagementList.current_page;
 						this.lastPage = response.data.adminManagementList.last_page;
+					} else if(response.data.code === "AMFL00") {
+
 					} else {
 						console.error('서버 오류');
 					}
