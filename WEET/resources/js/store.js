@@ -49,17 +49,17 @@ const store = createStore({
         setSaveToLocalStorage(state, data) {
             // state.userData.userCheck = data.controllerToken;
 
-            // state.userData.userID = data.userData.user_id;
-            // state.userData.setToken = data.token;
-            // state.userData.userLoginChk = data.controllerToken;
+            state.userData.userID = data.userData.user_id;
+            state.userData.setToken = data.token;
+            state.userData.userLoginChk = data.controllerToken;
 
-            state.userData = {
-                userName: data.userData.userName,
-                userEmail: data.userData.userEmail,
-                userID: data.userData.user_id,
-                setToken: data.token,
-                userLoginChk: data.controllerToken
-            };
+            // state.userData = {
+            //     userName: data.userData.userName,
+            //     userEmail: data.userData.userEmail,
+            //     userID: data.userData.user_id,
+            //     setToken: data.token,
+            //     userLoginChk: data.controllerToken
+            // };
 
             localStorage.setItem('setUserID', data.userData.user_id);
             // localStorage.setItem('userCheck', data.controllerToken);
