@@ -62,7 +62,7 @@ const routes = [
 		meta: {
 			title: '회원가입'
 		}
-	},
+	},	
 	{
 		path: '/admin/index',
 		name: 'Admin Index',
@@ -89,7 +89,7 @@ const routes = [
             }
         },
 		meta: {
-			title: '이용자 계정관리'
+			title: 'User 계정관리'
 		}
 	},
 	{
@@ -103,7 +103,7 @@ const routes = [
             }
         },
 		meta: {
-			title: '어드민 계정관리'
+			title: 'Admin 계정관리'
 		}
 	},
 	{
@@ -117,7 +117,7 @@ const routes = [
             }
         },
 		meta: {
-			title: '어드민 가입승인'
+			title: 'Admin 가입승인'
 		}
 	}
 ];

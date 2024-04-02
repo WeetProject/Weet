@@ -325,7 +325,8 @@ export default {
 					if(response.data.code === "ALO00") {
 							localStorage.clear();
 							alert('로그아웃 되었습니다.');
-							this.$router.push('/admin'); 
+							// this.$router.push('/admin');
+							window.location.href = '/admin';
 						} else {                
 							this.adminLogoutAlertError = response.data.error
 							alert(this.adminLogoutAlertError);

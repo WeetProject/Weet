@@ -45,7 +45,7 @@ class AdminManagementController extends Controller
                             DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') AS admin_created_at"))
                             ->whereNull('deleted_at')
                             ->where('admin_flg', '!=', 0)
-                            ->orderBy('admin_flg', 'ASC')
+                            ->orderBy('admin_flg', 'DESC')
                             ->orderBy('created_at', 'DESC')
                             ->paginate(8);
                             

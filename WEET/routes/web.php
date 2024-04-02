@@ -111,10 +111,10 @@ Route::prefix('admin')->group(function() {
         return view('welcome');
     });
     // Admin Management List 데이터 송신
-    Route::get('/management/adminList', 
+    Route::get('/management/adminManagementList', 
         [AdminManagementController::class, 'adminManagementList']);
     // Admin Management Flg List 데이터 송신
-    Route::get('/management/adminList', 
+    Route::get('/management/adminManagementFlgList', 
         [AdminManagementController::class, 'adminManagementFlgList']);
     // Admin Management Update 처리
     Route::post('/management/update', 

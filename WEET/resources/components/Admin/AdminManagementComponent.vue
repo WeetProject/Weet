@@ -118,7 +118,9 @@
 				<div class="admin_management_middle_container">
 					<div class="admin_management_middle_section">
 						<span class="text-xl font-bold">어드민 계정 목록</span>
-						<select class="ml-5 text-center admin_management_select" name="admin_list_select" id="admin_list_select">
+						<select class="ml-5 text-center admin_management_select" 
+						name="admin_list_select" id="admin_list_select"
+						v-model="adminSelectOption" @change="AdminDataOptionChange">
 							<option value="1" selected>최신 등록 순</option>
 							<option value="2">권한 순</option>
 						</select>
@@ -127,7 +129,7 @@
                             <!-- currentPage 1페이지 아닐 때 -->
                             <div class="admin_management_pagination_left_button_area">
                                 <div class="admin_management_pagination_first_button_area" v-if="currentPage !== 1">
-                                    <button class="admin_management_pagination_first_button" @click="adminManagementList(1)">
+                                    <button class="admin_management_pagination_first_button" @click="firstPagination()">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
                                         </svg>
@@ -135,7 +137,7 @@
                                     </button>
                                 </div>
                                 <div class="ml-2 admin_management_pagination_prev_button_area" v-if="currentPage !== 1">
-                                    <button class="admin_management_pagination_prev_button" @click="adminManagementList(currentPage - 1)">
+                                    <button class="admin_management_pagination_prev_button" @click="prevPagination()">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                                         </svg>
@@ -149,7 +151,7 @@
                             <!-- lastPage 아닐 때 -->
                             <div class="admin_management_pagination_right_button_area">
                                 <div class="admin_management_pagination_next_button_area" v-if="currentPage < lastPage">
-                                    <button class="admin_management_pagination_next_button" @click="adminManagementList(currentPage < lastPage ? currentPage + 1 : currentPage)">
+                                    <button class="admin_management_pagination_next_button" @click="nextpagination()">
                                         <span class="font-bold">다음</span>
                                         <svg v-if="currentPage !== lastPage" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
@@ -157,7 +159,7 @@
                                     </button>
                                 </div>						
                                 <div class="ml-2 admin_management_pagination_last_button_area" v-if="currentPage < lastPage">
-                                    <button class="admin_management_pagination_last_button" @click="adminManagementList(lastPage)">
+                                    <button class="admin_management_pagination_last_button" @click="lastPagination()">
                                         <span class="font-bold">끝</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
@@ -215,17 +217,18 @@ export default {
 			adminFlgInfo: '',
 			adminNameInfo: '',			
 			adminAuthority: false, // Admin 메뉴 권한 확인용
-			// Admin Management List 데이터 저장용
+			// Admin Management 데이터 저장용
 			adminListData: [],
 			// Pagination 데이터 저장용
 			adminManagementListData: {},
 			currentPage: null,
 			lastPage: null,
+			adminSelectOption: 1,
 		}
 	},
 
 	created() {
-		this.adminManagementList();
+		this.AdminDataOptionChange();
 	},
 
 	mounted() {
@@ -269,6 +272,7 @@ export default {
 				.then(response => {
 					if(response.data.code === "ALO00") {
 							localStorage.clear();
+							// localStorage.removeItem('token');
 							alert('로그아웃 되었습니다.');
 							this.$router.push('/admin'); 
 						} else {                
@@ -284,7 +288,7 @@ export default {
 
 		// Admin Management List 데이터 수신
 		adminManagementList(page) {
-			const URL = '/admin/management/adminList?page=' + page;
+			const URL = '/admin/management/adminManagementList?page=' + page;
 			axios.get(URL)
 				.then(response => {				
 					if(response.data.code === "AML00") {
@@ -301,8 +305,6 @@ export default {
 						});
 						this.currentPage = response.data.adminManagementList.current_page;
 						this.lastPage = response.data.adminManagementList.last_page;
-					} else if(response.data.code === "AMFL00") {
-
 					} else {
 						console.error('서버 오류');
 					}
@@ -310,6 +312,77 @@ export default {
 				.catch(error => {
 					console.error(error);
 				});
+		},
+
+		// Admin Management Flg List 데이터 수신
+		adminManagementFlgList(page) {
+			const URL = '/admin/management/adminManagementFlgList?page=' + page;
+			axios.get(URL)
+				.then(response => {				
+					if(response.data.code === "AMFL00") {
+						this.adminManagementListData = response.data.adminManagementFlgList;
+						console.log(this.adminManagementListData);
+						this.adminListData = response.data.adminManagementFlgList.data;						
+						this.adminListData.forEach(admin => {
+							// admin_flg / 1, 2 => Sub, Root로 변경
+							if (admin.admin_flg === 1) {
+								admin.admin_flg = 'Sub';
+							} else {
+								admin.admin_flg = 'Root';
+							}
+						});
+						this.currentPage = response.data.adminManagementFlgList.current_page;
+						this.lastPage = response.data.adminManagementFlgList.last_page;
+					}  else {
+						console.error('서버 오류');
+					}
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		},
+
+		// Admin Management Option 핸들러
+		AdminDataOptionChange() {
+			if (this.adminSelectOption === '1') {
+				this.adminManagementList();
+			} else {
+				this.adminManagementFlgList();
+			}
+		},
+
+		// Admin Management Pagination 처리
+		// 첫번째 페이지
+		firstPagination() {
+			if (this.adminSelectOption === '1') {
+				this.adminManagementList(1);
+			} else {
+				this.adminManagementFlgList(1);
+			}
+		},
+		// 이전 페이지
+		prevPagination() {
+			if (this.adminSelectOption === '1') {
+				this.adminManagementList(this.currentPage - 1);
+			} else {
+				this.adminManagementFlgList(this.currentPage - 1);
+			}
+		},
+		// 다음 페이지
+		nextpagination() {
+			if (this.adminSelectOption === '1') {
+				this.adminManagementList(this.currentPage < this.lastPage ? this.currentPage + 1 : this.currentPage);
+			} else {
+				this.adminManagementFlgList(this.currentPage < this.lastPage ? this.currentPage + 1 : this.currentPage);
+			}
+		},
+		// 마지막 페이지
+		lastPagination() {
+			if (this.adminSelectOption === '1') {
+				this.adminManagementList(this.lastPage);
+			} else {
+				this.adminManagementFlgList(this.lastPage);
+			}
 		},
 
         // Admin 권한 변경
