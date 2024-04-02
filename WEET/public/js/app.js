@@ -22501,7 +22501,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       clickTab: 0,
-      userData: {},
+      userData: {
+        userName: '',
+        userEmail: ''
+      },
       userNewInfoData: {
         userEmail: '',
         userPassword: '',
@@ -22529,11 +22532,11 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  // computed: {
-  //     userData() {
-  //         return this.$store.state.userData; // Vuex 스토어에서 userData 상태를 가져옵니다.
-  //     }
-  // },
+  computed: {
+    userData: function userData() {
+      return this.$store.state.userData; // Vuex 스토어에서 userData 상태를 가져옵니다.
+    }
+  },
   mounted: function mounted() {
     this.fetchData();
   },
@@ -22542,21 +22545,24 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       var url = '/mypage';
       var token = localStorage.getItem('setToken');
-      var userData = localStorage.getItem('setUserData');
-      var userID = localStorage.getItem('userID');
+      // const userData = localStorage.getItem('setUserData');
+      var userID = localStorage.getItem('setUserID');
       console.log(token);
-      console.log(userData);
+      // console.log(userData);
       console.log(userID);
       var header = {
         headers: {
           "Authorization": "Bearer ".concat(token),
-          "Content-Type": 'application/json'
+          "Content-Type": 'application/json',
+          "userID": "".concat(userID)
         }
       };
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(url, header).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(url, header, userID).then(function (res) {
         console.log(res);
+        _this.$store.commit('setUserData', res.data.userData);
         // this.userNewInfoData = res.data.userInfo;
-        _this.userData = res.data;
+        // this.token = res.data.token;
+        // this.userID = res.data.userID;
         // this.userInfoData = $state.userData;
         // this.userNewInfoData = res.data.userInfo;
         // this.$store.commit('setUserData', res.data.userData);
@@ -26241,41 +26247,32 @@ var _hoisted_1 = {
 var _hoisted_2 = {
   "class": "mypage_side_view"
 };
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_3 = {
   "class": "mypage_side_view_user_info"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "mypage_side_view_user_info_name"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "님의 MyPage")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "mypage_side_view_user_info_email"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "roseok624@gmail.com")])], -1 /* HOISTED */);
+};
 var _hoisted_4 = {
+  "class": "mypage_side_view_user_info_name"
+};
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "mypage_side_view_user_info_email"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "roseok624@gmail.com")], -1 /* HOISTED */);
+var _hoisted_6 = {
   "class": "mypage_side_view_tab"
 };
-var _hoisted_5 = {
+var _hoisted_7 = {
   "class": "mypage_side_view_tab_list"
 };
-var _hoisted_6 = {
+var _hoisted_8 = {
   "class": "mypage_main_view"
 };
-var _hoisted_7 = {
+var _hoisted_9 = {
   key: 0,
   "class": "mypage_main_view_tab"
 };
-var _hoisted_8 = {
+var _hoisted_10 = {
   "class": "mypage_main_view_user_info_box"
 };
-var _hoisted_9 = {
-  "class": "mypage_main_view_user_info_box_content"
-};
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "mypage_main_view_user_info_box_content_label"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "font-bold"
-}, "이메일")], -1 /* HOISTED */);
-var _hoisted_11 = {
-  "class": "mypage_main_view_user_info_box_content_span"
-};
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input id=\"password\" name=\"password\" type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPassword&quot;&gt;{{ errors.userPassword }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPassword &amp;&amp; frmUserData.userPassword&quot;&gt;유효한 비밀번호입니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPassword&quot;&gt;{{ RegistrationErrorMessage.userPassword }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호 확인</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPasswordChk&quot;&gt;{{ errors.userPasswordChk }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPasswordChk &amp;&amp; frmUserData.userPasswordChk&quot;&gt;비밀번호가 일치합니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPasswordChk&quot;&gt;{{ RegistrationErrorMessage.userPasswordChk }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">이름</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>최현희</span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">연락처</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>010-****-7060</span></div></div></div>", 4);
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">이메일</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span></span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input id=\"password\" name=\"password\" type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPassword&quot;&gt;{{ errors.userPassword }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPassword &amp;&amp; frmUserData.userPassword&quot;&gt;유효한 비밀번호입니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPassword&quot;&gt;{{ RegistrationErrorMessage.userPassword }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호 확인</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPasswordChk&quot;&gt;{{ errors.userPasswordChk }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPasswordChk &amp;&amp; frmUserData.userPasswordChk&quot;&gt;비밀번호가 일치합니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPasswordChk&quot;&gt;{{ RegistrationErrorMessage.userPasswordChk }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">이름</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>최현희</span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">연락처</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>010-****-7060</span></div></div></div>", 5);
 var _hoisted_16 = {
   "class": "mypage_main_view_user_info_box_content"
 };
@@ -26309,7 +26306,7 @@ var _hoisted_28 = {
   "class": "mypage_main_view_tab"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.userData) + "님의 MyPage", 1 /* TEXT */)]), _hoisted_5]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       $data.clickTab = 0;
     })
@@ -26321,7 +26318,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[2] || (_cache[2] = function ($event) {
       $data.clickTab = 2;
     })
-  }, "찜한내역")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [$data.clickTab === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.userData.userEmail), 1 /* TEXT */)])])]), _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, "찜한내역")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [$data.clickTab === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "font-bold",
     type: "button",
     onClick: _cache[3] || (_cache[3] = function ($event) {
@@ -27093,7 +27090,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
     return {
       showmodal: false,
       adminToken: null,
-      userData: {},
+      userData: null,
       userLoginChk: null,
       userID: null
       // userToken: null,
@@ -27129,14 +27126,24 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
     // 유저 로그인 정보 저장용
     setSaveToLocalStorage: function setSaveToLocalStorage(state, data) {
       // state.userData.userCheck = data.controllerToken;
-      state.userData.userID = data.userData.user_id;
-      state.userData.setToken = data.token;
-      state.userData.userLoginChk = data.controllerToken;
+
+      // state.userData.userID = data.userData.user_id;
+      // state.userData.setToken = data.token;
+      // state.userData.userLoginChk = data.controllerToken;
+
+      state.userData = {
+        userName: data.userData.userName,
+        userEmail: data.userData.userEmail,
+        userID: data.userData.user_id,
+        setToken: data.token,
+        userLoginChk: data.controllerToken
+      };
       localStorage.setItem('setUserID', data.userData.user_id);
       // localStorage.setItem('userCheck', data.controllerToken);
       localStorage.setItem('setToken', data.token);
       localStorage.setItem('setUserLoginChk', data.controllerToken);
       localStorage.setItem('setUserData', data.userData);
+      // localStorage.setItem('setUserData', JSON.stringify(data.userData));
 
       // 로컬스토리지의 정보 삭제부분(시간설정)
       setTimeout(function () {
@@ -27203,6 +27210,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
           localStorage.setItem('setUserData', userData);
           localStorage.setItem('setToken', token);
           localStorage.setItem('setUserLoginChk', res.data.token);
+          localStorage.setItem('setSaveToLocalStorage', res.data);
           alert('로그인 성공. 페이지를 새로 고칩니다.');
           // location.reload();
           // this.$router.push('/');
@@ -27261,6 +27269,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(url, header).then(function (res) {
         console.log('로그아웃', res);
         // context.commit('setUserLoginChk', false);
+        // this.setSaveToLocalStorage(data);
         localStorage.clear();
         if (confirm('로그아웃 성공\n로그아웃에 성공했습니다. 페이지를 새로고침 하시겠습니까?')) {
           location.reload();
