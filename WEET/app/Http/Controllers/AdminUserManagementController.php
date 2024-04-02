@@ -24,11 +24,11 @@ class AdminUserManagementController extends Controller
                         DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') AS user_created_at"))
                         ->whereNull('deleted_at')
                         ->orderByDesc('created_at')
-                        ->paginate(7);         
+                        ->paginate(8);         
         
         $error = "오류가 발생했습니다. 페이지를 새로고침 해주세요";
-
-        Log::debug($userManagementList);
+        // 데이터 송신 확인용 Log
+        // Log::debug($userManagementList);
         return response()->json([
             'code' => 'UML00',
             'userManagementList' => $userManagementList,

@@ -1,0 +1,185 @@
+@import "../mixin";
+
+.admin_registration_container {
+    width: 1300px;
+    height: 100vh;
+    margin: 0 auto;
+    color: $admin-font-color;
+
+    .admin_registration_top_container {
+        width: 100%;
+        margin: 10px auto;
+        background-color: #fff;
+        margin-bottom: 10px;
+        padding: 20px;
+        border-radius: 10px;
+
+        .admin_registration_top_title_section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .admin_registration_middle_container {
+        width: 100%;
+        margin: 10px auto;
+        background-color: #fff;
+        margin-bottom: 10px;
+        padding: 20px;
+        border-radius: 10px;
+
+        .admin_registration_middle_section {
+            width: 100%;
+            display: flex;
+            align-items: center;
+
+            .admin_registration_select {                
+                border: 1px solid #000;                                
+                margin-right: 100px;
+            }
+
+            .admin_registration_pagination_section {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 auto;
+
+                .admin_registration_pagination_page_span_area {
+                    width: 250px;
+                    position: relative;
+                    
+                    .admin_registration_pagination_page_span {
+                        width: 100%;
+                    }
+                }
+
+                .admin_registration_pagination_left_button_area {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    right: 30%;
+                    
+                    .admin_registration_pagination_first_button_area,
+                    .admin_registration_pagination_prev_button_area {
+                        width: 80px;
+                        height: 40px;
+                        line-height: 40px;
+
+                        .admin_registration_pagination_first_button,
+                        .admin_registration_pagination_prev_button {
+                            width: 80px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            background-color: $main-font-color;
+                            color: #fff;
+                            border-radius: 10px;
+
+                            &:hover {
+                                opacity: 0.8;
+                                transition: 0.5s;
+                            }
+                        }
+                    }
+                }
+
+                .admin_registration_pagination_right_button_area {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    left: 30%;
+
+                    .admin_registration_pagination_next_button_area,
+                    .admin_registration_pagination_last_button_area {
+                        width: 80px;
+                        height: 40px;
+                        line-height: 40px;
+
+                        .admin_registration_pagination_next_button,
+                        .admin_registration_pagination_last_button {
+                            width: 80px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            background-color: $main-font-color;
+                            color: #fff;
+                            border-radius: 10px;
+
+                            &:hover {
+                                opacity: 0.8;
+                                transition: 0.5s;
+                            }
+                        }
+                    }
+                }                
+            }
+        }
+    }
+
+    .admin_registration_bottom_container {
+        width: 100%;
+
+        .admin_registration_bottom_title_ul {
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .admin_registration_bottom_title_li {
+                &:not(:nth-child(3)) {
+                    width: 100px;
+                }
+                
+                &:nth-child(3) {
+                    width: 200px;
+                }
+            } 
+        }
+        .admin_registration_bottom_content_ul {
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .admin_registration_bottom_content_li {
+                &:not(:nth-child(3)) {
+                    width: 100px;
+                }
+                
+                &:nth-child(3) {
+                    width: 200px;
+                }
+
+                .admin_registration_bottom_content_update_button,
+                .admin_registration_bottom_content_withdrawal_button {
+                    width: 80px;
+                    height: 24px;
+                    line-height: 24px;
+                    background-color: $main-font-color;
+                    color: #fff;
+                    border-radius: 10px;
+
+                    &:hover {
+                        opacity: 0.8;
+                        transition: 0.5s;
+                    }
+                }                
+            } 
+        }            
+    }
+}
