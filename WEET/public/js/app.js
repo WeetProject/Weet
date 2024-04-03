@@ -24526,9 +24526,29 @@ var _hoisted_23 = {
   "class": "admin_signup_button_area"
 };
 var _hoisted_24 = {
+  "class": "mx-5 admin_signup_signup_button"
+};
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "admin_signup_button_text_area"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  fill: "none",
+  viewBox: "0 0 24 24",
+  "stroke-width": "1.5",
+  stroke: "currentColor",
+  "class": "admin_signup_svg"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  d: "M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9"
+})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "text-base font-semibold"
+}, "Sign Up")], -1 /* HOISTED */);
+var _hoisted_26 = [_hoisted_25];
+var _hoisted_27 = {
   "class": "mx-5 admin_signup_cancel_button"
 };
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "class": "admin_cancel_button",
   type: "button"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -24545,26 +24565,6 @@ var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "stroke-linejoin": "round",
   d: "M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
 })]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel ")])], -1 /* HOISTED */);
-var _hoisted_26 = {
-  "class": "mx-5 admin_signup_signup_button"
-};
-var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "admin_signup_button_text_area"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  xmlns: "http://www.w3.org/2000/svg",
-  fill: "none",
-  viewBox: "0 0 24 24",
-  "stroke-width": "1.5",
-  stroke: "currentColor",
-  "class": "admin_signup_svg"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  d: "M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9"
-})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "text-base font-semibold"
-}, "Sign Up")], -1 /* HOISTED */);
-var _hoisted_28 = [_hoisted_27];
 var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "admin_signup_right_section"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
@@ -24639,21 +24639,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
       return $data.adminSignupFormData.admin_name = $event;
     })
-  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.admin_name]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorAdminName), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminSignUpError), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/admin",
-    "class": "flex w-full text-base font-semibold"
-  }, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_25];
-    }),
-    _: 1 /* STABLE */
-  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.admin_name]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorAdminName), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminSignUpError), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_signup_button",
     type: "submit",
     onClick: _cache[12] || (_cache[12] = function () {
       return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
     })
-  }, [].concat(_hoisted_28))])])]), _hoisted_29])]);
+  }, [].concat(_hoisted_26))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "/admin",
+    "class": "flex w-full text-base font-semibold"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_28];
+    }),
+    _: 1 /* STABLE */
+  })])])]), _hoisted_29])]);
 }
 
 /***/ }),
@@ -24986,7 +24986,7 @@ var _hoisted_59 = {
 var _hoisted_60 = {
   "class": "admin_user_management_bottom_container"
 };
-var _hoisted_61 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<ul class=\"admin_user_management_bottom_title_ul\"><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">이름</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">아이디</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">휴대폰번호</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">생년월일</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">성별</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">활동상태</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">가입일자</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">최근 로그인 이력</li></ul>", 1);
+var _hoisted_61 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<ul class=\"admin_user_management_bottom_title_ul\"><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">이름</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">아이디</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">휴대폰번호</li><!-- &lt;li class=&quot;font-semibold text-center admin_user_management_bottom_title_li&quot;&gt;생년월일&lt;/li&gt; --><!-- &lt;li class=&quot;font-semibold text-center admin_user_management_bottom_title_li&quot;&gt;성별&lt;/li&gt; --><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">활동상태</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">가입일자</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">최근 로그인 이력</li></ul>", 1);
 var _hoisted_62 = {
   href: ""
 };
@@ -25005,24 +25005,24 @@ var _hoisted_66 = {
 var _hoisted_67 = {
   "class": "text-center admin_user_management_bottom_content_li"
 };
-var _hoisted_68 = {
-  "class": "text-center admin_user_management_bottom_content_li"
-};
-var _hoisted_69 = {
-  "class": "text-center admin_user_management_bottom_content_li"
-};
-var _hoisted_70 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
+var _hoisted_68 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
   "class": "text-center admin_user_management_bottom_content_li"
 }, "2024-03-30 14:59:28", -1 /* HOISTED */);
-var _hoisted_71 = {
+var _hoisted_69 = {
   key: 1
 };
-var _hoisted_72 = {
+var _hoisted_70 = {
   "class": "admin_user_management_bottom_container"
 };
-var _hoisted_73 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<ul class=\"admin_user_management_bottom_title_ul\"><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">이름</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">아이디</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">휴대폰번호</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">결제 금액</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">출발 정보</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">도착 정보</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">결제 시간</li></ul>", 1);
-var _hoisted_74 = {
+var _hoisted_71 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<ul class=\"admin_user_management_bottom_title_ul\"><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">이름</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">아이디</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">휴대폰번호</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">결제 금액</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">출발 정보</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">도착 정보</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">결제 시간</li></ul>", 1);
+var _hoisted_72 = {
   href: ""
+};
+var _hoisted_73 = {
+  "class": "text-center admin_user_management_bottom_content_li"
+};
+var _hoisted_74 = {
+  "class": "text-center admin_user_management_bottom_content_li"
 };
 var _hoisted_75 = {
   "class": "text-center admin_user_management_bottom_content_li"
@@ -25037,12 +25037,6 @@ var _hoisted_78 = {
   "class": "text-center admin_user_management_bottom_content_li"
 };
 var _hoisted_79 = {
-  "class": "text-center admin_user_management_bottom_content_li"
-};
-var _hoisted_80 = {
-  "class": "text-center admin_user_management_bottom_content_li"
-};
-var _hoisted_81 = {
   "class": "text-center admin_user_management_bottom_content_li"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -25124,12 +25118,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", {
       "class": "admin_user_management_bottom_content_ul",
       key: userList
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_63, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_64, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_email), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_65, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_tel), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_66, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_birthdate), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_67, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_gender), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_68, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_flg), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_69, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_created_at), 1 /* TEXT */), _hoisted_70]);
-  }), 128 /* KEYED_FRAGMENT */))])])])) : $data.userSelectOption === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_71, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 이용자 탭 / 최신 결제 순 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_72, [_hoisted_73, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_74, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.userListData, function (userList) {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_63, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_64, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_email), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_65, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_tel), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"text-center admin_user_management_bottom_content_li\">{{ userList.user_birthdate }}</li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"text-center admin_user_management_bottom_content_li\">{{ userList.user_gender }}</li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_66, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_flg), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_67, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_created_at), 1 /* TEXT */), _hoisted_68]);
+  }), 128 /* KEYED_FRAGMENT */))])])])) : $data.userSelectOption === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_69, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 이용자 탭 / 최신 결제 순 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_70, [_hoisted_71, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_72, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.userListData, function (userList) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", {
       "class": "admin_user_management_bottom_content_ul",
       key: userList
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_75, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_76, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_email), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_77, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_tel), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_78, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.payment_price), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_79, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.reservation_departure_airport) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.reservation_departure_time), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_80, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.reservation_arrival_airport) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.reservation_arrival_time), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_81, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.payment_created_at), 1 /* TEXT */)]);
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_73, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_74, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_email), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_75, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_tel), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_76, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.payment_price), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_77, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.reservation_departure_airport) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.reservation_departure_time), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_78, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.reservation_arrival_airport) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.reservation_arrival_time), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_79, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.payment_created_at), 1 /* TEXT */)]);
   }), 128 /* KEYED_FRAGMENT */))])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 항공권 예매 탭(최신 결제 순) "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"admin_user_management_bottom_title_ul\">\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">이름</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">아이디</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">결제금액</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">결제일시</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">출발공항</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">출발시간</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">도착공항</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">도착시간</li>\r\n\t\t\t\t</ul> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 호텔 예약 탭(최신 결제 순) "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"admin_user_management_bottom_title_ul\">\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">이름</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">아이디</li>\t\t\t\t\t\t\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">예약금액</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">예약일시</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">호텔명</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">위치</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">체크인</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">체크아웃</li>\r\n\t\t\t\t</ul> ")])])]);
 }
 
@@ -27260,10 +27254,12 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       adminToken: null,
       userData: null,
       userLoginChk: null,
-      userID: null
+      userID: null,
       // userToken: null,
 
       // ### Admin ###
+      userListModal: false,
+      userPaymentListModal: false
     };
   },
   mutations: {
@@ -27323,6 +27319,23 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
     // 유저 토큰 저장용
     setToken: function setToken(state, token) {
       state.token = token;
+    },
+    // ### Admin ###
+    // UserListModal Open
+    userListModalOpen: function userListModalOpen(state) {
+      state.userListModal = true;
+    },
+    // UserListModal Close
+    userListModalClose: function userListModalClose(state) {
+      state.userListModal = false;
+    },
+    // UserListModal Open
+    userPaymentListModalOpen: function userPaymentListModalOpen(state) {
+      state.userPaymentListModal = true;
+    },
+    // UserListModal Close
+    userPaymentListModalClose: function userPaymentListModalClose(state) {
+      state.userPaymentListModal = false;
     }
   },
   actions: {

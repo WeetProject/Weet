@@ -177,8 +177,8 @@
 							<li class="font-semibold text-center admin_user_management_bottom_title_li">이름</li>
 							<li class="font-semibold text-center admin_user_management_bottom_title_li">아이디</li>
 							<li class="font-semibold text-center admin_user_management_bottom_title_li">휴대폰번호</li>
-							<li class="font-semibold text-center admin_user_management_bottom_title_li">생년월일</li>
-							<li class="font-semibold text-center admin_user_management_bottom_title_li">성별</li>
+							<!-- <li class="font-semibold text-center admin_user_management_bottom_title_li">생년월일</li> -->
+							<!-- <li class="font-semibold text-center admin_user_management_bottom_title_li">성별</li> -->
 							<li class="font-semibold text-center admin_user_management_bottom_title_li">활동상태</li>
 							<li class="font-semibold text-center admin_user_management_bottom_title_li">가입일자</li>
 							<li class="font-semibold text-center admin_user_management_bottom_title_li">최근 로그인 이력</li>
@@ -188,8 +188,8 @@
 								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_name }}</li>
 								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_email }}</li>
 								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_tel }}</li>
-								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_birthdate }}</li>
-								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_gender }}</li>
+								<!-- <li class="text-center admin_user_management_bottom_content_li">{{ userList.user_birthdate }}</li> -->
+								<!-- <li class="text-center admin_user_management_bottom_content_li">{{ userList.user_gender }}</li> -->
 								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_flg }}</li>
 								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_created_at }}</li>
 								<li class="text-center admin_user_management_bottom_content_li">2024-03-30 14:59:28</li>

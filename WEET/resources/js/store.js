@@ -17,7 +17,8 @@ const store = createStore({
             // userToken: null,
 
             // ### Admin ###
-            
+            userListModal: false,
+            userPaymentListModal: false,
         }
     },
 
@@ -78,6 +79,24 @@ const store = createStore({
         // 유저 토큰 저장용
         setToken(state, token) {
             state.token = token;
+        },
+
+        // ### Admin ###
+        // UserListModal Open
+        userListModalOpen(state) {
+            state.userListModal = true;
+        },
+        // UserListModal Close
+        userListModalClose(state) {
+            state.userListModal = false;
+        },
+        // UserListModal Open
+        userPaymentListModalOpen(state) {
+            state.userPaymentListModal = true;
+        },
+        // UserListModal Close
+        userPaymentListModalClose(state) {
+            state.userPaymentListModal = false;
         },
     
     },
