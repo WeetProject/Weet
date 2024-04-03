@@ -374,6 +374,26 @@ export default {
 					console.error(error);
 				});
 		},
+
+		// Admin Management Flg List 데이터 수신
+		adminManagementFlgList(page) {
+			const URL = '/admin/management/userManagementPaymentList?page=' + page;
+			axios.get(URL)
+				.then(response => {				
+					if(response.data.code === "UMPL00") {
+						this.userManagementListData = response.data.userManagementPaymentList;
+						console.log(this.adminManagementListData);
+						this.userListData = response.data.userManagementPaymentList.data;
+						this.currentPage = response.data.userManagementPaymentList.current_page;
+						this.lastPage = response.data.userManagementPaymentList.last_page;
+					}  else {
+						console.error('서버 오류');
+					}
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		},
 	}
 }
 </script>

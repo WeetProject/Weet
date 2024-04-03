@@ -3,7 +3,7 @@
         <div class="mypage_side_view">
             <div class="mypage_side_view_user_info">
                 <div class="mypage_side_view_user_info_name"> 
-                    <span>{{ userData }}님의 MyPage</span>
+                    <span>님의 MyPage</span>
                 </div>
                 <div class="mypage_side_view_user_info_email"> 
                     <span>roseok624@gmail.com</span>
@@ -132,7 +132,88 @@
             </div>
             <div v-if="clickTab === 1" class="mypage_main_view_tab">
                 <div class="mypage_main_view_user_reservation">
-
+                    <div class="mypage_main_view_user_reservation_menu">
+                        <div class="mypage_main_view_user_reservation_menu_all">
+                            <span>전체</span>
+                        </div>
+                        <div class="mypage_main_view_user_reservation_menu_all">
+                            <span>항공권</span>
+                        </div>
+                        <div class="mypage_main_view_user_reservation_menu_all">
+                            <span>호텔</span>
+                        </div>
+                    </div>
+                    <div class="mypage_main_view_user_reservation_ticket">
+                        <div class="mypage_main_view_user_reservation_ticket_date">
+                            <span>2024.04.03</span>
+                            <span>~</span>
+                            <span>2024.04.10</span>
+                        </div>
+                        <div class="mypage_main_view_user_reservation_ticket_list">
+                            <div class="mypage_main_view_user_reservation_ticket_list_flight_name">
+                                <div>
+                                    <span>진에어</span>
+                                </div>
+                                <div>
+                                    <span>진에어</span>
+                                </div>
+                            </div>
+                            <div class="mypage_main_view_user_reservation_ticket_list_flight_time">
+                                <div class="mypage_main_view_user_reservation_ticket_list_flight_time_route">
+                                    <div class="mypage_main_view_user_reservation_ticket_list_flight_time_route_info">
+                                        <div>
+                                            <span>오전 07:05</span>
+                                        </div>
+                                        <div>
+                                            <span>PUS</span>
+                                        </div>
+                                    </div>
+                                    <div class="mypage_main_view_user_reservation_ticket_list_flight_time_route_img">
+                                        <span>소요시간</span>
+                                        <span>직항</span>
+                                    </div>
+                                    <div class="mypage_main_view_user_reservation_ticket_list_flight_time_route_info">
+                                        <div>
+                                            <span>오전 08:00</span>
+                                        </div>
+                                        <div>
+                                            <span>CJU</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mypage_main_view_user_reservation_ticket_list_flight_time_route">
+                                    <div class="mypage_main_view_user_reservation_ticket_list_flight_time_route_info">
+                                        <div>
+                                            <span>오전 07:05</span>
+                                        </div>
+                                        <div>
+                                            <span>PUS</span>
+                                        </div>
+                                    </div>
+                                    <div class="mypage_main_view_user_reservation_ticket_list_flight_time_route_img">
+                                        <span>소요시간</span>
+                                        <span>직항</span>
+                                    </div>
+                                    <div class="mypage_main_view_user_reservation_ticket_list_flight_time_route_info">
+                                        <div>
+                                            <span>오전 08:00</span>
+                                        </div>
+                                        <div>
+                                            <span>CJU</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mypage_main_view_user_reservation_ticket_list_flight_info">
+                                <div>
+                                    <button>예약상세</button>
+                                </div>
+                                <div>
+                                    <button>예약취소</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div v-if="clickTab === 2" class="mypage_main_view_tab">
@@ -156,41 +237,12 @@ export default {
                 userName: '',
                 userEmail: '',
             },
-            userNewInfoData: {
-                userEmail: '',
-                userPassword: '',
-                userPasswordChk: '',
-                userName: '',
-                userBirthDate: '',
-                userGender: '',
-                userTel: '',
-                userTermsofUse: '',
-            },
-
-            frmUserAddressData: {
-                userPostcode: '',
-                userBasicAddress: '',
-                userDetailAddress: '',
-            },
-
-            errors: {},
-
-            RegistrationErrorMessage: {
-                userEmail: '',
-                userPassword: '',
-                userPasswordChk: '',
-                userName: '',
-                userTel: '',
-                userBirthDate: '',
-                userDetailAddress: '',
-            },
+            
         }
     },
 
     computed: {
-        userData() {
-            return this.$store.state.userData; // Vuex 스토어에서 userData 상태를 가져옵니다.
-        }
+        
     },
 
     mounted() {
@@ -199,37 +251,7 @@ export default {
 
     methods: {
         fetchData() {
-            const url = '/mypage';
-            const token = localStorage.getItem('setToken');
-            // const userData = localStorage.getItem('setUserData');
-            const userID = localStorage.getItem('setUserID');
-            console.log(token);
-            // console.log(userData);
-            console.log(userID);
-
-            const header = {
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": 'application/json',
-                    "userID": `${userID}`,
-                },
-            };
             
-            axios.post(url, header, userID)
-            .then(res => {
-                console.log(res);
-                
-                this.$store.commit('setUserData', res.data.userData);
-                // this.userNewInfoData = res.data.userInfo;
-                // this.token = res.data.token;
-                // this.userID = res.data.userID;
-                // this.userInfoData = $state.userData;
-                // this.userNewInfoData = res.data.userInfo;
-                // this.$store.commit('setUserData', res.data.userData);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
         }
     },
 

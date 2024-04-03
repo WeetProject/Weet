@@ -62,7 +62,6 @@ const store = createStore({
             // };
 
             localStorage.setItem('setUserID', data.userData.user_id);
-            // localStorage.setItem('userCheck', data.controllerToken);
             localStorage.setItem('setToken', data.token);
             localStorage.setItem('setUserLoginChk', data.controllerToken);
             localStorage.setItem('setUserData', data.userData);
@@ -114,8 +113,9 @@ const store = createStore({
                 const userData = res.data.userData;
                 const userID = res.data.userData.user_id;
 				// const decoded = jwtDecode(token);
-				console.log(token);
-				console.log(userData);
+				console.log("토큰",token);
+				console.log("유저데이터",userData);
+				console.log("유저아이디",userID);
 				// console.log("유저데이터", res.data.userData);
 
                 if (res.data.success) {
@@ -131,13 +131,14 @@ const store = createStore({
                     // const loginUserData = res.data.userData.userID;
                     console.log("레스.데이터", res.data);
                     // console.log("유저체크", res.data.controllerToken);
-                    // console.log(res.data.userData);
+                    console.log(userID);
 					// localStorage.setItem('loginUser', userId);
 					// localStorage.setItem('loginUserId', res.data.userId);
 					// localStorage.setItem('loginUserEmail', res.data.userEmail);
 					localStorage.setItem('setUserData', userData);
 					localStorage.setItem('setToken', token);
-					localStorage.setItem('setUserLoginChk', res.data.token);
+					localStorage.setItem('setUserID', userID);
+					localStorage.setItem('setUserLoginChk', res.data.controllerToken);
 					localStorage.setItem('setSaveToLocalStorage', res.data);
                     
 
