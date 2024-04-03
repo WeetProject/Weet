@@ -102,9 +102,12 @@ Route::prefix('admin')->group(function() {
     Route::get('/user/management', function () {
         return view('welcome');
     });
-    // Admin User Management 데이터 송신
-    Route::get('/user/management/userList', 
+    // Admin User Management List 데이터 송신
+    Route::get('/user/management/userManagementList', 
         [AdminUserManagementController::class, 'userManagementList']);
+    // Admin User Management Payment List  데이터 송신
+    Route::get('/user/management/userManagementPaymentList', 
+        [AdminUserManagementController::class, 'userManagementPaymentList']);
 
     // Admin Management
     Route::get('/management', function () {

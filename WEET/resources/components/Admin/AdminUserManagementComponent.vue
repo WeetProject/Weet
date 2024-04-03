@@ -235,10 +235,10 @@ export default {
 			adminFlgInfo: '',
 			adminNameInfo: '',			
 			adminAuthority: false, // Admin 메뉴 권한 확인용
-			// User Management List 데이터 저장용
-			userListData: [],
 			userGenderInfo: '',
 			userFlgInfo: '',
+			// User Management List 데이터 저장용
+			userListData: [],
 			// Pagination 데이터 저장용
 			userManagementListData: {},
 			currentPage: null,
@@ -307,7 +307,42 @@ export default {
 
 		// User Management List 데이터 수신
 		userManagementList(page) {
-			const URL = '/admin/user/management/userList?page=' + page;
+			const URL = '/admin/user/management/userManagementList?page=' + page;
+			axios.get(URL)
+				.then(response => {				
+					if(response.data.code === "UML00") {
+						this.userManagementListData = response.data.userManagementList;
+						console.log(this.userManagementListData);
+						this.userListData = response.data.userManagementList.data;						
+						this.userListData.forEach(user => {
+							// user_gender / M, F => 남자, 여자로 변경
+							if (user.user_gender === 'M') {
+								user.user_gender = '남';
+							} else {
+								user.user_gender = '여';
+							}
+							// user_flg / 0, 1 => 정상, 정지로 변경
+							if (user.user_flg === 0) {
+								user.user_flg = '정상';
+							} else {
+								// user_flg가 0이 아니면 '정지'로 변경
+								user.user_flg = '정지';
+							}
+						});
+						this.currentPage = response.data.userManagementList.current_page;
+						this.lastPage = response.data.userManagementList.last_page;
+					} else {
+						console.error('서버 오류');
+					}
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		},
+
+		// Admin User Management Payment List 데이터 수신
+		userManagementList(page) {
+			const URL = '/admin/user/management/userManagementPaymentList?page=' + page;
 			axios.get(URL)
 				.then(response => {				
 					if(response.data.code === "UML00") {
