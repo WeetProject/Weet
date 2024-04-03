@@ -118,18 +118,18 @@
 				<div class="admin_user_management_middle_container">
 					<div class="admin_user_management_middle_section">
 						<span class="text-xl font-bold">이용자 목록</span>
-						<select class="ml-5 text-center admin_user_management_select" name="user" id="admin_flg">
-							<option value="1" selected>최신 가입 순</option>
-							<option value="2">최신 로그인 순</option>
-							<option value="3">누적 결제 금액 순</option>
-							<option value="4">누적 예약 건수 순</option>
+						<select class="ml-5 text-center admin_user_management_select" 
+						name="user_list_select" id="user_list_select"
+						v-model="userSelectOption" @change="userDataOptionChange">
+							<option value="1">최신 가입 순</option>
+							<option value="2">최신 결제 순</option>
 						</select>
 						<!-- Pagination -->
 						<div class="relative admin_user_management_pagination_section">
 							<!-- currentPage 1페이지 아닐 때 -->
 							<div class="admin_user_management_pagination_left_button_area">
 								<div class="admin_user_management_pagination_first_button_area" v-if="currentPage !== 1">
-									<button class="admin_user_management_pagination_first_button" @click="userManagementList(1)">
+									<button class="admin_user_management_pagination_first_button" @click="firstPagination()">
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 											<path stroke-linecap="round" stroke-linejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
 										</svg>
@@ -137,7 +137,7 @@
 									</button>
 								</div>
 								<div class="ml-2 admin_user_management_pagination_prev_button_area" v-if="currentPage !== 1">
-									<button class="admin_user_management_pagination_prev_button" @click="userManagementList(currentPage - 1)">
+									<button class="admin_user_management_pagination_prev_button" @click="prevPagination()">
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 											<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
 										</svg>
@@ -151,7 +151,7 @@
 							<!-- lastPage 아닐 때 -->
 							<div class="admin_user_management_pagination_right_button_area">
 								<div class="admin_user_management_pagination_next_button_area" v-if="currentPage < lastPage">
-									<button class="admin_user_management_pagination_next_button" @click="userManagementList(currentPage < lastPage ? currentPage + 1 : currentPage)">
+									<button class="admin_user_management_pagination_next_button" @click="nextpagination()">
 										<span class="font-bold">다음</span>
 										<svg v-if="currentPage !== lastPage" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 											<path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
@@ -159,7 +159,7 @@
 									</button>
 								</div>						
 								<div class="ml-2 admin_user_management_pagination_last_button_area" v-if="currentPage < lastPage">
-									<button class="admin_user_management_pagination_last_button" @click="userManagementList(lastPage)">
+									<button class="admin_user_management_pagination_last_button" @click="lastPagination()">
 										<span class="font-bold">끝</span>
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 											<path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
@@ -170,54 +170,86 @@
 						</div>
 					</div>
 				</div>
-				<div class="admin_user_management_bottom_container">
-					<!-- 이용자 탭 -->
-					<ul class="admin_user_management_bottom_title_ul">
-						<li class="font-semibold text-center admin_user_management_bottom_title_li">이름</li>
-						<li class="font-semibold text-center admin_user_management_bottom_title_li">아이디</li>
-						<li class="font-semibold text-center admin_user_management_bottom_title_li">휴대폰번호</li>
-						<li class="font-semibold text-center admin_user_management_bottom_title_li">생년월일</li>
-						<li class="font-semibold text-center admin_user_management_bottom_title_li">성별</li>
-						<li class="font-semibold text-center admin_user_management_bottom_title_li">활동상태</li>
-						<li class="font-semibold text-center admin_user_management_bottom_title_li">가입일자</li>
-						<li class="font-semibold text-center admin_user_management_bottom_title_li">최근 로그인 이력</li>
-					</ul>
-					<a href="">
-						<ul class="admin_user_management_bottom_content_ul" v-for="userList in userListData" :key="userList">
-							<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_name }}</li>
-							<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_email }}</li>
-							<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_tel }}</li>
-							<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_birthdate }}</li>
-							<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_gender }}</li>
-							<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_flg }}</li>
-							<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_created_at }}</li>
-							<li class="text-center admin_user_management_bottom_content_li">2024-03-30 14:59:28</li>
+				<div v-if="userSelectOption === '1'">
+					<!-- 이용자 탭 / 최신 가입 순 -->					
+					<div class="admin_user_management_bottom_container">
+						<ul class="admin_user_management_bottom_title_ul">
+							<li class="font-semibold text-center admin_user_management_bottom_title_li">이름</li>
+							<li class="font-semibold text-center admin_user_management_bottom_title_li">아이디</li>
+							<li class="font-semibold text-center admin_user_management_bottom_title_li">휴대폰번호</li>
+							<li class="font-semibold text-center admin_user_management_bottom_title_li">생년월일</li>
+							<li class="font-semibold text-center admin_user_management_bottom_title_li">성별</li>
+							<li class="font-semibold text-center admin_user_management_bottom_title_li">활동상태</li>
+							<li class="font-semibold text-center admin_user_management_bottom_title_li">가입일자</li>
+							<li class="font-semibold text-center admin_user_management_bottom_title_li">최근 로그인 이력</li>
 						</ul>
-					</a>
-					
-					<!-- 항공권 예매 탭(최신 결제 순) -->
-					<!-- <ul class="admin_user_management_bottom_title_ul">
-						<li class="admin_user_management_bottom_title_li">이름</li>
-						<li class="admin_user_management_bottom_title_li">아이디</li>
-						<li class="admin_user_management_bottom_title_li">결제금액</li>
-						<li class="admin_user_management_bottom_title_li">결제일시</li>
-						<li class="admin_user_management_bottom_title_li">출발공항</li>
-						<li class="admin_user_management_bottom_title_li">출발시간</li>
-						<li class="admin_user_management_bottom_title_li">도착공항</li>
-						<li class="admin_user_management_bottom_title_li">도착시간</li>
-					</ul> -->
-					<!-- 호텔 예약 탭(최신 결제 순) -->
-					<!-- <ul class="admin_user_management_bottom_title_ul">
-						<li class="admin_user_management_bottom_title_li">이름</li>
-						<li class="admin_user_management_bottom_title_li">아이디</li>						
-						<li class="admin_user_management_bottom_title_li">예약금액</li>
-						<li class="admin_user_management_bottom_title_li">예약일시</li>
-						<li class="admin_user_management_bottom_title_li">호텔명</li>
-						<li class="admin_user_management_bottom_title_li">위치</li>
-						<li class="admin_user_management_bottom_title_li">체크인</li>
-						<li class="admin_user_management_bottom_title_li">체크아웃</li>
-					</ul> -->
+						<a href="">
+							<ul class="admin_user_management_bottom_content_ul" v-for="userList in userListData" :key="userList">
+								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_name }}</li>
+								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_email }}</li>
+								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_tel }}</li>
+								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_birthdate }}</li>
+								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_gender }}</li>
+								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_flg }}</li>
+								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_created_at }}</li>
+								<li class="text-center admin_user_management_bottom_content_li">2024-03-30 14:59:28</li>
+							</ul>
+						</a>
+					</div>
 				</div>
+				<div v-else-if="userSelectOption === '2'">
+					<!-- 이용자 탭 / 최신 결제 순 -->
+					<div class="admin_user_management_bottom_container">
+						<ul class="admin_user_management_bottom_title_ul">
+							<li class="font-semibold text-center admin_user_management_bottom_title_li">이름</li>
+							<li class="font-semibold text-center admin_user_management_bottom_title_li">아이디</li>
+							<li class="font-semibold text-center admin_user_management_bottom_title_li">휴대폰번호</li>
+							<li class="font-semibold text-center admin_user_management_bottom_title_li">결제 금액</li>
+							<li class="font-semibold text-center admin_user_management_bottom_title_li">출발 정보</li>
+							<li class="font-semibold text-center admin_user_management_bottom_title_li">도착 정보</li>
+							<li class="font-semibold text-center admin_user_management_bottom_title_li">결제 시간</li>
+						</ul>
+						<a href="">
+							<ul class="admin_user_management_bottom_content_ul" v-for="userList in userListData" :key="userList">
+								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_name }}</li>
+								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_email }}</li>
+								<li class="text-center admin_user_management_bottom_content_li">{{ userList.user_tel }}</li>
+								<li class="text-center admin_user_management_bottom_content_li">{{ userList.payment_price }}</li>
+								<li class="text-center admin_user_management_bottom_content_li">
+									{{ userList.reservation_departure_airport }}
+									{{ userList.reservation_departure_time }}
+								</li>
+								<li class="text-center admin_user_management_bottom_content_li">
+									{{ userList.reservation_arrival_airport }}
+									{{ userList.reservation_arrival_time }}
+								</li>
+								<li class="text-center admin_user_management_bottom_content_li">{{ userList.payment_created_at }}</li>
+							</ul>
+						</a>
+					</div>
+				</div>
+				<!-- 항공권 예매 탭(최신 결제 순) -->
+				<!-- <ul class="admin_user_management_bottom_title_ul">
+					<li class="admin_user_management_bottom_title_li">이름</li>
+					<li class="admin_user_management_bottom_title_li">아이디</li>
+					<li class="admin_user_management_bottom_title_li">결제금액</li>
+					<li class="admin_user_management_bottom_title_li">결제일시</li>
+					<li class="admin_user_management_bottom_title_li">출발공항</li>
+					<li class="admin_user_management_bottom_title_li">출발시간</li>
+					<li class="admin_user_management_bottom_title_li">도착공항</li>
+					<li class="admin_user_management_bottom_title_li">도착시간</li>
+				</ul> -->
+				<!-- 호텔 예약 탭(최신 결제 순) -->
+				<!-- <ul class="admin_user_management_bottom_title_ul">
+					<li class="admin_user_management_bottom_title_li">이름</li>
+					<li class="admin_user_management_bottom_title_li">아이디</li>						
+					<li class="admin_user_management_bottom_title_li">예약금액</li>
+					<li class="admin_user_management_bottom_title_li">예약일시</li>
+					<li class="admin_user_management_bottom_title_li">호텔명</li>
+					<li class="admin_user_management_bottom_title_li">위치</li>
+					<li class="admin_user_management_bottom_title_li">체크인</li>
+					<li class="admin_user_management_bottom_title_li">체크아웃</li>
+				</ul> -->				
 			</div>
 		</div>
 	</div>
@@ -243,11 +275,12 @@ export default {
 			userManagementListData: {},
 			currentPage: null,
 			lastPage: null,
+			userSelectOption: '1',
 		}
 	},
 
 	created() {
-		this.userManagementList();
+		this.userDataOptionChange();
 	},
 
 	mounted() {
@@ -340,32 +373,17 @@ export default {
 				});
 		},
 
-		// Admin User Management Payment List 데이터 수신
-		userManagementList(page) {
+		// User Management Payment List 데이터 수신
+		userManagementPaymentList(page) {
 			const URL = '/admin/user/management/userManagementPaymentList?page=' + page;
 			axios.get(URL)
 				.then(response => {				
-					if(response.data.code === "UML00") {
-						this.userManagementListData = response.data.userManagementList;
+					if(response.data.code === "UMPL00") {
+						this.userManagementListData = response.data.userManagementPaymentList;
 						console.log(this.userManagementListData);
-						this.userListData = response.data.userManagementList.data;						
-						this.userListData.forEach(user => {
-							// user_gender / M, F => 남자, 여자로 변경
-							if (user.user_gender === 'M') {
-								user.user_gender = '남';
-							} else {
-								user.user_gender = '여';
-							}
-							// user_flg / 0, 1 => 정상, 정지로 변경
-							if (user.user_flg === 0) {
-								user.user_flg = '정상';
-							} else {
-								// user_flg가 0이 아니면 '정지'로 변경
-								user.user_flg = '정지';
-							}
-						});
-						this.currentPage = response.data.userManagementList.current_page;
-						this.lastPage = response.data.userManagementList.last_page;
+						this.userListData = response.data.userManagementPaymentList.data;
+						this.currentPage = response.data.userManagementPaymentList.current_page;
+						this.lastPage = response.data.userManagementPaymentList.last_page;
 					} else {
 						console.error('서버 오류');
 					}
@@ -375,24 +393,55 @@ export default {
 				});
 		},
 
-		// Admin Management Flg List 데이터 수신
-		adminManagementFlgList(page) {
-			const URL = '/admin/management/userManagementPaymentList?page=' + page;
-			axios.get(URL)
-				.then(response => {				
-					if(response.data.code === "UMPL00") {
-						this.userManagementListData = response.data.userManagementPaymentList;
-						console.log(this.adminManagementListData);
-						this.userListData = response.data.userManagementPaymentList.data;
-						this.currentPage = response.data.userManagementPaymentList.current_page;
-						this.lastPage = response.data.userManagementPaymentList.last_page;
-					}  else {
-						console.error('서버 오류');
-					}
-				})
-				.catch(error => {
-					console.error(error);
-				});
+		// User Management Option 핸들러
+		userDataOptionChange() {
+			if (this.userSelectOption === '1') {
+				this.userManagementList();
+			} else if (this.userSelectOption === '2') {
+				this.userManagementPaymentList();
+			} 
+		},
+
+		listOption() {
+			this.userSelectOption = 1;
+		},
+
+		paymentListOption() {
+			this.userSelectOption = 2;
+		},
+
+		// User Management Pagination 처리
+		// 첫번째 페이지
+		firstPagination() {
+			if (this.userSelectOption === '1') {
+				this.userManagementList(1);
+			} else if (this.userSelectOption === '2') {
+				this.userManagementPaymentList(1);
+			} 
+		},
+		// 이전 페이지
+		prevPagination() {
+			if (this.userSelectOption === '1') {
+				this.userManagementList(this.currentPage - 1);
+			} else if (this.userSelectOption === '2') {
+				this.userManagementPaymentList(this.currentPage - 1);
+			} 
+		},
+		// 다음 페이지
+		nextpagination() {
+			if (this.userSelectOption === '1') {
+				this.userManagementList(this.currentPage < this.lastPage ? this.currentPage + 1 : this.currentPage);
+			} else if (this.userSelectOption === '2') {
+				this.userManagementPaymentList(this.currentPage < this.lastPage ? this.currentPage + 1 : this.currentPage);
+			} 
+		},
+		// 마지막 페이지
+		lastPagination() {
+			if (this.userSelectOption === '1') {
+				this.userManagementList(this.lastPage);
+			} else if (this.userSelectOption === '2') {
+				this.userManagementPaymentList(this.lastPage);
+			} 
 		},
 	}
 }

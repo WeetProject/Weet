@@ -54,14 +54,14 @@ const routes = [
 		meta: {
 			title: 'Admin'
 		},
-		beforeEnter: (to, from, next) => {
-			const token = localStorage.getItem('token');
-			if (token) {
-				next('/admin/index');
-			} else {
-				next();
-			}
-		},
+		// beforeEnter: (to, from, next) => {
+		// 	const token = localStorage.getItem('token');
+		// 	if (token) {
+		// 		next('/admin/index');
+		// 	} else {
+		// 		next();
+		// 	}
+		// },
 	},
 	{
 		path: '/admin/signup',
@@ -149,9 +149,11 @@ router.beforeEach((to, from, next) => {
 	// requireAuth 확인
 	if (to.matched.some(record=>record.meta.requireAuth) && !token) {
 		next('/admin')		
-	}
+	} else {
+        next();
+    }
+
 	document.title = to.meta.title || '기본 타이틀';
-	next();
 });
 
 

@@ -34,9 +34,12 @@
             display: flex;
             align-items: center;
 
-            .admin_management_select {                
-                border: 1px solid #000;                                
+            .admin_management_select {                                  
                 margin-right: 100px;
+
+                &:focus {
+                    outline: none;
+                }
             }
 
             .admin_management_pagination_section {
@@ -67,6 +70,7 @@
                         width: 80px;
                         height: 40px;
                         line-height: 40px;
+                        z-index: 9999;
 
                         .admin_management_pagination_first_button,
                         .admin_management_pagination_prev_button {

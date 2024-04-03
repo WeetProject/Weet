@@ -41,20 +41,20 @@ class AdminUserManagementController extends Controller
     // 최신 결제 순
     public function userManagementPaymentList() {
         $userManagementPaymentList = DB::table('users')
-                                ->join('reservations', 'users.id', '=', 'reservation.user_id')
-                                ->join('payment', 'users.id', '=', 'payment.user_id')
-                                ->select('users.user_email', 
-                                        'users.user_name', 
-                                        'users.user_tel', 
-                                        'reservation.reservation_departure_airport', 
-                                        'reservation.reservation_departure_time', 
-                                        'reservation.reservation_arrival_airport', 
-                                        'reservation.reservation_arrival_time', 
-                                        'payment.payment_price',
-                                        DB::raw("DATE_FORMAT(payment.created_at, '%Y-%m-%d') AS payment_created_at"))
-                                        ->whereNull('payments.deleted_at')
-                                        ->orderByDesc('payments.created_at')
-                                        ->paginate(8);  
+                                    ->join('reservation', 'users.user_id', '=', 'reservation.user_id')
+                                    ->join('payment', 'users.user_id', '=', 'payment.user_id')
+                                    ->select('users.user_email', 
+                                            'users.user_name', 
+                                            'users.user_tel', 
+                                            'reservation.reservation_departure_airport', 
+                                            'reservation.reservation_departure_time', 
+                                            'reservation.reservation_arrival_airport', 
+                                            'reservation.reservation_arrival_time', 
+                                            'payment.payment_price',
+                                            DB::raw("DATE_FORMAT(payment.created_at, '%Y-%m-%d') AS payment_created_at"))
+                                    ->whereNull('payment.deleted_at')
+                                    ->orderByDesc('payment.created_at')
+                                    ->paginate(8);
 
 
     

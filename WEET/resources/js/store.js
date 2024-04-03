@@ -15,6 +15,9 @@ const store = createStore({
             userLoginChk: null,
             userID: null,
             // userToken: null,
+
+            // ### Admin ###
+            
         }
     },
 
