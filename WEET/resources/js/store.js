@@ -19,6 +19,14 @@ const store = createStore({
             // ### Admin ###
             userListModal: false,
             userPaymentListModal: false,
+            // User Management 데이터 저장용
+            userManagementList: {},
+            userListData: [],
+            userSelectOption: '1', // 1 : 최신 가입 순, 2 : 최신 결제 순 
+            // User Management Pagination 데이터 저장용
+            currentPage: null,
+			lastPage: null,
+            
         }
     },
 
@@ -242,7 +250,62 @@ const store = createStore({
                 console.log(err.response.data);
             });
         },
-        
+
+        // ### Admin ###
+        // User Management List 데이터 수신
+        userManagementList(page) {
+			const URL = '/admin/user/management/userManagementList?page=' + page;
+			axios.get(URL)
+				.then(response => {				
+					if(response.data.code === "UML00") {
+						this.userManagementListData = response.data.userManagementList;
+						console.log(this.userManagementListData);
+						this.userListData = response.data.userManagementList.data;						
+						this.userListData.forEach(user => {
+							// user_gender / M, F => 남자, 여자로 변경
+							if (user.user_gender === 'M') {
+								user.user_gender = '남';
+							} else {
+								user.user_gender = '여';
+							}
+							// user_flg / 0, 1 => 정상, 정지로 변경
+							if (user.user_flg === 0) {
+								user.user_flg = '정상';
+							} else {
+								// user_flg가 0이 아니면 '정지'로 변경
+								user.user_flg = '정지';
+							}
+						});
+						this.currentPage = response.data.userManagementList.current_page;
+						this.lastPage = response.data.userManagementList.last_page;
+					} else {
+						console.error('서버 오류');
+					}
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		},
+
+        // User Management Payment List 데이터 수신
+		userManagementPaymentList(page) {
+			const URL = '/admin/user/management/userManagementPaymentList?page=' + page;
+			axios.get(URL)
+				.then(response => {				
+					if(response.data.code === "UMPL00") {
+						this.userManagementListData = response.data.userManagementPaymentList;
+						console.log(this.userManagementListData);
+						this.userListData = response.data.userManagementPaymentList.data;
+						this.currentPage = response.data.userManagementPaymentList.current_page;
+						this.lastPage = response.data.userManagementPaymentList.last_page;
+					} else {
+						console.error('서버 오류');
+					}
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		},
     }
 });
 
