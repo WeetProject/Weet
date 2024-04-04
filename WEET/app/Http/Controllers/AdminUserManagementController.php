@@ -26,7 +26,7 @@ class AdminUserManagementController extends Controller
                         DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') AS user_created_at"))
                         ->whereNull('deleted_at')
                         ->orderByDesc('created_at')
-                        ->paginate(6);         
+                        ->paginate(8);         
         
         $error = "오류가 발생했습니다. 페이지를 새로고침 해주세요";
         // 데이터 송신 확인용 Log
@@ -43,7 +43,8 @@ class AdminUserManagementController extends Controller
         $userManagementPaymentList = DB::table('users')
                                     ->join('reservation', 'users.user_id', '=', 'reservation.user_id')
                                     ->join('payment', 'users.user_id', '=', 'payment.user_id')
-                                    ->select('users.user_email', 
+                                    ->select('users.user_id',
+                                            'users.user_email', 
                                             'users.user_name', 
                                             'users.user_tel', 
                                             'reservation.reservation_departure_airport', 
@@ -54,10 +55,7 @@ class AdminUserManagementController extends Controller
                                             DB::raw("DATE_FORMAT(payment.created_at, '%Y-%m-%d') AS payment_created_at"))
                                     ->whereNull('payment.deleted_at')
                                     ->orderByDesc('payment.created_at')
-                                    ->paginate(8);
-
-
-    
+                                    ->paginate(8);    
     
         $error = "오류가 발생했습니다. 페이지를 새로고침 해주세요";
         // 데이터 송신 확인용 Log

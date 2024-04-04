@@ -20,13 +20,12 @@ const store = createStore({
             userListModal: false,
             userPaymentListModal: false,
             // User Management 데이터 저장용
-            userManagementList: {},
+            userManagementListData: {},
             userListData: [],
-            userSelectOption: '1', // 1 : 최신 가입 순, 2 : 최신 결제 순 
+            userSelectOption: '0', // 0 : 최신 가입 순, 1 : 최신 결제 순                             
             // User Management Pagination 데이터 저장용
             currentPage: null,
-			lastPage: null,
-            
+            lastPage: null,            
         }
     },
 
@@ -107,11 +106,26 @@ const store = createStore({
         userPaymentListModalClose(state) {
             state.userPaymentListModal = false;
         },
-    
+        
+        // User Management
+        setUserSelectOption(state, userSelectOption) {
+            state.userSelectOption = userSelectOption;
+        },
+        setUserManagementList(state, userManagementListData) {
+            state.userManagementListData = userManagementListData;
+        },
+        setUserList(state, userListData) {
+            state.userListData = userListData;
+        },
+        setCurrentPage(state, currentPage) {
+            state.currentPage = currentPage;
+        },
+        setLastPage(state, lastPage) {
+            state.lastPage = lastPage;
+        }
     },
 
     actions: {
-
         openLoginModal({ commit }) {
             commit('setToggleModal');
         },
@@ -251,33 +265,28 @@ const store = createStore({
             });
         },
 
+
+
+
+
         // ### Admin ###
         // User Management List 데이터 수신
-        userManagementList(page) {
+        userManagementList({ commit }, page) {
 			const URL = '/admin/user/management/userManagementList?page=' + page;
 			axios.get(URL)
 				.then(response => {				
 					if(response.data.code === "UML00") {
-						this.userManagementListData = response.data.userManagementList;
-						console.log(this.userManagementListData);
-						this.userListData = response.data.userManagementList.data;						
-						this.userListData.forEach(user => {
+                        const userListData = response.data.userManagementList.data;					
+						userListData.forEach(user => {
 							// user_gender / M, F => 남자, 여자로 변경
-							if (user.user_gender === 'M') {
-								user.user_gender = '남';
-							} else {
-								user.user_gender = '여';
-							}
-							// user_flg / 0, 1 => 정상, 정지로 변경
-							if (user.user_flg === 0) {
-								user.user_flg = '정상';
-							} else {
-								// user_flg가 0이 아니면 '정지'로 변경
-								user.user_flg = '정지';
-							}
+                            user.user_gender = user.user_gender === 'M' ? '남' : '여';
+                            // user_flg / 0, 1 => 정상, 정지로 변경
+                            user.user_flg = user.user_flg === 0 ? '정상' : '정지';
 						});
-						this.currentPage = response.data.userManagementList.current_page;
-						this.lastPage = response.data.userManagementList.last_page;
+                        commit('setUserManagementList', response.data.userManagementList)
+                        commit('setUserList', userListData);
+						commit('setCurrentPage', response.data.userManagementList.current_page);
+						commit('setLastPage', response.data.userManagementList.last_page);
 					} else {
 						console.error('서버 오류');
 					}
@@ -288,16 +297,17 @@ const store = createStore({
 		},
 
         // User Management Payment List 데이터 수신
-		userManagementPaymentList(page) {
+		userManagementPaymentList({ commit }, page) {
 			const URL = '/admin/user/management/userManagementPaymentList?page=' + page;
+            const userSelectOption = '1';
 			axios.get(URL)
 				.then(response => {				
 					if(response.data.code === "UMPL00") {
-						this.userManagementListData = response.data.userManagementPaymentList;
-						console.log(this.userManagementListData);
-						this.userListData = response.data.userManagementPaymentList.data;
-						this.currentPage = response.data.userManagementPaymentList.current_page;
-						this.lastPage = response.data.userManagementPaymentList.last_page;
+						commit('setUserManagementList', response.data.userManagementPaymentList);
+                        commit('setUserList', response.data.userManagementPaymentList.data) 
+						commit('setCurrentPage', response.data.userManagementPaymentList.current_page);
+                        commit('setLastPage', response.data.userManagementPaymentList.last_page);
+                        commit('setUserSelectOption', userSelectOption);
 					} else {
 						console.error('서버 오류');
 					}
@@ -305,6 +315,44 @@ const store = createStore({
 				.catch(error => {
 					console.error(error);
 				});
+		},        
+
+        // User Management Pagination
+        // 첫번째 페이지
+		firstPagination({ state, dispatch }) {
+			if (state.userSelectOption === '0') {
+				dispatch('userManagementList', 1);
+			} else if (state.userSelectOption === '1') {
+				dispatch('userManagementPaymentList', 1);
+			} 
+		},
+		// 이전 페이지
+		prevPagination({ state, dispatch }) {
+			if (state.userSelectOption === '0') {
+				dispatch('userManagementList', state.currentPage - 1);
+			} else if (state.userSelectOption === '1') {
+				dispatch('userManagementPaymentList', state.currentPage - 1);
+			} 
+		},
+		// 다음 페이지
+		nextPagination({ state, dispatch }) {
+            if (state.userSelectOption === '0') {
+                dispatch('userManagementList', 
+                    state.currentPage < state.lastPage ? 
+                    state.currentPage + 1 : state.currentPage);
+            } else if (state.userSelectOption === '1') {
+                dispatch('userManagementPaymentList', 
+                    state.currentPage < state.lastPage ? 
+                    state.currentPage + 1 : state.currentPage);
+            } 
+        },
+		// 마지막 페이지
+		lastPagination({ state, dispatch }) {
+			if (state.userSelectOption === '0') {
+				dispatch('userManagementList', state.lastPage);
+			} else if (state.userSelectOption === '1') {
+				dispatch('userManagementPaymentList', state.lastPage);
+			} 
 		},
     }
 });

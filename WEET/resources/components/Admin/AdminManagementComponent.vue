@@ -173,16 +173,16 @@
 				<div class="admin_management_bottom_container">
 					<!-- 이용자 탭 -->
 					<ul class="admin_management_bottom_title_ul">
+						<li class="font-semibold text-center admin_management_bottom_title_li">사원번호</li>
 						<li class="font-semibold text-center admin_management_bottom_title_li">이름</li>
-						<li class="font-semibold text-center admin_management_bottom_title_li">사번</li>
 						<li class="font-semibold text-center admin_management_bottom_title_li">등록일자</li>
 						<li class="font-semibold text-center admin_management_bottom_title_li">권한</li>
 						<li class="font-semibold text-center admin_management_bottom_title_li">변경</li>
 						<li class="font-semibold text-center admin_management_bottom_title_li">탈퇴</li>
 					</ul>
                     <ul class="admin_management_bottom_content_ul" v-for="adminList in adminListData" :key="adminList">
-                        <li class="text-center admin_management_bottom_content_li">{{ adminList.admin_name }}</li>
                         <li class="text-center admin_management_bottom_content_li">{{ adminList.admin_number }}</li>
+                        <li class="text-center admin_management_bottom_content_li">{{ adminList.admin_name }}</li>
                         <li class="text-center admin_management_bottom_content_li">{{ adminList.admin_created_at }}</li>
                         <li class="text-center admin_management_bottom_content_li">
                             <div>
@@ -293,7 +293,6 @@ export default {
 				.then(response => {				
 					if(response.data.code === "AML00") {
 						this.adminManagementListData = response.data.adminManagementList;
-						console.log(this.adminManagementListData);
 						this.adminListData = response.data.adminManagementList.data;						
 						this.adminListData.forEach(admin => {
 							// admin_flg / 1, 2 => Sub, Root로 변경
@@ -321,7 +320,6 @@ export default {
 				.then(response => {				
 					if(response.data.code === "AMFL00") {
 						this.adminManagementListData = response.data.adminManagementFlgList;
-						console.log(this.adminManagementListData);
 						this.adminListData = response.data.adminManagementFlgList.data;						
 						this.adminListData.forEach(admin => {
 							// admin_flg / 1, 2 => Sub, Root로 변경
