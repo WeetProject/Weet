@@ -27369,9 +27369,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
         var userData = res.data.userData;
         var userID = res.data.userData.user_id;
         // const decoded = jwtDecode(token);
-        console.log(token);
-        console.log(userData);
-        console.log(userID);
+
         console.log("토큰", token);
         console.log("유저데이터", userData);
         console.log("유저아이디", userID);

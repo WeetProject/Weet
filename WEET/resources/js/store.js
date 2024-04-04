@@ -136,9 +136,7 @@ const store = createStore({
                 const userData = res.data.userData;
                 const userID = res.data.userData.user_id;
 				// const decoded = jwtDecode(token);
-				console.log(token);
-				console.log(userData);
-				console.log(userID);
+				
 				console.log("토큰",token);
 				console.log("유저데이터",userData);
 				console.log("유저아이디",userID);
