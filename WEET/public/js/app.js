@@ -27292,7 +27292,15 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
 
       // ### Admin ###
       userListModal: false,
-      userPaymentListModal: false
+      userPaymentListModal: false,
+      // User Management 데이터 저장용
+      userManagementList: {},
+      userListData: [],
+      userSelectOption: '1',
+      // 1 : 최신 가입 순, 2 : 최신 결제 순 
+      // User Management Pagination 데이터 저장용
+      currentPage: null,
+      lastPage: null
     };
   },
   mutations: {
@@ -27496,6 +27504,58 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
         }
       })["catch"](function (err) {
         console.log(err.response.data);
+      });
+    },
+    // ### Admin ###
+    // User Management List 데이터 수신
+    userManagementList: function userManagementList(page) {
+      var _this = this;
+      var URL = '/admin/user/management/userManagementList?page=' + page;
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
+        if (response.data.code === "UML00") {
+          _this.userManagementListData = response.data.userManagementList;
+          console.log(_this.userManagementListData);
+          _this.userListData = response.data.userManagementList.data;
+          _this.userListData.forEach(function (user) {
+            // user_gender / M, F => 남자, 여자로 변경
+            if (user.user_gender === 'M') {
+              user.user_gender = '남';
+            } else {
+              user.user_gender = '여';
+            }
+            // user_flg / 0, 1 => 정상, 정지로 변경
+            if (user.user_flg === 0) {
+              user.user_flg = '정상';
+            } else {
+              // user_flg가 0이 아니면 '정지'로 변경
+              user.user_flg = '정지';
+            }
+          });
+          _this.currentPage = response.data.userManagementList.current_page;
+          _this.lastPage = response.data.userManagementList.last_page;
+        } else {
+          console.error('서버 오류');
+        }
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    },
+    // User Management Payment List 데이터 수신
+    userManagementPaymentList: function userManagementPaymentList(page) {
+      var _this2 = this;
+      var URL = '/admin/user/management/userManagementPaymentList?page=' + page;
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
+        if (response.data.code === "UMPL00") {
+          _this2.userManagementListData = response.data.userManagementPaymentList;
+          console.log(_this2.userManagementListData);
+          _this2.userListData = response.data.userManagementPaymentList.data;
+          _this2.currentPage = response.data.userManagementPaymentList.current_page;
+          _this2.lastPage = response.data.userManagementPaymentList.last_page;
+        } else {
+          console.error('서버 오류');
+        }
+      })["catch"](function (error) {
+        console.error(error);
       });
     }
   }
