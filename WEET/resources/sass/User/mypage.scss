@@ -173,7 +173,7 @@
                 margin: 20px 0;
                 border: 1px solid #ededed;
                 background-color: #ededed;
-                padding: 10px 20px;
+                padding: 10px 20px 30px 20px;
 
                 &_date {
                     display: flex;
@@ -189,21 +189,49 @@
                     display: flex;
                     justify-content: space-evenly;
                     align-items: center;
+                    box-shadow: 2px 2px 3px 0px gray;
 
                     &_flight_name {
-
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 70px;
                     }
 
                     &_flight_time {
                         
                         &_route {
                             display: flex;
+                            border: 1px solid #ededed;
+                            border-radius: 5px;
+                            margin: 10px;
+                            padding: 10px 50px;
+
+                            &_info {
+                                margin: 15px;
+                            }
 
                             &_img {
                                 display: flex;
                                 flex-direction: column;
+                                justify-content: center;
+                                font-size: 12px;
                             }
                         }
+                    }
+
+                    &_flight_info {
+                        // border-left: 1px solid #ededed;
+
+                        div {
+                            border: 1px solid #ededed;
+                            border-radius: 5px;
+                            background-color: #ededed;
+                            color: #fff;
+                            padding: 10px;
+                            margin: 5px;
+                        }
+                        
                     }
                 }
             }
