@@ -201,7 +201,7 @@ import store from '../../js/store.js';
 				const userID = localStorage.getItem('setUserID');
 				const token = localStorage.getItem('setToken');
 
-				if (userID !== null) {
+				if (userLoginChk !== null) {
 					this.$store.commit('setUserLoginChk', userLoginChk);
 					this.$store.commit('setUserID', userID);
 					this.$store.commit('setToken', token);

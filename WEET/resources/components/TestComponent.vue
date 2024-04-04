@@ -7,6 +7,15 @@
         </ul>
     </div> -->
 
+    <div>
+        <button @click="toggleOptions">Hover Me</button>
+        
+        <div v-if="showOptions" @click.self="hideOptions" class="options">
+            <button @click="goToMyPage">마이페이지</button>
+            <button @click="logout">로그아웃</button>
+        </div>
+    </div>
+
         <div class="regist_logo_div">
             <img src="../../public/images/WEET_logo.png" alt="">
         </div>
@@ -103,6 +112,7 @@ export default {
 
         data() {
             return {
+                showOptions: false,
                 currentStep: 0,
                 steps: ['이용 약관 동의', '계정정보 입력'],
                 termsAgreed: false, // 이용약관 동의 체크 여부를 저장하는 데이터
@@ -146,6 +156,20 @@ export default {
                 if (this.currentStep > 0) {
                     this.currentStep--;
                 }
+            },
+            goToMyPage() {
+                // 마이페이지로 이동하는 로직을 작성합니다.
+                console.log("마이페이지로 이동합니다.");
+            },
+            logout() {
+                // 로그아웃 로직을 작성합니다.
+                console.log("로그아웃 합니다.");
+            },
+            toggleOptions() {
+                this.showOptions = !this.showOptions;
+            },
+            hideOptions() {
+                this.showOptions = false;
             }
         }
     };
@@ -154,4 +178,18 @@ export default {
 
 <style lang="scss">
 	@import '../sass/test.scss';
+
+    .options {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.options button {
+  margin-bottom: 5px;
+}
 </style>

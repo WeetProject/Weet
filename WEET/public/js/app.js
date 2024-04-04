@@ -21965,7 +21965,7 @@ __webpack_require__.r(__webpack_exports__);
       var userLoginChk = localStorage.getItem('setUserLoginChk');
       var userID = localStorage.getItem('setUserID');
       var token = localStorage.getItem('setToken');
-      if (userID !== null) {
+      if (userLoginChk !== null) {
         this.$store.commit('setUserLoginChk', userLoginChk);
         this.$store.commit('setUserID', userID);
         this.$store.commit('setToken', token);
@@ -22479,6 +22479,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'TestComponent',
   data: function data() {
     return {
+      showOptions: false,
       currentStep: 0,
       steps: ['이용 약관 동의', '계정정보 입력'],
       termsAgreed: false,
@@ -22548,6 +22549,20 @@ __webpack_require__.r(__webpack_exports__);
       if (this.currentStep > 0) {
         this.currentStep--;
       }
+    },
+    goToMyPage: function goToMyPage() {
+      // 마이페이지로 이동하는 로직을 작성합니다.
+      console.log("마이페이지로 이동합니다.");
+    },
+    logout: function logout() {
+      // 로그아웃 로직을 작성합니다.
+      console.log("로그아웃 합니다.");
+    },
+    toggleOptions: function toggleOptions() {
+      this.showOptions = !this.showOptions;
+    },
+    hideOptions: function hideOptions() {
+      this.showOptions = false;
     }
   }
 });
@@ -26300,13 +26315,31 @@ var _hoisted_17 = {
 };
 var _hoisted_18 = ["href"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" progressbar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"progressbar_container\">\r\n        <ul id=\"progressbar\">\r\n            <li v-for=\"(step, index) in steps\" :key=\"index\" :class=\"{ active: index === currentStep }\">{{ step }}</li>\r\n        </ul>\r\n    </div> "), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" fieldsets "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.fieldsets, function (fieldset, index) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" progressbar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"progressbar_container\">\r\n        <ul id=\"progressbar\">\r\n            <li v-for=\"(step, index) in steps\" :key=\"index\" :class=\"{ active: index === currentStep }\">{{ step }}</li>\r\n        </ul>\r\n    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[0] || (_cache[0] = function () {
+      return $options.toggleOptions && $options.toggleOptions.apply($options, arguments);
+    })
+  }, "Hover Me"), $data.showOptions ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    key: 0,
+    onClick: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return $options.hideOptions && $options.hideOptions.apply($options, arguments);
+    }, ["self"])),
+    "class": "options"
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[1] || (_cache[1] = function () {
+      return $options.goToMyPage && $options.goToMyPage.apply($options, arguments);
+    })
+  }, "마이페이지"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[2] || (_cache[2] = function () {
+      return $options.logout && $options.logout.apply($options, arguments);
+    })
+  }, "로그아웃")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" fieldsets "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.fieldsets, function (fieldset, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("fieldset", {
       key: index
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(fieldset.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(fieldset.subtitle), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" '이용약관 동의'에 대한 텍스트 추가 "), index === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       "class": "terms_conditions_checkbox",
       type: "checkbox",
-      "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
         return $data.termsAgreed = $event;
       })
     }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.termsAgreed]]), _hoisted_6])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <input v-for=\"(input, inputIndex) in fieldset.inputs\" :key=\"inputIndex\" type=\"text\" :name=\"input.name\" :placeholder=\"input.placeholder\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <label v-for=\"(input, inputIndex) in fieldset.inputs\" :key=\"inputIndex\">\r\n                    {{ input.placeholder }}\r\n                </label>\r\n                    <input v-for=\"(input, inputIndex) in fieldset.inputs\" :key=\"inputIndex\" \r\n                        :type=\"input.type\" :name=\"input.name\" :placeholder=\"input.placeholder\" \r\n                        :class=\"input.classes\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div v-for=\"(input, inputIndex) in fieldset.inputs\" :key=\"inputIndex\" class=\"account_info_input_wrapper\">\r\n                    <label :for=\"'input_' + inputIndex\" class=\"account_info_label\" style=\"flex: 1;\">{{ input.label }}</label>\r\n                    <div v-if=\"input.type === 'radio'\" style=\"display: flex;\">\r\n                        <div v-for=\"(option, optionIndex) in input.options\" :key=\"optionIndex\">\r\n                            <input type=\"radio\" :name=\"input.name\" :value=\"option\" :id=\"'input_' + inputIndex + '_' + optionIndex\">\r\n                            <label :for=\"'input_' + inputIndex + '_' + optionIndex\">{{ option }}</label>\r\n                        </div>\r\n                    </div>\r\n                    <input v-else :type=\"input.type\" :name=\"input.name\" :id=\"'input_' + inputIndex\" :placeholder=\"input.placeholder\" :class=\"input.classes\" class=\"account_info_input\" />\r\n                </div> "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(fieldset.inputs, function (input, inputIndex) {
@@ -26337,13 +26370,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }), 128 /* KEYED_FRAGMENT */))]))]);
     }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [index > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
       key: 0,
-      onClick: _cache[1] || (_cache[1] = function () {
+      onClick: _cache[5] || (_cache[5] = function () {
         return $options.prevStep && $options.prevStep.apply($options, arguments);
       }),
       "class": "previous action-button"
     }, "Previous")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [index < $data.fieldsets.length - 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
       key: 0,
-      onClick: _cache[2] || (_cache[2] = function () {
+      onClick: _cache[6] || (_cache[6] = function () {
         return $options.nextStep && $options.nextStep.apply($options, arguments);
       }),
       "class": "next action-button"
@@ -27938,7 +27971,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".options {\n  position: absolute;\n  top: 30px;\n  left: 0;\n  display: flex;\n  flex-direction: column;\n  background-color: #f9f9f9;\n  border: 1px solid #ccc;\n  padding: 10px;\n}\n.options button {\n  margin-bottom: 5px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
