@@ -84,7 +84,7 @@ Route::middleware('adminValidation')->prefix('admin')->group(function() {
 
 Route::prefix('admin')->group(function() {
     // Admin Logout 처리
-    Route::get('/logout', 
+    Route::post('/logout', 
         [AdminAuthController::class, 'adminLogout']);
 
     // Admin Index
@@ -102,9 +102,12 @@ Route::prefix('admin')->group(function() {
     Route::get('/user/management', function () {
         return view('welcome');
     });
-    // Admin User Management 데이터 송신
-    Route::get('/user/management/userList', 
+    // Admin User Management List 데이터 송신
+    Route::get('/user/management/userManagementList', 
         [AdminUserManagementController::class, 'userManagementList']);
+    // Admin User Management Payment List  데이터 송신
+    Route::get('/user/management/userManagementPaymentList', 
+        [AdminUserManagementController::class, 'userManagementPaymentList']);
 
     // Admin Management
     Route::get('/management', function () {
@@ -174,4 +177,4 @@ Route::middleware(['userValidation'])->group(function() {
 Route::get('/logout', [UserController::class, 'logout']);
 
 // Route::middleware(['userValidation'])->get('/getMyPage', [MyPageController::class, 'getMyPageData']);
-Route::post('/mypage', [MyPageController::class, 'getMyPageData']);
+// Route::get('/mypage', [MyPageController::class, 'getMyPageData']);

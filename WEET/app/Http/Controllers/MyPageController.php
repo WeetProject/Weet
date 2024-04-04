@@ -17,20 +17,5 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class MyPageController extends Controller
 {
     // 유저 정보
-    public function getMyPageData(Request $request) {
-    // public function getMyPageData() {
-        
-        Log::debug($request);
-        // $userID = $request->header('userID');
-        // Log::debug($userID);
-
-        // $userInfo = User::where('user_id', $request->header('userID'))->first();
-        // Log::debug("유저데이터");
-        // Log::debug($userInfo);
-
-        // return response()->json([
-        //     'userInfo' => $userInfo
-        //     ,'userData' => $userData
-        // ]);
-    }
+    
 }

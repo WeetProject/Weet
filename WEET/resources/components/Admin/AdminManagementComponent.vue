@@ -120,7 +120,7 @@
 						<span class="text-xl font-bold">어드민 계정 목록</span>
 						<select class="ml-5 text-center admin_management_select" 
 						name="admin_list_select" id="admin_list_select"
-						v-model="adminSelectOption" @change="AdminDataOptionChange">
+						v-model="adminSelectOption" @change="adminDataOptionChange">
 							<option value="1" selected>최신 등록 순</option>
 							<option value="2">권한 순</option>
 						</select>
@@ -228,7 +228,7 @@ export default {
 	},
 
 	created() {
-		this.AdminDataOptionChange();
+		this.adminDataOptionChange();
 	},
 
 	mounted() {
@@ -263,18 +263,18 @@ export default {
 		adminLogout() {
 			const URL = '/admin/logout';
 			const token = localStorage.getItem('token');
-			const config = {
-				headers: {
-					'Authorization': `Bearer ${token}`
-				}
-			};
-			axios.get(URL, config)
+			const header = {
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
+            };
+			console.log(header);
+			axios.post(URL, null ,header)
 				.then(response => {
 					if(response.data.code === "ALO00") {
 							localStorage.clear();
-							// localStorage.removeItem('token');
 							alert('로그아웃 되었습니다.');
-							this.$router.push('/admin'); 
+							this.$router.push('/admin');
 						} else {                
 							this.adminLogoutAlertError = response.data.error
 							alert(this.adminLogoutAlertError);
@@ -343,7 +343,7 @@ export default {
 		},
 
 		// Admin Management Option 핸들러
-		AdminDataOptionChange() {
+		adminDataOptionChange() {
 			if (this.adminSelectOption === '1') {
 				this.adminManagementList();
 			} else {

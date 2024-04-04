@@ -97,13 +97,14 @@ class AdminAuthController extends Controller
             } else if ($adminFlg == 1 || $adminFlg == 2) {
                 // sub Admin 또는 root Admin 로그인 처리
                 Auth::login($loginAdminAccount);
-                // 토큰 생성
+                
                 Log::debug("### Admin인증 성공 : " . ($adminFlg == '1' ? 'sub Admin' : 'root Admin') . " ###");
 
                 // 로그인 시도 횟수 초기화
                 Cache::forget('Admin로그인시도' . $request->admin_number);
                 Log::debug("### 사원번호 {$request->admin_number} 로그인 시도 횟수: $adminLoginAttempt 초기화 ###");
-
+                
+                // 토큰 생성
                 $tokenInfo = $request->only('admin_number', 'password');
 
                 try {
@@ -140,14 +141,23 @@ class AdminAuthController extends Controller
         }  
     }
 
-    public function adminLogout() {
+    public function adminLogout(Request $request) {
         try {
-            // 사용 중인 토큰 수집
-            $adminToken = JWTAuth::getToken();
-            Log::debug($adminToken);
-            if ($adminToken) {
+            // Authorization Header 저장
+            $logoutDataHeader = $request->header('Authorization');
+            Log::debug($logoutDataHeader);
+
+            // Header 내 Bearer 토큰 저장
+            $logoutRequestToken = str_replace('Bearer ', '', $logoutDataHeader);
+            Log::debug($logoutRequestToken);
+
+            // JWT 토큰 파싱
+            $logoutToken = JWTAuth::setToken($logoutRequestToken)->getToken();
+            Log::debug($logoutToken);
+
+            if ($logoutToken) {
                 // 토큰 무효화
-                JWTAuth::invalidate($adminToken);
+                JWTAuth::invalidate($logoutToken);
                 Log::debug("### Admin 로그아웃 : 토큰 무효화 완료 ###");
             } else {
                 Log::debug("### Admin 로그아웃 : 토큰 없음 ###");
@@ -160,15 +170,18 @@ class AdminAuthController extends Controller
                 'code' => 'ALO01',
                 'error' => $error
             ], 500);
-        }    
+        }
+
         // 로그아웃
         Auth::logout();
         Log::debug("### Admin 로그아웃 : 로그아웃 처리완료 ###");
+
         // 세션 파기
         Session::flush();
         Log::debug("### Admin 로그아웃 : 세션 파기 완료 ###");
+
         return response()->json([
             'code' => 'ALO00'
-        ], 200);
+        ], 200)->header('Cache-Control', 'no-cache, no-store, must-revalidate');
     }
 }

@@ -20946,17 +20946,17 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       var URL = '/admin/logout';
       var token = localStorage.getItem('token');
-      var config = {
+      var header = {
         headers: {
-          'Authorization': "Bearer ".concat(token)
+          "Authorization": "Bearer ".concat(token)
         }
       };
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL, config).then(function (response) {
+      console.log(header);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, null, header).then(function (response) {
         if (response.data.code === "ALO00") {
           localStorage.clear();
           alert('로그아웃 되었습니다.');
-          // this.$router.push('/admin');
-          window.location.href = '/admin';
+          _this.$router.push('/admin');
         } else {
           _this.adminLogoutAlertError = response.data.error;
           alert(_this.adminLogoutAlertError);
@@ -21119,7 +21119,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.AdminDataOptionChange();
+    this.adminDataOptionChange();
   },
   mounted: function mounted() {
     this.adminToken = localStorage.getItem('token');
@@ -21152,15 +21152,15 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       var URL = '/admin/logout';
       var token = localStorage.getItem('token');
-      var config = {
+      var header = {
         headers: {
-          'Authorization': "Bearer ".concat(token)
+          "Authorization": "Bearer ".concat(token)
         }
       };
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL, config).then(function (response) {
+      console.log(header);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, null, header).then(function (response) {
         if (response.data.code === "ALO00") {
           localStorage.clear();
-          // localStorage.removeItem('token');
           alert('로그아웃 되었습니다.');
           _this.$router.push('/admin');
         } else {
@@ -21225,7 +21225,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     // Admin Management Option 핸들러
-    AdminDataOptionChange: function AdminDataOptionChange() {
+    adminDataOptionChange: function adminDataOptionChange() {
       if (this.adminSelectOption === '1') {
         this.adminManagementList();
       } else {
@@ -21371,12 +21371,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       var URL = '/admin/logout';
       var token = localStorage.getItem('token');
-      var config = {
+      var header = {
         headers: {
-          'Authorization': "Bearer ".concat(token)
+          "Authorization": "Bearer ".concat(token)
         }
       };
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL, config).then(function (response) {
+      console.log(header);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, null, header).then(function (response) {
         if (response.data.code === "ALO00") {
           localStorage.clear();
           alert('로그아웃 되었습니다.');
@@ -21625,18 +21626,19 @@ __webpack_require__.r(__webpack_exports__);
       adminNameInfo: '',
       adminAuthority: false,
       // Admin 메뉴 권한 확인용
-      // User Management List 데이터 저장용
-      userListData: [],
       userGenderInfo: '',
       userFlgInfo: '',
+      // User Management List 데이터 저장용
+      userListData: [],
       // Pagination 데이터 저장용
       userManagementListData: {},
       currentPage: null,
-      lastPage: null
+      lastPage: null,
+      userSelectOption: '1'
     };
   },
   created: function created() {
-    this.userManagementList();
+    this.userDataOptionChange();
   },
   mounted: function mounted() {
     this.adminToken = localStorage.getItem('token');
@@ -21669,12 +21671,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       var URL = '/admin/logout';
       var token = localStorage.getItem('token');
-      var config = {
+      var header = {
         headers: {
-          'Authorization': "Bearer ".concat(token)
+          "Authorization": "Bearer ".concat(token)
         }
       };
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL, config).then(function (response) {
+      console.log(header);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, null, header).then(function (response) {
         if (response.data.code === "ALO00") {
           localStorage.clear();
           alert('로그아웃 되었습니다.');
@@ -21691,7 +21694,7 @@ __webpack_require__.r(__webpack_exports__);
     // User Management List 데이터 수신
     userManagementList: function userManagementList(page) {
       var _this2 = this;
-      var URL = '/admin/user/management/userList?page=' + page;
+      var URL = '/admin/user/management/userManagementList?page=' + page;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL).then(function (response) {
         if (response.data.code === "UML00") {
           _this2.userManagementListData = response.data.userManagementList;
@@ -21720,6 +21723,71 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.error(error);
       });
+    },
+    // User Management Payment List 데이터 수신
+    userManagementPaymentList: function userManagementPaymentList(page) {
+      var _this3 = this;
+      var URL = '/admin/user/management/userManagementPaymentList?page=' + page;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL).then(function (response) {
+        if (response.data.code === "UMPL00") {
+          _this3.userManagementListData = response.data.userManagementPaymentList;
+          console.log(_this3.userManagementListData);
+          _this3.userListData = response.data.userManagementPaymentList.data;
+          _this3.currentPage = response.data.userManagementPaymentList.current_page;
+          _this3.lastPage = response.data.userManagementPaymentList.last_page;
+        } else {
+          console.error('서버 오류');
+        }
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    },
+    // User Management Option 핸들러
+    userDataOptionChange: function userDataOptionChange() {
+      if (this.userSelectOption === '1') {
+        this.userManagementList();
+      } else if (this.userSelectOption === '2') {
+        this.userManagementPaymentList();
+      }
+    },
+    listOption: function listOption() {
+      this.userSelectOption = 1;
+    },
+    paymentListOption: function paymentListOption() {
+      this.userSelectOption = 2;
+    },
+    // User Management Pagination 처리
+    // 첫번째 페이지
+    firstPagination: function firstPagination() {
+      if (this.userSelectOption === '1') {
+        this.userManagementList(1);
+      } else if (this.userSelectOption === '2') {
+        this.userManagementPaymentList(1);
+      }
+    },
+    // 이전 페이지
+    prevPagination: function prevPagination() {
+      if (this.userSelectOption === '1') {
+        this.userManagementList(this.currentPage - 1);
+      } else if (this.userSelectOption === '2') {
+        this.userManagementPaymentList(this.currentPage - 1);
+      }
+    },
+    // 다음 페이지
+    nextpagination: function nextpagination() {
+      if (this.userSelectOption === '1') {
+        this.userManagementList(this.currentPage < this.lastPage ? this.currentPage + 1 : this.currentPage);
+      } else if (this.userSelectOption === '2') {
+        this.userManagementPaymentList(this.currentPage < this.lastPage ? this.currentPage + 1 : this.currentPage);
+      }
+    },
+    // 마지막 페이지
+    lastPagination: function lastPagination() {
+      if (this.userSelectOption === '1') {
+        this.userManagementList(this.lastPage);
+      } else if (this.userSelectOption === '2') {
+        this.userManagementPaymentList(this.lastPage);
+      }
     }
   }
 });
@@ -22574,72 +22642,15 @@ __webpack_require__.r(__webpack_exports__);
       userData: {
         userName: '',
         userEmail: ''
-      },
-      userNewInfoData: {
-        userEmail: '',
-        userPassword: '',
-        userPasswordChk: '',
-        userName: '',
-        userBirthDate: '',
-        userGender: '',
-        userTel: '',
-        userTermsofUse: ''
-      },
-      frmUserAddressData: {
-        userPostcode: '',
-        userBasicAddress: '',
-        userDetailAddress: ''
-      },
-      errors: {},
-      RegistrationErrorMessage: {
-        userEmail: '',
-        userPassword: '',
-        userPasswordChk: '',
-        userName: '',
-        userTel: '',
-        userBirthDate: '',
-        userDetailAddress: ''
       }
     };
   },
-  computed: {
-    userData: function userData() {
-      return this.$store.state.userData; // Vuex 스토어에서 userData 상태를 가져옵니다.
-    }
-  },
+  computed: {},
   mounted: function mounted() {
     this.fetchData();
   },
   methods: {
-    fetchData: function fetchData() {
-      var _this = this;
-      var url = '/mypage';
-      var token = localStorage.getItem('setToken');
-      // const userData = localStorage.getItem('setUserData');
-      var userID = localStorage.getItem('setUserID');
-      console.log(token);
-      // console.log(userData);
-      console.log(userID);
-      var header = {
-        headers: {
-          "Authorization": "Bearer ".concat(token),
-          "Content-Type": 'application/json',
-          "userID": "".concat(userID)
-        }
-      };
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post(url, header, userID).then(function (res) {
-        console.log(res);
-        _this.$store.commit('setUserData', res.data.userData);
-        // this.userNewInfoData = res.data.userInfo;
-        // this.token = res.data.token;
-        // this.userID = res.data.userID;
-        // this.userInfoData = $state.userData;
-        // this.userNewInfoData = res.data.userInfo;
-        // this.$store.commit('setUserData', res.data.userData);
-      })["catch"](function (error) {
-        console.error('Error fetching data:', error);
-      });
-    }
+    fetchData: function fetchData() {}
   }
 });
 
@@ -23899,7 +23910,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.adminSelectOption = $event;
     }),
     onChange: _cache[4] || (_cache[4] = function () {
-      return $options.AdminDataOptionChange && $options.AdminDataOptionChange.apply($options, arguments);
+      return $options.adminDataOptionChange && $options.adminDataOptionChange.apply($options, arguments);
     })
   }, [].concat(_hoisted_36), 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.adminSelectOption]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 최신 등록 순 Pagination "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" currentPage 1페이지 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [$data.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_management_pagination_first_button",
@@ -24515,9 +24526,29 @@ var _hoisted_23 = {
   "class": "admin_signup_button_area"
 };
 var _hoisted_24 = {
+  "class": "mx-5 admin_signup_signup_button"
+};
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "admin_signup_button_text_area"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  fill: "none",
+  viewBox: "0 0 24 24",
+  "stroke-width": "1.5",
+  stroke: "currentColor",
+  "class": "admin_signup_svg"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  d: "M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9"
+})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "text-base font-semibold"
+}, "Sign Up")], -1 /* HOISTED */);
+var _hoisted_26 = [_hoisted_25];
+var _hoisted_27 = {
   "class": "mx-5 admin_signup_cancel_button"
 };
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "class": "admin_cancel_button",
   type: "button"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -24534,26 +24565,6 @@ var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "stroke-linejoin": "round",
   d: "M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
 })]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel ")])], -1 /* HOISTED */);
-var _hoisted_26 = {
-  "class": "mx-5 admin_signup_signup_button"
-};
-var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "admin_signup_button_text_area"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  xmlns: "http://www.w3.org/2000/svg",
-  fill: "none",
-  viewBox: "0 0 24 24",
-  "stroke-width": "1.5",
-  stroke: "currentColor",
-  "class": "admin_signup_svg"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  d: "M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9"
-})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "text-base font-semibold"
-}, "Sign Up")], -1 /* HOISTED */);
-var _hoisted_28 = [_hoisted_27];
 var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "admin_signup_right_section"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
@@ -24628,21 +24639,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
       return $data.adminSignupFormData.admin_name = $event;
     })
-  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.admin_name]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorAdminName), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminSignUpError), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/admin",
-    "class": "flex w-full text-base font-semibold"
-  }, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_25];
-    }),
-    _: 1 /* STABLE */
-  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.admin_name]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorAdminName), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminSignUpError), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_signup_button",
     type: "submit",
     onClick: _cache[12] || (_cache[12] = function () {
       return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
     })
-  }, [].concat(_hoisted_28))])])]), _hoisted_29])]);
+  }, [].concat(_hoisted_26))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "/admin",
+    "class": "flex w-full text-base font-semibold"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_28];
+    }),
+    _: 1 /* STABLE */
+  })])])]), _hoisted_29])]);
 }
 
 /***/ }),
@@ -24862,18 +24873,27 @@ var _hoisted_31 = {
 var _hoisted_32 = {
   "class": "admin_user_management_middle_section"
 };
-var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<span class=\"text-xl font-bold\">이용자 목록</span><select class=\"ml-5 text-center admin_user_management_select\" name=\"user\" id=\"admin_flg\"><option value=\"1\" selected>최신 가입 순</option><option value=\"2\">최신 로그인 순</option><option value=\"3\">누적 결제 금액 순</option><option value=\"4\">누적 예약 건수 순</option></select>", 2);
-var _hoisted_35 = {
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "text-xl font-bold"
+}, "이용자 목록", -1 /* HOISTED */);
+var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "1"
+}, "최신 가입 순", -1 /* HOISTED */);
+var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "2"
+}, "최신 결제 순", -1 /* HOISTED */);
+var _hoisted_36 = [_hoisted_34, _hoisted_35];
+var _hoisted_37 = {
   "class": "relative admin_user_management_pagination_section"
 };
-var _hoisted_36 = {
+var _hoisted_38 = {
   "class": "admin_user_management_pagination_left_button_area"
 };
-var _hoisted_37 = {
+var _hoisted_39 = {
   key: 0,
   "class": "admin_user_management_pagination_first_button_area"
 };
-var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   fill: "none",
   viewBox: "0 0 24 24",
@@ -24885,15 +24905,15 @@ var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "stroke-linejoin": "round",
   d: "m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5"
 })], -1 /* HOISTED */);
-var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-bold"
 }, "처음", -1 /* HOISTED */);
-var _hoisted_40 = [_hoisted_38, _hoisted_39];
-var _hoisted_41 = {
+var _hoisted_42 = [_hoisted_40, _hoisted_41];
+var _hoisted_43 = {
   key: 1,
   "class": "ml-2 admin_user_management_pagination_prev_button_area"
 };
-var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_44 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   fill: "none",
   viewBox: "0 0 24 24",
@@ -24905,27 +24925,27 @@ var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "stroke-linejoin": "round",
   d: "M15.75 19.5 8.25 12l7.5-7.5"
 })], -1 /* HOISTED */);
-var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-bold"
 }, "이전", -1 /* HOISTED */);
-var _hoisted_44 = [_hoisted_42, _hoisted_43];
-var _hoisted_45 = {
+var _hoisted_46 = [_hoisted_44, _hoisted_45];
+var _hoisted_47 = {
   "class": "mx-40 text-center admin_user_management_pagination_page_span_area"
 };
-var _hoisted_46 = {
+var _hoisted_48 = {
   "class": "text-xl font-bold admin_user_management_pagination_page_span"
 };
-var _hoisted_47 = {
+var _hoisted_49 = {
   "class": "admin_user_management_pagination_right_button_area"
 };
-var _hoisted_48 = {
+var _hoisted_50 = {
   key: 0,
   "class": "admin_user_management_pagination_next_button_area"
 };
-var _hoisted_49 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_51 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-bold"
 }, "다음", -1 /* HOISTED */);
-var _hoisted_50 = {
+var _hoisted_52 = {
   key: 0,
   xmlns: "http://www.w3.org/2000/svg",
   fill: "none",
@@ -24934,20 +24954,20 @@ var _hoisted_50 = {
   stroke: "currentColor",
   "class": "w-6 h-6"
 };
-var _hoisted_51 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   "stroke-linecap": "round",
   "stroke-linejoin": "round",
   d: "m8.25 4.5 7.5 7.5-7.5 7.5"
 }, null, -1 /* HOISTED */);
-var _hoisted_52 = [_hoisted_51];
-var _hoisted_53 = {
+var _hoisted_54 = [_hoisted_53];
+var _hoisted_55 = {
   key: 1,
   "class": "ml-2 admin_user_management_pagination_last_button_area"
 };
-var _hoisted_54 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_56 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-bold"
 }, "끝", -1 /* HOISTED */);
-var _hoisted_55 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_57 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   fill: "none",
   viewBox: "0 0 24 24",
@@ -24959,22 +24979,16 @@ var _hoisted_55 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "stroke-linejoin": "round",
   d: "m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
 })], -1 /* HOISTED */);
-var _hoisted_56 = [_hoisted_54, _hoisted_55];
-var _hoisted_57 = {
-  "class": "admin_user_management_bottom_container"
-};
-var _hoisted_58 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<ul class=\"admin_user_management_bottom_title_ul\"><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">이름</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">아이디</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">휴대폰번호</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">생년월일</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">성별</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">활동상태</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">가입일자</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">최근 로그인 이력</li></ul>", 1);
+var _hoisted_58 = [_hoisted_56, _hoisted_57];
 var _hoisted_59 = {
-  href: ""
+  key: 0
 };
 var _hoisted_60 = {
-  "class": "text-center admin_user_management_bottom_content_li"
+  "class": "admin_user_management_bottom_container"
 };
-var _hoisted_61 = {
-  "class": "text-center admin_user_management_bottom_content_li"
-};
+var _hoisted_61 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<ul class=\"admin_user_management_bottom_title_ul\"><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">이름</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">아이디</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">휴대폰번호</li><!-- &lt;li class=&quot;font-semibold text-center admin_user_management_bottom_title_li&quot;&gt;생년월일&lt;/li&gt; --><!-- &lt;li class=&quot;font-semibold text-center admin_user_management_bottom_title_li&quot;&gt;성별&lt;/li&gt; --><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">활동상태</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">가입일자</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">최근 로그인 이력</li></ul>", 1);
 var _hoisted_62 = {
-  "class": "text-center admin_user_management_bottom_content_li"
+  href: ""
 };
 var _hoisted_63 = {
   "class": "text-center admin_user_management_bottom_content_li"
@@ -24988,9 +25002,43 @@ var _hoisted_65 = {
 var _hoisted_66 = {
   "class": "text-center admin_user_management_bottom_content_li"
 };
-var _hoisted_67 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
+var _hoisted_67 = {
+  "class": "text-center admin_user_management_bottom_content_li"
+};
+var _hoisted_68 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
   "class": "text-center admin_user_management_bottom_content_li"
 }, "2024-03-30 14:59:28", -1 /* HOISTED */);
+var _hoisted_69 = {
+  key: 1
+};
+var _hoisted_70 = {
+  "class": "admin_user_management_bottom_container"
+};
+var _hoisted_71 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<ul class=\"admin_user_management_bottom_title_ul\"><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">이름</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">아이디</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">휴대폰번호</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">결제 금액</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">출발 정보</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">도착 정보</li><li class=\"font-semibold text-center admin_user_management_bottom_title_li\">결제 시간</li></ul>", 1);
+var _hoisted_72 = {
+  href: ""
+};
+var _hoisted_73 = {
+  "class": "text-center admin_user_management_bottom_content_li"
+};
+var _hoisted_74 = {
+  "class": "text-center admin_user_management_bottom_content_li"
+};
+var _hoisted_75 = {
+  "class": "text-center admin_user_management_bottom_content_li"
+};
+var _hoisted_76 = {
+  "class": "text-center admin_user_management_bottom_content_li"
+};
+var _hoisted_77 = {
+  "class": "text-center admin_user_management_bottom_content_li"
+};
+var _hoisted_78 = {
+  "class": "text-center admin_user_management_bottom_content_li"
+};
+var _hoisted_79 = {
+  "class": "text-center admin_user_management_bottom_content_li"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminNameInfo) + " 님 ", 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_7, "권한 : " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminFlgInfo), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [$data.adminToken ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
@@ -25036,32 +25084,47 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Registration ")];
     }),
     _: 1 /* STABLE */
-  })])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [_hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [_hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Pagination "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" currentPage 1페이지 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [$data.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  })])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [_hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [_hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "class": "ml-5 text-center admin_user_management_select",
+    name: "user_list_select",
+    id: "user_list_select",
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+      return $data.userSelectOption = $event;
+    }),
+    onChange: _cache[4] || (_cache[4] = function () {
+      return $options.userDataOptionChange && $options.userDataOptionChange.apply($options, arguments);
+    })
+  }, [].concat(_hoisted_36), 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.userSelectOption]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Pagination "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" currentPage 1페이지 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [$data.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_user_management_pagination_first_button",
-    onClick: _cache[3] || (_cache[3] = function ($event) {
-      return $options.userManagementList(1);
-    })
-  }, [].concat(_hoisted_40))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "admin_user_management_pagination_prev_button",
-    onClick: _cache[4] || (_cache[4] = function ($event) {
-      return $options.userManagementList($data.currentPage - 1);
-    })
-  }, [].concat(_hoisted_44))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.userManagementListData.current_page) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.userManagementListData.last_page), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" lastPage 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [$data.currentPage < $data.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "admin_user_management_pagination_next_button",
     onClick: _cache[5] || (_cache[5] = function ($event) {
-      return $options.userManagementList($data.currentPage < $data.lastPage ? $data.currentPage + 1 : $data.currentPage);
+      return $options.firstPagination();
     })
-  }, [_hoisted_49, $data.currentPage !== $data.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_50, [].concat(_hoisted_52))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.currentPage < $data.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "admin_user_management_pagination_last_button",
+  }, [].concat(_hoisted_42))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "admin_user_management_pagination_prev_button",
     onClick: _cache[6] || (_cache[6] = function ($event) {
-      return $options.userManagementList($data.lastPage);
+      return $options.prevPagination();
     })
-  }, [].concat(_hoisted_56))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_57, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 이용자 탭 "), _hoisted_58, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_59, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.userListData, function (userList) {
+  }, [].concat(_hoisted_46))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.userManagementListData.current_page) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.userManagementListData.last_page), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" lastPage 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [$data.currentPage < $data.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "admin_user_management_pagination_next_button",
+    onClick: _cache[7] || (_cache[7] = function ($event) {
+      return $options.nextpagination();
+    })
+  }, [_hoisted_51, $data.currentPage !== $data.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_52, [].concat(_hoisted_54))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.currentPage < $data.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "admin_user_management_pagination_last_button",
+    onClick: _cache[8] || (_cache[8] = function ($event) {
+      return $options.lastPagination();
+    })
+  }, [].concat(_hoisted_58))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), $data.userSelectOption === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_59, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 이용자 탭 / 최신 가입 순 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_60, [_hoisted_61, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_62, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.userListData, function (userList) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", {
       "class": "admin_user_management_bottom_content_ul",
       key: userList
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_60, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_61, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_email), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_62, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_tel), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_63, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_birthdate), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_64, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_gender), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_65, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_flg), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_66, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_created_at), 1 /* TEXT */), _hoisted_67]);
-  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 항공권 예매 탭(최신 결제 순) "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"admin_user_management_bottom_title_ul\">\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">이름</li>\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">아이디</li>\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">결제금액</li>\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">결제일시</li>\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">출발공항</li>\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">출발시간</li>\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">도착공항</li>\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">도착시간</li>\r\n\t\t\t\t\t</ul> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 호텔 예약 탭(최신 결제 순) "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"admin_user_management_bottom_title_ul\">\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">이름</li>\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">아이디</li>\t\t\t\t\t\t\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">예약금액</li>\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">예약일시</li>\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">호텔명</li>\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">위치</li>\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">체크인</li>\r\n\t\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">체크아웃</li>\r\n\t\t\t\t\t</ul> ")])])])]);
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_63, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_64, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_email), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_65, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_tel), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"text-center admin_user_management_bottom_content_li\">{{ userList.user_birthdate }}</li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"text-center admin_user_management_bottom_content_li\">{{ userList.user_gender }}</li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_66, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_flg), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_67, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_created_at), 1 /* TEXT */), _hoisted_68]);
+  }), 128 /* KEYED_FRAGMENT */))])])])) : $data.userSelectOption === '2' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_69, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 이용자 탭 / 최신 결제 순 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_70, [_hoisted_71, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_72, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.userListData, function (userList) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", {
+      "class": "admin_user_management_bottom_content_ul",
+      key: userList
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_73, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_74, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_email), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_75, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_tel), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_76, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.payment_price), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_77, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.reservation_departure_airport) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.reservation_departure_time), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_78, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.reservation_arrival_airport) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.reservation_arrival_time), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_79, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.payment_created_at), 1 /* TEXT */)]);
+  }), 128 /* KEYED_FRAGMENT */))])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 항공권 예매 탭(최신 결제 순) "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"admin_user_management_bottom_title_ul\">\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">이름</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">아이디</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">결제금액</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">결제일시</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">출발공항</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">출발시간</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">도착공항</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">도착시간</li>\r\n\t\t\t\t</ul> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 호텔 예약 탭(최신 결제 순) "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"admin_user_management_bottom_title_ul\">\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">이름</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">아이디</li>\t\t\t\t\t\t\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">예약금액</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">예약일시</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">호텔명</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">위치</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">체크인</li>\r\n\t\t\t\t\t<li class=\"admin_user_management_bottom_title_li\">체크아웃</li>\r\n\t\t\t\t</ul> ")])])]);
 }
 
 /***/ }),
@@ -26325,43 +26388,41 @@ var _hoisted_1 = {
 var _hoisted_2 = {
   "class": "mypage_side_view"
 };
-var _hoisted_3 = {
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "mypage_side_view_user_info"
-};
-var _hoisted_4 = {
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "mypage_side_view_user_info_name"
-};
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "님의 MyPage")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "mypage_side_view_user_info_email"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "roseok624@gmail.com")], -1 /* HOISTED */);
-var _hoisted_6 = {
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "roseok624@gmail.com")])], -1 /* HOISTED */);
+var _hoisted_4 = {
   "class": "mypage_side_view_tab"
 };
-var _hoisted_7 = {
+var _hoisted_5 = {
   "class": "mypage_side_view_tab_list"
 };
-var _hoisted_8 = {
+var _hoisted_6 = {
   "class": "mypage_main_view"
 };
-var _hoisted_9 = {
+var _hoisted_7 = {
   key: 0,
   "class": "mypage_main_view_tab"
 };
-var _hoisted_10 = {
+var _hoisted_8 = {
   "class": "mypage_main_view_user_info_box"
 };
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">이메일</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span></span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input id=\"password\" name=\"password\" type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPassword&quot;&gt;{{ errors.userPassword }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPassword &amp;&amp; frmUserData.userPassword&quot;&gt;유효한 비밀번호입니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPassword&quot;&gt;{{ RegistrationErrorMessage.userPassword }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호 확인</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPasswordChk&quot;&gt;{{ errors.userPasswordChk }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPasswordChk &amp;&amp; frmUserData.userPasswordChk&quot;&gt;비밀번호가 일치합니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPasswordChk&quot;&gt;{{ RegistrationErrorMessage.userPasswordChk }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">이름</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>최현희</span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">연락처</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>010-****-7060</span></div></div></div>", 5);
-var _hoisted_16 = {
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">이메일</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span></span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input id=\"password\" name=\"password\" type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPassword&quot;&gt;{{ errors.userPassword }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPassword &amp;&amp; frmUserData.userPassword&quot;&gt;유효한 비밀번호입니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPassword&quot;&gt;{{ RegistrationErrorMessage.userPassword }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호 확인</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPasswordChk&quot;&gt;{{ errors.userPasswordChk }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPasswordChk &amp;&amp; frmUserData.userPasswordChk&quot;&gt;비밀번호가 일치합니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPasswordChk&quot;&gt;{{ RegistrationErrorMessage.userPasswordChk }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">이름</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>최현희</span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">연락처</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>010-****-7060</span></div></div></div>", 5);
+var _hoisted_14 = {
   "class": "mypage_main_view_user_info_box_content"
 };
-var _hoisted_17 = {
+var _hoisted_15 = {
   "class": "mypage_main_view_user_info_box_content_postcode_div"
 };
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content_postcode_div_label\"><span class=\"font-bold\">우편번호</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_postcode_div_input\"><input id=\"user_postcode\" name=\"user_postcode\" type=\"text\" placeholder=\"\"></div>", 2);
-var _hoisted_20 = {
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content_postcode_div_label\"><span class=\"font-bold\">우편번호</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_postcode_div_input\"><input id=\"user_postcode\" name=\"user_postcode\" type=\"text\" placeholder=\"\"></div>", 2);
+var _hoisted_18 = {
   "class": "mypage_main_view_user_info_box_content_postcode_div_label"
 };
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "mypage_main_view_user_info_box_content_postcode_div_input"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
   id: "user_basic_address",
@@ -26369,22 +26430,20 @@ var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   type: "text",
   placeholder: ""
 })], -1 /* HOISTED */);
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content_postcode_div\"><div class=\"mypage_main_view_user_info_box_content_postcode_div_label\"><span class=\"font-bold\">상세주소</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_postcode_div_input2\"><input id=\"user_detail_address\" name=\"user_detail_address\" type=\"address\" placeholder=\"나머지 주소를 입력해주세요\"></div></div>", 1);
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">성별</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>여</span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">생년월일</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>1993-06-24</span></div></div></div>", 2);
-var _hoisted_25 = {
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content_postcode_div\"><div class=\"mypage_main_view_user_info_box_content_postcode_div_label\"><span class=\"font-bold\">상세주소</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_postcode_div_input2\"><input id=\"user_detail_address\" name=\"user_detail_address\" type=\"address\" placeholder=\"나머지 주소를 입력해주세요\"></div></div>", 1);
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">성별</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>여</span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">생년월일</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>1993-06-24</span></div></div></div>", 2);
+var _hoisted_23 = {
   key: 1,
   "class": "mypage_main_view_tab"
 };
-var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "mypage_main_view_user_reservation"
-}, null, -1 /* HOISTED */);
-var _hoisted_27 = [_hoisted_26];
-var _hoisted_28 = {
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_reservation\"><div class=\"mypage_main_view_user_reservation_menu\"><div class=\"mypage_main_view_user_reservation_menu_all\"><span>전체</span></div><div class=\"mypage_main_view_user_reservation_menu_all\"><span>항공권</span></div><div class=\"mypage_main_view_user_reservation_menu_all\"><span>호텔</span></div></div><div class=\"mypage_main_view_user_reservation_ticket\"><div class=\"mypage_main_view_user_reservation_ticket_date\"><span>2024.04.03</span><span>~</span><span>2024.04.10</span></div><div class=\"mypage_main_view_user_reservation_ticket_list\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_name\"><div><span>진에어</span></div><div><span>진에어</span></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 07:05</span></div><div><span>PUS</span></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_img\"><span>소요시간</span><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-arrow-right\" viewBox=\"0 0 16 16\"><path fill-rule=\"evenodd\" d=\"M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8\"></path></svg></span><span>직항</span></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 08:00</span></div><div><span>CJU</span></div></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 07:05</span></div><div><span>PUS</span></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_img\"><span>소요시간</span><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-arrow-right\" viewBox=\"0 0 16 16\"><path fill-rule=\"evenodd\" d=\"M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8\"></path></svg></span><span>직항</span></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 08:00</span></div><div><span>CJU</span></div></div></div></div><div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_info\"><div><button>예약상세</button></div><div><button>예약취소</button></div></div></div></div></div>", 1);
+var _hoisted_25 = [_hoisted_24];
+var _hoisted_26 = {
   key: 2,
   "class": "mypage_main_view_tab"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.userData) + "님의 MyPage", 1 /* TEXT */)]), _hoisted_5]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       $data.clickTab = 0;
     })
@@ -26396,13 +26455,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[2] || (_cache[2] = function ($event) {
       $data.clickTab = 2;
     })
-  }, "찜한내역")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [$data.clickTab === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, "찜한내역")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [$data.clickTab === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "font-bold",
     type: "button",
     onClick: _cache[3] || (_cache[3] = function ($event) {
       return _ctx.openDaumPostcode();
     })
-  }, "검색")]), _hoisted_21]), _hoisted_22]), _hoisted_23])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.clickTab === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_25, [].concat(_hoisted_27))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.clickTab === 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_28, " 찜한내역이여 ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+  }, "검색")]), _hoisted_19]), _hoisted_20]), _hoisted_21])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.clickTab === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, [].concat(_hoisted_25))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.clickTab === 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, " 찜한내역이여 ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
 }
 
 /***/ }),
@@ -27068,16 +27127,24 @@ var routes = [{
   meta: {
     title: 'Admin'
   }
+  // beforeEnter: (to, from, next) => {
+  // 	const token = localStorage.getItem('token');
+  // 	if (token) {
+  // 		next('/admin/index');
+  // 	} else {
+  // 		next();
+  // 	}
+  // },
 }, {
   path: '/admin/signup',
   name: 'Admin Signup',
   component: _components_Admin_AdminSignUpComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
   meta: {
-    title: '회원가입'
+    title: '회원가입',
+    requireAuth: true
   }
 }, {
   path: '/admin/index',
-  name: 'Admin Index',
   component: _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
     if (!localStorage.getItem('token')) {
@@ -27087,10 +27154,12 @@ var routes = [{
     }
   },
   meta: {
-    title: 'Admin'
+    title: 'Admin',
+    requireAuth: true
   }
 }, {
   path: '/admin/user/management',
+  name: 'Admin User Management',
   component: _components_Admin_AdminUserManagementComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
     if (!localStorage.getItem('token')) {
@@ -27100,10 +27169,12 @@ var routes = [{
     }
   },
   meta: {
-    title: 'User 계정관리'
+    title: 'User 계정관리',
+    requireAuth: true
   }
 }, {
   path: '/admin/management',
+  name: 'Admin Management',
   component: _components_Admin_AdminManagementComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
     if (!localStorage.getItem('token')) {
@@ -27113,10 +27184,12 @@ var routes = [{
     }
   },
   meta: {
-    title: 'Admin 계정관리'
+    title: 'Admin 계정관리',
+    requireAuth: true
   }
 }, {
   path: '/admin/registration',
+  name: 'Admin Registration',
   component: _components_Admin_AdminRegistrationComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"],
   beforeEnter: function beforeEnter(to, from, next) {
     if (!localStorage.getItem('token')) {
@@ -27126,7 +27199,8 @@ var routes = [{
     }
   },
   meta: {
-    title: 'Admin 가입승인'
+    title: 'Admin 가입승인',
+    requireAuth: true
   }
 }];
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_13__.createRouter)({
@@ -27134,8 +27208,18 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_13__.createRouter)({
   routes: routes
 });
 router.beforeEach(function (to, from, next) {
+  // 로그인 여부 확인	
+  var token = localStorage.getItem('token');
+
+  // requireAuth 확인
+  if (to.matched.some(function (record) {
+    return record.meta.requireAuth;
+  }) && !token) {
+    next('/admin');
+  } else {
+    next();
+  }
   document.title = to.meta.title || '기본 타이틀';
-  next();
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
 
@@ -27145,223 +27229,9 @@ router.beforeEach(function (to, from, next) {
 /*!*******************************!*\
   !*** ./resources/js/store.js ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (() => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-/* harmony import */ var _js_router_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../js/router.js */ "./resources/js/router.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue_jwt_decode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-jwt-decode */ "./node_modules/vue-jwt-decode/dist/lib/vue-jwt-decode.min.js");
-/* harmony import */ var vue_jwt_decode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_jwt_decode__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-
-
-var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
-  state: function state() {
-    return {
-      showmodal: false,
-      adminToken: null,
-      userData: null,
-      userLoginChk: null,
-      userID: null
-      // userToken: null,
-    };
-  },
-  mutations: {
-    // 모달 오픈
-    setToggleModal: function setToggleModal(state) {
-      state.showmodal = true;
-    },
-    // 모달 클로즈
-    setCloseModal: function setCloseModal(state) {
-      state.showmodal = false;
-    },
-    // loginSuccess(state) {
-    //     state.isLoggedIn = true;
-    // },
-    setAdminToken: function setAdminToken(state, token) {
-      state.adminToken = token;
-    },
-    // 로그인 시 유저 데이터
-    setUserData: function setUserData(state, userData) {
-      state.userData = userData;
-    },
-    // 유저 로그인 체크
-    setUserLoginChk: function setUserLoginChk(state, userLoginChk) {
-      state.userLoginChk = userLoginChk;
-    },
-    // 로그인했을 때 유저ID값
-    setUserID: function setUserID(state, userID) {
-      state.userID = userID;
-    },
-    // 유저 로그인 정보 저장용
-    setSaveToLocalStorage: function setSaveToLocalStorage(state, data) {
-      // state.userData.userCheck = data.controllerToken;
-
-      // state.userData.userID = data.userData.user_id;
-      // state.userData.setToken = data.token;
-      // state.userData.userLoginChk = data.controllerToken;
-      // state.userData = data.userData;
-
-      state.userData = {
-        userName: data.userData.userName,
-        userEmail: data.userData.userEmail,
-        userID: data.userData.user_id,
-        setToken: data.token,
-        userLoginChk: data.controllerToken
-      };
-      localStorage.setItem('setUserID', data.userData.user_id);
-      // localStorage.setItem('userCheck', data.controllerToken);
-      localStorage.setItem('setToken', data.token);
-      localStorage.setItem('setUserLoginChk', data.controllerToken);
-      localStorage.setItem('setUserData', data.userData);
-      // localStorage.setItem('setUserData', JSON.stringify(data.userData));
-
-      // 로컬스토리지의 정보 삭제부분(시간설정)
-      setTimeout(function () {
-        localStorage.clear();
-      }, 2 * 60 * 60 * 1000);
-    },
-    // 유저 토큰 저장용
-    setToken: function setToken(state, token) {
-      state.token = token;
-    }
-  },
-  actions: {
-    openLoginModal: function openLoginModal(_ref) {
-      var commit = _ref.commit;
-      commit('setToggleModal');
-    },
-    closeLoginModal: function closeLoginModal(_ref2) {
-      var commit = _ref2.commit;
-      commit('setCloseModal');
-    },
-    // 유저 login
-    submitUserLoginData: function submitUserLoginData(context, data) {
-      var url = '/login';
-      var header = {
-        headers: {
-          // "Content-Type": 'multipart/form-data',
-          "Content-Type": 'application/json'
-          // 'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
-        }
-      };
-      var requestData = {
-        userEmail: data.userEmail,
-        userPassword: data.userPassword
-      };
-      axios__WEBPACK_IMPORTED_MODULE_1___default().post(url, requestData, header).then(function (res) {
-        context.dispatch('closeLoginModal');
-        console.log("레스", res);
-        console.log(requestData);
-        var token = res.data.token;
-        var userData = res.data.userData;
-        var userID = res.data.userData.user_id;
-        // const decoded = jwtDecode(token);
-        console.log(token);
-        console.log(userData);
-        console.log(userID);
-        // console.log("유저데이터", res.data.userData);
-
-        if (res.data.success) {
-          context.commit('setSaveToLocalStorage', res.data);
-          context.commit('setUserData', userData);
-          context.commit('setUserLoginChk', res.data.controllerToken);
-          context.commit('setUserID', userID);
-          context.commit('setToken', token);
-
-          // router.push('/');
-          // this.$router.push('/');
-
-          // const loginUserData = res.data.userData.userID;
-          console.log("레스.데이터", res.data);
-          // console.log("유저체크", res.data.controllerToken);
-          // console.log(res.data.userData);
-          // localStorage.setItem('loginUser', userId);
-          // localStorage.setItem('loginUserId', res.data.userId);
-          // localStorage.setItem('loginUserEmail', res.data.userEmail);
-          localStorage.setItem('setUserData', userData);
-          localStorage.setItem('setToken', token);
-          localStorage.setItem('setUserLoginChk', res.data.token);
-          localStorage.setItem('setSaveToLocalStorage', res.data);
-          localStorage.setItem('setUserID', userID);
-          alert('로그인 성공. 페이지를 새로 고칩니다.');
-          // location.reload();
-          // this.$router.push('/');
-          _js_router_js__WEBPACK_IMPORTED_MODULE_0__["default"].push('/');
-        } else {
-          alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
-        }
-      })["catch"](function (err) {
-        // 서버 오류 등의 예외 처리
-        console.error('오류 발생:', err);
-        alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
-      });
-    },
-    // 유저 logout
-    // logout(context, data) {
-    //     const url = '/logout';
-    //     const header = {
-    //         headers: {
-    //             "Content-Type": 'application/json',
-    //         },
-    //     };
-    //     axios.get(url, header)
-    //     .then(res => {
-    //         context.commit('setUserLoginChk', res.data.sessionDataCheck);
-    //         localStorage.clear();
-    //         Swal.fire({
-    //             icon: 'success',
-    //             title: '로그아웃 성공',
-    //             text: '로그아웃에 성공했습니다.',
-    //             confirmButtonText: '확인'
-    //         }).then(() => {
-    //             // 확인 버튼을 눌렀을 때 실행할 코드
-    //             location.reload();
-    //         });
-    //     })
-    //     .catch(err => {
-    //         console.log(err.response.data);
-    //     });
-    // },
-    logout: function logout(context, data) {
-      var url = '/logout';
-      var token = localStorage.getItem('setToken');
-      console.log(token);
-      var header = {
-        headers: {
-          "Authorization": "Bearer ".concat(token),
-          "Content-Type": 'application/json'
-        }
-      };
-      // const config = {
-      // 	headers: {
-      // 		'Authorization': `Bearer ${token}`
-      // 	}
-      // };
-
-      axios__WEBPACK_IMPORTED_MODULE_1___default().get(url, header).then(function (res) {
-        console.log('로그아웃', res);
-        // context.commit('setUserLoginChk', false);
-        // this.setSaveToLocalStorage(data);
-        localStorage.clear();
-        if (confirm('로그아웃 성공\n로그아웃에 성공했습니다. 페이지를 새로고침 하시겠습니까?')) {
-          location.reload();
-        }
-      })["catch"](function (err) {
-        console.log(err.response.data);
-      });
-    }
-  }
-});
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: D:\\Weet\\WEET\\resources\\js\\store.js: Unexpected token (139:0)\n\n\u001b[0m \u001b[90m 137 |\u001b[39m                 \u001b[36mconst\u001b[39m userID \u001b[33m=\u001b[39m res\u001b[33m.\u001b[39mdata\u001b[33m.\u001b[39muserData\u001b[33m.\u001b[39muser_id\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 138 |\u001b[39m \t\t\t\t\u001b[90m// const decoded = jwtDecode(token);\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 139 |\u001b[39m \u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 140 |\u001b[39m \t\t\t\tconsole\u001b[33m.\u001b[39mlog(token)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 141 |\u001b[39m \t\t\t\tconsole\u001b[33m.\u001b[39mlog(userData)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 142 |\u001b[39m \t\t\t\tconsole\u001b[33m.\u001b[39mlog(userID)\u001b[33m;\u001b[39m\u001b[0m\n    at constructor (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:353:19)\n    at Parser.raise (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:3277:19)\n    at Parser.unexpected (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:3297:16)\n    at Parser.parseExprAtom (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10964:16)\n    at Parser.parseExprSubscripts (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10580:23)\n    at Parser.parseUpdate (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10563:21)\n    at Parser.parseMaybeUnary (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10541:23)\n    at Parser.parseMaybeUnaryOrPrivate (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10395:61)\n    at Parser.parseExprOps (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10400:23)\n    at Parser.parseMaybeConditional (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10377:23)\n    at Parser.parseMaybeAssign (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10338:21)\n    at Parser.parseExpressionBase (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10292:23)\n    at D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10288:39\n    at Parser.allowInAnd (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:11921:16)\n    at Parser.parseExpression (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10288:17)\n    at Parser.parseStatementContent (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:12362:23)\n    at Parser.parseStatementLike (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:12229:17)\n    at Parser.parseStatementListItem (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:12209:17)\n    at Parser.parseBlockOrModuleBlockBody (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:12786:61)\n    at Parser.parseBlockBody (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:12779:10)\n    at Parser.parseBlock (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:12767:10)\n    at Parser.parseFunctionBody (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:11606:24)\n    at Parser.parseArrowExpression (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:11581:10)\n    at Parser.parseExprAtom (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10960:25)\n    at Parser.parseExprSubscripts (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10580:23)\n    at Parser.parseUpdate (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10563:21)\n    at Parser.parseMaybeUnary (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10541:23)\n    at Parser.parseMaybeUnaryOrPrivate (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10395:61)\n    at Parser.parseExprOps (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10400:23)\n    at Parser.parseMaybeConditional (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10377:23)\n    at Parser.parseMaybeAssign (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10338:21)\n    at D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10308:39\n    at Parser.allowInAnd (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:11926:12)\n    at Parser.parseMaybeAssignAllowIn (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10308:17)\n    at Parser.parseExprListItem (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:11686:18)\n    at Parser.parseCallExpressionArguments (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10766:22)\n    at Parser.parseCoverCallAndAsyncArrowHead (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10683:29)\n    at Parser.parseSubscript (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10620:19)\n    at Parser.parseSubscripts (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10593:19)\n    at Parser.parseExprSubscripts (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10584:17)\n    at Parser.parseUpdate (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10563:21)\n    at Parser.parseMaybeUnary (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10541:23)\n    at Parser.parseMaybeUnaryOrPrivate (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10395:61)\n    at Parser.parseExprOps (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10400:23)\n    at Parser.parseMaybeConditional (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10377:23)\n    at Parser.parseMaybeAssign (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10338:21)\n    at Parser.parseExpressionBase (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10292:23)\n    at D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10288:39\n    at Parser.allowInAnd (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:11921:16)\n    at Parser.parseExpression (D:\\Weet\\WEET\\node_modules\\@babel\\parser\\lib\\index.js:10288:17)");
 
 /***/ }),
 
@@ -27430,7 +27300,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".admin_index_container {\n  width: 1700px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #ededed;\n  background-color: #EFF3F8;\n}\n.admin_index_container .admin_index_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container {\n  width: 20%;\n  height: 100vh;\n  background-color: #0B2161;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section {\n  width: 100%;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area .admin_index_left_info_image {\n  width: 100px;\n  height: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section {\n  width: 100%;\n  margin-bottom: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section .admin_index_left_logout_a {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section {\n  width: 100%;\n  margin: 20px 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input {\n  width: 70%;\n  height: 40px;\n  margin: auto;\n  padding: 4px;\n  outline: none;\n  background-color: transparent;\n  border-bottom: 1px solid transparent;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input:focus {\n  border-bottom: 1px solid #ededed;\n  transition: 0.8s;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  padding: 10px 40px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li {\n  width: 100%;\n  margin-bottom: 50px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_left_svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_right_svg {\n  margin-left: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_ul {\n  width: 100%;\n  display: block;\n}\n.admin_index_container .admin_index_section .admin_index_right_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 1350px;\n  margin: 10px auto;\n  display: flex;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section img {\n  width: 100px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_button_section svg {\n  width: 60px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 100%;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section .admin_index_right_top_title_area {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container {\n  width: 100%;\n  margin-bottom: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section {\n  width: 100%;\n  height: 100px;\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #FFF;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users svg {\n  width: 60px;\n  height: 60px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_register_users_text {\n  width: 100%;\n  padding: 20px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container {\n  width: 100%;\n  height: 400px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section {\n  width: 100%;\n  height: 100%;\n  margin-bottom: 10px;\n  background-color: #fff;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area {\n  width: 100%;\n  height: 100%;\n  padding: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area .admin_index_right_bottom_chart_image {\n  width: 1200px;\n  height: 300px;\n  margin: 0 auto;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section {\n  width: 50%;\n  height: 250px;\n  border-radius: 10px;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area {\n  width: 100%;\n  padding: 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a {\n  display: flex;\n}\n.admin_management_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n}\n.admin_management_container .admin_management_top_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_top_container .admin_management_top_title_section {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_management_container .admin_management_middle_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_select {\n  border: 1px solid #000;\n  margin-right: 100px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 0 auto;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_page_span_area {\n  width: 250px;\n  position: relative;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_page_span_area .admin_management_pagination_page_span {\n  width: 100%;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  right: 30%;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_first_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_prev_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_first_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_prev_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_first_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_prev_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_first_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_prev_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  left: 30%;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_next_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_last_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_next_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_last_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_next_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_last_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_next_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_last_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_management_container .admin_management_bottom_container {\n  width: 100%;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_title_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_title_ul .admin_management_bottom_title_li:not(:nth-child(3)) {\n  width: 100px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_title_ul .admin_management_bottom_title_li:nth-child(3) {\n  width: 200px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li:not(:nth-child(3)) {\n  width: 100px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li:nth-child(3) {\n  width: 200px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_update_button,\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_withdrawal_button {\n  width: 80px;\n  height: 24px;\n  line-height: 24px;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_update_button:hover,\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_withdrawal_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".admin_index_container {\n  width: 1700px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #ededed;\n  background-color: #EFF3F8;\n}\n.admin_index_container .admin_index_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container {\n  width: 20%;\n  height: 100vh;\n  background-color: #0B2161;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section {\n  width: 100%;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area .admin_index_left_info_image {\n  width: 100px;\n  height: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section {\n  width: 100%;\n  margin-bottom: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section .admin_index_left_logout_a {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section {\n  width: 100%;\n  margin: 20px 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input {\n  width: 70%;\n  height: 40px;\n  margin: auto;\n  padding: 4px;\n  outline: none;\n  background-color: transparent;\n  border-bottom: 1px solid transparent;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input:focus {\n  border-bottom: 1px solid #ededed;\n  transition: 0.8s;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  padding: 10px 40px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li {\n  width: 100%;\n  margin-bottom: 50px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_left_svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_right_svg {\n  margin-left: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_ul {\n  width: 100%;\n  display: block;\n}\n.admin_index_container .admin_index_section .admin_index_right_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 1350px;\n  margin: 10px auto;\n  display: flex;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section img {\n  width: 100px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_button_section svg {\n  width: 60px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 100%;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section .admin_index_right_top_title_area {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container {\n  width: 100%;\n  margin-bottom: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section {\n  width: 100%;\n  height: 100px;\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #FFF;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users svg {\n  width: 60px;\n  height: 60px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_register_users_text {\n  width: 100%;\n  padding: 20px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container {\n  width: 100%;\n  height: 400px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section {\n  width: 100%;\n  height: 100%;\n  margin-bottom: 10px;\n  background-color: #fff;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area {\n  width: 100%;\n  height: 100%;\n  padding: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area .admin_index_right_bottom_chart_image {\n  width: 1200px;\n  height: 300px;\n  margin: 0 auto;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section {\n  width: 50%;\n  height: 250px;\n  border-radius: 10px;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area {\n  width: 100%;\n  padding: 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a {\n  display: flex;\n}\n.admin_management_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n}\n.admin_management_container .admin_management_top_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_top_container .admin_management_top_title_section {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_management_container .admin_management_middle_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_select {\n  margin-right: 100px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_select:focus {\n  outline: none;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 0 auto;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_page_span_area {\n  width: 250px;\n  position: relative;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_page_span_area .admin_management_pagination_page_span {\n  width: 100%;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  right: 30%;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n  z-index: 9999;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_first_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_prev_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_first_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_prev_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_first_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_prev_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_first_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_prev_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  left: 30%;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_next_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_last_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_next_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_last_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_next_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_last_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_next_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_last_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_management_container .admin_management_bottom_container {\n  width: 100%;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_title_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_title_ul .admin_management_bottom_title_li:not(:nth-child(3)) {\n  width: 100px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_title_ul .admin_management_bottom_title_li:nth-child(3) {\n  width: 200px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li:not(:nth-child(3)) {\n  width: 100px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li:nth-child(3) {\n  width: 200px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_update_button,\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_withdrawal_button {\n  width: 80px;\n  height: 24px;\n  line-height: 24px;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_update_button:hover,\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_withdrawal_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -27502,7 +27372,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".admin_index_container {\n  width: 1700px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #ededed;\n  background-color: #EFF3F8;\n}\n.admin_index_container .admin_index_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container {\n  width: 20%;\n  height: 100vh;\n  background-color: #0B2161;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section {\n  width: 100%;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area .admin_index_left_info_image {\n  width: 100px;\n  height: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section {\n  width: 100%;\n  margin-bottom: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section .admin_index_left_logout_a {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section {\n  width: 100%;\n  margin: 20px 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input {\n  width: 70%;\n  height: 40px;\n  margin: auto;\n  padding: 4px;\n  outline: none;\n  background-color: transparent;\n  border-bottom: 1px solid transparent;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input:focus {\n  border-bottom: 1px solid #ededed;\n  transition: 0.8s;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  padding: 10px 40px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li {\n  width: 100%;\n  margin-bottom: 50px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_left_svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_right_svg {\n  margin-left: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_ul {\n  width: 100%;\n  display: block;\n}\n.admin_index_container .admin_index_section .admin_index_right_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 1350px;\n  margin: 10px auto;\n  display: flex;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section img {\n  width: 100px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_button_section svg {\n  width: 60px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 100%;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section .admin_index_right_top_title_area {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container {\n  width: 100%;\n  margin-bottom: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section {\n  width: 100%;\n  height: 100px;\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #FFF;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users svg {\n  width: 60px;\n  height: 60px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_register_users_text {\n  width: 100%;\n  padding: 20px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container {\n  width: 100%;\n  height: 400px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section {\n  width: 100%;\n  height: 100%;\n  margin-bottom: 10px;\n  background-color: #fff;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area {\n  width: 100%;\n  height: 100%;\n  padding: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area .admin_index_right_bottom_chart_image {\n  width: 1200px;\n  height: 300px;\n  margin: 0 auto;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section {\n  width: 50%;\n  height: 250px;\n  border-radius: 10px;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area {\n  width: 100%;\n  padding: 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a {\n  display: flex;\n}\n.admin_user_management_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n}\n.admin_user_management_container .admin_user_management_top_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_top_container .admin_user_management_top_title_section {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_user_management_container .admin_user_management_middle_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_select {\n  margin-right: 100px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_select:focus {\n  outline: none;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 0 auto;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_page_span_area {\n  width: 250px;\n  position: relative;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_page_span_area .admin_user_management_pagination_page_span {\n  width: 100%;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  right: 30%;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_first_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_prev_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_first_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_prev_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_first_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_prev_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_first_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_prev_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  left: 30%;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_next_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_last_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_next_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_last_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_next_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_last_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_next_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_last_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_user_management_container .admin_user_management_bottom_container {\n  width: 100%;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(1), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(5), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(6) {\n  width: 100px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(4), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(7), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(8) {\n  width: 160px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(2), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(3) {\n  width: 200px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul:hover {\n  background-color: #0B2161;\n  color: #fff;\n  text-decoration: underline;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(1), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(5), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(6) {\n  width: 100px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(4), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(7), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(8) {\n  width: 160px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(2), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(3) {\n  width: 200px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".admin_index_container {\n  width: 1700px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #ededed;\n  background-color: #EFF3F8;\n}\n.admin_index_container .admin_index_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container {\n  width: 20%;\n  height: 100vh;\n  background-color: #0B2161;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section {\n  width: 100%;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area .admin_index_left_info_image {\n  width: 100px;\n  height: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section {\n  width: 100%;\n  margin-bottom: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section .admin_index_left_logout_a {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section {\n  width: 100%;\n  margin: 20px 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input {\n  width: 70%;\n  height: 40px;\n  margin: auto;\n  padding: 4px;\n  outline: none;\n  background-color: transparent;\n  border-bottom: 1px solid transparent;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input:focus {\n  border-bottom: 1px solid #ededed;\n  transition: 0.8s;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  padding: 10px 40px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li {\n  width: 100%;\n  margin-bottom: 50px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_left_svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_right_svg {\n  margin-left: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_ul {\n  width: 100%;\n  display: block;\n}\n.admin_index_container .admin_index_section .admin_index_right_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 1350px;\n  margin: 10px auto;\n  display: flex;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section img {\n  width: 100px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_button_section svg {\n  width: 60px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 100%;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section .admin_index_right_top_title_area {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container {\n  width: 100%;\n  margin-bottom: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section {\n  width: 100%;\n  height: 100px;\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #FFF;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users svg {\n  width: 60px;\n  height: 60px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_register_users_text {\n  width: 100%;\n  padding: 20px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container {\n  width: 100%;\n  height: 400px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section {\n  width: 100%;\n  height: 100%;\n  margin-bottom: 10px;\n  background-color: #fff;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area {\n  width: 100%;\n  height: 100%;\n  padding: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area .admin_index_right_bottom_chart_image {\n  width: 1200px;\n  height: 300px;\n  margin: 0 auto;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section {\n  width: 50%;\n  height: 250px;\n  border-radius: 10px;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area {\n  width: 100%;\n  padding: 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a {\n  display: flex;\n}\n.admin_user_management_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n}\n.admin_user_management_container .admin_user_management_top_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_top_container .admin_user_management_top_title_section {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_user_management_container .admin_user_management_middle_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_select {\n  margin-right: 100px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_select:focus {\n  outline: none;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 0 auto;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_page_span_area {\n  width: 250px;\n  position: relative;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_page_span_area .admin_user_management_pagination_page_span {\n  width: 100%;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  right: 30%;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n  z-index: 9999;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_first_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_prev_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_first_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_prev_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_first_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_prev_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_first_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_prev_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  left: 30%;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_next_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_last_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_next_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_last_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_next_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_last_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_next_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_last_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_user_management_container .admin_user_management_bottom_container {\n  width: 100%;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(1), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(5), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(6) {\n  width: 100px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(4), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(7), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(8) {\n  width: 160px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(2), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(3) {\n  width: 200px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul:hover {\n  background-color: #0B2161;\n  color: #fff;\n  text-decoration: underline;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(1), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(5), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(6) {\n  width: 100px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(4), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(7), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(8) {\n  width: 160px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(2), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(3) {\n  width: 200px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -27526,7 +27396,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n@media (min-width: 335px) and (max-width: 767px) {\n.main_section {\n    width: 90%;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_starting_point_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_outbound_flight_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_starting_point_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_outbound_flight_area {\n    margin-right: 5px;\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_destination_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_inbound_flight_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_destination_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_inbound_flight_area {\n    margin-left: 5px;\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 100%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.main_section {\n    width: 95%;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(odd),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(odd) {\n    border-radius: 20px 0 0 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(even),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(even) {\n    border-radius: 0 20px 20px 0;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 65%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n@media (min-width: 1024px) {\n.main_section {\n    width: 1000px;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(odd),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(odd) {\n    border-radius: 20px 0 0 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(even),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(even) {\n    border-radius: 0 20px 20px 0;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border_bottom,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border_bottom .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 65%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n/* VARIABLES */\n/* BASE */\n@media (min-width: 1024px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.visually-hidden {\n    clip: rect(0 0 0 0);\n    -webkit-clip-path: inset(50%);\n            clip-path: inset(50%);\n    height: 1px;\n    overflow: hidden;\n    position: absolute;\n    white-space: nowrap;\n    width: 1px;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 20px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.visually-hidden {\n    clip: rect(0 0 0 0);\n    -webkit-clip-path: inset(50%);\n            clip-path: inset(50%);\n    height: 1px;\n    overflow: hidden;\n    position: absolute;\n    white-space: nowrap;\n    width: 1px;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 20px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 30px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 1024px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: space-between;\n}\n.header_nav_logo {\n    margin: 0 10px;\n    font-weight: bold;\n    font-size: 30px;\n    width: 100px;\n}\n.header_nav_user_btn {\n    display: flex;\n    align-items: center;\n    margin: 0 10px;\n    color: #0B2161;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.header_nav_login_btn_user {\n    display: flex;\n}\n.card__heading {\n    width: 100px;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: space-between;\n}\n.header_nav_logo {\n    margin: 0 10px;\n    font-weight: bold;\n    font-size: 30px;\n    width: 100px;\n}\n.header_nav_user_btn {\n    display: flex;\n    align-items: center;\n    margin: 0 10px;\n    color: #0B2161;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.card__heading {\n    width: 100px;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: center;\n    text-align: center;\n}\n.header_nav_logo {\n    width: 100px;\n    text-align: center;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.header_nav_login_btn_user {\n    display: none;\n}\n.card__heading {\n    width: 100px;\n}\n.header_mobile_nav_container {\n    display: none;\n}\n.header_nav_user_btn_search {\n    display: none;\n}\n}\n@media (min-width: 1024px) {\nfooter {\n    background-color: #081742;\n    opacity: 0.9;\n    color: white;\n    width: 100%;\n    padding: 10px;\n    font-size: 10px;\n    overflow: auto;\n    height: 140px;\n    position: relative;\n    transform: translateY(0%);\n}\n.footer_container_text {\n    width: 100%;\n}\n.footer_container_text_personal_info {\n    display: flex;\n    justify-content: center;\n    align-content: center;\n}\n.footer_container_icons {\n    display: flex;\n    font-size: 30px;\n    align-items: center;\n    justify-content: center;\n    margin-top: 10px;\n}\n.footer_container_icons_instar {\n    margin: 0 10px;\n}\n.footer_container_icons_facebook {\n    margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n    margin: 0 10px;\n}\n.header_mobile_nav_container {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_mobile_nav_container {\n    display: none;\n}\nfooter {\n    background-color: #081742;\n    opacity: 0.9;\n    color: white;\n    width: 100%;\n    padding: 10px;\n    font-size: 10px;\n    overflow: auto;\n    height: 140px;\n    position: relative;\n    transform: translateY(0%);\n}\n.footer_container_text {\n    width: 100%;\n}\n.footer_container_text_personal_info {\n    display: flex;\n    justify-content: center;\n    align-content: center;\n}\n.footer_container_icons {\n    display: flex;\n    font-size: 30px;\n    align-items: center;\n    justify-content: center;\n    margin-top: 10px;\n}\n.footer_container_icons_instar {\n    margin: 0 10px;\n}\n.footer_container_icons_facebook {\n    margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n    margin: 0 10px;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.footer_container {\n    display: none;\n}\n.header_mobile_nav_container {\n    display: flex;\n    align-items: center;\n    justify-content: space-around;\n    position: fixed;\n    bottom: 0;\n    width: 100%;\n    background-color: #ededed;\n    padding: 10px;\n}\n.header_mobile_nav_container svg {\n    width: 30px;\n    height: 30px;\n}\n}\n@media (min-width: 1024px) {\n.mypage_container {\n    width: 1200px;\n    margin: 50px auto;\n    display: flex;\n    text-align: center;\n}\n.mypage_side_view {\n    width: 20%;\n    margin-right: 10px;\n    background-color: #ededed;\n    display: grid;\n    align-items: center;\n    align-content: space-evenly;\n}\n.mypage_side_view li {\n    cursor: pointer;\n}\n.mypage_side_view_user_info {\n    padding: 10px;\n}\n.mypage_side_view_user_info_name span {\n    font-size: 1.2rem;\n    font-weight: 600;\n}\n.mypage_side_view_user_info_email span {\n    font-size: 0.9rem;\n}\n.mypage_side_view_tab_list {\n    list-style: none;\n    display: grid;\n    grid-template-columns: 1fr; /* 한 열에 하나의 아이템 */\n    gap: 50px;\n    font-weight: 600;\n    color: #0B2161;\n}\n.mypage_main_view {\n    width: 80%;\n    margin: auto 0;\n}\n.mypage_main_view_user_info_box_content {\n    display: flex;\n    align-items: center;\n    padding: 10px;\n}\n.mypage_main_view_user_info_box_content_label {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    padding: 10px;\n    width: 30%;\n}\n.mypage_main_view_user_info_box_content_input {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_input input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_input :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_info_box_content_span {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_postcode_div {\n    display: flex;\n    width: 80%;\n    margin: auto 0;\n}\n.mypage_main_view_user_info_box_content_postcode_div_label {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    padding: 10px;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 30%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 :focus {\n    outline: none;\n    border: none;\n}\n}\n* {\n  font-family: sans-serif;\n}\n@supports (-webkit-appearance: none) or (-moz-appearance: none) {\ninput[type=checkbox] {\n    --active: #275EFE;\n    --active-inner: #fff;\n    --focus: 2px rgba(39, 94, 254, .3);\n    --border: #BBC1E1;\n    --border-hover: #275EFE;\n    --background: #fff;\n    --disabled: #F6F8FF;\n    --disabled-inner: #275EFE;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    height: 21px;\n    outline: none;\n    display: inline-block;\n    vertical-align: top;\n    position: relative;\n    margin: 0;\n    cursor: pointer;\n    border: 1px solid var(--bc, var(--border));\n    background: var(--b, var(--background));\n    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;\n}\ninput[type=checkbox]:after {\n    content: \"\";\n    display: block;\n    left: 0;\n    top: 0;\n    position: absolute;\n    transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);\n}\ninput[type=checkbox]:checked {\n    --b: var(--active);\n    --bc: var(--active);\n    --d-o: .3s;\n    --d-t: .6s;\n    --d-t-e: cubic-bezier(.2, .85, .32, 1.2);\n}\ninput[type=checkbox]:disabled {\n    --b: var(--disabled);\n    cursor: not-allowed;\n    opacity: 0.9;\n}\ninput[type=checkbox]:disabled:checked {\n    --b: var(--disabled-inner);\n    --bc: var(--border);\n}\ninput[type=checkbox]:disabled + label {\n    cursor: not-allowed;\n}\ninput[type=checkbox]:hover:not(:checked):not(:disabled) {\n    --bc: var(--border-hover);\n}\ninput[type=checkbox]:focus {\n    box-shadow: 0 0 0 var(--focus);\n}\ninput[type=checkbox]:not(.reservation_switch) {\n    width: 21px;\n}\ninput[type=checkbox]:not(.reservation_switch):after {\n    opacity: var(--o, 0);\n}\ninput[type=checkbox]:not(.reservation_switch):checked {\n    --o: 1;\n}\ninput[type=checkbox] + label {\n    font-size: 14px;\n    line-height: 21px;\n    display: inline-block;\n    vertical-align: top;\n    cursor: pointer;\n    margin-left: 4px;\n}\ninput[type=checkbox]:not(.reservation_switch) {\n    border-radius: 7px;\n}\ninput[type=checkbox]:not(.reservation_switch):after {\n    width: 5px;\n    height: 9px;\n    border: 2px solid var(--active-inner);\n    border-top: 0;\n    border-left: 0;\n    left: 7px;\n    top: 4px;\n    transform: rotate(var(--r, 20deg));\n}\ninput[type=checkbox]:not(.reservation_switch):checked {\n    --r: 43deg;\n}\ninput[type=checkbox].reservation_switch {\n    width: 38px;\n    border-radius: 11px;\n}\ninput[type=checkbox].reservation_switch:after {\n    left: 2px;\n    top: 2px;\n    border-radius: 50%;\n    width: 15px;\n    height: 15px;\n    background: var(--ab, var(--border));\n    transform: translateX(var(--x, 0));\n}\ninput[type=checkbox].reservation_switch:checked {\n    --ab: var(--active-inner);\n    --x: 17px;\n}\ninput[type=checkbox].reservation_switch:disabled:not(:checked):after {\n    opacity: 0.6;\n}\ninput[type=radio] {\n    border-radius: 50%;\n}\ninput[type=radio]:after {\n    width: 19px;\n    height: 19px;\n    border-radius: 50%;\n    background: var(--active-inner);\n    opacity: 0;\n    transform: scale(var(--s, 0.7));\n}\ninput[type=radio]:checked {\n    --s: .5;\n}\n}\ninput[type=date] {\n  margin: 0 auto;\n  width: 100%;\n  position: relative;\n}\n::-webkit-calendar-picker-indicator {\n  position: absolute;\n  right: -10px;\n  top: 0px;\n  padding-left: 3000px;\n  height: 100%;\n  opacity: 0;\n}\n::-webkit-calendar-picker-indicator:hover {\n  cursor: pointer;\n}\ninput[type=date]:not(.has-value):before {\n  color: rgb(164, 164, 164);\n  content: attr(placeholder);\n}\n.reservation_custom_box .reservation_custom_sec_box {\n  position: relative;\n}\n.reservation_custom_box .reservation_custom_sec_box input {\n  height: 50px;\n  width: 100%;\n  padding: 10px 0px 10px 10px;\n  font-size: 16px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  outline: none;\n  background: transparent;\n}\n.reservation_custom_box .reservation_custom_sec_box label {\n  position: absolute;\n  top: 13px;\n  left: 8px;\n  font-size: 16px;\n  color: #a5a5a5;\n  pointer-events: none;\n  transition: 0.5s;\n}\n.reservation_custom_box .reservation_custom_sec_box input:focus ~ label,\n.reservation_custom_box .reservation_custom_sec_box input:valid ~ label {\n  top: -10px;\n  left: 5px;\n  color: #a5a5a5;\n  font-size: 12px;\n  background-color: #fff;\n}\n.reservation_custom_sec_box input:not(:focus)::-moz-placeholder {\n  opacity: 0;\n}\n.reservation_custom_sec_box input:not(:focus)::placeholder {\n  opacity: 0;\n}\n.reservation_header {\n  display: flex;\n  justify-content: space-between;\n  padding: 20px;\n  position: absolute;\n  width: 100%;\n}\n.reservation_header_box {\n  width: 100px;\n  text-align: center;\n}\n.reservation_header_box span {\n  font-weight: bold;\n  font-size: 15px;\n}\n.reservation_header_ball_1, .reservation_header_ball_2 {\n  line-height: 60px;\n  height: 60px;\n  width: 60px;\n  font-size: 35px;\n  border-radius: 100%;\n  font-weight: bold;\n  margin: 0 auto;\n  color: #fff;\n  box-shadow: 0 10px 15px -4px rgba(125, 125, 125, 0.4784313725);\n}\n.reservation_header_ball_1 {\n  background-color: #0B4AFF;\n}\n.reservation_header_ball_2 {\n  background-color: #C5DFFF;\n}\n.reservation_progress_box {\n  padding-top: 67px;\n  margin: 0 auto;\n  padding-bottom: 70px;\n}\n.reservation_progress_blue {\n  background-color: #084AFF;\n}\n.reservation_progress_gray {\n  background-color: #ededed;\n}\n.reservation_body {\n  width: 90%;\n  max-width: 600px;\n  margin: 0 auto;\n}\n.reservation_title_1 {\n  font-size: 40px;\n  font-weight: bold;\n}\n.reservation_title_2 {\n  font-size: 30px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_3 {\n  font-size: 25px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_4 {\n  font-size: 15px;\n  font-weight: bold;\n}\n.reservation_to_tiket_title {\n  display: flex;\n  align-items: center;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n  font-size: 17px;\n  padding: 4px 7px;\n  background-color: #0B4AFF;\n  color: #fff;\n  font-weight: 800;\n  border-radius: 20px;\n  margin-left: 5px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n  margin-left: 5px;\n  padding: 0px 10px;\n  border-right: 2px solid #ededed;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n  padding: 0px 10px;\n}\n.reservation_to_tiket_info {\n  display: flex;\n  padding: 20px 0px;\n}\n.reservation_to_tiket_time {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-right: 20px;\n}\n.reservation_to_tiket_time div {\n  font-size: 20px;\n  font-weight: 900;\n  width: 60px;\n}\n.reservation_to_tiket_time_type {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-left: 20px;\n  border-left: 5px solid #ededed;\n  margin: 10px 0px;\n}\n.reservation_to_tiket_time_type div:nth-child(1),\n.reservation_to_tiket_time_type div:nth-child(3) {\n  font-weight: 900;\n}\n.reservation_to_tiket_time_type div:nth-child(2) {\n  padding: 20px 0px;\n  font-size: 10px;\n}\n.reservation_gray_bg {\n  background-color: #ededed;\n  padding-bottom: 100px;\n}\n.reservation_baggage_rule_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n  display: flex;\n}\n.reservation_baggage {\n  flex-grow: 2;\n}\n.reservation_rule {\n  flex-grow: 1;\n}\n.reservation_icon_blue {\n  color: #249ac2;\n  margin-right: 5px;\n}\n.reservation_icon_deepblue {\n  color: #084AFF;\n  margin-right: 5px;\n}\n.reservation_icon_gray {\n  color: #adadad;\n  margin-right: 5px;\n}\n.reservation_icon_flex {\n  display: flex;\n  align-items: center;\n}\n.reservation_input_reset_btn {\n  color: #084AFF;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n}\n.reservation_input_reset_btn:hover {\n  cursor: pointer;\n}\n.reservation_passenger_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 30px;\n}\n.reservation_spacebetween {\n  display: flex;\n  justify-content: space-between;\n}\n.reservation_placeholder {\n  color: #ededed;\n}\n.reservation_input {\n  border: 1px solid #ededed;\n  outline: none;\n  height: 50px;\n  border-radius: 5px;\n  padding: 5px;\n  position: relative;\n}\n.reservation_input select {\n  border: none;\n  outline: none;\n}\n.reservation_input legend {\n  font-size: 12px;\n  color: #4f4f4f;\n}\n.reservation_notification_box {\n  border: 1px solid #ededed;\n  background-color: #ededed;\n  border-radius: 5px;\n  padding: 5px;\n}\n.reservation_notification_box span {\n  font-weight: 900;\n}\n.reservation_refund_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 30px;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n}\n.reservation_refund_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_refund_area span {\n  font-weight: 900;\n}\n.reservation_insurance_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n}\n.reservation_insurance_small_msg {\n  padding-left: 10px;\n}\n.reservation_contact_info_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_box {\n  display: flex;\n  flex-direction: column;\n  margin-top: 30px;\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_price {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_next_btn {\n  background-color: #084AFF;\n  padding: 5px;\n  color: #fff;\n  border-radius: 5px;\n}\n.reservation_popover {\n  position: absolute;\n  left: -110px;\n  top: 24px;\n  border: 3px solid #ededed;\n  padding: 10px;\n  background-color: #ffffff;\n  width: 260px;\n  border-radius: 5px;\n}\n.reservation_success {\n  border: 1px solid #084AFF;\n}\n.reservation_fail {\n  border: 3px solid #ff0000;\n}\n.reservation_complete {\n  width: 100%;\n  padding-bottom: 50px;\n  margin: 0px auto 30px auto;\n}\n.reservation_complete_icon {\n  margin: 0 auto;\n  color: #084AFF;\n}\n.reservation_cancel_icon {\n  margin: 0 auto;\n  color: #ff3e3e;\n}\n.reservation_complete_msg {\n  padding: 20px 0 50px 0;\n  font-size: 20px;\n  font-weight: bold;\n  color: #000000;\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.reservation_layout {\n    width: 100vw;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    width: 100%;\n}\n.reservation_progress_box {\n    width: 75%;\n}\n.reservation_baggage_rule_box {\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_refund_area {\n    padding: 5px;\n    font-size: 12px;\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_title_1 {\n    font-size: 35px;\n}\n.reservation_to_tiket_info {\n    font-size: 15px;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n    font-size: 14px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n    font-size: 12px;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n    font-size: 11px;\n}\n.reservation_icon_flex {\n    align-items: flex-start;\n}\n.reservation_switch label {\n    padding: 0;\n    font-size: 11px;\n}\n.reservation_popover {\n    position: absolute;\n    left: -110px;\n    top: 24px;\n    border: 1px solid #dadada;\n    padding: 10px;\n    background-color: #f9f9f9;\n    width: 260px;\n    border-radius: 5px;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.reservation_layout {\n    width: 768px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 750px;\n}\n.reservation_progress_box {\n    width: 628px;\n}\n}\n@media (min-width: 1024px) {\n.reservation_layout {\n    width: 1000px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 1000px;\n}\n.reservation_progress_box {\n    width: 900px;\n}\n}\n@media (min-width: 1024px) {\n.regist_container_wrap {\n    width: 1000px;\n    margin: 0 auto;\n}\n.container_signup_none {\n    display: none;\n}\n.regist_container {\n    color: #666;\n    text-align: center;\n}\n.regist_container .regist_logo_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 40px 0;\n    font-size: 30px;\n    font-weight: bold;\n}\n.regist_container .regist_logo_div_main_logo {\n    width: 100px;\n}\n.regist_container .terms_conditions {\n    text-align: center;\n}\n.regist_container .terms_conditions_title {\n    margin-bottom: 10px;\n}\n.regist_container .terms_conditions_box {\n    border: 1px solid #2C3E50;\n    border-radius: 5px;\n    padding: 20px;\n    width: 50%;\n    text-align: start;\n    margin: 20px auto;\n    overflow: auto;\n    font-size: 12px;\n    color: #333;\n}\n.regist_container .terms_conditions_label {\n    font-size: 13px;\n    color: #666;\n}\n.regist_container .terms_conditions_checkbox {\n    margin: 0 5px;\n}\n.regist_container .terms_conditions_checkbox_btn {\n    margin: 10px 0;\n}\n.regist_container .regist_button {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    margin: 20px 0;\n}\n.regist_container .regist_button_cel {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_button_cel:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_button_nxt {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-left: 5px;\n}\n.regist_container .regist_button_nxt:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_user_info_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.regist_container .regist_user_info_box {\n    display: flex;\n    text-align: center;\n    justify-content: center;\n    flex-direction: column;\n    margin: 10px 0;\n}\n.regist_container .regist_user_info_box_content {\n    margin: 15px 0;\n    display: flex;\n    justify-content: space-between;\n}\n.regist_container .regist_user_info_box_label {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: 50%;\n}\n.regist_container .regist_user_info_box_label_postcode {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: auto;\n}\n.regist_container .regist_user_info_box_input {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n    width: 400px;\n    position: relative;\n}\n.regist_container .regist_user_info_box_input input {\n    width: 100%;\n}\n.regist_container .regist_user_info_box_input :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box input::-moz-placeholder {\n    font-size: 12px;\n}\n.regist_container .regist_user_info_box input::placeholder {\n    font-size: 12px;\n}\n.regist_container .regist_user_info_box_input_postcode {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_postcode :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_search {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_search :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_basic_address {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_basic_address :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_gender {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_gender :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_gender {\n    display: flex;\n    align-items: center;\n    justify-content: space-evenly;\n}\n.regist_container .regist_user_info_box_gender_choose {\n    display: flex;\n}\n.regist_container .regist_user_info_box .regist_message_container {\n    position: absolute;\n    top: 100%;\n    left: 0;\n    width: 100%;\n    margin: 5px 5px; /* 추가적인 여백을 위해 설정 */\n    text-align: start;\n}\n.regist_container .regist_user_info_box_email_chk {\n    margin-top: 5px;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 100%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_error_area {\n    height: 15px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin-top: 40px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_signup_area {\n    color: #0B4AFF;\n}\n.admin_login_section .admin_login_right_section {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_error_area {\n    height: 15px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin-top: 40px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_signup_area {\n    color: #0B4AFF;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n@media (min-width: 1024px) {\n.admin_login_section {\n    width: 1000px;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_error_area {\n    height: 15px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin-top: 40px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_signup_area {\n    color: #0B4AFF;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n.admin_index_container {\n  width: 1700px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #ededed;\n  background-color: #EFF3F8;\n}\n.admin_index_container .admin_index_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container {\n  width: 20%;\n  height: 100vh;\n  background-color: #0B2161;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section {\n  width: 100%;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area .admin_index_left_info_image {\n  width: 100px;\n  height: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section {\n  width: 100%;\n  margin-bottom: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section .admin_index_left_logout_a {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section {\n  width: 100%;\n  margin: 20px 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input {\n  width: 70%;\n  height: 40px;\n  margin: auto;\n  padding: 4px;\n  outline: none;\n  background-color: transparent;\n  border-bottom: 1px solid transparent;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input:focus {\n  border-bottom: 1px solid #ededed;\n  transition: 0.8s;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  padding: 10px 40px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li {\n  width: 100%;\n  margin-bottom: 50px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_left_svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_right_svg {\n  margin-left: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_ul {\n  width: 100%;\n  display: block;\n}\n.admin_index_container .admin_index_section .admin_index_right_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 1350px;\n  margin: 10px auto;\n  display: flex;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section img {\n  width: 100px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_button_section svg {\n  width: 60px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 100%;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section .admin_index_right_top_title_area {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container {\n  width: 100%;\n  margin-bottom: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section {\n  width: 100%;\n  height: 100px;\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #FFF;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users svg {\n  width: 60px;\n  height: 60px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_register_users_text {\n  width: 100%;\n  padding: 20px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container {\n  width: 100%;\n  height: 400px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section {\n  width: 100%;\n  height: 100%;\n  margin-bottom: 10px;\n  background-color: #fff;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area {\n  width: 100%;\n  height: 100%;\n  padding: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area .admin_index_right_bottom_chart_image {\n  width: 1200px;\n  height: 300px;\n  margin: 0 auto;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section {\n  width: 50%;\n  height: 250px;\n  border-radius: 10px;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area {\n  width: 100%;\n  padding: 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a {\n  display: flex;\n}\n.admin_user_management_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n}\n.admin_user_management_container .admin_user_management_top_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_top_container .admin_user_management_top_title_section {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_user_management_container .admin_user_management_middle_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_select {\n  margin-right: 100px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_select:focus {\n  outline: none;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 0 auto;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_page_span_area {\n  width: 250px;\n  position: relative;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_page_span_area .admin_user_management_pagination_page_span {\n  width: 100%;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  right: 30%;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_first_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_prev_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_first_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_prev_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_first_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_prev_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_first_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_prev_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  left: 30%;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_next_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_last_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_next_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_last_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_next_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_last_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_next_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_last_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_user_management_container .admin_user_management_bottom_container {\n  width: 100%;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(1), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(5), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(6) {\n  width: 100px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(4), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(7), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(8) {\n  width: 160px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(2), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(3) {\n  width: 200px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul:hover {\n  background-color: #0B2161;\n  color: #fff;\n  text-decoration: underline;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(1), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(5), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(6) {\n  width: 100px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(4), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(7), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(8) {\n  width: 160px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(2), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(3) {\n  width: 200px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n@media (min-width: 335px) and (max-width: 767px) {\n.main_section {\n    width: 90%;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_starting_point_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_outbound_flight_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_starting_point_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_outbound_flight_area {\n    margin-right: 5px;\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_destination_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_inbound_flight_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_destination_area,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_inbound_flight_area {\n    margin-left: 5px;\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 100%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.main_section {\n    width: 95%;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(odd),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(odd) {\n    border-radius: 20px 0 0 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(even),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(even) {\n    border-radius: 0 20px 20px 0;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 65%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n@media (min-width: 1024px) {\n.main_section {\n    width: 1000px;\n    font-family: sans-serif;\n    margin: 0 auto;\n}\n.main_section .main_select_ticket_section {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    margin-top: 30px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(odd),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(odd) {\n    border-radius: 20px 0 0 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border:nth-child(even),\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border:nth-child(even) {\n    border-radius: 0 20px 20px 0;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border_bottom,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin-right: 5px;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_top .main_select_ticket_border_bottom .main_select_ticket_title,\n  .main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_middle .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom {\n    width: 65%;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom {\n    width: 100%;\n    height: 90px;\n    margin: 5px 0;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 20px;\n}\n.main_section .main_select_ticket_section .main_select_ticket_flex_first .main_select_ticket_flex_first_bottom .main_select_ticket_border_bottom .main_select_ticket_title {\n    margin-bottom: 10px;\n}\n.main_section .main_search_ticket_section {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area {\n    width: 100%;\n    height: 45px;\n}\n.main_section .main_search_ticket_section .main_search_ticket_image_area img {\n    width: 30px;\n    height: 30px;\n    margin: 10px auto;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area {\n    width: 100%;\n}\n.main_section .main_search_ticket_section .main_search_ticket_airline_area a {\n    display: block;\n    height: 50px;\n    background-color: #0B2161;\n    color: #fff;\n    border-radius: 5px;\n    line-height: 50px;\n}\n.main_section .main_ad_slide_section {\n    width: 100%;\n    height: 300px;\n    background-color: #ededed;\n    margin: 0 auto;\n    margin-top: 50px;\n}\n.main_section .main_search_tourist_spot_section {\n    width: 100%;\n    height: 80px;\n    margin: 50px auto;\n    background-color: #C5DFFF;\n    border-radius: 5px;\n    position: relative;\n    z-index: -9999;\n}\n.main_section .main_search_tourist_spot_section input {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    padding: 10px 50px;\n    background-color: transparent;\n}\n.main_section .main_search_tourist_spot_section input:focus {\n    outline: none;\n}\n.main_section .main_search_tourist_spot_section input::-moz-placeholder {\n    color: #fff;\n}\n.main_section .main_search_tourist_spot_section input::placeholder {\n    color: #fff;\n}\n.main_section .main_tourist_spot_recommendation_section {\n    width: 100%;\n    height: 300px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_border {\n    width: 50%;\n    height: 100%;\n    background-color: #C5DFFF;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_title_area {\n    margin-right: 5px;\n    padding: 50px 50px;\n}\n.main_section .main_tourist_spot_recommendation_section .main_tourist_spot_recommendation_image_area {\n    margin-left: 5px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section {\n    width: 100%;\n    height: 600px;\n    margin: 50px auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-right: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_title_area {\n    width: 100%;\n    height: 100px;\n    padding: 20px 50px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area {\n    width: 50%;\n    height: 100%;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_left .main_monthly_tourist_spot_first_area img {\n    width: 100%;\n    height: 450px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    background-color: #ededed;\n    margin-left: 5px;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_second_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area {\n    width: 100%;\n    height: 50%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.main_section .main_monthly_tourist_spot_section .main_monthly_tourist_spot_flex_right .main_monthly_tourist_spot_third_area img {\n    width: 100%;\n    height: 200px;\n    margin: 0 auto;\n}\n}\n/* VARIABLES */\n/* BASE */\n@media (min-width: 1024px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.visually-hidden {\n    clip: rect(0 0 0 0);\n    -webkit-clip-path: inset(50%);\n            clip-path: inset(50%);\n    height: 1px;\n    overflow: hidden;\n    position: absolute;\n    white-space: nowrap;\n    width: 1px;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 20px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.visually-hidden {\n    clip: rect(0 0 0 0);\n    -webkit-clip-path: inset(50%);\n            clip-path: inset(50%);\n    height: 1px;\n    overflow: hidden;\n    position: absolute;\n    white-space: nowrap;\n    width: 1px;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 20px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.header_container {\n    font: 100 100%/1.6 \"Heebo\", sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n}\n.flex {\n    align-items: center;\n    justify-content: center;\n}\n.scene {\n    position: relative;\n}\n.login_modal_headline {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.login_modal_text {\n    font-size: 0.6rem;\n    text-align: start;\n    margin: 10px 0;\n}\n.login_modal_text_comment {\n    font-size: 12px;\n}\n.modal-content {\n    /* 기존 스타일 유지 */\n    background-color: transparent;\n    padding: 30px;\n    border-radius: 5px;\n}\n.modal {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 투명도 추가 */\n    display: flex;\n    justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */\n    align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */\n}\n.card {\n    -webkit-backdrop-filter: blur(10px);\n            backdrop-filter: blur(10px);\n    background: #fff;\n    border: 1px solid rgba(254, 254, 254, 0.18);\n    border-radius: 15px;\n    box-shadow: 0 10px 35px 0 rgba(54, 33, 0, 0.65);\n    overflow: hidden;\n    padding: 30px;\n    position: relative;\n    text-align: center;\n    z-index: 1;\n    width: 100%;\n}\n.card__heading {\n    font-size: 1.35rem;\n    font-weight: 200;\n}\n.card__heading span {\n    font-weight: bold;\n}\n.card__figure {\n    height: auto;\n    margin: 0 auto;\n    max-width: 225px;\n    width: 60%;\n}\n.card__image {\n    border-radius: 50%;\n    max-width: 100%;\n}\n.card__input {\n    background: rgba(217, 217, 217, 0.5);\n    border: 1px solid rgba(254, 254, 254, 0.3);\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #0B2161;\n    display: block;\n    font-size: 12px;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    padding: 5px 8px;\n}\n.card__input:focus, .card__input:active {\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__form_email {\n    text-align: start;\n}\n.card__form_email label {\n    font-size: 12px;\n}\n.card__form_pw {\n    text-align: start;\n}\n.card__form_pw label {\n    font-size: 12px;\n}\n.card__button {\n    background-color: #C5DFFF;\n    border: none;\n    border-radius: 3px;\n    color: #0B2161;\n    margin: 15px auto 0 auto;\n    padding: 5px 12px;\n    font-size: 12px;\n}\n.card__button:focus, .card__button:active {\n    background: rgba(255, 255, 255, 0.75);\n    outline: none;\n}\n.card__button:hover {\n    background-color: #497bff;\n    font-weight: bold;\n}\n.card__form_button {\n    display: flex;\n    justify-content: space-evenly;\n    margin-bottom: 20px;\n}\n.card__social_login_text {\n    font-size: 15px;\n    color: #C5DFFF;\n    margin-top: 8px;\n}\n.card__social_btn {\n    border-radius: 3px;\n    box-sizing: border-box;\n    color: #FEFEFE;\n    display: block;\n    font-size: 1rem;\n    letter-spacing: 0.15rem;\n    width: 100%;\n    margin-top: 5px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.card__social_btn:focus, .card__social_btn:active {\n    background: rgba(254, 254, 254, 0.08);\n    border: 1px solid rgba(254, 254, 254, 0.75);\n    outline: none;\n}\n.card__social_btn_google {\n    width: 2rem;\n    margin-right: 5px;\n}\n.card__social_btn_kakao {\n    width: 2rem;\n    margin-left: 5px;\n}\n.modal {\n    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 처리 */\n}\n}\n@media (min-width: 1024px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: space-between;\n}\n.header_nav_logo {\n    margin: 0 10px;\n    font-weight: bold;\n    font-size: 30px;\n    width: 100px;\n}\n.header_nav_user_btn {\n    display: flex;\n    align-items: center;\n    margin: 0 10px;\n    color: #0B2161;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.header_nav_login_btn_user {\n    display: flex;\n}\n.card__heading {\n    width: 100px;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: space-between;\n}\n.header_nav_logo {\n    margin: 0 10px;\n    font-weight: bold;\n    font-size: 30px;\n    width: 100px;\n}\n.header_nav_user_btn {\n    display: flex;\n    align-items: center;\n    margin: 0 10px;\n    color: #0B2161;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.card__heading {\n    width: 100px;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.header_container {\n    width: 100%;\n    padding: 10px;\n}\n.header_nav {\n    display: flex;\n    justify-content: center;\n    text-align: center;\n}\n.header_nav_logo {\n    width: 100px;\n    text-align: center;\n}\n.header_nav_login_btn {\n    font-weight: bold;\n    margin-left: 10px;\n}\n.header_nav_login_btn_user {\n    display: none;\n}\n.card__heading {\n    width: 100px;\n}\n.header_mobile_nav_container {\n    display: none;\n}\n.header_nav_user_btn_search {\n    display: none;\n}\n}\n@media (min-width: 1024px) {\nfooter {\n    background-color: #081742;\n    opacity: 0.9;\n    color: white;\n    width: 100%;\n    padding: 10px;\n    font-size: 10px;\n    overflow: auto;\n    height: 140px;\n    position: relative;\n    transform: translateY(0%);\n}\n.footer_container_text {\n    width: 100%;\n}\n.footer_container_text_personal_info {\n    display: flex;\n    justify-content: center;\n    align-content: center;\n}\n.footer_container_icons {\n    display: flex;\n    font-size: 30px;\n    align-items: center;\n    justify-content: center;\n    margin-top: 10px;\n}\n.footer_container_icons_instar {\n    margin: 0 10px;\n}\n.footer_container_icons_facebook {\n    margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n    margin: 0 10px;\n}\n.header_mobile_nav_container {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.header_mobile_nav_container {\n    display: none;\n}\nfooter {\n    background-color: #081742;\n    opacity: 0.9;\n    color: white;\n    width: 100%;\n    padding: 10px;\n    font-size: 10px;\n    overflow: auto;\n    height: 140px;\n    position: relative;\n    transform: translateY(0%);\n}\n.footer_container_text {\n    width: 100%;\n}\n.footer_container_text_personal_info {\n    display: flex;\n    justify-content: center;\n    align-content: center;\n}\n.footer_container_icons {\n    display: flex;\n    font-size: 30px;\n    align-items: center;\n    justify-content: center;\n    margin-top: 10px;\n}\n.footer_container_icons_instar {\n    margin: 0 10px;\n}\n.footer_container_icons_facebook {\n    margin: 0 10px;\n}\n.footer_container_icons_amadeus {\n    margin: 0 10px;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.footer_container {\n    display: none;\n}\n.header_mobile_nav_container {\n    display: flex;\n    align-items: center;\n    justify-content: space-around;\n    position: fixed;\n    bottom: 0;\n    width: 100%;\n    background-color: #ededed;\n    padding: 10px;\n}\n.header_mobile_nav_container svg {\n    width: 30px;\n    height: 30px;\n}\n}\n@media (min-width: 1024px) {\n.mypage_container {\n    width: 1200px;\n    margin: 50px auto;\n    display: flex;\n    text-align: center;\n}\n.mypage_side_view {\n    width: 20%;\n    margin-right: 10px;\n    background-color: #ededed;\n    display: grid;\n    align-items: center;\n    align-content: space-evenly;\n}\n.mypage_side_view li {\n    cursor: pointer;\n}\n.mypage_side_view_user_info {\n    padding: 10px;\n}\n.mypage_side_view_user_info_name span {\n    font-size: 1.2rem;\n    font-weight: 600;\n}\n.mypage_side_view_user_info_email span {\n    font-size: 0.9rem;\n}\n.mypage_side_view_tab_list {\n    list-style: none;\n    display: grid;\n    grid-template-columns: 1fr; /* 한 열에 하나의 아이템 */\n    gap: 50px;\n    font-weight: 600;\n    color: #0B2161;\n}\n.mypage_main_view {\n    width: 80%;\n    margin: auto 0;\n}\n.mypage_main_view_user_info_box_content {\n    display: flex;\n    align-items: center;\n    padding: 10px;\n}\n.mypage_main_view_user_info_box_content_label {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    padding: 10px;\n    width: 30%;\n}\n.mypage_main_view_user_info_box_content_input {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_input input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_input :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_info_box_content_span {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_postcode_div {\n    display: flex;\n    width: 80%;\n    margin: auto 0;\n}\n.mypage_main_view_user_info_box_content_postcode_div_label {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    padding: 10px;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 30%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_reservation_menu {\n    display: flex;\n    font-size: 11px;\n    gap: 5px;\n}\n.mypage_main_view_user_reservation_menu_all {\n    border: 1px solid #081742;\n    border-radius: 5px;\n    padding: 5px;\n}\n.mypage_main_view_user_reservation_ticket {\n    margin: 20px 0;\n    border: 1px solid #ededed;\n    background-color: #ededed;\n    padding: 10px 20px 30px 20px;\n}\n.mypage_main_view_user_reservation_ticket_date {\n    display: flex;\n    align-items: center;\n    margin: 5px 10px;\n}\n.mypage_main_view_user_reservation_ticket_list {\n    background-color: #fff;\n    border-radius: 5px;\n    padding: 15px;\n    display: flex;\n    justify-content: space-evenly;\n    align-items: center;\n    box-shadow: 2px 2px 3px 0px gray;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_name {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    gap: 70px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_time_route {\n    display: flex;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin: 10px;\n    padding: 10px 50px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_time_route_info {\n    margin: 15px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_time_route_img {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    font-size: 12px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_info div {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    background-color: #ededed;\n    color: #fff;\n    padding: 10px;\n    margin: 5px;\n}\n}\n* {\n  font-family: sans-serif;\n}\n@supports (-webkit-appearance: none) or (-moz-appearance: none) {\ninput[type=checkbox] {\n    --active: #275EFE;\n    --active-inner: #fff;\n    --focus: 2px rgba(39, 94, 254, .3);\n    --border: #BBC1E1;\n    --border-hover: #275EFE;\n    --background: #fff;\n    --disabled: #F6F8FF;\n    --disabled-inner: #275EFE;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    height: 21px;\n    outline: none;\n    display: inline-block;\n    vertical-align: top;\n    position: relative;\n    margin: 0;\n    cursor: pointer;\n    border: 1px solid var(--bc, var(--border));\n    background: var(--b, var(--background));\n    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;\n}\ninput[type=checkbox]:after {\n    content: \"\";\n    display: block;\n    left: 0;\n    top: 0;\n    position: absolute;\n    transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);\n}\ninput[type=checkbox]:checked {\n    --b: var(--active);\n    --bc: var(--active);\n    --d-o: .3s;\n    --d-t: .6s;\n    --d-t-e: cubic-bezier(.2, .85, .32, 1.2);\n}\ninput[type=checkbox]:disabled {\n    --b: var(--disabled);\n    cursor: not-allowed;\n    opacity: 0.9;\n}\ninput[type=checkbox]:disabled:checked {\n    --b: var(--disabled-inner);\n    --bc: var(--border);\n}\ninput[type=checkbox]:disabled + label {\n    cursor: not-allowed;\n}\ninput[type=checkbox]:hover:not(:checked):not(:disabled) {\n    --bc: var(--border-hover);\n}\ninput[type=checkbox]:focus {\n    box-shadow: 0 0 0 var(--focus);\n}\ninput[type=checkbox]:not(.reservation_switch) {\n    width: 21px;\n}\ninput[type=checkbox]:not(.reservation_switch):after {\n    opacity: var(--o, 0);\n}\ninput[type=checkbox]:not(.reservation_switch):checked {\n    --o: 1;\n}\ninput[type=checkbox] + label {\n    font-size: 14px;\n    line-height: 21px;\n    display: inline-block;\n    vertical-align: top;\n    cursor: pointer;\n    margin-left: 4px;\n}\ninput[type=checkbox]:not(.reservation_switch) {\n    border-radius: 7px;\n}\ninput[type=checkbox]:not(.reservation_switch):after {\n    width: 5px;\n    height: 9px;\n    border: 2px solid var(--active-inner);\n    border-top: 0;\n    border-left: 0;\n    left: 7px;\n    top: 4px;\n    transform: rotate(var(--r, 20deg));\n}\ninput[type=checkbox]:not(.reservation_switch):checked {\n    --r: 43deg;\n}\ninput[type=checkbox].reservation_switch {\n    width: 38px;\n    border-radius: 11px;\n}\ninput[type=checkbox].reservation_switch:after {\n    left: 2px;\n    top: 2px;\n    border-radius: 50%;\n    width: 15px;\n    height: 15px;\n    background: var(--ab, var(--border));\n    transform: translateX(var(--x, 0));\n}\ninput[type=checkbox].reservation_switch:checked {\n    --ab: var(--active-inner);\n    --x: 17px;\n}\ninput[type=checkbox].reservation_switch:disabled:not(:checked):after {\n    opacity: 0.6;\n}\ninput[type=radio] {\n    border-radius: 50%;\n}\ninput[type=radio]:after {\n    width: 19px;\n    height: 19px;\n    border-radius: 50%;\n    background: var(--active-inner);\n    opacity: 0;\n    transform: scale(var(--s, 0.7));\n}\ninput[type=radio]:checked {\n    --s: .5;\n}\n}\ninput[type=date] {\n  margin: 0 auto;\n  width: 100%;\n  position: relative;\n}\n::-webkit-calendar-picker-indicator {\n  position: absolute;\n  right: -10px;\n  top: 0px;\n  padding-left: 3000px;\n  height: 100%;\n  opacity: 0;\n}\n::-webkit-calendar-picker-indicator:hover {\n  cursor: pointer;\n}\ninput[type=date]:not(.has-value):before {\n  color: rgb(164, 164, 164);\n  content: attr(placeholder);\n}\n.reservation_custom_box .reservation_custom_sec_box {\n  position: relative;\n}\n.reservation_custom_box .reservation_custom_sec_box input {\n  height: 50px;\n  width: 100%;\n  padding: 10px 0px 10px 10px;\n  font-size: 16px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  outline: none;\n  background: transparent;\n}\n.reservation_custom_box .reservation_custom_sec_box label {\n  position: absolute;\n  top: 13px;\n  left: 8px;\n  font-size: 16px;\n  color: #a5a5a5;\n  pointer-events: none;\n  transition: 0.5s;\n}\n.reservation_custom_box .reservation_custom_sec_box input:focus ~ label,\n.reservation_custom_box .reservation_custom_sec_box input:valid ~ label {\n  top: -10px;\n  left: 5px;\n  color: #a5a5a5;\n  font-size: 12px;\n  background-color: #fff;\n}\n.reservation_custom_sec_box input:not(:focus)::-moz-placeholder {\n  opacity: 0;\n}\n.reservation_custom_sec_box input:not(:focus)::placeholder {\n  opacity: 0;\n}\n.reservation_header {\n  display: flex;\n  justify-content: space-between;\n  padding: 20px;\n  position: absolute;\n  width: 100%;\n}\n.reservation_header_box {\n  width: 100px;\n  text-align: center;\n}\n.reservation_header_box span {\n  font-weight: bold;\n  font-size: 15px;\n}\n.reservation_header_ball_1, .reservation_header_ball_2 {\n  line-height: 60px;\n  height: 60px;\n  width: 60px;\n  font-size: 35px;\n  border-radius: 100%;\n  font-weight: bold;\n  margin: 0 auto;\n  color: #fff;\n  box-shadow: 0 10px 15px -4px rgba(125, 125, 125, 0.4784313725);\n}\n.reservation_header_ball_1 {\n  background-color: #0B4AFF;\n}\n.reservation_header_ball_2 {\n  background-color: #C5DFFF;\n}\n.reservation_progress_box {\n  padding-top: 67px;\n  margin: 0 auto;\n  padding-bottom: 70px;\n}\n.reservation_progress_blue {\n  background-color: #084AFF;\n}\n.reservation_progress_gray {\n  background-color: #ededed;\n}\n.reservation_body {\n  width: 90%;\n  max-width: 600px;\n  margin: 0 auto;\n}\n.reservation_title_1 {\n  font-size: 40px;\n  font-weight: bold;\n}\n.reservation_title_2 {\n  font-size: 30px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_3 {\n  font-size: 25px;\n  font-weight: bold;\n  padding: 50px 0 20px 0;\n}\n.reservation_title_4 {\n  font-size: 15px;\n  font-weight: bold;\n}\n.reservation_to_tiket_title {\n  display: flex;\n  align-items: center;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n  font-size: 17px;\n  padding: 4px 7px;\n  background-color: #0B4AFF;\n  color: #fff;\n  font-weight: 800;\n  border-radius: 20px;\n  margin-left: 5px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n  margin-left: 5px;\n  padding: 0px 10px;\n  border-right: 2px solid #ededed;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n  padding: 0px 10px;\n}\n.reservation_to_tiket_info {\n  display: flex;\n  padding: 20px 0px;\n}\n.reservation_to_tiket_time {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-right: 20px;\n}\n.reservation_to_tiket_time div {\n  font-size: 20px;\n  font-weight: 900;\n  width: 60px;\n}\n.reservation_to_tiket_time_type {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  padding-left: 20px;\n  border-left: 5px solid #ededed;\n  margin: 10px 0px;\n}\n.reservation_to_tiket_time_type div:nth-child(1),\n.reservation_to_tiket_time_type div:nth-child(3) {\n  font-weight: 900;\n}\n.reservation_to_tiket_time_type div:nth-child(2) {\n  padding: 20px 0px;\n  font-size: 10px;\n}\n.reservation_gray_bg {\n  background-color: #ededed;\n  padding-bottom: 100px;\n}\n.reservation_baggage_rule_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px;\n  display: flex;\n}\n.reservation_baggage {\n  flex-grow: 2;\n}\n.reservation_rule {\n  flex-grow: 1;\n}\n.reservation_icon_blue {\n  color: #249ac2;\n  margin-right: 5px;\n}\n.reservation_icon_deepblue {\n  color: #084AFF;\n  margin-right: 5px;\n}\n.reservation_icon_gray {\n  color: #adadad;\n  margin-right: 5px;\n}\n.reservation_icon_flex {\n  display: flex;\n  align-items: center;\n}\n.reservation_input_reset_btn {\n  color: #084AFF;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n}\n.reservation_input_reset_btn:hover {\n  cursor: pointer;\n}\n.reservation_passenger_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 30px;\n}\n.reservation_spacebetween {\n  display: flex;\n  justify-content: space-between;\n}\n.reservation_placeholder {\n  color: #ededed;\n}\n.reservation_input {\n  border: 1px solid #ededed;\n  outline: none;\n  height: 50px;\n  border-radius: 5px;\n  padding: 5px;\n  position: relative;\n}\n.reservation_input select {\n  border: none;\n  outline: none;\n}\n.reservation_input legend {\n  font-size: 12px;\n  color: #4f4f4f;\n}\n.reservation_notification_box {\n  border: 1px solid #ededed;\n  background-color: #ededed;\n  border-radius: 5px;\n  padding: 5px;\n}\n.reservation_notification_box span {\n  font-weight: 900;\n}\n.reservation_refund_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 30px;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n}\n.reservation_refund_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_refund_area span {\n  font-weight: 900;\n}\n.reservation_insurance_area {\n  font-size: 14px;\n  border: 1px solid #ededed;\n  border-radius: 5px;\n  padding: 15px;\n}\n.reservation_insurance_small_msg {\n  padding-left: 10px;\n}\n.reservation_contact_info_box {\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_box {\n  display: flex;\n  flex-direction: column;\n  margin-top: 30px;\n  background-color: #fff;\n  border-radius: 10px;\n  padding: 15px 20px;\n  gap: 10px;\n}\n.reservation_next_btn_price {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.reservation_next_btn {\n  background-color: #084AFF;\n  padding: 5px;\n  color: #fff;\n  border-radius: 5px;\n}\n.reservation_popover {\n  position: absolute;\n  left: -110px;\n  top: 24px;\n  border: 3px solid #ededed;\n  padding: 10px;\n  background-color: #ffffff;\n  width: 260px;\n  border-radius: 5px;\n}\n.reservation_success {\n  border: 1px solid #084AFF;\n}\n.reservation_fail {\n  border: 3px solid #ff0000;\n}\n.reservation_complete {\n  width: 100%;\n  padding-bottom: 50px;\n  margin: 0px auto 30px auto;\n}\n.reservation_complete_icon {\n  margin: 0 auto;\n  color: #084AFF;\n}\n.reservation_cancel_icon {\n  margin: 0 auto;\n  color: #ff3e3e;\n}\n.reservation_complete_msg {\n  padding: 20px 0 50px 0;\n  font-size: 20px;\n  font-weight: bold;\n  color: #000000;\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.reservation_layout {\n    width: 100vw;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    width: 100%;\n}\n.reservation_progress_box {\n    width: 75%;\n}\n.reservation_baggage_rule_box {\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_refund_area {\n    padding: 5px;\n    font-size: 12px;\n    gap: 10px;\n    flex-direction: column;\n}\n.reservation_title_1 {\n    font-size: 35px;\n}\n.reservation_to_tiket_info {\n    font-size: 15px;\n}\n.reservation_to_tiket_title div:nth-child(1) {\n    font-size: 14px;\n}\n.reservation_to_tiket_title div:nth-child(2) {\n    font-size: 12px;\n}\n.reservation_to_tiket_title div:nth-child(3) {\n    font-size: 11px;\n}\n.reservation_icon_flex {\n    align-items: flex-start;\n}\n.reservation_switch label {\n    padding: 0;\n    font-size: 11px;\n}\n.reservation_popover {\n    position: absolute;\n    left: -110px;\n    top: 24px;\n    border: 1px solid #dadada;\n    padding: 10px;\n    background-color: #f9f9f9;\n    width: 260px;\n    border-radius: 5px;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.reservation_layout {\n    width: 768px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 750px;\n}\n.reservation_progress_box {\n    width: 628px;\n}\n}\n@media (min-width: 1024px) {\n.reservation_layout {\n    width: 1000px;\n    margin: 0 auto;\n    padding-bottom: 50px;\n}\n.reservation_header {\n    max-width: 1000px;\n}\n.reservation_progress_box {\n    width: 900px;\n}\n}\n@media (min-width: 1024px) {\n.regist_container_wrap {\n    width: 1000px;\n    margin: 0 auto;\n}\n.container_signup_none {\n    display: none;\n}\n.regist_container {\n    color: #666;\n    text-align: center;\n}\n.regist_container .regist_logo_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 40px 0;\n    font-size: 30px;\n    font-weight: bold;\n}\n.regist_container .regist_logo_div_main_logo {\n    width: 100px;\n}\n.regist_container .terms_conditions {\n    text-align: center;\n}\n.regist_container .terms_conditions_title {\n    margin-bottom: 10px;\n}\n.regist_container .terms_conditions_box {\n    border: 1px solid #2C3E50;\n    border-radius: 5px;\n    padding: 20px;\n    width: 50%;\n    text-align: start;\n    margin: 20px auto;\n    overflow: auto;\n    font-size: 12px;\n    color: #333;\n}\n.regist_container .terms_conditions_label {\n    font-size: 13px;\n    color: #666;\n}\n.regist_container .terms_conditions_checkbox {\n    margin: 0 5px;\n}\n.regist_container .terms_conditions_checkbox_btn {\n    margin: 10px 0;\n}\n.regist_container .regist_button {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    margin: 20px 0;\n}\n.regist_container .regist_button_cel {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_button_cel:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_button_nxt {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-left: 5px;\n}\n.regist_container .regist_button_nxt:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_user_info_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.regist_container .regist_user_info_box {\n    display: flex;\n    text-align: center;\n    justify-content: center;\n    flex-direction: column;\n    margin: 10px 0;\n}\n.regist_container .regist_user_info_box_content {\n    margin: 15px 0;\n    display: flex;\n    justify-content: space-between;\n}\n.regist_container .regist_user_info_box_label {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: 50%;\n}\n.regist_container .regist_user_info_box_label_postcode {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: auto;\n}\n.regist_container .regist_user_info_box_input {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n    width: 400px;\n    position: relative;\n}\n.regist_container .regist_user_info_box_input input {\n    width: 100%;\n}\n.regist_container .regist_user_info_box_input :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box input::-moz-placeholder {\n    font-size: 12px;\n}\n.regist_container .regist_user_info_box input::placeholder {\n    font-size: 12px;\n}\n.regist_container .regist_user_info_box_input_postcode {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_postcode :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_search {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_search :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_basic_address {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_basic_address :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_gender {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_gender :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_gender {\n    display: flex;\n    align-items: center;\n    justify-content: space-evenly;\n}\n.regist_container .regist_user_info_box_gender_choose {\n    display: flex;\n}\n.regist_container .regist_user_info_box .regist_message_container {\n    position: absolute;\n    top: 100%;\n    left: 0;\n    width: 100%;\n    margin: 5px 5px; /* 추가적인 여백을 위해 설정 */\n    text-align: start;\n}\n.regist_container .regist_user_info_box_email_chk {\n    margin-top: 5px;\n}\n}\n@media (min-width: 335px) and (max-width: 767px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 100%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_error_area {\n    height: 15px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin-top: 40px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_signup_area {\n    color: #0B4AFF;\n}\n.admin_login_section .admin_login_right_section {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_error_area {\n    height: 15px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin-top: 40px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_signup_area {\n    color: #0B4AFF;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n@media (min-width: 1024px) {\n.admin_login_section {\n    width: 1000px;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_error_area {\n    height: 15px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin-top: 40px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_signup_area {\n    color: #0B4AFF;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n.admin_index_container {\n  width: 1700px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #ededed;\n  background-color: #EFF3F8;\n}\n.admin_index_container .admin_index_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container {\n  width: 20%;\n  height: 100vh;\n  background-color: #0B2161;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section {\n  width: 100%;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area .admin_index_left_info_image {\n  width: 100px;\n  height: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section {\n  width: 100%;\n  margin-bottom: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section .admin_index_left_logout_a {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section {\n  width: 100%;\n  margin: 20px 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input {\n  width: 70%;\n  height: 40px;\n  margin: auto;\n  padding: 4px;\n  outline: none;\n  background-color: transparent;\n  border-bottom: 1px solid transparent;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input:focus {\n  border-bottom: 1px solid #ededed;\n  transition: 0.8s;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  padding: 10px 40px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li {\n  width: 100%;\n  margin-bottom: 50px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_left_svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_right_svg {\n  margin-left: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_ul {\n  width: 100%;\n  display: block;\n}\n.admin_index_container .admin_index_section .admin_index_right_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 1350px;\n  margin: 10px auto;\n  display: flex;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section img {\n  width: 100px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_button_section svg {\n  width: 60px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 100%;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section .admin_index_right_top_title_area {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container {\n  width: 100%;\n  margin-bottom: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section {\n  width: 100%;\n  height: 100px;\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #FFF;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users svg {\n  width: 60px;\n  height: 60px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_register_users_text {\n  width: 100%;\n  padding: 20px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container {\n  width: 100%;\n  height: 400px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section {\n  width: 100%;\n  height: 100%;\n  margin-bottom: 10px;\n  background-color: #fff;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area {\n  width: 100%;\n  height: 100%;\n  padding: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area .admin_index_right_bottom_chart_image {\n  width: 1200px;\n  height: 300px;\n  margin: 0 auto;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section {\n  width: 50%;\n  height: 250px;\n  border-radius: 10px;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area {\n  width: 100%;\n  padding: 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a {\n  display: flex;\n}\n.admin_user_management_container {\n  width: 1300px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #666666;\n}\n.admin_user_management_container .admin_user_management_top_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_top_container .admin_user_management_top_title_section {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_user_management_container .admin_user_management_middle_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_select {\n  margin-right: 100px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_select:focus {\n  outline: none;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 0 auto;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_page_span_area {\n  width: 250px;\n  position: relative;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_page_span_area .admin_user_management_pagination_page_span {\n  width: 100%;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  right: 30%;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n  z-index: 9999;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_first_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_prev_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_first_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_prev_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_first_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_first_button_area .admin_user_management_pagination_prev_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_first_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_left_button_area .admin_user_management_pagination_prev_button_area .admin_user_management_pagination_prev_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  left: 30%;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_next_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_last_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_next_button,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_last_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_next_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_next_button_area .admin_user_management_pagination_last_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_next_button:hover,\n.admin_user_management_container .admin_user_management_middle_container .admin_user_management_middle_section .admin_user_management_pagination_section .admin_user_management_pagination_right_button_area .admin_user_management_pagination_last_button_area .admin_user_management_pagination_last_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_user_management_container .admin_user_management_bottom_container {\n  width: 100%;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(1), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(5), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(6) {\n  width: 100px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(4), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(7), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(8) {\n  width: 160px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(2), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_title_ul .admin_user_management_bottom_title_li:nth-child(3) {\n  width: 200px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul:hover {\n  background-color: #0B2161;\n  color: #fff;\n  text-decoration: underline;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(1), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(5), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(6) {\n  width: 100px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(4), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(7), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(8) {\n  width: 160px;\n}\n.admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(2), .admin_user_management_container .admin_user_management_bottom_container .admin_user_management_bottom_content_ul .admin_user_management_bottom_content_li:nth-child(3) {\n  width: 200px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -27694,7 +27564,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@media (min-width: 1024px) {\n.mypage_container {\n    width: 1200px;\n    margin: 50px auto;\n    display: flex;\n    text-align: center;\n}\n.mypage_side_view {\n    width: 20%;\n    margin-right: 10px;\n    background-color: #ededed;\n    display: grid;\n    align-items: center;\n    align-content: space-evenly;\n}\n.mypage_side_view li {\n    cursor: pointer;\n}\n.mypage_side_view_user_info {\n    padding: 10px;\n}\n.mypage_side_view_user_info_name span {\n    font-size: 1.2rem;\n    font-weight: 600;\n}\n.mypage_side_view_user_info_email span {\n    font-size: 0.9rem;\n}\n.mypage_side_view_tab_list {\n    list-style: none;\n    display: grid;\n    grid-template-columns: 1fr; /* 한 열에 하나의 아이템 */\n    gap: 50px;\n    font-weight: 600;\n    color: #0B2161;\n}\n.mypage_main_view {\n    width: 80%;\n    margin: auto 0;\n}\n.mypage_main_view_user_info_box_content {\n    display: flex;\n    align-items: center;\n    padding: 10px;\n}\n.mypage_main_view_user_info_box_content_label {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    padding: 10px;\n    width: 30%;\n}\n.mypage_main_view_user_info_box_content_input {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_input input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_input :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_info_box_content_span {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_postcode_div {\n    display: flex;\n    width: 80%;\n    margin: auto 0;\n}\n.mypage_main_view_user_info_box_content_postcode_div_label {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    padding: 10px;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 30%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 :focus {\n    outline: none;\n    border: none;\n}\n}\n@media (min-width: 1024px) {\n.regist_container_wrap {\n    width: 1000px;\n    margin: 0 auto;\n}\n.container_signup_none {\n    display: none;\n}\n.regist_container {\n    color: #666;\n    text-align: center;\n}\n.regist_container .regist_logo_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 40px 0;\n    font-size: 30px;\n    font-weight: bold;\n}\n.regist_container .regist_logo_div_main_logo {\n    width: 100px;\n}\n.regist_container .terms_conditions {\n    text-align: center;\n}\n.regist_container .terms_conditions_title {\n    margin-bottom: 10px;\n}\n.regist_container .terms_conditions_box {\n    border: 1px solid #2C3E50;\n    border-radius: 5px;\n    padding: 20px;\n    width: 50%;\n    text-align: start;\n    margin: 20px auto;\n    overflow: auto;\n    font-size: 12px;\n    color: #333;\n}\n.regist_container .terms_conditions_label {\n    font-size: 13px;\n    color: #666;\n}\n.regist_container .terms_conditions_checkbox {\n    margin: 0 5px;\n}\n.regist_container .terms_conditions_checkbox_btn {\n    margin: 10px 0;\n}\n.regist_container .regist_button {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    margin: 20px 0;\n}\n.regist_container .regist_button_cel {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_button_cel:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_button_nxt {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-left: 5px;\n}\n.regist_container .regist_button_nxt:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_user_info_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.regist_container .regist_user_info_box {\n    display: flex;\n    text-align: center;\n    justify-content: center;\n    flex-direction: column;\n    margin: 10px 0;\n}\n.regist_container .regist_user_info_box_content {\n    margin: 15px 0;\n    display: flex;\n    justify-content: space-between;\n}\n.regist_container .regist_user_info_box_label {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: 50%;\n}\n.regist_container .regist_user_info_box_label_postcode {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: auto;\n}\n.regist_container .regist_user_info_box_input {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n    width: 400px;\n    position: relative;\n}\n.regist_container .regist_user_info_box_input input {\n    width: 100%;\n}\n.regist_container .regist_user_info_box_input :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box input::-moz-placeholder {\n    font-size: 12px;\n}\n.regist_container .regist_user_info_box input::placeholder {\n    font-size: 12px;\n}\n.regist_container .regist_user_info_box_input_postcode {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_postcode :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_search {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_search :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_basic_address {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_basic_address :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_gender {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_gender :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_gender {\n    display: flex;\n    align-items: center;\n    justify-content: space-evenly;\n}\n.regist_container .regist_user_info_box_gender_choose {\n    display: flex;\n}\n.regist_container .regist_user_info_box .regist_message_container {\n    position: absolute;\n    top: 100%;\n    left: 0;\n    width: 100%;\n    margin: 5px 5px; /* 추가적인 여백을 위해 설정 */\n    text-align: start;\n}\n.regist_container .regist_user_info_box_email_chk {\n    margin-top: 5px;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@media (min-width: 1024px) {\n.mypage_container {\n    width: 1200px;\n    margin: 50px auto;\n    display: flex;\n    text-align: center;\n}\n.mypage_side_view {\n    width: 20%;\n    margin-right: 10px;\n    background-color: #ededed;\n    display: grid;\n    align-items: center;\n    align-content: space-evenly;\n}\n.mypage_side_view li {\n    cursor: pointer;\n}\n.mypage_side_view_user_info {\n    padding: 10px;\n}\n.mypage_side_view_user_info_name span {\n    font-size: 1.2rem;\n    font-weight: 600;\n}\n.mypage_side_view_user_info_email span {\n    font-size: 0.9rem;\n}\n.mypage_side_view_tab_list {\n    list-style: none;\n    display: grid;\n    grid-template-columns: 1fr; /* 한 열에 하나의 아이템 */\n    gap: 50px;\n    font-weight: 600;\n    color: #0B2161;\n}\n.mypage_main_view {\n    width: 80%;\n    margin: auto 0;\n}\n.mypage_main_view_user_info_box_content {\n    display: flex;\n    align-items: center;\n    padding: 10px;\n}\n.mypage_main_view_user_info_box_content_label {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    padding: 10px;\n    width: 30%;\n}\n.mypage_main_view_user_info_box_content_input {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_input input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_input :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_info_box_content_span {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_postcode_div {\n    display: flex;\n    width: 80%;\n    margin: auto 0;\n}\n.mypage_main_view_user_info_box_content_postcode_div_label {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    padding: 10px;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 30%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_reservation_menu {\n    display: flex;\n    font-size: 11px;\n    gap: 5px;\n}\n.mypage_main_view_user_reservation_menu_all {\n    border: 1px solid #081742;\n    border-radius: 5px;\n    padding: 5px;\n}\n.mypage_main_view_user_reservation_ticket {\n    margin: 20px 0;\n    border: 1px solid #ededed;\n    background-color: #ededed;\n    padding: 10px 20px 30px 20px;\n}\n.mypage_main_view_user_reservation_ticket_date {\n    display: flex;\n    align-items: center;\n    margin: 5px 10px;\n}\n.mypage_main_view_user_reservation_ticket_list {\n    background-color: #fff;\n    border-radius: 5px;\n    padding: 15px;\n    display: flex;\n    justify-content: space-evenly;\n    align-items: center;\n    box-shadow: 2px 2px 3px 0px gray;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_name {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    gap: 70px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_time_route {\n    display: flex;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin: 10px;\n    padding: 10px 50px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_time_route_info {\n    margin: 15px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_time_route_img {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    font-size: 12px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_info div {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    background-color: #ededed;\n    color: #fff;\n    padding: 10px;\n    margin: 5px;\n}\n}\n@media (min-width: 1024px) {\n.regist_container_wrap {\n    width: 1000px;\n    margin: 0 auto;\n}\n.container_signup_none {\n    display: none;\n}\n.regist_container {\n    color: #666;\n    text-align: center;\n}\n.regist_container .regist_logo_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 40px 0;\n    font-size: 30px;\n    font-weight: bold;\n}\n.regist_container .regist_logo_div_main_logo {\n    width: 100px;\n}\n.regist_container .terms_conditions {\n    text-align: center;\n}\n.regist_container .terms_conditions_title {\n    margin-bottom: 10px;\n}\n.regist_container .terms_conditions_box {\n    border: 1px solid #2C3E50;\n    border-radius: 5px;\n    padding: 20px;\n    width: 50%;\n    text-align: start;\n    margin: 20px auto;\n    overflow: auto;\n    font-size: 12px;\n    color: #333;\n}\n.regist_container .terms_conditions_label {\n    font-size: 13px;\n    color: #666;\n}\n.regist_container .terms_conditions_checkbox {\n    margin: 0 5px;\n}\n.regist_container .terms_conditions_checkbox_btn {\n    margin: 10px 0;\n}\n.regist_container .regist_button {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    margin: 20px 0;\n}\n.regist_container .regist_button_cel {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_button_cel:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_button_nxt {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-left: 5px;\n}\n.regist_container .regist_button_nxt:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_user_info_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.regist_container .regist_user_info_box {\n    display: flex;\n    text-align: center;\n    justify-content: center;\n    flex-direction: column;\n    margin: 10px 0;\n}\n.regist_container .regist_user_info_box_content {\n    margin: 15px 0;\n    display: flex;\n    justify-content: space-between;\n}\n.regist_container .regist_user_info_box_label {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: 50%;\n}\n.regist_container .regist_user_info_box_label_postcode {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: auto;\n}\n.regist_container .regist_user_info_box_input {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n    width: 400px;\n    position: relative;\n}\n.regist_container .regist_user_info_box_input input {\n    width: 100%;\n}\n.regist_container .regist_user_info_box_input :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box input::-moz-placeholder {\n    font-size: 12px;\n}\n.regist_container .regist_user_info_box input::placeholder {\n    font-size: 12px;\n}\n.regist_container .regist_user_info_box_input_postcode {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_postcode :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_search {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_search :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_basic_address {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_basic_address :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_gender {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_gender :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_gender {\n    display: flex;\n    align-items: center;\n    justify-content: space-evenly;\n}\n.regist_container .regist_user_info_box_gender_choose {\n    display: flex;\n}\n.regist_container .regist_user_info_box .regist_message_container {\n    position: absolute;\n    top: 100%;\n    left: 0;\n    width: 100%;\n    margin: 5px 5px; /* 추가적인 여백을 위해 설정 */\n    text-align: start;\n}\n.regist_container .regist_user_info_box_email_chk {\n    margin-top: 5px;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -46024,17 +45894,6 @@ module.exports = function (list, options) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-jwt-decode/dist/lib/vue-jwt-decode.min.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/vue-jwt-decode/dist/lib/vue-jwt-decode.min.js ***!
-  \********************************************************************/
-/***/ (function(module) {
-
-!function(t,n){ true?module.exports=n():0}(this,function(){return function(t){function n(e){if(r[e])return r[e].exports;var o=r[e]={i:e,l:!1,exports:{}};return t[e].call(o.exports,o,o.exports,n),o.l=!0,o.exports}var r={};return n.m=t,n.c=r,n.i=function(t){return t},n.d=function(t,r,e){n.o(t,r)||Object.defineProperty(t,r,{configurable:!1,enumerable:!0,get:e})},n.n=function(t){var r=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(r,"a",r),r},n.o=function(t,n){return Object.prototype.hasOwnProperty.call(t,n)},n.p="/vue-jwt-decode/dist",n(n.s=10)}([function(t,n,r){t.exports=!r(1)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,n){var r=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=r)},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n){var r=t.exports={version:"2.5.3"};"number"==typeof __e&&(__e=r)},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n,r){var e=r(16);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==e(t)?t.split(""):Object(t)}},function(t,n){var r=Math.ceil,e=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?e:r)(t)}},function(t,n,r){var e=r(6),o=r(5);t.exports=function(t){return e(o(t))}},function(t,n,r){"use strict";var e=r(11),o=r.n(e);n.a={install:function(t){t.prototype.$jwtDec=this,t.jwtDec=this},decode:function(t){if("string"!=typeof t&!t instanceof String)return null;var n=t.split(".");if(n.length<2)return null;var r=JSON.parse(atob(n[0])),e=JSON.parse(atob(n[1]));return o()({},r,e)}}},function(t,n,r){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var e=r(9);n.default=e.a},function(t,n,r){t.exports={default:r(12),__esModule:!0}},function(t,n,r){r(38),t.exports=r(4).Object.assign},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n,r){var e=r(3);t.exports=function(t){if(!e(t))throw TypeError(t+" is not an object!");return t}},function(t,n,r){var e=r(8),o=r(34),u=r(33);t.exports=function(t){return function(n,r,i){var c,f=e(n),a=o(f.length),s=u(i,a);if(t&&r!=r){for(;a>s;)if((c=f[s++])!=c)return!0}else for(;a>s;s++)if((t||s in f)&&f[s]===r)return t||s||0;return!t&&-1}}},function(t,n){var r={}.toString;t.exports=function(t){return r.call(t).slice(8,-1)}},function(t,n,r){var e=r(13);t.exports=function(t,n,r){if(e(t),void 0===n)return t;switch(r){case 1:return function(r){return t.call(n,r)};case 2:return function(r,e){return t.call(n,r,e)};case 3:return function(r,e,o){return t.call(n,r,e,o)}}return function(){return t.apply(n,arguments)}}},function(t,n,r){var e=r(3),o=r(2).document,u=e(o)&&e(o.createElement);t.exports=function(t){return u?o.createElement(t):{}}},function(t,n){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,n,r){var e=r(2),o=r(4),u=r(17),i=r(22),c=function(t,n,r){var f,a,s,p=t&c.F,l=t&c.G,v=t&c.S,y=t&c.P,d=t&c.B,x=t&c.W,h=l?o:o[n]||(o[n]={}),b=h.prototype,j=l?e:v?e[n]:(e[n]||{}).prototype;l&&(r=n);for(f in r)(a=!p&&j&&void 0!==j[f])&&f in h||(s=a?j[f]:r[f],h[f]=l&&"function"!=typeof j[f]?r[f]:d&&a?u(s,e):x&&j[f]==s?function(t){var n=function(n,r,e){if(this instanceof t){switch(arguments.length){case 0:return new t;case 1:return new t(n);case 2:return new t(n,r)}return new t(n,r,e)}return t.apply(this,arguments)};return n.prototype=t.prototype,n}(s):y&&"function"==typeof s?u(Function.call,s):s,y&&((h.virtual||(h.virtual={}))[f]=s,t&c.R&&b&&!b[f]&&i(b,f,s)))};c.F=1,c.G=2,c.S=4,c.P=8,c.B=16,c.W=32,c.U=64,c.R=128,t.exports=c},function(t,n){var r={}.hasOwnProperty;t.exports=function(t,n){return r.call(t,n)}},function(t,n,r){var e=r(25),o=r(30);t.exports=r(0)?function(t,n,r){return e.f(t,n,o(1,r))}:function(t,n,r){return t[n]=r,t}},function(t,n,r){t.exports=!r(0)&&!r(1)(function(){return 7!=Object.defineProperty(r(18)("div"),"a",{get:function(){return 7}}).a})},function(t,n,r){"use strict";var e=r(28),o=r(26),u=r(29),i=r(35),c=r(6),f=Object.assign;t.exports=!f||r(1)(function(){var t={},n={},r=Symbol(),e="abcdefghijklmnopqrst";return t[r]=7,e.split("").forEach(function(t){n[t]=t}),7!=f({},t)[r]||Object.keys(f({},n)).join("")!=e})?function(t,n){for(var r=i(t),f=arguments.length,a=1,s=o.f,p=u.f;f>a;)for(var l,v=c(arguments[a++]),y=s?e(v).concat(s(v)):e(v),d=y.length,x=0;d>x;)p.call(v,l=y[x++])&&(r[l]=v[l]);return r}:f},function(t,n,r){var e=r(14),o=r(23),u=r(36),i=Object.defineProperty;n.f=r(0)?Object.defineProperty:function(t,n,r){if(e(t),n=u(n,!0),e(r),o)try{return i(t,n,r)}catch(t){}if("get"in r||"set"in r)throw TypeError("Accessors not supported!");return"value"in r&&(t[n]=r.value),t}},function(t,n){n.f=Object.getOwnPropertySymbols},function(t,n,r){var e=r(21),o=r(8),u=r(15)(!1),i=r(31)("IE_PROTO");t.exports=function(t,n){var r,c=o(t),f=0,a=[];for(r in c)r!=i&&e(c,r)&&a.push(r);for(;n.length>f;)e(c,r=n[f++])&&(~u(a,r)||a.push(r));return a}},function(t,n,r){var e=r(27),o=r(19);t.exports=Object.keys||function(t){return e(t,o)}},function(t,n){n.f={}.propertyIsEnumerable},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n,r){var e=r(32)("keys"),o=r(37);t.exports=function(t){return e[t]||(e[t]=o(t))}},function(t,n,r){var e=r(2),o=e["__core-js_shared__"]||(e["__core-js_shared__"]={});t.exports=function(t){return o[t]||(o[t]={})}},function(t,n,r){var e=r(7),o=Math.max,u=Math.min;t.exports=function(t,n){return t=e(t),t<0?o(t+n,0):u(t,n)}},function(t,n,r){var e=r(7),o=Math.min;t.exports=function(t){return t>0?o(e(t),9007199254740991):0}},function(t,n,r){var e=r(5);t.exports=function(t){return Object(e(t))}},function(t,n,r){var e=r(3);t.exports=function(t,n){if(!e(t))return t;var r,o;if(n&&"function"==typeof(r=t.toString)&&!e(o=r.call(t)))return o;if("function"==typeof(r=t.valueOf)&&!e(o=r.call(t)))return o;if(!n&&"function"==typeof(r=t.toString)&&!e(o=r.call(t)))return o;throw TypeError("Can't convert object to primitive value")}},function(t,n){var r=0,e=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++r+e).toString(36))}},function(t,n,r){var e=r(20);e(e.S+e.F,"Object",{assign:r(24)})}])});
-//# sourceMappingURL=vue-jwt-decode.min.js.map
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/dist/exportHelper.js":
 /*!******************************************************!*\
   !*** ./node_modules/vue-loader/dist/exportHelper.js ***!
@@ -47449,1518 +47308,6 @@ ${codeFrame}` : message);
 }
 (0,_vue_runtime_dom__WEBPACK_IMPORTED_MODULE_1__.registerRuntimeCompiler)(compileToFunction);
 
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vuex/dist/vuex.esm-bundler.js":
-/*!****************************************************!*\
-  !*** ./node_modules/vuex/dist/vuex.esm-bundler.js ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Store: () => (/* binding */ Store),
-/* harmony export */   createLogger: () => (/* binding */ createLogger),
-/* harmony export */   createNamespacedHelpers: () => (/* binding */ createNamespacedHelpers),
-/* harmony export */   createStore: () => (/* binding */ createStore),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   mapActions: () => (/* binding */ mapActions),
-/* harmony export */   mapGetters: () => (/* binding */ mapGetters),
-/* harmony export */   mapMutations: () => (/* binding */ mapMutations),
-/* harmony export */   mapState: () => (/* binding */ mapState),
-/* harmony export */   storeKey: () => (/* binding */ storeKey),
-/* harmony export */   useStore: () => (/* binding */ useStore)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _vue_devtools_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vue/devtools-api */ "./node_modules/@vue/devtools-api/lib/esm/index.js");
-/*!
- * vuex v4.1.0
- * (c) 2022 Evan You
- * @license MIT
- */
-
-
-
-var storeKey = 'store';
-
-function useStore (key) {
-  if ( key === void 0 ) key = null;
-
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.inject)(key !== null ? key : storeKey)
-}
-
-/**
- * Get the first item that pass the test
- * by second argument function
- *
- * @param {Array} list
- * @param {Function} f
- * @return {*}
- */
-function find (list, f) {
-  return list.filter(f)[0]
-}
-
-/**
- * Deep copy the given object considering circular structure.
- * This function caches all nested objects and its copies.
- * If it detects circular structure, use cached copy to avoid infinite loop.
- *
- * @param {*} obj
- * @param {Array<Object>} cache
- * @return {*}
- */
-function deepCopy (obj, cache) {
-  if ( cache === void 0 ) cache = [];
-
-  // just return if obj is immutable value
-  if (obj === null || typeof obj !== 'object') {
-    return obj
-  }
-
-  // if obj is hit, it is in circular structure
-  var hit = find(cache, function (c) { return c.original === obj; });
-  if (hit) {
-    return hit.copy
-  }
-
-  var copy = Array.isArray(obj) ? [] : {};
-  // put the copy into cache at first
-  // because we want to refer it in recursive deepCopy
-  cache.push({
-    original: obj,
-    copy: copy
-  });
-
-  Object.keys(obj).forEach(function (key) {
-    copy[key] = deepCopy(obj[key], cache);
-  });
-
-  return copy
-}
-
-/**
- * forEach for object
- */
-function forEachValue (obj, fn) {
-  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
-}
-
-function isObject (obj) {
-  return obj !== null && typeof obj === 'object'
-}
-
-function isPromise (val) {
-  return val && typeof val.then === 'function'
-}
-
-function assert (condition, msg) {
-  if (!condition) { throw new Error(("[vuex] " + msg)) }
-}
-
-function partial (fn, arg) {
-  return function () {
-    return fn(arg)
-  }
-}
-
-function genericSubscribe (fn, subs, options) {
-  if (subs.indexOf(fn) < 0) {
-    options && options.prepend
-      ? subs.unshift(fn)
-      : subs.push(fn);
-  }
-  return function () {
-    var i = subs.indexOf(fn);
-    if (i > -1) {
-      subs.splice(i, 1);
-    }
-  }
-}
-
-function resetStore (store, hot) {
-  store._actions = Object.create(null);
-  store._mutations = Object.create(null);
-  store._wrappedGetters = Object.create(null);
-  store._modulesNamespaceMap = Object.create(null);
-  var state = store.state;
-  // init all modules
-  installModule(store, state, [], store._modules.root, true);
-  // reset state
-  resetStoreState(store, state, hot);
-}
-
-function resetStoreState (store, state, hot) {
-  var oldState = store._state;
-  var oldScope = store._scope;
-
-  // bind store public getters
-  store.getters = {};
-  // reset local getters cache
-  store._makeLocalGettersCache = Object.create(null);
-  var wrappedGetters = store._wrappedGetters;
-  var computedObj = {};
-  var computedCache = {};
-
-  // create a new effect scope and create computed object inside it to avoid
-  // getters (computed) getting destroyed on component unmount.
-  var scope = (0,vue__WEBPACK_IMPORTED_MODULE_0__.effectScope)(true);
-
-  scope.run(function () {
-    forEachValue(wrappedGetters, function (fn, key) {
-      // use computed to leverage its lazy-caching mechanism
-      // direct inline function use will lead to closure preserving oldState.
-      // using partial to return function with only arguments preserved in closure environment.
-      computedObj[key] = partial(fn, store);
-      computedCache[key] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () { return computedObj[key](); });
-      Object.defineProperty(store.getters, key, {
-        get: function () { return computedCache[key].value; },
-        enumerable: true // for local getters
-      });
-    });
-  });
-
-  store._state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
-    data: state
-  });
-
-  // register the newly created effect scope to the store so that we can
-  // dispose the effects when this method runs again in the future.
-  store._scope = scope;
-
-  // enable strict mode for new state
-  if (store.strict) {
-    enableStrictMode(store);
-  }
-
-  if (oldState) {
-    if (hot) {
-      // dispatch changes in all subscribed watchers
-      // to force getter re-evaluation for hot reloading.
-      store._withCommit(function () {
-        oldState.data = null;
-      });
-    }
-  }
-
-  // dispose previously registered effect scope if there is one.
-  if (oldScope) {
-    oldScope.stop();
-  }
-}
-
-function installModule (store, rootState, path, module, hot) {
-  var isRoot = !path.length;
-  var namespace = store._modules.getNamespace(path);
-
-  // register in namespace map
-  if (module.namespaced) {
-    if (store._modulesNamespaceMap[namespace] && ("development" !== 'production')) {
-      console.error(("[vuex] duplicate namespace " + namespace + " for the namespaced module " + (path.join('/'))));
-    }
-    store._modulesNamespaceMap[namespace] = module;
-  }
-
-  // set state
-  if (!isRoot && !hot) {
-    var parentState = getNestedState(rootState, path.slice(0, -1));
-    var moduleName = path[path.length - 1];
-    store._withCommit(function () {
-      if ((true)) {
-        if (moduleName in parentState) {
-          console.warn(
-            ("[vuex] state field \"" + moduleName + "\" was overridden by a module with the same name at \"" + (path.join('.')) + "\"")
-          );
-        }
-      }
-      parentState[moduleName] = module.state;
-    });
-  }
-
-  var local = module.context = makeLocalContext(store, namespace, path);
-
-  module.forEachMutation(function (mutation, key) {
-    var namespacedType = namespace + key;
-    registerMutation(store, namespacedType, mutation, local);
-  });
-
-  module.forEachAction(function (action, key) {
-    var type = action.root ? key : namespace + key;
-    var handler = action.handler || action;
-    registerAction(store, type, handler, local);
-  });
-
-  module.forEachGetter(function (getter, key) {
-    var namespacedType = namespace + key;
-    registerGetter(store, namespacedType, getter, local);
-  });
-
-  module.forEachChild(function (child, key) {
-    installModule(store, rootState, path.concat(key), child, hot);
-  });
-}
-
-/**
- * make localized dispatch, commit, getters and state
- * if there is no namespace, just use root ones
- */
-function makeLocalContext (store, namespace, path) {
-  var noNamespace = namespace === '';
-
-  var local = {
-    dispatch: noNamespace ? store.dispatch : function (_type, _payload, _options) {
-      var args = unifyObjectStyle(_type, _payload, _options);
-      var payload = args.payload;
-      var options = args.options;
-      var type = args.type;
-
-      if (!options || !options.root) {
-        type = namespace + type;
-        if (( true) && !store._actions[type]) {
-          console.error(("[vuex] unknown local action type: " + (args.type) + ", global type: " + type));
-          return
-        }
-      }
-
-      return store.dispatch(type, payload)
-    },
-
-    commit: noNamespace ? store.commit : function (_type, _payload, _options) {
-      var args = unifyObjectStyle(_type, _payload, _options);
-      var payload = args.payload;
-      var options = args.options;
-      var type = args.type;
-
-      if (!options || !options.root) {
-        type = namespace + type;
-        if (( true) && !store._mutations[type]) {
-          console.error(("[vuex] unknown local mutation type: " + (args.type) + ", global type: " + type));
-          return
-        }
-      }
-
-      store.commit(type, payload, options);
-    }
-  };
-
-  // getters and state object must be gotten lazily
-  // because they will be changed by state update
-  Object.defineProperties(local, {
-    getters: {
-      get: noNamespace
-        ? function () { return store.getters; }
-        : function () { return makeLocalGetters(store, namespace); }
-    },
-    state: {
-      get: function () { return getNestedState(store.state, path); }
-    }
-  });
-
-  return local
-}
-
-function makeLocalGetters (store, namespace) {
-  if (!store._makeLocalGettersCache[namespace]) {
-    var gettersProxy = {};
-    var splitPos = namespace.length;
-    Object.keys(store.getters).forEach(function (type) {
-      // skip if the target getter is not match this namespace
-      if (type.slice(0, splitPos) !== namespace) { return }
-
-      // extract local getter type
-      var localType = type.slice(splitPos);
-
-      // Add a port to the getters proxy.
-      // Define as getter property because
-      // we do not want to evaluate the getters in this time.
-      Object.defineProperty(gettersProxy, localType, {
-        get: function () { return store.getters[type]; },
-        enumerable: true
-      });
-    });
-    store._makeLocalGettersCache[namespace] = gettersProxy;
-  }
-
-  return store._makeLocalGettersCache[namespace]
-}
-
-function registerMutation (store, type, handler, local) {
-  var entry = store._mutations[type] || (store._mutations[type] = []);
-  entry.push(function wrappedMutationHandler (payload) {
-    handler.call(store, local.state, payload);
-  });
-}
-
-function registerAction (store, type, handler, local) {
-  var entry = store._actions[type] || (store._actions[type] = []);
-  entry.push(function wrappedActionHandler (payload) {
-    var res = handler.call(store, {
-      dispatch: local.dispatch,
-      commit: local.commit,
-      getters: local.getters,
-      state: local.state,
-      rootGetters: store.getters,
-      rootState: store.state
-    }, payload);
-    if (!isPromise(res)) {
-      res = Promise.resolve(res);
-    }
-    if (store._devtoolHook) {
-      return res.catch(function (err) {
-        store._devtoolHook.emit('vuex:error', err);
-        throw err
-      })
-    } else {
-      return res
-    }
-  });
-}
-
-function registerGetter (store, type, rawGetter, local) {
-  if (store._wrappedGetters[type]) {
-    if ((true)) {
-      console.error(("[vuex] duplicate getter key: " + type));
-    }
-    return
-  }
-  store._wrappedGetters[type] = function wrappedGetter (store) {
-    return rawGetter(
-      local.state, // local state
-      local.getters, // local getters
-      store.state, // root state
-      store.getters // root getters
-    )
-  };
-}
-
-function enableStrictMode (store) {
-  (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(function () { return store._state.data; }, function () {
-    if ((true)) {
-      assert(store._committing, "do not mutate vuex store state outside mutation handlers.");
-    }
-  }, { deep: true, flush: 'sync' });
-}
-
-function getNestedState (state, path) {
-  return path.reduce(function (state, key) { return state[key]; }, state)
-}
-
-function unifyObjectStyle (type, payload, options) {
-  if (isObject(type) && type.type) {
-    options = payload;
-    payload = type;
-    type = type.type;
-  }
-
-  if ((true)) {
-    assert(typeof type === 'string', ("expects string as the type, but found " + (typeof type) + "."));
-  }
-
-  return { type: type, payload: payload, options: options }
-}
-
-var LABEL_VUEX_BINDINGS = 'vuex bindings';
-var MUTATIONS_LAYER_ID = 'vuex:mutations';
-var ACTIONS_LAYER_ID = 'vuex:actions';
-var INSPECTOR_ID = 'vuex';
-
-var actionId = 0;
-
-function addDevtools (app, store) {
-  (0,_vue_devtools_api__WEBPACK_IMPORTED_MODULE_1__.setupDevtoolsPlugin)(
-    {
-      id: 'org.vuejs.vuex',
-      app: app,
-      label: 'Vuex',
-      homepage: 'https://next.vuex.vuejs.org/',
-      logo: 'https://vuejs.org/images/icons/favicon-96x96.png',
-      packageName: 'vuex',
-      componentStateTypes: [LABEL_VUEX_BINDINGS]
-    },
-    function (api) {
-      api.addTimelineLayer({
-        id: MUTATIONS_LAYER_ID,
-        label: 'Vuex Mutations',
-        color: COLOR_LIME_500
-      });
-
-      api.addTimelineLayer({
-        id: ACTIONS_LAYER_ID,
-        label: 'Vuex Actions',
-        color: COLOR_LIME_500
-      });
-
-      api.addInspector({
-        id: INSPECTOR_ID,
-        label: 'Vuex',
-        icon: 'storage',
-        treeFilterPlaceholder: 'Filter stores...'
-      });
-
-      api.on.getInspectorTree(function (payload) {
-        if (payload.app === app && payload.inspectorId === INSPECTOR_ID) {
-          if (payload.filter) {
-            var nodes = [];
-            flattenStoreForInspectorTree(nodes, store._modules.root, payload.filter, '');
-            payload.rootNodes = nodes;
-          } else {
-            payload.rootNodes = [
-              formatStoreForInspectorTree(store._modules.root, '')
-            ];
-          }
-        }
-      });
-
-      api.on.getInspectorState(function (payload) {
-        if (payload.app === app && payload.inspectorId === INSPECTOR_ID) {
-          var modulePath = payload.nodeId;
-          makeLocalGetters(store, modulePath);
-          payload.state = formatStoreForInspectorState(
-            getStoreModule(store._modules, modulePath),
-            modulePath === 'root' ? store.getters : store._makeLocalGettersCache,
-            modulePath
-          );
-        }
-      });
-
-      api.on.editInspectorState(function (payload) {
-        if (payload.app === app && payload.inspectorId === INSPECTOR_ID) {
-          var modulePath = payload.nodeId;
-          var path = payload.path;
-          if (modulePath !== 'root') {
-            path = modulePath.split('/').filter(Boolean).concat( path);
-          }
-          store._withCommit(function () {
-            payload.set(store._state.data, path, payload.state.value);
-          });
-        }
-      });
-
-      store.subscribe(function (mutation, state) {
-        var data = {};
-
-        if (mutation.payload) {
-          data.payload = mutation.payload;
-        }
-
-        data.state = state;
-
-        api.notifyComponentUpdate();
-        api.sendInspectorTree(INSPECTOR_ID);
-        api.sendInspectorState(INSPECTOR_ID);
-
-        api.addTimelineEvent({
-          layerId: MUTATIONS_LAYER_ID,
-          event: {
-            time: Date.now(),
-            title: mutation.type,
-            data: data
-          }
-        });
-      });
-
-      store.subscribeAction({
-        before: function (action, state) {
-          var data = {};
-          if (action.payload) {
-            data.payload = action.payload;
-          }
-          action._id = actionId++;
-          action._time = Date.now();
-          data.state = state;
-
-          api.addTimelineEvent({
-            layerId: ACTIONS_LAYER_ID,
-            event: {
-              time: action._time,
-              title: action.type,
-              groupId: action._id,
-              subtitle: 'start',
-              data: data
-            }
-          });
-        },
-        after: function (action, state) {
-          var data = {};
-          var duration = Date.now() - action._time;
-          data.duration = {
-            _custom: {
-              type: 'duration',
-              display: (duration + "ms"),
-              tooltip: 'Action duration',
-              value: duration
-            }
-          };
-          if (action.payload) {
-            data.payload = action.payload;
-          }
-          data.state = state;
-
-          api.addTimelineEvent({
-            layerId: ACTIONS_LAYER_ID,
-            event: {
-              time: Date.now(),
-              title: action.type,
-              groupId: action._id,
-              subtitle: 'end',
-              data: data
-            }
-          });
-        }
-      });
-    }
-  );
-}
-
-// extracted from tailwind palette
-var COLOR_LIME_500 = 0x84cc16;
-var COLOR_DARK = 0x666666;
-var COLOR_WHITE = 0xffffff;
-
-var TAG_NAMESPACED = {
-  label: 'namespaced',
-  textColor: COLOR_WHITE,
-  backgroundColor: COLOR_DARK
-};
-
-/**
- * @param {string} path
- */
-function extractNameFromPath (path) {
-  return path && path !== 'root' ? path.split('/').slice(-2, -1)[0] : 'Root'
-}
-
-/**
- * @param {*} module
- * @return {import('@vue/devtools-api').CustomInspectorNode}
- */
-function formatStoreForInspectorTree (module, path) {
-  return {
-    id: path || 'root',
-    // all modules end with a `/`, we want the last segment only
-    // cart/ -> cart
-    // nested/cart/ -> cart
-    label: extractNameFromPath(path),
-    tags: module.namespaced ? [TAG_NAMESPACED] : [],
-    children: Object.keys(module._children).map(function (moduleName) { return formatStoreForInspectorTree(
-        module._children[moduleName],
-        path + moduleName + '/'
-      ); }
-    )
-  }
-}
-
-/**
- * @param {import('@vue/devtools-api').CustomInspectorNode[]} result
- * @param {*} module
- * @param {string} filter
- * @param {string} path
- */
-function flattenStoreForInspectorTree (result, module, filter, path) {
-  if (path.includes(filter)) {
-    result.push({
-      id: path || 'root',
-      label: path.endsWith('/') ? path.slice(0, path.length - 1) : path || 'Root',
-      tags: module.namespaced ? [TAG_NAMESPACED] : []
-    });
-  }
-  Object.keys(module._children).forEach(function (moduleName) {
-    flattenStoreForInspectorTree(result, module._children[moduleName], filter, path + moduleName + '/');
-  });
-}
-
-/**
- * @param {*} module
- * @return {import('@vue/devtools-api').CustomInspectorState}
- */
-function formatStoreForInspectorState (module, getters, path) {
-  getters = path === 'root' ? getters : getters[path];
-  var gettersKeys = Object.keys(getters);
-  var storeState = {
-    state: Object.keys(module.state).map(function (key) { return ({
-      key: key,
-      editable: true,
-      value: module.state[key]
-    }); })
-  };
-
-  if (gettersKeys.length) {
-    var tree = transformPathsToObjectTree(getters);
-    storeState.getters = Object.keys(tree).map(function (key) { return ({
-      key: key.endsWith('/') ? extractNameFromPath(key) : key,
-      editable: false,
-      value: canThrow(function () { return tree[key]; })
-    }); });
-  }
-
-  return storeState
-}
-
-function transformPathsToObjectTree (getters) {
-  var result = {};
-  Object.keys(getters).forEach(function (key) {
-    var path = key.split('/');
-    if (path.length > 1) {
-      var target = result;
-      var leafKey = path.pop();
-      path.forEach(function (p) {
-        if (!target[p]) {
-          target[p] = {
-            _custom: {
-              value: {},
-              display: p,
-              tooltip: 'Module',
-              abstract: true
-            }
-          };
-        }
-        target = target[p]._custom.value;
-      });
-      target[leafKey] = canThrow(function () { return getters[key]; });
-    } else {
-      result[key] = canThrow(function () { return getters[key]; });
-    }
-  });
-  return result
-}
-
-function getStoreModule (moduleMap, path) {
-  var names = path.split('/').filter(function (n) { return n; });
-  return names.reduce(
-    function (module, moduleName, i) {
-      var child = module[moduleName];
-      if (!child) {
-        throw new Error(("Missing module \"" + moduleName + "\" for path \"" + path + "\"."))
-      }
-      return i === names.length - 1 ? child : child._children
-    },
-    path === 'root' ? moduleMap : moduleMap.root._children
-  )
-}
-
-function canThrow (cb) {
-  try {
-    return cb()
-  } catch (e) {
-    return e
-  }
-}
-
-// Base data struct for store's module, package with some attribute and method
-var Module = function Module (rawModule, runtime) {
-  this.runtime = runtime;
-  // Store some children item
-  this._children = Object.create(null);
-  // Store the origin module object which passed by programmer
-  this._rawModule = rawModule;
-  var rawState = rawModule.state;
-
-  // Store the origin module's state
-  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
-};
-
-var prototypeAccessors$1 = { namespaced: { configurable: true } };
-
-prototypeAccessors$1.namespaced.get = function () {
-  return !!this._rawModule.namespaced
-};
-
-Module.prototype.addChild = function addChild (key, module) {
-  this._children[key] = module;
-};
-
-Module.prototype.removeChild = function removeChild (key) {
-  delete this._children[key];
-};
-
-Module.prototype.getChild = function getChild (key) {
-  return this._children[key]
-};
-
-Module.prototype.hasChild = function hasChild (key) {
-  return key in this._children
-};
-
-Module.prototype.update = function update (rawModule) {
-  this._rawModule.namespaced = rawModule.namespaced;
-  if (rawModule.actions) {
-    this._rawModule.actions = rawModule.actions;
-  }
-  if (rawModule.mutations) {
-    this._rawModule.mutations = rawModule.mutations;
-  }
-  if (rawModule.getters) {
-    this._rawModule.getters = rawModule.getters;
-  }
-};
-
-Module.prototype.forEachChild = function forEachChild (fn) {
-  forEachValue(this._children, fn);
-};
-
-Module.prototype.forEachGetter = function forEachGetter (fn) {
-  if (this._rawModule.getters) {
-    forEachValue(this._rawModule.getters, fn);
-  }
-};
-
-Module.prototype.forEachAction = function forEachAction (fn) {
-  if (this._rawModule.actions) {
-    forEachValue(this._rawModule.actions, fn);
-  }
-};
-
-Module.prototype.forEachMutation = function forEachMutation (fn) {
-  if (this._rawModule.mutations) {
-    forEachValue(this._rawModule.mutations, fn);
-  }
-};
-
-Object.defineProperties( Module.prototype, prototypeAccessors$1 );
-
-var ModuleCollection = function ModuleCollection (rawRootModule) {
-  // register root module (Vuex.Store options)
-  this.register([], rawRootModule, false);
-};
-
-ModuleCollection.prototype.get = function get (path) {
-  return path.reduce(function (module, key) {
-    return module.getChild(key)
-  }, this.root)
-};
-
-ModuleCollection.prototype.getNamespace = function getNamespace (path) {
-  var module = this.root;
-  return path.reduce(function (namespace, key) {
-    module = module.getChild(key);
-    return namespace + (module.namespaced ? key + '/' : '')
-  }, '')
-};
-
-ModuleCollection.prototype.update = function update$1 (rawRootModule) {
-  update([], this.root, rawRootModule);
-};
-
-ModuleCollection.prototype.register = function register (path, rawModule, runtime) {
-    var this$1$1 = this;
-    if ( runtime === void 0 ) runtime = true;
-
-  if ((true)) {
-    assertRawModule(path, rawModule);
-  }
-
-  var newModule = new Module(rawModule, runtime);
-  if (path.length === 0) {
-    this.root = newModule;
-  } else {
-    var parent = this.get(path.slice(0, -1));
-    parent.addChild(path[path.length - 1], newModule);
-  }
-
-  // register nested modules
-  if (rawModule.modules) {
-    forEachValue(rawModule.modules, function (rawChildModule, key) {
-      this$1$1.register(path.concat(key), rawChildModule, runtime);
-    });
-  }
-};
-
-ModuleCollection.prototype.unregister = function unregister (path) {
-  var parent = this.get(path.slice(0, -1));
-  var key = path[path.length - 1];
-  var child = parent.getChild(key);
-
-  if (!child) {
-    if ((true)) {
-      console.warn(
-        "[vuex] trying to unregister module '" + key + "', which is " +
-        "not registered"
-      );
-    }
-    return
-  }
-
-  if (!child.runtime) {
-    return
-  }
-
-  parent.removeChild(key);
-};
-
-ModuleCollection.prototype.isRegistered = function isRegistered (path) {
-  var parent = this.get(path.slice(0, -1));
-  var key = path[path.length - 1];
-
-  if (parent) {
-    return parent.hasChild(key)
-  }
-
-  return false
-};
-
-function update (path, targetModule, newModule) {
-  if ((true)) {
-    assertRawModule(path, newModule);
-  }
-
-  // update target module
-  targetModule.update(newModule);
-
-  // update nested modules
-  if (newModule.modules) {
-    for (var key in newModule.modules) {
-      if (!targetModule.getChild(key)) {
-        if ((true)) {
-          console.warn(
-            "[vuex] trying to add a new module '" + key + "' on hot reloading, " +
-            'manual reload is needed'
-          );
-        }
-        return
-      }
-      update(
-        path.concat(key),
-        targetModule.getChild(key),
-        newModule.modules[key]
-      );
-    }
-  }
-}
-
-var functionAssert = {
-  assert: function (value) { return typeof value === 'function'; },
-  expected: 'function'
-};
-
-var objectAssert = {
-  assert: function (value) { return typeof value === 'function' ||
-    (typeof value === 'object' && typeof value.handler === 'function'); },
-  expected: 'function or object with "handler" function'
-};
-
-var assertTypes = {
-  getters: functionAssert,
-  mutations: functionAssert,
-  actions: objectAssert
-};
-
-function assertRawModule (path, rawModule) {
-  Object.keys(assertTypes).forEach(function (key) {
-    if (!rawModule[key]) { return }
-
-    var assertOptions = assertTypes[key];
-
-    forEachValue(rawModule[key], function (value, type) {
-      assert(
-        assertOptions.assert(value),
-        makeAssertionMessage(path, key, type, value, assertOptions.expected)
-      );
-    });
-  });
-}
-
-function makeAssertionMessage (path, key, type, value, expected) {
-  var buf = key + " should be " + expected + " but \"" + key + "." + type + "\"";
-  if (path.length > 0) {
-    buf += " in module \"" + (path.join('.')) + "\"";
-  }
-  buf += " is " + (JSON.stringify(value)) + ".";
-  return buf
-}
-
-function createStore (options) {
-  return new Store(options)
-}
-
-var Store = function Store (options) {
-  var this$1$1 = this;
-  if ( options === void 0 ) options = {};
-
-  if ((true)) {
-    assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
-    assert(this instanceof Store, "store must be called with the new operator.");
-  }
-
-  var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
-  var strict = options.strict; if ( strict === void 0 ) strict = false;
-  var devtools = options.devtools;
-
-  // store internal state
-  this._committing = false;
-  this._actions = Object.create(null);
-  this._actionSubscribers = [];
-  this._mutations = Object.create(null);
-  this._wrappedGetters = Object.create(null);
-  this._modules = new ModuleCollection(options);
-  this._modulesNamespaceMap = Object.create(null);
-  this._subscribers = [];
-  this._makeLocalGettersCache = Object.create(null);
-
-  // EffectScope instance. when registering new getters, we wrap them inside
-  // EffectScope so that getters (computed) would not be destroyed on
-  // component unmount.
-  this._scope = null;
-
-  this._devtools = devtools;
-
-  // bind commit and dispatch to self
-  var store = this;
-  var ref = this;
-  var dispatch = ref.dispatch;
-  var commit = ref.commit;
-  this.dispatch = function boundDispatch (type, payload) {
-    return dispatch.call(store, type, payload)
-  };
-  this.commit = function boundCommit (type, payload, options) {
-    return commit.call(store, type, payload, options)
-  };
-
-  // strict mode
-  this.strict = strict;
-
-  var state = this._modules.root.state;
-
-  // init root module.
-  // this also recursively registers all sub-modules
-  // and collects all module getters inside this._wrappedGetters
-  installModule(this, state, [], this._modules.root);
-
-  // initialize the store state, which is responsible for the reactivity
-  // (also registers _wrappedGetters as computed properties)
-  resetStoreState(this, state);
-
-  // apply plugins
-  plugins.forEach(function (plugin) { return plugin(this$1$1); });
-};
-
-var prototypeAccessors = { state: { configurable: true } };
-
-Store.prototype.install = function install (app, injectKey) {
-  app.provide(injectKey || storeKey, this);
-  app.config.globalProperties.$store = this;
-
-  var useDevtools = this._devtools !== undefined
-    ? this._devtools
-    : ( true) || 0;
-
-  if (useDevtools) {
-    addDevtools(app, this);
-  }
-};
-
-prototypeAccessors.state.get = function () {
-  return this._state.data
-};
-
-prototypeAccessors.state.set = function (v) {
-  if ((true)) {
-    assert(false, "use store.replaceState() to explicit replace store state.");
-  }
-};
-
-Store.prototype.commit = function commit (_type, _payload, _options) {
-    var this$1$1 = this;
-
-  // check object-style commit
-  var ref = unifyObjectStyle(_type, _payload, _options);
-    var type = ref.type;
-    var payload = ref.payload;
-    var options = ref.options;
-
-  var mutation = { type: type, payload: payload };
-  var entry = this._mutations[type];
-  if (!entry) {
-    if ((true)) {
-      console.error(("[vuex] unknown mutation type: " + type));
-    }
-    return
-  }
-  this._withCommit(function () {
-    entry.forEach(function commitIterator (handler) {
-      handler(payload);
-    });
-  });
-
-  this._subscribers
-    .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
-    .forEach(function (sub) { return sub(mutation, this$1$1.state); });
-
-  if (
-    ( true) &&
-    options && options.silent
-  ) {
-    console.warn(
-      "[vuex] mutation type: " + type + ". Silent option has been removed. " +
-      'Use the filter functionality in the vue-devtools'
-    );
-  }
-};
-
-Store.prototype.dispatch = function dispatch (_type, _payload) {
-    var this$1$1 = this;
-
-  // check object-style dispatch
-  var ref = unifyObjectStyle(_type, _payload);
-    var type = ref.type;
-    var payload = ref.payload;
-
-  var action = { type: type, payload: payload };
-  var entry = this._actions[type];
-  if (!entry) {
-    if ((true)) {
-      console.error(("[vuex] unknown action type: " + type));
-    }
-    return
-  }
-
-  try {
-    this._actionSubscribers
-      .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
-      .filter(function (sub) { return sub.before; })
-      .forEach(function (sub) { return sub.before(action, this$1$1.state); });
-  } catch (e) {
-    if ((true)) {
-      console.warn("[vuex] error in before action subscribers: ");
-      console.error(e);
-    }
-  }
-
-  var result = entry.length > 1
-    ? Promise.all(entry.map(function (handler) { return handler(payload); }))
-    : entry[0](payload);
-
-  return new Promise(function (resolve, reject) {
-    result.then(function (res) {
-      try {
-        this$1$1._actionSubscribers
-          .filter(function (sub) { return sub.after; })
-          .forEach(function (sub) { return sub.after(action, this$1$1.state); });
-      } catch (e) {
-        if ((true)) {
-          console.warn("[vuex] error in after action subscribers: ");
-          console.error(e);
-        }
-      }
-      resolve(res);
-    }, function (error) {
-      try {
-        this$1$1._actionSubscribers
-          .filter(function (sub) { return sub.error; })
-          .forEach(function (sub) { return sub.error(action, this$1$1.state, error); });
-      } catch (e) {
-        if ((true)) {
-          console.warn("[vuex] error in error action subscribers: ");
-          console.error(e);
-        }
-      }
-      reject(error);
-    });
-  })
-};
-
-Store.prototype.subscribe = function subscribe (fn, options) {
-  return genericSubscribe(fn, this._subscribers, options)
-};
-
-Store.prototype.subscribeAction = function subscribeAction (fn, options) {
-  var subs = typeof fn === 'function' ? { before: fn } : fn;
-  return genericSubscribe(subs, this._actionSubscribers, options)
-};
-
-Store.prototype.watch = function watch$1 (getter, cb, options) {
-    var this$1$1 = this;
-
-  if ((true)) {
-    assert(typeof getter === 'function', "store.watch only accepts a function.");
-  }
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(function () { return getter(this$1$1.state, this$1$1.getters); }, cb, Object.assign({}, options))
-};
-
-Store.prototype.replaceState = function replaceState (state) {
-    var this$1$1 = this;
-
-  this._withCommit(function () {
-    this$1$1._state.data = state;
-  });
-};
-
-Store.prototype.registerModule = function registerModule (path, rawModule, options) {
-    if ( options === void 0 ) options = {};
-
-  if (typeof path === 'string') { path = [path]; }
-
-  if ((true)) {
-    assert(Array.isArray(path), "module path must be a string or an Array.");
-    assert(path.length > 0, 'cannot register the root module by using registerModule.');
-  }
-
-  this._modules.register(path, rawModule);
-  installModule(this, this.state, path, this._modules.get(path), options.preserveState);
-  // reset store to update getters...
-  resetStoreState(this, this.state);
-};
-
-Store.prototype.unregisterModule = function unregisterModule (path) {
-    var this$1$1 = this;
-
-  if (typeof path === 'string') { path = [path]; }
-
-  if ((true)) {
-    assert(Array.isArray(path), "module path must be a string or an Array.");
-  }
-
-  this._modules.unregister(path);
-  this._withCommit(function () {
-    var parentState = getNestedState(this$1$1.state, path.slice(0, -1));
-    delete parentState[path[path.length - 1]];
-  });
-  resetStore(this);
-};
-
-Store.prototype.hasModule = function hasModule (path) {
-  if (typeof path === 'string') { path = [path]; }
-
-  if ((true)) {
-    assert(Array.isArray(path), "module path must be a string or an Array.");
-  }
-
-  return this._modules.isRegistered(path)
-};
-
-Store.prototype.hotUpdate = function hotUpdate (newOptions) {
-  this._modules.update(newOptions);
-  resetStore(this, true);
-};
-
-Store.prototype._withCommit = function _withCommit (fn) {
-  var committing = this._committing;
-  this._committing = true;
-  fn();
-  this._committing = committing;
-};
-
-Object.defineProperties( Store.prototype, prototypeAccessors );
-
-/**
- * Reduce the code which written in Vue.js for getting the state.
- * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
- * @param {Object}
- */
-var mapState = normalizeNamespace(function (namespace, states) {
-  var res = {};
-  if (( true) && !isValidMap(states)) {
-    console.error('[vuex] mapState: mapper parameter must be either an Array or an Object');
-  }
-  normalizeMap(states).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    res[key] = function mappedState () {
-      var state = this.$store.state;
-      var getters = this.$store.getters;
-      if (namespace) {
-        var module = getModuleByNamespace(this.$store, 'mapState', namespace);
-        if (!module) {
-          return
-        }
-        state = module.context.state;
-        getters = module.context.getters;
-      }
-      return typeof val === 'function'
-        ? val.call(this, state, getters)
-        : state[val]
-    };
-    // mark vuex getter for devtools
-    res[key].vuex = true;
-  });
-  return res
-});
-
-/**
- * Reduce the code which written in Vue.js for committing the mutation
- * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept another params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
- * @return {Object}
- */
-var mapMutations = normalizeNamespace(function (namespace, mutations) {
-  var res = {};
-  if (( true) && !isValidMap(mutations)) {
-    console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object');
-  }
-  normalizeMap(mutations).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    res[key] = function mappedMutation () {
-      var args = [], len = arguments.length;
-      while ( len-- ) args[ len ] = arguments[ len ];
-
-      // Get the commit method from store
-      var commit = this.$store.commit;
-      if (namespace) {
-        var module = getModuleByNamespace(this.$store, 'mapMutations', namespace);
-        if (!module) {
-          return
-        }
-        commit = module.context.commit;
-      }
-      return typeof val === 'function'
-        ? val.apply(this, [commit].concat(args))
-        : commit.apply(this.$store, [val].concat(args))
-    };
-  });
-  return res
-});
-
-/**
- * Reduce the code which written in Vue.js for getting the getters
- * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} getters
- * @return {Object}
- */
-var mapGetters = normalizeNamespace(function (namespace, getters) {
-  var res = {};
-  if (( true) && !isValidMap(getters)) {
-    console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object');
-  }
-  normalizeMap(getters).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    // The namespace has been mutated by normalizeNamespace
-    val = namespace + val;
-    res[key] = function mappedGetter () {
-      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
-        return
-      }
-      if (( true) && !(val in this.$store.getters)) {
-        console.error(("[vuex] unknown getter: " + val));
-        return
-      }
-      return this.$store.getters[val]
-    };
-    // mark vuex getter for devtools
-    res[key].vuex = true;
-  });
-  return res
-});
-
-/**
- * Reduce the code which written in Vue.js for dispatch the action
- * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
- * @return {Object}
- */
-var mapActions = normalizeNamespace(function (namespace, actions) {
-  var res = {};
-  if (( true) && !isValidMap(actions)) {
-    console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object');
-  }
-  normalizeMap(actions).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    res[key] = function mappedAction () {
-      var args = [], len = arguments.length;
-      while ( len-- ) args[ len ] = arguments[ len ];
-
-      // get dispatch function from store
-      var dispatch = this.$store.dispatch;
-      if (namespace) {
-        var module = getModuleByNamespace(this.$store, 'mapActions', namespace);
-        if (!module) {
-          return
-        }
-        dispatch = module.context.dispatch;
-      }
-      return typeof val === 'function'
-        ? val.apply(this, [dispatch].concat(args))
-        : dispatch.apply(this.$store, [val].concat(args))
-    };
-  });
-  return res
-});
-
-/**
- * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
- * @param {String} namespace
- * @return {Object}
- */
-var createNamespacedHelpers = function (namespace) { return ({
-  mapState: mapState.bind(null, namespace),
-  mapGetters: mapGetters.bind(null, namespace),
-  mapMutations: mapMutations.bind(null, namespace),
-  mapActions: mapActions.bind(null, namespace)
-}); };
-
-/**
- * Normalize the map
- * normalizeMap([1, 2, 3]) => [ { key: 1, val: 1 }, { key: 2, val: 2 }, { key: 3, val: 3 } ]
- * normalizeMap({a: 1, b: 2, c: 3}) => [ { key: 'a', val: 1 }, { key: 'b', val: 2 }, { key: 'c', val: 3 } ]
- * @param {Array|Object} map
- * @return {Object}
- */
-function normalizeMap (map) {
-  if (!isValidMap(map)) {
-    return []
-  }
-  return Array.isArray(map)
-    ? map.map(function (key) { return ({ key: key, val: key }); })
-    : Object.keys(map).map(function (key) { return ({ key: key, val: map[key] }); })
-}
-
-/**
- * Validate whether given map is valid or not
- * @param {*} map
- * @return {Boolean}
- */
-function isValidMap (map) {
-  return Array.isArray(map) || isObject(map)
-}
-
-/**
- * Return a function expect two param contains namespace and map. it will normalize the namespace and then the param's function will handle the new namespace and the map.
- * @param {Function} fn
- * @return {Function}
- */
-function normalizeNamespace (fn) {
-  return function (namespace, map) {
-    if (typeof namespace !== 'string') {
-      map = namespace;
-      namespace = '';
-    } else if (namespace.charAt(namespace.length - 1) !== '/') {
-      namespace += '/';
-    }
-    return fn(namespace, map)
-  }
-}
-
-/**
- * Search a special module from store by namespace. if module not exist, print error message.
- * @param {Object} store
- * @param {String} helper
- * @param {String} namespace
- * @return {Object}
- */
-function getModuleByNamespace (store, helper, namespace) {
-  var module = store._modulesNamespaceMap[namespace];
-  if (( true) && !module) {
-    console.error(("[vuex] module namespace not found in " + helper + "(): " + namespace));
-  }
-  return module
-}
-
-// Credits: borrowed code from fcomb/redux-logger
-
-function createLogger (ref) {
-  if ( ref === void 0 ) ref = {};
-  var collapsed = ref.collapsed; if ( collapsed === void 0 ) collapsed = true;
-  var filter = ref.filter; if ( filter === void 0 ) filter = function (mutation, stateBefore, stateAfter) { return true; };
-  var transformer = ref.transformer; if ( transformer === void 0 ) transformer = function (state) { return state; };
-  var mutationTransformer = ref.mutationTransformer; if ( mutationTransformer === void 0 ) mutationTransformer = function (mut) { return mut; };
-  var actionFilter = ref.actionFilter; if ( actionFilter === void 0 ) actionFilter = function (action, state) { return true; };
-  var actionTransformer = ref.actionTransformer; if ( actionTransformer === void 0 ) actionTransformer = function (act) { return act; };
-  var logMutations = ref.logMutations; if ( logMutations === void 0 ) logMutations = true;
-  var logActions = ref.logActions; if ( logActions === void 0 ) logActions = true;
-  var logger = ref.logger; if ( logger === void 0 ) logger = console;
-
-  return function (store) {
-    var prevState = deepCopy(store.state);
-
-    if (typeof logger === 'undefined') {
-      return
-    }
-
-    if (logMutations) {
-      store.subscribe(function (mutation, state) {
-        var nextState = deepCopy(state);
-
-        if (filter(mutation, prevState, nextState)) {
-          var formattedTime = getFormattedTime();
-          var formattedMutation = mutationTransformer(mutation);
-          var message = "mutation " + (mutation.type) + formattedTime;
-
-          startMessage(logger, message, collapsed);
-          logger.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState));
-          logger.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation);
-          logger.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState));
-          endMessage(logger);
-        }
-
-        prevState = nextState;
-      });
-    }
-
-    if (logActions) {
-      store.subscribeAction(function (action, state) {
-        if (actionFilter(action, state)) {
-          var formattedTime = getFormattedTime();
-          var formattedAction = actionTransformer(action);
-          var message = "action " + (action.type) + formattedTime;
-
-          startMessage(logger, message, collapsed);
-          logger.log('%c action', 'color: #03A9F4; font-weight: bold', formattedAction);
-          endMessage(logger);
-        }
-      });
-    }
-  }
-}
-
-function startMessage (logger, message, collapsed) {
-  var startMessage = collapsed
-    ? logger.groupCollapsed
-    : logger.group;
-
-  // render
-  try {
-    startMessage.call(logger, message);
-  } catch (e) {
-    logger.log(message);
-  }
-}
-
-function endMessage (logger) {
-  try {
-    logger.groupEnd();
-  } catch (e) {
-    logger.log('—— log end ——');
-  }
-}
-
-function getFormattedTime () {
-  var time = new Date();
-  return (" @ " + (pad(time.getHours(), 2)) + ":" + (pad(time.getMinutes(), 2)) + ":" + (pad(time.getSeconds(), 2)) + "." + (pad(time.getMilliseconds(), 3)))
-}
-
-function repeat (str, times) {
-  return (new Array(times + 1)).join(str)
-}
-
-function pad (num, maxLength) {
-  return repeat('0', maxLength - num.toString().length) + num
-}
-
-var index = {
-  version: '4.1.0',
-  Store: Store,
-  storeKey: storeKey,
-  createStore: createStore,
-  useStore: useStore,
-  mapState: mapState,
-  mapMutations: mapMutations,
-  mapGetters: mapGetters,
-  mapActions: mapActions,
-  createNamespacedHelpers: createNamespacedHelpers,
-  createLogger: createLogger
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (index);
 
 
 

@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Pagination\Paginator;
 
 class AdminManagementController extends Controller
-{
+{   
+    // 최신 등록 순
     public function adminManagementList() {
-        // 페이징 처리
         $adminManagementList = Admin::select(
                             'admin_id',
                             'admin_number', 
@@ -35,6 +35,7 @@ class AdminManagementController extends Controller
         ], 200);
     }
 
+    // 권한 순
     public function adminManagementFlgList() {
         $adminManagementFlgList = Admin::select(
                                 'admin_id',

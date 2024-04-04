@@ -15,6 +15,10 @@ const store = createStore({
             userLoginChk: null,
             userID: null,
             // userToken: null,
+
+            // ### Admin ###
+            userListModal: false,
+            userPaymentListModal: false,
         }
     },
 
@@ -63,7 +67,6 @@ const store = createStore({
             };
 
             localStorage.setItem('setUserID', data.userData.user_id);
-            // localStorage.setItem('userCheck', data.controllerToken);
             localStorage.setItem('setToken', data.token);
             localStorage.setItem('setUserLoginChk', data.controllerToken);
             localStorage.setItem('setUserData', data.userData);
@@ -77,6 +80,24 @@ const store = createStore({
         // 유저 토큰 저장용
         setToken(state, token) {
             state.token = token;
+        },
+
+        // ### Admin ###
+        // UserListModal Open
+        userListModalOpen(state) {
+            state.userListModal = true;
+        },
+        // UserListModal Close
+        userListModalClose(state) {
+            state.userListModal = false;
+        },
+        // UserListModal Open
+        userPaymentListModalOpen(state) {
+            state.userPaymentListModal = true;
+        },
+        // UserListModal Close
+        userPaymentListModalClose(state) {
+            state.userPaymentListModal = false;
         },
     
     },
@@ -118,6 +139,9 @@ const store = createStore({
 				console.log(token);
 				console.log(userData);
 				console.log(userID);
+				console.log("토큰",token);
+				console.log("유저데이터",userData);
+				console.log("유저아이디",userID);
 				// console.log("유저데이터", res.data.userData);
 
                 if (res.data.success) {
@@ -133,13 +157,14 @@ const store = createStore({
                     // const loginUserData = res.data.userData.userID;
                     console.log("레스.데이터", res.data);
                     // console.log("유저체크", res.data.controllerToken);
-                    // console.log(res.data.userData);
+                    console.log(userID);
 					// localStorage.setItem('loginUser', userId);
 					// localStorage.setItem('loginUserId', res.data.userId);
 					// localStorage.setItem('loginUserEmail', res.data.userEmail);
 					localStorage.setItem('setUserData', userData);
 					localStorage.setItem('setToken', token);
-					localStorage.setItem('setUserLoginChk', res.data.token);
+					localStorage.setItem('setUserID', userID);
+					localStorage.setItem('setUserLoginChk', res.data.controllerToken);
 					localStorage.setItem('setSaveToLocalStorage', res.data);
 					localStorage.setItem('setUserID', userID);
                     
