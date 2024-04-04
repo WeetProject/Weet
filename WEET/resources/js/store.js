@@ -61,17 +61,18 @@ const store = createStore({
         setSaveToLocalStorage(state, data) {
             // state.userData.userCheck = data.controllerToken;
 
-            state.userData.userID = data.userData.user_id;
-            state.userData.setToken = data.token;
-            state.userData.userLoginChk = data.controllerToken;
+            // state.userData.userID = data.userData.user_id;
+            // state.userData.setToken = data.token;
+            // state.userData.userLoginChk = data.controllerToken;
+            // state.userData = data.userData;
 
-            // state.userData = {
-            //     userName: data.userData.userName,
-            //     userEmail: data.userData.userEmail,
-            //     userID: data.userData.user_id,
-            //     setToken: data.token,
-            //     userLoginChk: data.controllerToken
-            // };
+            state.userData = {
+                userName: data.userData.userName,
+                userEmail: data.userData.userEmail,
+                userID: data.userData.user_id,
+                setToken: data.token,
+                userLoginChk: data.controllerToken
+            };
 
             localStorage.setItem('setUserID', data.userData.user_id);
             localStorage.setItem('setToken', data.token);
@@ -143,6 +144,7 @@ const store = createStore({
                 const userData = res.data.userData;
                 const userID = res.data.userData.user_id;
 				// const decoded = jwtDecode(token);
+				
 				console.log("토큰",token);
 				console.log("유저데이터",userData);
 				console.log("유저아이디",userID);
@@ -170,6 +172,7 @@ const store = createStore({
 					localStorage.setItem('setUserID', userID);
 					localStorage.setItem('setUserLoginChk', res.data.controllerToken);
 					localStorage.setItem('setSaveToLocalStorage', res.data);
+					localStorage.setItem('setUserID', userID);
                     
 
                     alert('로그인 성공. 페이지를 새로 고칩니다.');
