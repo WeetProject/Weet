@@ -3,7 +3,7 @@
 		<div class="admin_index_right_top_container">
 			<div class="admin_index_right_top_title_section">
 				<div class="admin_index_right_top_title_area">
-					<span class="mb-5 text-xl font-bold">반가워요, {{ adminNameInfo }} 관리자님!</span>
+					<span class="mb-5 text-xl font-bold">반가워요, 관리자님!</span>
 					<span>시스템 관리를 간편하고 효율적으로 할 수 있도록 도와드릴게요.</span>
 				</div>
 			</div>	
@@ -173,22 +173,6 @@ export default {
 	},
 
 	mounted() {
-		this.adminToken = localStorage.getItem('token');
-		this.adminFlgInfo = localStorage.getItem('adminFlg');
-		this.adminNameInfo = localStorage.getItem('adminName');
-
-		if(this.adminToken && this.adminFlgInfo && this.adminNameInfo) {
-			if(this.adminFlgInfo === '1') {
-				this.adminFlgInfo = 'Sub Admin';
-				this.adminAuthority = false;
-			} else if(this.adminFlgInfo === '2') {
-				this.adminFlgInfo = 'Root Admin';
-				this.adminAuthority = true;
-			} else {
-				alert("로그인을 다시 해주세요.");
-				this.$router.push('/admin');
-			}
-		}		
 	},
 
 	methods: {

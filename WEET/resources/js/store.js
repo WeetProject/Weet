@@ -9,14 +9,17 @@ const store = createStore({
 
     state() {
         return {
-            showmodal: false,
-			adminToken: null,
+            showmodal: false,			
             userData: null,
             userLoginChk: null,
             userID: null,
             // userToken: null,
 
             // ### Admin ###
+            // Admin Login 데이터 저장용
+            adminToken: null,
+            adminLoginData: null,
+            error: null,
             userListModal: false,
             userPaymentListModal: false,
             // User Management 데이터 저장용
@@ -30,7 +33,7 @@ const store = createStore({
             // Management Pagination 데이터 저장용
             currentPage: 1,
             lastPage: '',
-
+            
         }
     },
 
@@ -46,9 +49,7 @@ const store = createStore({
         // loginSuccess(state) {
         //     state.isLoggedIn = true;
         // },
-		setAdminToken(state, token) {
-			state.adminToken = token;
-		},
+		
         // 로그인 시 유저 데이터
         setUserData(state, userData) {
             state.userData = userData;
@@ -94,7 +95,26 @@ const store = createStore({
             state.token = token;
         },
 
+
+
+
         // ### Admin ###
+        // Admin 토큰
+        setAdminToken(state, adminToken) {
+			state.adminToken = adminToken;
+            setTimeout(function() {
+                localStorage.clear();
+            }, 60 * 60 * 1000);
+		},
+        // Admin Flg, Name 저장용
+        setAdminLoginInfo(state, adminLoginInfo) {
+            state.adminLoginInfo = adminLoginInfo;
+        },
+
+        setAdminLoginError(state, error) {
+            state.error = error;
+        },
+
         // UserListModal Open
         userListModalOpen(state) {
             state.userListModal = true;
@@ -288,7 +308,44 @@ const store = createStore({
 
 
 
+
+
+
+
+
+
+
+
+
+
         // ### Admin ###
+        // Login
+        adminLogin({ commit }, adminLoginFormData) {
+            const url = '/admin';
+            axios.post(url, adminLoginFormData)
+                .then(response => {
+                    if (response.data.code === "ALI00") {
+                        // adminToken 저장
+                        const admintoken = response.data.token;
+                        // adminFlg, adminName 저장
+                        const adminLoginInfo = response.data.adminLoginInfo;
+
+                        commit('setAdminToken', admintoken);
+                        commit('setAdminLoginInfo', adminLoginInfo);
+
+                        // 로컬스토리지 내 adminToken 저장
+                        localStorage.setItem('setAdminToken', admintoken);
+                        localStorage.setItem('setAdminLoginInfo', JSON.stringify(adminLoginInfo));
+                        router.push('/admin/dashboard');
+                    } else {                    
+                        commit('setAdminLoginError', response.data.error);
+                    }
+                })
+                .catch(error => {
+                    commit('setAdminLoginError', error.response.data.error);
+                });
+        },
+
         // User Management List 데이터 수신
         userManagementList({ commit }, page) {
 			const URL = '/admin/dashboard/user/management/userManagementList?page=' + page;            

@@ -20858,7 +20858,6 @@ __webpack_require__.r(__webpack_exports__);
       userDropdown: false,
       adminDropdown: false,
       // Admin 로그인 데이터
-      adminToken: '',
       adminFlgInfo: '',
       adminNameInfo: '',
       adminAuthority: false,
@@ -20922,14 +20921,18 @@ __webpack_require__.r(__webpack_exports__);
     this.monthlyData();
   },
   mounted: function mounted() {
-    this.adminToken = localStorage.getItem('token');
-    this.adminFlgInfo = localStorage.getItem('adminFlg');
-    this.adminNameInfo = localStorage.getItem('adminName');
-    if (this.adminToken && this.adminFlgInfo && this.adminNameInfo) {
-      if (this.adminFlgInfo === '1') {
+    var adminToken = localStorage.getItem('setAdminToken');
+    var adminLoginInfoData = localStorage.getItem('setAdminLoginInfo');
+    if (adminToken && adminLoginInfoData) {
+      var adminLoginInfo = JSON.parse(adminLoginInfoData);
+      this.adminFlgInfo = adminLoginInfo.adminFlg;
+      console.log(this.adminFlgInfo);
+      this.adminNameInfo = adminLoginInfo.adminName;
+      console.log(this.adminNameInfo);
+      if (this.adminFlgInfo === 1) {
         this.adminFlgInfo = 'Sub Admin';
         this.adminAuthority = false;
-      } else if (this.adminFlgInfo === '2') {
+      } else if (this.adminFlgInfo === 2) {
         this.adminFlgInfo = 'Root Admin';
         this.adminAuthority = true;
       } else {
@@ -21113,23 +21116,7 @@ __webpack_require__.r(__webpack_exports__);
     // 통합 데이터(월별 예약, 월별 결제)
     this.monthlyData();
   },
-  mounted: function mounted() {
-    this.adminToken = localStorage.getItem('token');
-    this.adminFlgInfo = localStorage.getItem('adminFlg');
-    this.adminNameInfo = localStorage.getItem('adminName');
-    if (this.adminToken && this.adminFlgInfo && this.adminNameInfo) {
-      if (this.adminFlgInfo === '1') {
-        this.adminFlgInfo = 'Sub Admin';
-        this.adminAuthority = false;
-      } else if (this.adminFlgInfo === '2') {
-        this.adminFlgInfo = 'Root Admin';
-        this.adminAuthority = true;
-      } else {
-        alert("로그인을 다시 해주세요.");
-        this.$router.push('/admin');
-      }
-    }
-  },
+  mounted: function mounted() {},
   methods: {
     // User 드롭다운
     toggleUserDropdown: function toggleUserDropdown() {
@@ -21228,50 +21215,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdminLoginComponent',
   data: function data() {
     return {
-      // Admin 로그인 데이터
       adminLoginFormData: {
         admin_number: '',
         password: ''
       },
-      adminLoginError: '',
-      // Admin 로그인 에러 출력용
-      adminLoginAlertError: '' // Admin 로그인 에러 Alert출력용
+      adminLoginError: ''
     };
   },
   methods: {
     adminLogin: function adminLogin() {
-      var _this = this;
+      var adminLoginFormData = new FormData();
+      adminLoginFormData.append('admin_number', this.adminLoginFormData.admin_number);
+      adminLoginFormData.append('password', this.adminLoginFormData.password);
       if (!(this.adminLoginFormData.admin_number && this.adminLoginFormData.password)) {
         this.adminLoginError = '사원번호 또는 비밀번호를 입력해주세요.';
         return;
       }
-      var URL = '/admin';
-      var adminLoginFormData = new FormData();
-      adminLoginFormData.append('admin_number', this.adminLoginFormData.admin_number);
-      adminLoginFormData.append('password', this.adminLoginFormData.password);
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, adminLoginFormData).then(function (response) {
-        console.log('응답 데이터:', response.data);
-        if (response.data.code === "ALI00") {
-          var token = response.data.token;
-          var adminFlg = response.data.adminFlg;
-          var adminName = response.data.adminName;
-          localStorage.setItem('token', token);
-          localStorage.setItem('adminFlg', adminFlg);
-          localStorage.setItem('adminName', adminName);
-          _this.$router.push('/admin/dashboard');
-        } else {
-          _this.adminLoginError = response.data.error;
-        }
-      })["catch"](function (error) {
-        _this.adminLoginError = error.response.data.error;
-      });
+      this.$store.dispatch('adminLogin', this.adminLoginFormData);
     },
     // 에러 초기화
     clearAdminLoginError: function clearAdminLoginError() {
@@ -21383,23 +21347,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   created: function created() {
     this.$store.dispatch('adminManagementList', 1);
   },
-  mounted: function mounted() {
-    this.adminToken = localStorage.getItem('token');
-    this.adminFlgInfo = localStorage.getItem('adminFlg');
-    this.adminNameInfo = localStorage.getItem('adminName');
-    if (this.adminToken && this.adminFlgInfo && this.adminNameInfo) {
-      if (this.adminFlgInfo === '1') {
-        this.adminFlgInfo = 'Sub Admin';
-        this.adminAuthority = false;
-      } else if (this.adminFlgInfo === '2') {
-        this.adminFlgInfo = 'Root Admin';
-        this.adminAuthority = true;
-      } else {
-        alert("로그인을 다시 해주세요.");
-        this.$router.push('/admin');
-      }
-    }
-  },
+  mounted: function mounted() {},
   methods: {
     // User 드롭다운
     toggleUserDropdown: function toggleUserDropdown() {
@@ -21531,23 +21479,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.adminRegistrationList();
   },
-  mounted: function mounted() {
-    this.adminToken = localStorage.getItem('token');
-    this.adminFlgInfo = localStorage.getItem('adminFlg');
-    this.adminNameInfo = localStorage.getItem('adminName');
-    if (this.adminToken && this.adminFlgInfo && this.adminNameInfo) {
-      if (this.adminFlgInfo === '1') {
-        this.adminFlgInfo = 'Sub Admin';
-        this.adminAuthority = false;
-      } else if (this.adminFlgInfo === '2') {
-        this.adminFlgInfo = 'Root Admin';
-        this.adminAuthority = true;
-      } else {
-        alert("로그인을 다시 해주세요.");
-        this.$router.push('/admin');
-      }
-    }
-  },
+  mounted: function mounted() {},
   methods: {
     // User 드롭다운
     toggleUserDropdown: function toggleUserDropdown() {
@@ -21585,7 +21517,7 @@ __webpack_require__.r(__webpack_exports__);
     // Admin Registration List 데이터 수신
     adminRegistrationList: function adminRegistrationList(page) {
       var _this2 = this;
-      var URL = '/admin/registration/adminList?page=' + page;
+      var URL = '/admin/dashboard/registration/adminList?page=' + page;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL).then(function (response) {
         if (response.data.code === "ARL00") {
           _this2.adminRegistrationListData = response.data.adminRegistrationList;
@@ -21615,7 +21547,7 @@ __webpack_require__.r(__webpack_exports__);
         alert('권한을 선택해주세요.');
         return;
       }
-      var URL = '/admin/registration/update';
+      var URL = '/admin/dashboard/registration/update';
       var formData = new FormData();
       formData.append('admin_number', admin_number);
       formData.append('admin_flg', admin_flg);
@@ -21632,7 +21564,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     // Admin 거부
     adminRegistrationWithdrawal: function adminRegistrationWithdrawal(admin_number) {
-      var URL = '/admin/registration/withdrawal';
+      var URL = '/admin/dashboard/registration/withdrawal';
       var formData = new FormData();
       formData.append('admin_number', admin_number);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, formData).then(function (response) {
@@ -21874,23 +21806,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   created: function created() {
     this.$store.dispatch('userManagementList', 1);
   },
-  mounted: function mounted() {
-    this.adminToken = localStorage.getItem('token');
-    this.adminFlgInfo = localStorage.getItem('adminFlg');
-    this.adminNameInfo = localStorage.getItem('adminName');
-    if (this.adminToken && this.adminFlgInfo && this.adminNameInfo) {
-      if (this.adminFlgInfo === '1') {
-        this.adminFlgInfo = 'Sub Admin';
-        this.adminAuthority = false;
-      } else if (this.adminFlgInfo === '2') {
-        this.adminFlgInfo = 'Root Admin';
-        this.adminAuthority = true;
-      } else {
-        alert("로그인을 다시 해주세요.");
-        this.$router.push('/admin');
-      }
-    }
-  },
+  mounted: function mounted() {},
   methods: {
     // User 드롭다운
     toggleUserDropdown: function toggleUserDropdown() {
@@ -23475,7 +23391,14 @@ var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminNameInfo) + " 님 ", 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_7, "권한 : " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminFlgInfo), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [$data.adminToken ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "/admin/dashboard"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_6];
+    }),
+    _: 1 /* STABLE */
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminNameInfo) + " 님 ", 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_7, "권한 : " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminFlgInfo), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_ctx.adminToken ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
     key: 0,
     "class": "font-semibold admin_index_left_logout_a",
     href: "/admin",
@@ -23547,29 +23470,25 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "admin_index_right_container"
 };
-var _hoisted_2 = {
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "admin_index_right_top_container"
-};
-var _hoisted_3 = {
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "admin_index_right_top_title_section"
-};
-var _hoisted_4 = {
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "admin_index_right_top_title_area"
-};
-var _hoisted_5 = {
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "mb-5 text-xl font-bold"
-};
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "시스템 관리를 간편하고 효율적으로 할 수 있도록 도와드릴게요.", -1 /* HOISTED */);
-var _hoisted_7 = {
+}, "반가워요, 관리자님!"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "시스템 관리를 간편하고 효율적으로 할 수 있도록 도와드릴게요.")])])], -1 /* HOISTED */);
+var _hoisted_3 = {
   "class": "admin_index_right_middle_container"
 };
-var _hoisted_8 = {
+var _hoisted_4 = {
   "class": "mr-5 admin_index_right_middle_section"
 };
-var _hoisted_9 = {
+var _hoisted_5 = {
   "class": "admin_index_right_middle_number_of_transactions"
 };
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "admin_index_right_middle_number_of_transactions_image"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
@@ -23582,25 +23501,25 @@ var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "stroke-linejoin": "round",
   d: "M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
 })])], -1 /* HOISTED */);
-var _hoisted_11 = {
+var _hoisted_7 = {
   "class": "admin_index_right_middle_number_of_transactions_text"
 };
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "font-semibold"
 }, "총 결제 건수", -1 /* HOISTED */);
-var _hoisted_13 = {
+var _hoisted_9 = {
   "class": "text-3xl font-extrabold"
 };
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-semibold"
 }, " 건", -1 /* HOISTED */);
-var _hoisted_15 = {
+var _hoisted_11 = {
   "class": "mr-5 admin_index_right_middle_section"
 };
-var _hoisted_16 = {
+var _hoisted_12 = {
   "class": "admin_index_right_middle_paymont_amount"
 };
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "admin_index_right_middle_paymont_amount_image"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
@@ -23614,25 +23533,25 @@ var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "stroke-linejoin": "round",
   d: "M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"
 })])], -1 /* HOISTED */);
-var _hoisted_18 = {
+var _hoisted_14 = {
   "class": "admin_index_right_middle_paymont_amount_text"
 };
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "font-semibold"
 }, "총 결제 금액", -1 /* HOISTED */);
-var _hoisted_20 = {
+var _hoisted_16 = {
   "class": "text-3xl font-extrabold"
 };
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-semibold"
 }, " 원", -1 /* HOISTED */);
-var _hoisted_22 = {
+var _hoisted_18 = {
   "class": "admin_index_right_middle_section"
 };
-var _hoisted_23 = {
+var _hoisted_19 = {
   "class": "admin_index_right_middle_register_users"
 };
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "admin_index_right_middle_register_users_image"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
@@ -23646,39 +23565,39 @@ var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "stroke-linejoin": "round",
   d: "M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
 })])], -1 /* HOISTED */);
-var _hoisted_25 = {
+var _hoisted_21 = {
   "class": "admin_index_right_middle_register_users_text"
 };
-var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "font-semibold"
 }, "총 이용자 수", -1 /* HOISTED */);
-var _hoisted_27 = {
+var _hoisted_23 = {
   "class": "text-3xl font-extrabold"
 };
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-semibold"
 }, " 명", -1 /* HOISTED */);
-var _hoisted_29 = {
+var _hoisted_25 = {
   "class": "admin_index_right_bottom_container"
 };
-var _hoisted_30 = {
+var _hoisted_26 = {
   "class": "admin_index_right_bottom_chart_section"
 };
-var _hoisted_31 = {
+var _hoisted_27 = {
   "class": "admin_index_right_bottom_chart_area"
 };
-var _hoisted_32 = {
+var _hoisted_28 = {
   id: "chart"
 };
-var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"admin_index_right_bottom_text_section\"><div class=\"mr-5 admin_index_right_bottom_notice_section\"><div class=\"admin_index_right_bottom_notice_title_area\"><span class=\"mb-5 text-xl font-semibold\">공지사항</span><a class=\"admin_index_right_bottom_notice_title_a\" href=\"#\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" class=\"w-6 h-6\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 4.5v15m7.5-7.5h-15\"></path></svg> More </a></div><div class=\"admin_index_right_bottom_notice_content_area\"></div></div><div class=\"admin_index_right_bottom_latest_Posts_section\"><div class=\"admin_index_right_bottom_latest_Posts_title_area\"><span class=\"mb-5 text-xl font-semibold\">최신 작성 글</span><a class=\"admin_index_right_bottom_latest_Posts_title_a\" href=\"#\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" class=\"w-6 h-6\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 4.5v15m7.5-7.5h-15\"></path></svg> More </a></div><div class=\"admin_index_right_bottom_latest_Posts_content_area\"></div></div></div>", 1);
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"admin_index_right_bottom_text_section\"><div class=\"mr-5 admin_index_right_bottom_notice_section\"><div class=\"admin_index_right_bottom_notice_title_area\"><span class=\"mb-5 text-xl font-semibold\">공지사항</span><a class=\"admin_index_right_bottom_notice_title_a\" href=\"#\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" class=\"w-6 h-6\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 4.5v15m7.5-7.5h-15\"></path></svg> More </a></div><div class=\"admin_index_right_bottom_notice_content_area\"></div></div><div class=\"admin_index_right_bottom_latest_Posts_section\"><div class=\"admin_index_right_bottom_latest_Posts_title_area\"><span class=\"mb-5 text-xl font-semibold\">최신 작성 글</span><a class=\"admin_index_right_bottom_latest_Posts_title_a\" href=\"#\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" class=\"w-6 h-6\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 4.5v15m7.5-7.5h-15\"></path></svg> More </a></div><div class=\"admin_index_right_bottom_latest_Posts_content_area\"></div></div></div>", 1);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_apexchart = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("apexchart");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, "반가워요, " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminNameInfo) + " 관리자님!", 1 /* TEXT */), _hoisted_6])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.totalUserDataFormat($data.totalPayment)), 1 /* TEXT */), _hoisted_14])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.totalUserDataFormat($data.totalPaymentAmount)), 1 /* TEXT */), _hoisted_21])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [_hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [_hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.totalUserDataFormat($data.totalUser)), 1 /* TEXT */), _hoisted_28])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_apexchart, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.totalUserDataFormat($data.totalPayment)), 1 /* TEXT */), _hoisted_10])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.totalUserDataFormat($data.totalPaymentAmount)), 1 /* TEXT */), _hoisted_17])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [_hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.totalUserDataFormat($data.totalUser)), 1 /* TEXT */), _hoisted_24])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_apexchart, {
     type: "bar",
     height: "350",
     options: $data.chartOptions,
     series: $data.series
-  }, null, 8 /* PROPS */, ["options", "series"])])])]), _hoisted_33])]);
+  }, null, 8 /* PROPS */, ["options", "series"])])])]), _hoisted_29])]);
 }
 
 /***/ }),
@@ -27179,14 +27098,6 @@ var routes = [{
   meta: {
     title: 'Admin'
   }
-  // beforeEnter: (to, from, next) => {
-  // 	const token = localStorage.getItem('token');
-  // 	if (token) {
-  // 		next('/admin/index');
-  // 	} else {
-  // 		next();
-  // 	}
-  // },
 }, {
   path: '/admin/signup',
   name: 'Admin Signup',
@@ -27304,13 +27215,16 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
   state: function state() {
     return {
       showmodal: false,
-      adminToken: null,
       userData: null,
       userLoginChk: null,
       userID: null,
       // userToken: null,
 
       // ### Admin ###
+      // Admin Login 데이터 저장용
+      adminToken: null,
+      adminLoginData: null,
+      error: null,
       userListModal: false,
       userPaymentListModal: false,
       // User Management 데이터 저장용
@@ -27340,9 +27254,6 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
     // loginSuccess(state) {
     //     state.isLoggedIn = true;
     // },
-    setAdminToken: function setAdminToken(state, token) {
-      state.adminToken = token;
-    },
     // 로그인 시 유저 데이터
     setUserData: function setUserData(state, userData) {
       state.userData = userData;
@@ -27387,6 +27298,20 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       state.token = token;
     },
     // ### Admin ###
+    // Admin 토큰
+    setAdminToken: function setAdminToken(state, adminToken) {
+      state.adminToken = adminToken;
+      setTimeout(function () {
+        localStorage.clear();
+      }, 60 * 60 * 1000);
+    },
+    // Admin Flg, Name 저장용
+    setAdminLoginInfo: function setAdminLoginInfo(state, adminLoginInfo) {
+      state.adminLoginInfo = adminLoginInfo;
+    },
+    setAdminLoginError: function setAdminLoginError(state, error) {
+      state.error = error;
+    },
     // UserListModal Open
     userListModalOpen: function userListModalOpen(state) {
       state.userListModal = true;
@@ -27559,10 +27484,34 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       });
     },
     // ### Admin ###
-    // User Management List 데이터 수신
-    userManagementList: function userManagementList(_ref3, page) {
-      var _this = this;
+    // Login
+    adminLogin: function adminLogin(_ref3, adminLoginFormData) {
       var commit = _ref3.commit;
+      var url = '/admin';
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post(url, adminLoginFormData).then(function (response) {
+        if (response.data.code === "ALI00") {
+          // adminToken 저장
+          var admintoken = response.data.token;
+          // adminFlg, adminName 저장
+          var adminLoginInfo = response.data.adminLoginInfo;
+          commit('setAdminToken', admintoken);
+          commit('setAdminLoginInfo', adminLoginInfo);
+
+          // 로컬스토리지 내 adminToken 저장
+          localStorage.setItem('setAdminToken', admintoken);
+          localStorage.setItem('setAdminLoginInfo', JSON.stringify(adminLoginInfo));
+          _js_router_js__WEBPACK_IMPORTED_MODULE_0__["default"].push('/admin/dashboard');
+        } else {
+          commit('setAdminLoginError', response.data.error);
+        }
+      })["catch"](function (error) {
+        commit('setAdminLoginError', error.response.data.error);
+      });
+    },
+    // User Management List 데이터 수신
+    userManagementList: function userManagementList(_ref4, page) {
+      var _this = this;
+      var commit = _ref4.commit;
       var URL = '/admin/dashboard/user/management/userManagementList?page=' + page;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
         if (response.data.code === "UML00") {
@@ -27585,8 +27534,8 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       });
     },
     // User Management Payment List 데이터 수신
-    userManagementPaymentList: function userManagementPaymentList(_ref4, page) {
-      var commit = _ref4.commit;
+    userManagementPaymentList: function userManagementPaymentList(_ref5, page) {
+      var commit = _ref5.commit;
       var URL = '/admin/dashboard/user/management/userManagementPaymentList?page=' + page;
       var userSelectOption = '1';
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
@@ -27604,9 +27553,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       });
     },
     // Admin Management List 데이터 수신
-    adminManagementList: function adminManagementList(_ref5, page) {
+    adminManagementList: function adminManagementList(_ref6, page) {
       var _this2 = this;
-      var commit = _ref5.commit;
+      var commit = _ref6.commit;
       var URL = '/admin/dashboard/management/adminManagementList?page=' + page;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
         if (response.data.code === "AML00") {
@@ -27631,9 +27580,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       });
     },
     // Admin Management Flg List 데이터 수신
-    adminManagementFlgList: function adminManagementFlgList(_ref6, page) {
+    adminManagementFlgList: function adminManagementFlgList(_ref7, page) {
       var _this3 = this;
-      var commit = _ref6.commit;
+      var commit = _ref7.commit;
       var URL = '/admin/dashboard/management/adminManagementFlgList?page=' + page;
       var adminSelectOption = '1';
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
@@ -27660,9 +27609,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       });
     },
     // Management Pagination
-    pagination: function pagination(_ref7, page) {
-      var state = _ref7.state,
-        dispatch = _ref7.dispatch;
+    pagination: function pagination(_ref8, page) {
+      var state = _ref8.state,
+        dispatch = _ref8.dispatch;
       if (page !== state.currentPage) {
         console.log('유저 셀렉트' + state.userSelectOption);
         console.log('어드민 셀렉트' + state.adminSelectOption);
@@ -27687,35 +27636,35 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       }
     },
     // 첫번째 페이지
-    firstPagination: function firstPagination(_ref8) {
-      var state = _ref8.state,
-        dispatch = _ref8.dispatch;
+    firstPagination: function firstPagination(_ref9) {
+      var state = _ref9.state,
+        dispatch = _ref9.dispatch;
       if (state.currentPage !== 1) {
         dispatch('pagination', 1);
       }
     },
     // 이전 페이지
-    prevPagination: function prevPagination(_ref9) {
-      var state = _ref9.state,
-        dispatch = _ref9.dispatch;
+    prevPagination: function prevPagination(_ref10) {
+      var state = _ref10.state,
+        dispatch = _ref10.dispatch;
       var prevPage = state.currentPage - 1;
       if (prevPage > 0) {
         dispatch('pagination', prevPage);
       }
     },
     // 다음 페이지
-    nextPagination: function nextPagination(_ref10) {
-      var state = _ref10.state,
-        dispatch = _ref10.dispatch;
+    nextPagination: function nextPagination(_ref11) {
+      var state = _ref11.state,
+        dispatch = _ref11.dispatch;
       var nextPage = state.currentPage + 1;
       if (nextPage <= state.lastPage) {
         dispatch('pagination', nextPage);
       }
     },
     // 마지막 페이지
-    lastPagination: function lastPagination(_ref11) {
-      var state = _ref11.state,
-        dispatch = _ref11.dispatch;
+    lastPagination: function lastPagination(_ref12) {
+      var state = _ref12.state,
+        dispatch = _ref12.dispatch;
       if (state.currentPage !== state.lastPage) {
         dispatch('pagination', state.lastPage);
       }

@@ -51,51 +51,31 @@
 	</div>
 </template>
 <script>
-import axios from 'axios';
 export default {
     name: 'AdminLoginComponent',
 
 	data() {
         return {
-			// Admin 로그인 데이터
 			adminLoginFormData: {
 				admin_number: '',
-				password: '',
-			},			
-			adminLoginError: '', // Admin 로그인 에러 출력용
-			adminLoginAlertError: '', // Admin 로그인 에러 Alert출력용
+                password: '',
+			},
+			adminLoginError: '',
         }
     },
 
 	methods: {
-		adminLogin() {			
+		adminLogin() {
+			const adminLoginFormData = new FormData();
+            adminLoginFormData.append('admin_number', this.adminLoginFormData.admin_number);
+			adminLoginFormData.append('password', this.adminLoginFormData.password);
+
 			if(!(this.adminLoginFormData.admin_number && this.adminLoginFormData.password)) {
 				this.adminLoginError = '사원번호 또는 비밀번호를 입력해주세요.';
 				return;
             } 
-			const URL = '/admin';
-			const adminLoginFormData = new FormData();
-			adminLoginFormData.append('admin_number', this.adminLoginFormData.admin_number);
-			adminLoginFormData.append('password', this.adminLoginFormData.password);
-			
-			axios.post(URL, adminLoginFormData)
-				.then(response => {
-					console.log('응답 데이터:', response.data);
-					if(response.data.code === "ALI00") {
-						const token = response.data.token
-						const adminFlg = response.data.adminFlg
-						const adminName = response.data.adminName
-						localStorage.setItem('token', token)
-						localStorage.setItem('adminFlg', adminFlg)
-						localStorage.setItem('adminName', adminName)
-						this.$router.push('/admin/dashboard'); 
-					} else {
-						this.adminLoginError = response.data.error;
-					}
-				})
-				.catch(error => {
-					this.adminLoginError = error.response.data.error
-				});			
+
+			this.$store.dispatch('adminLogin', this.adminLoginFormData)	
         },
 
 		// 에러 초기화

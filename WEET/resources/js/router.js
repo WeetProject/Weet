@@ -61,14 +61,6 @@ const routes = [
 		meta: {
 			title: 'Admin'
 		},
-		// beforeEnter: (to, from, next) => {
-		// 	const token = localStorage.getItem('token');
-		// 	if (token) {
-		// 		next('/admin/index');
-		// 	} else {
-		// 		next();
-		// 	}
-		// },
 	},
 	{
 		path: '/admin/signup',

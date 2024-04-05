@@ -51,7 +51,8 @@ class AdminAuthController extends Controller
             
             // 로그인 계정 정보 조회
             $loginAdminAccount = Admin::where('admin_number', $request->admin_number)->first();
-            Log::debug($loginAdminAccount);
+            // 로그인 요청 정보 확인용 Log
+            // Log::debug($loginAdminAccount);
     
             // 로그인 실패 처리(사번 불일치)
             if (!$loginAdminAccount) {
@@ -119,8 +120,10 @@ class AdminAuthController extends Controller
                     return response()->json([
                         'code' => 'ALI00',
                         'token' => $token,
-                        'adminFlg' => $adminFlg,
-                        'adminName' => $adminName
+                        'adminLoginInfo' => [
+                            'adminFlg' => $adminFlg,
+                            'adminName' => $adminName
+                        ]
                     ], 200);
                 } catch (JWTException $e) {
                     Log::debug("### Admin인증 실패(토큰) : " . $e->getMessage() .  "###");

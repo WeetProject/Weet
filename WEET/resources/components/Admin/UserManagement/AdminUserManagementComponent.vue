@@ -106,22 +106,6 @@ export default {
 	},
 
 	mounted() {
-		this.adminToken = localStorage.getItem('token');
-		this.adminFlgInfo = localStorage.getItem('adminFlg');
-		this.adminNameInfo = localStorage.getItem('adminName');
-
-		if(this.adminToken && this.adminFlgInfo && this.adminNameInfo) {
-			if(this.adminFlgInfo === '1') {
-				this.adminFlgInfo = 'Sub Admin';
-				this.adminAuthority = false;
-			} else if(this.adminFlgInfo === '2') {
-				this.adminFlgInfo = 'Root Admin';
-				this.adminAuthority = true;
-			} else {
-				alert("로그인을 다시 해주세요.");
-				this.$router.push('/admin');
-			}
-		}
 	},
 
 	methods: {

@@ -4,7 +4,9 @@
 			<div class="admin_index_left_container">
 				<div class="admin_index_left_info_section">
 					<span class="text-xl font-semibold admin_index_left_info_name_area">
-						<img class="admin_index_left_info_image" src="../../../public/images/WEET_logo.png" alt="">
+						<router-link to="/admin/dashboard">
+							<img class="admin_index_left_info_image" src="../../../public/images/WEET_logo.png" alt="">
+						</router-link>
 						{{ adminNameInfo }} 님
 					</span>
 				</div>
@@ -136,7 +138,6 @@ export default {
 			userDropdown: false,
 			adminDropdown: false,
 			// Admin 로그인 데이터
-			adminToken: '',
 			adminFlgInfo: '',
 			adminNameInfo: '',			
 			adminAuthority: false, // Admin 메뉴 권한 확인용
@@ -202,15 +203,20 @@ export default {
 	},
 
 	mounted() {
-		this.adminToken = localStorage.getItem('token');
-		this.adminFlgInfo = localStorage.getItem('adminFlg');
-		this.adminNameInfo = localStorage.getItem('adminName');
+		const adminToken = localStorage.getItem('setAdminToken');		
+		const adminLoginInfoData = localStorage.getItem('setAdminLoginInfo');
 
-		if(this.adminToken && this.adminFlgInfo && this.adminNameInfo) {
-			if(this.adminFlgInfo === '1') {
+		if(adminToken && adminLoginInfoData) {
+			const adminLoginInfo = JSON.parse(adminLoginInfoData);
+			this.adminFlgInfo = adminLoginInfo.adminFlg;
+			console.log(this.adminFlgInfo);
+			this.adminNameInfo = adminLoginInfo.adminName;
+			console.log(this.adminNameInfo);
+
+			if(this.adminFlgInfo === 1) {
 				this.adminFlgInfo = 'Sub Admin';
 				this.adminAuthority = false;
-			} else if(this.adminFlgInfo === '2') {
+			} else if(this.adminFlgInfo === 2) {
 				this.adminFlgInfo = 'Root Admin';
 				this.adminAuthority = true;
 			} else {
