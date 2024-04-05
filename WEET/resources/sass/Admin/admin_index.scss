@@ -15,7 +15,7 @@
 
 		.admin_index_left_container {
 			width: 20%;
-			height: 100vh;			
+			height: 100vh;		
 			background-color: $main-font-color;
 
 			.admin_index_left_info_section {
@@ -131,9 +131,10 @@
 		}
 
 		.admin_index_right_container {
-			width: 1300px;
+			width: 80%;
 			height: 100vh;
 			margin: 0 auto;
+			padding: 10px;
 			color: $admin-font-color;
 			display: flex;
 			flex-direction: column;
