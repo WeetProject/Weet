@@ -21282,6 +21282,52 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=script&lang=js":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=script&lang=js ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'AdminFlgListComponent',
+  data: function data() {
+    return {};
+  },
+  created: function created() {},
+  mounted: function mounted() {},
+  methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=script&lang=js":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=script&lang=js ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'AdminListComponent',
+  data: function data() {
+    return {};
+  },
+  created: function created() {},
+  mounted: function mounted() {},
+  methods: {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminManagementComponent.vue?vue&type=script&lang=js":
 /*!*************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminManagementComponent.vue?vue&type=script&lang=js ***!
@@ -21295,9 +21341,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var _AdminListComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminListComponent.vue */ "./resources/components/Admin/AdminManagement/AdminListComponent.vue");
+/* harmony import */ var _AdminFlgListComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminFlgListComponent.vue */ "./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdminManagementComponent',
+  components: {
+    AdminListComponent: _AdminListComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    AdminFlgListComponent: _AdminFlgListComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)({
+    currentPage: function currentPage(state) {
+      return state.currentPage;
+    },
+    lastPage: function lastPage(state) {
+      return state.lastPage;
+    }
+  })),
   data: function data() {
     return {
       userDropdown: false,
@@ -21307,17 +21377,11 @@ __webpack_require__.r(__webpack_exports__);
       adminNameInfo: '',
       adminAuthority: false,
       // Admin 메뉴 권한 확인용
-      // Admin Management 데이터 저장용
-      adminListData: [],
-      // Pagination 데이터 저장용
-      adminManagementListData: {},
-      currentPage: null,
-      lastPage: null,
-      adminSelectOption: 1
+      adminSelectOption: '0'
     };
   },
   created: function created() {
-    this.adminDataOptionChange();
+    this.$store.dispatch('adminManagementList', 1);
   },
   mounted: function mounted() {
     this.adminToken = localStorage.getItem('token');
@@ -21370,96 +21434,26 @@ __webpack_require__.r(__webpack_exports__);
         alert(_this.adminLogoutAlertError);
       });
     },
-    // Admin Management List 데이터 수신
-    adminManagementList: function adminManagementList(page) {
-      var _this2 = this;
-      var URL = '/admin/management/adminManagementList?page=' + page;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL).then(function (response) {
-        if (response.data.code === "AML00") {
-          _this2.adminManagementListData = response.data.adminManagementList;
-          _this2.adminListData = response.data.adminManagementList.data;
-          _this2.adminListData.forEach(function (admin) {
-            // admin_flg / 1, 2 => Sub, Root로 변경
-            if (admin.admin_flg === 1) {
-              admin.admin_flg = 'Sub';
-            } else {
-              admin.admin_flg = 'Root';
-            }
-          });
-          _this2.currentPage = response.data.adminManagementList.current_page;
-          _this2.lastPage = response.data.adminManagementList.last_page;
-        } else {
-          console.error('서버 오류');
-        }
-      })["catch"](function (error) {
-        console.error(error);
-      });
-    },
-    // Admin Management Flg List 데이터 수신
-    adminManagementFlgList: function adminManagementFlgList(page) {
-      var _this3 = this;
-      var URL = '/admin/management/adminManagementFlgList?page=' + page;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL).then(function (response) {
-        if (response.data.code === "AMFL00") {
-          _this3.adminManagementListData = response.data.adminManagementFlgList;
-          _this3.adminListData = response.data.adminManagementFlgList.data;
-          _this3.adminListData.forEach(function (admin) {
-            // admin_flg / 1, 2 => Sub, Root로 변경
-            if (admin.admin_flg === 1) {
-              admin.admin_flg = 'Sub';
-            } else {
-              admin.admin_flg = 'Root';
-            }
-          });
-          _this3.currentPage = response.data.adminManagementFlgList.current_page;
-          _this3.lastPage = response.data.adminManagementFlgList.last_page;
-        } else {
-          console.error('서버 오류');
-        }
-      })["catch"](function (error) {
-        console.error(error);
-      });
-    },
     // Admin Management Option 핸들러
     adminDataOptionChange: function adminDataOptionChange() {
-      if (this.adminSelectOption === '1') {
-        this.adminManagementList();
-      } else {
-        this.adminManagementFlgList();
+      if (this.adminSelectOption === '0') {
+        this.$store.dispatch('adminManagementList', 1);
+      } else if (this.adminSelectOption === '1') {
+        this.$store.dispatch('adminManagementFlgList', 1);
       }
     },
-    // Admin Management Pagination 처리
-    // 첫번째 페이지
-    firstPagination: function firstPagination() {
-      if (this.adminSelectOption === '1') {
-        this.adminManagementList(1);
-      } else {
-        this.adminManagementFlgList(1);
-      }
+    // Admin Management Pagination
+    moveFirstPage: function moveFirstPage() {
+      this.$store.dispatch('firstPagination');
     },
-    // 이전 페이지
-    prevPagination: function prevPagination() {
-      if (this.adminSelectOption === '1') {
-        this.adminManagementList(this.currentPage - 1);
-      } else {
-        this.adminManagementFlgList(this.currentPage - 1);
-      }
+    movePrevPage: function movePrevPage() {
+      this.$store.dispatch('prevPagination');
     },
-    // 다음 페이지
-    nextpagination: function nextpagination() {
-      if (this.adminSelectOption === '1') {
-        this.adminManagementList(this.currentPage < this.lastPage ? this.currentPage + 1 : this.currentPage);
-      } else {
-        this.adminManagementFlgList(this.currentPage < this.lastPage ? this.currentPage + 1 : this.currentPage);
-      }
+    moveNextPage: function moveNextPage() {
+      this.$store.dispatch('nextPagination');
     },
-    // 마지막 페이지
-    lastPagination: function lastPagination() {
-      if (this.adminSelectOption === '1') {
-        this.adminManagementList(this.lastPage);
-      } else {
-        this.adminManagementFlgList(this.lastPage);
-      }
+    moveLastPage: function moveLastPage() {
+      this.$store.dispatch('lastPagination');
     },
     // Admin 권한 변경
     adminManagementUpdate: function adminManagementUpdate(admin_number) {
@@ -21498,10 +21492,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=script&lang=js":
-/*!***************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=script&lang=js ***!
-  \***************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -21854,6 +21848,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     AdminUserListComponent: _AdminUserListComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     AdminUserPaymentListComponent: _AdminUserPaymentListComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)({
+    currentPage: function currentPage(state) {
+      return state.currentPage;
+    },
+    lastPage: function lastPage(state) {
+      return state.lastPage;
+    }
+  })),
   data: function data() {
     return {
       userDropdown: false,
@@ -21871,14 +21873,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   created: function created() {
     this.$store.dispatch('userManagementList', 1);
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)({
-    currentPage: function currentPage(state) {
-      return state.currentPage;
-    },
-    lastPage: function lastPage(state) {
-      return state.lastPage;
-    }
-  })),
   mounted: function mounted() {
     this.adminToken = localStorage.getItem('token');
     this.adminFlgInfo = localStorage.getItem('adminFlg');
@@ -23747,6 +23741,148 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=template&id=dcf30662":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=template&id=dcf30662 ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "admin_management_bottom_container"
+};
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<ul class=\"admin_management_bottom_title_ul\"><li class=\"font-semibold text-center admin_management_bottom_title_li\">사원번호</li><li class=\"font-semibold text-center admin_management_bottom_title_li\">이름</li><li class=\"font-semibold text-center admin_management_bottom_title_li\">등록일자</li><li class=\"font-semibold text-center admin_management_bottom_title_li\">권한</li><li class=\"font-semibold text-center admin_management_bottom_title_li\">변경</li><li class=\"font-semibold text-center admin_management_bottom_title_li\">탈퇴</li></ul>", 1);
+var _hoisted_3 = {
+  "class": "text-center admin_management_bottom_content_li"
+};
+var _hoisted_4 = {
+  "class": "text-center admin_management_bottom_content_li"
+};
+var _hoisted_5 = {
+  "class": "text-center admin_management_bottom_content_li"
+};
+var _hoisted_6 = {
+  "class": "text-center admin_management_bottom_content_li"
+};
+var _hoisted_7 = {
+  "class": "text-center admin_management_select",
+  name: "admin_flg",
+  id: "admin_flg"
+};
+var _hoisted_8 = ["selected"];
+var _hoisted_9 = ["selected"];
+var _hoisted_10 = {
+  "class": "text-center admin_management_bottom_content_li"
+};
+var _hoisted_11 = ["onClick"];
+var _hoisted_12 = {
+  "class": "text-center admin_management_bottom_content_li"
+};
+var _hoisted_13 = ["onClick"];
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 이용자 탭 "), _hoisted_2, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.$store.state.adminListData, function (adminList) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", {
+      "class": "admin_management_bottom_content_ul",
+      key: adminList
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(adminList.admin_number), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(adminList.admin_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(adminList.admin_created_at), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+      selected: adminList.admin_flg === 'Root',
+      value: "2"
+    }, "Root", 8 /* PROPS */, _hoisted_8), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+      selected: adminList.admin_flg === 'Sub',
+      value: "1"
+    }, "Sub", 8 /* PROPS */, _hoisted_9)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      "class": "admin_management_bottom_content_update_button",
+      onClick: function onClick($event) {
+        return _ctx.adminManagementUpdate(adminList.admin_number);
+      }
+    }, "변경", 8 /* PROPS */, _hoisted_11)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      "class": "admin_management_bottom_content_withdrawal_button",
+      onClick: function onClick($event) {
+        return _ctx.adminManagementWithdrawal(adminList.admin_number);
+      }
+    }, "탈퇴", 8 /* PROPS */, _hoisted_13)])]);
+  }), 128 /* KEYED_FRAGMENT */))]);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=template&id=1634359e":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=template&id=1634359e ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "admin_management_bottom_container"
+};
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<ul class=\"admin_management_bottom_title_ul\"><li class=\"font-semibold text-center admin_management_bottom_title_li\">사원번호</li><li class=\"font-semibold text-center admin_management_bottom_title_li\">이름</li><li class=\"font-semibold text-center admin_management_bottom_title_li\">등록일자</li><li class=\"font-semibold text-center admin_management_bottom_title_li\">권한</li><li class=\"font-semibold text-center admin_management_bottom_title_li\">변경</li><li class=\"font-semibold text-center admin_management_bottom_title_li\">탈퇴</li></ul>", 1);
+var _hoisted_3 = {
+  "class": "text-center admin_management_bottom_content_li"
+};
+var _hoisted_4 = {
+  "class": "text-center admin_management_bottom_content_li"
+};
+var _hoisted_5 = {
+  "class": "text-center admin_management_bottom_content_li"
+};
+var _hoisted_6 = {
+  "class": "text-center admin_management_bottom_content_li"
+};
+var _hoisted_7 = {
+  "class": "text-center admin_management_select",
+  name: "admin_flg",
+  id: "admin_flg"
+};
+var _hoisted_8 = ["selected"];
+var _hoisted_9 = ["selected"];
+var _hoisted_10 = {
+  "class": "text-center admin_management_bottom_content_li"
+};
+var _hoisted_11 = ["onClick"];
+var _hoisted_12 = {
+  "class": "text-center admin_management_bottom_content_li"
+};
+var _hoisted_13 = ["onClick"];
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 이용자 탭 "), _hoisted_2, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.$store.state.adminListData, function (adminList) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", {
+      "class": "admin_management_bottom_content_ul",
+      key: adminList
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(adminList.admin_number), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(adminList.admin_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(adminList.admin_created_at), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+      selected: adminList.admin_flg === 'Root',
+      value: "2"
+    }, "Root", 8 /* PROPS */, _hoisted_8), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+      selected: adminList.admin_flg === 'Sub',
+      value: "1"
+    }, "Sub", 8 /* PROPS */, _hoisted_9)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      "class": "admin_management_bottom_content_update_button",
+      onClick: function onClick($event) {
+        return _ctx.adminManagementUpdate(adminList.admin_number);
+      }
+    }, "변경", 8 /* PROPS */, _hoisted_11)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      "class": "admin_management_bottom_content_withdrawal_button",
+      onClick: function onClick($event) {
+        return _ctx.adminManagementWithdrawal(adminList.admin_number);
+      }
+    }, "탈퇴", 8 /* PROPS */, _hoisted_13)])]);
+  }), 128 /* KEYED_FRAGMENT */))]);
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminManagementComponent.vue?vue&type=template&id=340b00d9":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminManagementComponent.vue?vue&type=template&id=340b00d9 ***!
@@ -23780,11 +23916,10 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": "text-xl font-bold"
 }, "어드민 계정 목록", -1 /* HOISTED */);
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  value: "1",
-  selected: ""
+  value: "0"
 }, "최신 등록 순", -1 /* HOISTED */);
 var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  value: "2"
+  value: "1"
 }, "권한 순", -1 /* HOISTED */);
 var _hoisted_8 = [_hoisted_6, _hoisted_7];
 var _hoisted_9 = {
@@ -23884,38 +24019,9 @@ var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   d: "m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
 })], -1 /* HOISTED */);
 var _hoisted_30 = [_hoisted_28, _hoisted_29];
-var _hoisted_31 = {
-  "class": "admin_management_bottom_container"
-};
-var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<ul class=\"admin_management_bottom_title_ul\"><li class=\"font-semibold text-center admin_management_bottom_title_li\">사원번호</li><li class=\"font-semibold text-center admin_management_bottom_title_li\">이름</li><li class=\"font-semibold text-center admin_management_bottom_title_li\">등록일자</li><li class=\"font-semibold text-center admin_management_bottom_title_li\">권한</li><li class=\"font-semibold text-center admin_management_bottom_title_li\">변경</li><li class=\"font-semibold text-center admin_management_bottom_title_li\">탈퇴</li></ul>", 1);
-var _hoisted_33 = {
-  "class": "text-center admin_management_bottom_content_li"
-};
-var _hoisted_34 = {
-  "class": "text-center admin_management_bottom_content_li"
-};
-var _hoisted_35 = {
-  "class": "text-center admin_management_bottom_content_li"
-};
-var _hoisted_36 = {
-  "class": "text-center admin_management_bottom_content_li"
-};
-var _hoisted_37 = {
-  "class": "text-center admin_management_select",
-  name: "admin_flg",
-  id: "admin_flg"
-};
-var _hoisted_38 = ["selected"];
-var _hoisted_39 = ["selected"];
-var _hoisted_40 = {
-  "class": "text-center admin_management_bottom_content_li"
-};
-var _hoisted_41 = ["onClick"];
-var _hoisted_42 = {
-  "class": "text-center admin_management_bottom_content_li"
-};
-var _hoisted_43 = ["onClick"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_AdminListComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AdminListComponent");
+  var _component_AdminFlgListComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AdminFlgListComponent");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "class": "ml-5 text-center admin_management_select",
     name: "admin_list_select",
@@ -23926,56 +24032,39 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onChange: _cache[1] || (_cache[1] = function () {
       return $options.adminDataOptionChange && $options.adminDataOptionChange.apply($options, arguments);
     })
-  }, [].concat(_hoisted_8), 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.adminSelectOption]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 최신 등록 순 Pagination "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" currentPage 1페이지 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [$data.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_8), 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.adminSelectOption]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 최신 등록 순 Pagination "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" currentPage 1페이지 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_ctx.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_management_pagination_first_button",
     onClick: _cache[2] || (_cache[2] = function ($event) {
-      return $options.firstPagination();
+      return $options.moveFirstPage();
     })
-  }, [].concat(_hoisted_14))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_14))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_management_pagination_prev_button",
     onClick: _cache[3] || (_cache[3] = function ($event) {
-      return $options.prevPagination();
+      return $options.movePrevPage();
     })
-  }, [].concat(_hoisted_18))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminManagementListData.current_page) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminManagementListData.last_page), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" lastPage 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [$data.currentPage < $data.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_18))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.adminManagementListData.current_page) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.adminManagementListData.last_page), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" lastPage 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_ctx.currentPage < _ctx.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_management_pagination_next_button",
     onClick: _cache[4] || (_cache[4] = function ($event) {
-      return $options.nextpagination();
+      return $options.moveNextPage();
     })
-  }, [_hoisted_23, $data.currentPage !== $data.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_24, [].concat(_hoisted_26))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.currentPage < $data.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [_hoisted_23, _ctx.currentPage !== _ctx.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_24, [].concat(_hoisted_26))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.currentPage < _ctx.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_management_pagination_last_button",
     onClick: _cache[5] || (_cache[5] = function ($event) {
-      return $options.lastPagination();
+      return $options.moveLastPage();
     })
-  }, [].concat(_hoisted_30))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 이용자 탭 "), _hoisted_32, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.adminListData, function (adminList) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", {
-      "class": "admin_management_bottom_content_ul",
-      key: adminList
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(adminList.admin_number), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(adminList.admin_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(adminList.admin_created_at), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-      selected: adminList.admin_flg === 'Root',
-      value: "2"
-    }, "Root", 8 /* PROPS */, _hoisted_38), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-      selected: adminList.admin_flg === 'Sub',
-      value: "1"
-    }, "Sub", 8 /* PROPS */, _hoisted_39)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-      "class": "admin_management_bottom_content_update_button",
-      onClick: function onClick($event) {
-        return $options.adminManagementUpdate(adminList.admin_number);
-      }
-    }, "변경", 8 /* PROPS */, _hoisted_41)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-      "class": "admin_management_bottom_content_withdrawal_button",
-      onClick: function onClick($event) {
-        return $options.adminManagementWithdrawal(adminList.admin_number);
-      }
-    }, "탈퇴", 8 /* PROPS */, _hoisted_43)])]);
-  }), 128 /* KEYED_FRAGMENT */))])]);
+  }, [].concat(_hoisted_30))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), $data.adminSelectOption === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AdminListComponent, {
+    key: 0
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.adminSelectOption === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AdminFlgListComponent, {
+    key: 1
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
 }
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=template&id=bdc66b3a":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=template&id=bdc66b3a ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=template&id=df4328f4":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=template&id=df4328f4 ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -26690,8 +26779,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
 /* harmony import */ var _components_AppComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/AppComponent.vue */ "./resources/components/AppComponent.vue");
 /* harmony import */ var _components_MainComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/MainComponent.vue */ "./resources/components/MainComponent.vue");
 /* harmony import */ var _components_TestComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/TestComponent.vue */ "./resources/components/TestComponent.vue");
@@ -26702,20 +26790,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/User/LoginComponent.vue */ "./resources/components/User/LoginComponent.vue");
 /* harmony import */ var _components_Admin_AdminLoginComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/Admin/AdminLoginComponent.vue */ "./resources/components/Admin/AdminLoginComponent.vue");
 /* harmony import */ var _components_Admin_AdminSignUpComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/Admin/AdminSignUpComponent.vue */ "./resources/components/Admin/AdminSignUpComponent.vue");
-/* harmony import */ var _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/Admin/AdminIndexComponent.vue */ "./resources/components/Admin/AdminIndexComponent.vue");
-/* harmony import */ var _components_Admin_AdminUserManagementComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/Admin/AdminUserManagementComponent.vue */ "./resources/components/Admin/AdminUserManagementComponent.vue");
-/* harmony import */ var _components_Admin_AdminManagementComponent_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/Admin/AdminManagementComponent.vue */ "./resources/components/Admin/AdminManagementComponent.vue");
-/* harmony import */ var _components_Admin_AdminRegistrationComponent_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/Admin/AdminRegistrationComponent.vue */ "./resources/components/Admin/AdminRegistrationComponent.vue");
+/* harmony import */ var _components_Admin_AdminComponent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/Admin/AdminComponent.vue */ "./resources/components/Admin/AdminComponent.vue");
+/* harmony import */ var _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/Admin/AdminIndexComponent.vue */ "./resources/components/Admin/AdminIndexComponent.vue");
+/* harmony import */ var _components_Admin_UserManagement_AdminUserManagementComponent_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/Admin/UserManagement/AdminUserManagementComponent.vue */ "./resources/components/Admin/UserManagement/AdminUserManagementComponent.vue");
+/* harmony import */ var _components_Admin_AdminManagement_AdminManagementComponent_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/Admin/AdminManagement/AdminManagementComponent.vue */ "./resources/components/Admin/AdminManagement/AdminManagementComponent.vue");
+/* harmony import */ var _components_Admin_AdminRegistrationComponent_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/Admin/AdminRegistrationComponent.vue */ "./resources/components/Admin/AdminRegistrationComponent.vue");
 
-/* harmony import */ var _components_User_SignUpComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/User/SignUpComponent.vue */ "./resources/components/User/SignUpComponent.vue");
-/* harmony import */ var _components_User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/User/LoginComponent.vue */ "./resources/components/User/LoginComponent.vue");
-/* harmony import */ var _components_Admin_AdminLoginComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/Admin/AdminLoginComponent.vue */ "./resources/components/Admin/AdminLoginComponent.vue");
-/* harmony import */ var _components_Admin_AdminSignUpComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/Admin/AdminSignUpComponent.vue */ "./resources/components/Admin/AdminSignUpComponent.vue");
-/* harmony import */ var _components_Admin_AdminComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/Admin/AdminComponent.vue */ "./resources/components/Admin/AdminComponent.vue");
-/* harmony import */ var _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/Admin/AdminIndexComponent.vue */ "./resources/components/Admin/AdminIndexComponent.vue");
-/* harmony import */ var _components_Admin_UserManagement_AdminUserManagementComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/Admin/UserManagement/AdminUserManagementComponent.vue */ "./resources/components/Admin/UserManagement/AdminUserManagementComponent.vue");
-/* harmony import */ var _components_Admin_AdminManagement_AdminManagementComponent_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/Admin/AdminManagement/AdminManagementComponent.vue */ "./resources/components/Admin/AdminManagement/AdminManagementComponent.vue");
-/* harmony import */ var _components_Admin_AdminManagement_AdminRegistrationComponent_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/Admin/AdminManagement/AdminRegistrationComponent.vue */ "./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue");
 
 
 
@@ -26787,69 +26867,11 @@ var routes = [{
     requireAuth: true
   }
 }, {
-  path: '/admin/index',
-  component: _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
-  beforeEnter: function beforeEnter(to, from, next) {
-    if (!localStorage.getItem('token')) {
-      next('/admin');
-    } else {
-      next();
-    }
-  },
-  meta: {
-    title: 'Admin',
-    requireAuth: true
-  }
-}, {
-  path: '/admin/user/management',
-  name: 'Admin User Management',
-  component: _components_Admin_AdminUserManagementComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"],
-  beforeEnter: function beforeEnter(to, from, next) {
-    if (!localStorage.getItem('token')) {
-      next('/admin');
-    } else {
-      next();
-    }
-  },
-  meta: {
-    title: 'User 계정관리',
-    requireAuth: true
-  }
-}, {
-  path: '/admin/management',
-  name: 'Admin Management',
-  component: _components_Admin_AdminManagementComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"],
-  beforeEnter: function beforeEnter(to, from, next) {
-    if (!localStorage.getItem('token')) {
-      next('/admin');
-    } else {
-      next();
-    }
-  },
-  meta: {
-    title: 'Admin 계정관리',
-    requireAuth: true
-  }
-}, {
-  path: '/admin/registration',
-  name: 'Admin Registration',
-  component: _components_Admin_AdminRegistrationComponent_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
-  beforeEnter: function beforeEnter(to, from, next) {
-    if (!localStorage.getItem('token')) {
-      next('/admin');
-    } else {
-      next();
-    }
-  },
-  meta: {
-    title: 'Admin 가입승인',
-    requireAuth: true
-  }
   path: '/admin/dashboard',
-  component: _components_Admin_AdminComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
+  component: _components_Admin_AdminComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
   children: [{
     path: '',
-    component: _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
+    component: _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"],
     beforeEnter: function beforeEnter(to, from, next) {
       if (!localStorage.getItem('token')) {
         next('/admin');
@@ -26863,7 +26885,7 @@ var routes = [{
     }
   }, {
     path: 'user/management',
-    component: _components_Admin_UserManagement_AdminUserManagementComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"],
+    component: _components_Admin_UserManagement_AdminUserManagementComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"],
     beforeEnter: function beforeEnter(to, from, next) {
       if (!localStorage.getItem('token')) {
         next('/admin');
@@ -26877,7 +26899,7 @@ var routes = [{
     }
   }, {
     path: 'management',
-    component: _components_Admin_AdminManagement_AdminManagementComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"],
+    component: _components_Admin_AdminManagement_AdminManagementComponent_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
     beforeEnter: function beforeEnter(to, from, next) {
       if (!localStorage.getItem('token')) {
         next('/admin');
@@ -26891,7 +26913,7 @@ var routes = [{
     }
   }, {
     path: 'registration',
-    component: _components_Admin_AdminManagement_AdminRegistrationComponent_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
+    component: _components_Admin_AdminRegistrationComponent_vue__WEBPACK_IMPORTED_MODULE_14__["default"],
     beforeEnter: function beforeEnter(to, from, next) {
       if (!localStorage.getItem('token')) {
         next('/admin');
@@ -26905,10 +26927,8 @@ var routes = [{
     }
   }]
 }];
-var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_14__.createRouter)({
-  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_14__.createWebHistory)(),
-var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_14__.createRouter)({
-  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_14__.createWebHistory)(),
+var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_15__.createRouter)({
+  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_15__.createWebHistory)(),
   routes: routes
 });
 router.beforeEach(function (to, from, next) {
@@ -26969,7 +26989,12 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       userListData: [],
       userSelectOption: '0',
       // 0 : 최신 가입 순, 1 : 최신 결제 순                             
-      // User Management Pagination 데이터 저장용
+      // Admin Management 데이터 저장용
+      adminManagementListData: {},
+      adminListData: [],
+      adminSelectOption: '0',
+      // 0 : 최신 등록 순, 1 : 권한 순                             
+      // Management Pagination 데이터 저장용
       currentPage: null,
       lastPage: null
     };
@@ -27049,6 +27074,13 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
     userPaymentListModalClose: function userPaymentListModalClose(state) {
       state.userPaymentListModal = false;
     },
+    // Pagination
+    setCurrentPage: function setCurrentPage(state, currentPage) {
+      state.currentPage = currentPage;
+    },
+    setLastPage: function setLastPage(state, lastPage) {
+      state.lastPage = lastPage;
+    },
     // User Management
     setUserSelectOption: function setUserSelectOption(state, userSelectOption) {
       state.userSelectOption = userSelectOption;
@@ -27059,11 +27091,15 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
     setUserList: function setUserList(state, userListData) {
       state.userListData = userListData;
     },
-    setCurrentPage: function setCurrentPage(state, currentPage) {
-      state.currentPage = currentPage;
+    // Admin Management
+    setAdminSelectOption: function setAdminSelectOption(state, adminSelectOption) {
+      state.adminSelectOption = adminSelectOption;
     },
-    setLastPage: function setLastPage(state, lastPage) {
-      state.lastPage = lastPage;
+    setAdminManagementList: function setAdminManagementList(state, adminManagementListData) {
+      state.adminManagementListData = adminManagementListData;
+    },
+    setAdminList: function setAdminList(state, adminListData) {
+      state.adminListData = adminListData;
     }
   },
   actions: {
@@ -27237,45 +27273,142 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
         console.error(error);
       });
     },
-    // User Management Pagination
+    // Admin Management List 데이터 수신
+    adminManagementList: function adminManagementList(_ref5, page) {
+      var commit = _ref5.commit;
+      var URL = '/admin/management/adminManagementList?page=' + page;
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
+        if (response.data.code === "AML00") {
+          var adminListData = response.data.adminManagementList.data;
+          if (!Array.isArray(adminListData)) {
+            adminListData = [adminListData];
+          }
+          adminListData.forEach(function (admin) {
+            // admin_flg / 1, 2 => Sub, Root로 변경
+            if (admin.admin_flg === 1) {
+              admin.admin_flg = 'Sub';
+            } else {
+              admin.admin_flg = 'Root';
+            }
+          });
+          commit('setAdminManagementList', response.data.adminManagementList);
+          commit('setAdminList', adminListData);
+          commit('setCurrentPage', response.data.adminManagementList.current_page);
+          commit('setLastPage', response.data.adminManagementList.last_page);
+        } else {
+          console.error('서버 오류');
+        }
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    },
+    // Admin Management Flg List 데이터 수신
+    adminManagementFlgList: function adminManagementFlgList(_ref6, page) {
+      var commit = _ref6.commit;
+      var URL = '/admin/management/adminManagementFlgList?page=' + page;
+      var adminSelectOption = '1';
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
+        if (response.data.code === "AMFL00") {
+          var adminListData = response.data.adminManagementFlgList;
+          if (!Array.isArray(adminListData)) {
+            adminListData = [adminListData];
+          }
+          adminListData.forEach(function (admin) {
+            // admin_flg / 1, 2 => Sub, Root로 변경
+            if (admin.admin_flg === 1) {
+              admin.admin_flg = 'Sub';
+            } else {
+              admin.admin_flg = 'Root';
+            }
+          });
+          commit('setAdminManagementList', response.data.adminManagementFlgList);
+          console.log("adminManagementFlgList : ".adminManagementFlgList);
+          console.log("adminListData : ".adminListData);
+          commit('setAdminList', adminListData);
+          commit('setCurrentPage', response.data.adminManagementFlgList.current_page);
+          commit('setLastPage', response.data.adminManagementFlgList.last_page);
+          commit('setAdminSelectOption', adminSelectOption);
+        } else {
+          console.error('서버 오류');
+        }
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    },
+    // todo Admin 계정관리 부분 데이터 서버통신확인
+    // Management Pagination
     // 첫번째 페이지
-    firstPagination: function firstPagination(_ref5) {
-      var state = _ref5.state,
-        dispatch = _ref5.dispatch;
-      if (state.userSelectOption === '0') {
-        dispatch('userManagementList', 1);
-      } else if (state.userSelectOption === '1') {
-        dispatch('userManagementPaymentList', 1);
+    firstPagination: function firstPagination(_ref7) {
+      var state = _ref7.state,
+        dispatch = _ref7.dispatch;
+      if (state.userSelectOption) {
+        if (state.userSelectOption === '0') {
+          dispatch('userManagementList', 1);
+        } else if (state.userSelectOption === '1') {
+          dispatch('userManagementPaymentList', 1);
+        }
+      } else if (state.adminSelectOption) {
+        if (state.adminSelectOption === '0') {
+          dispatch('adminManagementList', 1);
+        } else if (state.adminSelectOption === '1') {
+          dispatch('adminManagementFlgList', 1);
+        }
       }
     },
     // 이전 페이지
-    prevPagination: function prevPagination(_ref6) {
-      var state = _ref6.state,
-        dispatch = _ref6.dispatch;
-      if (state.userSelectOption === '0') {
-        dispatch('userManagementList', state.currentPage - 1);
-      } else if (state.userSelectOption === '1') {
-        dispatch('userManagementPaymentList', state.currentPage - 1);
+    prevPagination: function prevPagination(_ref8) {
+      var state = _ref8.state,
+        dispatch = _ref8.dispatch;
+      var prevPage = state.currentPage - 1;
+      if (state.userSelectOption) {
+        if (state.userSelectOption === '0') {
+          dispatch('userManagementList', prevPage);
+        } else if (state.userSelectOption === '1') {
+          dispatch('userManagementPaymentList', prevPage);
+        }
+      } else if (state.adminSelectOption) {
+        if (state.adminSelectOption === '0') {
+          dispatch('adminManagementList', prevPage);
+        } else if (state.adminSelectOption === '1') {
+          dispatch('adminManagementFlgList', prevPage);
+        }
       }
     },
     // 다음 페이지
-    nextPagination: function nextPagination(_ref7) {
-      var state = _ref7.state,
-        dispatch = _ref7.dispatch;
-      if (state.userSelectOption === '0') {
-        dispatch('userManagementList', state.currentPage < state.lastPage ? state.currentPage + 1 : state.currentPage);
-      } else if (state.userSelectOption === '1') {
-        dispatch('userManagementPaymentList', state.currentPage < state.lastPage ? state.currentPage + 1 : state.currentPage);
+    nextPagination: function nextPagination(_ref9) {
+      var state = _ref9.state,
+        dispatch = _ref9.dispatch;
+      var nextPage = state.currentPage < state.lastPage ? state.currentPage + 1 : state.currentPage;
+      if (state.userSelectOption) {
+        if (state.userSelectOption === '0') {
+          dispatch('userManagementList', nextPage);
+        } else if (state.userSelectOption === '1') {
+          dispatch('userManagementPaymentList', nextPage);
+        }
+      } else if (state.adminSelectOption) {
+        if (state.adminSelectOption === '0') {
+          dispatch('adminManagementList', nextPage);
+        } else if (state.adminSelectOption === '1') {
+          dispatch('adminManagementFlgList', nextPage);
+        }
       }
     },
     // 마지막 페이지
-    lastPagination: function lastPagination(_ref8) {
-      var state = _ref8.state,
-        dispatch = _ref8.dispatch;
-      if (state.userSelectOption === '0') {
-        dispatch('userManagementList', state.lastPage);
-      } else if (state.userSelectOption === '1') {
-        dispatch('userManagementPaymentList', state.lastPage);
+    lastPagination: function lastPagination(_ref10) {
+      var state = _ref10.state,
+        dispatch = _ref10.dispatch;
+      if (state.userSelectOption) {
+        if (state.userSelectOption === '0') {
+          dispatch('userManagementList', state.lastPage);
+        } else if (state.userSelectOption === '1') {
+          dispatch('userManagementPaymentList', state.lastPage);
+        }
+      } else if (state.adminSelectOption) {
+        if (state.adminSelectOption === '0') {
+          dispatch('adminManagementList', state.lastPage);
+        } else if (state.adminSelectOption === '1') {
+          dispatch('adminManagementFlgList', state.lastPage);
+        }
       }
     }
   }
@@ -27356,6 +27489,54 @@ ___CSS_LOADER_EXPORT___.push([module.id, "@media (min-width: 335px) and (max-wid
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=style&index=0&id=dcf30662&lang=scss":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=style&index=0&id=dcf30662&lang=scss ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".admin_index_container {\n  width: 1700px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #ededed;\n  background-color: #EFF3F8;\n}\n.admin_index_container .admin_index_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container {\n  width: 20%;\n  height: 100vh;\n  background-color: #0B2161;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section {\n  width: 100%;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area .admin_index_left_info_image {\n  width: 100px;\n  height: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section {\n  width: 100%;\n  margin-bottom: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section .admin_index_left_logout_a {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section {\n  width: 100%;\n  margin: 20px 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input {\n  width: 70%;\n  height: 40px;\n  margin: auto;\n  padding: 4px;\n  outline: none;\n  background-color: transparent;\n  border-bottom: 1px solid transparent;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input:focus {\n  border-bottom: 1px solid #ededed;\n  transition: 0.8s;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  padding: 10px 40px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li {\n  width: 100%;\n  margin-bottom: 50px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_left_svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_right_svg {\n  margin-left: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_ul {\n  width: 100%;\n  display: block;\n}\n.admin_index_container .admin_index_section .admin_index_right_container {\n  width: 80%;\n  height: 100vh;\n  margin: 0 auto;\n  padding: 10px;\n  color: #666666;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 1350px;\n  margin: 10px auto;\n  display: flex;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section img {\n  width: 100px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_button_section svg {\n  width: 60px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 100%;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section .admin_index_right_top_title_area {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container {\n  width: 100%;\n  margin-bottom: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section {\n  width: 100%;\n  height: 100px;\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #FFF;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users svg {\n  width: 60px;\n  height: 60px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_register_users_text {\n  width: 100%;\n  padding: 20px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container {\n  width: 100%;\n  height: 400px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section {\n  width: 100%;\n  height: 100%;\n  margin-bottom: 10px;\n  background-color: #fff;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area {\n  width: 100%;\n  height: 100%;\n  padding: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area .admin_index_right_bottom_chart_image {\n  width: 1200px;\n  height: 300px;\n  margin: 0 auto;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section {\n  width: 50%;\n  height: 250px;\n  border-radius: 10px;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area {\n  width: 100%;\n  padding: 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a {\n  display: flex;\n}\n.admin_management_container {\n  width: 80%;\n  height: 100vh;\n  margin: 0px auto;\n  padding: 10px;\n  color: #666666;\n}\n.admin_management_container .admin_management_top_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_top_container .admin_management_top_title_section {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_management_container .admin_management_middle_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_select {\n  margin-right: 100px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_select:focus {\n  outline: none;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 0 auto;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_page_span_area {\n  width: 250px;\n  position: relative;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_page_span_area .admin_management_pagination_page_span {\n  width: 100%;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  right: 30%;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n  z-index: 9999;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_first_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_prev_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_first_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_prev_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_first_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_prev_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_first_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_prev_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  left: 30%;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_next_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_last_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_next_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_last_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_next_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_last_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_next_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_last_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_management_container .admin_management_bottom_container {\n  width: 100%;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_title_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_title_ul .admin_management_bottom_title_li:not(:nth-child(3)) {\n  width: 100px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_title_ul .admin_management_bottom_title_li:nth-child(3) {\n  width: 200px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li:not(:nth-child(3)) {\n  width: 100px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li:nth-child(3) {\n  width: 200px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_update_button,\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_withdrawal_button {\n  width: 80px;\n  height: 24px;\n  line-height: 24px;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_update_button:hover,\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_withdrawal_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=style&index=0&id=1634359e&lang=scss":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=style&index=0&id=1634359e&lang=scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".admin_index_container {\n  width: 1700px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #ededed;\n  background-color: #EFF3F8;\n}\n.admin_index_container .admin_index_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container {\n  width: 20%;\n  height: 100vh;\n  background-color: #0B2161;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section {\n  width: 100%;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area .admin_index_left_info_image {\n  width: 100px;\n  height: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section {\n  width: 100%;\n  margin-bottom: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section .admin_index_left_logout_a {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section {\n  width: 100%;\n  margin: 20px 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input {\n  width: 70%;\n  height: 40px;\n  margin: auto;\n  padding: 4px;\n  outline: none;\n  background-color: transparent;\n  border-bottom: 1px solid transparent;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input:focus {\n  border-bottom: 1px solid #ededed;\n  transition: 0.8s;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  padding: 10px 40px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li {\n  width: 100%;\n  margin-bottom: 50px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_left_svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_right_svg {\n  margin-left: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_ul {\n  width: 100%;\n  display: block;\n}\n.admin_index_container .admin_index_section .admin_index_right_container {\n  width: 80%;\n  height: 100vh;\n  margin: 0 auto;\n  padding: 10px;\n  color: #666666;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 1350px;\n  margin: 10px auto;\n  display: flex;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section img {\n  width: 100px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_button_section svg {\n  width: 60px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 100%;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section .admin_index_right_top_title_area {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container {\n  width: 100%;\n  margin-bottom: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section {\n  width: 100%;\n  height: 100px;\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #FFF;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users svg {\n  width: 60px;\n  height: 60px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_register_users_text {\n  width: 100%;\n  padding: 20px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container {\n  width: 100%;\n  height: 400px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section {\n  width: 100%;\n  height: 100%;\n  margin-bottom: 10px;\n  background-color: #fff;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area {\n  width: 100%;\n  height: 100%;\n  padding: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area .admin_index_right_bottom_chart_image {\n  width: 1200px;\n  height: 300px;\n  margin: 0 auto;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section {\n  width: 50%;\n  height: 250px;\n  border-radius: 10px;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area {\n  width: 100%;\n  padding: 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a {\n  display: flex;\n}\n.admin_management_container {\n  width: 80%;\n  height: 100vh;\n  margin: 0px auto;\n  padding: 10px;\n  color: #666666;\n}\n.admin_management_container .admin_management_top_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_top_container .admin_management_top_title_section {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_management_container .admin_management_middle_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_select {\n  margin-right: 100px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_select:focus {\n  outline: none;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 0 auto;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_page_span_area {\n  width: 250px;\n  position: relative;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_page_span_area .admin_management_pagination_page_span {\n  width: 100%;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  right: 30%;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n  z-index: 9999;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_first_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_prev_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_first_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_prev_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_first_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_first_button_area .admin_management_pagination_prev_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_first_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_left_button_area .admin_management_pagination_prev_button_area .admin_management_pagination_prev_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  left: 30%;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_next_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_last_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_next_button,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_last_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_next_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_next_button_area .admin_management_pagination_last_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_next_button:hover,\n.admin_management_container .admin_management_middle_container .admin_management_middle_section .admin_management_pagination_section .admin_management_pagination_right_button_area .admin_management_pagination_last_button_area .admin_management_pagination_last_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_management_container .admin_management_bottom_container {\n  width: 100%;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_title_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_title_ul .admin_management_bottom_title_li:not(:nth-child(3)) {\n  width: 100px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_title_ul .admin_management_bottom_title_li:nth-child(3) {\n  width: 200px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li:not(:nth-child(3)) {\n  width: 100px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li:nth-child(3) {\n  width: 200px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_update_button,\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_withdrawal_button {\n  width: 80px;\n  height: 24px;\n  line-height: 24px;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_update_button:hover,\n.admin_management_container .admin_management_bottom_container .admin_management_bottom_content_ul .admin_management_bottom_content_li .admin_management_bottom_content_withdrawal_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminManagementComponent.vue?vue&type=style&index=0&id=340b00d9&lang=scss":
 /*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminManagementComponent.vue?vue&type=style&index=0&id=340b00d9&lang=scss ***!
@@ -27380,10 +27561,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".admin_index_container {\n  width: 170
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=style&index=0&id=bdc66b3a&lang=scss":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=style&index=0&id=bdc66b3a&lang=scss ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -27391,7 +27572,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
 // Imports
 
@@ -45376,6 +45557,66 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=style&index=0&id=dcf30662&lang=scss":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=style&index=0&id=dcf30662&lang=scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminFlgListComponent_vue_vue_type_style_index_0_id_dcf30662_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminFlgListComponent.vue?vue&type=style&index=0&id=dcf30662&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=style&index=0&id=dcf30662&lang=scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminFlgListComponent_vue_vue_type_style_index_0_id_dcf30662_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminFlgListComponent_vue_vue_type_style_index_0_id_dcf30662_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=style&index=0&id=1634359e&lang=scss":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=style&index=0&id=1634359e&lang=scss ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminListComponent_vue_vue_type_style_index_0_id_1634359e_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminListComponent.vue?vue&type=style&index=0&id=1634359e&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=style&index=0&id=1634359e&lang=scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminListComponent_vue_vue_type_style_index_0_id_1634359e_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminListComponent_vue_vue_type_style_index_0_id_1634359e_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminManagementComponent.vue?vue&type=style&index=0&id=340b00d9&lang=scss":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminManagementComponent.vue?vue&type=style&index=0&id=340b00d9&lang=scss ***!
@@ -45406,10 +45647,10 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=style&index=0&id=bdc66b3a&lang=scss":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=style&index=0&id=bdc66b3a&lang=scss ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -45417,9 +45658,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_bdc66b3a_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=style&index=0&id=bdc66b3a&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=style&index=0&id=bdc66b3a&lang=scss");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_df4328f4_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss");
 
             
 
@@ -45428,11 +45669,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_bdc66b3a_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_df4328f4_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_bdc66b3a_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_df4328f4_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -46231,6 +46472,68 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue":
+/*!******************************************************************************!*\
+  !*** ./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AdminFlgListComponent_vue_vue_type_template_id_dcf30662__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminFlgListComponent.vue?vue&type=template&id=dcf30662 */ "./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=template&id=dcf30662");
+/* harmony import */ var _AdminFlgListComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminFlgListComponent.vue?vue&type=script&lang=js */ "./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _AdminFlgListComponent_vue_vue_type_style_index_0_id_dcf30662_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminFlgListComponent.vue?vue&type=style&index=0&id=dcf30662&lang=scss */ "./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=style&index=0&id=dcf30662&lang=scss");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+
+
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AdminFlgListComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AdminFlgListComponent_vue_vue_type_template_id_dcf30662__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/Admin/AdminManagement/AdminFlgListComponent.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./resources/components/Admin/AdminManagement/AdminListComponent.vue":
+/*!***************************************************************************!*\
+  !*** ./resources/components/Admin/AdminManagement/AdminListComponent.vue ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AdminListComponent_vue_vue_type_template_id_1634359e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminListComponent.vue?vue&type=template&id=1634359e */ "./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=template&id=1634359e");
+/* harmony import */ var _AdminListComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminListComponent.vue?vue&type=script&lang=js */ "./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _AdminListComponent_vue_vue_type_style_index_0_id_1634359e_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminListComponent.vue?vue&type=style&index=0&id=1634359e&lang=scss */ "./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=style&index=0&id=1634359e&lang=scss");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+
+
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AdminListComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AdminListComponent_vue_vue_type_template_id_1634359e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/Admin/AdminManagement/AdminListComponent.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/components/Admin/AdminManagement/AdminManagementComponent.vue":
 /*!*********************************************************************************!*\
   !*** ./resources/components/Admin/AdminManagement/AdminManagementComponent.vue ***!
@@ -46262,10 +46565,10 @@ if (false) {}
 
 /***/ }),
 
-/***/ "./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue":
-/*!***********************************************************************************!*\
-  !*** ./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue ***!
-  \***********************************************************************************/
+/***/ "./resources/components/Admin/AdminRegistrationComponent.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/components/Admin/AdminRegistrationComponent.vue ***!
+  \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -46273,10 +46576,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _AdminRegistrationComponent_vue_vue_type_template_id_bdc66b3a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminRegistrationComponent.vue?vue&type=template&id=bdc66b3a */ "./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=template&id=bdc66b3a");
-/* harmony import */ var _AdminRegistrationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminRegistrationComponent.vue?vue&type=script&lang=js */ "./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=script&lang=js");
-/* harmony import */ var _AdminRegistrationComponent_vue_vue_type_style_index_0_id_bdc66b3a_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminRegistrationComponent.vue?vue&type=style&index=0&id=bdc66b3a&lang=scss */ "./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=style&index=0&id=bdc66b3a&lang=scss");
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _AdminRegistrationComponent_vue_vue_type_template_id_df4328f4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminRegistrationComponent.vue?vue&type=template&id=df4328f4 */ "./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=template&id=df4328f4");
+/* harmony import */ var _AdminRegistrationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminRegistrationComponent.vue?vue&type=script&lang=js */ "./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _AdminRegistrationComponent_vue_vue_type_style_index_0_id_df4328f4_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss */ "./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -46284,7 +46587,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AdminRegistrationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AdminRegistrationComponent_vue_vue_type_template_id_bdc66b3a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue"]])
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AdminRegistrationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AdminRegistrationComponent_vue_vue_type_template_id_df4328f4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/Admin/AdminRegistrationComponent.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -46772,6 +47075,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=script&lang=js":
+/*!******************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=script&lang=js ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminFlgListComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminFlgListComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminFlgListComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
+/***/ "./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=script&lang=js":
+/*!***************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=script&lang=js ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminListComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminListComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminListComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/components/Admin/AdminManagement/AdminManagementComponent.vue?vue&type=script&lang=js":
 /*!*********************************************************************************************************!*\
   !*** ./resources/components/Admin/AdminManagement/AdminManagementComponent.vue?vue&type=script&lang=js ***!
@@ -46788,10 +47123,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=script&lang=js":
-/*!***********************************************************************************************************!*\
-  !*** ./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=script&lang=js ***!
-  \***********************************************************************************************************/
+/***/ "./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=script&lang=js":
+/*!*******************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=script&lang=js ***!
+  \*******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -46799,7 +47134,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=script&lang=js");
  
 
 /***/ }),
@@ -47076,6 +47411,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=template&id=dcf30662":
+/*!************************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=template&id=dcf30662 ***!
+  \************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminFlgListComponent_vue_vue_type_template_id_dcf30662__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminFlgListComponent_vue_vue_type_template_id_dcf30662__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminFlgListComponent.vue?vue&type=template&id=dcf30662 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=template&id=dcf30662");
+
+
+/***/ }),
+
+/***/ "./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=template&id=1634359e":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=template&id=1634359e ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminListComponent_vue_vue_type_template_id_1634359e__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminListComponent_vue_vue_type_template_id_1634359e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminListComponent.vue?vue&type=template&id=1634359e */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=template&id=1634359e");
+
+
+/***/ }),
+
 /***/ "./resources/components/Admin/AdminManagement/AdminManagementComponent.vue?vue&type=template&id=340b00d9":
 /*!***************************************************************************************************************!*\
   !*** ./resources/components/Admin/AdminManagement/AdminManagementComponent.vue?vue&type=template&id=340b00d9 ***!
@@ -47092,18 +47459,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=template&id=bdc66b3a":
-/*!*****************************************************************************************************************!*\
-  !*** ./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=template&id=bdc66b3a ***!
-  \*****************************************************************************************************************/
+/***/ "./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=template&id=df4328f4":
+/*!*************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=template&id=df4328f4 ***!
+  \*************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_template_id_bdc66b3a__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_template_id_df4328f4__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_template_id_bdc66b3a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=template&id=bdc66b3a */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=template&id=bdc66b3a");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_template_id_df4328f4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=template&id=df4328f4 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=template&id=df4328f4");
 
 
 /***/ }),
@@ -47371,6 +47738,32 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=style&index=0&id=dcf30662&lang=scss":
+/*!***************************************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=style&index=0&id=dcf30662&lang=scss ***!
+  \***************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminFlgListComponent_vue_vue_type_style_index_0_id_dcf30662_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminFlgListComponent.vue?vue&type=style&index=0&id=dcf30662&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminFlgListComponent.vue?vue&type=style&index=0&id=dcf30662&lang=scss");
+
+
+/***/ }),
+
+/***/ "./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=style&index=0&id=1634359e&lang=scss":
+/*!************************************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=style&index=0&id=1634359e&lang=scss ***!
+  \************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminListComponent_vue_vue_type_style_index_0_id_1634359e_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminListComponent.vue?vue&type=style&index=0&id=1634359e&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminListComponent.vue?vue&type=style&index=0&id=1634359e&lang=scss");
+
+
+/***/ }),
+
 /***/ "./resources/components/Admin/AdminManagement/AdminManagementComponent.vue?vue&type=style&index=0&id=340b00d9&lang=scss":
 /*!******************************************************************************************************************************!*\
   !*** ./resources/components/Admin/AdminManagement/AdminManagementComponent.vue?vue&type=style&index=0&id=340b00d9&lang=scss ***!
@@ -47384,15 +47777,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=style&index=0&id=bdc66b3a&lang=scss":
-/*!********************************************************************************************************************************!*\
-  !*** ./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=style&index=0&id=bdc66b3a&lang=scss ***!
-  \********************************************************************************************************************************/
+/***/ "./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss ***!
+  \****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_bdc66b3a_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=style&index=0&id=bdc66b3a&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminManagement/AdminRegistrationComponent.vue?vue&type=style&index=0&id=bdc66b3a&lang=scss");
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_df4328f4_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss");
 
 
 /***/ }),

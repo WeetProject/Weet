@@ -79,6 +79,13 @@ export default {
 		AdminUserListComponent,
 		AdminUserPaymentListComponent,
 	},
+
+	computed: {
+		...mapState({
+			currentPage: state => state.currentPage,
+			lastPage: state => state.lastPage
+		})
+	},
     
 	data() {
 		return {
@@ -96,13 +103,6 @@ export default {
 
 	created() {
 		this.$store.dispatch('userManagementList', 1);
-	},
-
-	computed: {
-		...mapState({
-			currentPage: state => state.currentPage,
-			lastPage: state => state.lastPage
-		})
 	},
 
 	mounted() {
@@ -159,6 +159,7 @@ export default {
 					alert(this.adminLogoutAlertError);
 				});
 		},
+		
 		// User Management Option 핸들러
 		userDataOptionChange() {
 			if (this.userSelectOption === '0') {

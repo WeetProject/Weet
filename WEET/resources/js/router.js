@@ -22,7 +22,7 @@ import AdminUserManagementComponent from '../components/Admin/UserManagement/Adm
 // Admin Management
 import AdminManagementComponent from '../components/Admin/AdminManagement/AdminManagementComponent.vue';
 // Admin Registration
-import AdminRegistrationComponent from '../components/Admin/AdminManagement/AdminRegistrationComponent.vue';
+import AdminRegistrationComponent from '../components/Admin/AdminRegistrationComponent.vue';
 
 const routes = [
 	{
