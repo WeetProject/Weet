@@ -20975,7 +20975,7 @@ __webpack_require__.r(__webpack_exports__);
     // Total 데이터 수신
     totalUserData: function totalUserData() {
       var _this2 = this;
-      var URL = '/admin/index/totalData';
+      var URL = '/admin/dashboard/totalData';
       axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL).then(function (response) {
         if (response.data.code === "TD00") {
           _this2.totalPayment = response.data.totalPayment;
@@ -20999,7 +20999,7 @@ __webpack_require__.r(__webpack_exports__);
     // Monthly 데이터 수신
     monthlyData: function monthlyData() {
       var _this3 = this;
-      var URL = '/admin/index/monthlyData';
+      var URL = '/admin/dashboard/monthlyData';
       axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL).then(function (response) {
         if (response.data.code === "MD00") {
           response.data.monthlyReservation.forEach(function (monthlyReservation) {
@@ -21167,7 +21167,7 @@ __webpack_require__.r(__webpack_exports__);
     // Total 데이터 수신
     totalUserData: function totalUserData() {
       var _this2 = this;
-      var URL = '/admin/index/totalData';
+      var URL = '/admin/dashboard/totalData';
       axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL).then(function (response) {
         if (response.data.code === "TD00") {
           _this2.totalPayment = response.data.totalPayment;
@@ -21191,7 +21191,7 @@ __webpack_require__.r(__webpack_exports__);
     // Monthly 데이터 수신
     monthlyData: function monthlyData() {
       var _this3 = this;
-      var URL = '/admin/index/monthlyData';
+      var URL = '/admin/dashboard/monthlyData';
       axios__WEBPACK_IMPORTED_MODULE_0___default().get(URL).then(function (response) {
         if (response.data.code === "MD00") {
           response.data.monthlyReservation.forEach(function (monthlyReservation) {
@@ -21419,7 +21419,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
           "Authorization": "Bearer ".concat(token)
         }
       };
-      console.log(header);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, null, header).then(function (response) {
         if (response.data.code === "ALO00") {
           localStorage.clear();
@@ -21436,6 +21435,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // Admin Management Option 핸들러
     adminDataOptionChange: function adminDataOptionChange() {
+      console.log(this.adminSelectOption);
+      this.$store.commit('setAdminSelectOption', this.adminSelectOption);
       if (this.adminSelectOption === '0') {
         this.$store.dispatch('adminManagementList', 1);
       } else if (this.adminSelectOption === '1') {
@@ -21909,7 +21910,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
           "Authorization": "Bearer ".concat(token)
         }
       };
-      console.log(header);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, null, header).then(function (response) {
         if (response.data.code === "ALO00") {
           localStorage.clear();
@@ -21926,12 +21926,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // User Management Option 핸들러
     userDataOptionChange: function userDataOptionChange() {
+      this.$store.commit('setUserSelectOption', this.userSelectOption);
       if (this.userSelectOption === '0') {
         this.$store.dispatch('userManagementList', 1);
       } else if (this.userSelectOption === '1') {
         this.$store.dispatch('userManagementPaymentList', 1);
       }
     },
+    // User Management Pagination
     moveFirstPage: function moveFirstPage() {
       this.$store.dispatch('firstPagination');
     },
@@ -23916,7 +23918,8 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": "text-xl font-bold"
 }, "어드민 계정 목록", -1 /* HOISTED */);
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  value: "0"
+  value: "0",
+  selected: ""
 }, "최신 등록 순", -1 /* HOISTED */);
 var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "1"
@@ -23984,29 +23987,27 @@ var _hoisted_22 = {
 var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-bold"
 }, "다음", -1 /* HOISTED */);
-var _hoisted_24 = {
-  key: 0,
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   fill: "none",
   viewBox: "0 0 24 24",
   "stroke-width": "1.5",
   stroke: "currentColor",
   "class": "w-6 h-6"
-};
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   "stroke-linecap": "round",
   "stroke-linejoin": "round",
   d: "m8.25 4.5 7.5 7.5-7.5 7.5"
-}, null, -1 /* HOISTED */);
-var _hoisted_26 = [_hoisted_25];
-var _hoisted_27 = {
+})], -1 /* HOISTED */);
+var _hoisted_25 = [_hoisted_23, _hoisted_24];
+var _hoisted_26 = {
   key: 1,
   "class": "ml-2 admin_management_pagination_last_button_area"
 };
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-bold"
 }, "끝", -1 /* HOISTED */);
-var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   fill: "none",
   viewBox: "0 0 24 24",
@@ -24018,7 +24019,7 @@ var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "stroke-linejoin": "round",
   d: "m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
 })], -1 /* HOISTED */);
-var _hoisted_30 = [_hoisted_28, _hoisted_29];
+var _hoisted_29 = [_hoisted_27, _hoisted_28];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_AdminListComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AdminListComponent");
   var _component_AdminFlgListComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AdminFlgListComponent");
@@ -24047,12 +24048,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[4] || (_cache[4] = function ($event) {
       return $options.moveNextPage();
     })
-  }, [_hoisted_23, _ctx.currentPage !== _ctx.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_24, [].concat(_hoisted_26))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.currentPage < _ctx.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_25))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.currentPage < _ctx.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_management_pagination_last_button",
     onClick: _cache[5] || (_cache[5] = function ($event) {
       return $options.moveLastPage();
     })
-  }, [].concat(_hoisted_30))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), $data.adminSelectOption === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AdminListComponent, {
+  }, [].concat(_hoisted_29))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), $data.adminSelectOption === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AdminListComponent, {
     key: 0
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.adminSelectOption === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AdminFlgListComponent, {
     key: 1
@@ -24684,29 +24685,27 @@ var _hoisted_22 = {
 var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-bold"
 }, "다음", -1 /* HOISTED */);
-var _hoisted_24 = {
-  key: 0,
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   fill: "none",
   viewBox: "0 0 24 24",
   "stroke-width": "1.5",
   stroke: "currentColor",
   "class": "w-6 h-6"
-};
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   "stroke-linecap": "round",
   "stroke-linejoin": "round",
   d: "m8.25 4.5 7.5 7.5-7.5 7.5"
-}, null, -1 /* HOISTED */);
-var _hoisted_26 = [_hoisted_25];
-var _hoisted_27 = {
+})], -1 /* HOISTED */);
+var _hoisted_25 = [_hoisted_23, _hoisted_24];
+var _hoisted_26 = {
   key: 1,
   "class": "ml-2 admin_user_management_pagination_last_button_area"
 };
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-bold"
 }, "끝", -1 /* HOISTED */);
-var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   fill: "none",
   viewBox: "0 0 24 24",
@@ -24718,7 +24717,7 @@ var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "stroke-linejoin": "round",
   d: "m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
 })], -1 /* HOISTED */);
-var _hoisted_30 = [_hoisted_28, _hoisted_29];
+var _hoisted_29 = [_hoisted_27, _hoisted_28];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_AdminUserListComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AdminUserListComponent");
   var _component_AdminUserPaymentListComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AdminUserPaymentListComponent");
@@ -24747,12 +24746,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[4] || (_cache[4] = function ($event) {
       return $options.moveNextPage();
     })
-  }, [_hoisted_23, _ctx.currentPage !== _ctx.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_24, [].concat(_hoisted_26))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.currentPage < _ctx.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_25))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.currentPage < _ctx.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_user_management_pagination_last_button",
     onClick: _cache[5] || (_cache[5] = function ($event) {
       return $options.moveLastPage();
     })
-  }, [].concat(_hoisted_30))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), $data.userSelectOption === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AdminUserListComponent, {
+  }, [].concat(_hoisted_29))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), $data.userSelectOption === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AdminUserListComponent, {
     key: 0
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.userSelectOption === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AdminUserPaymentListComponent, {
     key: 1
@@ -26995,8 +26994,8 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       adminSelectOption: '0',
       // 0 : 최신 등록 순, 1 : 권한 순                             
       // Management Pagination 데이터 저장용
-      currentPage: null,
-      lastPage: null
+      currentPage: 1,
+      lastPage: ''
     };
   },
   mutations: {
@@ -27232,19 +27231,20 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
     // ### Admin ###
     // User Management List 데이터 수신
     userManagementList: function userManagementList(_ref3, page) {
+      var _this = this;
       var commit = _ref3.commit;
-      var URL = '/admin/user/management/userManagementList?page=' + page;
+      var URL = '/admin/dashboard/user/management/userManagementList?page=' + page;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
         if (response.data.code === "UML00") {
-          var userListData = response.data.userManagementList.data;
-          userListData.forEach(function (user) {
+          _this.state.userListData = response.data.userManagementList.data;
+          _this.state.userListData.forEach(function (user) {
             // user_gender / M, F => 남자, 여자로 변경
             user.user_gender = user.user_gender === 'M' ? '남' : '여';
             // user_flg / 0, 1 => 정상, 정지로 변경
             user.user_flg = user.user_flg === 0 ? '정상' : '정지';
           });
           commit('setUserManagementList', response.data.userManagementList);
-          commit('setUserList', userListData);
+          commit('setUserList', _this.state.userListData);
           commit('setCurrentPage', response.data.userManagementList.current_page);
           commit('setLastPage', response.data.userManagementList.last_page);
         } else {
@@ -27257,7 +27257,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
     // User Management Payment List 데이터 수신
     userManagementPaymentList: function userManagementPaymentList(_ref4, page) {
       var commit = _ref4.commit;
-      var URL = '/admin/user/management/userManagementPaymentList?page=' + page;
+      var URL = '/admin/dashboard/user/management/userManagementPaymentList?page=' + page;
       var userSelectOption = '1';
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
         if (response.data.code === "UMPL00") {
@@ -27275,15 +27275,13 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
     },
     // Admin Management List 데이터 수신
     adminManagementList: function adminManagementList(_ref5, page) {
+      var _this2 = this;
       var commit = _ref5.commit;
-      var URL = '/admin/management/adminManagementList?page=' + page;
+      var URL = '/admin/dashboard/management/adminManagementList?page=' + page;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
         if (response.data.code === "AML00") {
-          var adminListData = response.data.adminManagementList.data;
-          if (!Array.isArray(adminListData)) {
-            adminListData = [adminListData];
-          }
-          adminListData.forEach(function (admin) {
+          _this2.state.adminListData = response.data.adminManagementList.data;
+          _this2.state.adminListData.forEach(function (admin) {
             // admin_flg / 1, 2 => Sub, Root로 변경
             if (admin.admin_flg === 1) {
               admin.admin_flg = 'Sub';
@@ -27292,7 +27290,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
             }
           });
           commit('setAdminManagementList', response.data.adminManagementList);
-          commit('setAdminList', adminListData);
+          commit('setAdminList', _this2.state.adminListData);
           commit('setCurrentPage', response.data.adminManagementList.current_page);
           commit('setLastPage', response.data.adminManagementList.last_page);
         } else {
@@ -27304,16 +27302,14 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
     },
     // Admin Management Flg List 데이터 수신
     adminManagementFlgList: function adminManagementFlgList(_ref6, page) {
+      var _this3 = this;
       var commit = _ref6.commit;
-      var URL = '/admin/management/adminManagementFlgList?page=' + page;
+      var URL = '/admin/dashboard/management/adminManagementFlgList?page=' + page;
       var adminSelectOption = '1';
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
         if (response.data.code === "AMFL00") {
-          var adminListData = response.data.adminManagementFlgList;
-          if (!Array.isArray(adminListData)) {
-            adminListData = [adminListData];
-          }
-          adminListData.forEach(function (admin) {
+          _this3.state.adminListData = response.data.adminManagementFlgList.data;
+          _this3.state.adminListData.forEach(function (admin) {
             // admin_flg / 1, 2 => Sub, Root로 변경
             if (admin.admin_flg === 1) {
               admin.admin_flg = 'Sub';
@@ -27322,9 +27318,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
             }
           });
           commit('setAdminManagementList', response.data.adminManagementFlgList);
-          console.log("adminManagementFlgList : ".adminManagementFlgList);
-          console.log("adminListData : ".adminListData);
-          commit('setAdminList', adminListData);
+          commit('setAdminList', _this3.state.adminListData);
           commit('setCurrentPage', response.data.adminManagementFlgList.current_page);
           commit('setLastPage', response.data.adminManagementFlgList.last_page);
           commit('setAdminSelectOption', adminSelectOption);
@@ -27335,80 +27329,65 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
         console.error(error);
       });
     },
-    // todo Admin 계정관리 부분 데이터 서버통신확인
     // Management Pagination
-    // 첫번째 페이지
-    firstPagination: function firstPagination(_ref7) {
+    pagination: function pagination(_ref7, page) {
       var state = _ref7.state,
         dispatch = _ref7.dispatch;
-      if (state.userSelectOption) {
-        if (state.userSelectOption === '0') {
-          dispatch('userManagementList', 1);
-        } else if (state.userSelectOption === '1') {
-          dispatch('userManagementPaymentList', 1);
+      if (page !== state.currentPage) {
+        console.log('유저 셀렉트' + state.userSelectOption);
+        console.log('어드민 셀렉트' + state.adminSelectOption);
+        if (state.userSelectOption !== undefined) {
+          if (state.userSelectOption === '0') {
+            console.log('userManagementList 함수 실행');
+            dispatch('userManagementList', page);
+          } else {
+            console.log('userManagementPaymentList 함수 실행');
+            dispatch('userManagementPaymentList', page);
+          }
         }
-      } else if (state.adminSelectOption) {
-        if (state.adminSelectOption === '0') {
-          dispatch('adminManagementList', 1);
-        } else if (state.adminSelectOption === '1') {
-          dispatch('adminManagementFlgList', 1);
+        if (state.adminSelectOption !== undefined) {
+          if (state.adminSelectOption === '0') {
+            console.log('adminManagementList 함수 실행');
+            dispatch('adminManagementList', page);
+          } else {
+            console.log('adminManagementFlgList 함수 실행');
+            dispatch('adminManagementFlgList', page);
+          }
         }
+      }
+    },
+    // 첫번째 페이지
+    firstPagination: function firstPagination(_ref8) {
+      var state = _ref8.state,
+        dispatch = _ref8.dispatch;
+      if (state.currentPage !== 1) {
+        dispatch('pagination', 1);
       }
     },
     // 이전 페이지
-    prevPagination: function prevPagination(_ref8) {
-      var state = _ref8.state,
-        dispatch = _ref8.dispatch;
+    prevPagination: function prevPagination(_ref9) {
+      var state = _ref9.state,
+        dispatch = _ref9.dispatch;
       var prevPage = state.currentPage - 1;
-      if (state.userSelectOption) {
-        if (state.userSelectOption === '0') {
-          dispatch('userManagementList', prevPage);
-        } else if (state.userSelectOption === '1') {
-          dispatch('userManagementPaymentList', prevPage);
-        }
-      } else if (state.adminSelectOption) {
-        if (state.adminSelectOption === '0') {
-          dispatch('adminManagementList', prevPage);
-        } else if (state.adminSelectOption === '1') {
-          dispatch('adminManagementFlgList', prevPage);
-        }
+      if (prevPage > 0) {
+        dispatch('pagination', prevPage);
       }
     },
     // 다음 페이지
-    nextPagination: function nextPagination(_ref9) {
-      var state = _ref9.state,
-        dispatch = _ref9.dispatch;
-      var nextPage = state.currentPage < state.lastPage ? state.currentPage + 1 : state.currentPage;
-      if (state.userSelectOption) {
-        if (state.userSelectOption === '0') {
-          dispatch('userManagementList', nextPage);
-        } else if (state.userSelectOption === '1') {
-          dispatch('userManagementPaymentList', nextPage);
-        }
-      } else if (state.adminSelectOption) {
-        if (state.adminSelectOption === '0') {
-          dispatch('adminManagementList', nextPage);
-        } else if (state.adminSelectOption === '1') {
-          dispatch('adminManagementFlgList', nextPage);
-        }
+    nextPagination: function nextPagination(_ref10) {
+      var state = _ref10.state,
+        dispatch = _ref10.dispatch;
+      var nextPage = state.currentPage + 1;
+      if (nextPage <= state.lastPage) {
+        dispatch('pagination', nextPage);
       }
     },
     // 마지막 페이지
-    lastPagination: function lastPagination(_ref10) {
-      var state = _ref10.state,
-        dispatch = _ref10.dispatch;
-      if (state.userSelectOption) {
-        if (state.userSelectOption === '0') {
-          dispatch('userManagementList', state.lastPage);
-        } else if (state.userSelectOption === '1') {
-          dispatch('userManagementPaymentList', state.lastPage);
-        }
-      } else if (state.adminSelectOption) {
-        if (state.adminSelectOption === '0') {
-          dispatch('adminManagementList', state.lastPage);
-        } else if (state.adminSelectOption === '1') {
-          dispatch('adminManagementFlgList', state.lastPage);
-        }
+    lastPagination: function lastPagination(_ref11) {
+      var state = _ref11.state,
+        dispatch = _ref11.dispatch;
+      if (state.currentPage !== state.lastPage) {
+        dispatch('pagination', state.lastPage);
       }
     }
   }

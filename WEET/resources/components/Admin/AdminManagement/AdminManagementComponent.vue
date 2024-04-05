@@ -12,7 +12,7 @@
 				<select class="ml-5 text-center admin_management_select" 
 				name="admin_list_select" id="admin_list_select"
 				v-model="adminSelectOption" @change="adminDataOptionChange">
-					<option value="0">최신 등록 순</option>
+					<option value="0" selected>최신 등록 순</option>
 					<option value="1">권한 순</option>
 				</select>
 				<!-- 최신 등록 순 Pagination -->
@@ -46,7 +46,7 @@
 						<div class="admin_management_pagination_next_button_area" v-if="currentPage < lastPage">
 							<button class="admin_management_pagination_next_button" @click="moveNextPage()">
 								<span class="font-bold">다음</span>
-								<svg v-if="currentPage !== lastPage" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 									<path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
 								</svg>
 							</button>
@@ -140,7 +140,6 @@ export default {
                     "Authorization": `Bearer ${token}`,
                 },
             };
-			console.log(header);
 			axios.post(URL, null ,header)
 				.then(response => {
 					if(response.data.code === "ALO00") {
@@ -160,7 +159,9 @@ export default {
 
 		// Admin Management Option 핸들러
 		adminDataOptionChange() {
-			if (this.adminSelectOption === '0') {
+			console.log(this.adminSelectOption);
+			this.$store.commit('setAdminSelectOption', this.adminSelectOption);
+			if (this.adminSelectOption === '0') {				
 				this.$store.dispatch('adminManagementList', 1);
 			} else if (this.adminSelectOption === '1') {
 				this.$store.dispatch('adminManagementFlgList', 1);

@@ -228,7 +228,7 @@ export default {
 		},
 		// Total 데이터 수신
 		totalUserData() {
-			const URL = '/admin/index/totalData';
+			const URL = '/admin/dashboard/totalData';
 			axios.get(URL)
 				.then(response => {
 					if(response.data.code === "TD00") {
@@ -253,7 +253,7 @@ export default {
 		},
 		// Monthly 데이터 수신
 		monthlyData() {
-			const URL = '/admin/index/monthlyData';
+			const URL = '/admin/dashboard/monthlyData';
 			axios.get(URL)
 				.then(response => {
 					if(response.data.code === "MD00") {

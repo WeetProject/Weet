@@ -46,7 +46,7 @@
 						<div class="admin_user_management_pagination_next_button_area" v-if="currentPage < lastPage">
 							<button class="admin_user_management_pagination_next_button" @click="moveNextPage()">
 								<span class="font-bold">다음</span>
-								<svg v-if="currentPage !== lastPage" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 									<path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
 								</svg>
 							</button>
@@ -142,7 +142,6 @@ export default {
                     "Authorization": `Bearer ${token}`,
                 },
             };
-			console.log(header);
 			axios.post(URL, null ,header)
 				.then(response => {
 					if(response.data.code === "ALO00") {
@@ -162,12 +161,15 @@ export default {
 		
 		// User Management Option 핸들러
 		userDataOptionChange() {
+			this.$store.commit('setUserSelectOption', this.userSelectOption);
 			if (this.userSelectOption === '0') {
 				this.$store.dispatch('userManagementList', 1);
 			} else if (this.userSelectOption === '1') {
 				this.$store.dispatch('userManagementPaymentList', 1);
 			}
 		},
+
+		// User Management Pagination
 		moveFirstPage() {
 			this.$store.dispatch('firstPagination');
 		},
