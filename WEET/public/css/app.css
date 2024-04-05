@@ -643,6 +643,9 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
+.p-4 {
+  padding: 1rem;
+}
 .px-5 {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
@@ -668,6 +671,12 @@ video {
 }
 .pr-3 {
   padding-right: 0.75rem;
+}
+.pb-4 {
+  padding-bottom: 1rem;
+}
+.pt-4 {
+  padding-top: 1rem;
 }
 .text-left {
   text-align: left;
