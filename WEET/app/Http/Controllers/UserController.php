@@ -85,6 +85,12 @@ class UserController extends Controller
         // $userEmail = $result->user_email;
         Log::debug($result->user_id);
         // $tokenInfo = $result->only('user_email', 'password');
+        
+        // 토큰 저장한번해봄
+        // $saveToken = User::find($result->user_id);
+        // $saveToken->remember_token = $controllerToken;
+        // $saveToken->save();
+        
         // Log::debug("토큰정보");
         // Log::debug($tokenInfo);
         return response()->json([
