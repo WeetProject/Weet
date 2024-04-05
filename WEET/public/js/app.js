@@ -22201,6 +22201,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/HotelComponent.vue?vue&type=script&lang=js":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/HotelComponent.vue?vue&type=script&lang=js ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/ReservationComponent.vue?vue&type=script&lang=js":
 /*!***********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/ReservationComponent.vue?vue&type=script&lang=js ***!
@@ -22578,7 +22593,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // 예약테이블 저장
     addReservation: function addReservation() {
       var _this4 = this;
-      var URL = '/reservation';
+      var URL = '/reservation/air';
       var formData = new FormData();
       formData.append('reservation_flight_number1', this.departureAirplaneNum);
       formData.append('reservation_departure_airport1', this.departureAirport1);
@@ -25047,6 +25062,25 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/HotelComponent.vue?vue&type=template&id=5053121d&lang=true":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/HotelComponent.vue?vue&type=template&id=5053121d&lang=true ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div");
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/ReservationComponent.vue?vue&type=template&id=1f12fbf6":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/ReservationComponent.vue?vue&type=template&id=1f12fbf6 ***!
@@ -26028,7 +26062,7 @@ var _hoisted_23 = {
   key: 1,
   "class": "mypage_main_view_tab"
 };
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_reservation\"><div class=\"mypage_main_view_user_reservation_menu\"><div class=\"mypage_main_view_user_reservation_menu_all\"><span>전체</span></div><div class=\"mypage_main_view_user_reservation_menu_all\"><span>항공권</span></div><div class=\"mypage_main_view_user_reservation_menu_all\"><span>호텔</span></div></div><div class=\"mypage_main_view_user_reservation_ticket\"><div class=\"mypage_main_view_user_reservation_ticket_date\"><span>2024.04.03</span><span>~</span><span>2024.04.10</span></div><div class=\"mypage_main_view_user_reservation_ticket_list\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_name\"><div><span>진에어</span></div><div><span>진에어</span></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 07:05</span></div><div><span>PUS</span></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_img\"><span>소요시간</span><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-arrow-right\" viewBox=\"0 0 16 16\"><path fill-rule=\"evenodd\" d=\"M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8\"></path></svg></span><span>직항</span></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 08:00</span></div><div><span>CJU</span></div></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 07:05</span></div><div><span>PUS</span></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_img\"><span>소요시간</span><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-arrow-right\" viewBox=\"0 0 16 16\"><path fill-rule=\"evenodd\" d=\"M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8\"></path></svg></span><span>직항</span></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 08:00</span></div><div><span>CJU</span></div></div></div></div><div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_info\"><div><button>예약상세</button></div><div><button>예약취소</button></div></div></div></div></div>", 1);
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_reservation\"><div class=\"mypage_main_view_user_reservation_menu\"><div class=\"mypage_main_view_user_reservation_menu_all\"><span>전체</span></div><div class=\"mypage_main_view_user_reservation_menu_all\"><span>항공권</span></div><div class=\"mypage_main_view_user_reservation_menu_all\"><span>호텔</span></div></div><div class=\"mypage_main_view_user_reservation_ticket\"><div class=\"mypage_main_view_user_reservation_ticket_date\"><span>2024.04.03</span><span>~</span><span>2024.04.10</span></div><div class=\"mypage_main_view_user_reservation_ticket_list\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_name\"><div><span>진에어</span></div><div><span>진에어</span></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 07:05</span></div><div><span>PUS</span></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_img\"><span>소요시간</span><span><!-- &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot; class=&quot;bi bi-arrow-right&quot; viewBox=&quot;0 0 16 16&quot;&gt;\r\n                                                &lt;path fill-rule=&quot;evenodd&quot; d=&quot;M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8&quot;/&gt;\r\n                                            &lt;/svg&gt; --><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" class=\"w-6 h-6\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3\"></path></svg></span><span>직항</span></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 08:00</span></div><div><span>CJU</span></div></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 07:05</span></div><div><span>CJU</span></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_img\"><span>소요시간</span><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-arrow-right\" viewBox=\"0 0 16 16\"><path fill-rule=\"evenodd\" d=\"M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8\"></path></svg></span><span>직항</span></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 08:00</span></div><div><span>PUS</span></div></div></div></div><div class=\"mypage_vertical_line\"></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_info\"><div><button>예약상세</button></div><div><button>예약취소</button></div></div></div></div></div>", 1);
 var _hoisted_25 = [_hoisted_24];
 var _hoisted_26 = {
   key: 2,
@@ -26657,11 +26691,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
 /* harmony import */ var _components_AppComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/AppComponent.vue */ "./resources/components/AppComponent.vue");
 /* harmony import */ var _components_MainComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/MainComponent.vue */ "./resources/components/MainComponent.vue");
 /* harmony import */ var _components_TestComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/TestComponent.vue */ "./resources/components/TestComponent.vue");
 /* harmony import */ var _components_User_MypageComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/User/MypageComponent.vue */ "./resources/components/User/MypageComponent.vue");
 /* harmony import */ var _components_Reservation_ReservationComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Reservation/ReservationComponent.vue */ "./resources/components/Reservation/ReservationComponent.vue");
+/* harmony import */ var _components_Reservation_HotelComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Reservation/HotelComponent.vue */ "./resources/components/Reservation/HotelComponent.vue");
+/* harmony import */ var _components_User_SignUpComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/User/SignUpComponent.vue */ "./resources/components/User/SignUpComponent.vue");
+/* harmony import */ var _components_User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/User/LoginComponent.vue */ "./resources/components/User/LoginComponent.vue");
+/* harmony import */ var _components_Admin_AdminLoginComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/Admin/AdminLoginComponent.vue */ "./resources/components/Admin/AdminLoginComponent.vue");
+/* harmony import */ var _components_Admin_AdminSignUpComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/Admin/AdminSignUpComponent.vue */ "./resources/components/Admin/AdminSignUpComponent.vue");
+/* harmony import */ var _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/Admin/AdminIndexComponent.vue */ "./resources/components/Admin/AdminIndexComponent.vue");
+/* harmony import */ var _components_Admin_AdminUserManagementComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/Admin/AdminUserManagementComponent.vue */ "./resources/components/Admin/AdminUserManagementComponent.vue");
+/* harmony import */ var _components_Admin_AdminManagementComponent_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/Admin/AdminManagementComponent.vue */ "./resources/components/Admin/AdminManagementComponent.vue");
+/* harmony import */ var _components_Admin_AdminRegistrationComponent_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/Admin/AdminRegistrationComponent.vue */ "./resources/components/Admin/AdminRegistrationComponent.vue");
+
 /* harmony import */ var _components_User_SignUpComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/User/SignUpComponent.vue */ "./resources/components/User/SignUpComponent.vue");
 /* harmony import */ var _components_User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/User/LoginComponent.vue */ "./resources/components/User/LoginComponent.vue");
 /* harmony import */ var _components_Admin_AdminLoginComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/Admin/AdminLoginComponent.vue */ "./resources/components/Admin/AdminLoginComponent.vue");
@@ -26705,20 +26750,23 @@ var routes = [{
   path: '/mypage',
   component: _components_User_MypageComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, {
-  path: '/reservation',
+  path: '/reservation/air',
   component: _components_Reservation_ReservationComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, {
+  path: '/reservation/hotel',
+  component: _components_Reservation_HotelComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+}, {
   path: '/signup',
-  component: _components_User_SignUpComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+  component: _components_User_SignUpComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, {
   path: '/login',
-  component: _components_User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+  component: _components_User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
 },
 // Admin
 {
   path: '/admin',
   name: 'Admin',
-  component: _components_Admin_AdminLoginComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+  component: _components_Admin_AdminLoginComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
   meta: {
     title: 'Admin'
   }
@@ -26733,12 +26781,70 @@ var routes = [{
 }, {
   path: '/admin/signup',
   name: 'Admin Signup',
-  component: _components_Admin_AdminSignUpComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
+  component: _components_Admin_AdminSignUpComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
   meta: {
     title: '회원가입',
     requireAuth: true
   }
 }, {
+  path: '/admin/index',
+  component: _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
+  beforeEnter: function beforeEnter(to, from, next) {
+    if (!localStorage.getItem('token')) {
+      next('/admin');
+    } else {
+      next();
+    }
+  },
+  meta: {
+    title: 'Admin',
+    requireAuth: true
+  }
+}, {
+  path: '/admin/user/management',
+  name: 'Admin User Management',
+  component: _components_Admin_AdminUserManagementComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"],
+  beforeEnter: function beforeEnter(to, from, next) {
+    if (!localStorage.getItem('token')) {
+      next('/admin');
+    } else {
+      next();
+    }
+  },
+  meta: {
+    title: 'User 계정관리',
+    requireAuth: true
+  }
+}, {
+  path: '/admin/management',
+  name: 'Admin Management',
+  component: _components_Admin_AdminManagementComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"],
+  beforeEnter: function beforeEnter(to, from, next) {
+    if (!localStorage.getItem('token')) {
+      next('/admin');
+    } else {
+      next();
+    }
+  },
+  meta: {
+    title: 'Admin 계정관리',
+    requireAuth: true
+  }
+}, {
+  path: '/admin/registration',
+  name: 'Admin Registration',
+  component: _components_Admin_AdminRegistrationComponent_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
+  beforeEnter: function beforeEnter(to, from, next) {
+    if (!localStorage.getItem('token')) {
+      next('/admin');
+    } else {
+      next();
+    }
+  },
+  meta: {
+    title: 'Admin 가입승인',
+    requireAuth: true
+  }
   path: '/admin/dashboard',
   component: _components_Admin_AdminComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
   children: [{
@@ -26799,6 +26905,8 @@ var routes = [{
     }
   }]
 }];
+var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_14__.createRouter)({
+  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_14__.createWebHistory)(),
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_14__.createRouter)({
   history: (0,vue_router__WEBPACK_IMPORTED_MODULE_14__.createWebHistory)(),
   routes: routes
@@ -27577,7 +27685,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@media (min-width: 1024px) {\n.mypage_container {\n    width: 1200px;\n    margin: 50px auto;\n    display: flex;\n    text-align: center;\n}\n.mypage_side_view {\n    width: 20%;\n    margin-right: 10px;\n    background-color: #ededed;\n    display: grid;\n    align-items: center;\n    align-content: space-evenly;\n}\n.mypage_side_view li {\n    cursor: pointer;\n}\n.mypage_side_view_user_info {\n    padding: 10px;\n}\n.mypage_side_view_user_info_name span {\n    font-size: 1.2rem;\n    font-weight: 600;\n}\n.mypage_side_view_user_info_email span {\n    font-size: 0.9rem;\n}\n.mypage_side_view_tab_list {\n    list-style: none;\n    display: grid;\n    grid-template-columns: 1fr; /* 한 열에 하나의 아이템 */\n    gap: 50px;\n    font-weight: 600;\n    color: #0B2161;\n}\n.mypage_main_view {\n    width: 80%;\n    margin: auto 0;\n}\n.mypage_main_view_user_info_box_content {\n    display: flex;\n    align-items: center;\n    padding: 10px;\n}\n.mypage_main_view_user_info_box_content_label {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    padding: 10px;\n    width: 30%;\n}\n.mypage_main_view_user_info_box_content_input {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_input input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_input :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_info_box_content_span {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_postcode_div {\n    display: flex;\n    width: 80%;\n    margin: auto 0;\n}\n.mypage_main_view_user_info_box_content_postcode_div_label {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    padding: 10px;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 30%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_reservation_menu {\n    display: flex;\n    font-size: 11px;\n    gap: 5px;\n}\n.mypage_main_view_user_reservation_menu_all {\n    border: 1px solid #081742;\n    border-radius: 5px;\n    padding: 5px;\n}\n.mypage_main_view_user_reservation_ticket {\n    margin: 20px 0;\n    border: 1px solid #ededed;\n    background-color: #ededed;\n    padding: 10px 20px 30px 20px;\n}\n.mypage_main_view_user_reservation_ticket_date {\n    display: flex;\n    align-items: center;\n    margin: 5px 10px;\n}\n.mypage_main_view_user_reservation_ticket_list {\n    background-color: #fff;\n    border-radius: 5px;\n    padding: 15px;\n    display: flex;\n    justify-content: space-evenly;\n    align-items: center;\n    box-shadow: 2px 2px 3px 0px gray;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_name {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    gap: 70px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_time_route {\n    display: flex;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin: 10px;\n    padding: 10px 50px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_time_route_info {\n    margin: 15px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_time_route_img {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    font-size: 12px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_info div {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    background-color: #ededed;\n    color: #fff;\n    padding: 10px;\n    margin: 5px;\n}\n}\n@media (min-width: 1024px) {\n.regist_container_wrap {\n    width: 1000px;\n    margin: 0 auto;\n}\n.container_signup_none {\n    display: none;\n}\n.regist_container {\n    color: #666;\n    text-align: center;\n}\n.regist_container .regist_logo_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 40px 0;\n    font-size: 30px;\n    font-weight: bold;\n}\n.regist_container .regist_logo_div_main_logo {\n    width: 100px;\n}\n.regist_container .terms_conditions {\n    text-align: center;\n}\n.regist_container .terms_conditions_title {\n    margin-bottom: 10px;\n}\n.regist_container .terms_conditions_box {\n    border: 1px solid #2C3E50;\n    border-radius: 5px;\n    padding: 20px;\n    width: 50%;\n    text-align: start;\n    margin: 20px auto;\n    overflow: auto;\n    font-size: 12px;\n    color: #333;\n}\n.regist_container .terms_conditions_label {\n    font-size: 13px;\n    color: #666;\n}\n.regist_container .terms_conditions_checkbox {\n    margin: 0 5px;\n}\n.regist_container .terms_conditions_checkbox_btn {\n    margin: 10px 0;\n}\n.regist_container .regist_button {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    margin: 20px 0;\n}\n.regist_container .regist_button_cel {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_button_cel:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_button_nxt {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-left: 5px;\n}\n.regist_container .regist_button_nxt:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_user_info_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.regist_container .regist_user_info_box {\n    display: flex;\n    text-align: center;\n    justify-content: center;\n    flex-direction: column;\n    margin: 10px 0;\n}\n.regist_container .regist_user_info_box_content {\n    margin: 15px 0;\n    display: flex;\n    justify-content: space-between;\n}\n.regist_container .regist_user_info_box_label {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: 50%;\n}\n.regist_container .regist_user_info_box_label_postcode {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: auto;\n}\n.regist_container .regist_user_info_box_input {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n    width: 400px;\n    position: relative;\n}\n.regist_container .regist_user_info_box_input input {\n    width: 100%;\n}\n.regist_container .regist_user_info_box_input :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box input::-moz-placeholder {\n    font-size: 12px;\n}\n.regist_container .regist_user_info_box input::placeholder {\n    font-size: 12px;\n}\n.regist_container .regist_user_info_box_input_postcode {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_postcode :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_search {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_search :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_basic_address {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_basic_address :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_gender {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_gender :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_gender {\n    display: flex;\n    align-items: center;\n    justify-content: space-evenly;\n}\n.regist_container .regist_user_info_box_gender_choose {\n    display: flex;\n}\n.regist_container .regist_user_info_box .regist_message_container {\n    position: absolute;\n    top: 100%;\n    left: 0;\n    width: 100%;\n    margin: 5px 5px; /* 추가적인 여백을 위해 설정 */\n    text-align: start;\n}\n.regist_container .regist_user_info_box_email_chk {\n    margin-top: 5px;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n@media (min-width: 1024px) {\n.mypage_container {\n    width: 1200px;\n    margin: 50px auto;\n    display: flex;\n    text-align: center;\n}\n.mypage_side_view {\n    width: 20%;\n    margin-right: 10px;\n    background-color: #ededed;\n    display: grid;\n    align-items: center;\n    align-content: space-evenly;\n}\n.mypage_side_view li {\n    cursor: pointer;\n}\n.mypage_side_view_user_info {\n    padding: 10px;\n}\n.mypage_side_view_user_info_name span {\n    font-size: 1.2rem;\n    font-weight: 600;\n}\n.mypage_side_view_user_info_email span {\n    font-size: 0.9rem;\n}\n.mypage_side_view_tab_list {\n    list-style: none;\n    display: grid;\n    grid-template-columns: 1fr; /* 한 열에 하나의 아이템 */\n    gap: 50px;\n    font-weight: 600;\n    color: #0B2161;\n}\n.mypage_main_view {\n    width: 80%;\n    margin: auto 0;\n}\n.mypage_main_view_user_info_box_content {\n    display: flex;\n    align-items: center;\n    padding: 10px;\n}\n.mypage_main_view_user_info_box_content_label {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    padding: 10px;\n    width: 30%;\n}\n.mypage_main_view_user_info_box_content_input {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_input input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_input :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_info_box_content_span {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_postcode_div {\n    display: flex;\n    width: 80%;\n    margin: auto 0;\n}\n.mypage_main_view_user_info_box_content_postcode_div_label {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    padding: 10px;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 30%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 {\n    margin: auto;\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    width: 60%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 input {\n    width: 100%;\n}\n.mypage_main_view_user_info_box_content_postcode_div_input2 :focus {\n    outline: none;\n    border: none;\n}\n.mypage_main_view_user_reservation_menu {\n    display: flex;\n    font-size: 11px;\n    gap: 5px;\n}\n.mypage_main_view_user_reservation_menu_all {\n    border: 1px solid #081742;\n    border-radius: 5px;\n    padding: 5px;\n}\n.mypage_main_view_user_reservation_ticket {\n    margin: 20px 0;\n    border: 1px solid #ededed;\n    background-color: #ededed;\n    padding: 10px 20px 30px 20px;\n}\n.mypage_main_view_user_reservation_ticket_date {\n    display: flex;\n    align-items: center;\n    margin: 5px 10px;\n}\n.mypage_main_view_user_reservation_ticket_list {\n    background-color: #fff;\n    border-radius: 5px;\n    padding: 15px;\n    display: flex;\n    justify-content: space-evenly;\n    align-items: center;\n    box-shadow: 2px 2px 3px 0px gray;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_name {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    gap: 70px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_time_route {\n    display: flex;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin: 10px;\n    padding: 10px 50px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_time_route_info {\n    margin: 15px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_time_route_img {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    font-size: 12px;\n}\n.mypage_main_view_user_reservation_ticket_list_flight_info div {\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    background-color: #ededed;\n    color: #fff;\n    padding: 10px;\n    margin: 5px;\n}\n}\n@media (min-width: 1024px) {\n.regist_container_wrap {\n    width: 1000px;\n    margin: 0 auto;\n}\n.container_signup_none {\n    display: none;\n}\n.regist_container {\n    color: #666;\n    text-align: center;\n}\n.regist_container .regist_logo_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 40px 0;\n    font-size: 30px;\n    font-weight: bold;\n}\n.regist_container .regist_logo_div_main_logo {\n    width: 100px;\n}\n.regist_container .terms_conditions {\n    text-align: center;\n}\n.regist_container .terms_conditions_title {\n    margin-bottom: 10px;\n}\n.regist_container .terms_conditions_box {\n    border: 1px solid #2C3E50;\n    border-radius: 5px;\n    padding: 20px;\n    width: 50%;\n    text-align: start;\n    margin: 20px auto;\n    overflow: auto;\n    font-size: 12px;\n    color: #333;\n}\n.regist_container .terms_conditions_label {\n    font-size: 13px;\n    color: #666;\n}\n.regist_container .terms_conditions_checkbox {\n    margin: 0 5px;\n}\n.regist_container .terms_conditions_checkbox_btn {\n    margin: 10px 0;\n}\n.regist_container .regist_button {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    margin: 20px 0;\n}\n.regist_container .regist_button_cel {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_button_cel:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_button_nxt {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-left: 5px;\n}\n.regist_container .regist_button_nxt:hover {\n    border: none;\n    background-color: #c5dfff;\n}\n.regist_container .regist_user_info_div {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.regist_container .regist_user_info_box {\n    display: flex;\n    text-align: center;\n    justify-content: center;\n    flex-direction: column;\n    margin: 10px 0;\n}\n.regist_container .regist_user_info_box_content {\n    margin: 15px 0;\n    display: flex;\n    justify-content: space-between;\n}\n.regist_container .regist_user_info_box_label {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: 50%;\n}\n.regist_container .regist_user_info_box_label_postcode {\n    margin-right: 5px;\n    border: 1px solid #ededed;\n    padding: 10px;\n    border-radius: 5px;\n    width: auto;\n}\n.regist_container .regist_user_info_box_input {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n    width: 400px;\n    position: relative;\n}\n.regist_container .regist_user_info_box_input input {\n    width: 100%;\n}\n.regist_container .regist_user_info_box_input :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box input::-moz-placeholder {\n    font-size: 12px;\n}\n.regist_container .regist_user_info_box input::placeholder {\n    font-size: 12px;\n}\n.regist_container .regist_user_info_box_input_postcode {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_postcode :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_search {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_search :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_basic_address {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_basic_address :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_input_gender {\n    padding: 10px;\n    border: 1px solid #ededed;\n    border-radius: 5px;\n    margin-right: 5px;\n}\n.regist_container .regist_user_info_box_input_gender :focus {\n    outline: none;\n    border: none;\n}\n.regist_container .regist_user_info_box_gender {\n    display: flex;\n    align-items: center;\n    justify-content: space-evenly;\n}\n.regist_container .regist_user_info_box_gender_choose {\n    display: flex;\n}\n.regist_container .regist_user_info_box .regist_message_container {\n    position: absolute;\n    top: 100%;\n    left: 0;\n    width: 100%;\n    margin: 5px 5px; /* 추가적인 여백을 위해 설정 */\n    text-align: start;\n}\n.regist_container .regist_user_info_box_email_chk {\n    margin-top: 5px;\n}\n}\n.mypage_vertical_line {\n  border-left: 1px solid #ededed; /* 수직 구분선의 스타일 설정 */\n  height: 250px; /* 수직 구분선의 높이 설정 */\n  margin: 0 10px; /* 수직 구분선의 좌우 여백 설정 */\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -46433,6 +46541,34 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/components/Reservation/HotelComponent.vue":
+/*!*************************************************************!*\
+  !*** ./resources/components/Reservation/HotelComponent.vue ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _HotelComponent_vue_vue_type_template_id_5053121d_lang_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HotelComponent.vue?vue&type=template&id=5053121d&lang=true */ "./resources/components/Reservation/HotelComponent.vue?vue&type=template&id=5053121d&lang=true");
+/* harmony import */ var _HotelComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HotelComponent.vue?vue&type=script&lang=js */ "./resources/components/Reservation/HotelComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_HotelComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_HotelComponent_vue_vue_type_template_id_5053121d_lang_true__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/Reservation/HotelComponent.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/components/Reservation/ReservationComponent.vue":
 /*!*******************************************************************!*\
   !*** ./resources/components/Reservation/ReservationComponent.vue ***!
@@ -46796,6 +46932,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/components/Reservation/HotelComponent.vue?vue&type=script&lang=js":
+/*!*************************************************************************************!*\
+  !*** ./resources/components/Reservation/HotelComponent.vue?vue&type=script&lang=js ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_HotelComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_HotelComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./HotelComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/HotelComponent.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/components/Reservation/ReservationComponent.vue?vue&type=script&lang=js":
 /*!*******************************************************************************************!*\
   !*** ./resources/components/Reservation/ReservationComponent.vue?vue&type=script&lang=js ***!
@@ -47080,6 +47232,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_MainComponent_vue_vue_type_template_id_10ba9c23__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_MainComponent_vue_vue_type_template_id_10ba9c23__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./MainComponent.vue?vue&type=template&id=10ba9c23 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/MainComponent.vue?vue&type=template&id=10ba9c23");
+
+
+/***/ }),
+
+/***/ "./resources/components/Reservation/HotelComponent.vue?vue&type=template&id=5053121d&lang=true":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/components/Reservation/HotelComponent.vue?vue&type=template&id=5053121d&lang=true ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_HotelComponent_vue_vue_type_template_id_5053121d_lang_true__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_HotelComponent_vue_vue_type_template_id_5053121d_lang_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./HotelComponent.vue?vue&type=template&id=5053121d&lang=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Reservation/HotelComponent.vue?vue&type=template&id=5053121d&lang=true");
 
 
 /***/ }),

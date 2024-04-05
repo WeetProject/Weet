@@ -4,6 +4,7 @@ import MainComponent from '../components/MainComponent.vue';
 import TestComponent from '../components/TestComponent.vue';
 import MypageComponent from '../components/User/MypageComponent.vue';
 import ReservationComponent from '../components/Reservation/ReservationComponent.vue';
+import HotelComponent from '../components/Reservation/HotelComponent.vue';
 import SignUpComponent from '../components/User/SignUpComponent.vue';
 import LoginComponent from '../components/User/LoginComponent.vue';
 
@@ -37,8 +38,12 @@ const routes = [
 		component: MypageComponent
 	},
 	{
-		path: '/reservation',
+		path: '/reservation/air',
 		component: ReservationComponent
+	},	
+	{
+		path: '/reservation/hotel',
+		component: HotelComponent
 	},	
 	{
 		path: '/signup',

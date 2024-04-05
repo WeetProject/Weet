@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 
-class ReservationController extends Controller
+class ReservationAirController extends Controller
 {
     // 예약완료기능
-    public function reservationPost(Request $req){
+    public function reservationAirPost(Request $req){
         Log::debug($req->arrivalAirport1);
         try {
             $reservationData = $req->only(

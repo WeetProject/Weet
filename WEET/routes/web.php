@@ -10,7 +10,8 @@ use App\Http\Controllers\AdminUpdateController;
 use App\Http\Controllers\AdminWithdrawalController;
 use App\Http\Controllers\AdminRegistrationController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ReservationAirController;
+use App\Http\Controllers\ReservationHotelController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MyPageController;
 
@@ -39,11 +40,15 @@ Route::get('/mypage', function () {
 
 // reservation 그룹
 Route::prefix('reservation')->group(function() {
-    Route::get('/', function () {
+    Route::get('/hotel', function () {
+        return view('welcome');
+    });
+    Route::get('/air', function () {
         return view('welcome');
     });
     // 예약기능
-    Route::post('/', [ReservationController::class, 'reservationPost']);
+    Route::post('/air', [ReservationAirController::class, 'reservationAirPost']);
+    Route::post('/hotel', [ReservationHotelController::class, 'reservationHotelPost']);
 });
 
 // payment 결제기능
