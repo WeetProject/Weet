@@ -51,7 +51,7 @@
 							</a>
 							<ul class="admin_index_left_nav_dropdown_ul" v-if="userDropdown">
 								<li>
-									<router-link to="/admin/user/management" class="admin_index_left_nav_a">
+									<router-link to="/admin/dashboard/user/management" class="admin_index_left_nav_a">
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 											<path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
 										</svg>
@@ -88,7 +88,7 @@
 									</a>
 								</li>
 								<li>
-									<router-link to="/admin/management" class="admin_index_left_nav_a">
+									<router-link to="/admin/dashboard/management" class="admin_index_left_nav_a">
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 											<path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
 										</svg>
@@ -96,7 +96,7 @@
 									</router-link>
 								</li>
 								<li>
-									<router-link to="/admin/registration" class="admin_index_left_nav_a">
+									<router-link to="/admin/dashboard/registration" class="admin_index_left_nav_a">
 										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 											<path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
 										</svg>
@@ -108,112 +108,97 @@
 					</ul>
 				</div>
 			</div>
-			<div class="admin_user_management_container">
-				<div class="admin_user_management_top_container">
-					<div class="admin_user_management_top_title_section">
-						<span class="mb-5 text-xl font-bold">이용자 계정 관리</span>
-						<span>이용자 계정에 대한 탈퇴처리 및 최근 로그인 이력을 확인할 수 있어요.</span>
-					</div>
-				</div>
-				<div class="admin_user_management_middle_container">
-					<div class="admin_user_management_middle_section">
-						<span class="text-xl font-bold">이용자 목록</span>
-						<select class="ml-5 text-center admin_user_management_select" 
-						name="user_list_select" id="user_list_select"
-						v-model="userSelectOption" @change="userDataOptionChange">
-							<option value="0">최신 가입 순</option>
-							<option value="1">최신 결제 순</option>
-						</select>
-						<!-- Pagination -->
-						<div class="relative admin_user_management_pagination_section">
-							<!-- currentPage 1페이지 아닐 때 -->
-							<div class="admin_user_management_pagination_left_button_area">
-								<div class="admin_user_management_pagination_first_button_area" v-if="currentPage !== 1">
-									<button class="admin_user_management_pagination_first_button" @click="moveFirstPage()">
-										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-											<path stroke-linecap="round" stroke-linejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
-										</svg>
-										<span class="font-bold">처음</span>
-									</button>
-								</div>
-								<div class="ml-2 admin_user_management_pagination_prev_button_area" v-if="currentPage !== 1">
-									<button class="admin_user_management_pagination_prev_button" @click="movePrevPage()">
-										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-											<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-										</svg>
-										<span class="font-bold">이전</span>
-									</button>
-								</div>
-							</div>
-							<div class="mx-40 text-center admin_user_management_pagination_page_span_area">
-								<span class="text-xl font-bold admin_user_management_pagination_page_span">
-									{{ $store.state.userManagementListData.current_page }} of {{ $store.state.userManagementListData.last_page }}
-								</span>
-							</div>
-							<!-- lastPage 아닐 때 -->
-							<div class="admin_user_management_pagination_right_button_area">
-								<div class="admin_user_management_pagination_next_button_area" v-if="currentPage < lastPage">
-									<button class="admin_user_management_pagination_next_button" @click="moveNextPage()">
-										<span class="font-bold">다음</span>
-										<svg v-if="currentPage !== lastPage" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-											<path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-										</svg>
-									</button>
-								</div>						
-								<div class="ml-2 admin_user_management_pagination_last_button_area" v-if="currentPage < lastPage">
-									<button class="admin_user_management_pagination_last_button" @click="moveLastPage()">
-										<span class="font-bold">끝</span>
-										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-											<path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
-										</svg>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>			
-				<AdminUserListComponent v-if="userSelectOption === '0'"></AdminUserListComponent>
-				<AdminUserPaymentListComponent v-if="userSelectOption === '1'"></AdminUserPaymentListComponent>
-			</div>
+            <router-view v-if="$route.path === '/admin/dashboard'"></router-view>
+            <router-view v-else-if="$route.path === '/admin/dashboard/user/management'"></router-view>
+            <router-view v-else-if="$route.path === '/admin/dashboard/management'"></router-view>
+            <router-view v-else-if="$route.path === '/admin/dashboard/registration'"></router-view>
 		</div>
 	</div>
 </template>
 <script>
 import axios from 'axios';
-import { mapState } from 'vuex';
-import AdminUserListComponent from './AdminUserListComponent.vue';
-import AdminUserPaymentListComponent from './AdminUserPaymentListComponent.vue';
+import AdminIndexComponent from './AdminIndexComponent.vue';
+import AdminUserManagementComponent from '../Admin/UserManagement/AdminUserManagementComponent.vue';
 export default {
-    name:'AdminUserManagementComponent',
+    name:'AdminComponent',
 
 	components: {
-		AdminUserListComponent,
-		AdminUserPaymentListComponent
-	},
+        AdminIndexComponent,
+        AdminUserManagementComponent,
+    },
     
 	data() {
 		return {
+            // 경로 별 컴포넌트 호출용
+            adminIndex: false,
+
+
 			userDropdown: false,
 			adminDropdown: false,
+			// Admin 로그인 데이터
 			adminToken: '',
 			adminFlgInfo: '',
 			adminNameInfo: '',			
 			adminAuthority: false, // Admin 메뉴 권한 확인용
-			userGenderInfo: '',
-			userFlgInfo: '',
-			userSelectOption: '0',
+			adminLogoutAlertError: '', // Admin 로그아웃 에러 Alert출력용
+			// Total 데이터 저장용
+			totalPayment: 0,
+			totalPaymentAmount: 0,
+			totalUser: 0,
+			// 통합 데이터 저장용
+			monthlyReservation: [],
+			monthlyPaymentAmount: [],
+			// Index 차트 데이터
+			series: [{
+				name: '예약 건수',
+				color: '#FFB6C1',
+				data: []
+			}, {
+				name: '결제 금액(단위:백만) ',
+				color: '#FFD700',
+				data: []
+			}],
+			chartOptions: {
+				chart: {
+					type: 'bar',
+				},
+				plotOptions: {
+					bar: {
+						horizontal: false,
+						columnWidth: '55%',
+						endingShape: 'rounded',						
+					},
+				},
+				dataLabels: {
+					enabled: false,					
+				},
+				stroke: {
+					show: true,
+					width: 2,
+					colors: ['transparent']
+				},
+				xaxis: {
+					categories: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+				},
+				yaxis: {
+				},
+				fill: {
+					opacity: 1,
+					colors: ['#FFB6C1', '#FFD700'],
+				},
+				tooltip: {
+				}
+			},
+			//
 		}
 	},
 
 	created() {
-		this.$store.dispatch('userManagementList', 1);
-	},
-
-	computed: {
-		...mapState({
-			currentPage: state => state.currentPage,
-			lastPage: state => state.lastPage
-		})
+        this.adminIndex = this.$route.path === '/admin/index';
+		// 총 결제 건수, 총 결제 금액, 총 이용자 수
+		this.totalUserData();
+		// 통합 데이터(월별 예약, 월별 결제)
+		this.monthlyData()
 	},
 
 	mounted() {
@@ -232,7 +217,7 @@ export default {
 				alert("로그인을 다시 해주세요.");
 				this.$router.push('/admin');
 			}
-		}
+		}		
 	},
 
 	methods: {
@@ -270,30 +255,59 @@ export default {
 					alert(this.adminLogoutAlertError);
 				});
 		},
-		// User Management Option 핸들러
-		userDataOptionChange() {
-			if (this.userSelectOption === '0') {
-				this.$store.dispatch('userManagementList', 1);
-			} else if (this.userSelectOption === '1') {
-				this.$store.dispatch('userManagementPaymentList', 1);
+		// Total 데이터 수신
+		totalUserData() {
+			const URL = '/admin/index/totalData';
+			axios.get(URL)
+				.then(response => {
+					if(response.data.code === "TD00") {
+						this.totalPayment = response.data.totalPayment;
+						this.totalPaymentAmount = response.data.totalPaymentAmount;
+						this.totalUser = response.data.totalUser;
+					} else {
+						console.error('서버 오류');
+					}
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		},
+		// Total 데이터 , 처리
+		totalUserDataFormat(totalUserData) {
+			if (totalUserData && totalUserData.toString().length > 3) {
+				return totalUserData.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			} else {
+				return totalUserData;
 			}
 		},
-		moveFirstPage() {
-			this.$store.dispatch('firstPagination');
-		},
-		movePrevPage() {
-			this.$store.dispatch('prevPagination');
-		},
-		moveNextPage() {
-			this.$store.dispatch('nextPagination');
-		},
-		moveLastPage() {
-			this.$store.dispatch('lastPagination');
+		// Monthly 데이터 수신
+		monthlyData() {
+			const URL = '/admin/index/monthlyData';
+			axios.get(URL)
+				.then(response => {
+					if(response.data.code === "MD00") {
+						response.data.monthlyReservation.forEach(monthlyReservation => {
+							this.monthlyReservation.push(monthlyReservation.reservation_count);
+						});
+						response.data.monthlyPaymentAmount.forEach(monthlyPaymentAmount => {
+							// this.monthlyPaymentAmount.push(monthlyPaymentAmount.payment_count);
+							this.series[1].data.push(Math.floor(monthlyPaymentAmount.total_payment));
+						});
+						// // 월별 예약 건수
+						this.series[0].data = this.monthlyReservation;
+						// // 월별 결제 금액
+						// this.series[1].data = this.monthlyPaymentAmount;
+					} else {
+						console.error('서버 오류');
+					}
+				})
+				.catch(error => {
+					console.error(error);
+				});
 		},
 	}
 }
 </script>
 <style lang="scss">
     @import '../../sass/Admin/admin_index.scss';
-    @import '../../sass/Admin/admin_user_management.scss';
 </style>

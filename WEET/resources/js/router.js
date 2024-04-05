@@ -12,14 +12,16 @@ import LoginComponent from '../components/User/LoginComponent.vue';
 import AdminLoginComponent from '../components/Admin/AdminLoginComponent.vue';
 // Admin Sign Up
 import AdminSignUpComponent from '../components/Admin/AdminSignUpComponent.vue';
+// Admin Layout
+import AdminComponent from '../components/Admin/AdminComponent.vue';
 // Admin Index
 import AdminIndexComponent from '../components/Admin/AdminIndexComponent.vue';
 // Admin User Management
-import AdminUserManagementComponent from '../components/Admin/AdminUserManagementComponent.vue';
+import AdminUserManagementComponent from '../components/Admin/UserManagement/AdminUserManagementComponent.vue';
 // Admin Management
-import AdminManagementComponent from '../components/Admin/AdminManagementComponent.vue';
+import AdminManagementComponent from '../components/Admin/AdminManagement/AdminManagementComponent.vue';
 // Admin Registration
-import AdminRegistrationComponent from '../components/Admin/AdminRegistrationComponent.vue';
+import AdminRegistrationComponent from '../components/Admin/AdminManagement/AdminRegistrationComponent.vue';
 
 const routes = [
 	{
@@ -71,69 +73,72 @@ const routes = [
 			title: '회원가입',
 			requireAuth: true
 		}
-	},	
-	{
-		path: '/admin/index',
-		component: AdminIndexComponent,
-		beforeEnter: (to, from, next) => {
-            if (!localStorage.getItem('token')) {
-                next('/admin');
-            } else {
-                next();
-            }
-        },
-		meta: {
-			title: 'Admin',
-			requireAuth: true
-		}
 	},
 	{
-		path: '/admin/user/management',
-		name: 'Admin User Management',
-		component: AdminUserManagementComponent,
-		beforeEnter: (to, from, next) => {
-            if (!localStorage.getItem('token')) {
-                next('/admin');
-            } else {
-                next();
-            }
-        },
-		meta: {
-			title: 'User 계정관리',
-			requireAuth: true
-		}
-	},
-	{
-		path: '/admin/management',
-		name: 'Admin Management',
-		component: AdminManagementComponent,
-		beforeEnter: (to, from, next) => {
-            if (!localStorage.getItem('token')) {
-                next('/admin');
-            } else {
-                next();
-            }
-        },
-		meta: {
-			title: 'Admin 계정관리',
-			requireAuth: true
-		}
-	},
-	{
-		path: '/admin/registration',
-		name: 'Admin Registration',
-		component: AdminRegistrationComponent,
-		beforeEnter: (to, from, next) => {
-            if (!localStorage.getItem('token')) {
-                next('/admin');
-            } else {
-                next();
-            }
-        },
-		meta: {
-			title: 'Admin 가입승인',
-			requireAuth: true
-		}
+		path: '/admin/dashboard',
+		component: AdminComponent,
+		children: [
+			{
+				path: '',
+				component: AdminIndexComponent,
+				beforeEnter: (to, from, next) => {
+					if (!localStorage.getItem('token')) {
+						next('/admin');
+					} else {
+						next();
+					}
+				},
+				meta: {
+					title: 'Admin',
+					requireAuth: true
+				}
+			},
+			{
+				path: 'user/management',
+				component: AdminUserManagementComponent,
+				beforeEnter: (to, from, next) => {
+					if (!localStorage.getItem('token')) {
+						next('/admin');
+					} else {
+						next();
+					}
+				},
+				meta: {
+					title: 'Admin 이용자 관리',
+					requireAuth: true
+				}
+			},
+			{
+				path: 'management',
+				component: AdminManagementComponent,
+				beforeEnter: (to, from, next) => {
+					if (!localStorage.getItem('token')) {
+						next('/admin');
+					} else {
+						next();
+					}
+				},
+				meta: {
+					title: 'Admin 계정 관리',
+					requireAuth: true
+				}
+			},
+			{
+				path: 'registration',
+				component: AdminRegistrationComponent,
+				beforeEnter: (to, from, next) => {
+					if (!localStorage.getItem('token')) {
+						next('/admin');
+					} else {
+						next();
+					}
+				},
+				meta: {
+					title: 'Admin 가입 승인',
+					requireAuth: true
+				}
+			},	
+		]
 	}
 ];
 

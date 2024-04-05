@@ -88,7 +88,7 @@ export default {
 						localStorage.setItem('token', token)
 						localStorage.setItem('adminFlg', adminFlg)
 						localStorage.setItem('adminName', adminName)
-						this.$router.push('/admin/index'); 
+						this.$router.push('/admin/dashboard'); 
 					} else {
 						this.adminLoginError = response.data.error;
 					}
