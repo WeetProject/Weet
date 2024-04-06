@@ -16,10 +16,14 @@ const store = createStore({
             // userToken: null,
 
             // ### Admin ###
+            // get, post 데이터 송수신 url
+            adminUrl: null,
             // Admin Login 데이터 저장용
             adminToken: null,
             adminLoginData: null,
+            adminLoginInfo: null,
             error: null,
+
             userListModal: false,
             userPaymentListModal: false,
             // User Management 데이터 저장용
@@ -111,8 +115,8 @@ const store = createStore({
             state.adminLoginInfo = adminLoginInfo;
         },
 
-        setAdminLoginError(state, error) {
-            state.error = error;
+        setAdminError(state, adminError) {
+            state.adminError = adminError;
         },
 
         // UserListModal Open
@@ -321,29 +325,61 @@ const store = createStore({
         // ### Admin ###
         // Login
         adminLogin({ commit }, adminLoginFormData) {
-            const url = '/admin';
-            axios.post(url, adminLoginFormData)
+            const URL = '/admin';
+            axios.post(URL, adminLoginFormData)
                 .then(response => {
-                    if (response.data.code === "ALI00") {
+                    if (response.data.code === "ALI00") {                        
                         // adminToken 저장
-                        const admintoken = response.data.token;
+                        const adminToken = response.data.token;
                         // adminFlg, adminName 저장
                         const adminLoginInfo = response.data.adminLoginInfo;
 
-                        commit('setAdminToken', admintoken);
+                        console.log(adminToken);
+                        console.log(adminLoginInfo);
+
+                        commit('setAdminToken', adminToken);
                         commit('setAdminLoginInfo', adminLoginInfo);
 
                         // 로컬스토리지 내 adminToken 저장
-                        localStorage.setItem('setAdminToken', admintoken);
+                        localStorage.setItem('setAdminToken', adminToken);
                         localStorage.setItem('setAdminLoginInfo', JSON.stringify(adminLoginInfo));
                         router.push('/admin/dashboard');
-                    } else {                    
-                        commit('setAdminLoginError', response.data.error);
                     }
                 })
                 .catch(error => {
-                    commit('setAdminLoginError', error.response.data.error);
+                    if(error.response)
+                        if(error.response.data.code === "AV01" || error.response.data.code === "AV02") {                        
+                        commit('setAdminError', error.response.data.error);
+                        console.log(error.response.data.error);
+                    } else {
+                        alert('오류가 발생했습니다. 새로고침 후 로그인을 해주세요');
+                    }
                 });
+        },
+
+        adminLogout() {
+            const URL = '/admin/dashboard/logout';
+            const adminToken = localStorage.getItem('setAdminToken');
+            const header = {
+                headers: {
+                    "Authorization": `Bearer ${adminToken}`,
+                },
+            };
+            axios.post(URL, null ,header)
+				.then(response => {
+					if(response.data.code === "ALO00") {
+							localStorage.clear();
+							alert('로그아웃 되었습니다.');
+							router.push('/admin');
+						} else {                
+							commit('setAdminError', response.data.error);
+							alert(response.data.error);
+						}
+				})
+				.catch(error => {
+					commit('setAdminError', error.response.data.error);
+					alert(error.response.data.error);
+				});
         },
 
         // User Management List 데이터 수신

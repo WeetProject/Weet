@@ -108,41 +108,7 @@ export default {
 	mounted() {
 	},
 
-	methods: {
-		// User 드롭다운
-		toggleUserDropdown() {
-			this.userDropdown = !this.userDropdown;
-		},
-		// Admin 드롭다운
-		toggleAdminDropdown() {
-			this.adminDropdown = !this.adminDropdown;
-		},
-		// Admin 로그아웃
-		adminLogout() {
-			const URL = '/admin/logout';
-			const token = localStorage.getItem('token');
-			const header = {
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                },
-            };
-			axios.post(URL, null ,header)
-				.then(response => {
-					if(response.data.code === "ALO00") {
-							localStorage.clear();
-							alert('로그아웃 되었습니다.');
-							this.$router.push('/admin');
-						} else {                
-							this.adminLogoutAlertError = response.data.error
-							alert(this.adminLogoutAlertError);
-						}
-				})
-				.catch(error => {
-					this.adminLogoutAlertError = error.response.data.error
-					alert(this.adminLogoutAlertError);
-				});
-		},
-		
+	methods: {		
 		// User Management Option 핸들러
 		userDataOptionChange() {
 			this.$store.commit('setUserSelectOption', this.userSelectOption);

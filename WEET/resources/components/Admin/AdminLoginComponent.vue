@@ -27,7 +27,8 @@
 						v-model="adminLoginFormData.password">
 				</div>
 				<div class="w-full mt-5 text-center admin_login_error_area">
-					<span class="font-semibold text-rose-600">{{ adminLoginError }}</span>
+					<span class="font-semibold text-rose-600" v-if="adminError">{{ adminError }}</span>
+					<span class="font-semibold text-rose-600" v-if="adminLoginError">{{ adminLoginError }}</span>
 				</div>		
 				<div class="admin_login_button_area">
 					<button class="admin_login_button" type="submit" @click="adminLogin">
@@ -61,6 +62,17 @@ export default {
                 password: '',
 			},
 			adminLoginError: '',
+			adminError: this.$store.state.adminError,
+        }
+    },
+
+	watch: {
+		// 에러 출력용
+        '$store.state.adminError': {
+            handler(adminError) {
+                this.adminError = adminError;
+            },
+            deep: true
         }
     },
 
@@ -73,9 +85,9 @@ export default {
 			if(!(this.adminLoginFormData.admin_number && this.adminLoginFormData.password)) {
 				this.adminLoginError = '사원번호 또는 비밀번호를 입력해주세요.';
 				return;
-            } 
+            }
 
-			this.$store.dispatch('adminLogin', this.adminLoginFormData)	
+			this.$store.dispatch('adminLogin', this.adminLoginFormData)
         },
 
 		// 에러 초기화

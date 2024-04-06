@@ -7,10 +7,10 @@
 						<router-link to="/admin/dashboard">
 							<img class="admin_index_left_info_image" src="../../../public/images/WEET_logo.png" alt="">
 						</router-link>
-						{{ adminNameInfo }} 님
+						{{ this.adminName }} 님
 					</span>
 				</div>
-				<p class="mb-5 font-semibold text-center">권한 : {{ adminFlgInfo }}</p>
+				<p class="mb-5 font-semibold text-center">권한 : {{ this.adminFlg }}</p>
 				<div class="admin_index_left_logout_section">
 					<a class="font-semibold admin_index_left_logout_a" href="/admin" @click="adminLogout" v-if="adminToken">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -131,24 +131,26 @@ export default {
     
 	data() {
 		return {
-            // 경로 별 컴포넌트 호출용
-            adminIndex: false,
-
-
+            // 드롭다운
 			userDropdown: false,
 			adminDropdown: false,
+
 			// Admin 로그인 데이터
-			adminFlgInfo: '',
-			adminNameInfo: '',			
+			adminToken: '',
+			adminName: '',
+			adminFlg: '',
 			adminAuthority: false, // Admin 메뉴 권한 확인용
 			adminLogoutAlertError: '', // Admin 로그아웃 에러 Alert출력용
+
 			// Total 데이터 저장용
 			totalPayment: 0,
 			totalPaymentAmount: 0,
 			totalUser: 0,
+
 			// 통합 데이터 저장용
 			monthlyReservation: [],
 			monthlyPaymentAmount: [],
+
 			// Index 차트 데이터
 			series: [{
 				name: '예약 건수',
@@ -194,6 +196,16 @@ export default {
 		}
 	},
 
+	watch: {
+		// 토큰 소유 확인용
+        '$store.state.adminToken': {
+            handler(adminToken) {
+                this.adminToken = adminToken;
+            },
+            deep: true
+        }
+    },
+
 	created() {
         this.adminIndex = this.$route.path === '/admin/index';
 		// 총 결제 건수, 총 결제 금액, 총 이용자 수
@@ -203,25 +215,26 @@ export default {
 	},
 
 	mounted() {
-		const adminToken = localStorage.getItem('setAdminToken');		
-		const adminLoginInfoData = localStorage.getItem('setAdminLoginInfo');
+		this.adminToken = localStorage.getItem('setAdminToken');
+		const adminLoginInfoData = JSON.parse(localStorage.getItem('setAdminLoginInfo'));
 
-		if(adminToken && adminLoginInfoData) {
-			const adminLoginInfo = JSON.parse(adminLoginInfoData);
-			this.adminFlgInfo = adminLoginInfo.adminFlg;
-			console.log(this.adminFlgInfo);
-			this.adminNameInfo = adminLoginInfo.adminName;
-			console.log(this.adminNameInfo);
-
-			if(this.adminFlgInfo === 1) {
-				this.adminFlgInfo = 'Sub Admin';
+		if(this.adminToken && adminLoginInfoData) {
+			// Admin Token 저장
+			
+			// Admin Flg 변환 및 저장
+			if(adminLoginInfoData.adminFlg === 1) {
+				this.adminFlg = 'Sub Admin';
 				this.adminAuthority = false;
-			} else if(this.adminFlgInfo === 2) {
-				this.adminFlgInfo = 'Root Admin';
+			} else if(adminLoginInfoData.adminFlg === 2) {
+				this.adminFlg = 'Root Admin';
 				this.adminAuthority = true;
 			} else {
-				alert("로그인을 다시 해주세요.");
+				alert("로그인이 필요합니다.");
 				this.$router.push('/admin');
+			}
+			// Admin Name 저장
+			if(adminLoginInfoData.adminName) {
+				this.adminName = adminLoginInfoData.adminName;
 			}
 		}		
 	},
@@ -237,30 +250,9 @@ export default {
 		},
 		// Admin 로그아웃
 		adminLogout() {
-			const URL = '/admin/logout';
-			const token = localStorage.getItem('token');
-			const header = {
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                },
-            };
-			console.log(header);
-			axios.post(URL, null ,header)
-				.then(response => {
-					if(response.data.code === "ALO00") {
-							localStorage.clear();
-							alert('로그아웃 되었습니다.');
-							this.$router.push('/admin');
-						} else {                
-							this.adminLogoutAlertError = response.data.error
-							alert(this.adminLogoutAlertError);
-						}
-				})
-				.catch(error => {
-					this.adminLogoutAlertError = error.response.data.error
-					alert(this.adminLogoutAlertError);
-				});
+			this.$store.dispatch('adminLogout')	
 		},
+		
 		// Total 데이터 수신
 		totalUserData() {
 			const URL = '/admin/dashboard/totalData';

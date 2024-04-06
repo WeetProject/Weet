@@ -17,12 +17,10 @@ class AdminTokenAuthMiddleware
      */
     public function handle(Request $request, Closure $next)
     {   
-        // Admin 인증확인
-        if (!auth('admin-api')->check()) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        return $next($request);
+        // Admin Token 캐시 미사용 처리
+        $response = $next($request);
+        $response->headers->set('Cache-Control', 'no-store, no-cache, must-revalidate');
+        return $response;
     }
 
 }

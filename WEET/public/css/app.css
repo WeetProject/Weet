@@ -663,14 +663,14 @@ video {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+.pb-4 {
+  padding-bottom: 1rem;
+}
 .pl-2 {
   padding-left: 0.5rem;
 }
 .pr-3 {
   padding-right: 0.75rem;
-}
-.pb-4 {
-  padding-bottom: 1rem;
 }
 .pt-4 {
   padding-top: 1rem;

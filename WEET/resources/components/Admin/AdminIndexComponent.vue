@@ -3,7 +3,7 @@
 		<div class="admin_index_right_top_container">
 			<div class="admin_index_right_top_title_section">
 				<div class="admin_index_right_top_title_area">
-					<span class="mb-5 text-xl font-bold">반가워요, 관리자님!</span>
+					<span class="mb-5 text-xl font-bold">반가워요!</span>
 					<span>시스템 관리를 간편하고 효율적으로 할 수 있도록 도와드릴게요.</span>
 				</div>
 			</div>	
@@ -66,7 +66,7 @@
 						<span class="mb-5 text-xl font-semibold">공지사항</span>
 						<a class="admin_index_right_bottom_notice_title_a" href="#">
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+								<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
 							</svg>
 						More
 						</a>
@@ -80,7 +80,7 @@
 						<span class="mb-5 text-xl font-semibold">최신 작성 글</span>
 						<a class="admin_index_right_bottom_latest_Posts_title_a" href="#">
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+								<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
 							</svg>
 						More
 						</a>
@@ -183,32 +183,6 @@ export default {
 		// Admin 드롭다운
 		toggleAdminDropdown() {
 			this.adminDropdown = !this.adminDropdown;
-		},
-		// Admin 로그아웃
-		adminLogout() {
-			const URL = '/admin/logout';
-			const token = localStorage.getItem('token');
-			const header = {
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                },
-            };
-			console.log(header);
-			axios.post(URL, null ,header)
-				.then(response => {
-					if(response.data.code === "ALO00") {
-							localStorage.clear();
-							alert('로그아웃 되었습니다.');
-							this.$router.push('/admin');
-						} else {                
-							this.adminLogoutAlertError = response.data.error
-							alert(this.adminLogoutAlertError);
-						}
-				})
-				.catch(error => {
-					this.adminLogoutAlertError = error.response.data.error
-					alert(this.adminLogoutAlertError);
-				});
 		},
 		// Total 데이터 수신
 		totalUserData() {

@@ -53,7 +53,15 @@ const routes = [
 		path: '/login',
 		component: LoginComponent
 	},
-	// Admin
+	// Admin	
+	{
+		path: '/admin/signup',
+		name: 'Admin Signup',
+		component: AdminSignUpComponent,
+		meta: {
+			title: '회원가입',
+		}
+	},
 	{
 		path: '/admin',
 		name: 'Admin',
@@ -63,76 +71,38 @@ const routes = [
 		},
 	},
 	{
-		path: '/admin/signup',
-		name: 'Admin Signup',
-		component: AdminSignUpComponent,
-		meta: {
-			title: '회원가입',
-			requireAuth: true
-		}
-	},
-	{
 		path: '/admin/dashboard',
 		component: AdminComponent,
+		meta: {
+            title: 'Admin Dashboard',
+        },
 		children: [
 			{
 				path: '',
 				component: AdminIndexComponent,
-				beforeEnter: (to, from, next) => {
-					if (!localStorage.getItem('token')) {
-						next('/admin');
-					} else {
-						next();
-					}
-				},
 				meta: {
-					title: 'Admin',
-					requireAuth: true
+					title: 'Admin Dashboard',	
 				}
 			},
 			{
 				path: 'user/management',
 				component: AdminUserManagementComponent,
-				beforeEnter: (to, from, next) => {
-					if (!localStorage.getItem('token')) {
-						next('/admin');
-					} else {
-						next();
-					}
-				},
 				meta: {
 					title: 'Admin 이용자 관리',
-					requireAuth: true
 				}
 			},
 			{
 				path: 'management',
 				component: AdminManagementComponent,
-				beforeEnter: (to, from, next) => {
-					if (!localStorage.getItem('token')) {
-						next('/admin');
-					} else {
-						next();
-					}
-				},
 				meta: {
 					title: 'Admin 계정 관리',
-					requireAuth: true
 				}
 			},
 			{
 				path: 'registration',
 				component: AdminRegistrationComponent,
-				beforeEnter: (to, from, next) => {
-					if (!localStorage.getItem('token')) {
-						next('/admin');
-					} else {
-						next();
-					}
-				},
 				meta: {
 					title: 'Admin 가입 승인',
-					requireAuth: true
 				}
 			},	
 		]
@@ -142,17 +112,30 @@ const routes = [
 const router = createRouter({
 	history: createWebHistory(),
 	routes,
+	// 캐시 미사용 처리
+	scrollBehavior() {
+		return { x: 0, y: 0 };
+	}
 });
 
 router.beforeEach((to, from, next) => {
-	// 로그인 여부 확인	
-	const token = localStorage.getItem('token');
+	// admin Token 확인
+	const adminToken = localStorage.getItem('setAdminToken');
 
-	// requireAuth 확인
-	if (to.matched.some(record=>record.meta.requireAuth) && !token) {
-		next('/admin')		
-	} else {
-        next();
+	if (to.path === '/admin') {
+        if (adminToken) {
+            // admin Token 존재 시, /admin 이동 불가 처리
+            next('/admin/dashboard');
+        } else {
+            next();
+        }
+    } else {
+        if (!adminToken) {
+            // admin Token 미존재 시, /admin 페이지 이동
+            next('/admin');
+        } else {
+            next();
+        }
     }
 
 	document.title = to.meta.title || '기본 타이틀';
