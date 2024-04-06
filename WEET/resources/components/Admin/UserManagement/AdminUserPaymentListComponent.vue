@@ -35,24 +35,6 @@ export default {
 
     data() {
         return {
-            currentPage: 1,
-			lastPage: null,
-        }
-    },
-
-    watch: {
-		// 페이지 데이터 확인용
-        '$store.state.currentPage': {
-            handler(currentPage) {
-                this.currentPage = currentPage;
-            },
-            deep: true
-        },
-        '$store.state.lastPage': {
-            handler(lastPage) {
-                this.lastPage = lastPage;
-            },
-            deep: true
         }
     },
 

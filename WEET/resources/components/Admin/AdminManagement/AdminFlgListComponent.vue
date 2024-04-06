@@ -47,6 +47,44 @@ export default {
 	},
 
 	methods: {
+        // Admin 권한 변경
+        adminManagementUpdate(admin_number) {
+            const URL = '/admin/management/update';            
+            const formData = new FormData();
+            formData.append('admin_number', admin_number);
+
+            axios.post(URL, formData)
+				.then(response => {                
+					if(response.data.code === "AU00") {
+						alert('권한이 변경되었습니다.');
+                        window.location.reload();
+					} else {                
+						alert(response.data.error);
+					}
+				})
+				.catch(error => {                
+					alert(error.response.data.error);
+				});
+        },
+
+        // Admin 탈퇴
+        adminManagementWithdrawal(admin_number) {
+            const URL = '/admin/management/withdrawal';            
+            const formData = new FormData();
+            formData.append('admin_number', admin_number);
+            axios.post(URL, formData)
+				.then(response => {                
+					if(response.data.code === "AW00") {
+						alert('계정이 탈퇴되었습니다.');
+                        window.location.reload();
+					} else {                
+						alert(response.data.error);
+					}
+				})
+				.catch(error => {                
+					alert(error.response.data.error);
+				});
+        },
     },
 }
 </script>

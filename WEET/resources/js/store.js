@@ -16,8 +16,6 @@ const store = createStore({
             // userToken: null,
 
             // ### Admin ###
-            // get, post 데이터 송수신 url
-            adminUrl: null,
             // Admin Login 데이터 저장용
             adminToken: null,
             adminLoginData: null,
@@ -29,15 +27,15 @@ const store = createStore({
             // User Management 데이터 저장용
             userManagementListData: {},
             userListData: [],
-            userSelectOption: '0', // 0 : 최신 가입 순, 1 : 최신 결제 순                             
+            userSelectOption: '0', // 0 : 최신 가입 순, 1 : 최신 결제 순
+            userCurrentPage: 1,
+            userLastPage: '',
 			// Admin Management 데이터 저장용
 			adminManagementListData: {},
             adminListData: [],
-            adminSelectOption: '0', // 0 : 최신 등록 순, 1 : 권한 순                             
-            // Management Pagination 데이터 저장용
-            currentPage: 1,
-            lastPage: '',
-            
+            adminSelectOption: '0', // 0 : 최신 등록 순, 1 : 권한 순
+            adminCurrentPage: 1,
+            adminLastPage: '',            
         }
     },
 
@@ -137,11 +135,18 @@ const store = createStore({
         },
 
         // Pagination
-        setCurrentPage(state, currentPage) {
-            state.currentPage = currentPage;
+        setUserCurrentPage(state, userCurrentPage) {
+            state.userCurrentPage = userCurrentPage;
         }, 
-        setLastPage(state, lastPage) {
-            state.lastPage = lastPage;
+        setUserLastPage(state, userLastPage) {
+            state.userLastPage = userLastPage;
+        },
+
+        setAdminCurrentPage(state, adminCurrentPage) {
+            state.adminCurrentPage = adminCurrentPage;
+        }, 
+        setAdminLastPage(state, adminLastPage) {
+            state.adminLastPage = adminLastPage;
         },
         
         // User Management
@@ -323,7 +328,7 @@ const store = createStore({
 
 
         // ### Admin ###
-        // Login
+        // Admin Login
         adminLogin({ commit }, adminLoginFormData) {
             const URL = '/admin';
             axios.post(URL, adminLoginFormData)
@@ -356,7 +361,7 @@ const store = createStore({
                     }
                 });
         },
-
+        // Admin Logout
         adminLogout() {
             const adminToken = localStorage.getItem('setAdminToken');
             // Admin Token 미 존재시
@@ -415,8 +420,8 @@ const store = createStore({
 						});
                         commit('setUserManagementList', response.data.userManagementList)
                         commit('setUserList', this.state.userListData);
-						commit('setCurrentPage', response.data.userManagementList.current_page);
-						commit('setLastPage', response.data.userManagementList.last_page);
+						commit('setUserCurrentPage', response.data.userManagementList.current_page);
+						commit('setUserLastPage', response.data.userManagementList.last_page);
 					} else {
 						console.error('서버 오류');
 					}
@@ -435,8 +440,8 @@ const store = createStore({
 					if(response.data.code === "UMPL00") {
 						commit('setUserManagementList', response.data.userManagementPaymentList);
                         commit('setUserList', response.data.userManagementPaymentList.data) 
-						commit('setCurrentPage', response.data.userManagementPaymentList.current_page);
-                        commit('setLastPage', response.data.userManagementPaymentList.last_page);
+						commit('setUserCurrentPage', response.data.userManagementPaymentList.current_page);
+                        commit('setUserLastPage', response.data.userManagementPaymentList.last_page);
                         commit('setUserSelectOption', userSelectOption);
 					} else {
 						console.error('서버 오류');
@@ -447,7 +452,78 @@ const store = createStore({
 				});
 		},
 
-		// Admin Management List 데이터 수신
+        // User Management Pagination
+        userPagination({ state, dispatch }, page) {
+            // 페이지가 현재 페이지와 같은지 확인하여 중복 요청을 방지합니다.
+            if (page !== state.userCurrentPage) {
+                const userManagementOption = state.userSelectOption
+                console.log('유저옵션' + state.userSelectOption);
+                if(userManagementOption) {
+                    console.log('유저 페이징');
+                    if(userManagementOption === '0') {
+                        console.log('유저 0 옵션 실행');
+                        dispatch('userManagementList', page);
+                    } else if(userManagementOption === '1') {
+                        console.log('유저 1 옵션 실행');
+                        dispatch('userManagementPaymentList', page);
+                    }
+                }      
+            }
+        },
+
+        // User Management Pagination(first)
+		userFirstPagination({ state, dispatch }) {
+            if(state.userSelectOption === '0' && state.userCurrentPage !== 1) {
+                dispatch('userPagination', 1);
+            } 
+		},
+
+		// User Management Pagination(prev)
+		userPrevPagination({ state, dispatch }) {
+            const userPrevPage = state.userCurrentPage - 1;
+            if(state.userCurrentPage) {
+                if (userPrevPage > 0) {
+                    dispatch('userPagination', userPrevPage);
+                }
+            }
+        },
+
+		// User Management Pagination(next)
+        userNextPagination({ state, dispatch }) {
+            const userNextPage = state.userCurrentPage + 1;
+            if(state.userCurrentPage) {
+                if (userNextPage <= state.userLastPage) {
+                    dispatch('userPagination', userNextPage);
+                }
+            }
+        },
+
+		// User Management Pagination(last)
+		userLastPagination({ state, dispatch }) {
+            if (state.userCurrentPage && state.userCurrentPage !== state.userLastPage) {
+                dispatch('userPagination', state.userLastPage);
+            } 
+        },
+
+        // Admin 권한 변경
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Admin 탈퇴
+
+        // Admin Management List 데이터 수신
         adminManagementList({ commit }, page) {
             const URL = '/admin/dashboard/management/adminManagementList?page=' + page;
             axios.get(URL)
@@ -464,8 +540,8 @@ const store = createStore({
                         });
                         commit('setAdminManagementList', response.data.adminManagementList);
                         commit('setAdminList', this.state.adminListData);
-						commit('setCurrentPage', response.data.adminManagementList.current_page);
-						commit('setLastPage', response.data.adminManagementList.last_page);
+						commit('setAdminCurrentPage', response.data.adminManagementList.current_page);
+						commit('setAdminLastPage', response.data.adminManagementList.last_page);
                     } else {
                         console.error('서버 오류');
                     }
@@ -493,8 +569,8 @@ const store = createStore({
                         });
                         commit('setAdminManagementList', response.data.adminManagementFlgList);
                         commit('setAdminList', this.state.adminListData);
-						commit('setCurrentPage', response.data.adminManagementFlgList.current_page);
-						commit('setLastPage', response.data.adminManagementFlgList.last_page);
+						commit('setAdminCurrentPage', response.data.adminManagementFlgList.current_page);
+						commit('setAdminLastPage', response.data.adminManagementFlgList.last_page);
 						commit('setAdminSelectOption', adminSelectOption);
                     }  else {
                         console.error('서버 오류');
@@ -503,59 +579,60 @@ const store = createStore({
                 .catch(error => {
                     console.error(error);
                 });
-        },
-		
+        },       
 
-        // Management Pagination
-        pagination({ state, dispatch }, page) {
-            if (page !== state.currentPage) {
-
-                if(state.userSelectOption && state.userSelectOption !== undefined) {
-                    if(state.userSelectOption === '0') {
-                        dispatch('userManagementList', page);
-                    } else if(state.userSelectOption === '1') {
-                        dispatch('userManagementPaymentList', page);
-                    }
-                } 
-
-                if(state.adminSelectOption && state.adminSelectOption !== undefined) {
-                    if(state.adminSelectOption === '0') {
+        // Admin Management Pagination 
+        adminPagination({ state, dispatch }, page) {
+            // 페이지가 현재 페이지와 같은지 확인하여 중복 요청을 방지합니다.
+            if (page !== state.adminCurrentPage) {
+                const adminManagementOption = state.adminSelectOption
+                console.log('어드민옵션' + state.adminSelectOption);
+                if(adminManagementOption) {
+                    console.log('어드민 페이징');
+                    if(adminManagementOption === '0') {
+                        console.log('어드민 0 옵션 실행');
                         dispatch('adminManagementList', page);
-                    } else if(state.adminSelectOption === '1') {
+                    } else if(adminManagementOption === '1') {
+                        console.log('어드민 1 옵션 실행');
                         dispatch('adminManagementFlgList', page);
                     }
-                } 
+                }    
             }
         },
-        // 첫번째 페이지
-		firstPagination({ state, dispatch }) {
-            if (state.currentPage !== 1) {
-                dispatch('pagination', 1)
+
+        // Admin Management Pagination(first)
+		adminFirstPagination({ state, dispatch }) {
+            if(state.adminSelectOption === '0' && state.adminCurrentPage !== 1) {
+                dispatch('adminPagination', 1);
             }
 		},
 
-		// 이전 페이지
-		prevPagination({ state, dispatch }) {
-            const prevPage = state.currentPage - 1;
-            if (prevPage > 0) {
-                dispatch('pagination', prevPage);
+		// Admin Management Pagination(prev)
+		adminPrevPagination({ state, dispatch }) {
+            const adminPrevPage = state.adminCurrentPage - 1;            
+            if(state.adminCurrentPage) {
+                if (adminPrevPage > 0) {
+                    dispatch('adminPagination', adminPrevPage);
+                }
             }
         },
 
-		// 다음 페이지
-        nextPagination({ state, dispatch }) {
-            const nextPage = state.currentPage + 1;
-            if (nextPage <= state.lastPage) {
-                dispatch('pagination', nextPage);
+		// Admin Management Pagination(next)
+        adminNextPagination({ state, dispatch }) {
+            const adminNextPage = state.adminCurrentPage + 1;
+            if(state.adminCurrentPage) {
+                if (adminNextPage <= state.adminLastPage) {
+                    dispatch('adminPagination', adminNextPage);
+                }
             }
         },
 
-		// 마지막 페이지
-		lastPagination({ state, dispatch }) {
-            if (state.currentPage !== state.lastPage) {
-                dispatch('pagination', state.lastPage);
+		// Admin Management Pagination(last)
+		adminLastPagination({ state, dispatch }) {
+            if (state.adminCurrentPage && state.adminCurrentPage !== state.adminLastPage) {
+                dispatch('adminPagination', state.adminLastPage);
             }
-        },
+        },        
     }
 });
 

@@ -19,16 +19,16 @@
 				<div class="relative admin_management_pagination_section">
 					<!-- currentPage 1페이지 아닐 때 -->
 					<div class="admin_management_pagination_left_button_area">
-						<div class="admin_management_pagination_first_button_area" v-if="currentPage !== 1">
-							<button class="admin_management_pagination_first_button" @click="moveFirstPage()">
+						<div class="admin_management_pagination_first_button_area" v-if="adminCurrentPage !== 1">
+							<button class="admin_management_pagination_first_button" @click="firstPage()">
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 									<path stroke-linecap="round" stroke-linejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
 								</svg>
 								<span class="font-bold">처음</span>
 							</button>
 						</div>
-						<div class="ml-2 admin_management_pagination_prev_button_area" v-if="currentPage !== 1">
-							<button class="admin_management_pagination_prev_button" @click="movePrevPage()">
+						<div class="ml-2 admin_management_pagination_prev_button_area" v-if="adminCurrentPage !== 1">
+							<button class="admin_management_pagination_prev_button" @click="prevPage()">
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
 								</svg>
@@ -37,22 +37,27 @@
 						</div>
 					</div>
 					<div class="mx-40 text-center admin_management_pagination_page_span_area">
-						<span class="text-xl font-bold admin_management_pagination_page_span">
+						<span class="text-xl font-bold admin_management_pagination_page_span" 
+						v-if="$store.state.adminManagementListData && adminSelectOption === '0'">
+							{{ $store.state.adminManagementListData.current_page }} of {{ $store.state.adminManagementListData.last_page }}
+						</span>
+						<span class="text-xl font-bold admin_management_pagination_page_span" 
+						v-else-if="$store.state.adminManagementListData && adminSelectOption === '1'">
 							{{ $store.state.adminManagementListData.current_page }} of {{ $store.state.adminManagementListData.last_page }}
 						</span>
 					</div>
 					<!-- lastPage 아닐 때 -->
 					<div class="admin_management_pagination_right_button_area">
-						<div class="admin_management_pagination_next_button_area" v-if="currentPage < lastPage">
-							<button class="admin_management_pagination_next_button" @click="moveNextPage()">
+						<div class="admin_management_pagination_next_button_area" v-if="adminCurrentPage < adminLastPage">
+							<button class="admin_management_pagination_next_button" @click="nextPage()">
 								<span class="font-bold">다음</span>
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 									<path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
 								</svg>
 							</button>
 						</div>						
-						<div class="ml-2 admin_management_pagination_last_button_area" v-if="currentPage < lastPage">
-							<button class="admin_management_pagination_last_button" @click="moveLastPage()">
+						<div class="ml-2 admin_management_pagination_last_button_area" v-if="adminCurrentPage < adminLastPage">
+							<button class="admin_management_pagination_last_button" @click="lastPage()">
 								<span class="font-bold">끝</span>
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 									<path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
@@ -82,19 +87,13 @@ export default {
 
 	computed: {
 		...mapState({
-			currentPage: state => state.currentPage,
-			lastPage: state => state.lastPage
+			adminCurrentPage: state => state.adminCurrentPage,
+			adminLastPage: state => state.adminLastPage
 		})
 	},
     
 	data() {
 		return {
-			userDropdown: false,
-			adminDropdown: false,
-			adminToken: '',
-			adminFlgInfo: '',
-			adminNameInfo: '',			
-			adminAuthority: false, // Admin 메뉴 권한 확인용
 			adminSelectOption: '0',
 		}
 	},
@@ -119,57 +118,18 @@ export default {
 		},
 
 		// Admin Management Pagination
-		moveFirstPage() {
-			this.$store.dispatch('firstPagination');
+		firstPage() {
+			this.$store.dispatch('adminFirstPagination');
 		},
-		movePrevPage() {
-			this.$store.dispatch('prevPagination');
+		prevPage() {
+			this.$store.dispatch('adminPrevPagination');
 		},
-		moveNextPage() {
-			this.$store.dispatch('nextPagination');
+		nextPage() {
+			this.$store.dispatch('adminNextPagination');
 		},
-		moveLastPage() {
-			this.$store.dispatch('lastPagination');
+		lastPage() {
+			this.$store.dispatch('adminLastPagination');
 		},
-
-        // Admin 권한 변경
-        adminManagementUpdate(admin_number) {
-            const URL = '/admin/management/update';            
-            const formData = new FormData();
-            formData.append('admin_number', admin_number);
-
-            axios.post(URL, formData)
-				.then(response => {                
-					if(response.data.code === "AU00") {
-						alert('권한이 변경되었습니다.');
-                        window.location.reload();
-					} else {                
-						alert(response.data.error);
-					}
-				})
-				.catch(error => {                
-					alert(error.response.data.error);
-				});
-        },
-
-        // Admin 탈퇴
-        adminManagementWithdrawal(admin_number) {
-            const URL = '/admin/management/withdrawal';            
-            const formData = new FormData();
-            formData.append('admin_number', admin_number);
-            axios.post(URL, formData)
-				.then(response => {                
-					if(response.data.code === "AW00") {
-						alert('계정이 탈퇴되었습니다.');
-                        window.location.reload();
-					} else {                
-						alert(response.data.error);
-					}
-				})
-				.catch(error => {                
-					alert(error.response.data.error);
-				});
-        },
 	}
 }
 </script>

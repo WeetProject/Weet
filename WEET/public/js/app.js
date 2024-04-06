@@ -21381,7 +21381,40 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {},
   mounted: function mounted() {},
-  methods: {}
+  methods: {
+    // Admin 권한 변경
+    adminManagementUpdate: function adminManagementUpdate(admin_number) {
+      var URL = '/admin/management/update';
+      var formData = new FormData();
+      formData.append('admin_number', admin_number);
+      axios.post(URL, formData).then(function (response) {
+        if (response.data.code === "AU00") {
+          alert('권한이 변경되었습니다.');
+          window.location.reload();
+        } else {
+          alert(response.data.error);
+        }
+      })["catch"](function (error) {
+        alert(error.response.data.error);
+      });
+    },
+    // Admin 탈퇴
+    adminManagementWithdrawal: function adminManagementWithdrawal(admin_number) {
+      var URL = '/admin/management/withdrawal';
+      var formData = new FormData();
+      formData.append('admin_number', admin_number);
+      axios.post(URL, formData).then(function (response) {
+        if (response.data.code === "AW00") {
+          alert('계정이 탈퇴되었습니다.');
+          window.location.reload();
+        } else {
+          alert(response.data.error);
+        }
+      })["catch"](function (error) {
+        alert(error.response.data.error);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -21404,7 +21437,40 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {},
   mounted: function mounted() {},
-  methods: {}
+  methods: {
+    // Admin 권한 변경
+    adminManagementUpdate: function adminManagementUpdate(admin_number) {
+      var URL = '/admin/management/update';
+      var formData = new FormData();
+      formData.append('admin_number', admin_number);
+      axios.post(URL, formData).then(function (response) {
+        if (response.data.code === "AU00") {
+          alert('권한이 변경되었습니다.');
+          window.location.reload();
+        } else {
+          alert(response.data.error);
+        }
+      })["catch"](function (error) {
+        alert(error.response.data.error);
+      });
+    },
+    // Admin 탈퇴
+    adminManagementWithdrawal: function adminManagementWithdrawal(admin_number) {
+      var URL = '/admin/management/withdrawal';
+      var formData = new FormData();
+      formData.append('admin_number', admin_number);
+      axios.post(URL, formData).then(function (response) {
+        if (response.data.code === "AW00") {
+          alert('계정이 탈퇴되었습니다.');
+          window.location.reload();
+        } else {
+          alert(response.data.error);
+        }
+      })["catch"](function (error) {
+        alert(error.response.data.error);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -21442,22 +21508,15 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     AdminFlgListComponent: _AdminFlgListComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)({
-    currentPage: function currentPage(state) {
-      return state.currentPage;
+    adminCurrentPage: function adminCurrentPage(state) {
+      return state.adminCurrentPage;
     },
-    lastPage: function lastPage(state) {
-      return state.lastPage;
+    adminLastPage: function adminLastPage(state) {
+      return state.adminLastPage;
     }
   })),
   data: function data() {
     return {
-      userDropdown: false,
-      adminDropdown: false,
-      adminToken: '',
-      adminFlgInfo: '',
-      adminNameInfo: '',
-      adminAuthority: false,
-      // Admin 메뉴 권한 확인용
       adminSelectOption: '0'
     };
   },
@@ -21477,49 +21536,17 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       }
     },
     // Admin Management Pagination
-    moveFirstPage: function moveFirstPage() {
-      this.$store.dispatch('firstPagination');
+    firstPage: function firstPage() {
+      this.$store.dispatch('adminFirstPagination');
     },
-    movePrevPage: function movePrevPage() {
-      this.$store.dispatch('prevPagination');
+    prevPage: function prevPage() {
+      this.$store.dispatch('adminPrevPagination');
     },
-    moveNextPage: function moveNextPage() {
-      this.$store.dispatch('nextPagination');
+    nextPage: function nextPage() {
+      this.$store.dispatch('adminNextPagination');
     },
-    moveLastPage: function moveLastPage() {
-      this.$store.dispatch('lastPagination');
-    },
-    // Admin 권한 변경
-    adminManagementUpdate: function adminManagementUpdate(admin_number) {
-      var URL = '/admin/management/update';
-      var formData = new FormData();
-      formData.append('admin_number', admin_number);
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, formData).then(function (response) {
-        if (response.data.code === "AU00") {
-          alert('권한이 변경되었습니다.');
-          window.location.reload();
-        } else {
-          alert(response.data.error);
-        }
-      })["catch"](function (error) {
-        alert(error.response.data.error);
-      });
-    },
-    // Admin 탈퇴
-    adminManagementWithdrawal: function adminManagementWithdrawal(admin_number) {
-      var URL = '/admin/management/withdrawal';
-      var formData = new FormData();
-      formData.append('admin_number', admin_number);
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, formData).then(function (response) {
-        if (response.data.code === "AW00") {
-          alert('계정이 탈퇴되었습니다.');
-          window.location.reload();
-        } else {
-          alert(response.data.error);
-        }
-      })["catch"](function (error) {
-        alert(error.response.data.error);
-      });
+    lastPage: function lastPage() {
+      this.$store.dispatch('adminLastPagination');
     }
   }
 });
@@ -21649,9 +21676,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdminUserListComponent',
   data: function data() {
-    return {
-      setting: ''
-    };
+    return {};
   },
   created: function created() {},
   mounted: function mounted() {},
@@ -21671,46 +21696,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _AdminUserListComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminUserListComponent.vue */ "./resources/components/Admin/UserManagement/AdminUserListComponent.vue");
-/* harmony import */ var _AdminUserPaymentListComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminUserPaymentListComponent.vue */ "./resources/components/Admin/UserManagement/AdminUserPaymentListComponent.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var _AdminUserListComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminUserListComponent.vue */ "./resources/components/Admin/UserManagement/AdminUserListComponent.vue");
+/* harmony import */ var _AdminUserPaymentListComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminUserPaymentListComponent.vue */ "./resources/components/Admin/UserManagement/AdminUserPaymentListComponent.vue");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdminUserManagementComponent',
   components: {
-    AdminUserListComponent: _AdminUserListComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    AdminUserPaymentListComponent: _AdminUserPaymentListComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    AdminUserListComponent: _AdminUserListComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    AdminUserPaymentListComponent: _AdminUserPaymentListComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)({
+    userCurrentPage: function userCurrentPage(state) {
+      return state.userCurrentPage;
+    },
+    userLastPage: function userLastPage(state) {
+      return state.userLastPage;
+    }
+  })),
   data: function data() {
     return {
-      userDropdown: false,
-      adminDropdown: false,
-      adminToken: '',
-      adminFlgInfo: '',
-      adminNameInfo: '',
-      adminAuthority: false,
-      // Admin 메뉴 권한 확인용
-      userGenderInfo: '',
-      userFlgInfo: '',
-      userSelectOption: '0',
-      currentPage: 1,
-      lastPage: null
+      userSelectOption: '0'
     };
-  },
-  watch: {
-    // 페이지 데이터 확인용
-    '$store.state.currentPage': {
-      handler: function handler(currentPage) {
-        this.currentPage = currentPage;
-      },
-      deep: true
-    },
-    '$store.state.lastPage': {
-      handler: function handler(lastPage) {
-        this.lastPage = lastPage;
-      },
-      deep: true
-    }
   },
   created: function created() {
     this.$store.dispatch('userManagementList', 1);
@@ -21719,6 +21737,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     // User Management Option 핸들러
     userDataOptionChange: function userDataOptionChange() {
+      console.log(this.userSelectOption);
       this.$store.commit('setUserSelectOption', this.userSelectOption);
       if (this.userSelectOption === '0') {
         this.$store.dispatch('userManagementList', 1);
@@ -21727,17 +21746,17 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     // User Management Pagination
-    moveFirstPage: function moveFirstPage() {
-      this.$store.dispatch('firstPagination');
+    firstPage: function firstPage() {
+      this.$store.dispatch('userFirstPagination');
     },
-    movePrevPage: function movePrevPage() {
-      this.$store.dispatch('prevPagination');
+    prevPage: function prevPage() {
+      this.$store.dispatch('userPrevPagination');
     },
-    moveNextPage: function moveNextPage() {
-      this.$store.dispatch('nextPagination');
+    nextPage: function nextPage() {
+      this.$store.dispatch('userNextPagination');
     },
-    moveLastPage: function moveLastPage() {
-      this.$store.dispatch('lastPagination');
+    lastPage: function lastPage() {
+      this.$store.dispatch('userLastPagination');
     }
   }
 });
@@ -21758,25 +21777,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdminUserPaymentListComponent',
   data: function data() {
-    return {
-      currentPage: 1,
-      lastPage: null
-    };
-  },
-  watch: {
-    // 페이지 데이터 확인용
-    '$store.state.currentPage': {
-      handler: function handler(currentPage) {
-        this.currentPage = currentPage;
-      },
-      deep: true
-    },
-    '$store.state.lastPage': {
-      handler: function handler(lastPage) {
-        this.lastPage = lastPage;
-      },
-      deep: true
-    }
+    return {};
   },
   created: function created() {},
   mounted: function mounted() {},
@@ -23973,12 +23974,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, "Sub", 8 /* PROPS */, _hoisted_9)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
       "class": "admin_management_bottom_content_update_button",
       onClick: function onClick($event) {
-        return _ctx.adminManagementUpdate(adminList.admin_number);
+        return $options.adminManagementUpdate(adminList.admin_number);
       }
     }, "변경", 8 /* PROPS */, _hoisted_11)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
       "class": "admin_management_bottom_content_withdrawal_button",
       onClick: function onClick($event) {
-        return _ctx.adminManagementWithdrawal(adminList.admin_number);
+        return $options.adminManagementWithdrawal(adminList.admin_number);
       }
     }, "탈퇴", 8 /* PROPS */, _hoisted_13)])]);
   }), 128 /* KEYED_FRAGMENT */))]);
@@ -24044,12 +24045,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, "Sub", 8 /* PROPS */, _hoisted_9)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
       "class": "admin_management_bottom_content_update_button",
       onClick: function onClick($event) {
-        return _ctx.adminManagementUpdate(adminList.admin_number);
+        return $options.adminManagementUpdate(adminList.admin_number);
       }
     }, "변경", 8 /* PROPS */, _hoisted_11)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
       "class": "admin_management_bottom_content_withdrawal_button",
       onClick: function onClick($event) {
-        return _ctx.adminManagementWithdrawal(adminList.admin_number);
+        return $options.adminManagementWithdrawal(adminList.admin_number);
       }
     }, "탈퇴", 8 /* PROPS */, _hoisted_13)])]);
   }), 128 /* KEYED_FRAGMENT */))]);
@@ -24147,19 +24148,24 @@ var _hoisted_19 = {
   "class": "mx-40 text-center admin_management_pagination_page_span_area"
 };
 var _hoisted_20 = {
+  key: 0,
   "class": "text-xl font-bold admin_management_pagination_page_span"
 };
 var _hoisted_21 = {
-  "class": "admin_management_pagination_right_button_area"
+  key: 1,
+  "class": "text-xl font-bold admin_management_pagination_page_span"
 };
 var _hoisted_22 = {
+  "class": "admin_management_pagination_right_button_area"
+};
+var _hoisted_23 = {
   key: 0,
   "class": "admin_management_pagination_next_button_area"
 };
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-bold"
 }, "다음", -1 /* HOISTED */);
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   fill: "none",
   viewBox: "0 0 24 24",
@@ -24171,15 +24177,15 @@ var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "stroke-linejoin": "round",
   d: "m8.25 4.5 7.5 7.5-7.5 7.5"
 })], -1 /* HOISTED */);
-var _hoisted_25 = [_hoisted_23, _hoisted_24];
-var _hoisted_26 = {
+var _hoisted_26 = [_hoisted_24, _hoisted_25];
+var _hoisted_27 = {
   key: 1,
   "class": "ml-2 admin_management_pagination_last_button_area"
 };
-var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-bold"
 }, "끝", -1 /* HOISTED */);
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   fill: "none",
   viewBox: "0 0 24 24",
@@ -24191,7 +24197,7 @@ var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "stroke-linejoin": "round",
   d: "m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
 })], -1 /* HOISTED */);
-var _hoisted_29 = [_hoisted_27, _hoisted_28];
+var _hoisted_30 = [_hoisted_28, _hoisted_29];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_AdminListComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AdminListComponent");
   var _component_AdminFlgListComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AdminFlgListComponent");
@@ -24205,27 +24211,27 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onChange: _cache[1] || (_cache[1] = function () {
       return $options.adminDataOptionChange && $options.adminDataOptionChange.apply($options, arguments);
     })
-  }, [].concat(_hoisted_8), 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.adminSelectOption]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 최신 등록 순 Pagination "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" currentPage 1페이지 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_ctx.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_8), 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.adminSelectOption]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 최신 등록 순 Pagination "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" currentPage 1페이지 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_ctx.adminCurrentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_management_pagination_first_button",
     onClick: _cache[2] || (_cache[2] = function ($event) {
-      return $options.moveFirstPage();
+      return $options.firstPage();
     })
-  }, [].concat(_hoisted_14))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_14))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.adminCurrentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_management_pagination_prev_button",
     onClick: _cache[3] || (_cache[3] = function ($event) {
-      return $options.movePrevPage();
+      return $options.prevPage();
     })
-  }, [].concat(_hoisted_18))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.adminManagementListData.current_page) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.adminManagementListData.last_page), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" lastPage 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_ctx.currentPage < _ctx.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_18))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [_ctx.$store.state.adminManagementListData && $data.adminSelectOption === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.adminManagementListData.current_page) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.adminManagementListData.last_page), 1 /* TEXT */)) : _ctx.$store.state.adminManagementListData && $data.adminSelectOption === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.adminManagementListData.current_page) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.adminManagementListData.last_page), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" lastPage 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_ctx.adminCurrentPage < _ctx.adminLastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_management_pagination_next_button",
     onClick: _cache[4] || (_cache[4] = function ($event) {
-      return $options.moveNextPage();
+      return $options.nextPage();
     })
-  }, [].concat(_hoisted_25))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.currentPage < _ctx.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_26))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.adminCurrentPage < _ctx.adminLastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_management_pagination_last_button",
     onClick: _cache[5] || (_cache[5] = function ($event) {
-      return $options.moveLastPage();
+      return $options.lastPage();
     })
-  }, [].concat(_hoisted_29))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), $data.adminSelectOption === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AdminListComponent, {
+  }, [].concat(_hoisted_30))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), $data.adminSelectOption === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AdminListComponent, {
     key: 0
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.adminSelectOption === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AdminFlgListComponent, {
     key: 1
@@ -24586,19 +24592,24 @@ var _hoisted_19 = {
   "class": "mx-40 text-center admin_user_management_pagination_page_span_area"
 };
 var _hoisted_20 = {
+  key: 0,
   "class": "text-xl font-bold admin_user_management_pagination_page_span"
 };
 var _hoisted_21 = {
-  "class": "admin_user_management_pagination_right_button_area"
+  key: 1,
+  "class": "text-xl font-bold admin_user_management_pagination_page_span"
 };
 var _hoisted_22 = {
+  "class": "admin_user_management_pagination_right_button_area"
+};
+var _hoisted_23 = {
   key: 0,
   "class": "admin_user_management_pagination_next_button_area"
 };
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-bold"
 }, "다음", -1 /* HOISTED */);
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   fill: "none",
   viewBox: "0 0 24 24",
@@ -24610,15 +24621,15 @@ var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "stroke-linejoin": "round",
   d: "m8.25 4.5 7.5 7.5-7.5 7.5"
 })], -1 /* HOISTED */);
-var _hoisted_25 = [_hoisted_23, _hoisted_24];
-var _hoisted_26 = {
+var _hoisted_26 = [_hoisted_24, _hoisted_25];
+var _hoisted_27 = {
   key: 1,
   "class": "ml-2 admin_user_management_pagination_last_button_area"
 };
-var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "font-bold"
 }, "끝", -1 /* HOISTED */);
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   fill: "none",
   viewBox: "0 0 24 24",
@@ -24630,7 +24641,7 @@ var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "stroke-linejoin": "round",
   d: "m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
 })], -1 /* HOISTED */);
-var _hoisted_29 = [_hoisted_27, _hoisted_28];
+var _hoisted_30 = [_hoisted_28, _hoisted_29];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_AdminUserListComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AdminUserListComponent");
   var _component_AdminUserPaymentListComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AdminUserPaymentListComponent");
@@ -24644,27 +24655,27 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onChange: _cache[1] || (_cache[1] = function () {
       return $options.userDataOptionChange && $options.userDataOptionChange.apply($options, arguments);
     })
-  }, [].concat(_hoisted_8), 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.userSelectOption]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Pagination "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" currentPage 1페이지 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [$data.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_8), 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.userSelectOption]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Pagination "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" currentPage 1페이지 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_ctx.userCurrentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_user_management_pagination_first_button",
     onClick: _cache[2] || (_cache[2] = function ($event) {
-      return $options.moveFirstPage();
+      return $options.firstPage();
     })
-  }, [].concat(_hoisted_14))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_14))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.userCurrentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_user_management_pagination_prev_button",
     onClick: _cache[3] || (_cache[3] = function ($event) {
-      return $options.movePrevPage();
+      return $options.prevPage();
     })
-  }, [].concat(_hoisted_18))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.userManagementListData.current_page) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.userManagementListData.last_page), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" lastPage 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [$data.currentPage < $data.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_18))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [_ctx.$store.state.userManagementListData && $data.userSelectOption === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.userManagementListData.current_page) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.userManagementListData.last_page), 1 /* TEXT */)) : _ctx.$store.state.userManagementListData && $data.userSelectOption === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.userManagementListData.current_page) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.userManagementListData.last_page), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" lastPage 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_ctx.userCurrentPage < _ctx.userLastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_user_management_pagination_next_button",
     onClick: _cache[4] || (_cache[4] = function ($event) {
-      return $options.moveNextPage();
+      return $options.nextPage();
     })
-  }, [].concat(_hoisted_25))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.currentPage < $data.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_26))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.userCurrentPage < _ctx.userLastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_user_management_pagination_last_button",
     onClick: _cache[5] || (_cache[5] = function ($event) {
-      return $options.moveLastPage();
+      return $options.lastPage();
     })
-  }, [].concat(_hoisted_29))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), $data.userSelectOption === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AdminUserListComponent, {
+  }, [].concat(_hoisted_30))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), $data.userSelectOption === '0' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AdminUserListComponent, {
     key: 0
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.userSelectOption === '1' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AdminUserPaymentListComponent, {
     key: 1
@@ -27102,8 +27113,6 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       // userToken: null,
 
       // ### Admin ###
-      // get, post 데이터 송수신 url
-      adminUrl: null,
       // Admin Login 데이터 저장용
       adminToken: null,
       adminLoginData: null,
@@ -27115,15 +27124,16 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       userManagementListData: {},
       userListData: [],
       userSelectOption: '0',
-      // 0 : 최신 가입 순, 1 : 최신 결제 순                             
+      // 0 : 최신 가입 순, 1 : 최신 결제 순
+      userCurrentPage: 1,
+      userLastPage: '',
       // Admin Management 데이터 저장용
       adminManagementListData: {},
       adminListData: [],
       adminSelectOption: '0',
-      // 0 : 최신 등록 순, 1 : 권한 순                             
-      // Management Pagination 데이터 저장용
-      currentPage: 1,
-      lastPage: ''
+      // 0 : 최신 등록 순, 1 : 권한 순
+      adminCurrentPage: 1,
+      adminLastPage: ''
     };
   },
   mutations: {
@@ -27213,11 +27223,17 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       state.userPaymentListModal = false;
     },
     // Pagination
-    setCurrentPage: function setCurrentPage(state, currentPage) {
-      state.currentPage = currentPage;
+    setUserCurrentPage: function setUserCurrentPage(state, userCurrentPage) {
+      state.userCurrentPage = userCurrentPage;
     },
-    setLastPage: function setLastPage(state, lastPage) {
-      state.lastPage = lastPage;
+    setUserLastPage: function setUserLastPage(state, userLastPage) {
+      state.userLastPage = userLastPage;
+    },
+    setAdminCurrentPage: function setAdminCurrentPage(state, adminCurrentPage) {
+      state.adminCurrentPage = adminCurrentPage;
+    },
+    setAdminLastPage: function setAdminLastPage(state, adminLastPage) {
+      state.adminLastPage = adminLastPage;
     },
     // User Management
     setUserSelectOption: function setUserSelectOption(state, userSelectOption) {
@@ -27368,7 +27384,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       });
     },
     // ### Admin ###
-    // Login
+    // Admin Login
     adminLogin: function adminLogin(_ref3, adminLoginFormData) {
       var commit = _ref3.commit;
       var URL = '/admin';
@@ -27397,6 +27413,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
         }
       });
     },
+    // Admin Logout
     adminLogout: function adminLogout() {
       var adminToken = localStorage.getItem('setAdminToken');
       // Admin Token 미 존재시
@@ -27452,8 +27469,8 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
           });
           commit('setUserManagementList', response.data.userManagementList);
           commit('setUserList', _this.state.userListData);
-          commit('setCurrentPage', response.data.userManagementList.current_page);
-          commit('setLastPage', response.data.userManagementList.last_page);
+          commit('setUserCurrentPage', response.data.userManagementList.current_page);
+          commit('setUserLastPage', response.data.userManagementList.last_page);
         } else {
           console.error('서버 오류');
         }
@@ -27470,8 +27487,8 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
         if (response.data.code === "UMPL00") {
           commit('setUserManagementList', response.data.userManagementPaymentList);
           commit('setUserList', response.data.userManagementPaymentList.data);
-          commit('setCurrentPage', response.data.userManagementPaymentList.current_page);
-          commit('setLastPage', response.data.userManagementPaymentList.last_page);
+          commit('setUserCurrentPage', response.data.userManagementPaymentList.current_page);
+          commit('setUserLastPage', response.data.userManagementPaymentList.last_page);
           commit('setUserSelectOption', userSelectOption);
         } else {
           console.error('서버 오류');
@@ -27480,10 +27497,70 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
         console.error(error);
       });
     },
+    // User Management Pagination
+    userPagination: function userPagination(_ref6, page) {
+      var state = _ref6.state,
+        dispatch = _ref6.dispatch;
+      // 페이지가 현재 페이지와 같은지 확인하여 중복 요청을 방지합니다.
+      if (page !== state.userCurrentPage) {
+        var userManagementOption = state.userSelectOption;
+        console.log('유저옵션' + state.userSelectOption);
+        if (userManagementOption) {
+          console.log('유저 페이징');
+          if (userManagementOption === '0') {
+            console.log('유저 0 옵션 실행');
+            dispatch('userManagementList', page);
+          } else if (userManagementOption === '1') {
+            console.log('유저 1 옵션 실행');
+            dispatch('userManagementPaymentList', page);
+          }
+        }
+      }
+    },
+    // User Management Pagination(first)
+    userFirstPagination: function userFirstPagination(_ref7) {
+      var state = _ref7.state,
+        dispatch = _ref7.dispatch;
+      if (state.userSelectOption === '0' && state.userCurrentPage !== 1) {
+        dispatch('userPagination', 1);
+      }
+    },
+    // User Management Pagination(prev)
+    userPrevPagination: function userPrevPagination(_ref8) {
+      var state = _ref8.state,
+        dispatch = _ref8.dispatch;
+      var userPrevPage = state.userCurrentPage - 1;
+      if (state.userCurrentPage) {
+        if (userPrevPage > 0) {
+          dispatch('userPagination', userPrevPage);
+        }
+      }
+    },
+    // User Management Pagination(next)
+    userNextPagination: function userNextPagination(_ref9) {
+      var state = _ref9.state,
+        dispatch = _ref9.dispatch;
+      var userNextPage = state.userCurrentPage + 1;
+      if (state.userCurrentPage) {
+        if (userNextPage <= state.userLastPage) {
+          dispatch('userPagination', userNextPage);
+        }
+      }
+    },
+    // User Management Pagination(last)
+    userLastPagination: function userLastPagination(_ref10) {
+      var state = _ref10.state,
+        dispatch = _ref10.dispatch;
+      if (state.userCurrentPage && state.userCurrentPage !== state.userLastPage) {
+        dispatch('userPagination', state.userLastPage);
+      }
+    },
+    // Admin 권한 변경
+    // Admin 탈퇴
     // Admin Management List 데이터 수신
-    adminManagementList: function adminManagementList(_ref6, page) {
+    adminManagementList: function adminManagementList(_ref11, page) {
       var _this2 = this;
-      var commit = _ref6.commit;
+      var commit = _ref11.commit;
       var URL = '/admin/dashboard/management/adminManagementList?page=' + page;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
         if (response.data.code === "AML00") {
@@ -27498,8 +27575,8 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
           });
           commit('setAdminManagementList', response.data.adminManagementList);
           commit('setAdminList', _this2.state.adminListData);
-          commit('setCurrentPage', response.data.adminManagementList.current_page);
-          commit('setLastPage', response.data.adminManagementList.last_page);
+          commit('setAdminCurrentPage', response.data.adminManagementList.current_page);
+          commit('setAdminLastPage', response.data.adminManagementList.last_page);
         } else {
           console.error('서버 오류');
         }
@@ -27508,9 +27585,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       });
     },
     // Admin Management Flg List 데이터 수신
-    adminManagementFlgList: function adminManagementFlgList(_ref7, page) {
+    adminManagementFlgList: function adminManagementFlgList(_ref12, page) {
       var _this3 = this;
-      var commit = _ref7.commit;
+      var commit = _ref12.commit;
       var URL = '/admin/dashboard/management/adminManagementFlgList?page=' + page;
       var adminSelectOption = '1';
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
@@ -27526,8 +27603,8 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
           });
           commit('setAdminManagementList', response.data.adminManagementFlgList);
           commit('setAdminList', _this3.state.adminListData);
-          commit('setCurrentPage', response.data.adminManagementFlgList.current_page);
-          commit('setLastPage', response.data.adminManagementFlgList.last_page);
+          commit('setAdminCurrentPage', response.data.adminManagementFlgList.current_page);
+          commit('setAdminLastPage', response.data.adminManagementFlgList.last_page);
           commit('setAdminSelectOption', adminSelectOption);
         } else {
           console.error('서버 오류');
@@ -27536,59 +27613,62 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
         console.error(error);
       });
     },
-    // Management Pagination
-    pagination: function pagination(_ref8, page) {
-      var state = _ref8.state,
-        dispatch = _ref8.dispatch;
-      if (page !== state.currentPage) {
-        if (state.userSelectOption && state.userSelectOption !== undefined) {
-          if (state.userSelectOption === '0') {
-            dispatch('userManagementList', page);
-          } else if (state.userSelectOption === '1') {
-            dispatch('userManagementPaymentList', page);
-          }
-        }
-        if (state.adminSelectOption && state.adminSelectOption !== undefined) {
-          if (state.adminSelectOption === '0') {
+    // Admin Management Pagination 
+    adminPagination: function adminPagination(_ref13, page) {
+      var state = _ref13.state,
+        dispatch = _ref13.dispatch;
+      // 페이지가 현재 페이지와 같은지 확인하여 중복 요청을 방지합니다.
+      if (page !== state.adminCurrentPage) {
+        var adminManagementOption = state.adminSelectOption;
+        console.log('어드민옵션' + state.adminSelectOption);
+        if (adminManagementOption) {
+          console.log('어드민 페이징');
+          if (adminManagementOption === '0') {
+            console.log('어드민 0 옵션 실행');
             dispatch('adminManagementList', page);
-          } else if (state.adminSelectOption === '1') {
+          } else if (adminManagementOption === '1') {
+            console.log('어드민 1 옵션 실행');
             dispatch('adminManagementFlgList', page);
           }
         }
       }
     },
-    // 첫번째 페이지
-    firstPagination: function firstPagination(_ref9) {
-      var state = _ref9.state,
-        dispatch = _ref9.dispatch;
-      if (state.currentPage !== 1) {
-        dispatch('pagination', 1);
+    // Admin Management Pagination(first)
+    adminFirstPagination: function adminFirstPagination(_ref14) {
+      var state = _ref14.state,
+        dispatch = _ref14.dispatch;
+      if (state.adminSelectOption === '0' && state.adminCurrentPage !== 1) {
+        dispatch('adminPagination', 1);
       }
     },
-    // 이전 페이지
-    prevPagination: function prevPagination(_ref10) {
-      var state = _ref10.state,
-        dispatch = _ref10.dispatch;
-      var prevPage = state.currentPage - 1;
-      if (prevPage > 0) {
-        dispatch('pagination', prevPage);
+    // Admin Management Pagination(prev)
+    adminPrevPagination: function adminPrevPagination(_ref15) {
+      var state = _ref15.state,
+        dispatch = _ref15.dispatch;
+      var adminPrevPage = state.adminCurrentPage - 1;
+      if (state.adminCurrentPage) {
+        if (adminPrevPage > 0) {
+          dispatch('adminPagination', adminPrevPage);
+        }
       }
     },
-    // 다음 페이지
-    nextPagination: function nextPagination(_ref11) {
-      var state = _ref11.state,
-        dispatch = _ref11.dispatch;
-      var nextPage = state.currentPage + 1;
-      if (nextPage <= state.lastPage) {
-        dispatch('pagination', nextPage);
+    // Admin Management Pagination(next)
+    adminNextPagination: function adminNextPagination(_ref16) {
+      var state = _ref16.state,
+        dispatch = _ref16.dispatch;
+      var adminNextPage = state.adminCurrentPage + 1;
+      if (state.adminCurrentPage) {
+        if (adminNextPage <= state.adminLastPage) {
+          dispatch('adminPagination', adminNextPage);
+        }
       }
     },
-    // 마지막 페이지
-    lastPagination: function lastPagination(_ref12) {
-      var state = _ref12.state,
-        dispatch = _ref12.dispatch;
-      if (state.currentPage !== state.lastPage) {
-        dispatch('pagination', state.lastPage);
+    // Admin Management Pagination(last)
+    adminLastPagination: function adminLastPagination(_ref17) {
+      var state = _ref17.state,
+        dispatch = _ref17.dispatch;
+      if (state.adminCurrentPage && state.adminCurrentPage !== state.adminLastPage) {
+        dispatch('adminPagination', state.adminLastPage);
       }
     }
   }

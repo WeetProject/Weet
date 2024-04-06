@@ -19,16 +19,16 @@
 				<div class="relative admin_user_management_pagination_section">
 					<!-- currentPage 1페이지 아닐 때 -->
 					<div class="admin_user_management_pagination_left_button_area">
-						<div class="admin_user_management_pagination_first_button_area" v-if="currentPage !== 1">
-							<button class="admin_user_management_pagination_first_button" @click="moveFirstPage()">
+						<div class="admin_user_management_pagination_first_button_area" v-if="userCurrentPage !== 1">
+							<button class="admin_user_management_pagination_first_button" @click="firstPage()">
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 									<path stroke-linecap="round" stroke-linejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
 								</svg>
 								<span class="font-bold">처음</span>
 							</button>
 						</div>
-						<div class="ml-2 admin_user_management_pagination_prev_button_area" v-if="currentPage !== 1">
-							<button class="admin_user_management_pagination_prev_button" @click="movePrevPage()">
+						<div class="ml-2 admin_user_management_pagination_prev_button_area" v-if="userCurrentPage !== 1">
+							<button class="admin_user_management_pagination_prev_button" @click="prevPage()">
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
 								</svg>
@@ -37,22 +37,27 @@
 						</div>
 					</div>
 					<div class="mx-40 text-center admin_user_management_pagination_page_span_area">
-						<span class="text-xl font-bold admin_user_management_pagination_page_span">
+						<span class="text-xl font-bold admin_user_management_pagination_page_span"
+						v-if="$store.state.userManagementListData && userSelectOption === '0'">
+							{{ $store.state.userManagementListData.current_page }} of {{ $store.state.userManagementListData.last_page }}
+						</span>
+						<span class="text-xl font-bold admin_user_management_pagination_page_span"
+						v-else-if="$store.state.userManagementListData && userSelectOption === '1'">
 							{{ $store.state.userManagementListData.current_page }} of {{ $store.state.userManagementListData.last_page }}
 						</span>
 					</div>
 					<!-- lastPage 아닐 때 -->
 					<div class="admin_user_management_pagination_right_button_area">
-						<div class="admin_user_management_pagination_next_button_area" v-if="currentPage < lastPage">
-							<button class="admin_user_management_pagination_next_button" @click="moveNextPage()">
+						<div class="admin_user_management_pagination_next_button_area" v-if="userCurrentPage < userLastPage">
+							<button class="admin_user_management_pagination_next_button" @click="nextPage()">
 								<span class="font-bold">다음</span>
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 									<path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
 								</svg>
 							</button>
 						</div>						
-						<div class="ml-2 admin_user_management_pagination_last_button_area" v-if="currentPage < lastPage">
-							<button class="admin_user_management_pagination_last_button" @click="moveLastPage()">
+						<div class="ml-2 admin_user_management_pagination_last_button_area" v-if="userCurrentPage < userLastPage">
+							<button class="admin_user_management_pagination_last_button" @click="lastPage()">
 								<span class="font-bold">끝</span>
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 									<path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
@@ -68,6 +73,8 @@
 	</div>
 </template>
 <script>
+import axios from 'axios';
+import { mapState } from 'vuex';
 import AdminUserListComponent from './AdminUserListComponent.vue';
 import AdminUserPaymentListComponent from './AdminUserPaymentListComponent.vue';
 export default {
@@ -77,38 +84,19 @@ export default {
 		AdminUserListComponent,
 		AdminUserPaymentListComponent,
 	},
+
+	computed: {
+		...mapState({
+			userCurrentPage: state => state.userCurrentPage,
+			userLastPage: state => state.userLastPage
+		})
+	},
     
 	data() {
 		return {
-			userDropdown: false,
-			adminDropdown: false,
-			adminToken: '',
-			adminFlgInfo: '',
-			adminNameInfo: '',			
-			adminAuthority: false, // Admin 메뉴 권한 확인용
-			userGenderInfo: '',
-			userFlgInfo: '',
 			userSelectOption: '0',
-			currentPage: 1,
-			lastPage: null,
 		}
 	},
-
-	watch: {
-		// 페이지 데이터 확인용
-        '$store.state.currentPage': {
-            handler(currentPage) {
-                this.currentPage = currentPage;
-            },
-            deep: true
-        },
-        '$store.state.lastPage': {
-            handler(lastPage) {
-                this.lastPage = lastPage;
-            },
-            deep: true
-        }
-    },
 
 	created() {
 		this.$store.dispatch('userManagementList', 1);
@@ -120,6 +108,7 @@ export default {
 	methods: {		
 		// User Management Option 핸들러
 		userDataOptionChange() {
+			console.log(this.userSelectOption);
 			this.$store.commit('setUserSelectOption', this.userSelectOption);
 			if (this.userSelectOption === '0') {
 				this.$store.dispatch('userManagementList', 1);
@@ -129,17 +118,17 @@ export default {
 		},
 
 		// User Management Pagination
-		moveFirstPage() {
-			this.$store.dispatch('firstPagination');
+		firstPage() {
+			this.$store.dispatch('userFirstPagination');
 		},
-		movePrevPage() {
-			this.$store.dispatch('prevPagination');
+		prevPage() {
+			this.$store.dispatch('userPrevPagination');
 		},
-		moveNextPage() {
-			this.$store.dispatch('nextPagination');
+		nextPage() {
+			this.$store.dispatch('userNextPagination');
 		},
-		moveLastPage() {
-			this.$store.dispatch('lastPagination');
+		lastPage() {
+			this.$store.dispatch('userLastPagination');
 		},
 	}
 }
