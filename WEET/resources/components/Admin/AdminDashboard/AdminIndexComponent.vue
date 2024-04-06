@@ -238,5 +238,5 @@ export default {
 }
 </script>
 <style lang="scss">
-    @import '../../sass/Admin/admin_index.scss';
+    @import '../../../sass/Admin/admin_index.scss';
 </style>

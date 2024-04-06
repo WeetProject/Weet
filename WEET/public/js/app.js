@@ -20827,6 +20827,199 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=script&lang=js":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=script&lang=js ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'AdminLoginComponent',
+  data: function data() {
+    return {
+      adminLoginFormData: {
+        admin_number: '',
+        password: ''
+      },
+      adminLoginError: '',
+      adminError: this.$store.state.adminError
+    };
+  },
+  watch: {
+    // 에러 출력용
+    '$store.state.adminError': {
+      handler: function handler(adminError) {
+        this.adminError = adminError;
+      },
+      deep: true
+    }
+  },
+  methods: {
+    adminLogin: function adminLogin() {
+      var adminLoginFormData = new FormData();
+      adminLoginFormData.append('admin_number', this.adminLoginFormData.admin_number);
+      adminLoginFormData.append('password', this.adminLoginFormData.password);
+      if (!(this.adminLoginFormData.admin_number && this.adminLoginFormData.password)) {
+        this.adminLoginError = '사원번호 또는 비밀번호를 입력해주세요.';
+        return;
+      }
+      this.$store.dispatch('adminLogin', this.adminLoginFormData);
+    },
+    // 에러 초기화
+    clearAdminLoginError: function clearAdminLoginError() {
+      this.adminLoginError = '';
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=script&lang=js":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=script&lang=js ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'AdminSignUpComponent',
+  props: {},
+  components: {},
+  data: function data() {
+    return {
+      // Admin 회원가입 데이터
+      adminSignupFormData: {
+        admin_number: '',
+        password: '',
+        password_confirm: '',
+        admin_name: ''
+      },
+      // 실시간 유효성 검사 에러 출력용
+      adminValidationError: {
+        adminValidationErrorAdminNumber: '',
+        adminValidationErrorPassword: '',
+        adminValidationErrorPasswordConfirm: '',
+        adminValidationErrorAdminName: ''
+      },
+      adminSignUpError: '',
+      // Admin 회원가입 에러 출력용
+      adminSuccess: '' // Admin 회원가입 성공 출력용
+    };
+  },
+  created: function created() {},
+  mounted: function mounted() {},
+  methods: {
+    adminSignUp: function adminSignUp() {
+      var _this = this;
+      if (!(this.adminSignupFormData.admin_number && this.adminSignupFormData.password && this.adminSignupFormData.password_confirm && this.adminSignupFormData.admin_name)) {
+        this.adminSignUpError = '입력사항을 모두 입력해주세요.';
+        return;
+      }
+      var URL = '/admin/signup';
+      var adminSignupFormData = new FormData();
+      adminSignupFormData.append('admin_number', this.adminSignupFormData.admin_number);
+      adminSignupFormData.append('password', this.adminSignupFormData.password);
+      adminSignupFormData.append('password_confirm', this.adminSignupFormData.password_confirm);
+      adminSignupFormData.append('admin_name', this.adminSignupFormData.admin_name);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, adminSignupFormData).then(function (response) {
+        if (response.data.code === "ASU00") {
+          _this.adminSuccess = response.data.success;
+          alert(_this.adminSuccess);
+          _this.$router.push('/admin');
+        } else {
+          _this.adminSignUpError = error.response.data.error;
+        }
+      })["catch"](function (error) {
+        _this.adminSignUpError = error.response.data.error;
+      });
+    },
+    // ### 유효성검사 핸들러(유효성 검사 및 에러 초기화) ###
+    // 사번
+    handleAdminNumberInput: function handleAdminNumberInput() {
+      this.validationAdminNumber();
+      if (!this.adminSignupFormData.admin_number) {
+        this.clearValidationError('adminValidationErrorAdminNumber');
+      }
+      this.adminSignUpError = '';
+    },
+    // 비밀번호
+    handleAdminPasswordInput: function handleAdminPasswordInput() {
+      this.validationAdminPassword();
+      if (!this.adminSignupFormData.password) {
+        this.clearValidationError('adminValidationErrorPassword');
+      }
+      this.adminSignUpError = '';
+    },
+    // 비밀번호 일치 여부
+    handleAdminPasswordConfirmInput: function handleAdminPasswordConfirmInput() {
+      this.validationAdminPasswordConfirm();
+      if (!this.adminSignupFormData.password_confirm) {
+        this.clearValidationError('adminValidationErrorPasswordConfirm');
+      }
+      this.adminSignUpError = '';
+    },
+    // 이름
+    handleAdminNameInput: function handleAdminNameInput() {
+      this.validationAdminName();
+      if (!this.adminSignupFormData.admin_name) {
+        this.clearValidationError('adminValidationErrorAdminName');
+      }
+      this.adminSignUpError = '';
+    },
+    // ### 유효성 검사 ###
+    // 사번
+    validationAdminNumber: function validationAdminNumber() {
+      if (!this.adminSignupFormData.admin_number.match(/^1\d{4}$/)) {
+        this.adminValidationError.adminValidationErrorAdminNumber = '숫자만 입력해주세요.';
+      } else {
+        this.adminValidationError.adminValidationErrorAdminNumber = '';
+      }
+    },
+    // 비밀번호
+    validationAdminPassword: function validationAdminPassword() {
+      if (!this.adminSignupFormData.password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/)) {
+        this.adminValidationError.adminValidationErrorPassword = '보안이 취약합니다. 영문과 숫자, 특수문자를 포함해주세요';
+      } else {
+        this.adminValidationError.adminValidationErrorPassword = '';
+      }
+    },
+    // 비밀번호 일치 여부
+    validationAdminPasswordConfirm: function validationAdminPasswordConfirm() {
+      if (this.adminSignupFormData.password_confirm !== this.adminSignupFormData.password) {
+        this.adminValidationError.adminValidationErrorPasswordConfirm = '비밀번호와 비밀번호 확인이 일치하지 않습니다';
+      } else {
+        this.adminValidationError.adminValidationErrorPasswordConfirm = '';
+      }
+    },
+    // 이름
+    validationAdminName: function validationAdminName() {
+      if (!this.adminSignupFormData.admin_name.match(/^[가-힣]{1,50}$/)) {
+        this.adminValidationError.adminValidationErrorAdminName = '한글만 입력해주세요.';
+      } else {
+        this.adminValidationError.adminValidationErrorAdminName = '';
+      }
+    },
+    // 유효성 검사 에러 초기화
+    clearValidationError: function clearValidationError(inputName) {
+      this.adminValidationError[inputName] = '';
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminComponent.vue?vue&type=script&lang=js":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminComponent.vue?vue&type=script&lang=js ***!
@@ -20840,7 +21033,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminIndexComponent.vue */ "./resources/components/Admin/AdminIndexComponent.vue");
+/* harmony import */ var _Admin_AdminDashboard_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Admin/AdminDashboard/AdminIndexComponent.vue */ "./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue");
 /* harmony import */ var _Admin_UserManagement_AdminUserManagementComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Admin/UserManagement/AdminUserManagementComponent.vue */ "./resources/components/Admin/UserManagement/AdminUserManagementComponent.vue");
 
 
@@ -20848,7 +21041,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdminComponent',
   components: {
-    AdminIndexComponent: _AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    AdminIndexComponent: _Admin_AdminDashboard_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     AdminUserManagementComponent: _Admin_UserManagement_AdminUserManagementComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
@@ -21019,10 +21212,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminIndexComponent.vue?vue&type=script&lang=js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminIndexComponent.vue?vue&type=script&lang=js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=script&lang=js":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=script&lang=js ***!
+  \*******************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -21164,58 +21357,6 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.error(error);
       });
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminLoginComponent.vue?vue&type=script&lang=js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminLoginComponent.vue?vue&type=script&lang=js ***!
-  \****************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'AdminLoginComponent',
-  data: function data() {
-    return {
-      adminLoginFormData: {
-        admin_number: '',
-        password: ''
-      },
-      adminLoginError: '',
-      adminError: this.$store.state.adminError
-    };
-  },
-  watch: {
-    // 에러 출력용
-    '$store.state.adminError': {
-      handler: function handler(adminError) {
-        this.adminError = adminError;
-      },
-      deep: true
-    }
-  },
-  methods: {
-    adminLogin: function adminLogin() {
-      var adminLoginFormData = new FormData();
-      adminLoginFormData.append('admin_number', this.adminLoginFormData.admin_number);
-      adminLoginFormData.append('password', this.adminLoginFormData.password);
-      if (!(this.adminLoginFormData.admin_number && this.adminLoginFormData.password)) {
-        this.adminLoginError = '사원번호 또는 비밀번호를 입력해주세요.';
-        return;
-      }
-      this.$store.dispatch('adminLogin', this.adminLoginFormData);
-    },
-    // 에러 초기화
-    clearAdminLoginError: function clearAdminLoginError() {
-      this.adminLoginError = '';
     }
   }
 });
@@ -21385,10 +21526,10 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=script&lang=js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=script&lang=js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=script&lang=js":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=script&lang=js ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -21494,147 +21635,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminSignUpComponent.vue?vue&type=script&lang=js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminSignUpComponent.vue?vue&type=script&lang=js ***!
-  \*****************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'AdminSignUpComponent',
-  props: {},
-  components: {},
-  data: function data() {
-    return {
-      // Admin 회원가입 데이터
-      adminSignupFormData: {
-        admin_number: '',
-        password: '',
-        password_confirm: '',
-        admin_name: ''
-      },
-      // 실시간 유효성 검사 에러 출력용
-      adminValidationError: {
-        adminValidationErrorAdminNumber: '',
-        adminValidationErrorPassword: '',
-        adminValidationErrorPasswordConfirm: '',
-        adminValidationErrorAdminName: ''
-      },
-      adminSignUpError: '',
-      // Admin 회원가입 에러 출력용
-      adminSuccess: '' // Admin 회원가입 성공 출력용
-    };
-  },
-  created: function created() {},
-  mounted: function mounted() {},
-  methods: {
-    adminSignUp: function adminSignUp() {
-      var _this = this;
-      if (!(this.adminSignupFormData.admin_number && this.adminSignupFormData.password && this.adminSignupFormData.password_confirm && this.adminSignupFormData.admin_name)) {
-        this.adminSignUpError = '입력사항을 모두 입력해주세요.';
-        return;
-      }
-      var URL = '/admin/signup';
-      var adminSignupFormData = new FormData();
-      adminSignupFormData.append('admin_number', this.adminSignupFormData.admin_number);
-      adminSignupFormData.append('password', this.adminSignupFormData.password);
-      adminSignupFormData.append('password_confirm', this.adminSignupFormData.password_confirm);
-      adminSignupFormData.append('admin_name', this.adminSignupFormData.admin_name);
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post(URL, adminSignupFormData).then(function (response) {
-        if (response.data.code === "ASU00") {
-          _this.adminSuccess = response.data.success;
-          alert(_this.adminSuccess);
-          _this.$router.push('/admin');
-        } else {
-          _this.adminSignUpError = error.response.data.error;
-        }
-      })["catch"](function (error) {
-        _this.adminSignUpError = error.response.data.error;
-      });
-    },
-    // ### 유효성검사 핸들러(유효성 검사 및 에러 초기화) ###
-    // 사번
-    handleAdminNumberInput: function handleAdminNumberInput() {
-      this.validationAdminNumber();
-      if (!this.adminSignupFormData.admin_number) {
-        this.clearValidationError('adminValidationErrorAdminNumber');
-      }
-      this.adminSignUpError = '';
-    },
-    // 비밀번호
-    handleAdminPasswordInput: function handleAdminPasswordInput() {
-      this.validationAdminPassword();
-      if (!this.adminSignupFormData.password) {
-        this.clearValidationError('adminValidationErrorPassword');
-      }
-      this.adminSignUpError = '';
-    },
-    // 비밀번호 일치 여부
-    handleAdminPasswordConfirmInput: function handleAdminPasswordConfirmInput() {
-      this.validationAdminPasswordConfirm();
-      if (!this.adminSignupFormData.password_confirm) {
-        this.clearValidationError('adminValidationErrorPasswordConfirm');
-      }
-      this.adminSignUpError = '';
-    },
-    // 이름
-    handleAdminNameInput: function handleAdminNameInput() {
-      this.validationAdminName();
-      if (!this.adminSignupFormData.admin_name) {
-        this.clearValidationError('adminValidationErrorAdminName');
-      }
-      this.adminSignUpError = '';
-    },
-    // ### 유효성 검사 ###
-    // 사번
-    validationAdminNumber: function validationAdminNumber() {
-      if (!this.adminSignupFormData.admin_number.match(/^1\d{4}$/)) {
-        this.adminValidationError.adminValidationErrorAdminNumber = '숫자만 입력해주세요.';
-      } else {
-        this.adminValidationError.adminValidationErrorAdminNumber = '';
-      }
-    },
-    // 비밀번호
-    validationAdminPassword: function validationAdminPassword() {
-      if (!this.adminSignupFormData.password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/)) {
-        this.adminValidationError.adminValidationErrorPassword = '보안이 취약합니다. 영문과 숫자, 특수문자를 포함해주세요';
-      } else {
-        this.adminValidationError.adminValidationErrorPassword = '';
-      }
-    },
-    // 비밀번호 일치 여부
-    validationAdminPasswordConfirm: function validationAdminPasswordConfirm() {
-      if (this.adminSignupFormData.password_confirm !== this.adminSignupFormData.password) {
-        this.adminValidationError.adminValidationErrorPasswordConfirm = '비밀번호와 비밀번호 확인이 일치하지 않습니다';
-      } else {
-        this.adminValidationError.adminValidationErrorPasswordConfirm = '';
-      }
-    },
-    // 이름
-    validationAdminName: function validationAdminName() {
-      if (!this.adminSignupFormData.admin_name.match(/^[가-힣]{1,50}$/)) {
-        this.adminValidationError.adminValidationErrorAdminName = '한글만 입력해주세요.';
-      } else {
-        this.adminValidationError.adminValidationErrorAdminName = '';
-      }
-    },
-    // 유효성 검사 에러 초기화
-    clearValidationError: function clearValidationError(inputName) {
-      this.adminValidationError[inputName] = '';
-    }
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/UserManagement/AdminUserListComponent.vue?vue&type=script&lang=js":
 /*!**********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/UserManagement/AdminUserListComponent.vue?vue&type=script&lang=js ***!
@@ -21671,35 +21671,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-/* harmony import */ var _AdminUserListComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminUserListComponent.vue */ "./resources/components/Admin/UserManagement/AdminUserListComponent.vue");
-/* harmony import */ var _AdminUserPaymentListComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminUserPaymentListComponent.vue */ "./resources/components/Admin/UserManagement/AdminUserPaymentListComponent.vue");
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
+/* harmony import */ var _AdminUserListComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminUserListComponent.vue */ "./resources/components/Admin/UserManagement/AdminUserListComponent.vue");
+/* harmony import */ var _AdminUserPaymentListComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminUserPaymentListComponent.vue */ "./resources/components/Admin/UserManagement/AdminUserPaymentListComponent.vue");
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdminUserManagementComponent',
   components: {
-    AdminUserListComponent: _AdminUserListComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    AdminUserPaymentListComponent: _AdminUserPaymentListComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    AdminUserListComponent: _AdminUserListComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    AdminUserPaymentListComponent: _AdminUserPaymentListComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)({
-    currentPage: function currentPage(state) {
-      return state.currentPage;
-    },
-    lastPage: function lastPage(state) {
-      return state.lastPage;
-    }
-  })),
   data: function data() {
     return {
       userDropdown: false,
@@ -21711,8 +21692,25 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       // Admin 메뉴 권한 확인용
       userGenderInfo: '',
       userFlgInfo: '',
-      userSelectOption: '0'
+      userSelectOption: '0',
+      currentPage: 1,
+      lastPage: null
     };
+  },
+  watch: {
+    // 페이지 데이터 확인용
+    '$store.state.currentPage': {
+      handler: function handler(currentPage) {
+        this.currentPage = currentPage;
+      },
+      deep: true
+    },
+    '$store.state.lastPage': {
+      handler: function handler(lastPage) {
+        this.lastPage = lastPage;
+      },
+      deep: true
+    }
   },
   created: function created() {
     this.$store.dispatch('userManagementList', 1);
@@ -21761,8 +21759,24 @@ __webpack_require__.r(__webpack_exports__);
   name: 'AdminUserPaymentListComponent',
   data: function data() {
     return {
-      setting: ''
+      currentPage: 1,
+      lastPage: null
     };
+  },
+  watch: {
+    // 페이지 데이터 확인용
+    '$store.state.currentPage': {
+      handler: function handler(currentPage) {
+        this.currentPage = currentPage;
+      },
+      deep: true
+    },
+    '$store.state.lastPage': {
+      handler: function handler(lastPage) {
+        this.lastPage = lastPage;
+      },
+      deep: true
+    }
   },
   created: function created() {},
   mounted: function mounted() {},
@@ -23068,6 +23082,426 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=template&id=7c921f6a":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=template&id=7c921f6a ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../public/images/WEET_logo.png */ "./public/images/WEET_logo.png");
+/* harmony import */ var _public_images_Admin_login_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../public/images/Admin_login.jpg */ "./public/images/Admin_login.jpg");
+
+
+
+var _hoisted_1 = {
+  "class": "box-border admin_login_container"
+};
+var _hoisted_2 = {
+  "class": "admin_login_section"
+};
+var _hoisted_3 = {
+  "class": "admin_login_left_section"
+};
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "admin_login_title_section"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  "class": "admin_login_title_img",
+  src: _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"],
+  alt: ""
+})], -1 /* HOISTED */);
+var _hoisted_5 = {
+  "class": "admin_login_input_area"
+};
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  "class": "admin_login_input_svg",
+  xmlns: "http://www.w3.org/2000/svg",
+  fill: "none",
+  viewBox: "0 0 24 24",
+  "stroke-width": "1.5",
+  stroke: "currentColor"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  d: "M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"
+})], -1 /* HOISTED */);
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "admin_login_error_area"
+}, null, -1 /* HOISTED */);
+var _hoisted_8 = {
+  "class": "admin_login_input_area"
+};
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  "class": "admin_login_input_svg",
+  xmlns: "http://www.w3.org/2000/svg",
+  fill: "none",
+  viewBox: "0 0 24 24",
+  "stroke-width": "1.5",
+  stroke: "currentColor"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  d: "M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+})], -1 /* HOISTED */);
+var _hoisted_10 = {
+  "class": "w-full mt-5 text-center admin_login_error_area"
+};
+var _hoisted_11 = {
+  key: 0,
+  "class": "font-semibold text-rose-600"
+};
+var _hoisted_12 = {
+  key: 1,
+  "class": "font-semibold text-rose-600"
+};
+var _hoisted_13 = {
+  "class": "admin_login_button_area"
+};
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "admin_login_button_text_area"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  fill: "none",
+  viewBox: "0 0 24 24",
+  "stroke-width": "1.5",
+  stroke: "currentColor",
+  "class": "admin_login_button_svg"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  d: "M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9"
+})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "text-base font-semibold"
+}, "Login")], -1 /* HOISTED */);
+var _hoisted_15 = [_hoisted_14];
+var _hoisted_16 = {
+  "class": "w-full my-10 text-center admin_login_signup_area"
+};
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "admin_login_right_section"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  "class": "admin_login_image",
+  src: _public_images_Admin_login_jpg__WEBPACK_IMPORTED_MODULE_2__["default"],
+  alt: ""
+})], -1 /* HOISTED */);
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "text-base admin_login_input",
+    type: "text",
+    name: "admin_number",
+    id: "admin_number",
+    maxlength: "5",
+    autocomplete: "off",
+    placeholder: "사원번호",
+    onInput: _cache[0] || (_cache[0] = function () {
+      return $options.clearAdminLoginError && $options.clearAdminLoginError.apply($options, arguments);
+    }),
+    onKeyup: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
+      return $options.adminLogin && $options.adminLogin.apply($options, arguments);
+    }, ["enter"])),
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $data.adminLoginFormData.admin_number = $event;
+    })
+  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminLoginFormData.admin_number]])]), _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "text-base admin_login_input",
+    type: "password",
+    name: "password",
+    id: "password",
+    autocomplete: "off",
+    placeholder: "비밀번호",
+    onInput: _cache[3] || (_cache[3] = function () {
+      return $options.clearAdminLoginError && $options.clearAdminLoginError.apply($options, arguments);
+    }),
+    onKeyup: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
+      return $options.adminLogin && $options.adminLogin.apply($options, arguments);
+    }, ["enter"])),
+    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+      return $data.adminLoginFormData.password = $event;
+    })
+  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminLoginFormData.password]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [$data.adminError ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminError), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.adminLoginError ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminLoginError), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "admin_login_button",
+    type: "submit",
+    onClick: _cache[6] || (_cache[6] = function () {
+      return $options.adminLogin && $options.adminLogin.apply($options, arguments);
+    })
+  }, [].concat(_hoisted_15))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "/admin/signup",
+    "class": "font-semibold admin_login_signup_area"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("admin 등록↗")];
+    }),
+    _: 1 /* STABLE */
+  })])]), _hoisted_17])]);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=template&id=0e64ab3f":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=template&id=0e64ab3f ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../public/images/WEET_logo.png */ "./public/images/WEET_logo.png");
+/* harmony import */ var _public_images_Admin_login_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../public/images/Admin_login.jpg */ "./public/images/Admin_login.jpg");
+
+
+
+var _hoisted_1 = {
+  "class": "box-border admin_signup_container"
+};
+var _hoisted_2 = {
+  "class": "admin_signup_section"
+};
+var _hoisted_3 = {
+  "class": "admin_signup_left_section"
+};
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "admin_signup_title_section"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  "class": "admin_signup_title_img",
+  src: _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"],
+  alt: ""
+})], -1 /* HOISTED */);
+var _hoisted_5 = {
+  "class": "admin_signup_input_area"
+};
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  "class": "admin_signup_input_svg",
+  xmlns: "http://www.w3.org/2000/svg",
+  fill: "none",
+  viewBox: "0 0 24 24",
+  "stroke-width": "1.5",
+  stroke: "currentColor"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  d: "M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"
+})], -1 /* HOISTED */);
+var _hoisted_7 = {
+  "class": "text-center admin_signup_validation_error_area"
+};
+var _hoisted_8 = {
+  "class": "text-xs font-semibold text-rose-600"
+};
+var _hoisted_9 = {
+  "class": "admin_signup_input_area"
+};
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  "class": "admin_signup_input_svg",
+  xmlns: "http://www.w3.org/2000/svg",
+  fill: "none",
+  viewBox: "0 0 24 24",
+  "stroke-width": "1.5",
+  stroke: "currentColor"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  d: "M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+})], -1 /* HOISTED */);
+var _hoisted_11 = {
+  "class": "text-center admin_signup_validation_error_area"
+};
+var _hoisted_12 = {
+  "class": "text-xs font-semibold text-rose-600"
+};
+var _hoisted_13 = {
+  "class": "admin_signup_input_area"
+};
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  "class": "admin_signup_input_svg",
+  xmlns: "http://www.w3.org/2000/svg",
+  fill: "none",
+  viewBox: "0 0 24 24",
+  "stroke-width": "1.5",
+  stroke: "currentColor"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  d: "M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+})], -1 /* HOISTED */);
+var _hoisted_15 = {
+  "class": "text-center admin_signup_validation_error_area"
+};
+var _hoisted_16 = {
+  "class": "text-xs font-semibold text-rose-600"
+};
+var _hoisted_17 = {
+  "class": "admin_signup_input_area"
+};
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  "class": "admin_signup_input_svg",
+  xmlns: "http://www.w3.org/2000/svg",
+  fill: "none",
+  viewBox: "0 0 24 24",
+  "stroke-width": "1.5",
+  stroke: "currentColor"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  d: "M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+})], -1 /* HOISTED */);
+var _hoisted_19 = {
+  "class": "text-center admin_signup_validation_error_area"
+};
+var _hoisted_20 = {
+  "class": "text-xs font-semibold text-rose-600"
+};
+var _hoisted_21 = {
+  "class": "w-full mt-5 text-center admin_signup_error_area"
+};
+var _hoisted_22 = {
+  "class": "text-xs font-semibold text-rose-600"
+};
+var _hoisted_23 = {
+  "class": "admin_signup_button_area"
+};
+var _hoisted_24 = {
+  "class": "mx-5 admin_signup_signup_button"
+};
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "admin_signup_button_text_area"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  fill: "none",
+  viewBox: "0 0 24 24",
+  "stroke-width": "1.5",
+  stroke: "currentColor",
+  "class": "admin_signup_svg"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  d: "M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9"
+})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "text-base font-semibold"
+}, "Sign Up")], -1 /* HOISTED */);
+var _hoisted_26 = [_hoisted_25];
+var _hoisted_27 = {
+  "class": "mx-5 admin_signup_cancel_button"
+};
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  "class": "admin_cancel_button",
+  type: "button"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "admin_cancel_button_text_area"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  fill: "none",
+  viewBox: "0 0 24 24",
+  "stroke-width": "1.5",
+  stroke: "currentColor",
+  "class": "admin_signup_svg"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  d: "M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel ")])], -1 /* HOISTED */);
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "admin_signup_right_section"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  "class": "admin_signup_image",
+  src: _public_images_Admin_login_jpg__WEBPACK_IMPORTED_MODULE_2__["default"],
+  alt: ""
+})], -1 /* HOISTED */);
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "text-base admin_signup_input",
+    type: "text",
+    name: "admin_number",
+    id: "admin_number",
+    maxlength: "5",
+    autocomplete: "off",
+    placeholder: "사원번호",
+    onInput: _cache[0] || (_cache[0] = function () {
+      return $options.handleAdminNumberInput && $options.handleAdminNumberInput.apply($options, arguments);
+    }),
+    onKeyup: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
+      return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
+    }, ["enter"])),
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $data.adminSignupFormData.admin_number = $event;
+    })
+  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.admin_number]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorAdminNumber), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "text-base admin_signup_input",
+    type: "password",
+    name: "password",
+    id: "password",
+    autocomplete: "off",
+    placeholder: "비밀번호",
+    onInput: _cache[3] || (_cache[3] = function () {
+      return $options.handleAdminPasswordInput && $options.handleAdminPasswordInput.apply($options, arguments);
+    }),
+    onKeyup: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
+      return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
+    }, ["enter"])),
+    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+      return $data.adminSignupFormData.password = $event;
+    })
+  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.password]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorPassword), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "text-base admin_signup_input",
+    type: "password",
+    name: "password_confirm",
+    id: "password_confirm",
+    autocomplete: "off",
+    placeholder: "비밀번호 확인",
+    onInput: _cache[6] || (_cache[6] = function () {
+      return $options.handleAdminPasswordConfirmInput && $options.handleAdminPasswordConfirmInput.apply($options, arguments);
+    }),
+    onKeyup: _cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
+      return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
+    }, ["enter"])),
+    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
+      return $data.adminSignupFormData.password_confirm = $event;
+    })
+  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.password_confirm]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorPasswordConfirm), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "text-base admin_signup_input",
+    type: "text",
+    name: "admin_name",
+    id: "admin_name",
+    autocomplete: "off",
+    placeholder: "이름",
+    onInput: _cache[9] || (_cache[9] = function () {
+      return $options.handleAdminNameInput && $options.handleAdminNameInput.apply($options, arguments);
+    }),
+    onKeyup: _cache[10] || (_cache[10] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
+      return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
+    }, ["enter"])),
+    "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
+      return $data.adminSignupFormData.admin_name = $event;
+    })
+  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.admin_name]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorAdminName), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminSignUpError), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "admin_signup_button",
+    type: "submit",
+    onClick: _cache[12] || (_cache[12] = function () {
+      return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
+    })
+  }, [].concat(_hoisted_26))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "/admin",
+    "class": "flex w-full text-base font-semibold"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_28];
+    }),
+    _: 1 /* STABLE */
+  })])])]), _hoisted_29])]);
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminComponent.vue?vue&type=template&id=8bcec282":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminComponent.vue?vue&type=template&id=8bcec282 ***!
@@ -23333,10 +23767,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminIndexComponent.vue?vue&type=template&id=2e32d9f9":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminIndexComponent.vue?vue&type=template&id=2e32d9f9 ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=template&id=0f1385be":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=template&id=0f1385be ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -23477,167 +23911,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     options: $data.chartOptions,
     series: $data.series
   }, null, 8 /* PROPS */, ["options", "series"])])])]), _hoisted_29])]);
-}
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminLoginComponent.vue?vue&type=template&id=060bc0c2":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminLoginComponent.vue?vue&type=template&id=060bc0c2 ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* binding */ render)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../public/images/WEET_logo.png */ "./public/images/WEET_logo.png");
-/* harmony import */ var _public_images_Admin_login_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../public/images/Admin_login.jpg */ "./public/images/Admin_login.jpg");
-
-
-
-var _hoisted_1 = {
-  "class": "box-border admin_login_container"
-};
-var _hoisted_2 = {
-  "class": "admin_login_section"
-};
-var _hoisted_3 = {
-  "class": "admin_login_left_section"
-};
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "admin_login_title_section"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  "class": "admin_login_title_img",
-  src: _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"],
-  alt: ""
-})], -1 /* HOISTED */);
-var _hoisted_5 = {
-  "class": "admin_login_input_area"
-};
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  "class": "admin_login_input_svg",
-  xmlns: "http://www.w3.org/2000/svg",
-  fill: "none",
-  viewBox: "0 0 24 24",
-  "stroke-width": "1.5",
-  stroke: "currentColor"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  d: "M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"
-})], -1 /* HOISTED */);
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "admin_login_error_area"
-}, null, -1 /* HOISTED */);
-var _hoisted_8 = {
-  "class": "admin_login_input_area"
-};
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  "class": "admin_login_input_svg",
-  xmlns: "http://www.w3.org/2000/svg",
-  fill: "none",
-  viewBox: "0 0 24 24",
-  "stroke-width": "1.5",
-  stroke: "currentColor"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  d: "M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-})], -1 /* HOISTED */);
-var _hoisted_10 = {
-  "class": "w-full mt-5 text-center admin_login_error_area"
-};
-var _hoisted_11 = {
-  key: 0,
-  "class": "font-semibold text-rose-600"
-};
-var _hoisted_12 = {
-  key: 1,
-  "class": "font-semibold text-rose-600"
-};
-var _hoisted_13 = {
-  "class": "admin_login_button_area"
-};
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "admin_login_button_text_area"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  xmlns: "http://www.w3.org/2000/svg",
-  fill: "none",
-  viewBox: "0 0 24 24",
-  "stroke-width": "1.5",
-  stroke: "currentColor",
-  "class": "admin_login_button_svg"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  d: "M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9"
-})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "text-base font-semibold"
-}, "Login")], -1 /* HOISTED */);
-var _hoisted_15 = [_hoisted_14];
-var _hoisted_16 = {
-  "class": "w-full my-10 text-center admin_login_signup_area"
-};
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "admin_login_right_section"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  "class": "admin_login_image",
-  src: _public_images_Admin_login_jpg__WEBPACK_IMPORTED_MODULE_2__["default"],
-  alt: ""
-})], -1 /* HOISTED */);
-function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "class": "text-base admin_login_input",
-    type: "text",
-    name: "admin_number",
-    id: "admin_number",
-    maxlength: "5",
-    autocomplete: "off",
-    placeholder: "사원번호",
-    onInput: _cache[0] || (_cache[0] = function () {
-      return $options.clearAdminLoginError && $options.clearAdminLoginError.apply($options, arguments);
-    }),
-    onKeyup: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
-      return $options.adminLogin && $options.adminLogin.apply($options, arguments);
-    }, ["enter"])),
-    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-      return $data.adminLoginFormData.admin_number = $event;
-    })
-  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminLoginFormData.admin_number]])]), _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "class": "text-base admin_login_input",
-    type: "password",
-    name: "password",
-    id: "password",
-    autocomplete: "off",
-    placeholder: "비밀번호",
-    onInput: _cache[3] || (_cache[3] = function () {
-      return $options.clearAdminLoginError && $options.clearAdminLoginError.apply($options, arguments);
-    }),
-    onKeyup: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
-      return $options.adminLogin && $options.adminLogin.apply($options, arguments);
-    }, ["enter"])),
-    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
-      return $data.adminLoginFormData.password = $event;
-    })
-  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminLoginFormData.password]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [$data.adminError ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminError), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.adminLoginError ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminLoginError), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "admin_login_button",
-    type: "submit",
-    onClick: _cache[6] || (_cache[6] = function () {
-      return $options.adminLogin && $options.adminLogin.apply($options, arguments);
-    })
-  }, [].concat(_hoisted_15))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/admin/signup",
-    "class": "font-semibold admin_login_signup_area"
-  }, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("admin 등록↗")];
-    }),
-    _: 1 /* STABLE */
-  })])]), _hoisted_17])]);
 }
 
 /***/ }),
@@ -23961,10 +24234,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=template&id=df4328f4":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=template&id=df4328f4 ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=template&id=0e34c8ad":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=template&id=0e34c8ad ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -24172,265 +24445,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminSignUpComponent.vue?vue&type=template&id=97c19632":
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminSignUpComponent.vue?vue&type=template&id=97c19632 ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* binding */ render)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../public/images/WEET_logo.png */ "./public/images/WEET_logo.png");
-/* harmony import */ var _public_images_Admin_login_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../public/images/Admin_login.jpg */ "./public/images/Admin_login.jpg");
-
-
-
-var _hoisted_1 = {
-  "class": "box-border admin_signup_container"
-};
-var _hoisted_2 = {
-  "class": "admin_signup_section"
-};
-var _hoisted_3 = {
-  "class": "admin_signup_left_section"
-};
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "admin_signup_title_section"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  "class": "admin_signup_title_img",
-  src: _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"],
-  alt: ""
-})], -1 /* HOISTED */);
-var _hoisted_5 = {
-  "class": "admin_signup_input_area"
-};
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  "class": "admin_signup_input_svg",
-  xmlns: "http://www.w3.org/2000/svg",
-  fill: "none",
-  viewBox: "0 0 24 24",
-  "stroke-width": "1.5",
-  stroke: "currentColor"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  d: "M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"
-})], -1 /* HOISTED */);
-var _hoisted_7 = {
-  "class": "text-center admin_signup_validation_error_area"
-};
-var _hoisted_8 = {
-  "class": "text-xs font-semibold text-rose-600"
-};
-var _hoisted_9 = {
-  "class": "admin_signup_input_area"
-};
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  "class": "admin_signup_input_svg",
-  xmlns: "http://www.w3.org/2000/svg",
-  fill: "none",
-  viewBox: "0 0 24 24",
-  "stroke-width": "1.5",
-  stroke: "currentColor"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  d: "M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-})], -1 /* HOISTED */);
-var _hoisted_11 = {
-  "class": "text-center admin_signup_validation_error_area"
-};
-var _hoisted_12 = {
-  "class": "text-xs font-semibold text-rose-600"
-};
-var _hoisted_13 = {
-  "class": "admin_signup_input_area"
-};
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  "class": "admin_signup_input_svg",
-  xmlns: "http://www.w3.org/2000/svg",
-  fill: "none",
-  viewBox: "0 0 24 24",
-  "stroke-width": "1.5",
-  stroke: "currentColor"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  d: "M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-})], -1 /* HOISTED */);
-var _hoisted_15 = {
-  "class": "text-center admin_signup_validation_error_area"
-};
-var _hoisted_16 = {
-  "class": "text-xs font-semibold text-rose-600"
-};
-var _hoisted_17 = {
-  "class": "admin_signup_input_area"
-};
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  "class": "admin_signup_input_svg",
-  xmlns: "http://www.w3.org/2000/svg",
-  fill: "none",
-  viewBox: "0 0 24 24",
-  "stroke-width": "1.5",
-  stroke: "currentColor"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  d: "M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-})], -1 /* HOISTED */);
-var _hoisted_19 = {
-  "class": "text-center admin_signup_validation_error_area"
-};
-var _hoisted_20 = {
-  "class": "text-xs font-semibold text-rose-600"
-};
-var _hoisted_21 = {
-  "class": "w-full mt-5 text-center admin_signup_error_area"
-};
-var _hoisted_22 = {
-  "class": "text-xs font-semibold text-rose-600"
-};
-var _hoisted_23 = {
-  "class": "admin_signup_button_area"
-};
-var _hoisted_24 = {
-  "class": "mx-5 admin_signup_signup_button"
-};
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "admin_signup_button_text_area"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  xmlns: "http://www.w3.org/2000/svg",
-  fill: "none",
-  viewBox: "0 0 24 24",
-  "stroke-width": "1.5",
-  stroke: "currentColor",
-  "class": "admin_signup_svg"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  d: "M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9"
-})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "text-base font-semibold"
-}, "Sign Up")], -1 /* HOISTED */);
-var _hoisted_26 = [_hoisted_25];
-var _hoisted_27 = {
-  "class": "mx-5 admin_signup_cancel_button"
-};
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-  "class": "admin_cancel_button",
-  type: "button"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "admin_cancel_button_text_area"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  xmlns: "http://www.w3.org/2000/svg",
-  fill: "none",
-  viewBox: "0 0 24 24",
-  "stroke-width": "1.5",
-  stroke: "currentColor",
-  "class": "admin_signup_svg"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  d: "M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
-})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel ")])], -1 /* HOISTED */);
-var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "admin_signup_right_section"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  "class": "admin_signup_image",
-  src: _public_images_Admin_login_jpg__WEBPACK_IMPORTED_MODULE_2__["default"],
-  alt: ""
-})], -1 /* HOISTED */);
-function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "class": "text-base admin_signup_input",
-    type: "text",
-    name: "admin_number",
-    id: "admin_number",
-    maxlength: "5",
-    autocomplete: "off",
-    placeholder: "사원번호",
-    onInput: _cache[0] || (_cache[0] = function () {
-      return $options.handleAdminNumberInput && $options.handleAdminNumberInput.apply($options, arguments);
-    }),
-    onKeyup: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
-      return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
-    }, ["enter"])),
-    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-      return $data.adminSignupFormData.admin_number = $event;
-    })
-  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.admin_number]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorAdminNumber), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "class": "text-base admin_signup_input",
-    type: "password",
-    name: "password",
-    id: "password",
-    autocomplete: "off",
-    placeholder: "비밀번호",
-    onInput: _cache[3] || (_cache[3] = function () {
-      return $options.handleAdminPasswordInput && $options.handleAdminPasswordInput.apply($options, arguments);
-    }),
-    onKeyup: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
-      return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
-    }, ["enter"])),
-    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
-      return $data.adminSignupFormData.password = $event;
-    })
-  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.password]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorPassword), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "class": "text-base admin_signup_input",
-    type: "password",
-    name: "password_confirm",
-    id: "password_confirm",
-    autocomplete: "off",
-    placeholder: "비밀번호 확인",
-    onInput: _cache[6] || (_cache[6] = function () {
-      return $options.handleAdminPasswordConfirmInput && $options.handleAdminPasswordConfirmInput.apply($options, arguments);
-    }),
-    onKeyup: _cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
-      return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
-    }, ["enter"])),
-    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
-      return $data.adminSignupFormData.password_confirm = $event;
-    })
-  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.password_confirm]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorPasswordConfirm), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "class": "text-base admin_signup_input",
-    type: "text",
-    name: "admin_name",
-    id: "admin_name",
-    autocomplete: "off",
-    placeholder: "이름",
-    onInput: _cache[9] || (_cache[9] = function () {
-      return $options.handleAdminNameInput && $options.handleAdminNameInput.apply($options, arguments);
-    }),
-    onKeyup: _cache[10] || (_cache[10] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function () {
-      return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
-    }, ["enter"])),
-    "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
-      return $data.adminSignupFormData.admin_name = $event;
-    })
-  }, null, 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.adminSignupFormData.admin_name]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminValidationError.adminValidationErrorAdminName), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.adminSignUpError), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "admin_signup_button",
-    type: "submit",
-    onClick: _cache[12] || (_cache[12] = function () {
-      return $options.adminSignUp && $options.adminSignUp.apply($options, arguments);
-    })
-  }, [].concat(_hoisted_26))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/admin",
-    "class": "flex w-full text-base font-semibold"
-  }, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_28];
-    }),
-    _: 1 /* STABLE */
-  })])])]), _hoisted_29])]);
-}
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/UserManagement/AdminUserListComponent.vue?vue&type=template&id=78ad8c05":
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/UserManagement/AdminUserListComponent.vue?vue&type=template&id=78ad8c05 ***!
@@ -24630,22 +24644,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onChange: _cache[1] || (_cache[1] = function () {
       return $options.userDataOptionChange && $options.userDataOptionChange.apply($options, arguments);
     })
-  }, [].concat(_hoisted_8), 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.userSelectOption]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Pagination "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" currentPage 1페이지 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_ctx.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_8), 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.userSelectOption]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Pagination "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" currentPage 1페이지 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [$data.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_user_management_pagination_first_button",
     onClick: _cache[2] || (_cache[2] = function ($event) {
       return $options.moveFirstPage();
     })
-  }, [].concat(_hoisted_14))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_14))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.currentPage !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_user_management_pagination_prev_button",
     onClick: _cache[3] || (_cache[3] = function ($event) {
       return $options.movePrevPage();
     })
-  }, [].concat(_hoisted_18))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.userManagementListData.current_page) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.userManagementListData.last_page), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" lastPage 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_ctx.currentPage < _ctx.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_18))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.userManagementListData.current_page) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$store.state.userManagementListData.last_page), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" lastPage 아닐 때 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [$data.currentPage < $data.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_user_management_pagination_next_button",
     onClick: _cache[4] || (_cache[4] = function ($event) {
       return $options.moveNextPage();
     })
-  }, [].concat(_hoisted_25))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.currentPage < _ctx.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_25))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.currentPage < $data.lastPage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "admin_user_management_pagination_last_button",
     onClick: _cache[5] || (_cache[5] = function ($event) {
       return $options.moveLastPage();
@@ -26920,13 +26934,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Reservation_HotelComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Reservation/HotelComponent.vue */ "./resources/components/Reservation/HotelComponent.vue");
 /* harmony import */ var _components_User_SignUpComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/User/SignUpComponent.vue */ "./resources/components/User/SignUpComponent.vue");
 /* harmony import */ var _components_User_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/User/LoginComponent.vue */ "./resources/components/User/LoginComponent.vue");
-/* harmony import */ var _components_Admin_AdminLoginComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/Admin/AdminLoginComponent.vue */ "./resources/components/Admin/AdminLoginComponent.vue");
-/* harmony import */ var _components_Admin_AdminSignUpComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/Admin/AdminSignUpComponent.vue */ "./resources/components/Admin/AdminSignUpComponent.vue");
-/* harmony import */ var _components_Admin_AdminComponent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/Admin/AdminComponent.vue */ "./resources/components/Admin/AdminComponent.vue");
-/* harmony import */ var _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/Admin/AdminIndexComponent.vue */ "./resources/components/Admin/AdminIndexComponent.vue");
+/* harmony import */ var _components_Admin_AdminComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/Admin/AdminComponent.vue */ "./resources/components/Admin/AdminComponent.vue");
+/* harmony import */ var _components_Admin_AdminAuth_AdminLoginComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/Admin/AdminAuth/AdminLoginComponent.vue */ "./resources/components/Admin/AdminAuth/AdminLoginComponent.vue");
+/* harmony import */ var _components_Admin_AdminAuth_AdminSignUpComponent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/Admin/AdminAuth/AdminSignUpComponent.vue */ "./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue");
+/* harmony import */ var _components_Admin_AdminDashboard_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/Admin/AdminDashboard/AdminIndexComponent.vue */ "./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue");
 /* harmony import */ var _components_Admin_UserManagement_AdminUserManagementComponent_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/Admin/UserManagement/AdminUserManagementComponent.vue */ "./resources/components/Admin/UserManagement/AdminUserManagementComponent.vue");
 /* harmony import */ var _components_Admin_AdminManagement_AdminManagementComponent_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/Admin/AdminManagement/AdminManagementComponent.vue */ "./resources/components/Admin/AdminManagement/AdminManagementComponent.vue");
-/* harmony import */ var _components_Admin_AdminRegistrationComponent_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/Admin/AdminRegistrationComponent.vue */ "./resources/components/Admin/AdminRegistrationComponent.vue");
+/* harmony import */ var _components_Admin_AdminRegistration_AdminRegistrationComponent_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/Admin/AdminRegistration/AdminRegistrationComponent.vue */ "./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue");
 
 
 
@@ -26938,11 +26952,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // ### Admin ###
+// Admin Layout
+
 // Admin Login
 
 // Admin Sign Up
-
-// Admin Layout
 
 // Admin Index
 
@@ -26978,26 +26992,26 @@ var routes = [{
 {
   path: '/admin/signup',
   name: 'Admin Signup',
-  component: _components_Admin_AdminSignUpComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
+  component: _components_Admin_AdminAuth_AdminSignUpComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
   meta: {
     title: '회원가입'
   }
 }, {
   path: '/admin',
   name: 'Admin',
-  component: _components_Admin_AdminLoginComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
+  component: _components_Admin_AdminAuth_AdminLoginComponent_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
   meta: {
     title: 'Admin'
   }
 }, {
   path: '/admin/dashboard',
-  component: _components_Admin_AdminComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
+  component: _components_Admin_AdminComponent_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
   meta: {
     title: 'Admin Dashboard'
   },
   children: [{
     path: '',
-    component: _components_Admin_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"],
+    component: _components_Admin_AdminDashboard_AdminIndexComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"],
     meta: {
       title: 'Admin Dashboard'
     }
@@ -27015,7 +27029,7 @@ var routes = [{
     }
   }, {
     path: 'registration',
-    component: _components_Admin_AdminRegistrationComponent_vue__WEBPACK_IMPORTED_MODULE_14__["default"],
+    component: _components_Admin_AdminRegistration_AdminRegistrationComponent_vue__WEBPACK_IMPORTED_MODULE_14__["default"],
     meta: {
       title: 'Admin 가입 승인'
     }
@@ -27384,8 +27398,15 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       });
     },
     adminLogout: function adminLogout() {
-      var URL = '/admin/dashboard/logout';
       var adminToken = localStorage.getItem('setAdminToken');
+      // Admin Token 미 존재시
+      if (!adminToken) {
+        localStorage.clear();
+        alert('세션이 만료되었습니다. 다시 로그인해주세요.');
+        _js_router_js__WEBPACK_IMPORTED_MODULE_0__["default"].push('/admin');
+        return;
+      }
+      var URL = '/admin/dashboard/logout';
       var header = {
         headers: {
           "Authorization": "Bearer ".concat(adminToken)
@@ -27401,8 +27422,18 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
           alert(response.data.error);
         }
       })["catch"](function (error) {
-        commit('setAdminError', error.response.data.error);
-        alert(error.response.data.error);
+        // Admin Token 만료
+        if (error.response) {
+          if (error.response.data.code === "ALO01") {
+            localStorage.clear();
+            console.log(error.response.data.error);
+            alert(error.response.data.error);
+            _js_router_js__WEBPACK_IMPORTED_MODULE_0__["default"].push('/admin');
+          }
+        } else {
+          commit('setAdminError', error.response.data.error);
+          alert(error.response.data.error);
+        }
       });
     },
     // User Management List 데이터 수신
@@ -27510,23 +27541,17 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       var state = _ref8.state,
         dispatch = _ref8.dispatch;
       if (page !== state.currentPage) {
-        console.log('유저 셀렉트' + state.userSelectOption);
-        console.log('어드민 셀렉트' + state.adminSelectOption);
-        if (state.userSelectOption !== undefined) {
+        if (state.userSelectOption && state.userSelectOption !== undefined) {
           if (state.userSelectOption === '0') {
-            console.log('userManagementList 함수 실행');
             dispatch('userManagementList', page);
-          } else {
-            console.log('userManagementPaymentList 함수 실행');
+          } else if (state.userSelectOption === '1') {
             dispatch('userManagementPaymentList', page);
           }
         }
-        if (state.adminSelectOption !== undefined) {
+        if (state.adminSelectOption && state.adminSelectOption !== undefined) {
           if (state.adminSelectOption === '0') {
-            console.log('adminManagementList 함수 실행');
             dispatch('adminManagementList', page);
-          } else {
-            console.log('adminManagementFlgList 함수 실행');
+          } else if (state.adminSelectOption === '1') {
             dispatch('adminManagementFlgList', page);
           }
         }
@@ -27572,6 +27597,54 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=style&index=0&id=7c921f6a&lang=scss":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=style&index=0&id=7c921f6a&lang=scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "@media (min-width: 335px) and (max-width: 767px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 100%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_error_area {\n    height: 15px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin-top: 40px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_signup_area {\n    color: #0B4AFF;\n}\n.admin_login_section .admin_login_right_section {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_error_area {\n    height: 15px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin-top: 40px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_signup_area {\n    color: #0B4AFF;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n@media (min-width: 1024px) {\n.admin_login_section {\n    width: 1000px;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_error_area {\n    height: 15px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin-top: 40px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_signup_area {\n    color: #0B4AFF;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=style&index=0&id=0e64ab3f&lang=scss":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=style&index=0&id=0e64ab3f&lang=scss ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "@media (min-width: 335px) and (max-width: 767px) {\n.admin_signup_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_title_section .admin_signup_title_img {\n    height: 60px;\n}\n.admin_signup_section .admin_signup_left_section {\n    width: 100%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_label {\n    margin: 0 80px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input:focus,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_error_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_validation_error_area {\n    height: 15px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area {\n    width: 90%;\n    height: 50px;\n    margin-top: 20px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button {\n    width: 100%;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_signup_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_signup_button_text_area .admin_signup_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button:hover,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_signup_section .admin_signup_right_section {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.admin_signup_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_title_section .admin_signup_title_img {\n    height: 60px;\n}\n.admin_signup_section .admin_signup_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_label {\n    margin: 0 80px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input:focus,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_error_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_validation_error_area {\n    height: 15px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area {\n    width: 100%;\n    height: 50px;\n    margin-top: 20px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button {\n    width: 100%;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_signup_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_signup_button_text_area .admin_signup_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button:hover,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_signup_section .admin_signup_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_signup_section .admin_signup_right_section .admin_signup_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n@media (min-width: 1024px) {\n.admin_signup_section {\n    width: 1000px;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_title_section .admin_signup_title_img {\n    height: 60px;\n}\n.admin_signup_section .admin_signup_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_label {\n    margin: 0 80px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input:focus,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_error_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_validation_error_area {\n    height: 15px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area {\n    width: 100%;\n    height: 50px;\n    margin-top: 20px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button {\n    width: 100%;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_signup_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_signup_button_text_area .admin_signup_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button:hover,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_signup_section .admin_signup_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_signup_section .admin_signup_right_section .admin_signup_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminComponent.vue?vue&type=style&index=0&id=8bcec282&lang=scss":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminComponent.vue?vue&type=style&index=0&id=8bcec282&lang=scss ***!
@@ -27596,10 +27669,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".admin_index_container {\n  width: 170
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminIndexComponent.vue?vue&type=style&index=0&id=2e32d9f9&lang=scss":
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminIndexComponent.vue?vue&type=style&index=0&id=2e32d9f9&lang=scss ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=style&index=0&id=0f1385be&lang=scss":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=style&index=0&id=0f1385be&lang=scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -27607,37 +27680,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
 // Imports
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".admin_index_container {\n  width: 1700px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #ededed;\n  background-color: #EFF3F8;\n}\n.admin_index_container .admin_index_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container {\n  width: 20%;\n  height: 100vh;\n  background-color: #0B2161;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section {\n  width: 100%;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area .admin_index_left_info_image {\n  width: 100px;\n  height: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section {\n  width: 100%;\n  margin-bottom: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section .admin_index_left_logout_a {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section {\n  width: 100%;\n  margin: 20px 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input {\n  width: 70%;\n  height: 40px;\n  margin: auto;\n  padding: 4px;\n  outline: none;\n  background-color: transparent;\n  border-bottom: 1px solid transparent;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input:focus {\n  border-bottom: 1px solid #ededed;\n  transition: 0.8s;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  padding: 10px 40px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li {\n  width: 100%;\n  margin-bottom: 50px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_left_svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_right_svg {\n  margin-left: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_ul {\n  width: 100%;\n  display: block;\n}\n.admin_index_container .admin_index_section .admin_index_right_container {\n  width: 80%;\n  height: 100vh;\n  margin: 0 auto;\n  padding: 10px;\n  color: #666666;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 1350px;\n  margin: 10px auto;\n  display: flex;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section img {\n  width: 100px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_button_section svg {\n  width: 60px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 100%;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section .admin_index_right_top_title_area {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container {\n  width: 100%;\n  margin-bottom: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section {\n  width: 100%;\n  height: 100px;\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #FFF;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users svg {\n  width: 60px;\n  height: 60px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_register_users_text {\n  width: 100%;\n  padding: 20px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container {\n  width: 100%;\n  height: 400px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section {\n  width: 100%;\n  height: 100%;\n  margin-bottom: 10px;\n  background-color: #fff;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area {\n  width: 100%;\n  height: 100%;\n  padding: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area .admin_index_right_bottom_chart_image {\n  width: 1200px;\n  height: 300px;\n  margin: 0 auto;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section {\n  width: 50%;\n  height: 250px;\n  border-radius: 10px;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area {\n  width: 100%;\n  padding: 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a {\n  display: flex;\n}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminLoginComponent.vue?vue&type=style&index=0&id=060bc0c2&lang=scss":
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminLoginComponent.vue?vue&type=style&index=0&id=060bc0c2&lang=scss ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, "@media (min-width: 335px) and (max-width: 767px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 100%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_error_area {\n    height: 15px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin-top: 40px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_signup_area {\n    color: #0B4AFF;\n}\n.admin_login_section .admin_login_right_section {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.admin_login_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_error_area {\n    height: 15px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin-top: 40px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_signup_area {\n    color: #0B4AFF;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n@media (min-width: 1024px) {\n.admin_login_section {\n    width: 1000px;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_title_section .admin_login_title_img {\n    height: 60px;\n}\n.admin_login_section .admin_login_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_login_section .admin_login_left_section .admin_login_label {\n    margin: 0 80px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area,\n  .admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input_svg,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_input_area .admin_login_input:focus,\n  .admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_login_section .admin_login_left_section .admin_login_error_area {\n    height: 15px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area {\n    width: 80%;\n    height: 50px;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n    margin-top: 40px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button {\n    width: 100%;\n    height: 50px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area .admin_login_button .admin_login_button_text_area .admin_login_button_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_login_section .admin_login_left_section .admin_login_button_area:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_login_section .admin_login_left_section .admin_login_signup_area {\n    color: #0B4AFF;\n}\n.admin_login_section .admin_login_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_login_section .admin_login_right_section .admin_login_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -27716,10 +27765,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".admin_index_container {\n  width: 170
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=style&index=0&id=0e34c8ad&lang=scss":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=style&index=0&id=0e34c8ad&lang=scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -27727,37 +27776,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
 // Imports
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".admin_index_container {\n  width: 1700px;\n  height: 100vh;\n  margin: 0 auto;\n  color: #ededed;\n  background-color: #EFF3F8;\n}\n.admin_index_container .admin_index_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container {\n  width: 20%;\n  height: 100vh;\n  background-color: #0B2161;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section {\n  width: 100%;\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_info_section .admin_index_left_info_name_area .admin_index_left_info_image {\n  width: 100px;\n  height: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section {\n  width: 100%;\n  margin-bottom: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_logout_section .admin_index_left_logout_a {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section {\n  width: 100%;\n  margin: 20px 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input {\n  width: 70%;\n  height: 40px;\n  margin: auto;\n  padding: 4px;\n  outline: none;\n  background-color: transparent;\n  border-bottom: 1px solid transparent;\n}\n.admin_index_container .admin_index_section .admin_index_left_container .admin_index_left_search_section .admin_index_left_search_input:focus {\n  border-bottom: 1px solid #ededed;\n  transition: 0.8s;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section {\n  width: 100%;\n  height: 50px;\n  line-height: 50px;\n  padding: 10px 40px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li {\n  width: 100%;\n  margin-bottom: 50px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_a svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a:hover {\n  text-decoration: underline;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_left_svg {\n  margin-right: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_a .admin_index_left_nav_dropdown_right_svg {\n  margin-left: auto;\n}\n.admin_index_container .admin_index_section .admin_index_left_nav_section .admin_index_left_nav_ul .admin_index_left_nav_li .admin_index_left_nav_dropdown_ul {\n  width: 100%;\n  display: block;\n}\n.admin_index_container .admin_index_section .admin_index_right_container {\n  width: 80%;\n  height: 100vh;\n  margin: 0 auto;\n  padding: 10px;\n  color: #666666;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 1350px;\n  margin: 10px auto;\n  display: flex;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section {\n  width: 100%;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_logo_section img {\n  width: 100px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_button_section svg {\n  width: 60px;\n  height: 60px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container {\n  width: 100%;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_top_container .admin_index_right_top_title_section .admin_index_right_top_title_area {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container {\n  width: 100%;\n  margin-bottom: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section {\n  width: 100%;\n  height: 100px;\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #FFF;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount svg,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users svg {\n  width: 60px;\n  height: 60px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_number_of_transactions .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_paymont_amount .admin_index_right_middle_register_users_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_number_of_transactions_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_paymont_amount_text,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_middle_container .admin_index_right_middle_section .admin_index_right_middle_register_users .admin_index_right_middle_register_users_text {\n  width: 100%;\n  padding: 20px;\n  margin-left: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container {\n  width: 100%;\n  height: 400px;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section {\n  width: 100%;\n  height: 100%;\n  margin-bottom: 10px;\n  background-color: #fff;\n  border-radius: 10px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area {\n  width: 100%;\n  height: 100%;\n  padding: 20px;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_container .admin_index_right_bottom_chart_section .admin_index_right_bottom_chart_area .admin_index_right_bottom_chart_image {\n  width: 1200px;\n  height: 300px;\n  margin: 0 auto;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section {\n  width: 50%;\n  height: 250px;\n  border-radius: 10px;\n  background-color: #fff;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area {\n  width: 100%;\n  padding: 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_latest_Posts_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_latest_Posts_title_area .admin_index_right_bottom_latest_Posts_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_notice_title_a,\n.admin_index_container .admin_index_section .admin_index_right_container .admin_index_right_bottom_text_section .admin_index_right_bottom_notice_section .admin_index_right_bottom_notice_title_area .admin_index_right_bottom_latest_Posts_title_a {\n  display: flex;\n}\n.admin_registration_container {\n  width: 80%;\n  height: 100vh;\n  margin: 0 auto;\n  padding: 10px;\n  color: #666666;\n}\n.admin_registration_container .admin_registration_top_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_registration_container .admin_registration_top_container .admin_registration_top_title_section {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n}\n.admin_registration_container .admin_registration_middle_container {\n  width: 100%;\n  margin: 10px auto;\n  background-color: #fff;\n  margin-bottom: 10px;\n  padding: 20px;\n  border-radius: 10px;\n}\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section {\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_select {\n  border: 1px solid #000;\n  margin-right: 100px;\n}\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 0 auto;\n}\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_page_span_area {\n  width: 250px;\n  position: relative;\n}\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_page_span_area .admin_registration_pagination_page_span {\n  width: 100%;\n}\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_left_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  right: 30%;\n}\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_left_button_area .admin_registration_pagination_first_button_area,\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_left_button_area .admin_registration_pagination_prev_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n}\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_left_button_area .admin_registration_pagination_first_button_area .admin_registration_pagination_first_button,\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_left_button_area .admin_registration_pagination_first_button_area .admin_registration_pagination_prev_button,\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_left_button_area .admin_registration_pagination_prev_button_area .admin_registration_pagination_first_button,\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_left_button_area .admin_registration_pagination_prev_button_area .admin_registration_pagination_prev_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_left_button_area .admin_registration_pagination_first_button_area .admin_registration_pagination_first_button:hover,\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_left_button_area .admin_registration_pagination_first_button_area .admin_registration_pagination_prev_button:hover,\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_left_button_area .admin_registration_pagination_prev_button_area .admin_registration_pagination_first_button:hover,\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_left_button_area .admin_registration_pagination_prev_button_area .admin_registration_pagination_prev_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_right_button_area {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: absolute;\n  left: 30%;\n}\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_right_button_area .admin_registration_pagination_next_button_area,\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_right_button_area .admin_registration_pagination_last_button_area {\n  width: 80px;\n  height: 40px;\n  line-height: 40px;\n}\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_right_button_area .admin_registration_pagination_next_button_area .admin_registration_pagination_next_button,\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_right_button_area .admin_registration_pagination_next_button_area .admin_registration_pagination_last_button,\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_right_button_area .admin_registration_pagination_last_button_area .admin_registration_pagination_next_button,\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_right_button_area .admin_registration_pagination_last_button_area .admin_registration_pagination_last_button {\n  width: 80px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_right_button_area .admin_registration_pagination_next_button_area .admin_registration_pagination_next_button:hover,\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_right_button_area .admin_registration_pagination_next_button_area .admin_registration_pagination_last_button:hover,\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_right_button_area .admin_registration_pagination_last_button_area .admin_registration_pagination_next_button:hover,\n.admin_registration_container .admin_registration_middle_container .admin_registration_middle_section .admin_registration_pagination_section .admin_registration_pagination_right_button_area .admin_registration_pagination_last_button_area .admin_registration_pagination_last_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}\n.admin_registration_container .admin_registration_bottom_container {\n  width: 100%;\n}\n.admin_registration_container .admin_registration_bottom_container .admin_registration_bottom_title_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_registration_container .admin_registration_bottom_container .admin_registration_bottom_title_ul .admin_registration_bottom_title_li:not(:nth-child(3)) {\n  width: 100px;\n}\n.admin_registration_container .admin_registration_bottom_container .admin_registration_bottom_title_ul .admin_registration_bottom_title_li:nth-child(3) {\n  width: 200px;\n}\n.admin_registration_container .admin_registration_bottom_container .admin_registration_bottom_content_ul {\n  width: 100%;\n  margin: 0 auto;\n  margin-bottom: 10px;\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin_registration_container .admin_registration_bottom_container .admin_registration_bottom_content_ul .admin_registration_bottom_content_li:not(:nth-child(3)) {\n  width: 100px;\n}\n.admin_registration_container .admin_registration_bottom_container .admin_registration_bottom_content_ul .admin_registration_bottom_content_li:nth-child(3) {\n  width: 200px;\n}\n.admin_registration_container .admin_registration_bottom_container .admin_registration_bottom_content_ul .admin_registration_bottom_content_li .admin_registration_bottom_content_update_button,\n.admin_registration_container .admin_registration_bottom_container .admin_registration_bottom_content_ul .admin_registration_bottom_content_li .admin_registration_bottom_content_withdrawal_button {\n  width: 80px;\n  height: 24px;\n  line-height: 24px;\n  background-color: #0B2161;\n  color: #fff;\n  border-radius: 10px;\n}\n.admin_registration_container .admin_registration_bottom_container .admin_registration_bottom_content_ul .admin_registration_bottom_content_li .admin_registration_bottom_content_update_button:hover,\n.admin_registration_container .admin_registration_bottom_container .admin_registration_bottom_content_ul .admin_registration_bottom_content_li .admin_registration_bottom_content_withdrawal_button:hover {\n  opacity: 0.8;\n  transition: 0.5s;\n}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminSignUpComponent.vue?vue&type=style&index=0&id=97c19632&lang=scss":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminSignUpComponent.vue?vue&type=style&index=0&id=97c19632&lang=scss ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, "@media (min-width: 335px) and (max-width: 767px) {\n.admin_signup_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_title_section .admin_signup_title_img {\n    height: 60px;\n}\n.admin_signup_section .admin_signup_left_section {\n    width: 100%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_label {\n    margin: 0 80px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input:focus,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_error_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_validation_error_area {\n    height: 15px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area {\n    width: 90%;\n    height: 50px;\n    margin-top: 20px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button {\n    width: 100%;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_signup_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_signup_button_text_area .admin_signup_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button:hover,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_signup_section .admin_signup_right_section {\n    display: none;\n}\n}\n@media (min-width: 768px) and (max-width: 1023px) {\n.admin_signup_section {\n    width: 95%;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_title_section .admin_signup_title_img {\n    height: 60px;\n}\n.admin_signup_section .admin_signup_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_label {\n    margin: 0 80px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input:focus,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_error_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_validation_error_area {\n    height: 15px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area {\n    width: 100%;\n    height: 50px;\n    margin-top: 20px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button {\n    width: 100%;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_signup_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_signup_button_text_area .admin_signup_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button:hover,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_signup_section .admin_signup_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_signup_section .admin_signup_right_section .admin_signup_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}\n@media (min-width: 1024px) {\n.admin_signup_section {\n    width: 1000px;\n    height: 100vh;\n    font-family: sans-serif;\n    margin: 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_title_section {\n    width: 100%;\n    margin: 80px 0 30px 0;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_title_section .admin_signup_title_img {\n    height: 60px;\n}\n.admin_signup_section .admin_signup_left_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 10px 0 0 10px;\n    border-right: none;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_label {\n    margin: 0 80px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area {\n    width: 100%;\n    height: 50px;\n    margin: 10px auto 0 auto;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input {\n    width: 80%;\n    padding: 4px;\n    outline: none;\n    border-bottom: 3px solid #ededed;\n    transition: 0.5s;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_input_area .admin_signup_input:focus,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_input:focus {\n    border-bottom: 3px solid #0B4AFF;\n    transition: 0.8s;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_error_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_validation_error_area {\n    height: 15px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area {\n    width: 100%;\n    height: 50px;\n    margin-top: 20px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button {\n    width: 50%;\n    height: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    background-color: #0B4AFF;\n    color: #FFF;\n    border-radius: 25px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button {\n    width: 100%;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_signup_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_cancel_button_text_area,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_signup_button_text_area {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_cancel_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button .admin_signup_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_cancel_button .admin_signup_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_cancel_button_text_area .admin_signup_svg,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button .admin_signup_button .admin_signup_button_text_area .admin_signup_svg {\n    width: 40px;\n    height: 40px;\n    padding: 4px;\n}\n.admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_cancel_button:hover,\n  .admin_signup_section .admin_signup_left_section .admin_signup_button_area .admin_signup_signup_button:hover {\n    opacity: 0.8;\n    transition: 0.5s;\n}\n.admin_signup_section .admin_signup_right_section {\n    width: 50%;\n    height: 600px;\n    border: 3px solid #ededed;\n    border-radius: 0 10px 10px 0;\n    border-left: none;\n}\n.admin_signup_section .admin_signup_right_section .admin_signup_image {\n    width: 100%;\n    height: 594px;\n    -o-object-fit: cover;\n       object-fit: cover;\n    border-radius: 10px;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -45646,6 +45671,66 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=style&index=0&id=7c921f6a&lang=scss":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=style&index=0&id=7c921f6a&lang=scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_style_index_0_id_7c921f6a_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminLoginComponent.vue?vue&type=style&index=0&id=7c921f6a&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=style&index=0&id=7c921f6a&lang=scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_style_index_0_id_7c921f6a_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_style_index_0_id_7c921f6a_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=style&index=0&id=0e64ab3f&lang=scss":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=style&index=0&id=0e64ab3f&lang=scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_style_index_0_id_0e64ab3f_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminSignUpComponent.vue?vue&type=style&index=0&id=0e64ab3f&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=style&index=0&id=0e64ab3f&lang=scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_style_index_0_id_0e64ab3f_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_style_index_0_id_0e64ab3f_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminComponent.vue?vue&type=style&index=0&id=8bcec282&lang=scss":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminComponent.vue?vue&type=style&index=0&id=8bcec282&lang=scss ***!
@@ -45676,10 +45761,10 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminIndexComponent.vue?vue&type=style&index=0&id=2e32d9f9&lang=scss":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminIndexComponent.vue?vue&type=style&index=0&id=2e32d9f9&lang=scss ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=style&index=0&id=0f1385be&lang=scss":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=style&index=0&id=0f1385be&lang=scss ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -45687,9 +45772,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminIndexComponent_vue_vue_type_style_index_0_id_2e32d9f9_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminIndexComponent.vue?vue&type=style&index=0&id=2e32d9f9&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminIndexComponent.vue?vue&type=style&index=0&id=2e32d9f9&lang=scss");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminIndexComponent_vue_vue_type_style_index_0_id_0f1385be_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminIndexComponent.vue?vue&type=style&index=0&id=0f1385be&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=style&index=0&id=0f1385be&lang=scss");
 
             
 
@@ -45698,41 +45783,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminIndexComponent_vue_vue_type_style_index_0_id_2e32d9f9_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminIndexComponent_vue_vue_type_style_index_0_id_0f1385be_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminIndexComponent_vue_vue_type_style_index_0_id_2e32d9f9_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminLoginComponent.vue?vue&type=style&index=0&id=060bc0c2&lang=scss":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminLoginComponent.vue?vue&type=style&index=0&id=060bc0c2&lang=scss ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_style_index_0_id_060bc0c2_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminLoginComponent.vue?vue&type=style&index=0&id=060bc0c2&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminLoginComponent.vue?vue&type=style&index=0&id=060bc0c2&lang=scss");
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_style_index_0_id_060bc0c2_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_style_index_0_id_060bc0c2_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminIndexComponent_vue_vue_type_style_index_0_id_0f1385be_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -45826,10 +45881,10 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=style&index=0&id=0e34c8ad&lang=scss":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=style&index=0&id=0e34c8ad&lang=scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -45837,9 +45892,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_df4328f4_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_0e34c8ad_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=style&index=0&id=0e34c8ad&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=style&index=0&id=0e34c8ad&lang=scss");
 
             
 
@@ -45848,41 +45903,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_df4328f4_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_0e34c8ad_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_df4328f4_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminSignUpComponent.vue?vue&type=style&index=0&id=97c19632&lang=scss":
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminSignUpComponent.vue?vue&type=style&index=0&id=97c19632&lang=scss ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_style_index_0_id_97c19632_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminSignUpComponent.vue?vue&type=style&index=0&id=97c19632&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminSignUpComponent.vue?vue&type=style&index=0&id=97c19632&lang=scss");
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_style_index_0_id_97c19632_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_style_index_0_id_97c19632_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_0e34c8ad_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -46588,6 +46613,68 @@ exports["default"] = (sfc, props) => {
 
 /***/ }),
 
+/***/ "./resources/components/Admin/AdminAuth/AdminLoginComponent.vue":
+/*!**********************************************************************!*\
+  !*** ./resources/components/Admin/AdminAuth/AdminLoginComponent.vue ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AdminLoginComponent_vue_vue_type_template_id_7c921f6a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminLoginComponent.vue?vue&type=template&id=7c921f6a */ "./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=template&id=7c921f6a");
+/* harmony import */ var _AdminLoginComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminLoginComponent.vue?vue&type=script&lang=js */ "./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _AdminLoginComponent_vue_vue_type_style_index_0_id_7c921f6a_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminLoginComponent.vue?vue&type=style&index=0&id=7c921f6a&lang=scss */ "./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=style&index=0&id=7c921f6a&lang=scss");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+
+
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AdminLoginComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AdminLoginComponent_vue_vue_type_template_id_7c921f6a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/Admin/AdminAuth/AdminLoginComponent.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue":
+/*!***********************************************************************!*\
+  !*** ./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AdminSignUpComponent_vue_vue_type_template_id_0e64ab3f__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminSignUpComponent.vue?vue&type=template&id=0e64ab3f */ "./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=template&id=0e64ab3f");
+/* harmony import */ var _AdminSignUpComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminSignUpComponent.vue?vue&type=script&lang=js */ "./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _AdminSignUpComponent_vue_vue_type_style_index_0_id_0e64ab3f_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminSignUpComponent.vue?vue&type=style&index=0&id=0e64ab3f&lang=scss */ "./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=style&index=0&id=0e64ab3f&lang=scss");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+
+
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AdminSignUpComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AdminSignUpComponent_vue_vue_type_template_id_0e64ab3f__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/Admin/AdminAuth/AdminSignUpComponent.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/components/Admin/AdminComponent.vue":
 /*!*******************************************************!*\
   !*** ./resources/components/Admin/AdminComponent.vue ***!
@@ -46619,10 +46706,10 @@ if (false) {}
 
 /***/ }),
 
-/***/ "./resources/components/Admin/AdminIndexComponent.vue":
-/*!************************************************************!*\
-  !*** ./resources/components/Admin/AdminIndexComponent.vue ***!
-  \************************************************************/
+/***/ "./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue":
+/*!***************************************************************************!*\
+  !*** ./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue ***!
+  \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -46630,10 +46717,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _AdminIndexComponent_vue_vue_type_template_id_2e32d9f9__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminIndexComponent.vue?vue&type=template&id=2e32d9f9 */ "./resources/components/Admin/AdminIndexComponent.vue?vue&type=template&id=2e32d9f9");
-/* harmony import */ var _AdminIndexComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminIndexComponent.vue?vue&type=script&lang=js */ "./resources/components/Admin/AdminIndexComponent.vue?vue&type=script&lang=js");
-/* harmony import */ var _AdminIndexComponent_vue_vue_type_style_index_0_id_2e32d9f9_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminIndexComponent.vue?vue&type=style&index=0&id=2e32d9f9&lang=scss */ "./resources/components/Admin/AdminIndexComponent.vue?vue&type=style&index=0&id=2e32d9f9&lang=scss");
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _AdminIndexComponent_vue_vue_type_template_id_0f1385be__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminIndexComponent.vue?vue&type=template&id=0f1385be */ "./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=template&id=0f1385be");
+/* harmony import */ var _AdminIndexComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminIndexComponent.vue?vue&type=script&lang=js */ "./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _AdminIndexComponent_vue_vue_type_style_index_0_id_0f1385be_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminIndexComponent.vue?vue&type=style&index=0&id=0f1385be&lang=scss */ "./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=style&index=0&id=0f1385be&lang=scss");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -46641,38 +46728,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AdminIndexComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AdminIndexComponent_vue_vue_type_template_id_2e32d9f9__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/Admin/AdminIndexComponent.vue"]])
-/* hot reload */
-if (false) {}
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
-
-/***/ }),
-
-/***/ "./resources/components/Admin/AdminLoginComponent.vue":
-/*!************************************************************!*\
-  !*** ./resources/components/Admin/AdminLoginComponent.vue ***!
-  \************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _AdminLoginComponent_vue_vue_type_template_id_060bc0c2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminLoginComponent.vue?vue&type=template&id=060bc0c2 */ "./resources/components/Admin/AdminLoginComponent.vue?vue&type=template&id=060bc0c2");
-/* harmony import */ var _AdminLoginComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminLoginComponent.vue?vue&type=script&lang=js */ "./resources/components/Admin/AdminLoginComponent.vue?vue&type=script&lang=js");
-/* harmony import */ var _AdminLoginComponent_vue_vue_type_style_index_0_id_060bc0c2_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminLoginComponent.vue?vue&type=style&index=0&id=060bc0c2&lang=scss */ "./resources/components/Admin/AdminLoginComponent.vue?vue&type=style&index=0&id=060bc0c2&lang=scss");
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
-
-
-
-
-;
-
-
-const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AdminLoginComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AdminLoginComponent_vue_vue_type_template_id_060bc0c2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/Admin/AdminLoginComponent.vue"]])
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AdminIndexComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AdminIndexComponent_vue_vue_type_template_id_0f1385be__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/Admin/AdminDashboard/AdminIndexComponent.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -46774,10 +46830,10 @@ if (false) {}
 
 /***/ }),
 
-/***/ "./resources/components/Admin/AdminRegistrationComponent.vue":
-/*!*******************************************************************!*\
-  !*** ./resources/components/Admin/AdminRegistrationComponent.vue ***!
-  \*******************************************************************/
+/***/ "./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue":
+/*!*************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue ***!
+  \*************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -46785,10 +46841,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _AdminRegistrationComponent_vue_vue_type_template_id_df4328f4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminRegistrationComponent.vue?vue&type=template&id=df4328f4 */ "./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=template&id=df4328f4");
-/* harmony import */ var _AdminRegistrationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminRegistrationComponent.vue?vue&type=script&lang=js */ "./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=script&lang=js");
-/* harmony import */ var _AdminRegistrationComponent_vue_vue_type_style_index_0_id_df4328f4_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss */ "./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss");
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _AdminRegistrationComponent_vue_vue_type_template_id_0e34c8ad__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminRegistrationComponent.vue?vue&type=template&id=0e34c8ad */ "./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=template&id=0e34c8ad");
+/* harmony import */ var _AdminRegistrationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminRegistrationComponent.vue?vue&type=script&lang=js */ "./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _AdminRegistrationComponent_vue_vue_type_style_index_0_id_0e34c8ad_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminRegistrationComponent.vue?vue&type=style&index=0&id=0e34c8ad&lang=scss */ "./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=style&index=0&id=0e34c8ad&lang=scss");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -46796,38 +46852,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AdminRegistrationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AdminRegistrationComponent_vue_vue_type_template_id_df4328f4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/Admin/AdminRegistrationComponent.vue"]])
-/* hot reload */
-if (false) {}
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
-
-/***/ }),
-
-/***/ "./resources/components/Admin/AdminSignUpComponent.vue":
-/*!*************************************************************!*\
-  !*** ./resources/components/Admin/AdminSignUpComponent.vue ***!
-  \*************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _AdminSignUpComponent_vue_vue_type_template_id_97c19632__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminSignUpComponent.vue?vue&type=template&id=97c19632 */ "./resources/components/Admin/AdminSignUpComponent.vue?vue&type=template&id=97c19632");
-/* harmony import */ var _AdminSignUpComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminSignUpComponent.vue?vue&type=script&lang=js */ "./resources/components/Admin/AdminSignUpComponent.vue?vue&type=script&lang=js");
-/* harmony import */ var _AdminSignUpComponent_vue_vue_type_style_index_0_id_97c19632_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminSignUpComponent.vue?vue&type=style&index=0&id=97c19632&lang=scss */ "./resources/components/Admin/AdminSignUpComponent.vue?vue&type=style&index=0&id=97c19632&lang=scss");
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
-
-
-
-
-;
-
-
-const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AdminSignUpComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AdminSignUpComponent_vue_vue_type_template_id_97c19632__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/Admin/AdminSignUpComponent.vue"]])
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AdminRegistrationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AdminRegistrationComponent_vue_vue_type_template_id_0e34c8ad__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -47239,6 +47264,38 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=script&lang=js":
+/*!**********************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=script&lang=js ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminLoginComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
+/***/ "./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminSignUpComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/components/Admin/AdminComponent.vue?vue&type=script&lang=js":
 /*!*******************************************************************************!*\
   !*** ./resources/components/Admin/AdminComponent.vue?vue&type=script&lang=js ***!
@@ -47255,10 +47312,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/components/Admin/AdminIndexComponent.vue?vue&type=script&lang=js":
-/*!************************************************************************************!*\
-  !*** ./resources/components/Admin/AdminIndexComponent.vue?vue&type=script&lang=js ***!
-  \************************************************************************************/
+/***/ "./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=script&lang=js":
+/*!***************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=script&lang=js ***!
+  \***************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -47266,23 +47323,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminIndexComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminIndexComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminIndexComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminIndexComponent.vue?vue&type=script&lang=js");
- 
-
-/***/ }),
-
-/***/ "./resources/components/Admin/AdminLoginComponent.vue?vue&type=script&lang=js":
-/*!************************************************************************************!*\
-  !*** ./resources/components/Admin/AdminLoginComponent.vue?vue&type=script&lang=js ***!
-  \************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminLoginComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminLoginComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminIndexComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminIndexComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=script&lang=js");
  
 
 /***/ }),
@@ -47335,10 +47376,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=script&lang=js":
-/*!*******************************************************************************************!*\
-  !*** ./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=script&lang=js ***!
-  \*******************************************************************************************/
+/***/ "./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=script&lang=js":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=script&lang=js ***!
+  \*************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -47346,23 +47387,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=script&lang=js");
- 
-
-/***/ }),
-
-/***/ "./resources/components/Admin/AdminSignUpComponent.vue?vue&type=script&lang=js":
-/*!*************************************************************************************!*\
-  !*** ./resources/components/Admin/AdminSignUpComponent.vue?vue&type=script&lang=js ***!
-  \*************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminSignUpComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminSignUpComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=script&lang=js");
  
 
 /***/ }),
@@ -47575,6 +47600,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=template&id=7c921f6a":
+/*!****************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=template&id=7c921f6a ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_template_id_7c921f6a__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_template_id_7c921f6a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminLoginComponent.vue?vue&type=template&id=7c921f6a */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=template&id=7c921f6a");
+
+
+/***/ }),
+
+/***/ "./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=template&id=0e64ab3f":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=template&id=0e64ab3f ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_template_id_0e64ab3f__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_template_id_0e64ab3f__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminSignUpComponent.vue?vue&type=template&id=0e64ab3f */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=template&id=0e64ab3f");
+
+
+/***/ }),
+
 /***/ "./resources/components/Admin/AdminComponent.vue?vue&type=template&id=8bcec282":
 /*!*************************************************************************************!*\
   !*** ./resources/components/Admin/AdminComponent.vue?vue&type=template&id=8bcec282 ***!
@@ -47591,34 +47648,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/components/Admin/AdminIndexComponent.vue?vue&type=template&id=2e32d9f9":
-/*!******************************************************************************************!*\
-  !*** ./resources/components/Admin/AdminIndexComponent.vue?vue&type=template&id=2e32d9f9 ***!
-  \******************************************************************************************/
+/***/ "./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=template&id=0f1385be":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=template&id=0f1385be ***!
+  \*********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminIndexComponent_vue_vue_type_template_id_2e32d9f9__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminIndexComponent_vue_vue_type_template_id_0f1385be__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminIndexComponent_vue_vue_type_template_id_2e32d9f9__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminIndexComponent.vue?vue&type=template&id=2e32d9f9 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminIndexComponent.vue?vue&type=template&id=2e32d9f9");
-
-
-/***/ }),
-
-/***/ "./resources/components/Admin/AdminLoginComponent.vue?vue&type=template&id=060bc0c2":
-/*!******************************************************************************************!*\
-  !*** ./resources/components/Admin/AdminLoginComponent.vue?vue&type=template&id=060bc0c2 ***!
-  \******************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_template_id_060bc0c2__WEBPACK_IMPORTED_MODULE_0__.render)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_template_id_060bc0c2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminLoginComponent.vue?vue&type=template&id=060bc0c2 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminLoginComponent.vue?vue&type=template&id=060bc0c2");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminIndexComponent_vue_vue_type_template_id_0f1385be__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminIndexComponent.vue?vue&type=template&id=0f1385be */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=template&id=0f1385be");
 
 
 /***/ }),
@@ -47671,34 +47712,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=template&id=df4328f4":
-/*!*************************************************************************************************!*\
-  !*** ./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=template&id=df4328f4 ***!
-  \*************************************************************************************************/
+/***/ "./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=template&id=0e34c8ad":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=template&id=0e34c8ad ***!
+  \*******************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_template_id_df4328f4__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_template_id_0e34c8ad__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_template_id_df4328f4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=template&id=df4328f4 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=template&id=df4328f4");
-
-
-/***/ }),
-
-/***/ "./resources/components/Admin/AdminSignUpComponent.vue?vue&type=template&id=97c19632":
-/*!*******************************************************************************************!*\
-  !*** ./resources/components/Admin/AdminSignUpComponent.vue?vue&type=template&id=97c19632 ***!
-  \*******************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_template_id_97c19632__WEBPACK_IMPORTED_MODULE_0__.render)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_template_id_97c19632__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminSignUpComponent.vue?vue&type=template&id=97c19632 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminSignUpComponent.vue?vue&type=template&id=97c19632");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_template_id_0e34c8ad__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=template&id=0e34c8ad */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=template&id=0e34c8ad");
 
 
 /***/ }),
@@ -47911,6 +47936,32 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=style&index=0&id=7c921f6a&lang=scss":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=style&index=0&id=7c921f6a&lang=scss ***!
+  \*******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_style_index_0_id_7c921f6a_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminLoginComponent.vue?vue&type=style&index=0&id=7c921f6a&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminLoginComponent.vue?vue&type=style&index=0&id=7c921f6a&lang=scss");
+
+
+/***/ }),
+
+/***/ "./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=style&index=0&id=0e64ab3f&lang=scss":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=style&index=0&id=0e64ab3f&lang=scss ***!
+  \********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_style_index_0_id_0e64ab3f_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminSignUpComponent.vue?vue&type=style&index=0&id=0e64ab3f&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminAuth/AdminSignUpComponent.vue?vue&type=style&index=0&id=0e64ab3f&lang=scss");
+
+
+/***/ }),
+
 /***/ "./resources/components/Admin/AdminComponent.vue?vue&type=style&index=0&id=8bcec282&lang=scss":
 /*!****************************************************************************************************!*\
   !*** ./resources/components/Admin/AdminComponent.vue?vue&type=style&index=0&id=8bcec282&lang=scss ***!
@@ -47924,28 +47975,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/components/Admin/AdminIndexComponent.vue?vue&type=style&index=0&id=2e32d9f9&lang=scss":
-/*!*********************************************************************************************************!*\
-  !*** ./resources/components/Admin/AdminIndexComponent.vue?vue&type=style&index=0&id=2e32d9f9&lang=scss ***!
-  \*********************************************************************************************************/
+/***/ "./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=style&index=0&id=0f1385be&lang=scss":
+/*!************************************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=style&index=0&id=0f1385be&lang=scss ***!
+  \************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminIndexComponent_vue_vue_type_style_index_0_id_2e32d9f9_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminIndexComponent.vue?vue&type=style&index=0&id=2e32d9f9&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminIndexComponent.vue?vue&type=style&index=0&id=2e32d9f9&lang=scss");
-
-
-/***/ }),
-
-/***/ "./resources/components/Admin/AdminLoginComponent.vue?vue&type=style&index=0&id=060bc0c2&lang=scss":
-/*!*********************************************************************************************************!*\
-  !*** ./resources/components/Admin/AdminLoginComponent.vue?vue&type=style&index=0&id=060bc0c2&lang=scss ***!
-  \*********************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLoginComponent_vue_vue_type_style_index_0_id_060bc0c2_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminLoginComponent.vue?vue&type=style&index=0&id=060bc0c2&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminLoginComponent.vue?vue&type=style&index=0&id=060bc0c2&lang=scss");
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminIndexComponent_vue_vue_type_style_index_0_id_0f1385be_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminIndexComponent.vue?vue&type=style&index=0&id=0f1385be&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminDashboard/AdminIndexComponent.vue?vue&type=style&index=0&id=0f1385be&lang=scss");
 
 
 /***/ }),
@@ -47989,28 +48027,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss":
-/*!****************************************************************************************************************!*\
-  !*** ./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss ***!
-  \****************************************************************************************************************/
+/***/ "./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=style&index=0&id=0e34c8ad&lang=scss":
+/*!**********************************************************************************************************************************!*\
+  !*** ./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=style&index=0&id=0e34c8ad&lang=scss ***!
+  \**********************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_df4328f4_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistrationComponent.vue?vue&type=style&index=0&id=df4328f4&lang=scss");
-
-
-/***/ }),
-
-/***/ "./resources/components/Admin/AdminSignUpComponent.vue?vue&type=style&index=0&id=97c19632&lang=scss":
-/*!**********************************************************************************************************!*\
-  !*** ./resources/components/Admin/AdminSignUpComponent.vue?vue&type=style&index=0&id=97c19632&lang=scss ***!
-  \**********************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminSignUpComponent_vue_vue_type_style_index_0_id_97c19632_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminSignUpComponent.vue?vue&type=style&index=0&id=97c19632&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminSignUpComponent.vue?vue&type=style&index=0&id=97c19632&lang=scss");
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminRegistrationComponent_vue_vue_type_style_index_0_id_0e34c8ad_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminRegistrationComponent.vue?vue&type=style&index=0&id=0e34c8ad&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/components/Admin/AdminRegistration/AdminRegistrationComponent.vue?vue&type=style&index=0&id=0e34c8ad&lang=scss");
 
 
 /***/ }),

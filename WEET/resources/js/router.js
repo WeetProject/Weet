@@ -9,20 +9,20 @@ import SignUpComponent from '../components/User/SignUpComponent.vue';
 import LoginComponent from '../components/User/LoginComponent.vue';
 
 // ### Admin ###
-// Admin Login
-import AdminLoginComponent from '../components/Admin/AdminLoginComponent.vue';
-// Admin Sign Up
-import AdminSignUpComponent from '../components/Admin/AdminSignUpComponent.vue';
 // Admin Layout
 import AdminComponent from '../components/Admin/AdminComponent.vue';
+// Admin Login
+import AdminLoginComponent from '../components/Admin/AdminAuth/AdminLoginComponent.vue';
+// Admin Sign Up
+import AdminSignUpComponent from '../components/Admin/AdminAuth/AdminSignUpComponent.vue';
 // Admin Index
-import AdminIndexComponent from '../components/Admin/AdminIndexComponent.vue';
+import AdminIndexComponent from '../components/Admin/AdminDashboard/AdminIndexComponent.vue';
 // Admin User Management
 import AdminUserManagementComponent from '../components/Admin/UserManagement/AdminUserManagementComponent.vue';
 // Admin Management
 import AdminManagementComponent from '../components/Admin/AdminManagement/AdminManagementComponent.vue';
 // Admin Registration
-import AdminRegistrationComponent from '../components/Admin/AdminRegistrationComponent.vue';
+import AdminRegistrationComponent from '../components/Admin/AdminRegistration/AdminRegistrationComponent.vue';
 
 const routes = [
 	{

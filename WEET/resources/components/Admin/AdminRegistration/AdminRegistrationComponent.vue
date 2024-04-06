@@ -195,6 +195,6 @@ export default {
 }
 </script>
 <style lang="scss">
-    @import '../../sass/Admin/admin_index.scss';
-    @import '../../sass/Admin/admin_registration.scss';
+    @import '../../../sass/Admin/admin_index.scss';
+    @import '../../../sass/Admin/admin_registration.scss';
 </style>

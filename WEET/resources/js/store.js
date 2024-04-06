@@ -358,8 +358,16 @@ const store = createStore({
         },
 
         adminLogout() {
-            const URL = '/admin/dashboard/logout';
             const adminToken = localStorage.getItem('setAdminToken');
+            // Admin Token 미 존재시
+            if (!adminToken) {
+                localStorage.clear();
+                alert('세션이 만료되었습니다. 다시 로그인해주세요.');
+                router.push('/admin');
+                return;
+            }
+
+            const URL = '/admin/dashboard/logout';
             const header = {
                 headers: {
                     "Authorization": `Bearer ${adminToken}`,
@@ -377,8 +385,18 @@ const store = createStore({
 						}
 				})
 				.catch(error => {
-					commit('setAdminError', error.response.data.error);
-					alert(error.response.data.error);
+                    // Admin Token 만료
+                    if(error.response) {
+                        if(error.response.data.code === "ALO01") {
+                            localStorage.clear();
+                            console.log(error.response.data.error);
+                            alert(error.response.data.error);
+                            router.push('/admin');
+                        }
+                    } else {
+                        commit('setAdminError', error.response.data.error);
+                        alert(error.response.data.error);
+                    }
 				});
         },
 
@@ -491,25 +509,19 @@ const store = createStore({
         // Management Pagination
         pagination({ state, dispatch }, page) {
             if (page !== state.currentPage) {
-                console.log('유저 셀렉트' + state.userSelectOption);
-                console.log('어드민 셀렉트' + state.adminSelectOption);
 
-                if(state.userSelectOption !== undefined) {
+                if(state.userSelectOption && state.userSelectOption !== undefined) {
                     if(state.userSelectOption === '0') {
-                        console.log('userManagementList 함수 실행')
                         dispatch('userManagementList', page);
-                    } else {
-                        console.log('userManagementPaymentList 함수 실행');
+                    } else if(state.userSelectOption === '1') {
                         dispatch('userManagementPaymentList', page);
                     }
                 } 
 
-                if(state.adminSelectOption !== undefined) {
+                if(state.adminSelectOption && state.adminSelectOption !== undefined) {
                     if(state.adminSelectOption === '0') {
-                        console.log('adminManagementList 함수 실행');
                         dispatch('adminManagementList', page);
-                    } else {
-                        console.log('adminManagementFlgList 함수 실행');
+                    } else if(state.adminSelectOption === '1') {
                         dispatch('adminManagementFlgList', page);
                     }
                 } 

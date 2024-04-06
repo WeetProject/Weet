@@ -119,7 +119,7 @@
 </template>
 <script>
 import axios from 'axios';
-import AdminIndexComponent from './AdminIndexComponent.vue';
+import AdminIndexComponent from '../Admin/AdminDashboard/AdminIndexComponent.vue';
 import AdminUserManagementComponent from '../Admin/UserManagement/AdminUserManagementComponent.vue';
 export default {
     name:'AdminComponent',

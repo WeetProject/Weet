@@ -3,7 +3,7 @@
 		<div class="admin_login_section">
 			<div class="admin_login_left_section">
 				<div class="admin_login_title_section">
-					<img class="admin_login_title_img" src="../../../public/images/WEET_logo.png" alt="">
+					<img class="admin_login_title_img" src="../../../../public/images/WEET_logo.png" alt="">
 				</div>
 				<div class="admin_login_input_area">
 					<svg class="admin_login_input_svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -46,7 +46,7 @@
 			</div>
 
 			<div class="admin_login_right_section">
-				<img class="admin_login_image" src="../../../public/images/Admin_login.jpg" alt="">
+				<img class="admin_login_image" src="../../../../public/images/Admin_login.jpg" alt="">
 			</div>
 		</div>
 	</div>
@@ -98,5 +98,5 @@ export default {
 }
 </script>
 <style lang="scss">
-	@import '../../sass/Admin/admin_login.scss';
+	@import '../../../sass/Admin/admin_login.scss';
 </style>

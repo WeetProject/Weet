@@ -148,15 +148,18 @@ class AdminAuthController extends Controller
         try {
             // Authorization Header 저장
             $logoutDataHeader = $request->header('Authorization');
-            Log::debug($logoutDataHeader);
+            // Logout 요청 토큰 데이터 확인용 Log
+            // Log::debug($logoutDataHeader);
 
             // Header 내 Bearer 토큰 저장
             $logoutRequestToken = str_replace('Bearer ', '', $logoutDataHeader);
-            Log::debug($logoutRequestToken);
+            // Logout 요청 토큰 데이터 저장 확인용 Log
+            // Log::debug($logoutRequestToken);
 
             // JWT 토큰 파싱
             $logoutToken = JWTAuth::setToken($logoutRequestToken)->getToken();
-            Log::debug($logoutToken);
+            // Logout 요청 토큰 데이터 가공 확인용 Log
+            // Log::debug($logoutToken);
 
             if ($logoutToken) {
                 // 토큰 무효화
@@ -167,12 +170,12 @@ class AdminAuthController extends Controller
             }
             
         } catch (Exception $e) {
-            $error = "로그아웃 중에 오류가 발생했습니다. 페이지를 새로고침 후 재 로그아웃해주세요";
-            Log::debug("### 로그아웃 시 예외 발생: " . $e->getMessage() . "###");
+            $error = "세션이 만료되었습니다. 다시 로그인 해주세요.";
+            Log::debug("### 토큰 시간 만료 로그아웃: " . $e->getMessage() . "###");
             return response()->json([
                 'code' => 'ALO01',
                 'error' => $error
-            ], 500);
+            ], 401);
         }
 
         // 로그아웃

@@ -68,8 +68,6 @@
 	</div>
 </template>
 <script>
-import axios from 'axios';
-import { mapState } from 'vuex';
 import AdminUserListComponent from './AdminUserListComponent.vue';
 import AdminUserPaymentListComponent from './AdminUserPaymentListComponent.vue';
 export default {
@@ -78,13 +76,6 @@ export default {
 	components: {
 		AdminUserListComponent,
 		AdminUserPaymentListComponent,
-	},
-
-	computed: {
-		...mapState({
-			currentPage: state => state.currentPage,
-			lastPage: state => state.lastPage
-		})
 	},
     
 	data() {
@@ -98,8 +89,26 @@ export default {
 			userGenderInfo: '',
 			userFlgInfo: '',
 			userSelectOption: '0',
+			currentPage: 1,
+			lastPage: null,
 		}
 	},
+
+	watch: {
+		// 페이지 데이터 확인용
+        '$store.state.currentPage': {
+            handler(currentPage) {
+                this.currentPage = currentPage;
+            },
+            deep: true
+        },
+        '$store.state.lastPage': {
+            handler(lastPage) {
+                this.lastPage = lastPage;
+            },
+            deep: true
+        }
+    },
 
 	created() {
 		this.$store.dispatch('userManagementList', 1);
