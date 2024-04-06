@@ -21,6 +21,8 @@ const store = createStore({
             adminLoginData: null,
             adminLoginInfo: null,
             error: null,
+            // Admin Update 데이터 저장용
+            confirmAdminInfo: null,
 
             userListModal: false,
             userPaymentListModal: false,
@@ -35,7 +37,7 @@ const store = createStore({
             adminListData: [],
             adminSelectOption: '0', // 0 : 최신 등록 순, 1 : 권한 순
             adminCurrentPage: 1,
-            adminLastPage: '',            
+            adminLastPage: '',
         }
     },
 
@@ -133,21 +135,6 @@ const store = createStore({
         userPaymentListModalClose(state) {
             state.userPaymentListModal = false;
         },
-
-        // Pagination
-        setUserCurrentPage(state, userCurrentPage) {
-            state.userCurrentPage = userCurrentPage;
-        }, 
-        setUserLastPage(state, userLastPage) {
-            state.userLastPage = userLastPage;
-        },
-
-        setAdminCurrentPage(state, adminCurrentPage) {
-            state.adminCurrentPage = adminCurrentPage;
-        }, 
-        setAdminLastPage(state, adminLastPage) {
-            state.adminLastPage = adminLastPage;
-        },
         
         // User Management
         setUserSelectOption(state, userSelectOption) {
@@ -160,6 +147,14 @@ const store = createStore({
             state.userListData = userListData;
         },
 
+        // User Management Pagination
+        setUserCurrentPage(state, userCurrentPage) {
+            state.userCurrentPage = userCurrentPage;
+        }, 
+        setUserLastPage(state, userLastPage) {
+            state.userLastPage = userLastPage;
+        },  
+
 		// Admin Management
         setAdminSelectOption(state, adminSelectOption) {
             state.adminSelectOption = adminSelectOption;
@@ -170,7 +165,24 @@ const store = createStore({
         setAdminList(state, adminListData) {
             state.adminListData = adminListData;
         },
+
+        // Admin Management Pagination
+        setAdminCurrentPage(state, adminCurrentPage) {
+            state.adminCurrentPage = adminCurrentPage;
+        }, 
+        setAdminLastPage(state, adminLastPage) {
+            state.adminLastPage = adminLastPage;
+        },
         
+        // Admin Update
+        setAdminUpdateInfo(state, confirmAdminInfo) {
+            state.confirmAdminInfo = confirmAdminInfo;
+        },
+
+        // Admin Management Withdrawal
+        setAdminManagementWithdrawalInfo(state, confirmAdminInfo) {
+            state.confirmAdminInfo = confirmAdminInfo;
+        }
     },
 
     actions: {
@@ -339,9 +351,6 @@ const store = createStore({
                         // adminFlg, adminName 저장
                         const adminLoginInfo = response.data.adminLoginInfo;
 
-                        console.log(adminToken);
-                        console.log(adminLoginInfo);
-
                         commit('setAdminToken', adminToken);
                         commit('setAdminLoginInfo', adminLoginInfo);
 
@@ -506,22 +515,43 @@ const store = createStore({
         },
 
         // Admin 권한 변경
+        adminManagementUpdate({ commit }, admin_number) {
+            const URL = '/admin/dashboard/management/update';
+            axios.post(URL, { admin_number })
+				.then(response => {                
+					if(response.data.code === "AMU00") {
+                        const confirmAdminInfo = response.data.confirmAdminInfo;
+                        commit('setAdminUpdateInfo', confirmAdminInfo);
+						alert(response.data.success);
+                        window.location.reload();
+					} else {                
+						alert(response.data.error);
+					}
+				})
+				.catch(error => {                
+					alert(error.response.data.error);
+				});
+        },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // Admin 탈퇴
+        // Admin 계정 탈퇴
+        adminManagementWithdrawal({ commit }, admin_number) {
+            console.log(admin_number);
+            const URL = '/admin/dashboard/management/withdrawal';
+            axios.post(URL, { admin_number })
+				.then(response => {                
+					if(response.data.code === "AMW00") {
+                        const confirmAdminInfo = response.data.confirmAdminInfo;
+                        commit('setAdminManagementWithdrawalInfo', confirmAdminInfo);
+                        alert(response.data.success);
+                        window.location.reload();
+					} else {                
+						alert(response.data.error);
+					}
+				})
+				.catch(error => {                
+					alert(error.response.data.error);
+				});
+        },
 
         // Admin Management List 데이터 수신
         adminManagementList({ commit }, page) {

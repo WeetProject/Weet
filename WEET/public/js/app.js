@@ -21384,35 +21384,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     // Admin 권한 변경
     adminManagementUpdate: function adminManagementUpdate(admin_number) {
-      var URL = '/admin/management/update';
-      var formData = new FormData();
-      formData.append('admin_number', admin_number);
-      axios.post(URL, formData).then(function (response) {
-        if (response.data.code === "AU00") {
-          alert('권한이 변경되었습니다.');
-          window.location.reload();
-        } else {
-          alert(response.data.error);
-        }
-      })["catch"](function (error) {
-        alert(error.response.data.error);
-      });
+      this.$store.dispatch('adminManagementUpdate', admin_number);
     },
-    // Admin 탈퇴
+    // Admin 계정 탈퇴
     adminManagementWithdrawal: function adminManagementWithdrawal(admin_number) {
-      var URL = '/admin/management/withdrawal';
-      var formData = new FormData();
-      formData.append('admin_number', admin_number);
-      axios.post(URL, formData).then(function (response) {
-        if (response.data.code === "AW00") {
-          alert('계정이 탈퇴되었습니다.');
-          window.location.reload();
-        } else {
-          alert(response.data.error);
-        }
-      })["catch"](function (error) {
-        alert(error.response.data.error);
-      });
+      // console.log(admin_number);
+      this.$store.dispatch('adminManagementWithdrawal', admin_number);
     }
   }
 });
@@ -21440,35 +21417,11 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     // Admin 권한 변경
     adminManagementUpdate: function adminManagementUpdate(admin_number) {
-      var URL = '/admin/management/update';
-      var formData = new FormData();
-      formData.append('admin_number', admin_number);
-      axios.post(URL, formData).then(function (response) {
-        if (response.data.code === "AU00") {
-          alert('권한이 변경되었습니다.');
-          window.location.reload();
-        } else {
-          alert(response.data.error);
-        }
-      })["catch"](function (error) {
-        alert(error.response.data.error);
-      });
+      this.$store.dispatch('adminManagementUpdate', admin_number);
     },
-    // Admin 탈퇴
+    // Admin 계정 탈퇴
     adminManagementWithdrawal: function adminManagementWithdrawal(admin_number) {
-      var URL = '/admin/management/withdrawal';
-      var formData = new FormData();
-      formData.append('admin_number', admin_number);
-      axios.post(URL, formData).then(function (response) {
-        if (response.data.code === "AW00") {
-          alert('계정이 탈퇴되었습니다.');
-          window.location.reload();
-        } else {
-          alert(response.data.error);
-        }
-      })["catch"](function (error) {
-        alert(error.response.data.error);
-      });
+      this.$store.dispatch('adminManagementWithdrawal', admin_number);
     }
   }
 });
@@ -21593,6 +21546,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   methods: {
+    // 0407 TODO
+    // {1. 레지스트레이션 메소드 스토어 이관}
+    // {2. 데이터 확인}
     // Admin Registration List 데이터 수신
     adminRegistrationList: function adminRegistrationList(page) {
       var _this = this;
@@ -27118,6 +27074,8 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       adminLoginData: null,
       adminLoginInfo: null,
       error: null,
+      // Admin Update 데이터 저장용
+      confirmAdminInfo: null,
       userListModal: false,
       userPaymentListModal: false,
       // User Management 데이터 저장용
@@ -27222,19 +27180,6 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
     userPaymentListModalClose: function userPaymentListModalClose(state) {
       state.userPaymentListModal = false;
     },
-    // Pagination
-    setUserCurrentPage: function setUserCurrentPage(state, userCurrentPage) {
-      state.userCurrentPage = userCurrentPage;
-    },
-    setUserLastPage: function setUserLastPage(state, userLastPage) {
-      state.userLastPage = userLastPage;
-    },
-    setAdminCurrentPage: function setAdminCurrentPage(state, adminCurrentPage) {
-      state.adminCurrentPage = adminCurrentPage;
-    },
-    setAdminLastPage: function setAdminLastPage(state, adminLastPage) {
-      state.adminLastPage = adminLastPage;
-    },
     // User Management
     setUserSelectOption: function setUserSelectOption(state, userSelectOption) {
       state.userSelectOption = userSelectOption;
@@ -27245,6 +27190,13 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
     setUserList: function setUserList(state, userListData) {
       state.userListData = userListData;
     },
+    // User Management Pagination
+    setUserCurrentPage: function setUserCurrentPage(state, userCurrentPage) {
+      state.userCurrentPage = userCurrentPage;
+    },
+    setUserLastPage: function setUserLastPage(state, userLastPage) {
+      state.userLastPage = userLastPage;
+    },
     // Admin Management
     setAdminSelectOption: function setAdminSelectOption(state, adminSelectOption) {
       state.adminSelectOption = adminSelectOption;
@@ -27254,6 +27206,21 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
     },
     setAdminList: function setAdminList(state, adminListData) {
       state.adminListData = adminListData;
+    },
+    // Admin Management Pagination
+    setAdminCurrentPage: function setAdminCurrentPage(state, adminCurrentPage) {
+      state.adminCurrentPage = adminCurrentPage;
+    },
+    setAdminLastPage: function setAdminLastPage(state, adminLastPage) {
+      state.adminLastPage = adminLastPage;
+    },
+    // Admin Update
+    setAdminUpdateInfo: function setAdminUpdateInfo(state, confirmAdminInfo) {
+      state.confirmAdminInfo = confirmAdminInfo;
+    },
+    // Admin Management Withdrawal
+    setAdminManagementWithdrawalInfo: function setAdminManagementWithdrawalInfo(state, confirmAdminInfo) {
+      state.confirmAdminInfo = confirmAdminInfo;
     }
   },
   actions: {
@@ -27394,8 +27361,6 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
           var adminToken = response.data.token;
           // adminFlg, adminName 저장
           var adminLoginInfo = response.data.adminLoginInfo;
-          console.log(adminToken);
-          console.log(adminLoginInfo);
           commit('setAdminToken', adminToken);
           commit('setAdminLoginInfo', adminLoginInfo);
 
@@ -27556,11 +27521,48 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       }
     },
     // Admin 권한 변경
-    // Admin 탈퇴
-    // Admin Management List 데이터 수신
-    adminManagementList: function adminManagementList(_ref11, page) {
-      var _this2 = this;
+    adminManagementUpdate: function adminManagementUpdate(_ref11, admin_number) {
       var commit = _ref11.commit;
+      var URL = '/admin/dashboard/management/update';
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post(URL, {
+        admin_number: admin_number
+      }).then(function (response) {
+        if (response.data.code === "AMU00") {
+          var confirmAdminInfo = response.data.confirmAdminInfo;
+          commit('setAdminUpdateInfo', confirmAdminInfo);
+          alert(response.data.success);
+          window.location.reload();
+        } else {
+          alert(response.data.error);
+        }
+      })["catch"](function (error) {
+        alert(error.response.data.error);
+      });
+    },
+    // Admin 계정 탈퇴
+    adminManagementWithdrawal: function adminManagementWithdrawal(_ref12, admin_number) {
+      var commit = _ref12.commit;
+      console.log(admin_number);
+      var URL = '/admin/dashboard/management/withdrawal';
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post(URL, {
+        admin_number: admin_number
+      }).then(function (response) {
+        if (response.data.code === "AMW00") {
+          var confirmAdminInfo = response.data.confirmAdminInfo;
+          commit('setAdminManagementWithdrawalInfo', confirmAdminInfo);
+          alert(response.data.success);
+          window.location.reload();
+        } else {
+          alert(response.data.error);
+        }
+      })["catch"](function (error) {
+        alert(error.response.data.error);
+      });
+    },
+    // Admin Management List 데이터 수신
+    adminManagementList: function adminManagementList(_ref13, page) {
+      var _this2 = this;
+      var commit = _ref13.commit;
       var URL = '/admin/dashboard/management/adminManagementList?page=' + page;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
         if (response.data.code === "AML00") {
@@ -27585,9 +27587,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       });
     },
     // Admin Management Flg List 데이터 수신
-    adminManagementFlgList: function adminManagementFlgList(_ref12, page) {
+    adminManagementFlgList: function adminManagementFlgList(_ref14, page) {
       var _this3 = this;
-      var commit = _ref12.commit;
+      var commit = _ref14.commit;
       var URL = '/admin/dashboard/management/adminManagementFlgList?page=' + page;
       var adminSelectOption = '1';
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(URL).then(function (response) {
@@ -27614,9 +27616,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       });
     },
     // Admin Management Pagination 
-    adminPagination: function adminPagination(_ref13, page) {
-      var state = _ref13.state,
-        dispatch = _ref13.dispatch;
+    adminPagination: function adminPagination(_ref15, page) {
+      var state = _ref15.state,
+        dispatch = _ref15.dispatch;
       // 페이지가 현재 페이지와 같은지 확인하여 중복 요청을 방지합니다.
       if (page !== state.adminCurrentPage) {
         var adminManagementOption = state.adminSelectOption;
@@ -27634,17 +27636,17 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       }
     },
     // Admin Management Pagination(first)
-    adminFirstPagination: function adminFirstPagination(_ref14) {
-      var state = _ref14.state,
-        dispatch = _ref14.dispatch;
+    adminFirstPagination: function adminFirstPagination(_ref16) {
+      var state = _ref16.state,
+        dispatch = _ref16.dispatch;
       if (state.adminSelectOption === '0' && state.adminCurrentPage !== 1) {
         dispatch('adminPagination', 1);
       }
     },
     // Admin Management Pagination(prev)
-    adminPrevPagination: function adminPrevPagination(_ref15) {
-      var state = _ref15.state,
-        dispatch = _ref15.dispatch;
+    adminPrevPagination: function adminPrevPagination(_ref17) {
+      var state = _ref17.state,
+        dispatch = _ref17.dispatch;
       var adminPrevPage = state.adminCurrentPage - 1;
       if (state.adminCurrentPage) {
         if (adminPrevPage > 0) {
@@ -27653,9 +27655,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       }
     },
     // Admin Management Pagination(next)
-    adminNextPagination: function adminNextPagination(_ref16) {
-      var state = _ref16.state,
-        dispatch = _ref16.dispatch;
+    adminNextPagination: function adminNextPagination(_ref18) {
+      var state = _ref18.state,
+        dispatch = _ref18.dispatch;
       var adminNextPage = state.adminCurrentPage + 1;
       if (state.adminCurrentPage) {
         if (adminNextPage <= state.adminLastPage) {
@@ -27664,9 +27666,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       }
     },
     // Admin Management Pagination(last)
-    adminLastPagination: function adminLastPagination(_ref17) {
-      var state = _ref17.state,
-        dispatch = _ref17.dispatch;
+    adminLastPagination: function adminLastPagination(_ref19) {
+      var state = _ref19.state,
+        dispatch = _ref19.dispatch;
       if (state.adminCurrentPage && state.adminCurrentPage !== state.adminLastPage) {
         dispatch('adminPagination', state.adminLastPage);
       }
