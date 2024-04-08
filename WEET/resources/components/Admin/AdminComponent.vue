@@ -207,6 +207,7 @@ export default {
     },
 
 	created() {
+		this.test();
         this.adminIndex = this.$route.path === '/admin/index';
 		// 총 결제 건수, 총 결제 금액, 총 이용자 수
 		this.totalUserData();
@@ -302,6 +303,11 @@ export default {
 				.catch(error => {
 					console.error(error);
 				});
+		},
+		test(){
+			if(!localStorage.getItem('setAdminToken')){
+				this.$router.push('/admin')
+			}
 		},
 	}
 }
