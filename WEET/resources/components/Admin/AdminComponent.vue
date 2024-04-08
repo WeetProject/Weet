@@ -207,8 +207,8 @@ export default {
     },
 
 	created() {
-		this.test();
-        this.adminIndex = this.$route.path === '/admin/index';
+		// Admin Token 확인
+		this.adminTokenCheck();
 		// 총 결제 건수, 총 결제 금액, 총 이용자 수
 		this.totalUserData();
 		// 통합 데이터(월별 예약, 월별 결제)
@@ -241,6 +241,12 @@ export default {
 	},
 
 	methods: {
+		// Admin Token 확인
+		adminTokenCheck() {
+			if(!localStorage.getItem('setAdminToken')) {
+				this.$router.push('/admin')
+			}
+		},
 		// User 드롭다운
 		toggleUserDropdown() {
 			this.userDropdown = !this.userDropdown;
@@ -303,11 +309,6 @@ export default {
 				.catch(error => {
 					console.error(error);
 				});
-		},
-		test(){
-			if(!localStorage.getItem('setAdminToken')){
-				this.$router.push('/admin')
-			}
 		},
 	}
 }

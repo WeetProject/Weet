@@ -29,7 +29,11 @@ class AdminUserManagementController extends Controller
                         ->orderByDesc('created_at')
                         ->paginate(8);
         // 회원 최근 로그인 이력
-        // $userCurrentLoginList = 
+        $userCurrentLoginList = DB::table('login_log')
+                                ->join('users', 'login_log.user_email', '=', 'users.user_email')
+                                ->orderBy('login_log.login_at', 'desc')
+                                ->select('login_log.login_at')
+                                ->first();
         
         $error = "오류가 발생했습니다. 페이지를 새로고침 해주세요";
         // 데이터 송신 확인용 Log
@@ -37,6 +41,7 @@ class AdminUserManagementController extends Controller
         return response()->json([
             'code' => 'UML00',
             'userManagementList' => $userManagementList,
+            // 'userCurrentLoginList' => $userCurrentLoginList,
             'error' => $error
         ], 200);
     }

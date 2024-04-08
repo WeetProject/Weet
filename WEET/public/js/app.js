@@ -20851,7 +20851,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.test();
+    this.adminTokenCheck();
   },
   watch: {
     // 에러 출력용
@@ -20863,6 +20863,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    // Admin Token 확인
+    adminTokenCheck: function adminTokenCheck() {
+      if (localStorage.getItem('setAdminToken')) {
+        this.$router.push('/admin/dashboard');
+      }
+    },
+    // Admin Login
     adminLogin: function adminLogin() {
       var adminLoginFormData = new FormData();
       adminLoginFormData.append('admin_number', this.adminLoginFormData.admin_number);
@@ -20876,11 +20883,6 @@ __webpack_require__.r(__webpack_exports__);
     // 에러 초기화
     clearAdminLoginError: function clearAdminLoginError() {
       this.adminLoginError = '';
-    },
-    test: function test() {
-      if (localStorage.getItem('setAdminToken')) {
-        this.$router.push('/admin/dashboard');
-      }
     }
   }
 });
@@ -21125,8 +21127,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    this.test();
-    this.adminIndex = this.$route.path === '/admin/index';
+    // Admin Token 확인
+    this.adminTokenCheck();
     // 총 결제 건수, 총 결제 금액, 총 이용자 수
     this.totalUserData();
     // 통합 데이터(월별 예약, 월별 결제)
@@ -21156,6 +21158,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    // Admin Token 확인
+    adminTokenCheck: function adminTokenCheck() {
+      if (!localStorage.getItem('setAdminToken')) {
+        this.$router.push('/admin');
+      }
+    },
     // User 드롭다운
     toggleUserDropdown: function toggleUserDropdown() {
       this.userDropdown = !this.userDropdown;
@@ -21215,11 +21223,6 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.error(error);
       });
-    },
-    test: function test() {
-      if (!localStorage.getItem('setAdminToken')) {
-        this.$router.push('/admin');
-      }
     }
   }
 });
