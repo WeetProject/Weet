@@ -31,7 +31,11 @@ class AdminAuthController extends Controller
             if ($adminLoginAttempt > $maxAdminLoginAttempt) {
                 Cache::put('Admin로그인차단' . $request->admin_number, true, $adminLoginLockTime);
                 $error = "로그인 시도가 너무 많습니다. 약 10분 후 재 로그인해주세요";
-                Log::debug("로그인 시도 이거실행");
+                Log::debug("### 사원번호 {$request->admin_number} 로그인 시도 차단 ###");
+
+                // 10분 후 로그인 시도 횟수 초기화
+                Cache::put('Admin로그인시도' . $request->admin_number, 0, 600);
+
                 return response()->json([
                     'code' => 'ALI01',
                     'error' => $error
@@ -43,7 +47,11 @@ class AdminAuthController extends Controller
             if ($adminLoginAttemptBlock) {
                 // 사용자가 차단 중인 경우
                 $error = "로그인 시도가 너무 많습니다. 약 10분 후 재 로그인해주세요";
-                Log::debug("로그인 시도 요거실행");
+                Log::debug("### Admin 로그인차단 . $request->admin_number ###");
+
+                // 10분 후 로그인 시도 횟수 초기화
+                Cache::put('Admin로그인시도' . $request->admin_number, 0, 600);
+
                 return response()->json([
                     'code' => 'ALI01',
                     'error' => $error
@@ -152,17 +160,17 @@ class AdminAuthController extends Controller
             // Authorization Header 저장
             $logoutDataHeader = $request->header('Authorization');
             // Logout 요청 토큰 데이터 확인용 Log
-            // Log::debug($logoutDataHeader);
+            Log::debug($logoutDataHeader);
 
             // Header 내 Bearer 토큰 저장
             $logoutRequestToken = str_replace('Bearer ', '', $logoutDataHeader);
             // Logout 요청 토큰 데이터 저장 확인용 Log
-            // Log::debug($logoutRequestToken);
+            Log::debug($logoutRequestToken);
 
             // JWT 토큰 파싱
             $logoutToken = JWTAuth::setToken($logoutRequestToken)->getToken();
             // Logout 요청 토큰 데이터 가공 확인용 Log
-            // Log::debug($logoutToken);
+            Log::debug($logoutToken);
 
             if ($logoutToken) {
                 // 토큰 무효화

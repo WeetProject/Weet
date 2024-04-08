@@ -14,7 +14,6 @@ class AdminUserManagementController extends Controller
 {       
     // 최신 가입 순
     public function userManagementList() {
-        // 회원 정보
         $userManagementList = User::select(
                             'user_id', 
                             'user_name',
@@ -28,8 +27,24 @@ class AdminUserManagementController extends Controller
                         ->whereNull('deleted_at')
                         ->orderByDesc('created_at')
                         ->paginate(8);
-        // 회원 최근 로그인 이력
-        // $userCurrentLoginList = 
+
+        // $userManagementList = DB::table('users')
+        //                 ->select(
+        //                     'users.user_id',
+        //                     'users.user_name',
+        //                     'users.user_email',
+        //                     'users.user_tel',
+        //                     'users.user_birthdate',
+        //                     'users.user_gender',
+        //                     'users.user_flg',
+        //                     'users.created_at',
+        //                     DB::raw("DATE_FORMAT(users.created_at, '%Y-%m-%d') AS user_created_at"),
+        //                     'login_log.login_at AS last_login_at'
+        //                 )
+        //                 ->leftJoin('login_log', 'users.user_email', '=', 'login_log.user_email')
+        //                 ->whereNull('users.deleted_at')
+        //                 ->orderByDesc('users.created_at')
+        //                 ->paginate(8);
         
         $error = "오류가 발생했습니다. 페이지를 새로고침 해주세요";
         // 데이터 송신 확인용 Log
