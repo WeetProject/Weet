@@ -121,6 +121,8 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 	// admin Token 확인
 	const adminToken = localStorage.getItem('setAdminToken');
+	// user Token 확인
+	const userToken = localStorage.getItem('setToken');
 
 	if (to.path === '/admin') {
         if (adminToken) {
@@ -129,7 +131,15 @@ router.beforeEach((to, from, next) => {
         } else {
             next();
         }
-    } else {
+    } 
+	if (to.path === '/') {
+		if (userToken) {
+			next('/');
+		} else {
+			next();
+		}
+	}
+	else {
         if (!adminToken) {
             // admin Token 미존재 시, /admin 페이지 이동
             next('/admin');
