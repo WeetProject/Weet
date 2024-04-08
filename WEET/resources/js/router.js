@@ -123,6 +123,36 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+	// // admin Token 확인
+	// const adminToken = localStorage.getItem('setAdminToken');
+	// // user Token 확인
+	// const userToken = localStorage.getItem('setToken');
+
+	// if (to.path === '/admin') {
+    //     if (adminToken) {
+    //         // admin Token 존재 시, /admin 이동 불가 처리
+    //         next('/admin/dashboard');
+    //     } else {
+    //         next();
+    //     }
+    // } 
+	// if (to.path === '/') {
+	// 	if (userToken) {
+	// 		next('/');
+	// 	} else {
+	// 		next();
+	// 	}
+	// }
+	// else {
+    //     if (!adminToken) {
+    //         // admin Token 미존재 시, /admin 페이지 이동
+    //         next('/admin');
+    //     } else {
+    //         next();
+    //     }
+    // }
+
+	// 수정중
 	// admin Token 확인
 	const adminToken = localStorage.getItem('setAdminToken');
 	// console.log("어드민 토큰 확인" + adminToken);

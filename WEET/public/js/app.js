@@ -27014,6 +27014,36 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_15__.createRouter)({
   }
 });
 router.beforeEach(function (to, from, next) {
+  // // admin Token 확인
+  // const adminToken = localStorage.getItem('setAdminToken');
+  // // user Token 확인
+  // const userToken = localStorage.getItem('setToken');
+
+  // if (to.path === '/admin') {
+  //     if (adminToken) {
+  //         // admin Token 존재 시, /admin 이동 불가 처리
+  //         next('/admin/dashboard');
+  //     } else {
+  //         next();
+  //     }
+  // } 
+  // if (to.path === '/') {
+  // 	if (userToken) {
+  // 		next('/');
+  // 	} else {
+  // 		next();
+  // 	}
+  // }
+  // else {
+  //     if (!adminToken) {
+  //         // admin Token 미존재 시, /admin 페이지 이동
+  //         next('/admin');
+  //     } else {
+  //         next();
+  //     }
+  // }
+
+  // 수정중
   // admin Token 확인
   var adminToken = localStorage.getItem('setAdminToken');
   // console.log("어드민 토큰 확인" + adminToken);
