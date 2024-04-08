@@ -406,7 +406,7 @@ const store = createStore({
                     // Admin Token 만료
                     if(error.response) {
                         if(error.response.data.code === "ALO01") {
-                            localStorage.clear();
+                            localStorage.clear();                            
                             console.log(error.response.data.error);
                             alert(error.response.data.error);
                             router.push('/admin');
