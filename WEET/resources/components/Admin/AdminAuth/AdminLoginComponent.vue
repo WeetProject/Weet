@@ -66,6 +66,10 @@ export default {
         }
     },
 
+	created() {
+		this.test();
+	},
+
 	watch: {
 		// 에러 출력용
         '$store.state.adminError': {
@@ -93,7 +97,13 @@ export default {
 		// 에러 초기화
 		clearAdminLoginError() {
 			this.adminLoginError = '';
-		}
+		},
+
+		test(){
+			if(localStorage.getItem('setAdminToken')){
+				this.$router.push('/admin/dashboard')
+			}
+		},
 	}
 }
 </script>

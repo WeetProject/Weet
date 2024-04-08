@@ -20850,6 +20850,9 @@ __webpack_require__.r(__webpack_exports__);
       adminError: this.$store.state.adminError
     };
   },
+  created: function created() {
+    this.test();
+  },
   watch: {
     // 에러 출력용
     '$store.state.adminError': {
@@ -20873,6 +20876,11 @@ __webpack_require__.r(__webpack_exports__);
     // 에러 초기화
     clearAdminLoginError: function clearAdminLoginError() {
       this.adminLoginError = '';
+    },
+    test: function test() {
+      if (localStorage.getItem('setAdminToken')) {
+        this.$router.push('/admin/dashboard');
+      }
     }
   }
 });
@@ -21117,6 +21125,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
+    this.test();
     this.adminIndex = this.$route.path === '/admin/index';
     // 총 결제 건수, 총 결제 금액, 총 이용자 수
     this.totalUserData();
@@ -21206,6 +21215,11 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.error(error);
       });
+    },
+    test: function test() {
+      if (!localStorage.getItem('setAdminToken')) {
+        this.$router.push('/admin');
+      }
     }
   }
 });
