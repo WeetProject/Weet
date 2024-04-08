@@ -27028,61 +27028,7 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_15__.createRouter)({
   }
 });
 router.beforeEach(function (to, from, next) {
-  // // admin Token 확인
-  // const adminToken = localStorage.getItem('setAdminToken');
-  // // user Token 확인
-  // const userToken = localStorage.getItem('setToken');
-
-  // if (to.path === '/admin') {
-  //     if (adminToken) {
-  //         // admin Token 존재 시, /admin 이동 불가 처리
-  //         next('/admin/dashboard');
-  //     } else {
-  //         next();
-  //     }
-  // } 
-  // if (to.path === '/') {
-  // 	if (userToken) {
-  // 		next('/');
-  // 	} else {
-  // 		next();
-  // 	}
-  // }
-  // else {
-  //     if (!adminToken) {
-  //         // admin Token 미존재 시, /admin 페이지 이동
-  //         next('/admin');
-  //     } else {
-  //         next();
-  //     }
-  // }
-
-  // 수정중
-  // admin Token 확인
-  var adminToken = localStorage.getItem('setAdminToken');
-  // console.log("어드민 토큰 확인" + adminToken);
-  var userToken = localStorage.getItem('setToken');
-  // console.log("유저 토큰 확인" + userToken);
-
-  if (to.path === '/admin') {
-    if (adminToken) {
-      // admin Token 존재 시, /admin 이동 불가 처리
-      // console.log("1 실행");
-      next('/admin/dashboard');
-    } else {
-      // console.log("2 실행");
-      next();
-    }
-  } else if (to.path === '/') {
-    if (userToken) {
-      // admin Token 존재 시, /admin 이동 불가 처리
-      next('/main');
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
+  next();
   document.title = to.meta.title || '기본 타이틀';
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
