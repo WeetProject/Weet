@@ -4,9 +4,8 @@ import MainComponent from '../components/MainComponent.vue';
 import TestComponent from '../components/TestComponent.vue';
 import MypageComponent from '../components/User/MypageComponent.vue';
 import ReservationComponent from '../components/Reservation/ReservationComponent.vue';
-import HotelComponent from '../components/Reservation/HotelComponent.vue';
 import SignUpComponent from '../components/User/SignUpComponent.vue';
-import LoginComponent from '../components/User/LoginComponent.vue';
+// import LoginComponent from '../components/User/LoginComponent.vue';
 
 // ### Admin ###
 // Admin Layout
@@ -24,6 +23,14 @@ import AdminManagementComponent from '../components/Admin/AdminManagement/AdminM
 // Admin Registration
 import AdminRegistrationComponent from '../components/Admin/AdminRegistration/AdminRegistrationComponent.vue';
 
+// 로그인 되있는지 확인
+function requireAuth(to, from, next) {
+	if (!localStorage.getItem('setToken')) {
+		next('/');
+	} else {
+		next();
+	}
+}
 const routes = [
 	{
 		path: '/',
@@ -39,23 +46,17 @@ const routes = [
 	},
 	{
 		path: '/mypage',
-		component: MypageComponent
+		component: MypageComponent,
+		beforeEnter: requireAuth,
 	},
 	{
-		path: '/reservation/air',
-		component: ReservationComponent
-	},	
-	{
-		path: '/reservation/hotel',
-		component: HotelComponent
-	},	
+		path: '/reservation',
+		component: ReservationComponent,
+		beforeEnter: requireAuth,
+	},
 	{
 		path: '/signup',
 		component: SignUpComponent
-	},
-	{
-		path: '/login',
-		component: LoginComponent
 	},
 	// Admin	
 	{
