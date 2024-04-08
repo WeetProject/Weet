@@ -56,22 +56,22 @@
 												<p>다양한 항공권 가격을 비교해보세요</p>
 											</div>	
 										</div>
-										<form class="card__form">
+										<div class="card__form">
 											<div class="card__form_email">
 												
 												<label for="email">Email</label>
-													<input id="email" class="card__input" type="email" v-model="frmUserLoginData.userEmail" />
+													<input id="email" class="card__input" type="email" v-model="frmUserLoginData.userEmail" @keyup.enter="submitUserLoginData" />
 											</div>
 											<div class="card__form_pw">
 												
 												<label for="password">Password</label>
-													<input id="password" class="card__input" type="password" v-model="frmUserLoginData.userPassword" />
+													<input id="password" class="card__input" type="password" v-model="frmUserLoginData.userPassword" @keyup.enter="submitUserLoginData" />
 											</div>
 						
 
 											<div class="card__form_button">
-												<div>
-													<button class="card__button" type="button" @click="submitUserLoginData">
+												<div @click="submitUserLoginData">
+													<button class="card__button" type="button">
 														<span>Login</span>
 													</button>
 												</div>  
@@ -94,7 +94,7 @@
 														<img src="../../../public/images/Kakao_logo.png" alt="">
 													</button>
 												</div>
-											</form>
+											</div>
 										</div>
 									</section>
 								</div>

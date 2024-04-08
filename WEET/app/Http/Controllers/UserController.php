@@ -131,8 +131,8 @@ class UserController extends Controller
 
     public function logout() {
 
-        // Log::debug("**************로그인정보*************");
-        // // Log::debug($request);
+        // Log::debug("**************로그아웃정보*************");
+        // Log::debug($request);
 
         // $sessionDataCheck = Auth::check();
         
@@ -145,6 +145,8 @@ class UserController extends Controller
         // ]);
 
         try {
+            // $logoutHeader = $request->header('Authorization');
+
             // 현재 사용자의 토큰 가져오기
             $token = JWTAuth::getToken();
             Log::debug("토큰오나");
@@ -157,6 +159,7 @@ class UserController extends Controller
             
             // 토큰을 블랙리스트에 추가하여 무효화
             JWTAuth::invalidate($token);
+            Log::debug($token);
 
             // 로그아웃 처리
             Auth::logout();

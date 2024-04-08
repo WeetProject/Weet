@@ -265,34 +265,17 @@ const store = createStore({
         },
 
         // 유저 logout
-        // logout(context, data) {
-        //     const url = '/logout';
-        //     const header = {
-        //         headers: {
-        //             "Content-Type": 'application/json',
-        //         },
-        //     };
-        
-        //     axios.get(url, header)
-        //     .then(res => {
-        //         context.commit('setUserLoginChk', res.data.sessionDataCheck);
-        //         localStorage.clear();
-                
-        //         Swal.fire({
-        //             icon: 'success',
-        //             title: '로그아웃 성공',
-        //             text: '로그아웃에 성공했습니다.',
-        //             confirmButtonText: '확인'
-        //         }).then(() => {
-        //             // 확인 버튼을 눌렀을 때 실행할 코드
-        //             location.reload();
-        //         });
-        //     })
-        //     .catch(err => {
-        //         console.log(err.response.data);
-        //     });
-        // },
         logout(context, data) {
+            const userToken = localStorage.getItem('setToken');
+            // user Token 미 존재시
+            if (!userToken) {
+                localStorage.clear();
+                alert('세션이 만료되었습니다. 다시 로그인해주세요.');
+                router.push('/');
+
+                return;
+            }
+
             const url = '/logout';
             const token = localStorage.getItem('setToken');
             console.log(token);
@@ -303,15 +286,11 @@ const store = createStore({
                     "Content-Type": 'application/json',
                 },
             };
-            // const config = {
-			// 	headers: {
-			// 		'Authorization': `Bearer ${token}`
-			// 	}
-			// };
-
+            
             axios.get(url, header)
             .then(res => {
                 console.log('로그아웃', res);
+                console.log('로그아웃', header);
                 // context.commit('setUserLoginChk', false);
                 // this.setSaveToLocalStorage(data);
                 localStorage.clear();
