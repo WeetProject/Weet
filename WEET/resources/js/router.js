@@ -159,25 +159,25 @@ router.beforeEach((to, from, next) => {
 	const userToken = localStorage.getItem('setToken');
 	// console.log("유저 토큰 확인" + userToken);
 
-	if(to.path === '/admin') {
-        if(adminToken) {
-            // admin Token 존재 시, /admin 이동 불가 처리
-			// console.log("1 실행");
-            next('/admin/dashboard');
-        } else {
-			// console.log("2 실행");
-            next();
-        }
-    } else if(to.path === '/') {
-        if(userToken) {
-            // admin Token 존재 시, /admin 이동 불가 처리
-            next('/main');
-        } else {
-            next();
-        }
-	} else {
-		next();
-	}
+	// if(to.path === '/admin') {
+    //     if(adminToken) {
+    //         // admin Token 존재 시, /admin 이동 불가 처리
+	// 		// console.log("1 실행");
+    //         next('/admin/dashboard');
+    //     } else {
+	// 		// console.log("2 실행");
+    //         next();
+    //     }
+    // } else if(to.path === '/') {
+    //     if(userToken) {
+    //         // admin Token 존재 시, /admin 이동 불가 처리
+    //         next('/main');
+    //     } else {
+    //         next();
+    //     }
+	// } else {
+	// 	next();
+	// }
 
 	document.title = to.meta.title || '기본 타이틀';
 });

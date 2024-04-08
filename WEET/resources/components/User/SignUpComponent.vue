@@ -52,8 +52,8 @@
                     </div>
                     
                     <div class="terms_conditions_checkbox_btn">
-                        <input class="terms_conditions_checkbox" type="checkbox" v-model="frmUserData.userTermsofUse" />
-                        <label class="terms_conditions_label">이용약관 및 개인정보수집 및 이용에 모두 동의합니다.</label>
+                        <input class="terms_conditions_checkbox" id="termsCheckbox" type="checkbox" v-model="frmUserData.userTermsofUse" />
+                        <label for="termsCheckbox" class="terms_conditions_label">이용약관 및 개인정보수집 및 이용에 모두 동의합니다.</label>
                     </div>
                 </div>
             <hr>
@@ -61,8 +61,8 @@
                     <div class="regist_button_cel">
                         <button class="regist_button_cancel">CANCEL</button>
                     </div>
-                    <div class="regist_button_nxt">
-                        <button class="regist_button_next" type="button" @click="moveToNext">NEXT</button>
+                    <div class="regist_button_nxt" @click="moveToNext">
+                        <button class="regist_button_next" type="button">NEXT</button>
                     </div>
                 </div>
             </main>
@@ -160,16 +160,16 @@
                             </div>    
                         </div>
                         <div class="regist_user_info_box_content">
-                            <div class="regist_user_info_box_label_postcode">
+                            <div class="regist_user_info_box_label_postcode" @click="openDaumPostcode()">
                                 <span class="font-bold">우편번호</span><span style="color: red;">*</span>
                             </div>
-                            <div class="regist_user_info_box_input_postcode">
+                            <div class="regist_user_info_box_input_postcode" @click="openDaumPostcode()">
                                 <input id="user_postcode" name="user_postcode" v-model="frmUserAddressData.userPostcode" type="text" placeholder="">
                             </div>
-                            <div class="regist_user_info_box_input_search">
-                                <button class="font-bold" type="button" @click="openDaumPostcode()">검색</button>
+                            <div class="regist_user_info_box_input_search" @click="openDaumPostcode()">
+                                <button class="font-bold" type="button">검색</button>
                             </div>
-                            <div class="regist_user_info_box_input_basic_address">
+                            <div class="regist_user_info_box_input_basic_address" @click="openDaumPostcode()">
                                 <input id="user_basic_address" name="user_basic_address" v-model="frmUserAddressData.userBasicAddress" type="text" placeholder="">
                             </div>
                         </div>
@@ -236,11 +236,11 @@
                 </div>
             <hr>
                 <div class="regist_button">
-                    <div class="regist_button_cel">
-                        <button class="regist_button_cancel" @click="signFlg1=false; signFlg2=true;">PRE</button>
+                    <div class="regist_button_cel" @click="signFlg1=false; signFlg2=true;">
+                        <button class="regist_button_cancel">PRE</button>
                     </div>
-                    <div class="regist_button_nxt">
-                        <button class="regist_button_next" type="submit" @click="submitFrmUserData()">SIGNUP</button>
+                    <div class="regist_button_nxt" @click="submitFrmUserData()">
+                        <button class="regist_button_next" type="submit">SIGNUP</button>
                     </div>
                 </div>    
             </main>
@@ -419,6 +419,8 @@ export default {
             if(this.frmUserData.userTermsofUse) {
                 this.signFlg1 = true;
                 this.signFlg2 = false;
+                // 페이지 맨 위로 스크롤
+                window.scrollTo({ top: 0 });
             }
             else {
                 alert('이용약관에 동의 체크 해주세요');
