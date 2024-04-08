@@ -119,33 +119,63 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-	// admin Token 확인
-	const adminToken = localStorage.getItem('setAdminToken');
-	// user Token 확인
-	const userToken = localStorage.getItem('setToken');
+	// // admin Token 확인
+	// const adminToken = localStorage.getItem('setAdminToken');
+	// // user Token 확인
+	// const userToken = localStorage.getItem('setToken');
 
+	// if (to.path === '/admin') {
+    //     if (adminToken) {
+    //         // admin Token 존재 시, /admin 이동 불가 처리
+    //         next('/admin/dashboard');
+    //     } else {
+    //         next();
+    //     }
+    // } 
+	// if (to.path === '/') {
+	// 	if (userToken) {
+	// 		next('/');
+	// 	} else {
+	// 		next();
+	// 	}
+	// }
+	// else {
+    //     if (!adminToken) {
+    //         // admin Token 미존재 시, /admin 페이지 이동
+    //         next('/admin');
+    //     } else {
+    //         next();
+    //     }
+    // }
+
+	// 수정중
+	// admin Token 확인
+	// const adminToken = localStorage.getItem('setAdminToken');
+	// // user Token 확인
+	// const userToken = localStorage.getItem('setToken');
+
+	// if (to.path.startsWith('/admin')) {
+	// 	if (!adminToken) {
+	// 		next('/admin');
+	// 	} 
+	// 	next();
+	// }
 	if (to.path === '/admin') {
-        if (adminToken) {
-            // admin Token 존재 시, /admin 이동 불가 처리
-            next('/admin/dashboard');
-        } else {
-            next();
-        }
-    } 
-	if (to.path === '/') {
-		if (userToken) {
-			next('/');
-		} else {
-			next();
+
+		const adminToken = localStorage.getItem('setAdminToken');
+		
+		if (adminToken) {
+			next('/admin/dashboard');
+		} else if (!adminToken) {
+			next('/admin');
 		}
+		next();
+	}
+	else if (to.path === '/') {
+		next();
 	}
 	else {
-        if (!adminToken) {
-            // admin Token 미존재 시, /admin 페이지 이동
-            next('/admin');
-        } else {
-            next();
-        }
+        next(); // 다른 경로로 이동하는 경우 그대로 진행
     }
 
 	document.title = to.meta.title || '기본 타이틀';

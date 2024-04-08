@@ -27014,31 +27014,59 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_15__.createRouter)({
   }
 });
 router.beforeEach(function (to, from, next) {
+  // // admin Token 확인
+  // const adminToken = localStorage.getItem('setAdminToken');
+  // // user Token 확인
+  // const userToken = localStorage.getItem('setToken');
+
+  // if (to.path === '/admin') {
+  //     if (adminToken) {
+  //         // admin Token 존재 시, /admin 이동 불가 처리
+  //         next('/admin/dashboard');
+  //     } else {
+  //         next();
+  //     }
+  // } 
+  // if (to.path === '/') {
+  // 	if (userToken) {
+  // 		next('/');
+  // 	} else {
+  // 		next();
+  // 	}
+  // }
+  // else {
+  //     if (!adminToken) {
+  //         // admin Token 미존재 시, /admin 페이지 이동
+  //         next('/admin');
+  //     } else {
+  //         next();
+  //     }
+  // }
+
+  // 수정중
   // admin Token 확인
-  var adminToken = localStorage.getItem('setAdminToken');
-  // user Token 확인
-  var userToken = localStorage.getItem('setToken');
+  // const adminToken = localStorage.getItem('setAdminToken');
+  // // user Token 확인
+  // const userToken = localStorage.getItem('setToken');
+
+  // if (to.path.startsWith('/admin')) {
+  // 	if (!adminToken) {
+  // 		next('/admin');
+  // 	} 
+  // 	next();
+  // }
   if (to.path === '/admin') {
+    var adminToken = localStorage.getItem('setAdminToken');
     if (adminToken) {
-      // admin Token 존재 시, /admin 이동 불가 처리
       next('/admin/dashboard');
-    } else {
-      next();
-    }
-  }
-  if (to.path === '/') {
-    if (userToken) {
-      next('/');
-    } else {
-      next();
-    }
-  } else {
-    if (!adminToken) {
-      // admin Token 미존재 시, /admin 페이지 이동
+    } else if (!adminToken) {
       next('/admin');
-    } else {
-      next();
     }
+    next();
+  } else if (to.path === '/') {
+    next();
+  } else {
+    next(); // 다른 경로로 이동하는 경우 그대로 진행
   }
   document.title = to.meta.title || '기본 타이틀';
 });
