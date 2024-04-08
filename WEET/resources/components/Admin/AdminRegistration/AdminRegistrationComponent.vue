@@ -117,11 +117,7 @@ export default {
 	mounted() {
 	},
 
-	methods: {
-		// 0407 TODO
-		// {1. 레지스트레이션 메소드 스토어 이관}
-		// {2. 데이터 확인}
-		
+	methods: {		
 		// Admin Registration List 데이터 수신
 		adminRegistrationList(page) {
 			const URL = '/admin/dashboard/registration/adminList?page=' + page;

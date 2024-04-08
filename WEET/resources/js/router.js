@@ -30,6 +30,10 @@ const routes = [
 		component: MainComponent
 	},
 	{
+		path: '/main',
+		component: MainComponent
+	},
+	{
 		path: '/test',
 		component: TestComponent
 	},
@@ -121,22 +125,38 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 	// admin Token 확인
 	const adminToken = localStorage.getItem('setAdminToken');
+	// console.log("어드민 토큰 확인" + adminToken);
+	const userToken = localStorage.getItem('setToken');
+	// console.log("유저 토큰 확인" + userToken);
 
-	if (to.path === '/admin') {
-        if (adminToken) {
+	if(to.path === '/admin') {
+        if(adminToken) {
             // admin Token 존재 시, /admin 이동 불가 처리
+			// console.log("1 실행");
             next('/admin/dashboard');
         } else {
+			// console.log("2 실행");
             next();
         }
-    } else {
-        if (!adminToken) {
-            // admin Token 미존재 시, /admin 페이지 이동
-            next('/admin');
+    } else if(to.path === '/') {
+        if(userToken) {
+            // admin Token 존재 시, /admin 이동 불가 처리
+            next('/main');
         } else {
             next();
         }
-    }
+	} else {
+		next();
+	}
+    // } else {
+	// 	if(!adminToken) {
+	// 		next('/admin');
+	// 	} else if (!userToken) {
+	// 		next('/');
+	// 	} else {
+	// 		next();
+	// 	}
+	// }
 
 	document.title = to.meta.title || '기본 타이틀';
 });

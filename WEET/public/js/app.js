@@ -21546,9 +21546,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   methods: {
-    // 0407 TODO
-    // {1. 레지스트레이션 메소드 스토어 이관}
-    // {2. 데이터 확인}
     // Admin Registration List 데이터 수신
     adminRegistrationList: function adminRegistrationList(page) {
       var _this = this;
@@ -26937,6 +26934,9 @@ var routes = [{
   path: '/',
   component: _components_MainComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
 }, {
+  path: '/main',
+  component: _components_MainComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+}, {
   path: '/test',
   component: _components_TestComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
@@ -27016,21 +27016,39 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_15__.createRouter)({
 router.beforeEach(function (to, from, next) {
   // admin Token 확인
   var adminToken = localStorage.getItem('setAdminToken');
+  // console.log("어드민 토큰 확인" + adminToken);
+  var userToken = localStorage.getItem('setToken');
+  // console.log("유저 토큰 확인" + userToken);
+
   if (to.path === '/admin') {
     if (adminToken) {
       // admin Token 존재 시, /admin 이동 불가 처리
+      // console.log("1 실행");
       next('/admin/dashboard');
+    } else {
+      // console.log("2 실행");
+      next();
+    }
+  } else if (to.path === '/') {
+    if (userToken) {
+      // admin Token 존재 시, /admin 이동 불가 처리
+      next('/main');
     } else {
       next();
     }
   } else {
-    if (!adminToken) {
-      // admin Token 미존재 시, /admin 페이지 이동
-      next('/admin');
-    } else {
-      next();
-    }
+    next();
   }
+  // } else {
+  // 	if(!adminToken) {
+  // 		next('/admin');
+  // 	} else if (!userToken) {
+  // 		next('/');
+  // 	} else {
+  // 		next();
+  // 	}
+  // }
+
   document.title = to.meta.title || '기본 타이틀';
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
