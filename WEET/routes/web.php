@@ -40,15 +40,11 @@ Route::get('/mypage', function () {
 
 // reservation 그룹
 Route::prefix('reservation')->group(function() {
-    Route::get('/hotel', function () {
-        return view('welcome');
-    });
-    Route::get('/air', function () {
+    Route::get('/', function () {
         return view('welcome');
     });
     // 예약기능
-    Route::post('/air', [ReservationAirController::class, 'reservationAirPost']);
-    Route::post('/hotel', [ReservationHotelController::class, 'reservationHotelPost']);
+    Route::post('/', [ReservationAirController::class, 'reservationAirPost']);
 });
 
 // payment 결제기능

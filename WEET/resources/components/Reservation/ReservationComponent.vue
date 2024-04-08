@@ -836,7 +836,7 @@ export default {
         },
         // 예약테이블 저장
         addReservation(){
-            const URL = '/reservation/air'
+            const URL = '/reservation'
             const formData = new FormData();
             formData.append('reservation_flight_number1', this.departureAirplaneNum);
             formData.append('reservation_departure_airport1', this.departureAirport1);
