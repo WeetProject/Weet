@@ -63,7 +63,7 @@
 			<div class="admin_index_right_bottom_text_section">
 				<div class="mr-5 admin_index_right_bottom_notice_section">
 					<div class="admin_index_right_bottom_notice_title_area">
-						<span class="mb-5 text-xl font-semibold">공지사항</span>
+						<span class="text-xl font-semibold">공지사항</span>
 						<a class="admin_index_right_bottom_notice_title_a" href="#">
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -77,7 +77,7 @@
 				</div>
 				<div class=" admin_index_right_bottom_latest_Posts_section">
 					<div class="admin_index_right_bottom_latest_Posts_title_area">
-						<span class="mb-5 text-xl font-semibold">최신 작성 글</span>
+						<span class="text-xl font-semibold">최신 작성 글</span>
 						<a class="admin_index_right_bottom_latest_Posts_title_a" href="#">
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />

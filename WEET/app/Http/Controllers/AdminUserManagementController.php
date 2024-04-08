@@ -11,9 +11,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Pagination\Paginator;
 
 class AdminUserManagementController extends Controller
-{   
+{       
     // 최신 가입 순
     public function userManagementList() {
+        // 회원 정보
         $userManagementList = User::select(
                             'user_id', 
                             'user_name',
@@ -26,7 +27,9 @@ class AdminUserManagementController extends Controller
                         DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') AS user_created_at"))
                         ->whereNull('deleted_at')
                         ->orderByDesc('created_at')
-                        ->paginate(8);         
+                        ->paginate(8);
+        // 회원 최근 로그인 이력
+        // $userCurrentLoginList = 
         
         $error = "오류가 발생했습니다. 페이지를 새로고침 해주세요";
         // 데이터 송신 확인용 Log

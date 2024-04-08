@@ -362,9 +362,13 @@ const store = createStore({
                 })
                 .catch(error => {
                     if(error.response)
-                        if(error.response.data.code === "AV01" || error.response.data.code === "AV02") {                        
+                        if(error.response.data.code === "AV01" || error.response.data.code === "AV02" ||
+                        error.response.data.code === "ALI02" || error.response.data.code === "ALI03" ||
+                        error.response.data.code === "ALI04" || error.response.data.code === "ALI05" ||
+                        error.response.data.code === "ALI06" || error.response.data.code === "ALI07") {                        
                         commit('setAdminError', error.response.data.error);
-                        console.log(error.response.data.error);
+                    } else if (error.response.data.code === "ALI01") {
+                        alert(error.response.data.error);
                     } else {
                         alert('오류가 발생했습니다. 새로고침 후 로그인을 해주세요');
                     }
