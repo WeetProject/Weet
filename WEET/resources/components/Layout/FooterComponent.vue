@@ -179,7 +179,7 @@
 </template>
 
 <script>
-import LoginComponent from '../User/LoginComponent.vue';
+// import LoginComponent from '../User/LoginComponent.vue';
 import axios from 'axios'
 import Vuex from 'vuex';
 import store from '../../js/store.js';

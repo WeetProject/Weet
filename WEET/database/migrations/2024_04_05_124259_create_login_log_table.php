@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::create('login_log', function (Blueprint $table) {
             $table->id('login_log_id');
             $table->string('user_email', 50);
-            $table->timestamp('login_at');
-            $table->timestamps();
+            $table->timestamp('login_at')->default(DB::raw('now()'));
             $table->softDeletes();
         });
     }
