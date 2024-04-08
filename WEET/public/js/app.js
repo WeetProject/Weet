@@ -27069,16 +27069,6 @@ router.beforeEach(function (to, from, next) {
   } else {
     next();
   }
-  // } else {
-  // 	if(!adminToken) {
-  // 		next('/admin');
-  // 	} else if (!userToken) {
-  // 		next('/');
-  // 	} else {
-  // 		next();
-  // 	}
-  // }
-
   document.title = to.meta.title || '기본 타이틀';
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);

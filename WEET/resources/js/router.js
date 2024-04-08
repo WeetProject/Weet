@@ -178,15 +178,6 @@ router.beforeEach((to, from, next) => {
 	} else {
 		next();
 	}
-    // } else {
-	// 	if(!adminToken) {
-	// 		next('/admin');
-	// 	} else if (!userToken) {
-	// 		next('/');
-	// 	} else {
-	// 		next();
-	// 	}
-	// }
 
 	document.title = to.meta.title || '기본 타이틀';
 });
