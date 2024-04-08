@@ -31,7 +31,7 @@ class AdminAuthController extends Controller
             if ($adminLoginAttempt > $maxAdminLoginAttempt) {
                 Cache::put('Admin로그인차단' . $request->admin_number, true, $adminLoginLockTime);
                 $error = "로그인 시도가 너무 많습니다. 약 10분 후 재 로그인해주세요";
-                Log::debug("로그인 시도 이거실행");
+                Log::debug("### 사원번호 {$request->admin_number} 로그인 시도 차단 ###");
 
                 // 10분 후 로그인 시도 횟수 초기화
                 Cache::put('Admin로그인시도' . $request->admin_number, 0, 600);
@@ -47,7 +47,7 @@ class AdminAuthController extends Controller
             if ($adminLoginAttemptBlock) {
                 // 사용자가 차단 중인 경우
                 $error = "로그인 시도가 너무 많습니다. 약 10분 후 재 로그인해주세요";
-                Log::debug("로그인 시도 요거실행");
+                Log::debug("### Admin 로그인차단 . $request->admin_number ###");
 
                 // 10분 후 로그인 시도 횟수 초기화
                 Cache::put('Admin로그인시도' . $request->admin_number, 0, 600);
