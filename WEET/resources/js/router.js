@@ -6,7 +6,7 @@ import MypageComponent from '../components/User/MypageComponent.vue';
 import ReservationComponent from '../components/Reservation/ReservationComponent.vue';
 import HotelComponent from '../components/Reservation/HotelComponent.vue';
 import SignUpComponent from '../components/User/SignUpComponent.vue';
-import LoginComponent from '../components/User/LoginComponent.vue';
+// import LoginComponent from '../components/User/LoginComponent.vue';
 
 // ### Admin ###
 // Admin Layout
@@ -52,10 +52,6 @@ const routes = [
 	{
 		path: '/signup',
 		component: SignUpComponent
-	},
-	{
-		path: '/login',
-		component: LoginComponent
 	},
 	// Admin	
 	{
