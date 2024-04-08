@@ -15,6 +15,7 @@ class AdminWithdrawalController extends Controller
         try {
             DB::beginTransaction();
             Log::debug("### 트랜잭션 시작 ###");
+            Log::debug($request);
 
             // Admin삭제 요청 Admin 정보 저장
             $requestAdminInfo = $request
@@ -30,9 +31,11 @@ class AdminWithdrawalController extends Controller
                 Log::debug("### Admin 계정삭제 : 삭제완료 ###");
                 DB::commit();
                 Log::debug("### Admin 계정삭제 : 트랜잭션 종료 ###");
+                $success = "계정이 탈퇴되었습니다.";
                 return response()->json([
-                    'code' => 'AW00',
-                    'confirmAdminInfo' => $confirmAdminInfo
+                    'code' => 'AMW00',
+                    'confirmAdminInfo' => $confirmAdminInfo,
+                    'success' => $success
                 ], 200);
             }
             

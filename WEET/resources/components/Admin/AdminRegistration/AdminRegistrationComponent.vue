@@ -115,63 +115,16 @@ export default {
 	},
 
 	mounted() {
-		this.adminToken = localStorage.getItem('token');
-		this.adminFlgInfo = localStorage.getItem('adminFlg');
-		this.adminNameInfo = localStorage.getItem('adminName');
-
-		if(this.adminToken && this.adminFlgInfo && this.adminNameInfo) {
-			if(this.adminFlgInfo === '1') {
-				this.adminFlgInfo = 'Sub Admin';
-				this.adminAuthority = false;
-			} else if(this.adminFlgInfo === '2') {
-				this.adminFlgInfo = 'Root Admin';
-				this.adminAuthority = true;
-			} else {
-				alert("로그인을 다시 해주세요.");
-				this.$router.push('/admin');
-			}
-		}
 	},
 
 	methods: {
-		// User 드롭다운
-		toggleUserDropdown() {
-			this.userDropdown = !this.userDropdown;
-		},
-		// Admin 드롭다운
-		toggleAdminDropdown() {
-			this.adminDropdown = !this.adminDropdown;
-		},
-		// Admin 로그아웃
-		adminLogout() {
-			const URL = '/admin/logout';
-			const token = localStorage.getItem('token');
-			const header = {
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                },
-            };
-			console.log(header);
-			axios.post(URL, null ,header)
-				.then(response => {
-					if(response.data.code === "ALO00") {
-							localStorage.clear();
-							alert('로그아웃 되었습니다.');
-							this.$router.push('/admin');
-						} else {                
-							this.adminLogoutAlertError = response.data.error
-							alert(this.adminLogoutAlertError);
-						}
-				})
-				.catch(error => {
-					this.adminLogoutAlertError = error.response.data.error
-					alert(this.adminLogoutAlertError);
-				});
-		},
-
+		// 0407 TODO
+		// {1. 레지스트레이션 메소드 스토어 이관}
+		// {2. 데이터 확인}
+		
 		// Admin Registration List 데이터 수신
 		adminRegistrationList(page) {
-			const URL = '/admin/registration/adminList?page=' + page;
+			const URL = '/admin/dashboard/registration/adminList?page=' + page;
 			axios.get(URL)
 				.then(response => {				
 					if(response.data.code === "ARL00") {
@@ -205,7 +158,7 @@ export default {
                 return;
             }
 
-            const URL = '/admin/registration/update';            
+            const URL = '/admin/dashboard/registration/update';            
             const formData = new FormData();
             formData.append('admin_number', admin_number);
             formData.append('admin_flg', admin_flg);
@@ -226,7 +179,7 @@ export default {
 
         // Admin 거부
         adminRegistrationWithdrawal(admin_number) {
-            const URL = '/admin/registration/withdrawal';            
+            const URL = '/admin/dashboard/registration/withdrawal';            
             const formData = new FormData();
             formData.append('admin_number', admin_number);
             axios.post(URL, formData)
@@ -246,6 +199,6 @@ export default {
 }
 </script>
 <style lang="scss">
-    @import '../../sass/Admin/admin_index.scss';
-    @import '../../sass/Admin/admin_registration.scss';
+    @import '../../../sass/Admin/admin_index.scss';
+    @import '../../../sass/Admin/admin_registration.scss';
 </style>

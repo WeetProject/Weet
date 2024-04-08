@@ -9,20 +9,20 @@ import SignUpComponent from '../components/User/SignUpComponent.vue';
 import LoginComponent from '../components/User/LoginComponent.vue';
 
 // ### Admin ###
-// Admin Login
-import AdminLoginComponent from '../components/Admin/AdminLoginComponent.vue';
-// Admin Sign Up
-import AdminSignUpComponent from '../components/Admin/AdminSignUpComponent.vue';
 // Admin Layout
 import AdminComponent from '../components/Admin/AdminComponent.vue';
+// Admin Login
+import AdminLoginComponent from '../components/Admin/AdminAuth/AdminLoginComponent.vue';
+// Admin Sign Up
+import AdminSignUpComponent from '../components/Admin/AdminAuth/AdminSignUpComponent.vue';
 // Admin Index
-import AdminIndexComponent from '../components/Admin/AdminIndexComponent.vue';
+import AdminIndexComponent from '../components/Admin/AdminDashboard/AdminIndexComponent.vue';
 // Admin User Management
 import AdminUserManagementComponent from '../components/Admin/UserManagement/AdminUserManagementComponent.vue';
 // Admin Management
 import AdminManagementComponent from '../components/Admin/AdminManagement/AdminManagementComponent.vue';
 // Admin Registration
-import AdminRegistrationComponent from '../components/Admin/AdminRegistrationComponent.vue';
+import AdminRegistrationComponent from '../components/Admin/AdminRegistration/AdminRegistrationComponent.vue';
 
 const routes = [
 	{
@@ -53,7 +53,15 @@ const routes = [
 		path: '/login',
 		component: LoginComponent
 	},
-	// Admin
+	// Admin	
+	{
+		path: '/admin/signup',
+		name: 'Admin Signup',
+		component: AdminSignUpComponent,
+		meta: {
+			title: '회원가입',
+		}
+	},
 	{
 		path: '/admin',
 		name: 'Admin',
@@ -61,86 +69,40 @@ const routes = [
 		meta: {
 			title: 'Admin'
 		},
-		// beforeEnter: (to, from, next) => {
-		// 	const token = localStorage.getItem('token');
-		// 	if (token) {
-		// 		next('/admin/index');
-		// 	} else {
-		// 		next();
-		// 	}
-		// },
-	},
-	{
-		path: '/admin/signup',
-		name: 'Admin Signup',
-		component: AdminSignUpComponent,
-		meta: {
-			title: '회원가입',
-			requireAuth: true
-		}
 	},
 	{
 		path: '/admin/dashboard',
 		component: AdminComponent,
+		meta: {
+            title: 'Admin Dashboard',
+        },
 		children: [
 			{
 				path: '',
 				component: AdminIndexComponent,
-				beforeEnter: (to, from, next) => {
-					if (!localStorage.getItem('token')) {
-						next('/admin');
-					} else {
-						next();
-					}
-				},
 				meta: {
-					title: 'Admin',
-					requireAuth: true
+					title: 'Admin Dashboard',	
 				}
 			},
 			{
 				path: 'user/management',
 				component: AdminUserManagementComponent,
-				beforeEnter: (to, from, next) => {
-					if (!localStorage.getItem('token')) {
-						next('/admin');
-					} else {
-						next();
-					}
-				},
 				meta: {
 					title: 'Admin 이용자 관리',
-					requireAuth: true
 				}
 			},
 			{
 				path: 'management',
 				component: AdminManagementComponent,
-				beforeEnter: (to, from, next) => {
-					if (!localStorage.getItem('token')) {
-						next('/admin');
-					} else {
-						next();
-					}
-				},
 				meta: {
 					title: 'Admin 계정 관리',
-					requireAuth: true
 				}
 			},
 			{
 				path: 'registration',
 				component: AdminRegistrationComponent,
-				beforeEnter: (to, from, next) => {
-					if (!localStorage.getItem('token')) {
-						next('/admin');
-					} else {
-						next();
-					}
-				},
 				meta: {
 					title: 'Admin 가입 승인',
-					requireAuth: true
 				}
 			},	
 		]
@@ -150,17 +112,70 @@ const routes = [
 const router = createRouter({
 	history: createWebHistory(),
 	routes,
+	// 캐시 미사용 처리
+	scrollBehavior() {
+		return { x: 0, y: 0 };
+	}
 });
 
 router.beforeEach((to, from, next) => {
-	// 로그인 여부 확인	
-	const token = localStorage.getItem('token');
+	// // admin Token 확인
+	// const adminToken = localStorage.getItem('setAdminToken');
+	// // user Token 확인
+	// const userToken = localStorage.getItem('setToken');
 
-	// requireAuth 확인
-	if (to.matched.some(record=>record.meta.requireAuth) && !token) {
-		next('/admin')		
-	} else {
-        next();
+	// if (to.path === '/admin') {
+    //     if (adminToken) {
+    //         // admin Token 존재 시, /admin 이동 불가 처리
+    //         next('/admin/dashboard');
+    //     } else {
+    //         next();
+    //     }
+    // } 
+	// if (to.path === '/') {
+	// 	if (userToken) {
+	// 		next('/');
+	// 	} else {
+	// 		next();
+	// 	}
+	// }
+	// else {
+    //     if (!adminToken) {
+    //         // admin Token 미존재 시, /admin 페이지 이동
+    //         next('/admin');
+    //     } else {
+    //         next();
+    //     }
+    // }
+
+	// 수정중
+	// admin Token 확인
+	// const adminToken = localStorage.getItem('setAdminToken');
+	// // user Token 확인
+	// const userToken = localStorage.getItem('setToken');
+
+	// if (to.path.startsWith('/admin')) {
+	// 	if (!adminToken) {
+	// 		next('/admin');
+	// 	} 
+	// 	next();
+	// }
+	if (to.path === '/admin') {
+
+		const adminToken = localStorage.getItem('setAdminToken');
+		
+		if (adminToken) {
+			next('/admin/dashboard');
+		} else if (!adminToken) {
+			next('/admin');
+		}
+		next();
+	}
+	else if (to.path === '/') {
+		next();
+	}
+	else {
+        next(); // 다른 경로로 이동하는 경우 그대로 진행
     }
 
 	document.title = to.meta.title || '기본 타이틀';

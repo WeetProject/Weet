@@ -3,7 +3,7 @@
 		<div class="admin_login_section">
 			<div class="admin_login_left_section">
 				<div class="admin_login_title_section">
-					<img class="admin_login_title_img" src="../../../public/images/WEET_logo.png" alt="">
+					<img class="admin_login_title_img" src="../../../../public/images/WEET_logo.png" alt="">
 				</div>
 				<div class="admin_login_input_area">
 					<svg class="admin_login_input_svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -27,7 +27,8 @@
 						v-model="adminLoginFormData.password">
 				</div>
 				<div class="w-full mt-5 text-center admin_login_error_area">
-					<span class="font-semibold text-rose-600">{{ adminLoginError }}</span>
+					<span class="font-semibold text-rose-600" v-if="adminError">{{ adminError }}</span>
+					<span class="font-semibold text-rose-600" v-if="adminLoginError">{{ adminLoginError }}</span>
 				</div>		
 				<div class="admin_login_button_area">
 					<button class="admin_login_button" type="submit" @click="adminLogin">
@@ -45,57 +46,48 @@
 			</div>
 
 			<div class="admin_login_right_section">
-				<img class="admin_login_image" src="../../../public/images/Admin_login.jpg" alt="">
+				<img class="admin_login_image" src="../../../../public/images/Admin_login.jpg" alt="">
 			</div>
 		</div>
 	</div>
 </template>
 <script>
-import axios from 'axios';
 export default {
     name: 'AdminLoginComponent',
 
 	data() {
         return {
-			// Admin 로그인 데이터
 			adminLoginFormData: {
 				admin_number: '',
-				password: '',
-			},			
-			adminLoginError: '', // Admin 로그인 에러 출력용
-			adminLoginAlertError: '', // Admin 로그인 에러 Alert출력용
+                password: '',
+			},
+			adminLoginError: '',
+			adminError: this.$store.state.adminError,
+        }
+    },
+
+	watch: {
+		// 에러 출력용
+        '$store.state.adminError': {
+            handler(adminError) {
+                this.adminError = adminError;
+            },
+            deep: true
         }
     },
 
 	methods: {
-		adminLogin() {			
+		adminLogin() {
+			const adminLoginFormData = new FormData();
+            adminLoginFormData.append('admin_number', this.adminLoginFormData.admin_number);
+			adminLoginFormData.append('password', this.adminLoginFormData.password);
+
 			if(!(this.adminLoginFormData.admin_number && this.adminLoginFormData.password)) {
 				this.adminLoginError = '사원번호 또는 비밀번호를 입력해주세요.';
 				return;
-            } 
-			const URL = '/admin';
-			const adminLoginFormData = new FormData();
-			adminLoginFormData.append('admin_number', this.adminLoginFormData.admin_number);
-			adminLoginFormData.append('password', this.adminLoginFormData.password);
-			
-			axios.post(URL, adminLoginFormData)
-				.then(response => {
-					console.log('응답 데이터:', response.data);
-					if(response.data.code === "ALI00") {
-						const token = response.data.token
-						const adminFlg = response.data.adminFlg
-						const adminName = response.data.adminName
-						localStorage.setItem('token', token)
-						localStorage.setItem('adminFlg', adminFlg)
-						localStorage.setItem('adminName', adminName)
-						this.$router.push('/admin/dashboard'); 
-					} else {
-						this.adminLoginError = response.data.error;
-					}
-				})
-				.catch(error => {
-					this.adminLoginError = error.response.data.error
-				});			
+            }
+
+			this.$store.dispatch('adminLogin', this.adminLoginFormData)
         },
 
 		// 에러 초기화
@@ -106,5 +98,5 @@ export default {
 }
 </script>
 <style lang="scss">
-	@import '../../sass/Admin/admin_login.scss';
+	@import '../../../sass/Admin/admin_login.scss';
 </style>

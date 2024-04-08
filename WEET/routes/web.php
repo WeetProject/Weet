@@ -87,20 +87,20 @@ Route::middleware('adminValidation')->prefix('admin')->group(function() {
         ->name('adminSignUp');
 });
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin/dashboard')->group(function() {
     // Admin Logout 처리
     Route::post('/logout', 
         [AdminAuthController::class, 'adminLogout']);
 
     // Admin Index
-    Route::get('/index', function () {
+    Route::get('/', function () {
         return view('welcome');
     });
     // Admin Index - Total 데이터 송신
-    Route::get('/index/totalData', 
+    Route::get('/totalData', 
         [AdminIndexController::class, 'totalUserData']);
     // Admin Index - Monthly 데이터 송신
-    Route::get('/index/monthlyData', 
+    Route::get('/monthlyData', 
         [AdminIndexController::class, 'monthlyData']);
 
     // Admin User Management

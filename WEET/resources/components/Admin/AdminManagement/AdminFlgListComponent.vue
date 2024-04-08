@@ -47,6 +47,16 @@ export default {
 	},
 
 	methods: {
+        // Admin 권한 변경
+        adminManagementUpdate(admin_number) {
+            this.$store.dispatch('adminManagementUpdate', admin_number);
+        },
+
+        // Admin 계정 탈퇴
+        adminManagementWithdrawal(admin_number) {
+            // console.log(admin_number);
+            this.$store.dispatch('adminManagementWithdrawal', admin_number);
+        },
     },
 }
 </script>

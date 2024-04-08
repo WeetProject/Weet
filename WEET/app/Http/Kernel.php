@@ -21,6 +21,8 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        // Admin Token 캐시 미사용 미들웨어 등록
+        \App\Http\Middleware\AdminTokenAuthMiddleware::class,
     ];
 
     /**

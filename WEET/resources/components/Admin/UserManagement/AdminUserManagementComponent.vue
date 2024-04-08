@@ -19,16 +19,16 @@
 				<div class="relative admin_user_management_pagination_section">
 					<!-- currentPage 1페이지 아닐 때 -->
 					<div class="admin_user_management_pagination_left_button_area">
-						<div class="admin_user_management_pagination_first_button_area" v-if="currentPage !== 1">
-							<button class="admin_user_management_pagination_first_button" @click="moveFirstPage()">
+						<div class="admin_user_management_pagination_first_button_area" v-if="userCurrentPage !== 1">
+							<button class="admin_user_management_pagination_first_button" @click="firstPage()">
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 									<path stroke-linecap="round" stroke-linejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
 								</svg>
 								<span class="font-bold">처음</span>
 							</button>
 						</div>
-						<div class="ml-2 admin_user_management_pagination_prev_button_area" v-if="currentPage !== 1">
-							<button class="admin_user_management_pagination_prev_button" @click="movePrevPage()">
+						<div class="ml-2 admin_user_management_pagination_prev_button_area" v-if="userCurrentPage !== 1">
+							<button class="admin_user_management_pagination_prev_button" @click="prevPage()">
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
 								</svg>
@@ -37,22 +37,27 @@
 						</div>
 					</div>
 					<div class="mx-40 text-center admin_user_management_pagination_page_span_area">
-						<span class="text-xl font-bold admin_user_management_pagination_page_span">
+						<span class="text-xl font-bold admin_user_management_pagination_page_span"
+						v-if="$store.state.userManagementListData && userSelectOption === '0'">
+							{{ $store.state.userManagementListData.current_page }} of {{ $store.state.userManagementListData.last_page }}
+						</span>
+						<span class="text-xl font-bold admin_user_management_pagination_page_span"
+						v-else-if="$store.state.userManagementListData && userSelectOption === '1'">
 							{{ $store.state.userManagementListData.current_page }} of {{ $store.state.userManagementListData.last_page }}
 						</span>
 					</div>
 					<!-- lastPage 아닐 때 -->
 					<div class="admin_user_management_pagination_right_button_area">
-						<div class="admin_user_management_pagination_next_button_area" v-if="currentPage < lastPage">
-							<button class="admin_user_management_pagination_next_button" @click="moveNextPage()">
+						<div class="admin_user_management_pagination_next_button_area" v-if="userCurrentPage < userLastPage">
+							<button class="admin_user_management_pagination_next_button" @click="nextPage()">
 								<span class="font-bold">다음</span>
-								<svg v-if="currentPage !== lastPage" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 									<path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
 								</svg>
 							</button>
 						</div>						
-						<div class="ml-2 admin_user_management_pagination_last_button_area" v-if="currentPage < lastPage">
-							<button class="admin_user_management_pagination_last_button" @click="moveLastPage()">
+						<div class="ml-2 admin_user_management_pagination_last_button_area" v-if="userCurrentPage < userLastPage">
+							<button class="admin_user_management_pagination_last_button" @click="lastPage()">
 								<span class="font-bold">끝</span>
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 									<path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
@@ -82,21 +87,13 @@ export default {
 
 	computed: {
 		...mapState({
-			currentPage: state => state.currentPage,
-			lastPage: state => state.lastPage
+			userCurrentPage: state => state.userCurrentPage,
+			userLastPage: state => state.userLastPage
 		})
 	},
     
 	data() {
 		return {
-			userDropdown: false,
-			adminDropdown: false,
-			adminToken: '',
-			adminFlgInfo: '',
-			adminNameInfo: '',			
-			adminAuthority: false, // Admin 메뉴 권한 확인용
-			userGenderInfo: '',
-			userFlgInfo: '',
 			userSelectOption: '0',
 		}
 	},
@@ -106,79 +103,32 @@ export default {
 	},
 
 	mounted() {
-		this.adminToken = localStorage.getItem('token');
-		this.adminFlgInfo = localStorage.getItem('adminFlg');
-		this.adminNameInfo = localStorage.getItem('adminName');
-
-		if(this.adminToken && this.adminFlgInfo && this.adminNameInfo) {
-			if(this.adminFlgInfo === '1') {
-				this.adminFlgInfo = 'Sub Admin';
-				this.adminAuthority = false;
-			} else if(this.adminFlgInfo === '2') {
-				this.adminFlgInfo = 'Root Admin';
-				this.adminAuthority = true;
-			} else {
-				alert("로그인을 다시 해주세요.");
-				this.$router.push('/admin');
-			}
-		}
 	},
 
-	methods: {
-		// User 드롭다운
-		toggleUserDropdown() {
-			this.userDropdown = !this.userDropdown;
-		},
-		// Admin 드롭다운
-		toggleAdminDropdown() {
-			this.adminDropdown = !this.adminDropdown;
-		},
-		// Admin 로그아웃
-		adminLogout() {
-			const URL = '/admin/logout';
-			const token = localStorage.getItem('token');
-			const header = {
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                },
-            };
-			console.log(header);
-			axios.post(URL, null ,header)
-				.then(response => {
-					if(response.data.code === "ALO00") {
-							localStorage.clear();
-							alert('로그아웃 되었습니다.');
-							this.$router.push('/admin');
-						} else {                
-							this.adminLogoutAlertError = response.data.error
-							alert(this.adminLogoutAlertError);
-						}
-				})
-				.catch(error => {
-					this.adminLogoutAlertError = error.response.data.error
-					alert(this.adminLogoutAlertError);
-				});
-		},
-		
+	methods: {		
 		// User Management Option 핸들러
 		userDataOptionChange() {
+			console.log(this.userSelectOption);
+			this.$store.commit('setUserSelectOption', this.userSelectOption);
 			if (this.userSelectOption === '0') {
 				this.$store.dispatch('userManagementList', 1);
 			} else if (this.userSelectOption === '1') {
 				this.$store.dispatch('userManagementPaymentList', 1);
 			}
 		},
-		moveFirstPage() {
-			this.$store.dispatch('firstPagination');
+
+		// User Management Pagination
+		firstPage() {
+			this.$store.dispatch('userFirstPagination');
 		},
-		movePrevPage() {
-			this.$store.dispatch('prevPagination');
+		prevPage() {
+			this.$store.dispatch('userPrevPagination');
 		},
-		moveNextPage() {
-			this.$store.dispatch('nextPagination');
+		nextPage() {
+			this.$store.dispatch('userNextPagination');
 		},
-		moveLastPage() {
-			this.$store.dispatch('lastPagination');
+		lastPage() {
+			this.$store.dispatch('userLastPagination');
 		},
 	}
 }
