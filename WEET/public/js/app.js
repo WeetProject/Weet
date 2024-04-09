@@ -22447,94 +22447,98 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TestComponent',
   data: function data() {
     return {
-      showOptions: false,
-      currentStep: 0,
-      steps: ['이용 약관 동의', '계정정보 입력'],
-      termsAgreed: false,
-      // 이용약관 동의 체크 여부를 저장하는 데이터
-      fieldsets: [{
-        title: 'Create your account',
-        subtitle: 'Agree to Terms and Conditions'
-        // inputs: [
-        //     { name: 'email', placeholder: 'Email' },
-        //     { name: 'pass', placeholder: 'Password' },
-        //     { name: 'cpass', placeholder: 'Confirm Password' }
-        // ]
+      airports: [{
+        name: '서울',
+        iataCode: 'ICN'
       }, {
-        title: 'Create your account',
-        subtitle: 'Personal Details',
-        inputs: [{
-          name: 'user_email',
-          placeholder: 'Email',
-          label: '이메일'
-        }, {
-          name: 'user_password',
-          placeholder: 'Password',
-          label: '비밀번호'
-        }, {
-          name: 'user_name',
-          placeholder: 'Fullname',
-          label: '이름'
-        }, {
-          name: 'user_tel',
-          placeholder: 'Phone',
-          label: '연락처'
-        }, {
-          name: 'user_postcode',
-          placeholder: 'Postcode',
-          label: '우편번호'
-        }, {
-          name: 'user_basic_address',
-          placeholder: 'Basic_address',
-          label: '기본주소'
-        }, {
-          name: 'user_detail_address',
-          placeholder: 'Detail_address',
-          label: '나머지 주소'
-        }, {
-          name: 'user_gender',
-          type: 'radio',
-          options: ['Male', 'Female'],
-          placeholder: 'Gender',
-          label: '성별'
-        }, {
-          name: 'user_birthdate',
-          type: 'date',
-          placeholder: 'Birthdate',
-          label: '생년월일'
-        }]
+        name: '런던',
+        iataCode: 'LHR'
+      }, {
+        name: '파리',
+        iataCode: 'CDG'
+      }, {
+        name: '도쿄',
+        iataCode: 'HND'
       }]
-      // submitLink: 'https://twitter.com/GoktepeAtakan'
     };
   },
   methods: {
-    nextStep: function nextStep() {
-      if (this.currentStep < this.fieldsets.length - 1) {
-        this.currentStep++;
-      }
-    },
-    prevStep: function prevStep() {
-      if (this.currentStep > 0) {
-        this.currentStep--;
-      }
-    },
-    goToMyPage: function goToMyPage() {
-      // 마이페이지로 이동하는 로직을 작성합니다.
-      console.log("마이페이지로 이동합니다.");
-    },
-    logout: function logout() {
-      // 로그아웃 로직을 작성합니다.
-      console.log("로그아웃 합니다.");
-    },
-    toggleOptions: function toggleOptions() {
-      this.showOptions = !this.showOptions;
-    },
     hideOptions: function hideOptions() {
       this.showOptions = false;
+    },
+    setup: function setup() {
+      // 도시와 공항 정보를 저장할 리액티브 변수
+      var airports = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)([]);
+
+      // 도시와 공항 정보를 가져오는 비동기 함수
+      var getAirports = /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+          var tokenResponse, accessToken, response;
+          return _regeneratorRuntime().wrap(function _callee$(_context) {
+            while (1) switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().post('https://test.api.amadeus.com/v1/security/oauth2/token', {
+                  client_id: clientId,
+                  client_secret: clientSecret,
+                  grant_type: 'client_credentials'
+                });
+              case 3:
+                tokenResponse = _context.sent;
+                // access token 추출
+                accessToken = tokenResponse.data.access_token; // Amadeus API를 사용하여 도시 및 공항 정보를 가져오기
+                _context.next = 7;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get('https://test.api.amadeus.com/v1/reference-data/locations', {
+                  headers: {
+                    'Authorization': "Bearer ".concat(accessToken)
+                  },
+                  params: {
+                    subType: 'CITY,AIRPORT'
+                  }
+                });
+              case 7:
+                response = _context.sent;
+                // 도시 및 공항 정보 저장
+                airports.value = response.data;
+                _context.next = 15;
+                break;
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](0);
+                console.error('Error fetching airport data:', _context.t0);
+                throw _context.t0;
+              case 15:
+              case "end":
+                return _context.stop();
+            }
+          }, _callee, null, [[0, 11]]);
+        }));
+        return function getAirports() {
+          return _ref.apply(this, arguments);
+        };
+      }();
+
+      // 컴포넌트가 마운트되면 도시와 공항 정보를 가져옴
+      (0,vue__WEBPACK_IMPORTED_MODULE_1__.onMounted)(getAirports);
+
+      // 가져온 도시와 공항 정보 반환
+      return {
+        airports: airports
+      };
     }
   }
 });
@@ -24884,11 +24888,11 @@ var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, "Sign Up")])])], -1 /* HOISTED */);
 var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<hr><div class=\"card__social_login_text\"><p>- Social Login -</p></div><div class=\"card__social_btn\"><button class=\"card__social_btn_google\"><img src=\"" + _public_images_Google_logo_svg_png__WEBPACK_IMPORTED_MODULE_2__["default"] + "\" alt=\"\"></button><button class=\"card__social_btn_kakao\"><img src=\"" + _public_images_Kakao_logo_png__WEBPACK_IMPORTED_MODULE_3__["default"] + "\" alt=\"\"></button></div>", 3);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [!_ctx.$store.state.userID ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [!_ctx.$store.state.token ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.toggleModal && $options.toggleModal.apply($options, arguments);
     })
-  }, "login"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent v-if=\"showmodal\" @closeModal=\"closemodal\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"/login\">login</a> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.$store.state.userID ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, "login"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <LoginComponent v-if=\"showmodal\" @closeModal=\"closemodal\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"/login\">login</a> ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.$store.state.token ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[1] || (_cache[1] = function () {
       return $options.logout && $options.logout.apply($options, arguments);
     })
@@ -25703,59 +25707,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../public/images/WEET_logo.png */ "./public/images/WEET_logo.png");
-
 
 var _hoisted_1 = {
   "class": "regist_container"
 };
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "regist_logo_div"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: _public_images_WEET_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"],
-  alt: ""
-})], -1 /* HOISTED */);
-var _hoisted_3 = {
-  "class": "fs-title"
-};
-var _hoisted_4 = {
-  "class": "fs-subtitle"
-};
-var _hoisted_5 = {
-  key: 0,
-  "class": "terms_conditions"
-};
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<label class=\"terms_conditions_label\">이용약관 및 개인정보수집 및 이용에 모두 동의합니다.</label><div class=\"terms_conditions_box\"><p class=\"text-center\"><strong>서비스 이용약관</strong></p><p><strong>제1조 (목적)</strong></p><br><p>이 이용약관은 [WEET] (이하 &quot;회사&quot;라 함)이 운영하는 인터넷 관련 서비스 및 기타 관련 제반 서비스(이하 &quot;서비스&quot;라 함)를 이용함에 있어 회사와 이용자의 권리, 의무 및 책임 사항을 규정함을 목적으로 합니다.</p><br><p><strong>제2조 (약관의 효력과 변경)</strong></p><br><p>본 약관은 서비스를 신청한 이용자가 본 약관에 동의하고 회사가 정한 가입신청 양식에 기반하여 가입을 완료하는 시점부터 효력이 발생합니다.</p><p>1. 회사는 필요한 경우 관련 법령 및 회사의 내부 정책을 반영하여 이 약관을 변경할 수 있으며, 변경된 약관은 회사의 홈페이지나 서비스 내 공지를 통해 이용자에게 공지됩니다.</p><p>변경된 약관은 공지 후 7일 이내에 이용자의 동의 없이 적용됩니다. </p><p>2. 이용자가 변경된 약관에 동의하지 않을 경우 회사는 해당 이용자에 대하여 서비스 제공을 중단할 수 있습니다.</p><br><p><strong>제3조 (이용자의 의무)</strong></p><br><p>1. 이용자는 서비스 이용 시 관련 법령, 약관, 공지사항, 회사의 안내 등에 따라 서비스를 이용해야 하며, 회사의 명시적 동의 없이는 서비스를 이용하여 얻은 정보를 복제, 유통, 출판하거나 상업적으로 이용할 수 없습니다.</p><p>2. 이용자는 서비스 이용 시 다음 각 호의 행위를 하지 않아야 합니다.</p><p>가. 타인의 정보를 도용하거나 부정한 목적으로 이용하는 행위</p><p>나. 서비스를 통해 전송되는 컨텐츠를 위변조, 삭제, 변경하는 행위</p><p>다. 서비스의 안전성, 안정성 및 정상적인 운영을 방해하는 행위</p><br><p><strong>제4조 (회사의 의무</strong>)</p><br><p>회사는 이용자의 개인정보 보호를 위해 최선을 다하며, 관련 법령에 따라 이를 처리합니다.</p><p>회사는 서비스 제공을 위해 지속적으로 시스템 및 네트워크 관리를 개선하며, 서비스 이용 중 발생하는 장애나 문제에 대하여 신속하게 조치합니다.</p></div>", 2);
-var _hoisted_8 = {
-  "class": "account_info_container"
-};
-var _hoisted_9 = ["for"];
-var _hoisted_10 = ["type", "name", "id", "placeholder"];
-var _hoisted_11 = {
-  key: 1,
-  "class": "radio_options"
-};
-var _hoisted_12 = ["name", "value", "id"];
-var _hoisted_13 = ["for"];
-var _hoisted_14 = {
-  "class": "regist_user_btn"
-};
-var _hoisted_15 = {
-  "class": "regist_user_pre_btn"
-};
-var _hoisted_16 = {
-  "class": "regist_user_next_btn"
-};
-var _hoisted_17 = {
-  "class": "regist_user_sub_btn"
-};
-var _hoisted_18 = ["href"];
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, "도시와 공항 정보", -1 /* HOISTED */);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" progressbar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"progressbar_container\">\r\n        <ul id=\"progressbar\">\r\n            <li v-for=\"(step, index) in steps\" :key=\"index\" :class=\"{ active: index === currentStep }\">{{ step }}</li>\r\n        </ul>\r\n    </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[0] || (_cache[0] = function () {
-      return $options.toggleOptions && $options.toggleOptions.apply($options, arguments);
+      return _ctx.toggleOptions && _ctx.toggleOptions.apply(_ctx, arguments);
     })
-  }, "Hover Me"), $data.showOptions ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+  }, "Hover Me"), _ctx.showOptions ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     key: 0,
     onClick: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.hideOptions && $options.hideOptions.apply($options, arguments);
@@ -25763,66 +25725,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "options"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[1] || (_cache[1] = function () {
-      return $options.goToMyPage && $options.goToMyPage.apply($options, arguments);
+      return _ctx.goToMyPage && _ctx.goToMyPage.apply(_ctx, arguments);
     })
   }, "마이페이지"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[2] || (_cache[2] = function () {
-      return $options.logout && $options.logout.apply($options, arguments);
+      return _ctx.logout && _ctx.logout.apply(_ctx, arguments);
     })
-  }, "로그아웃")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" fieldsets "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.fieldsets, function (fieldset, index) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("fieldset", {
-      key: index
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(fieldset.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(fieldset.subtitle), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" '이용약관 동의'에 대한 텍스트 추가 "), index === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-      "class": "terms_conditions_checkbox",
-      type: "checkbox",
-      "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
-        return $data.termsAgreed = $event;
-      })
-    }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.termsAgreed]]), _hoisted_6])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <input v-for=\"(input, inputIndex) in fieldset.inputs\" :key=\"inputIndex\" type=\"text\" :name=\"input.name\" :placeholder=\"input.placeholder\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <label v-for=\"(input, inputIndex) in fieldset.inputs\" :key=\"inputIndex\">\r\n                    {{ input.placeholder }}\r\n                </label>\r\n                    <input v-for=\"(input, inputIndex) in fieldset.inputs\" :key=\"inputIndex\" \r\n                        :type=\"input.type\" :name=\"input.name\" :placeholder=\"input.placeholder\" \r\n                        :class=\"input.classes\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div v-for=\"(input, inputIndex) in fieldset.inputs\" :key=\"inputIndex\" class=\"account_info_input_wrapper\">\r\n                    <label :for=\"'input_' + inputIndex\" class=\"account_info_label\" style=\"flex: 1;\">{{ input.label }}</label>\r\n                    <div v-if=\"input.type === 'radio'\" style=\"display: flex;\">\r\n                        <div v-for=\"(option, optionIndex) in input.options\" :key=\"optionIndex\">\r\n                            <input type=\"radio\" :name=\"input.name\" :value=\"option\" :id=\"'input_' + inputIndex + '_' + optionIndex\">\r\n                            <label :for=\"'input_' + inputIndex + '_' + optionIndex\">{{ option }}</label>\r\n                        </div>\r\n                    </div>\r\n                    <input v-else :type=\"input.type\" :name=\"input.name\" :id=\"'input_' + inputIndex\" :placeholder=\"input.placeholder\" :class=\"input.classes\" class=\"account_info_input\" />\r\n                </div> "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(fieldset.inputs, function (input, inputIndex) {
-      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-        key: inputIndex,
-        "class": "account_info_input_wrapper"
-      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-        "for": 'input_' + inputIndex,
-        "class": "account_info_label"
-      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(input.label), 9 /* TEXT, PROPS */, _hoisted_9), input.type !== 'radio' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("input", {
-        key: 0,
-        type: input.type,
-        name: input.name,
-        id: 'input_' + inputIndex,
-        placeholder: input.placeholder,
-        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['account_info_input', input.classes])
-      }, null, 10 /* CLASS, PROPS */, _hoisted_10)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(input.options, function (option, optionIndex) {
-        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-          key: optionIndex
-        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-          type: "radio",
-          name: input.name,
-          value: option,
-          id: 'input_' + inputIndex + '_' + optionIndex
-        }, null, 8 /* PROPS */, _hoisted_12), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-          "for": 'input_' + inputIndex + '_' + optionIndex
-        }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(option), 9 /* TEXT, PROPS */, _hoisted_13)]);
-      }), 128 /* KEYED_FRAGMENT */))]))]);
-    }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [index > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
-      key: 0,
-      onClick: _cache[5] || (_cache[5] = function () {
-        return $options.prevStep && $options.prevStep.apply($options, arguments);
-      }),
-      "class": "previous action-button"
-    }, "Previous")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [index < $data.fieldsets.length - 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
-      key: 0,
-      onClick: _cache[6] || (_cache[6] = function () {
-        return $options.nextStep && $options.nextStep.apply($options, arguments);
-      }),
-      "class": "next action-button"
-    }, "Next")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [index === $data.fieldsets.length - 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
-      key: 0,
-      href: _ctx.submitLink,
-      "class": "submit action-button",
-      target: "_top"
-    }, "Submit", 8 /* PROPS */, _hoisted_18)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, index === $data.currentStep]]);
-  }), 128 /* KEYED_FRAGMENT */))]);
+  }, "로그아웃")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.airports, function (location) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
+      key: location.iataCode
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(location.name) + " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(location.iataCode) + ") ", 1 /* TEXT */);
+  }), 128 /* KEYED_FRAGMENT */))])])]);
 }
 
 /***/ }),

@@ -15,13 +15,13 @@
 						</svg>
 					</button>
 					<div class="header_nav_login_btn">
-						<div v-if="!$store.state.userID" class="header_nav_login_btn_user">
+						<div v-if="!$store.state.token" class="header_nav_login_btn_user">
 							
 							<button @click="toggleModal">login</button>
 							<!-- <LoginComponent v-if="showmodal" @closeModal="closemodal" /> -->
 							<!-- <a href="/login">login</a> -->
 						</div>
-						<div v-if="$store.state.userID" class="header_nav_login_btn_user">
+						<div v-if="$store.state.token" class="header_nav_login_btn_user">
 							<div style="margin: 5px 10px 0 0;">
 								<button>
 									<a href="/mypage">
