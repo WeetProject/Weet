@@ -231,34 +231,24 @@ const store = createStore({
                     context.commit('setUserID', userID);
                     context.commit('setToken', token);
 
-                    // router.push('/');
-                    // this.$router.push('/');
-
                     // const loginUserData = res.data.userData.userID;
                     console.log("레스.데이터", res.data);
                     // console.log("유저체크", res.data.controllerToken);
                     console.log(userID);
                     console.log("유저데이터",userData);
-					// localStorage.setItem('loginUser', userId);
-					// localStorage.setItem('loginUserId', res.data.userId);
-					// localStorage.setItem('loginUserEmail', res.data.userEmail);
-					// localStorage.setItem('setUserData', userData);
-                    localStorage.setItem('setUserData', JSON.stringify(userData));
+					
+                    localStorage.setItem('setUserData', userData);
 					localStorage.setItem('setToken', token);
 					localStorage.setItem('setUserID', userID);
 					localStorage.setItem('setUserLoginChk', res.data.controllerToken);
 					localStorage.setItem('setSaveToLocalStorage', res.data);
 					localStorage.setItem('setUserID', userID);
-                    
-                    // 받아온 데이터를 Vuex 스토어에 저장
-                    context.commit('setUserData', userData);
-                    console.log(userData);
-                    // context.commit('setToken', token);
 
-                    alert('로그인 성공. 페이지를 새로 고칩니다.');
-                    // location.reload();
-                    // this.$router.push('/');
+                    alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
                     router.push('/');
+
+                    location.l
+                    
                 } else {
                     alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
                 }

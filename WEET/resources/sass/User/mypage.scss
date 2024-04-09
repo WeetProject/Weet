@@ -73,6 +73,14 @@
                 align-items: center;
                 padding: 10px;
 
+                &_detail_address_div {
+                    display: flex;
+
+                    // input {
+                    //     width: 100%;
+                    // }
+                }
+
                 &_label {
                     border: 1px solid #ededed;
                     border-radius: 5px;
@@ -109,8 +117,8 @@
                 &_postcode_div {
                     display: flex;
                     // text-align: center;
-                    width: 80%;
-                    margin: auto 0;
+                    // width: 80%;
+                    // margin: auto 0;
 
                     &_label {
                         border: 1px solid #ededed;
@@ -136,11 +144,11 @@
                     }
 
                     &_input2 {
-                        margin: auto;
+                        // margin: auto;
                         padding: 10px;
                         border: 1px solid #ededed;
                         border-radius: 5px;
-                        width: 60%;
+                        // width: 60%;
 
                         input {
                             width: 100%;

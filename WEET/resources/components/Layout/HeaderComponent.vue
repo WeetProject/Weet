@@ -151,7 +151,7 @@ import store from '../../js/store.js';
     	},
 
 		mounted() {
-			
+			// this.loadUserLoginStatus();
 		},
 
 		methods: {
@@ -188,9 +188,6 @@ import store from '../../js/store.js';
 
 			// 로컬스토리지에 있는 유저 정보를 저장하기 위한 함수.
 			loadUserLoginStatus() {
-				// const userLoginChk = localStorage.getItem('userCheck');
-				// const userID = localStorage.getItem('userID');
-				// const token = localStorage.getItem('token');
 				const userLoginChk = localStorage.getItem('setUserLoginChk');
 				const userID = localStorage.getItem('setUserID');
 				const token = localStorage.getItem('setToken');

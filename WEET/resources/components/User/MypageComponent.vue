@@ -28,7 +28,7 @@
                             </div>
                             <div class="mypage_main_view_user_info_box_content_span">
                                 <div>
-                                    <span></span>
+                                    <span>{{ this.userInfo.userEmail }}</span>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                             </div>
                             <div class="mypage_main_view_user_info_box_content_span">
                                 <div>
-                                    <span>최현희</span>
+                                    <span>{{ this.userInfo.userName }}</span>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                             </div>
                             <div class="mypage_main_view_user_info_box_content_span">
                                 <div>
-                                    <span>010-****-7060</span>
+                                    <span>{{ this.userInfo.userTel }}</span>
                                 </div>
                             </div>    
                         </div>
@@ -95,15 +95,17 @@
                                     <button class="font-bold" type="button" @click="openDaumPostcode()">검색</button>
                                 </div>
                                 <div class="mypage_main_view_user_info_box_content_postcode_div_input">
-                                    <input id="user_basic_address" name="user_basic_address" type="text" placeholder="">
+                                    <input id="user_basic_address" name="user_basic_address" type="text">
                                 </div>
                             </div>
                             <div class="mypage_main_view_user_info_box_content_postcode_div">
-                                <div class="mypage_main_view_user_info_box_content_postcode_div_label">
-                                    <span class="font-bold">상세주소</span><span style="color: red;">*</span>
-                                </div>
-                                <div class="mypage_main_view_user_info_box_content_postcode_div_input2">
-                                    <input id="user_detail_address" name="user_detail_address" type="address" placeholder="나머지 주소를 입력해주세요">
+                                <div class="mypage_main_view_user_info_box_content_detail_address_div">
+                                    <div class="mypage_main_view_user_info_box_content_postcode_div_label">
+                                        <span class="font-bold">상세주소</span><span style="color: red;">*</span>
+                                    </div>
+                                    <div class="mypage_main_view_user_info_box_content_postcode_div_input2">
+                                        <input id="user_detail_address" name="user_detail_address" type="address" placeholder="나머지 주소를 입력해주세요">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +116,7 @@
                             </div>
                             <div class="mypage_main_view_user_info_box_content_span">
                                 <div>
-                                    <span>여</span>
+                                    <span>{{ this.userInfo.userGender }}</span>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +126,7 @@
                             </div>
                             <div class="mypage_main_view_user_info_box_content_span">
                                 <div>
-                                    <span>1993-06-24</span>
+                                    <span>{{ this.userInfo.userBirthDate }}</span>
                                 </div>
                             </div>
                         </div>
@@ -251,26 +253,37 @@ export default {
             clickTab: 0,
             userInfo: {
                 userEmail: '',
-                userName: ''
-            }
+                userName: '',
+                userBirthDate: '',
+                userGender: '',
+                userTel: '',
+                userPostcode: '',
+                userBasicAddress: '',
+                userDetailAddress: '',
+            },
+            newUserInfoData: {
+                userPassword: '',
+                userPasswordChk: '',
+            },
+            newUserAddressData: {
+                userPostcode: '',
+                userBasicAddress: '',
+                userDetailAddress: '',
+            },
         }
     },
 
     computed: {
-        // userData() {
-        //     return this.$store.state.userData;
-        // }
-        // setUserData() {
-        //     return this.$store.state.userData;
-        // }
+        
     },
 
     mounted() {
         this.userToken = localStorage.getItem('setToken');
-        // this.userInfo = localStorage.getItem('setUserData');
+        // JSON.parse() : 
         this.userInfo = JSON.parse(localStorage.getItem('setUserData'));
         console.log(this.userInfo);
-        console.log(this.userInfo.userEmail);
+        // console.log(this.userInfo.userEmail);
+
 
     },
 
@@ -279,25 +292,56 @@ export default {
     },
 
     methods: {
-        // fetchData() {
-            
-            
+        
+        // 우편번호+기본주소(basicAddress) 입력 함수
+        openDaumPostcode() {
+            if (typeof daum === 'undefined') {
+                // 스크립트를 동적으로 로드하고 로드되면 콜백을 실행합니다.
+                const script = document.createElement('script');
+                script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+                script.onload = () => {
+                    // 로드가 완료되면 daum.Postcode를 사용할 수 있습니다.
+                    new daum.Postcode({
+                        oncomplete: (data) => {
+                        this.handleAddressComplete(data);
+                    }
+            }).open();
+                };
+                document.head.appendChild(script);
+            } else {
+                // 이미 로드되었으면 바로 실행합니다.
+                new daum.Postcode({
+                    oncomplete: (data) => {
+                        this.handleAddressComplete(data);
+                    }
+                }).open();
+            }
+            },
+        handleAddressComplete(data) {
+        // 주소 검색 완료 후 처리할 작업을 수행합니다.
+            var roadAddr = data.roadAddress;
+            var extraRoadAddr = '';
 
-        //     axios.get('/mypage', {
-        //         headers: {
-        //             "Content-Type": 'application/json',
-        //         },
-                
-        //     }).then(res => {
-        //         // console.log(res.data);
-        //         this.newUserData = res.data;
-        //         // console.log(this.newUserData);
-        //         // console.log(res.data);
-        //         // this.userData = res.data.userData;
-        //     }).catch(error => {
-        //         console.error('데이터를 가져오는 중 오류 발생:', error);
-        //     });
-        // }
+            if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                extraRoadAddr += data.bname;
+            }
+
+            if (data.buildingName !== '' && data.apartment === 'Y') {
+                extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+
+            if (extraRoadAddr !== '') {
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+
+            this.newUserAddressData = {
+                userPostcode: data.zonecode,
+                userBasicAddress: roadAddr,
+            }
+            console.log(data);
+        },
+
+
     },
 
 

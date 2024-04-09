@@ -108,7 +108,13 @@ class UserController extends Controller
             // 'userData' => $result,
             'userData' => [
                 'userEmail' => $result->user_email, 
-                'userName' => $result->user_name
+                'userName' => $result->user_name,
+                'userTel' => $result->user_tel,
+                'userGender' => $result->user_gender,
+                'userBirthDate' => $result->user_birthdate,
+                'userPostcode' => $result->user_postcode,
+                'userBasicAddress' => $result->user_basic_address,
+                'userDetailAddress' => $result->user_detail_address,
             ],
         ]);
 
