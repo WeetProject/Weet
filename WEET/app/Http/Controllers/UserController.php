@@ -105,7 +105,11 @@ class UserController extends Controller
             'message' => '사용자 로그인 성공',
             'token' => $controllerToken,
             'userID' => $result->user_id,
-            'userData' => $result,
+            // 'userData' => $result,
+            'userData' => [
+                'userEmail' => $result->user_email, 
+                'userName' => $result->user_name
+            ],
         ]);
 
 

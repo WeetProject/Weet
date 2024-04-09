@@ -242,7 +242,8 @@ const store = createStore({
 					// localStorage.setItem('loginUser', userId);
 					// localStorage.setItem('loginUserId', res.data.userId);
 					// localStorage.setItem('loginUserEmail', res.data.userEmail);
-					localStorage.setItem('setUserData', userData);
+					// localStorage.setItem('setUserData', userData);
+                    localStorage.setItem('setUserData', JSON.stringify(userData));
 					localStorage.setItem('setToken', token);
 					localStorage.setItem('setUserID', userID);
 					localStorage.setItem('setUserLoginChk', res.data.controllerToken);
@@ -251,6 +252,7 @@ const store = createStore({
                     
                     // 받아온 데이터를 Vuex 스토어에 저장
                     context.commit('setUserData', userData);
+                    console.log(userData);
                     // context.commit('setToken', token);
 
                     alert('로그인 성공. 페이지를 새로 고칩니다.');
