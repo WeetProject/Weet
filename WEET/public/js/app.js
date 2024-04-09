@@ -24322,15 +24322,15 @@ var _hoisted_8 = {
 var _hoisted_9 = {
   "class": "text-center admin_user_management_bottom_content_li"
 };
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
+var _hoisted_10 = {
   "class": "text-center admin_user_management_bottom_content_li"
-}, "2024-03-30 14:59:28", -1 /* HOISTED */);
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 이용자 탭 / 최신 가입 순 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.$store.state.userListData, function (userList) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", {
       "class": "admin_user_management_bottom_content_ul",
       key: userList
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_email), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_tel), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_flg), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_created_at), 1 /* TEXT */), _hoisted_10]);
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_email), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_tel), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_flg), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.user_created_at), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(userList.last_login_at), 1 /* TEXT */)]);
   }), 128 /* KEYED_FRAGMENT */))])])], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */);
 }
 
@@ -26845,16 +26845,17 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       };
       axios__WEBPACK_IMPORTED_MODULE_1___default().post(url, requestData, header).then(function (res) {
         context.dispatch('closeLoginModal');
-        console.log("레스", res);
-        console.log(requestData);
+        // console.log("레스", res);
+        // console.log(requestData);
+
         var token = res.data.token;
         var userData = res.data.userData;
         var userID = res.data.userData.user_id;
         // const decoded = jwtDecode(token);
 
-        console.log("토큰", token);
-        console.log("유저데이터", userData);
-        console.log("유저아이디", userID);
+        // console.log("토큰",token);
+        // console.log("유저데이터",userData);
+        // console.log("유저아이디",userID);
         // console.log("유저데이터", res.data.userData);
 
         if (res.data.success) {
@@ -26868,14 +26869,15 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
           // this.$router.push('/');
 
           // const loginUserData = res.data.userData.userID;
-          console.log("레스.데이터", res.data);
+          // console.log("레스.데이터", res.data);
           // console.log("유저체크", res.data.controllerToken);
-          console.log(userID);
-          console.log("유저데이터", userData);
+          // console.log(userID);
+          console.log(userData);
           // localStorage.setItem('loginUser', userId);
           // localStorage.setItem('loginUserId', res.data.userId);
           // localStorage.setItem('loginUserEmail', res.data.userEmail);
-          localStorage.setItem('setUserData', userData);
+          // localStorage.setItem('setUserData', userData);
+          localStorage.setItem('setUserData', JSON.stringify(userData));
           localStorage.setItem('setToken', token);
           localStorage.setItem('setUserID', userID);
           localStorage.setItem('setUserLoginChk', res.data.controllerToken);
@@ -26883,7 +26885,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
           localStorage.setItem('setUserID', userID);
 
           // 받아온 데이터를 Vuex 스토어에 저장
-          context.commit('setUserData', userData);
+          // context.commit('setUserData', userData);
           // context.commit('setToken', token);
 
           alert('로그인 성공. 페이지를 새로 고칩니다.');
@@ -26951,7 +26953,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
           _js_router_js__WEBPACK_IMPORTED_MODULE_0__["default"].push('/admin/dashboard');
         }
       })["catch"](function (error) {
-        if (error.response) if (error.response.data.code === "AV01" || error.response.data.code === "AV02" || error.response.data.code === "ALI02" || error.response.data.code === "ALI03" || error.response.data.code === "ALI04" || error.response.data.code === "ALI05" || error.response.data.code === "ALI06" || error.response.data.code === "ALI07") {
+        if (error.response) if (error.response.data.code === "AV01") {
           commit('setAdminError', error.response.data.error);
         } else if (error.response.data.code === "ALI01") {
           alert(error.response.data.error);
@@ -27019,7 +27021,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
           commit('setUserCurrentPage', response.data.userManagementList.current_page);
           commit('setUserLastPage', response.data.userManagementList.last_page);
         } else {
-          console.error('서버 오류');
+          alert(response.data.error);
         }
       })["catch"](function (error) {
         console.error(error);
@@ -27038,7 +27040,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
           commit('setUserLastPage', response.data.userManagementPaymentList.last_page);
           commit('setUserSelectOption', userSelectOption);
         } else {
-          console.error('서버 오류');
+          alert(response.data.error);
         }
       })["catch"](function (error) {
         console.error(error);
@@ -27204,7 +27206,6 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
       // 페이지가 현재 페이지와 같은지 확인하여 중복 요청을 방지합니다.
       if (page !== state.adminCurrentPage) {
         var adminManagementOption = state.adminSelectOption;
-        console.log('어드민옵션' + state.adminSelectOption);
         if (adminManagementOption) {
           console.log('어드민 페이징');
           if (adminManagementOption === '0') {
