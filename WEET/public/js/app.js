@@ -22560,18 +22560,44 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       clickTab: 0,
-      userData: {
-        userName: '',
-        userEmail: ''
-      }
+      userData: '',
+      newUserData: null
     };
   },
-  computed: {},
+  computed: {
+    // userData() {
+    //     return this.$store.state.userData;
+    // }
+    // setUserData() {
+    //     return this.$store.state.userData;
+    // }
+  },
   mounted: function mounted() {
-    this.fetchData();
+    // this.fetchData();
+    // this.userData = this.$store.state.userData;
+    this.userData = localStorage.getItem('userData');
+    console.log(this.userData);
+  },
+  created: function created() {
+    // this.userData = this.$store.state.userData;
   },
   methods: {
-    fetchData: function fetchData() {}
+    fetchData: function fetchData() {
+      var _this = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/mypage', {
+        headers: {
+          "Content-Type": 'application/json'
+        }
+      }).then(function (res) {
+        // console.log(res.data);
+        _this.newUserData = res.data;
+        // console.log(this.newUserData);
+        // console.log(res.data);
+        // this.userData = res.data.userData;
+      })["catch"](function (error) {
+        console.error('데이터를 가져오는 중 오류 발생:', error);
+      });
+    }
   }
 });
 
@@ -25781,41 +25807,43 @@ var _hoisted_1 = {
 var _hoisted_2 = {
   "class": "mypage_side_view"
 };
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_3 = {
   "class": "mypage_side_view_user_info"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "mypage_side_view_user_info_name"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "님의 MyPage")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "mypage_side_view_user_info_email"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "roseok624@gmail.com")])], -1 /* HOISTED */);
+};
 var _hoisted_4 = {
-  "class": "mypage_side_view_tab"
+  "class": "mypage_side_view_user_info_name"
 };
 var _hoisted_5 = {
-  "class": "mypage_side_view_tab_list"
+  "class": "mypage_side_view_user_info_email"
 };
 var _hoisted_6 = {
-  "class": "mypage_main_view"
+  "class": "mypage_side_view_tab"
 };
 var _hoisted_7 = {
+  "class": "mypage_side_view_tab_list"
+};
+var _hoisted_8 = {
+  "class": "mypage_main_view"
+};
+var _hoisted_9 = {
   key: 0,
   "class": "mypage_main_view_tab"
 };
-var _hoisted_8 = {
+var _hoisted_10 = {
   "class": "mypage_main_view_user_info_box"
 };
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">이메일</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span></span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input id=\"password\" name=\"password\" type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPassword&quot;&gt;{{ errors.userPassword }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPassword &amp;&amp; frmUserData.userPassword&quot;&gt;유효한 비밀번호입니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPassword&quot;&gt;{{ RegistrationErrorMessage.userPassword }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호 확인</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPasswordChk&quot;&gt;{{ errors.userPasswordChk }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPasswordChk &amp;&amp; frmUserData.userPasswordChk&quot;&gt;비밀번호가 일치합니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPasswordChk&quot;&gt;{{ RegistrationErrorMessage.userPasswordChk }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">이름</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>최현희</span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">연락처</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>010-****-7060</span></div></div></div>", 5);
-var _hoisted_14 = {
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">이메일</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span></span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input id=\"password\" name=\"password\" type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPassword&quot;&gt;{{ errors.userPassword }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPassword &amp;&amp; frmUserData.userPassword&quot;&gt;유효한 비밀번호입니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPassword&quot;&gt;{{ RegistrationErrorMessage.userPassword }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">비밀번호 확인</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_input\"><input type=\"password\" placeholder=\"영대소문자,숫자,특수문자(!@#)를 포함한 8~16자\" minlength=\"8\" maxlength=\"17\"><div class=\"regist_message_container\"><!-- &lt;div class=&quot;error_message text-xs text-red-500&quot; v-if=&quot;errors.userPasswordChk&quot;&gt;{{ errors.userPasswordChk }}&lt;/div&gt;\r\n                                    &lt;div class=&quot;success_message text-xs text-blue-500&quot; v-else-if=&quot;!errors.userPasswordChk &amp;&amp; frmUserData.userPasswordChk&quot;&gt;비밀번호가 일치합니다.&lt;/div&gt;\r\n                                    &lt;div class=&quot;error_message text-xs text-red-500&quot; v-else-if=&quot;RegistrationErrorMessage.userPasswordChk&quot;&gt;{{ RegistrationErrorMessage.userPasswordChk }}&lt;/div&gt; --></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">이름</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>최현희</span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">연락처</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>010-****-7060</span></div></div></div>", 5);
+var _hoisted_16 = {
   "class": "mypage_main_view_user_info_box_content"
 };
-var _hoisted_15 = {
+var _hoisted_17 = {
   "class": "mypage_main_view_user_info_box_content_postcode_div"
 };
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content_postcode_div_label\"><span class=\"font-bold\">우편번호</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_postcode_div_input\"><input id=\"user_postcode\" name=\"user_postcode\" type=\"text\" placeholder=\"\"></div>", 2);
-var _hoisted_18 = {
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content_postcode_div_label\"><span class=\"font-bold\">우편번호</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_postcode_div_input\"><input id=\"user_postcode\" name=\"user_postcode\" type=\"text\" placeholder=\"\"></div>", 2);
+var _hoisted_20 = {
   "class": "mypage_main_view_user_info_box_content_postcode_div_label"
 };
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "mypage_main_view_user_info_box_content_postcode_div_input"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
   id: "user_basic_address",
@@ -25823,20 +25851,20 @@ var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   type: "text",
   placeholder: ""
 })], -1 /* HOISTED */);
-var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content_postcode_div\"><div class=\"mypage_main_view_user_info_box_content_postcode_div_label\"><span class=\"font-bold\">상세주소</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_postcode_div_input2\"><input id=\"user_detail_address\" name=\"user_detail_address\" type=\"address\" placeholder=\"나머지 주소를 입력해주세요\"></div></div>", 1);
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">성별</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>여</span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">생년월일</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>1993-06-24</span></div></div></div>", 2);
-var _hoisted_23 = {
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content_postcode_div\"><div class=\"mypage_main_view_user_info_box_content_postcode_div_label\"><span class=\"font-bold\">상세주소</span><span style=\"color:red;\">*</span></div><div class=\"mypage_main_view_user_info_box_content_postcode_div_input2\"><input id=\"user_detail_address\" name=\"user_detail_address\" type=\"address\" placeholder=\"나머지 주소를 입력해주세요\"></div></div>", 1);
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">성별</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>여</span></div></div></div><div class=\"mypage_main_view_user_info_box_content\"><div class=\"mypage_main_view_user_info_box_content_label\"><span class=\"font-bold\">생년월일</span></div><div class=\"mypage_main_view_user_info_box_content_span\"><div><span>1993-06-24</span></div></div></div>", 2);
+var _hoisted_25 = {
   key: 1,
   "class": "mypage_main_view_tab"
 };
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_reservation\"><div class=\"mypage_main_view_user_reservation_menu\"><div class=\"mypage_main_view_user_reservation_menu_all\"><span>전체</span></div><div class=\"mypage_main_view_user_reservation_menu_all\"><span>항공권</span></div><div class=\"mypage_main_view_user_reservation_menu_all\"><span>호텔</span></div></div><div class=\"mypage_main_view_user_reservation_ticket\"><div class=\"mypage_main_view_user_reservation_ticket_date\"><span>2024.04.03</span><span>~</span><span>2024.04.10</span></div><div class=\"mypage_main_view_user_reservation_ticket_list\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_name\"><div><span>진에어</span></div><div><span>진에어</span></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 07:05</span></div><div><span>PUS</span></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_img\"><span>소요시간</span><span><!-- &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot; class=&quot;bi bi-arrow-right&quot; viewBox=&quot;0 0 16 16&quot;&gt;\r\n                                                &lt;path fill-rule=&quot;evenodd&quot; d=&quot;M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8&quot;/&gt;\r\n                                            &lt;/svg&gt; --><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" class=\"w-6 h-6\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3\"></path></svg></span><span>직항</span></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 08:00</span></div><div><span>CJU</span></div></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 07:05</span></div><div><span>CJU</span></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_img\"><span>소요시간</span><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-arrow-right\" viewBox=\"0 0 16 16\"><path fill-rule=\"evenodd\" d=\"M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8\"></path></svg></span><span>직항</span></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 08:00</span></div><div><span>PUS</span></div></div></div></div><div class=\"mypage_vertical_line\"></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_info\"><div><button>예약상세</button></div><div><button>예약취소</button></div></div></div></div></div>", 1);
-var _hoisted_25 = [_hoisted_24];
-var _hoisted_26 = {
+var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mypage_main_view_user_reservation\"><div class=\"mypage_main_view_user_reservation_menu\"><div class=\"mypage_main_view_user_reservation_menu_all\"><span>전체</span></div><div class=\"mypage_main_view_user_reservation_menu_all\"><span>항공권</span></div><div class=\"mypage_main_view_user_reservation_menu_all\"><span>호텔</span></div></div><div class=\"mypage_main_view_user_reservation_ticket\"><div class=\"mypage_main_view_user_reservation_ticket_date\"><span>2024.04.03</span><span>~</span><span>2024.04.10</span></div><div class=\"mypage_main_view_user_reservation_ticket_list\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_name\"><div><span>진에어</span></div><div><span>진에어</span></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 07:05</span></div><div><span>PUS</span></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_img\"><span>소요시간</span><span><!-- &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot; class=&quot;bi bi-arrow-right&quot; viewBox=&quot;0 0 16 16&quot;&gt;\r\n                                                &lt;path fill-rule=&quot;evenodd&quot; d=&quot;M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8&quot;/&gt;\r\n                                            &lt;/svg&gt; --><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" class=\"w-6 h-6\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3\"></path></svg></span><span>직항</span></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 08:00</span></div><div><span>CJU</span></div></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route\"><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 07:05</span></div><div><span>CJU</span></div></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_img\"><span>소요시간</span><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-arrow-right\" viewBox=\"0 0 16 16\"><path fill-rule=\"evenodd\" d=\"M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8\"></path></svg></span><span>직항</span></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_time_route_info\"><div><span>오전 08:00</span></div><div><span>PUS</span></div></div></div></div><div class=\"mypage_vertical_line\"></div><div class=\"mypage_main_view_user_reservation_ticket_list_flight_info\"><div><button>예약상세</button></div><div><button>예약취소</button></div></div></div></div></div>", 1);
+var _hoisted_27 = [_hoisted_26];
+var _hoisted_28 = {
   key: 2,
   "class": "mypage_main_view_tab"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.userData.user_name) + "ㅇㅇ님의 MyPage", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.user_email), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       $data.clickTab = 0;
     })
@@ -25848,13 +25876,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[2] || (_cache[2] = function ($event) {
       $data.clickTab = 2;
     })
-  }, "찜한내역")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [$data.clickTab === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, "찜한내역")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [$data.clickTab === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "font-bold",
     type: "button",
     onClick: _cache[3] || (_cache[3] = function ($event) {
       return _ctx.openDaumPostcode();
     })
-  }, "검색")]), _hoisted_19]), _hoisted_20]), _hoisted_21])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.clickTab === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, [].concat(_hoisted_25))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.clickTab === 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, " 찜한내역이여 ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+  }, "검색")]), _hoisted_21]), _hoisted_22]), _hoisted_23])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.clickTab === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_25, [].concat(_hoisted_27))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.clickTab === 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_28, " 찜한내역이여 ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
 }
 
 /***/ }),
@@ -26843,6 +26871,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
           console.log("레스.데이터", res.data);
           // console.log("유저체크", res.data.controllerToken);
           console.log(userID);
+          console.log("유저데이터", userData);
           // localStorage.setItem('loginUser', userId);
           // localStorage.setItem('loginUserId', res.data.userId);
           // localStorage.setItem('loginUserEmail', res.data.userEmail);
@@ -26852,6 +26881,11 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
           localStorage.setItem('setUserLoginChk', res.data.controllerToken);
           localStorage.setItem('setSaveToLocalStorage', res.data);
           localStorage.setItem('setUserID', userID);
+
+          // 받아온 데이터를 Vuex 스토어에 저장
+          context.commit('setUserData', userData);
+          // context.commit('setToken', token);
+
           alert('로그인 성공. 페이지를 새로 고칩니다.');
           // location.reload();
           // this.$router.push('/');

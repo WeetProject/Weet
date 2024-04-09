@@ -3,10 +3,10 @@
         <div class="mypage_side_view">
             <div class="mypage_side_view_user_info">
                 <div class="mypage_side_view_user_info_name"> 
-                    <span>님의 MyPage</span>
+                    <span>{{ userData.user_name }}ㅇㅇ님의 MyPage</span>
                 </div>
                 <div class="mypage_side_view_user_info_email"> 
-                    <span>roseok624@gmail.com</span>
+                    <span>{{ user_email }}</span>
                 </div>
             </div>
             <div class="mypage_side_view_tab">
@@ -249,25 +249,50 @@ export default {
     data() {
         return {
             clickTab: 0,
-            userData: {
-                userName: '',
-                userEmail: '',
-            },
-            
+            userData: '',
+            newUserData: null,
         }
     },
 
     computed: {
-        
+        // userData() {
+        //     return this.$store.state.userData;
+        // }
+        // setUserData() {
+        //     return this.$store.state.userData;
+        // }
     },
 
     mounted() {
-        this.fetchData();
+        // this.fetchData();
+        // this.userData = this.$store.state.userData;
+        this.userData = localStorage.getItem('userData');
+        console.log(this.userData);
+    },
+
+    created() {
+        // this.userData = this.$store.state.userData;
     },
 
     methods: {
         fetchData() {
             
+            
+
+            axios.get('/mypage', {
+                headers: {
+                    "Content-Type": 'application/json',
+                },
+                
+            }).then(res => {
+                // console.log(res.data);
+                this.newUserData = res.data;
+                // console.log(this.newUserData);
+                // console.log(res.data);
+                // this.userData = res.data.userData;
+            }).catch(error => {
+                console.error('데이터를 가져오는 중 오류 발생:', error);
+            });
         }
     },
 
