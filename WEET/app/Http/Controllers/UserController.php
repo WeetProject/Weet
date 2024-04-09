@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\LoginLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -85,6 +86,12 @@ class UserController extends Controller
         // $userEmail = $result->user_email;
         Log::debug($result->user_id);
         // $tokenInfo = $result->only('user_email', 'password');
+
+        // 로그인 로그 찍기
+        LoginLog::create([
+            'user_email' => $result->user_email,
+            'login_at' => now(),
+        ]);
         
         // 토큰 저장한번해봄
         // $saveToken = User::find($result->user_id);
