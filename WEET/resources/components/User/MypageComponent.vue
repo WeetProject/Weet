@@ -3,10 +3,10 @@
         <div class="mypage_side_view">
             <div class="mypage_side_view_user_info">
                 <div class="mypage_side_view_user_info_name"> 
-                    <span>{{ userData.user_name }}ㅇㅇ님의 MyPage</span>
+                    <span>{{ this.userInfo.userName }}님의 MyPage</span>
                 </div>
                 <div class="mypage_side_view_user_info_email"> 
-                    <span>{{ user_email }}</span>
+                    <span>{{ this.userInfo.userEmail }}</span>
                 </div>
             </div>
             <div class="mypage_side_view_tab">
@@ -249,8 +249,10 @@ export default {
     data() {
         return {
             clickTab: 0,
-            userData: '',
-            newUserData: null,
+            userInfo: {
+                userEmail: '',
+                userName: ''
+            }
         }
     },
 
@@ -264,10 +266,12 @@ export default {
     },
 
     mounted() {
-        // this.fetchData();
-        // this.userData = this.$store.state.userData;
-        this.userData = localStorage.getItem('userData');
-        console.log(this.userData);
+        this.userToken = localStorage.getItem('setToken');
+        // this.userInfo = localStorage.getItem('setUserData');
+        this.userInfo = JSON.parse(localStorage.getItem('setUserData'));
+        console.log(this.userInfo);
+        console.log(this.userInfo.userEmail);
+
     },
 
     created() {
@@ -275,25 +279,25 @@ export default {
     },
 
     methods: {
-        fetchData() {
+        // fetchData() {
             
             
 
-            axios.get('/mypage', {
-                headers: {
-                    "Content-Type": 'application/json',
-                },
+        //     axios.get('/mypage', {
+        //         headers: {
+        //             "Content-Type": 'application/json',
+        //         },
                 
-            }).then(res => {
-                // console.log(res.data);
-                this.newUserData = res.data;
-                // console.log(this.newUserData);
-                // console.log(res.data);
-                // this.userData = res.data.userData;
-            }).catch(error => {
-                console.error('데이터를 가져오는 중 오류 발생:', error);
-            });
-        }
+        //     }).then(res => {
+        //         // console.log(res.data);
+        //         this.newUserData = res.data;
+        //         // console.log(this.newUserData);
+        //         // console.log(res.data);
+        //         // this.userData = res.data.userData;
+        //     }).catch(error => {
+        //         console.error('데이터를 가져오는 중 오류 발생:', error);
+        //     });
+        // }
     },
 
 

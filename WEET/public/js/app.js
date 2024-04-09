@@ -21137,6 +21137,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.adminToken = localStorage.getItem('setAdminToken');
     var adminLoginInfoData = JSON.parse(localStorage.getItem('setAdminLoginInfo'));
+    console.log(adminLoginInfoData);
     if (this.adminToken && adminLoginInfoData) {
       // Admin Token 저장
 
@@ -22560,8 +22561,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       clickTab: 0,
-      userData: '',
-      newUserData: null
+      userInfo: {
+        userEmail: '',
+        userName: ''
+      }
     };
   },
   computed: {
@@ -22573,31 +22576,33 @@ __webpack_require__.r(__webpack_exports__);
     // }
   },
   mounted: function mounted() {
-    // this.fetchData();
-    // this.userData = this.$store.state.userData;
-    this.userData = localStorage.getItem('userData');
-    console.log(this.userData);
+    this.userToken = localStorage.getItem('setToken');
+    // this.userInfo = localStorage.getItem('setUserData');
+    this.userInfo = JSON.parse(localStorage.getItem('setUserData'));
+    console.log(this.userInfo);
+    console.log(this.userInfo.userEmail);
   },
   created: function created() {
     // this.userData = this.$store.state.userData;
   },
   methods: {
-    fetchData: function fetchData() {
-      var _this = this;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/mypage', {
-        headers: {
-          "Content-Type": 'application/json'
-        }
-      }).then(function (res) {
-        // console.log(res.data);
-        _this.newUserData = res.data;
-        // console.log(this.newUserData);
-        // console.log(res.data);
-        // this.userData = res.data.userData;
-      })["catch"](function (error) {
-        console.error('데이터를 가져오는 중 오류 발생:', error);
-      });
-    }
+    // fetchData() {
+
+    //     axios.get('/mypage', {
+    //         headers: {
+    //             "Content-Type": 'application/json',
+    //         },
+
+    //     }).then(res => {
+    //         // console.log(res.data);
+    //         this.newUserData = res.data;
+    //         // console.log(this.newUserData);
+    //         // console.log(res.data);
+    //         // this.userData = res.data.userData;
+    //     }).catch(error => {
+    //         console.error('데이터를 가져오는 중 오류 발생:', error);
+    //     });
+    // }
   }
 });
 
@@ -25864,7 +25869,7 @@ var _hoisted_28 = {
   "class": "mypage_main_view_tab"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.userData.user_name) + "ㅇㅇ님의 MyPage", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.user_email), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.userInfo.userName) + "님의 MyPage", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.userInfo.userEmail), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       $data.clickTab = 0;
     })

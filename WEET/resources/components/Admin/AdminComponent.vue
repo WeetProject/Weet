@@ -218,6 +218,7 @@ export default {
 	mounted() {
 		this.adminToken = localStorage.getItem('setAdminToken');
 		const adminLoginInfoData = JSON.parse(localStorage.getItem('setAdminLoginInfo'));
+		console.log(adminLoginInfoData)
 
 		if(this.adminToken && adminLoginInfoData) {
 			// Admin Token 저장
