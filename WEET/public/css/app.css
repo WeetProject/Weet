@@ -565,6 +565,12 @@ video {
 .mt-5 {
   margin-top: 1.25rem;
 }
+.mb-20 {
+  margin-bottom: 5rem;
+}
+.mt-10 {
+  margin-top: 2.5rem;
+}
 .box-border {
   box-sizing: border-box;
 }
@@ -606,6 +612,9 @@ video {
 }
 .w-full {
   width: 100%;
+}
+.w-10 {
+  width: 2.5rem;
 }
 .max-w-sm {
   max-width: 24rem;
