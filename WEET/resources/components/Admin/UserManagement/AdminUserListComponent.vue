@@ -18,7 +18,7 @@
                 <li class="text-center admin_user_management_bottom_content_li">{{ userList.user_tel }}</li>
                 <li class="text-center admin_user_management_bottom_content_li">{{ userList.user_flg }}</li>
                 <li class="text-center admin_user_management_bottom_content_li">{{ userList.user_created_at }}</li>
-                <li class="text-center admin_user_management_bottom_content_li">2024-03-30 14:59:28</li>
+                <li class="text-center admin_user_management_bottom_content_li">{{ userList.last_login_at }}</li>
             </ul>
         </a>
     </div>
