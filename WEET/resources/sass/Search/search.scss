@@ -1,0 +1,53 @@
+@import "../mixin";
+input:focus{
+    outline: none;
+}
+* {
+    font-family: sans-serif;
+}
+
+.search_bg{
+    background-color: $layout-background-color;
+}
+.search_menu{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 20px;
+}
+.search_menu_top{
+    display: flex;
+    gap: 10px;
+}
+.search_menu_top div{
+    text-align: center;
+    width: 150px;
+    padding: 10px;
+    background-color: $white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: #0B2161;
+}
+.search_menu_bottom{
+    background-color: $white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 5px 15px;
+}
+.search_menu_bottom div{
+    display: flex;
+    gap: 10px;
+    height: 30px;
+}
+
+.search_menu_recommend input{
+    background-color: #EDEDED;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+}
+.search_menu_recommend button{
+    background-color: #0B2161;
+    color: $white;
+    width: 130px;
+    border-radius: 10px;
+}

@@ -193,3 +193,11 @@ Route::post('/logout', function () {
 });
 // Route::middleware(['userValidation'])->get('/getMyPage', [MyPageController::class, 'getMyPageData']);
 // Route::get('/mypage', [MyPageController::class, 'getMyPageData']);
+
+
+// Search
+Route::prefix('search')->group(function() {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+});

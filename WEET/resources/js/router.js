@@ -4,6 +4,7 @@ import MainComponent from '../components/MainComponent.vue';
 import TestComponent from '../components/TestComponent.vue';
 import MypageComponent from '../components/User/MypageComponent.vue';
 import ReservationComponent from '../components/Reservation/ReservationComponent.vue';
+import SearchComponent from '../components/search/SearchComponent.vue';
 import SignUpComponent from '../components/User/SignUpComponent.vue';
 // import LoginComponent from '../components/User/LoginComponent.vue';
 
@@ -53,6 +54,10 @@ const routes = [
 		path: '/reservation',
 		component: ReservationComponent,
 		beforeEnter: requireAuth,
+	},
+	{
+		path: '/search',
+		component: SearchComponent,
 	},
 	{
 		path: '/signup',
