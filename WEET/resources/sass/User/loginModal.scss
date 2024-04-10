@@ -90,6 +90,8 @@ $colors: (
         display: flex;
         justify-content: center; /* 콘텐츠를 수평으로 가운데 정렬 */
         align-items: center; /* 콘텐츠를 수직으로 가운데 정렬 */
+        // 맨앞으로 올리기(숫자가 높을 수록 요소를 맨위로 올려줌)
+        z-index: 9999; 
     }
 
     .card {

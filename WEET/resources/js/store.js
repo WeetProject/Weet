@@ -211,17 +211,17 @@ const store = createStore({
             axios.post(url, requestData, header)
             .then(res => { 
                 context.dispatch('closeLoginModal');
-                console.log("레스", res);
-                console.log(requestData);
+                // console.log("레스", res);
+                // console.log(requestData);
                 
 				const token = res.data.token;
                 const userData = res.data.userData;
                 const userID = res.data.userData.user_id;
 				// const decoded = jwtDecode(token);
 				
-				console.log("토큰",token);
-				console.log("유저데이터",userData);
-				console.log("유저아이디",userID);
+				// console.log("토큰",token);
+				// console.log("유저데이터",userData);
+				// console.log("유저아이디",userID);
 				// console.log("유저데이터", res.data.userData);
 
                 if (res.data.success) {
@@ -231,28 +231,31 @@ const store = createStore({
                     context.commit('setUserID', userID);
                     context.commit('setToken', token);
 
-                    // router.push('/');
-                    // this.$router.push('/');
-
                     // const loginUserData = res.data.userData.userID;
-                    console.log("레스.데이터", res.data);
+                    // console.log("레스.데이터", res.data);
                     // console.log("유저체크", res.data.controllerToken);
                     console.log(userID);
+                    console.log("유저데이터",userData);
+					
+                    localStorage.setItem('setUserData', userData);
+                    // console.log(userID);
+                    console.log(userData);
 					// localStorage.setItem('loginUser', userId);
 					// localStorage.setItem('loginUserId', res.data.userId);
 					// localStorage.setItem('loginUserEmail', res.data.userEmail);
-					localStorage.setItem('setUserData', userData);
+					// localStorage.setItem('setUserData', userData);
+                    localStorage.setItem('setUserData', JSON.stringify(userData));
 					localStorage.setItem('setToken', token);
 					localStorage.setItem('setUserID', userID);
 					localStorage.setItem('setUserLoginChk', res.data.controllerToken);
 					localStorage.setItem('setSaveToLocalStorage', res.data);
 					localStorage.setItem('setUserID', userID);
-                    
 
-                    alert('로그인 성공. 페이지를 새로 고칩니다.');
-                    // location.reload();
-                    // this.$router.push('/');
+                    alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
                     router.push('/');
+
+                    location.l
+                    
                 } else {
                     alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
                 }
@@ -265,34 +268,17 @@ const store = createStore({
         },
 
         // 유저 logout
-        // logout(context, data) {
-        //     const url = '/logout';
-        //     const header = {
-        //         headers: {
-        //             "Content-Type": 'application/json',
-        //         },
-        //     };
-        
-        //     axios.get(url, header)
-        //     .then(res => {
-        //         context.commit('setUserLoginChk', res.data.sessionDataCheck);
-        //         localStorage.clear();
-                
-        //         Swal.fire({
-        //             icon: 'success',
-        //             title: '로그아웃 성공',
-        //             text: '로그아웃에 성공했습니다.',
-        //             confirmButtonText: '확인'
-        //         }).then(() => {
-        //             // 확인 버튼을 눌렀을 때 실행할 코드
-        //             location.reload();
-        //         });
-        //     })
-        //     .catch(err => {
-        //         console.log(err.response.data);
-        //     });
-        // },
         logout(context, data) {
+            const userToken = localStorage.getItem('setToken');
+            // user Token 미 존재시
+            if (!userToken) {
+                localStorage.clear();
+                alert('세션이 만료되었습니다. 다시 로그인해주세요.');
+                router.push('/');
+
+                return;
+            }
+
             const url = '/logout';
             const token = localStorage.getItem('setToken');
             console.log(token);
@@ -303,15 +289,11 @@ const store = createStore({
                     "Content-Type": 'application/json',
                 },
             };
-            // const config = {
-			// 	headers: {
-			// 		'Authorization': `Bearer ${token}`
-			// 	}
-			// };
-
+            
             axios.get(url, header)
             .then(res => {
                 console.log('로그아웃', res);
+                console.log('로그아웃', header);
                 // context.commit('setUserLoginChk', false);
                 // this.setSaveToLocalStorage(data);
                 localStorage.clear();
@@ -362,10 +344,7 @@ const store = createStore({
                 })
                 .catch(error => {
                     if(error.response)
-                        if(error.response.data.code === "AV01" || error.response.data.code === "AV02" ||
-                        error.response.data.code === "ALI02" || error.response.data.code === "ALI03" ||
-                        error.response.data.code === "ALI04" || error.response.data.code === "ALI05" ||
-                        error.response.data.code === "ALI06" || error.response.data.code === "ALI07") {                        
+                        if(error.response.data.code === "AV01") {                        
                         commit('setAdminError', error.response.data.error);
                     } else if (error.response.data.code === "ALI01") {
                         alert(error.response.data.error);
@@ -406,7 +385,7 @@ const store = createStore({
                     // Admin Token 만료
                     if(error.response) {
                         if(error.response.data.code === "ALO01") {
-                            localStorage.clear();
+                            localStorage.clear();                            
                             console.log(error.response.data.error);
                             alert(error.response.data.error);
                             router.push('/admin');
@@ -436,7 +415,7 @@ const store = createStore({
 						commit('setUserCurrentPage', response.data.userManagementList.current_page);
 						commit('setUserLastPage', response.data.userManagementList.last_page);
 					} else {
-						console.error('서버 오류');
+						alert(response.data.error);
 					}
 				})
 				.catch(error => {
@@ -457,7 +436,7 @@ const store = createStore({
                         commit('setUserLastPage', response.data.userManagementPaymentList.last_page);
                         commit('setUserSelectOption', userSelectOption);
 					} else {
-						console.error('서버 오류');
+						alert(response.data.error);
 					}
 				})
 				.catch(error => {
@@ -620,7 +599,6 @@ const store = createStore({
             // 페이지가 현재 페이지와 같은지 확인하여 중복 요청을 방지합니다.
             if (page !== state.adminCurrentPage) {
                 const adminManagementOption = state.adminSelectOption
-                console.log('어드민옵션' + state.adminSelectOption);
                 if(adminManagementOption) {
                     console.log('어드민 페이징');
                     if(adminManagementOption === '0') {

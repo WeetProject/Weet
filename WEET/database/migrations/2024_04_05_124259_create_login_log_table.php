@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('login_log', function (Blueprint $table) {
+        Schema::create('login_logs', function (Blueprint $table) {
             $table->id('login_log_id');
             $table->string('user_email', 50);
             $table->timestamp('login_at')->default(DB::raw('now()'));

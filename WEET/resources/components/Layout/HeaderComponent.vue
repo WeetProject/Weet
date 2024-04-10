@@ -15,13 +15,13 @@
 						</svg>
 					</button>
 					<div class="header_nav_login_btn">
-						<div v-if="!$store.state.userID" class="header_nav_login_btn_user">
+						<div v-if="!$store.state.token" class="header_nav_login_btn_user">
 							
 							<button @click="toggleModal">login</button>
 							<!-- <LoginComponent v-if="showmodal" @closeModal="closemodal" /> -->
 							<!-- <a href="/login">login</a> -->
 						</div>
-						<div v-if="$store.state.userID" class="header_nav_login_btn_user">
+						<div v-if="$store.state.token" class="header_nav_login_btn_user">
 							<div style="margin: 5px 10px 0 0;">
 								<button>
 									<a href="/mypage">
@@ -60,18 +60,18 @@
 											<div class="card__form_email">
 												
 												<label for="email">Email</label>
-													<input id="email" class="card__input" type="email" v-model="frmUserLoginData.userEmail" @keyup.enter="submitUserLoginData"/>
+													<input id="email" class="card__input" type="email" v-model="frmUserLoginData.userEmail" @keyup.enter="submitUserLoginData" />
 											</div>
 											<div class="card__form_pw">
 												
 												<label for="password">Password</label>
-													<input id="password" class="card__input" type="password" v-model="frmUserLoginData.userPassword" @keyup.enter="submitUserLoginData"/>
+													<input id="password" class="card__input" type="password" v-model="frmUserLoginData.userPassword" @keyup.enter="submitUserLoginData" />
 											</div>
 						
 
 											<div class="card__form_button">
-												<div>
-													<button class="card__button" type="button" @click="submitUserLoginData">
+												<div @click="submitUserLoginData">
+													<button class="card__button" type="button">
 														<span>Login</span>
 													</button>
 												</div>  
@@ -151,7 +151,7 @@ import store from '../../js/store.js';
     	},
 
 		mounted() {
-			
+			// this.loadUserLoginStatus();
 		},
 
 		methods: {
@@ -188,9 +188,6 @@ import store from '../../js/store.js';
 
 			// 로컬스토리지에 있는 유저 정보를 저장하기 위한 함수.
 			loadUserLoginStatus() {
-				// const userLoginChk = localStorage.getItem('userCheck');
-				// const userID = localStorage.getItem('userID');
-				// const token = localStorage.getItem('token');
 				const userLoginChk = localStorage.getItem('setUserLoginChk');
 				const userID = localStorage.getItem('setUserID');
 				const token = localStorage.getItem('setToken');

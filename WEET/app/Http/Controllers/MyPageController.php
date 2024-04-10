@@ -17,5 +17,8 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class MyPageController extends Controller
 {
     // 유저 정보
-    
+    public function getMyPageData() {
+
+        
+    }
 }

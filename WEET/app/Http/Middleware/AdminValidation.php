@@ -115,7 +115,7 @@ class AdminValidation
         $logMessage = "Admin 로그인 유효성 검사 실패";
         Log::debug("### $logMessage ###");
         return response()->json([
-            'code' => 'AV02',
+            'code' => 'AV01',
             'error' => $error
         ], 422);
     }

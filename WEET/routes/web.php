@@ -50,10 +50,13 @@ Route::prefix('reservation')->group(function() {
 // payment 결제기능
 Route::post('/payment', [PaymentController::class, 'paymentPost']);
 
-Route::get('/signup', function () {
-    return view('welcome');
-});
+// Route::get('/signup', function () {
+//     return view('welcome');
+// });
 
+// Route::get('/login', function () {
+//     return view('welcome');
+// });
 
 
 
@@ -170,9 +173,23 @@ Route::middleware(['userValidation'])->group(function() {
     Route::post('/signup', [UserController::class, 'store']);
     Route::post('/signupEmailDoubleChk', [UserController::class, 'emailDoubleChk']);
     Route::post('/login', [UserController::class, 'loginPost']);
+    Route::match(['get'], '/login', function () {
+        abort(405, 'Method Not Allowed');
+    });
+});
+
+// Route::middleware(['userValidation'])->post('/login', [UserController::class, 'loginPost']);
+
+// Route::match(['get'], '/login', function () {
+//         abort(405, 'Method Not Allowed');
+//     });
+Route::get('/signup', function () {
+    return view('welcome');
 });
 
 Route::get('/logout', [UserController::class, 'logout']);
-
+Route::post('/logout', function () {
+    abort(404);
+});
 // Route::middleware(['userValidation'])->get('/getMyPage', [MyPageController::class, 'getMyPageData']);
 // Route::get('/mypage', [MyPageController::class, 'getMyPageData']);

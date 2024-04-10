@@ -67,7 +67,7 @@ export default {
     },
 
 	created() {
-		this.test();
+		this.adminTokenCheck();
 	},
 
 	watch: {
@@ -81,6 +81,13 @@ export default {
     },
 
 	methods: {
+		// Admin Token 확인
+		adminTokenCheck() {
+			if(localStorage.getItem('setAdminToken')) {
+				this.$router.push('/admin/dashboard')
+			}
+		},
+		// Admin Login
 		adminLogin() {
 			const adminLoginFormData = new FormData();
             adminLoginFormData.append('admin_number', this.adminLoginFormData.admin_number);
@@ -97,12 +104,6 @@ export default {
 		// 에러 초기화
 		clearAdminLoginError() {
 			this.adminLoginError = '';
-		},
-
-		test(){
-			if(localStorage.getItem('setAdminToken')){
-				this.$router.push('/admin/dashboard')
-			}
 		},
 	}
 }
