@@ -8,11 +8,12 @@ input:focus{
 
 .search_bg{
     background-color: $layout-background-color;
+    padding: 10px 20px;
 }
 .search_menu{
     display: flex;
     flex-direction: column;
-    margin: 10px 20px;
+    margin: 10px 0px;
 }
 .search_menu_top{
     display: flex;
@@ -50,4 +51,8 @@ input:focus{
     color: $white;
     width: 130px;
     border-radius: 10px;
+}
+.search_carlendar{
+    position: absolute;
+    right: 500px;
 }

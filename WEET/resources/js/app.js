@@ -27,23 +27,34 @@
 // .mount('#app');
 
 
-require('./bootstrap');
-
 import { createApp } from 'vue';
 import AppComponent from '../components/AppComponent.vue';
 import HeaderComponent from '../components/Layout/HeaderComponent.vue';
 import FooterComponent from '../components/Layout/FooterComponent.vue';
 import store from './store.js';
 import router from './router.js';
-        
 
+
+// Vuetify
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+
+const vuetify = createVuetify({
+	components,
+	directives,
+})
 const app = createApp({
 	components: {
 		AppComponent,
 		HeaderComponent,
 		FooterComponent,
 	}
-})
+});
+
+app
 .use(store)
 .use(router)
-app.mount('#app')  //마운트 처리
+.use(vuetify)
+.mount('#app'); // 마운트 처리

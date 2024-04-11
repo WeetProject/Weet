@@ -17,7 +17,9 @@
                 </div>
             </div>
             <!-- 달력 -->
-            <!-- <MyCalendarComponent/> -->
+            <div class="search_carlendar" v-if="calFlg">
+                <MyCalendarComponent/>
+            </div>
         </div>
         <div>
             <SearchFlightComponent v-if="pageflg===0"/>
@@ -44,6 +46,7 @@ export default {
     data() {
         return {
             pageflg:0,
+            calFlg:false,
         }   
     },
 

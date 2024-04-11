@@ -57,3 +57,6 @@
     - npm install --save vue3-apexcharts
 
 10. npm audit fix 검색해보기
+
+11. 뷰티파이
+    - npm i vuetify
