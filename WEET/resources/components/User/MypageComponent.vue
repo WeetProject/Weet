@@ -1,187 +1,247 @@
 <template>
-    <div class="box-border mypage_container">
-        <div class="mypage_layout_container">
-            <div class="mypage_user_left_info_section">
-                <div class="mypage_left_container">
-                    <div class="mypage_left_user_info_section">
-                        <div class="mb-5 mypage_left_user_info_name_area">
-                            <span>{{ this.userInfo.userName }}님의 My Page</span>
+    <div class="background_body">
+        <div class="box-border mypage_container">
+            <div class="mypage_top_container">
+                <div class="mypage_top_tab_top_section">
+                    <div class="text-center mypage_top_tab_top_area">
+                        <div @click = "clickTab = 0;">개인정보</div>
+                    </div>
+                    <div class="text-center mypage_top_tab_top_area">
+                        <div @click = "clickTab = 1;">예매내역</div>
+                    </div>
+                    <div class="text-center mypage_top_tab_top_area">
+                        <div @click = "clickTab = 2;">찜내역</div>
+                    </div>
+                </div>
+                <div class="mypage_top_tab_bottom_section">
+                    <div class="mypage_top_tab_bottom_area"></div>
+                </div>                
+            </div>
+            <div class="mypage_bottom_container">
+                <!-- clickTab 0 -->
+                <div class="mypage_user_info_container" v-if="clickTab === 0">
+                    <div class="mypage_user_info_data_container">
+                        <div class="mypage_user_info_title_section">
+                            <div class="mypage_user_info_title_area">
+                                <span class="font-semibold">이메일</span>
+                            </div>
+                            <div class="mypage_user_info_title_area">
+                                <span class="font-semibold">비밀번호</span><span class="mypage_user_info_title_area_span">*</span>
+                            </div>
+                            <div class="mypage_user_info_title_area">
+                                <span class="font-semibold">비밀번호 확인</span><span class="mypage_user_info_title_area_span">*</span>
+                            </div>
+                            <div class="mypage_user_info_title_area">
+                                <span class="font-semibold">이름</span>
+                            </div>
+                            <div class="mypage_user_info_title_area">
+                                <span class="font-semibold">연락처</span>
+                            </div>
+                            <div class="mypage_user_info_title_area">
+                                <span class="font-semibold">우편번호</span>
+                            </div>
+                            <div class="mypage_user_info_title_area">
+                                <span class="font-semibold">기본주소</span>
+                            </div>
+                            <div class="mypage_user_info_title_area">
+                                <span class="font-semibold">상세주소</span>
+                            </div>                        
+                        </div> 
+                        <div class="mypage_user_info_content_section">
+                            <div class="mypage_user_info_content_area">
+                                <span class="ml-2.5">{{ this.userInfo.userEmail }}</span>
+                            </div>
+                            <div class="mypage_user_info_content_area">
+                                <input type="password" name="password" id="password"
+                                minlength="8" maxlength="17"
+                                class="mypage_user_info_content_input">
+                            </div>
+                            <div class="mypage_user_info_content_area">
+                                <input type="password" name="password" id="password"
+                                minlength="8" maxlength="17"
+                                class="mypage_user_info_content_input">
+                            </div>
+                            <div class="mypage_user_info_content_area">
+                                <span class="ml-2.5">{{ this.userInfo.userName }}</span>
+                            </div>
+                            <div class="mypage_user_info_content_area">
+                                <span class="ml-2.5">{{ this.userInfo.userTel }}</span>
+                            </div>
+                            <!-- 우편번호 -->
+                            <div class="mypage_user_info_content_postcode_area">
+                                <input type="text" name="user_postcode" id="user_postcode"
+                                autocomplete="off" v-model="this.userInfo.userPostcode"
+                                class="mypage_user_info_content_input_postcode">
+                                <div class="mypage_user_info_content_area_postcode_button">
+                                    <button type="button" @click="openDaumPostcode()"
+                                        class="text-center mypage_user_info_content_postcode_button">
+                                    주소 검색
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mypage_user_info_content_area">
+                                <input type="text" name="user_basic_address" id="user_basic_address"
+                                autocomplete="off" v-model="this.userInfo.userBasicAddress"
+                                class="mypage_user_info_content_input">
+                            </div>
+                            <div class="mypage_user_info_content_area">
+                                <input type="text" name="user_detail_address" id="user_detail_address"
+                                autocomplete="off" v-model="this.userInfo.userDetailAddress"
+                                class="mypage_user_info_content_input">
+                            </div>                        
                         </div>
-                        <div class="mt-5 mypage_left_user_info_email_area">
-                            <span>{{ this.userInfo.userEmail }}</span>
+                    </div>
+                    <div class="my-10 mypage_user_info_button_container">
+                        <div class="mypage_user_info_button_section">
+                            <div class="mypage_user_info_button_area">
+                                <button class="mypage_user_info_button">수정</button>
+                            </div>
+                            <div class="mypage_user_info_button_area">
+                                <button class="mypage_user_info_button">취소</button>
+                            </div>                 
                         </div>
-                    </div>
-                    <div class="mypage_left_tab_section">
-                        <li @click = "clickTab = 0;">개인 정보</li>
-                    </div>
-                    <div class="mypage_left_tab_section">
-                        <li @click = "clickTab = 1;">예매 내역</li>
-                    </div>
-                    <div class="mypage_left_tab_section">
-                        <li @click = "clickTab = 2;">찜 내역</li>
+                    </div>            
+                </div>
+                <!-- clickTab 1 -->
+                <div class="mypage_flight_info_container" v-if="clickTab === 1">
+                    <div class="mypage_flight_info_data_container">
+                        <div class="mb-10 ml-5 mypage_flight_info_data_top_section">
+                            <button class="mypage_all_list_button">전체</button>
+                            <button class="ml-5 mypage_flight_button">항공권</button>
+                            <button class="ml-5 mypage_hotel_button">호텔</button>
+                        </div>
+                        <div class="mypage_flight_info_data_bottom_section">
+                            <div class="mb-5 mypage_flight_time_container">
+                                <span>2024.04.03</span>
+                                <span>~</span>
+                                <span>2024.04.10</span>
+                            </div>
+                            <div class="mypage_flight_ticket_container">
+                                <div class="text-center mypage_flight_airline_section">
+                                    <div class="mypage_flight_airline_departure_area">
+                                        <span>진에어</span>
+                                    </div>
+                                    <div class="mypage_flight_airline_arrival_area">
+                                        <span>진에어</span>
+                                    </div>
+                                </div>
+                                <div class="mypage_flight_route_section">
+                                    <div class="mb-5 mypage_flight_route_area">
+                                        <div class="mypage_flight_route_departure_time">
+                                            <span>오전 07:05</span>
+                                            <span>PUS</span>
+                                        </div>
+                                        <div class="text-center mypage_flight_route_line">
+                                            <span>소요시간</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mypage_flight_route_line_svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                                            </svg>
+                                            <span>직항</span>
+                                        </div>
+                                        <div class="mypage_flight_route_arrival_time">
+                                            <span>오전 08:00</span>
+                                            <span>CJU</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5 mypage_flight_route_area">
+                                        <div class="mypage_flight_route_departure_time">
+                                            <span>오전 07:05</span>
+                                            <span>CJU</span>
+                                        </div>
+                                        <div class="text-center mypage_flight_route_line">
+                                            <span>소요시간</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mypage_flight_route_line_svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                                            </svg>
+                                            <span>직항</span>
+                                        </div>
+                                        <div class="mypage_flight_route_arrival_time">
+                                            <span>오전 08:00</span>
+                                            <span>PUS</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mypage_flight_line_section"></div>
+                                <div class="mypage_flight_button_section">
+                                    <div class="mb-5 mypage_flight_button_area">
+                                        <button class="mypage_flight_button">예약 상세</button>
+                                    </div>
+                                    <div class="mt-5 mypage_flight_button_area">
+                                        <button class="mypage_flight_button">예약 취소</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- mobile Size -->
+                        <div class="mypage_flight_info_data_bottom_section_minsize">
+                            <div class="mb-5 mypage_flight_time_container">
+                                <span>2024.04.03</span>
+                                <span>~</span>
+                                <span>2024.04.10</span>                                
+                            </div>
+                            <div class="mypage_flight_ticket_container">
+                                <div class="mypage_flight_airline_section">
+                                    <div class="mb-5 mypage_flight_airline_departure_area">
+                                        <span>진에어</span>
+                                    </div>
+                                </div>
+                                <div class="mypage_flight_route_section">
+                                    <div class="mb-5 mypage_flight_route_area">
+                                        <div class="text-center mypage_flight_route_departure_time">
+                                            <span>오전 07:05</span>
+                                            <span>PUS</span>
+                                        </div>
+                                        <div class="text-center mypage_flight_route_line">
+                                            <span>소요시간</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mypage_flight_route_line_svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                                            </svg>
+                                            <span>직항</span>
+                                        </div>
+                                        <div class="mypage_flight_route_arrival_time">
+                                            <span>오전 08:00</span>
+                                            <span>CJU</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mypage_flight_airline_section">
+                                    <div class="mb-5 mypage_flight_airline_departure_area">
+                                        <span>진에어</span>
+                                    </div>
+                                </div>
+                                <div class="mypage_flight_route_section">
+                                    <div class="mb-5 mypage_flight_route_area">
+                                        <div class="text-center mypage_flight_route_departure_time">
+                                            <span>오전 07:05</span>
+                                            <span>PUS</span>
+                                        </div>
+                                        <div class="text-center mypage_flight_route_line">
+                                            <span>소요시간</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mypage_flight_route_line_svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                                            </svg>
+                                            <span>직항</span>
+                                        </div>
+                                        <div class="mypage_flight_route_arrival_time">
+                                            <span>오후 08:00</span>
+                                            <span>CJU</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="my-10 mypage_flight_button_section">
+                                    <div class="mypage_flight_button_area">
+                                        <button class="mypage_flight_button">예약 상세</button>
+                                    </div>
+                                    <div class="mypage_flight_button_area">
+                                        <button class="mypage_flight_button">예약 취소</button>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- clickTab = 0 -->
-            <div class="mypage_right_user_info_section" v-if="clickTab === 0">
-                <div class="mypage_right_top_container">
-                    <div class="mypage_middle_container">
-                        <div class="mypage_middle_user_data_title_section">
-                            <span>이메일</span>
-                        </div>
-                        <div class="mypage_middle_user_data_title_section">
-                            <span>비밀번호</span><span class="mypage_middle_user_data_title_span">*</span>
-                        </div>
-                        <div class="mypage_middle_user_data_title_section">
-                            <span>비밀번호 확인</span><span class="mypage_middle_user_data_title_span"> *</span>
-                        </div>
-                        <div class="mypage_middle_user_data_title_section">
-                            <span>이름</span>
-                        </div>
-                        <div class="mypage_middle_user_data_title_section">
-                            <span>연락처</span>
-                        </div>
-                        <div class="mypage_middle_user_data_title_section">
-                            <span>우편번호</span>
-                        </div>
-                        <div class="mypage_middle_user_data_title_section">
-                            <span>기본주소</span>
-                        </div>
-                        <div class="mypage_middle_user_data_title_section">
-                            <span>상세주소</span>
-                        </div>
-                    </div>
-                    <div class="mypage_right_container">
-                        <div class="mypage_right_user_data_content_section">
-                            <span>{{ this.userInfo.userEmail }}</span>
-                        </div>
-                        <div class="mypage_right_user_data_content_section">
-                            <input type="password" name="password" id="password" 
-                            placeholder="영대소문자, 숫자, 특수문자(!@#)를 포함한 8~16자"
-                            minlength="8" maxlength="17"
-                            class="mypage_right_user_data_content_input">
-                        </div>
-                        <div class="mypage_right_user_data_content_section">
-                            <input type="password" name="password" id="password" 
-                            placeholder="영대소문자, 숫자, 특수문자(!@#)를 포함한 8~16자"
-                            minlength="8" maxlength="17"
-                            class="mypage_right_user_data_content_input">
-                        </div>
-                        <div class="mypage_right_user_data_content_section">
-                            <span>{{ this.userInfo.userName }}</span>
-                        </div>
-                        <div class="mypage_right_user_data_content_section">
-                            <span>{{ this.userInfo.userTel }}</span>
-                        </div>
-                        <!-- 우편번호 -->
-                        <div class="mypage_right_user_data_content_postcode_section">
-                            <input type="text" name="user_postcode" id="user_postcode"
-                            v-model="this.userInfo.userPostcode"
-                            class="text-center mypage_right_user_data_content_input_postcode">
-                            <div class="mypage_right_user_data_content_postcode_button_area">
-                                <button type="button" @click="openDaumPostcode()"
-                                    class="text-center mypage_right_user_data_content_postcode_button">
-                                주소 검색
-                                </button>
-                            </div>
-                        </div>
-                        <div class="mypage_right_user_data_content_section">
-                            <input type="text" name="user_basic_address" id="user_basic_address"
-                            v-model="this.userInfo.userBasicAddress"
-                            class="mypage_right_user_data_content_input">
-                        </div>
-                        <div class="mypage_right_user_data_content_section">
-                            <input type="text" name="user_detail_address" id="user_detail_address"
-                            v-model="this.userInfo.userDetailAddress"
-                            class="mypage_right_user_data_content_input">
-                        </div>
-                    </div>
-                </div>
-                <div class="mypage_right_bottom_container">
-                    <div class="mypage_button_container">
-                        <div class="mr-5 mypage_button_section">
-                            <button class="mypage_update_button">수정</button>
-                        </div>
-                        <div class="ml-5 mypage_button_section">
-                            <button class="mypage_cancel_button">취소</button>
-                        </div>
-                    </div>                    
-                </div>
-            </div>
-            <!-- clickTab = 1 -->
-            <div class="mypage_right_user_info_section_tab1" v-if="clickTab === 1">
-                <div class="mb-5 ml-5 mypage_right_top_container_tab1">
-                    <button class="mypage_all_list_button">전체</button>
-                    <button class="ml-5 mypage_flight_button">항공권</button>
-                    <button class="ml-5 mypage_hotel_button">호텔</button>
-                </div>
-                <div class="ml-5 mypage_right_bottom_container_tab1">
-                    <div class="mb-1 mypage_flight_time_container">
-                        <span>2024.04.03</span>
-                        <span>~</span>
-                        <span>2024.04.10</span>
-                    </div>
-                    <div class="mypage_flight_container">
-                        <div class="text-center mypage_flight_left_section">
-                            <div class="mypage_flight_middle_departure_airline_area">
-                                <span>진에어</span>
-                            </div>
-                            <div class="mypage_flight_middle_arrival_airline_area">
-                                <span>진에어</span>
-                            </div>
-                        </div>
-                        <div class="mypage_flight_middle_section">
-                            <div class="mypage_flight_middle_ticket_info_area">
-                                <div class="mypage_flight_middle_ticket_info_departure_time">
-                                    <span>오전 07:05</span>
-                                    <span>PUS</span>
-                                </div>
-                                <div class="text-center mypage_flight_middle_ticket_info_line">
-                                    <span>소요시간</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mypage_flight_middle_ticket_info_line_svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                                    </svg>
-                                    <span>직항</span>
-                                </div>
-                                <div class="mypage_flight_middle_ticket_info_arrival_time">
-                                    <span>오전 08:00</span>
-                                    <span>CJU</span>
-                                </div>
-                            </div>
-                            <div class="mypage_flight_middle_ticket_info_area">
-                                <div class="mypage_flight_middle_ticket_info_departure_time">
-                                    <span>오전 07:05</span>
-                                    <span>CJU</span>
-                                </div>
-                                <div class="text-center mypage_flight_middle_ticket_info_line">
-                                    <span>소요시간</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mypage_flight_middle_ticket_info_line_svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                                    </svg>
-                                    <span>직항</span>
-                                </div>
-                                <div class="mypage_flight_middle_ticket_info_arrival_time">
-                                    <span>오전 08:00</span>
-                                    <span>PUS</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mypage_flight_line_section"></div>
-                        <div class="mypage_flight_right_section">
-                            <div class="mb-5 mypage_flight_button_area">
-                                <button class="mypage_flight_button">예약 상세</button>
-                            </div>
-                            <div class="mt-5 mypage_flight_button_area">
-                                <button class="mypage_flight_button">예약 취소</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- clickTab = 2 -->
-            <div class="mypage_right_user_info_section_tab1" v-if="clickTab === 2"></div>
-
-        </div>     
+        </div>
     </div>
 </template>
 
