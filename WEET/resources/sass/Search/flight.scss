@@ -1,0 +1,87 @@
+@import "../mixin";
+
+.search_flight_layout{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 20px;
+}
+.search_flight_sidebar{
+    background-color: $white;
+    min-width: 300px;
+    border: 3px solid #A4A4A4;
+    border-radius: 10px;
+}
+.search_flight_main{
+    border: #fff;
+}
+
+.search_flight_accordion {
+    font-family: Arial, sans-serif;
+    max-width: 400px;
+    border-radius: 10px; 
+    // border: 3px solid #A4A4A4;
+}
+.search_flight_accordion_item {
+    background-color: $white;
+    margin-bottom: 1px;
+    border-radius: 10px;
+}
+
+#search_flight_accordion_item_1, 
+#search_flight_accordion_item_2, 
+#search_flight_accordion_item_3, 
+#search_flight_accordion_item_4{
+    display: none;
+}
+
+
+.search_flight_accordion_title {
+    background-color: $white;
+    padding: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    width: 98%;
+}
+.search_flight_accordion_title_flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.search_flight_accordion_content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: $white;
+    border-radius: 10px;
+    // 드레그막기
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
+}
+.search_flight_accordion_content input{
+
+}
+.search_flight_accordion_content label{
+    padding-left: 10px;
+    color: #00000081;
+}
+
+input[type="checkbox"]:not(:checked) + .search_flight_accordion_title + .search_flight_accordion_content {
+    display: none;
+}
+
+
+
+@include mobile {
+
+}
+    
+@include tablet {
+
+}
+    
+@include desktop {
+
+}

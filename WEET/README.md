@@ -58,7 +58,10 @@
 
 10. npm audit fix 검색해보기
 
-11. kakao Login
+11. 뷰티파이
+    - npm i vuetify
+
+12. kakao Login
     - 참고 : https://vuxy.tistory.com/entry/Laravel-8-%EC%86%8C%EC%85%9C%EB%A1%9C%EA%B7%B8%EC%9D%B8Laravel-Socialite-1
     - composer require laravel/socialite
     - composer require socialiteproviders/kakao
