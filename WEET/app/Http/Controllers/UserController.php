@@ -14,6 +14,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Cache;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Laravel\Socialite\Facades\Socialite;
 
 class UserController extends Controller
 {
@@ -188,6 +189,32 @@ class UserController extends Controller
             return response()->json(['error' => 'Failed logout'], 500);
         }
         
+    }
+
+    public function redirectToKakao()
+    {
+        return Socialite::driver('kakao')->redirect();
+    }
+
+    public function handleKakaoCallback()
+    {
+        $kakaoUser = Socialite::driver('kakao')->user();
+        $user = User::where('provider_id', $kakaoUser->id)->first();
+
+        if (!$user) {
+            // 카카오 사용자 정보로 새로운 사용자 생성
+            $user = User::create([
+                'name' => $kakaoUser->name,
+                'email' => $kakaoUser->email,
+                'provider' => 'kakao',
+                'provider_id' => $kakaoUser->id,
+                // 다른 필드들을 필요에 따라 추가할 수 있습니다.
+            ]);
+        }
+
+        Auth::login($user, true);
+
+        return redirect('/welcome'); // 로그인 후 리디렉션할 URL
     }
 
 }

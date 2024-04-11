@@ -85,4 +85,8 @@ class User extends Authenticatable implements JWTSubject
             // 'user_detail_address'
         ];
     }
+
+    // public function socialAccounts() {
+    //     return $this->hasMany();
+    // }
 }
