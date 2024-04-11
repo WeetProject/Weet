@@ -38,12 +38,34 @@
                     </label>
                     <div class="search_flight_accordion_content">
                         <div>
-                            {{departureTime}}
+                            <div class="search_flight_accordion_title_flex">
+                                <div>
+                                    가는날 출발시간
+                                </div>
+                                <div>
+                                    {{departureTime}}
+                                </div>
+                            </div>
+                            <v-range-slider class="search_flight_slider_bar"
+                                v-model="departureTime"
+                                strict
+                            ></v-range-slider>
                         </div>
-                        <v-range-slider
-                            v-model="departureTime"
-                            strict
-                        ></v-range-slider>
+                        <div>
+                            <div class="search_flight_accordion_title_flex">
+                                <div>
+                                    오는날 출발시간
+                                </div>
+                                <div>
+                                    {{arriveTime}}
+                                </div>
+                            </div>
+                            <v-range-slider class="search_flight_slider_bar"
+                                v-model="arriveTime"
+                                strict
+                            ></v-range-slider>
+                        </div>
+                
                     </div>
                 </div>
                 <hr>
@@ -57,7 +79,13 @@
                         </div>
                     </label>
                     <div class="search_flight_accordion_content">
-                        Content of Section 3
+                        <div>
+                            {{price[0]}}원 ~ {{price[1]}}원
+                        </div>
+                        <v-range-slider class="search_flight_slider_bar"
+                            v-model="price"
+                            strict
+                        ></v-range-slider>
                     </div>
                 </div>
                 <hr>
@@ -89,7 +117,9 @@ export default {
             accordion2:true,
             accordion3:true,
             accordion4:true,
-            departureTime:[0,100],
+            departureTime:[0,394500],
+            arriveTime:[0,394500],
+            price:[0,395000],
         }
     },
     methods: {
@@ -103,4 +133,10 @@ export default {
 </script>
 <style lang="scss">
 	@import '../../sass/Search/flight.scss';
+    .v-slider-track__fill {
+        background-color: #2E9AFE;
+    }
+    .v-slider-thumb__ripple{
+        background-color: #2E9AFE;
+    }
 </style>
