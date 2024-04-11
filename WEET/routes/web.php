@@ -180,6 +180,9 @@ Route::middleware(['userValidation'])->group(function() {
     Route::post('/signupEmailDoubleChk', [UserController::class, 'emailDoubleChk']);
     Route::post('/login', [UserController::class, 'loginPost']);
 
+    Route::get('/login/kakao/callback', [UserController::class], 'redirectToKakao');
+    Route::get('/login/kakao', [UserController::class], 'handleKakaoCallback');
+
     Route::match(['get'], '/login', function () {
         abort(405, 'Method Not Allowed');
     });

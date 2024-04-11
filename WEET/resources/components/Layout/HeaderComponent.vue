@@ -90,7 +90,7 @@
 													<button class="card__social_btn_google">
 														<img src="../../../public/images/Google_logo.svg.png" alt="">
 													</button>
-													<button class="card__social_btn_kakao">
+													<button @click="loginKakao" class="card__social_btn_kakao">
 														<img src="../../../public/images/Kakao_logo.png" alt="">
 													</button>
 												</div>
@@ -198,6 +198,19 @@ import store from '../../js/store.js';
 					this.$store.commit('setToken', token);
 				}
         	},
+
+			loginKakao() {
+				// axios.get('/login/kakao') // 서버의 소셜 로그인 처리 API 엔드포인트
+				// .then(response => {
+				// 	// 요청이 성공적으로 처리될 때의 동작
+				// 	console.log(response.data);
+				// })
+				// .catch(error => {
+				// 	// 요청이 실패했을 때의 동작
+				// 	console.error(error);
+				// });
+				location.href='/login/kakao?before_url=' + window.location.pathname;
+			},
     	},
 		// mounted() {
 		// 	this.toggleModal();

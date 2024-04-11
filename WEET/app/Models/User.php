@@ -89,4 +89,10 @@ class User extends Authenticatable implements JWTSubject
     // public function socialAccounts() {
     //     return $this->hasMany();
     // }
+
+    // protected $listen = [
+    //     \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+    //         'SocialiteProviders\\Kakao\\KakaoExtendSocialite@handle',
+    //     ],
+    // ];
 }

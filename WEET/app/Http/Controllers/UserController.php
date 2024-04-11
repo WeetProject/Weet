@@ -191,11 +191,15 @@ class UserController extends Controller
         
     }
 
-    public function redirectToKakao()
+    // 유저를 kakao인증페이지로 리다이렉트하는 함수
+    // 유저가 kakao계정으로 인증하면 설정해둔 Redirect URI로 다시 보냄.
+    // 그럼 여기서 weet회원인지 아닌지 확인하는 분기 만들면되나?
+    public function redirectToKakao(Request $request)
     {
         return Socialite::driver('kakao')->redirect();
     }
 
+    // 
     public function handleKakaoCallback()
     {
         $kakaoUser = Socialite::driver('kakao')->user();

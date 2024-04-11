@@ -33,7 +33,7 @@ return [
     'kakao' => [
         'client_id' => env('KAKAO_CLIENT_ID'),
         'client_secret' => env('KAKAO_CLIENT_SECRET'),
-        'redirect' => env('KAKAO_REDIRECT_URI', 'http://127.0.0.1:8000/test'),
+        'redirect' => env('KAKAO_REDIRECT_URI', 'http://127.0.0.1:8000/login/kakao/callback'),
     ],
 
 ];
