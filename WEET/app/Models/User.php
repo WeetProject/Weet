@@ -85,4 +85,14 @@ class User extends Authenticatable implements JWTSubject
             // 'user_detail_address'
         ];
     }
+
+    // public function socialAccounts() {
+    //     return $this->hasMany();
+    // }
+
+    // protected $listen = [
+    //     \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+    //         'SocialiteProviders\\Kakao\\KakaoExtendSocialite@handle',
+    //     ],
+    // ];
 }
