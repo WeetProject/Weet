@@ -105,9 +105,9 @@
                 <!-- clickTab 1 -->
                 <div class="mypage_flight_info_container" v-if="clickTab === 1">
                     <div class="mypage_flight_info_data_container">
-                        <div class="mb-10 ml-5 mypage_flight_info_data_top_section">
-                            <button class="mypage_all_list_button">전체</button>
-                            <button class="ml-5 mypage_flight_button">항공권</button>
+                        <div class="mb-10 mypage_flight_info_data_top_section">
+                            <button class="mr-5 mypage_all_list_button">전체</button>
+                            <button class="mypage_flight_button">항공권</button>
                             <button class="ml-5 mypage_hotel_button">호텔</button>
                         </div>
                         <div class="mypage_flight_info_data_bottom_section">

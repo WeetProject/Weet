@@ -550,6 +550,9 @@ video {
 .ml-2 {
   margin-left: 0.5rem;
 }
+.ml-2\.5 {
+  margin-left: 0.625rem;
+}
 .ml-5 {
   margin-left: 1.25rem;
 }
@@ -564,24 +567,6 @@ video {
 }
 .mt-5 {
   margin-top: 1.25rem;
-}
-.ml-10 {
-  margin-left: 2.5rem;
-}
-.mr-10 {
-  margin-right: 2.5rem;
-}
-.mt-10 {
-  margin-top: 2.5rem;
-}
-.ml-2\.5 {
-  margin-left: 0.625rem;
-}
-.mt-2 {
-  margin-top: 0.5rem;
-}
-.mr-2 {
-  margin-right: 0.5rem;
 }
 .box-border {
   box-sizing: border-box;
@@ -680,10 +665,6 @@ video {
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
-}
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
 }
 .pb-4 {
   padding-bottom: 1rem;

@@ -35,10 +35,10 @@ Route::get('/test', function () {
 });
 
 // 컨트롤러를 사용하는 라우트
-Route::group(['prefix' => 'test'], function () {
-    Route::get('/', [UserController::class, 'redirectToKakao']);
-    Route::get('/callback', [UserController::class, 'handleKakaoCallback']);
-});
+// Route::group(['prefix' => 'test'], function () {
+//     Route::get('/', [UserController::class, 'redirectToKakao']);
+//     Route::get('/callback', [UserController::class, 'handleKakaoCallback']);
+// });
 
 Route::get('/mypage', function () {
     return view('welcome');
@@ -180,19 +180,18 @@ Route::middleware(['userValidation'])->group(function() {
     Route::post('/signupEmailDoubleChk', [UserController::class, 'emailDoubleChk']);
     Route::post('/login', [UserController::class, 'loginPost']);
 
-    Route::get('/login/kakao/callback', [UserController::class], 'redirectToKakao');
-    Route::get('/login/kakao', [UserController::class], 'handleKakaoCallback');
-
     Route::match(['get'], '/login', function () {
         abort(405, 'Method Not Allowed');
     });
 });
 
-// Route::middleware(['userValidation'])->post('/login', [UserController::class, 'loginPost']);
+// 카카오로그인
+Route::get('/login/kakao', function () {
+    return Socialite::driver('kakao')->redirect();
+});
+// Route::get('/login/kakao', [UserController::class], 'redirectToKakao');
+Route::get('/login/kakao/callback', [UserController::class], 'handleKakaoCallback');
 
-// Route::match(['get'], '/login', function () {
-//         abort(405, 'Method Not Allowed');
-//     });
 Route::get('/signup', function () {
     return view('welcome');
 });
