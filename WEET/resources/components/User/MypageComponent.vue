@@ -4,13 +4,13 @@
             <div class="mypage_top_container">
                 <div class="mypage_top_tab_top_section">
                     <div class="text-center mypage_top_tab_top_area">
-                        <div @click = "clickTab = 0;">개인정보</div>
+                        <div :class="{ 'font-semibold': clickTab === 0 }" @click = "clickTab = 0;">개인정보</div>
                     </div>
                     <div class="text-center mypage_top_tab_top_area">
-                        <div @click = "clickTab = 1;">예매내역</div>
+                        <div :class="{ 'font-semibold': clickTab === 1 }" @click = "clickTab = 1;">예매내역</div>
                     </div>
                     <div class="text-center mypage_top_tab_top_area">
-                        <div @click = "clickTab = 2;">찜내역</div>
+                        <div :class="{ 'font-semibold': clickTab === 2 }" @click = "clickTab = 2;">찜내역</div>
                     </div>
                 </div>
                 <div class="mypage_top_tab_bottom_section">
