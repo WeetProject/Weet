@@ -16,10 +16,12 @@ class Airport extends Model
     public $timestamps = true;
 
     protected $fillable =[
+        'airport_iata_code',
         'airport_name',
         'airport_kr_name',
-        'airport_iata_code',
-        'airport_continent',
-        'airport_iso_country',
+        'airport_city_name',
+        'airport_kr_city_name',
+        'airport_country_name',
+        'airport_kr_country_name',
     ];
 }

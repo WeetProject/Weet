@@ -75,3 +75,6 @@
     - 테이블 : 파일명과 동일한 테이블 선택
     - pk, created_at, updated_at, deleted_at 체크 해제
     - 가져오기
+
+14. 세계 공항, 나라, 도시 데이터 출처
+    - https://www.partow.net/
