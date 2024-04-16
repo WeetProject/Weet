@@ -30,12 +30,12 @@ return new class extends Migration
             // airport_iata_code
             // varchar 생성(50) / default : not null
 
-            $table->string('airport_iso_country', 50);
-            // airport_iso_country
-            // varchar 생성(50) / default : not null
-
             $table->string('airport_continent', 50);
             // airport_continent
+            // varchar 생성(50) / default : not null
+
+            $table->string('airport_iso_country', 50);
+            // airport_iso_country
             // varchar 생성(50) / default : not null
 
             $table->timestamps();

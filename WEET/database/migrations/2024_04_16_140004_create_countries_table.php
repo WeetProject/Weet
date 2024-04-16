@@ -14,28 +14,24 @@ return new class extends Migration
     public function up()
     {
         Schema::create('countries', function (Blueprint $table) {
-            $table->id('airport_id');
+            $table->id('country_id');
             // airport PK
             // default : big_int, pk, auto_increment
 
-            $table->string('airport_name', 200);
-            // airport_name
+            $table->string('country_name', 200);
+            // country_name
             // varchar 생성(200) / default : not null
 
-            $table->string('airport_kr_name', 200);
-            // airport_kr_name
+            $table->string('country_kr_name', 200);
+            // country_kr_name
             // varchar 생성(200) / default : not null
 
-            $table->string('airport_iata_code', 50);
-            // airport_iata_code
+            $table->string('country_continent', 50);
+            // country_continent
             // varchar 생성(50) / default : not null
 
-            $table->string('airport_iso_country', 50);
-            // airport_iso_country
-            // varchar 생성(50) / default : not null
-
-            $table->string('airport_continent', 50);
-            // airport_continent
+            $table->string('country_code', 50);
+            // country_code
             // varchar 생성(50) / default : not null
 
             $table->timestamps();
