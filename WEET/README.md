@@ -65,3 +65,13 @@
     - 참고 : https://vuxy.tistory.com/entry/Laravel-8-%EC%86%8C%EC%85%9C%EB%A1%9C%EA%B7%B8%EC%9D%B8Laravel-Socialite-1
     - composer require laravel/socialite
     - composer require socialiteproviders/kakao
+
+13. CSV 파일 import
+    - 마이그레이트 후 HeidSQL
+    - HeidSQL > 도구 > csv 파일 가져오기
+    - 파일 등록
+    - 인코딩 : utf8mb4: UTF-8 Unicode
+    - 필드 종결자 ,
+    - 테이블 : 파일명과 동일한 테이블 선택
+    - pk, created_at, updated_at, deleted_at 체크 해제
+    - 가져오기
