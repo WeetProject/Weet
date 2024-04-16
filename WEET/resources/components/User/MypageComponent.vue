@@ -4,13 +4,13 @@
             <div class="mypage_top_container">
                 <div class="mypage_top_tab_top_section">
                     <div class="text-center mypage_top_tab_top_area">
-                        <div @click = "clickTab = 0;">개인정보</div>
+                        <div :class="{ 'font-semibold': clickTab === 0 }" @click = "clickTab = 0;">개인정보</div>
                     </div>
                     <div class="text-center mypage_top_tab_top_area">
-                        <div @click = "clickTab = 1;">예매내역</div>
+                        <div :class="{ 'font-semibold': clickTab === 1 }" @click = "clickTab = 1;">예매내역</div>
                     </div>
                     <div class="text-center mypage_top_tab_top_area">
-                        <div @click = "clickTab = 2;">찜내역</div>
+                        <div :class="{ 'font-semibold': clickTab === 2 }" @click = "clickTab = 2;">찜내역</div>
                     </div>
                 </div>
                 <div class="mypage_top_tab_bottom_section">
@@ -105,9 +105,9 @@
                 <!-- clickTab 1 -->
                 <div class="mypage_flight_info_container" v-if="clickTab === 1">
                     <div class="mypage_flight_info_data_container">
-                        <div class="mb-10 ml-5 mypage_flight_info_data_top_section">
-                            <button class="mypage_all_list_button">전체</button>
-                            <button class="ml-5 mypage_flight_button">항공권</button>
+                        <div class="mb-10 mypage_flight_info_data_top_section">
+                            <button class="mr-5 mypage_all_list_button">전체</button>
+                            <button class="mypage_flight_button">항공권</button>
                             <button class="ml-5 mypage_hotel_button">호텔</button>
                         </div>
                         <div class="mypage_flight_info_data_bottom_section">
