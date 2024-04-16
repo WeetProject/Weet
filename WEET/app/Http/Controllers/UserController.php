@@ -200,9 +200,12 @@ class UserController extends Controller
     }
 
     // 
-    public function handleKakaoCallback()
+    public function handleKakaoCallback(Request $request)
     {
         $kakaoUser = Socialite::driver('kakao')->user();
+        Log::debug("카카오유저데이터");
+        Log::debug($kakaoUser);
+
         $user = User::where('provider_id', $kakaoUser->id)->first();
 
         if (!$user) {

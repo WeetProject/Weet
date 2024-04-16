@@ -190,7 +190,7 @@ Route::get('/login/kakao', function () {
     return Socialite::driver('kakao')->redirect();
 });
 // Route::get('/login/kakao', [UserController::class], 'redirectToKakao');
-Route::get('/login/kakao/callback', [UserController::class], 'handleKakaoCallback');
+Route::get('/login/kakao/callback', [UserController::class, 'handleKakaoCallback']);
 
 Route::get('/signup', function () {
     return view('welcome');

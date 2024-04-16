@@ -209,6 +209,8 @@ import store from '../../js/store.js';
 				// 	// 요청이 실패했을 때의 동작
 				// 	console.error(error);
 				// });
+
+				
 				location.href='/login/kakao?before_url=' + window.location.pathname;
 			},
     	},
