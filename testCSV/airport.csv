@@ -1,4 +1,4 @@
-airport_name,airport_kr_name,iata_code,iso_country,continent
+airport_name,airport_kr_name,airport_iata_code,airport_iso_country,airport_continent
 Utirik Airport,유티릭 공항,UTK,MH,OC
 Ocean Reef Club Airport,오션 리프 클럽 공항,OCA,US,NA
 Columbus Airport,콜럼버스 공항,CUS,US,NA
