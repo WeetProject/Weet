@@ -189,19 +189,22 @@ Route::middleware(['userValidation'])->group(function() {
 Route::get('/login/kakao', function () {
     return Socialite::driver('kakao')->redirect();
 });
-// Route::get('/login/kakao', [UserController::class], 'redirectToKakao');
-Route::get('/login/kakao/callback', [UserController::class, 'handleKakaoCallback']);
+// Route::get('/login/kakao', [UserController::class, 'handleKakaoCallback']);
+Route::get('/auth/kakaocallback', [UserController::class, 'handleKakaoCallback']);
 
+// Route::get('/kakaologin',  function () {
+//     return view('welcome');
+// });
 // 카카오 로그인 POST 요청 처리
-Route::post('/login/kakao', [UserController::class, 'handleKakaoLogin']);
+// Route::post('/login/kakao', [UserController::class, 'handleKakaoLogin']);
+Route::post('/kakaologin',  function () {
+    return view('welcome');
+});
 
 Route::get('/signup', function () {
     return view('welcome');
 });
 
-    // kakao test
-    // Route::get('/test', [UserController::class], 'redirectToKakao');
-    // Route::get('/test/callback', [UserController::class], 'handleKakaoCallback');
 
 Route::get('/logout', [UserController::class, 'logout']);
 Route::post('/logout', function () {

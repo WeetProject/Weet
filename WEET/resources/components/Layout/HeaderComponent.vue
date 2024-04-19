@@ -200,25 +200,8 @@ import store from '../../js/store.js';
         	},
 
 			loginKakao() {
-				// 카카오 로그인을 처리할 API 엔드포인트로 POST 요청을 보냅니다.
-				axios.post('/login/kakao', {
-            	// 필요하다면 요청에 필요한 데이터를 추가합니다.
-					before_url: window.location.pathname
-				})
-				.then(response => {
-					// 요청이 성공하고 서버로부터 응답을 받았을 때 할 작업을 여기에 추가합니다.
-					console.log(response.data); // 서버로부터 받은 데이터를 출력합니다.
-					console.log("then");
 
-					// location.reload();
-				})
-				.catch(error => {
-					// 요청이 실패했을 때의 에러 처리를 여기에 추가합니다.
-					console.error('Error:', error);
-				});
-
-				
-				// location.href='/login/kakao?before_url=' + window.location.pathname;
+				location.href='/login/kakao?before_url=' + window.location.pathname;
 			},
     	},
 		// mounted() {
