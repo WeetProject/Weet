@@ -224,4 +224,8 @@ class UserController extends Controller
         return redirect('/welcome'); // 로그인 후 리디렉션할 URL
     }
 
+    public function handleKakaoLogin() {
+        
+    }
+
 }

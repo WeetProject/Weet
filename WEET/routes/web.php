@@ -192,6 +192,9 @@ Route::get('/login/kakao', function () {
 // Route::get('/login/kakao', [UserController::class], 'redirectToKakao');
 Route::get('/login/kakao/callback', [UserController::class, 'handleKakaoCallback']);
 
+// 카카오 로그인 POST 요청 처리
+Route::post('/login/kakao', [UserController::class, 'handleKakaoLogin']);
+
 Route::get('/signup', function () {
     return view('welcome');
 });
