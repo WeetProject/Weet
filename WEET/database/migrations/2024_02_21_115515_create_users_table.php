@@ -18,6 +18,10 @@ return new class extends Migration
             // 유저 PK
             // default : big_int, pk, auto_increment
             
+            $table->integer('user_social_flg')->default(0);
+            // 유저소셜 플래그
+            // integer 생성 / default : 0(웹회원가입), 1 : 카카오,
+            
             $table->integer('user_flg')->default(0);
             // 유저상태 플래그
             // integer 생성 / default : 0

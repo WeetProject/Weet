@@ -1,5 +1,6 @@
 -- 유저 데이터
 INSERT INTO users(
+        user_social_flg, 
 		user_flg, 
 		user_email, 
 		password, 
@@ -12,7 +13,8 @@ INSERT INTO users(
 		user_detail_address,
 		created_at)
 SELECT
-	 '0',
+    '0',
+    '0',
     CONCAT(
         SUBSTRING('abcdefghijklmnopqrstuvwxyz', FLOOR(RAND() * 26) + 1, 1),
         SUBSTRING('abcdefghijklmnopqrstuvwxyz', FLOOR(RAND() * 26) + 1, 1),

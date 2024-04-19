@@ -201,42 +201,7 @@ class UserController extends Controller
     //         ->redirect();
     // }
 
-    // 
-    public function handleKakaoCallback(Request $request)
-    {
-        
-        // $kakaoUserEmail = $kakaoUser->
+    
 
-        $kakaoUser = Socialite::driver('kakao')
-                ->setHttpClient(new \GuzzleHttp\Client(['verify' => false]))
-                ->user();
-        // 기존 세션 정보 삭제
-        // session()->forget('kakaoUser');
-        dd($kakaoUser);
-
-        Log::debug("카카오유저데이터");
-        Log::debug($kakaoUser);
-
-        $user = User::where('provider_id', $kakaoUser->id)->first();
-
-        if (!$user) {
-            // 카카오 사용자 정보로 새로운 사용자 생성
-            $user = User::create([
-                'name' => $kakaoUser->name,
-                'email' => $kakaoUser->email,
-                'provider' => 'kakao',
-                'provider_id' => $kakaoUser->id,
-                // 다른 필드들을 필요에 따라 추가할 수 있습니다.
-            ]);
-        }
-
-        Auth::login($user, true);
-
-        return redirect('/welcome'); // 로그인 후 리디렉션할 URL
-    }
-
-    public function handleKakaoLogin() {
-        
-    }
 
 }

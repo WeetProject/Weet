@@ -254,7 +254,6 @@ const store = createStore({
                     alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
                     router.push('/');
 
-                    location.l
                     
                 } else {
                     alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');

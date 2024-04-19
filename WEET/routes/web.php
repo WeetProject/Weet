@@ -14,6 +14,7 @@ use App\Http\Controllers\ReservationAirController;
 use App\Http\Controllers\ReservationHotelController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\SocialLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -190,16 +191,7 @@ Route::get('/login/kakao', function () {
     return Socialite::driver('kakao')->redirect();
 });
 // Route::get('/login/kakao', [UserController::class, 'handleKakaoCallback']);
-Route::get('/auth/kakaocallback', [UserController::class, 'handleKakaoCallback']);
-
-// Route::get('/kakaologin',  function () {
-//     return view('welcome');
-// });
-// 카카오 로그인 POST 요청 처리
-// Route::post('/login/kakao', [UserController::class, 'handleKakaoLogin']);
-Route::post('/kakaologin',  function () {
-    return view('welcome');
-});
+Route::get('/auth/kakaocallback', [SocialLoginController::class, 'handleKakaoCallback']);
 
 Route::get('/signup', function () {
     return view('welcome');
