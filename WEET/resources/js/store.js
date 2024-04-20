@@ -306,6 +306,29 @@ const store = createStore({
             });
         },
 
+        // 카카오 유저 로그인 데이터 수신
+        kakaoUserLoginData({ commit }) {
+			const URL = '/auth/kakaocallback';            
+			axios.get(URL)
+                .then(res => {                    
+                    const token = res.data.token;
+                    const userData = res.data.user;
+                    const userID = res.data.user.user_id;
+
+                    if (res.data.code === "KLI00") {
+                        
+
+                        alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
+                        router.push('/');                        
+                    } else {
+                        alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+		},
+
 
 
 

@@ -49,8 +49,19 @@ class SocialLoginController extends Controller
                 'user_detail_address' => 'kakaoUserDetailAddress',
             ]);
 
-            return response()->json(['message' => '새로운 사용자가 생성되었습니다.', 'user' => $kakaoUserData]);
+            return response()->json([
+                'code' => 'KLI00',
+                'message' => '새로운 사용자가 생성되었습니다.', 
+                'user' => $kakaoUserData
+            ]);
 
+            // ### json 데이터는 리턴 오기 때문에 
+            // 해당 json 데이터를 뷰에서 처리해야함
+            // 예를 들어 리턴에 성공 코드를 리턴해서 
+            // 코드를 기반으로 if 분기로써 카카오 로그인 데이터를 state에 저장하여 
+            // 그 정보를 토대로 로그인처리를 진행
+            // 성공 코드 예시 KLI00
+            // 추가로 유저 jwt토큰 발급하여 리턴 추가
         } else {
             Auth::login($result);
 
