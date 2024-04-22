@@ -192,6 +192,7 @@ Route::get('/login/kakao', function () {
 });
 // Route::get('/login/kakao', [UserController::class, 'handleKakaoCallback']);
 Route::get('/auth/kakaocallback', [SocialLoginController::class, 'handleKakaoCallback']);
+Route::post('/auth/kakaocallback', [SocialLoginController::class, 'handleKakaoCallback']);
 
 Route::get('/signup', function () {
     return view('welcome');
