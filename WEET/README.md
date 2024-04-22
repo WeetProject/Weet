@@ -78,3 +78,17 @@
 
 14. 세계 공항, 나라, 도시 데이터 출처
     - https://www.partow.net/
+
+15. scout 검색 기능
+    - composer require laravel/scout
+    - php artisan vendor:publish --provider="Laravel\Scout\ScoutServiceProvider"
+    - config > scout.php 45줄 'queue' => env('SCOUT_QUEUE', true),
+    - composer require algolia/algoliasearch-client-php
+    - index import(데이터 수정 시 import 필요)
+    - php artisan scout:import "App\Models\Airport"
+    - index flush(데이터 삭제 시 flush 필요)
+    - php artisan scout:flush "App\Models\Airport"
+    - 참고 : https://laravel.com/docs/11.x/scout#introduction
+
+16. debounce 사용 위하여 Lodash 라이브러리 설치
+    - npm install lodash

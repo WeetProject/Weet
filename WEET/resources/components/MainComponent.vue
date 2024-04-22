@@ -6,11 +6,23 @@
 					<div class="main_select_ticket_flex_first_top">
 						<div class="main_select_ticket_border main_select_ticket_starting_point_area">
 							<p class="text-base font-semibold text-left main_select_ticket_title">출발지</p>
-							<p class="text-sm text-left main_select_ticket_content">부산 김해</p>
+							<input class="main_select_ticket_starting_point_area" type="text" 
+							name="starting_point_input" id="starting_point_input" v-model="startingPointQuery"
+							autocomplete="off" spellcheck="false" placeholder="출발지"
+							maxlength="15" @input="handleStartingPointInput">
+							<!-- 연관 검색어 출력부분 -->
+							<ul v-if="startingPointQuerySuggestion && startingPointQuery.length">
+								<li v-for="suggestion in startingPointQuerySuggestion" :key="suggestion">
+									<span>{{ suggestion.airport_kr_city_name }}({{ suggestion.airport_city_name }})</span>
+								</li>
+							</ul>
 						</div>
 						<div class="main_select_ticket_border main_select_ticket_destination_area">
 							<p class="text-base font-semibold text-left main_select_ticket_title">도착지</p>
-							<p class="text-sm text-left main_select_ticket_content">일본 도쿄</p>
+							<input class="main_select_ticket_destination_area_input" type="text" 
+							name="destination_input" id="destination_input" v-model="destinationQuery"
+							autocomplete="off" spellcheck="false" placeholder="도착지"
+							maxlength="15">
 						</div>
 					</div>
 					<div class="main_select_ticket_flex_first_middle">
@@ -82,14 +94,80 @@
 
 <script >
 import axios from 'axios';
+import { debounce } from 'lodash';
 
 export default {
 	name: 'MainComponent',
 
 	data() {
 		return {
-
+			previousSearchResults: [],
+			startingPointQuery: '',
+			startingPointQuerySuggestion: [],
+			destinationQuery: '',
+			destinationSuggestion: [],
 		}
+	},
+
+	methods: {
+		handleStartingPointInput(event) {
+			this.startingPointQuery = event.target.value;
+			if (!this.startingPointQuery) {
+				this.startingPointQuerySuggestion = null;
+			}
+			else {
+				this.algoliaStartingPointQuery();
+			}
+		},
+
+		// 출발지 연관 검색어 송수신
+		algoliaStartingPointQuery: debounce(function() {
+			const URL = '/search-startingpoint';
+			const query = this.startingPointQuery;
+			const previousResult = this.previousSearchResults.find(result => result.query === query);
+			
+			// 이전 검색 결과가 존재할 때
+			if (previousResult) {
+				// 이전 검색 결과를 사용
+				this.startingPointQuerySuggestion = previousResult.data;
+			} else {
+				// 이전 검색 결과가 존재하지 않을 때
+				axios.get(URL, {
+					params: {
+						query: this.startingPointQuery
+					}
+				})
+				.then(response => {
+					if(response.data.code === "SPS00") {
+						// 새로운 검색 결과를 받아옴
+						this.startingPointQuerySuggestion = response.data.startingPointQueryData;
+						console.log(this.startingPointQuerySuggestion);
+						
+						// 새로운 검색 결과를 이전 검색 결과에 추가
+						this.previousSearchResults.push({ query: query, data: response.data.startingPointQueryData });
+					}
+				})
+				.catch(error => {
+					console.error(error);
+				});         
+			}
+		}, 500),			
+
+		// 도착지 연관 검색어 송신
+		algoliaDestinationQuery() {
+			axios.get('/search-destination', {
+				params: {
+					query: query
+				}
+			})
+				.then(response => {
+					this.destinationSuggestion = response.data;
+				})
+
+				.catch(error => {
+					console.error(error);
+				});
+		},
 	}
 }
 </script>
