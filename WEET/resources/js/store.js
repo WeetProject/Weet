@@ -13,7 +13,8 @@ const store = createStore({
             userData: null,
             userLoginChk: null,
             userID: null,
-            // userToken: null,
+            kakaoToken: '',
+            kakaoUserEmail: '',
 
             // ### Admin ###
             // Admin Login 데이터 저장용
@@ -58,6 +59,9 @@ const store = createStore({
         setUserData(state, userData) {
             state.userData = userData;
         },
+        setKakaoUserData(state, kakaoUserEmail) {
+            state.kakaoUserEmail = kakaoUserEmail;
+        },
         // 유저 로그인 체크
         setUserLoginChk(state, userLoginChk) {
             state.userLoginChk = userLoginChk;
@@ -83,11 +87,14 @@ const store = createStore({
                 userLoginChk: data.controllerToken
             };
 
+            state.kakaoUserEmail = data.kakaoUserEmail;
+            // state.kakaoToken = data.kakaoToken;
+
             localStorage.setItem('setUserID', data.userData.user_id);
             localStorage.setItem('setToken', data.token);
             localStorage.setItem('setUserLoginChk', data.controllerToken);
             localStorage.setItem('setUserData', data.userData);
-            // localStorage.setItem('setUserData', JSON.stringify(data.userData));
+            localStorage.setItem('setKakaoUserData', data.kakaoUserEmail);
 
             // 로컬스토리지의 정보 삭제부분(시간설정)
             setTimeout(function() {
@@ -97,6 +104,9 @@ const store = createStore({
         // 유저 토큰 저장용
         setToken(state, token) {
             state.token = token;
+        },
+        setKakaoToken(state, kakaoToken) {
+            state.kakaoToken = kakaoToken;
         },
 
 
@@ -266,6 +276,36 @@ const store = createStore({
             });
         },
 
+        // kakaoUserLoginData(context, data) {
+        //     const url = '/auth/kakaocallback';
+        //     const header = {
+        //         header: {
+        //             "Content-Type": 'application/json',
+        //         }
+        //     };
+        //     const requestData = {
+        //         kakaoUserEmail: data.kakaoUserEmail,
+        //         kakaoToken: data.kakaoToken,
+        //     };
+
+        //     axios.post(url, header, requestData)
+        //         .then(res => {
+        //             context.dispatch('closeLoginModal');
+        //             console.log("레스", res);
+
+        //             const token = res.data.kakaoToken;
+        //             const kakaoEmail = res.data.kakaoUserEmail;
+
+        //             if(res.data.success) {
+        //                 context.commit('setKakaoToken', token);
+        //                 context.commit('setKakaoToken', token);
+        //             }
+        //         })
+        //         .catch(err => {
+
+        //         })
+        // },
+
         // 유저 logout
         logout(context, data) {
             const userToken = localStorage.getItem('setToken');
@@ -308,15 +348,18 @@ const store = createStore({
 
         // 카카오 유저 로그인 데이터 수신
         kakaoUserLoginData({ commit }) {
-			const URL = '/auth/kakaocallback';            
+			// const URL = '/auth/kakaocallback';            
+			const URL = '/login/kakao';            
 			axios.get(URL)
-                .then(res => {                    
-                    const token = res.data.token;
-                    const userData = res.data.user;
-                    const userID = res.data.user.user_id;
+                .then(res => {                  
+                    console.log('레스', res);
+                    
+                    const kakaoToken = res.data.kakaoToken;
+                    const kakaoEmail = res.data.kakaoUserEmail;
 
                     if (res.data.code === "KLI00") {
-                        
+                        commit('setKakaoToken', kakaoToken);
+                        commit('setKakaoUserData', kakaoEmail);
 
                         alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
                         router.push('/');                        

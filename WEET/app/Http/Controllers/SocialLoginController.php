@@ -22,6 +22,8 @@ class SocialLoginController extends Controller
     public function handleKakaoCallback(Request $request)
     {
         // 카카오서버에 유저 있는지 확인하고 변수에 담기
+        // 실제 운영에서는 보안을 위해 사용하지 않는 것이 좋다고 함.
+        // 해석 : 카카오 서비스로부터 사용자 정보를 가져오는 코드
         $kakaoUser = Socialite::driver('kakao')
                 ->setHttpClient(new \GuzzleHttp\Client(['verify' => false]))
                 ->user();
@@ -65,7 +67,21 @@ class SocialLoginController extends Controller
         } else {
             Auth::login($result);
 
-            return response()->json(['message' => '사용자가 로그인되었습니다.', 'user' => $result]);
+            $kakaoToken = JWTAuth::fromUser($result);
+            Log::debug("==== 토큰생성 ====");
+            Log::debug($kakaoToken);
+
+            // 로그인 로그 찍기
+            LoginLog::create([
+                'user_email' => $result->user_email,
+                'login_at' => now(),
+            ]);
+
+            return response()->json([
+                'message' => '사용자가 로그인되었습니다.', 
+                'kakaoUserEmail' => $result->user_email,
+                'kakaoToken' => $kakaoToken
+            ]);
         }
 
         return redirect('/welcome'); // 로그인 후 리디렉션할 URL

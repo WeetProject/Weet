@@ -136,6 +136,10 @@ import store from '../../js/store.js';
                 	userEmail: '',
                 	userPassword: '',
             	},
+				frmKakaoLoginData: {
+					userEmail: '',
+					userToken: '',
+				}
             }
 	    },
 
@@ -148,6 +152,7 @@ import store from '../../js/store.js';
 		// DOM이 렌더링되기 직전에 호출되는 시점
 		created() {
         	this.loadUserLoginStatus();
+			// this.kakaoUserLoginData();
     	},
 
 		mounted() {
@@ -203,11 +208,26 @@ import store from '../../js/store.js';
 
 				location.href='/login/kakao?before_url=' + window.location.pathname;
 			},
+
+			// kakaoUserLoginData() {
+				// axios.get('/auth/kakaocallback')
+				// 	.then(response => {
+				// 		// 받은 사용자 정보를 처리
+				// 		console.log(response.data);
+				// 		// 필요한 처리를 수행
+				// 	})
+				// 	.catch(error => {
+				// 		console.error('Kakao 로그인 처리 중 에러 발생:', error);
+				// 	});
+				// if(this.isUserLoggedIn()) {
+				// 	this.$router.push('/');
+				// }
+			// 	this.$store.dispatch('kakaoUserLoginData', this.frmKakaoLoginData);
+			// 	this.showmodal = false;
+			// },
+
     	},
-		// mounted() {
-		// 	this.toggleModal();
-		// 	this.closeModal();
-    	// },
+		
     }
 </script>
 
