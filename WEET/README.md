@@ -80,7 +80,9 @@
     - https://www.partow.net/
 
 15. scout 검색 기능
+    - 초기 설정자 및 작업자 공통 설정 필요 O
     - composer require laravel/scout
+    - 초기 설정자 제외 하단 설정 필요 X
     - php artisan vendor:publish --provider="Laravel\Scout\ScoutServiceProvider"
     - config > scout.php 45줄 'queue' => env('SCOUT_QUEUE', true),
     - composer require algolia/algoliasearch-client-php
@@ -90,5 +92,5 @@
     - php artisan scout:flush "App\Models\Airport"
     - 참고 : https://laravel.com/docs/11.x/scout#introduction
 
-16. debounce 사용 위하여 Lodash 라이브러리 설치
+16. debounce 사용 목적 Lodash 라이브러리 설치
     - npm install lodash
