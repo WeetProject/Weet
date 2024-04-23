@@ -29,12 +29,18 @@ import { ko, th } from 'date-fns/locale';
 export default {
 	props: ['takeFlg','takeDate'],
 	name:'MyCalendarComponent',
+	data() {
+		return {
+			dataFormat:new Date(),
+		}
+	},
 	mounted() {
-		if(this.takeDate === '0000년00월00일(요일)'){
+		if(this.takeDate === '날짜를 선택해주세요'){
 			var date = new Date;
 		}else{
 			const DateFormat = this.takeDate.replace(/(\d+)년(\d+)월(\d+)일.*/, '$1-$2-$3');
-			date = parse(DateFormat, 'yyyy-MM-dd', new Date());
+			this.dataFormat = parse(DateFormat, 'yyyy-MM-dd', new Date());
+			date = this.dataFormat;
 		}
 		let currYear = date.getFullYear(),
 			currMonth = date.getMonth();
@@ -68,12 +74,17 @@ export default {
 				liTag += `<li class = "inactive B${lastDateofLastMonth - i + 1}">${lastDateofLastMonth - i + 1}</li>`;
 			}
 			for (let i = 1; i <= lastDateofMonth; i++) {
-				liTag += `<li class="N${i}">${i}</li>`;
+				let isToday =
+				i === this.dataFormat.getDate() &&
+				currMonth === this.dataFormat.getMonth() &&
+				currYear === this.dataFormat.getFullYear()
+					? 'active'
+					: '';
+				liTag += `<li class="${isToday} N${i}">${i}</li>`;
 			}
 			for (let i = lastDayofMonth; i < 6; i++) {
 				liTag += `<li class = "inactive A${i - lastDayofMonth + 1}">${i - lastDayofMonth + 1}</li>`;
 			}
-		
 			daysTag.innerHTML = liTag;
 
 			Array.from(daysTag.children).forEach((child) => {	

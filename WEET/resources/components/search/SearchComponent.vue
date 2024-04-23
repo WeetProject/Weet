@@ -70,8 +70,8 @@ export default {
         return {
             pageflg:0,
             calFlg:0,
-            departureDate:'0000년00월00일(요일)',
-            arrivalDate:'0000년00월00일(요일)',
+            departureDate:'날짜를 선택해주세요',
+            arrivalDate:'날짜를 선택해주세요',
         }   
     },
     methods: {
@@ -96,6 +96,7 @@ export default {
             }else{
                 this.arrivalDate=data
             }
+            this.calFlg = 0;
         }
     },
 }
