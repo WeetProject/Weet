@@ -123,9 +123,11 @@ export default {
 			this.startingPointQuery = event.target.value;
 			if (!this.startingPointQuery) {
 				this.startingPointQuerySuggestion = null;
-			}
-			else {
-				this.algoliaStartingPointQuery();
+				this.startingPointFlg = false;
+			} else {
+				if (!this.startingPointFlg) {
+					this.algoliaStartingPointQuery();
+				}
 			}
 		},
 
@@ -138,34 +140,38 @@ export default {
 
 		// 출발지 연관 검색어 송수신
 		algoliaStartingPointQuery: debounce(function() {
-			const URL = '/search-startingpoint';
-			const query = this.startingPointQuery;
-			const previousResult = this.previousSearchResults.find(result => result.query === query);
-			
-			// 이전 검색 결과 존재 시
-			if (previousResult) {
-				// 이전 검색 결과 사용
-				this.startingPointQuerySuggestion = previousResult.data;
-			} else {
-				// 이전 검색 결과 미 존재 시
-				axios.get(URL, {
-					params: {
-						query: this.startingPointQuery
-					}
-				})
-				.then(response => {
-					if(response.data.code === "SPS00") {
-						// 새 검색 결과
-						this.startingPointQuerySuggestion = response.data.startingPointQueryData;
-						console.log(this.startingPointQuerySuggestion);
-						
-						// 새 검색 결과 이전 검색 결과 추가
-						this.previousSearchResults.push({ query: query, data: response.data.startingPointQueryData });
-					}
-				})
-				.catch(error => {
-					console.error(error);
-				});         
+			if (!this.startingPointFlg) {
+				const URL = '/search-startingpoint';
+				const query = this.startingPointQuery;
+				const previousResult = this.previousSearchResults.find(result => result.query === query);
+				
+				// 이전 검색 결과 존재 시
+				if (previousResult) {
+					// 이전 검색 결과 사용
+					this.startingPointQuerySuggestion = previousResult.data;
+				} else {
+					// 이전 검색 결과 미 존재 시
+					axios.get(URL, {
+						params: {
+							query: this.startingPointQuery
+						}
+					})
+					.then(response => {
+						if(response.data.code === "SPS00") {
+							// 새 검색 결과
+							this.startingPointQuerySuggestion = response.data.startingPointQueryData;
+							
+							// 새 검색 결과 이전 검색 결과 추가
+							this.previousSearchResults.push({ query: query, data: response.data.startingPointQueryData });
+						}
+					})
+					.catch(error => {
+						console.error(error);
+					})
+					.finally(() => {
+						this.startingPointFlg = true;
+					});         
+				}
 			}
 		}, 500),
 
@@ -174,9 +180,11 @@ export default {
 			this.destinationQuery = event.target.value;
 			if (!this.destinationQuery) {
 				this.destinationSuggestion = null;
-			}
-			else {
-				this.algoliaDestinationQuery();
+				this.destinationFlg = false;
+			} else {
+				if (!this.destinationFlg) {
+					this.algoliaDestinationQuery();
+				}
 			}
 		},
 
@@ -189,40 +197,40 @@ export default {
 
 		// 도착지 연관 검색어 송수신
 		algoliaDestinationQuery: debounce(function() {
-			const URL = '/search-destination';
-			const query = this.destinationQuery;
-			const previousResult = this.previousSearchResults.find(result => result.query === query);
-				
-			// 이전 검색 결과가 존재 시
-			if (previousResult) {
-				// 이전 검색 결과 사용
-				this.destinationSuggestion = previousResult.data;
-			} else {
-				// 이전 검색 결과 미 존재 시
-				axios.get(URL, {
-					params: {
-						query: this.destinationQuery
-					}
-				})
-				.then(response => {
-					if(response.data.code === "DS00") {
-						// 새 검색 결과
-						this.destinationSuggestion = response.data.destinationQueryData;
-						console.log(this.destinationSuggestion);
-						
-						// 새 검색 결과 이전 검색 결과 추가
-						this.previousSearchResults.push({ query: query, data: response.data.destinationQueryData });
-					}
-				})
-				.catch(error => {
-					console.error(error);
-				});  
+			if (!this.destinationFlg) {
+				const URL = '/search-destination';
+				const query = this.destinationQuery;
+				const previousResult = this.previousSearchResults.find(result => result.query === query);
+					
+				// 이전 검색 결과가 존재 시
+				if (previousResult) {
+					// 이전 검색 결과 사용
+					this.destinationSuggestion = previousResult.data;
+				} else {
+					// 이전 검색 결과 미 존재 시
+					axios.get(URL, {
+						params: {
+							query: this.destinationQuery
+						}
+					})
+					.then(response => {
+						if(response.data.code === "DS00") {
+							// 새 검색 결과
+							this.destinationSuggestion = response.data.destinationQueryData;
+							
+							// 새 검색 결과 이전 검색 결과 추가
+							this.previousSearchResults.push({ query: query, data: response.data.destinationQueryData });
+						}
+					})
+					.catch(error => {
+						console.error(error);
+					})
+					.finally(() => {
+						this.destinationFlg = true;
+					});
+				}
 			}
 		}, 500),
-			
-			
-
-		
 	}
 }
 </script>
