@@ -12,10 +12,6 @@ button {
   padding: 0;
   cursor: pointer;
 }
-.my_calendar{
-    position: absolute;
-    margin: 0 auto;
-}
     .wrapper {
         position: absolute;
         z-index: 10;
@@ -23,8 +19,8 @@ button {
         background: #fff;
         border-radius: 10px;
         padding: 25px;
+        box-shadow: -1px 0px 96px -4px $main-font-color;
       }
-       
       /*#6*/
       .wrapper .nav {
         display: flex;

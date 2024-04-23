@@ -1,11 +1,10 @@
 <template lang="">
-<div class='my_calendar'>
 	<div class="wrapper">
 		<header>
 			<div class="nav">
-				<button class="material-icons" id='calendar_prev'> < </button>
+				<button class="material-icons" id='calendar_prev' ref="calendarLeft"> < </button>
 				<p class="current-date">test</p>
-				<button class="material-icons"> > </button>
+				<button class="material-icons" ref="calendarRight"> > </button>
 			</div>
 		</header>
 		<div class="calendar">
@@ -22,15 +21,21 @@
 			</ul>
 		</div>
 	</div>
-</div>
 </template>
 <script>
+import { format,parse } from 'date-fns';
+import { ko, th } from 'date-fns/locale';
 
 export default {
+	props: ['takeFlg','takeDate'],
 	name:'MyCalendarComponent',
-	
 	mounted() {
-		let date = new Date();
+		if(this.takeDate === '0000년00월00일(요일)'){
+			var date = new Date;
+		}else{
+			const DateFormat = this.takeDate.replace(/(\d+)년(\d+)월(\d+)일.*/, '$1-$2-$3');
+			date = parse(DateFormat, 'yyyy-MM-dd', new Date());
+		}
 		let currYear = date.getFullYear(),
 			currMonth = date.getMonth();
 		const months = [
@@ -98,8 +103,15 @@ export default {
 				if(laststr < 10){
 					laststr = '0'+laststr
 				}	
-				this.date = `${lastyear}/${lastMonth}/${laststr}`
-				console.log(this.date)
+				if(this.takeFlg===0){
+					this.newDepartureDate = `${lastyear}/${lastMonth}/${laststr}`
+					const data = format(this.newDepartureDate, "yyyy년MM월dd일(E)", { locale: ko })
+					this.$emit('send_data',data);
+				}else{
+					this.newArrivalDate = `${lastyear}/${lastMonth}/${laststr}`
+					const data = format(this.newArrivalDate, "yyyy년MM월dd일(E)", { locale: ko })
+					this.$emit('send_data',data);
+				}
 			});
 		});
 		};
@@ -118,11 +130,6 @@ export default {
 				renderCalendar();
 			});
 		});
-	},
-	data() {
-		return {
-			date:'',
-		}
 	},
 }
 

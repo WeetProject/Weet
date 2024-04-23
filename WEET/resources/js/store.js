@@ -39,6 +39,7 @@ const store = createStore({
             adminSelectOption: '0', // 0 : 최신 등록 순, 1 : 권한 순
             adminCurrentPage: 1,
             adminLastPage: '',
+            searchDate:'',
         }
     },
 
