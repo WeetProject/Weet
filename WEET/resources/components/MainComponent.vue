@@ -12,7 +12,7 @@
 							maxlength="15" @input="handleStartingPointInput">
 							<!-- 연관 검색어 출력부분 -->
 							<ul v-if="startingPointQuerySuggestion && startingPointQuery.length">
-								<li v-for="suggestion in startingPointQuerySuggestion" :key="suggestion">
+								<li v-for="suggestion in startingPointQuerySuggestion" :key="suggestion" @click="applySuggestionStartingPointInput(suggestion)">
 									<span>{{ suggestion.airport_kr_city_name }}({{ suggestion.airport_city_name }})</span>
 								</li>
 							</ul>
@@ -22,7 +22,13 @@
 							<input class="main_select_ticket_destination_area_input" type="text" 
 							name="destination_input" id="destination_input" v-model="destinationQuery"
 							autocomplete="off" spellcheck="false" placeholder="도착지"
-							maxlength="15">
+							maxlength="15" @input="handleDestinationInput">
+							<!-- 연관 검색어 출력부분 -->
+							<ul v-if="destinationSuggestion && destinationQuery.length">
+								<li v-for="suggestion in destinationSuggestion" :key="suggestion" @click="applySuggestionDestinationInput(suggestion)">
+									<span>{{ suggestion.airport_kr_city_name }}({{ suggestion.airport_city_name }})</span>
+								</li>
+							</ul>
 						</div>
 					</div>
 					<div class="main_select_ticket_flex_first_middle">
@@ -104,12 +110,15 @@ export default {
 			previousSearchResults: [],
 			startingPointQuery: '',
 			startingPointQuerySuggestion: [],
+			startingPointFlg: false,
 			destinationQuery: '',
 			destinationSuggestion: [],
+			destinationFlg: false,
 		}
 	},
 
 	methods: {
+		// 출발지 검색어 저장
 		handleStartingPointInput(event) {
 			this.startingPointQuery = event.target.value;
 			if (!this.startingPointQuery) {
@@ -120,18 +129,25 @@ export default {
 			}
 		},
 
+		// 출발지 연관검색어 클릭 후 input 삽입
+		applySuggestionStartingPointInput(suggestion) {
+			this.startingPointQuery = suggestion.airport_kr_city_name + '(' + suggestion.airport_city_name + ')';
+			this.startingPointQuerySuggestion = null;
+			this.startingPointFlg = true;
+		},
+
 		// 출발지 연관 검색어 송수신
 		algoliaStartingPointQuery: debounce(function() {
 			const URL = '/search-startingpoint';
 			const query = this.startingPointQuery;
 			const previousResult = this.previousSearchResults.find(result => result.query === query);
 			
-			// 이전 검색 결과가 존재할 때
+			// 이전 검색 결과 존재 시
 			if (previousResult) {
-				// 이전 검색 결과를 사용
+				// 이전 검색 결과 사용
 				this.startingPointQuerySuggestion = previousResult.data;
 			} else {
-				// 이전 검색 결과가 존재하지 않을 때
+				// 이전 검색 결과 미 존재 시
 				axios.get(URL, {
 					params: {
 						query: this.startingPointQuery
@@ -139,11 +155,11 @@ export default {
 				})
 				.then(response => {
 					if(response.data.code === "SPS00") {
-						// 새로운 검색 결과를 받아옴
+						// 새 검색 결과
 						this.startingPointQuerySuggestion = response.data.startingPointQueryData;
 						console.log(this.startingPointQuerySuggestion);
 						
-						// 새로운 검색 결과를 이전 검색 결과에 추가
+						// 새 검색 결과 이전 검색 결과 추가
 						this.previousSearchResults.push({ query: query, data: response.data.startingPointQueryData });
 					}
 				})
@@ -151,23 +167,62 @@ export default {
 					console.error(error);
 				});         
 			}
-		}, 500),			
+		}, 500),
 
-		// 도착지 연관 검색어 송신
-		algoliaDestinationQuery() {
-			axios.get('/search-destination', {
-				params: {
-					query: query
-				}
-			})
-				.then(response => {
-					this.destinationSuggestion = response.data;
+		// 도착지 검색어 저장
+		handleDestinationInput(event) {
+			this.destinationQuery = event.target.value;
+			if (!this.destinationQuery) {
+				this.destinationSuggestion = null;
+			}
+			else {
+				this.algoliaDestinationQuery();
+			}
+		},
+
+		// 도착지 연관검색어 클릭 후 input 삽입
+		applySuggestionDestinationInput(suggestion) {
+			this.destinationQuery = suggestion.airport_kr_city_name + '(' + suggestion.airport_city_name + ')';
+			this.destinationSuggestion = null;
+			this.destinationFlg = true;
+		},
+
+		// 도착지 연관 검색어 송수신
+		algoliaDestinationQuery: debounce(function() {
+			const URL = '/search-destination';
+			const query = this.destinationQuery;
+			const previousResult = this.previousSearchResults.find(result => result.query === query);
+				
+			// 이전 검색 결과가 존재 시
+			if (previousResult) {
+				// 이전 검색 결과 사용
+				this.destinationSuggestion = previousResult.data;
+			} else {
+				// 이전 검색 결과 미 존재 시
+				axios.get(URL, {
+					params: {
+						query: this.destinationQuery
+					}
 				})
-
+				.then(response => {
+					if(response.data.code === "DS00") {
+						// 새 검색 결과
+						this.destinationSuggestion = response.data.destinationQueryData;
+						console.log(this.destinationSuggestion);
+						
+						// 새 검색 결과 이전 검색 결과 추가
+						this.previousSearchResults.push({ query: query, data: response.data.destinationQueryData });
+					}
+				})
 				.catch(error => {
 					console.error(error);
-				});
-		},
+				});  
+			}
+		}, 500),
+			
+			
+
+		
 	}
 }
 </script>

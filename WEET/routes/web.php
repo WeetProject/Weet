@@ -157,8 +157,8 @@ Route::prefix('admin/dashboard')->group(function() {
 // ### Algolia 검색 ###
 Route::get('/search-startingpoint', 
         [AlgoliaSearchController::class, 'startingPointSuggestion']);
-// Route::get('/search-destination', 
-//         [AlgoliaSearchController::class, 'destinationSuggestion']);
+Route::get('/search-destination', 
+        [AlgoliaSearchController::class, 'destinationSuggestion']);
 
 
 
