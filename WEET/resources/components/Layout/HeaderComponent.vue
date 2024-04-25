@@ -200,14 +200,8 @@ import store from '../../js/store.js';
         	},
 
 			loginKakao() {
-				// location.href='/login/kakao?before_url=' + window.location.pathname;
-				const URL = '/login/kakao';
-				// this.$store.dispatch('kakaoUserLoginData');
+				window.location.href = '/login/kakao';
 			},
-
-			// handleKakaoLogin() {
-
-			// }
 
     	},
 		
