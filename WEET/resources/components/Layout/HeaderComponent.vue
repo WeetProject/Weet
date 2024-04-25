@@ -153,11 +153,11 @@ import store from '../../js/store.js';
 		// DOM이 렌더링되기 직전에 호출되는 시점
 		created() {
         	this.loadUserLoginStatus();
-			this.handleKakaoLogin();
+			// this.handleKakaoLogin();
     	},
 
 		mounted() {
-			// this.loadUserLoginStatus();
+			// this.handleKakaoLogin();
 		},
 
 		methods: {
@@ -166,12 +166,6 @@ import store from '../../js/store.js';
 			toggleModal() {
 				this.$store.commit('setToggleModal');
 				this.showmodal = true;
-				// if (!this.$store.state.userLoginChk) {
-				// 	this.$store.commit('setToggleModal');
-				// 	this.showmodal = true;
-				// } else {
-				// 	this.closeModal();
-				// }
     		},
 			closeModal() {
             	this.$store.commit('setCloseModal'); // 모달을 닫는 메서드
@@ -206,24 +200,14 @@ import store from '../../js/store.js';
         	},
 
 			loginKakao() {
-
-				location.href='/login/kakao?before_url=' + window.location.pathname;
-				// location.href='/kakaologin?before_url=' + window.location.pathname;
-				
+				// location.href='/login/kakao?before_url=' + window.location.pathname;
+				const URL = '/login/kakao';
+				// this.$store.dispatch('kakaoUserLoginData');
 			},
 
-			handleKakaoLogin() {
-			// kakaoUserLoginData 액션 디스패치
-			this.$store.dispatch('kakaoUserLoginData')
-				.then(() => {
-					// 로그인 성공 시 처리할 내용
-					console.log('카카오 로그인 성공!');
-				})
-				.catch(error => {
-					// 로그인 실패 시 처리할 내용
-					console.error('카카오 로그인 실패:', error);
-				});
-			}
+			// handleKakaoLogin() {
+
+			// }
 
     	},
 		

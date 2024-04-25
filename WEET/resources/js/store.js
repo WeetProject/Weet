@@ -88,16 +88,12 @@ const store = createStore({
                 userLoginChk: data.controllerToken
             };
 
-            state.kakaoUserEmail = data.kakaoUserEmail;
-            state.kakaoToken = data.kakaoToken;
-
             localStorage.setItem('setUserID', data.userData.user_id);
             localStorage.setItem('setToken', data.token);
             localStorage.setItem('setUserLoginChk', data.controllerToken);
             localStorage.setItem('setUserData', data.userData);
-            localStorage.setItem('setKakaoUserData', data.kakaoUserEmail);
             // localStorage.setItem('setKakaoToken', data.kakaoToken);
-            localStorage.setItem('setKakaoUserData', JSON.stringify(data.kakaoUserEmail));
+            // localStorage.setItem('setKakaoUserData', JSON.stringify(data.kakaoUserEmail));
 
             // 로컬스토리지의 정보 삭제부분(시간설정)
             setTimeout(function() {
@@ -248,20 +244,9 @@ const store = createStore({
                     // console.log(userData);
                     localStorage.setItem('setUserData', JSON.stringify(userData));
 					localStorage.setItem('setToken', token);
-					// localStorage.setItem('setUserID', userID);
 					localStorage.setItem('setUserLoginChk', res.data.controllerToken);
 					localStorage.setItem('setSaveToLocalStorage', res.data);
 					localStorage.setItem('setUserID', userID);
-
-                    // 카카오 로그인 정보 저장
-                    if (res.data.kakaoUserEmail && res.data.kakaoToken) {
-                        console.log(res.data);
-                        context.commit('setKakaoUserData', res.data.kakaoUserEmail);
-                        context.commit('setKakaoToken', res.data.kakaoToken);
-
-                        localStorage.setItem('setKakaoUserData', res.data.kakaoUserEmail);
-                        localStorage.setItem('setKakaoToken', res.data.kakaoToken);
-                    }
 
                     alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
                     router.push('/');
@@ -277,35 +262,6 @@ const store = createStore({
                 alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
             });
         },
-
-        // kakaoUserLoginData(context, data) {
-        //     const url = '/auth/kakaocallback';
-        //     const header = {
-        //         header: {
-        //             "Content-Type": 'application/json',
-        //         }
-        //     };
-        //     const requestData = {
-        //         kakaoUserEmail: data.kakaoUserEmail,
-        //         kakaoToken: data.kakaoToken,
-        //     };
-
-        //     axios.post(url, header, requestData)
-        //         .then(res => {
-        //             context.dispatch('closeLoginModal');
-        //             console.log("레스", res);
-
-        //             const token = res.data.kakaoToken;
-        //             const kakaoEmail = res.data.kakaoUserEmail;
-
-        //             if(res.data.success) {
-        //                 context.commit('setKakaoToken', token);
-        //             }
-        //         })
-        //         .catch(err => {
-
-        //         })
-        // },
 
         // 유저 logout
         logout(context, data) {
@@ -349,14 +305,16 @@ const store = createStore({
 
         //카카오 유저 로그인 데이터 수신
         kakaoUserLoginData({ commit }) {
-			const URL = '/auth/kakaocallback';            
-			// const URL = '/login/kakao';            
+            console.log('함수실행');
+			const URL = '/auth/kakaocallback';        
 			axios.post(URL)
                 .then(res => {                  
-                    console.log('레스', res);
+                    console.log('레스', res.data);
                     
                     const kakaoToken = res.data.kakaoToken;
                     const kakaoEmail = res.data.kakaoUserEmail;
+                    console.log('토큰', kakaoToken);
+                    console.log('이메일', kakaoEmail);
 
                     if (res.data.code === "KLI00" || res.data.code === "KLI01") {
                         commit('setKakaoToken', kakaoToken);
@@ -368,7 +326,7 @@ const store = createStore({
                     }
                 })
                 .catch(error => {
-                    console.error(error);
+                    console.error("에러");
                 });
 		},
 
