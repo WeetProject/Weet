@@ -6,11 +6,29 @@
 					<div class="main_select_ticket_flex_first_top">
 						<div class="main_select_ticket_border main_select_ticket_starting_point_area">
 							<p class="text-base font-semibold text-left main_select_ticket_title">출발지</p>
-							<p class="text-sm text-left main_select_ticket_content">부산 김해</p>
+							<input class="main_select_ticket_starting_point_area" type="text" 
+							name="starting_point_input" id="starting_point_input" v-model="startingPointQuery"
+							autocomplete="off" spellcheck="false" placeholder="출발지"
+							maxlength="15" @input="handleStartingPointInput">
+							<!-- 연관 검색어 출력부분 -->
+							<ul v-if="startingPointQuerySuggestion && startingPointQuery.length">
+								<li v-for="suggestion in startingPointQuerySuggestion" :key="suggestion" @click="applySuggestionStartingPointInput(suggestion)">
+									<span>{{ suggestion.airport_kr_city_name }}({{ suggestion.airport_city_name }})</span>
+								</li>
+							</ul>
 						</div>
 						<div class="main_select_ticket_border main_select_ticket_destination_area">
 							<p class="text-base font-semibold text-left main_select_ticket_title">도착지</p>
-							<p class="text-sm text-left main_select_ticket_content">일본 도쿄</p>
+							<input class="main_select_ticket_destination_area_input" type="text" 
+							name="destination_input" id="destination_input" v-model="destinationQuery"
+							autocomplete="off" spellcheck="false" placeholder="도착지"
+							maxlength="15" @input="handleDestinationInput">
+							<!-- 연관 검색어 출력부분 -->
+							<ul v-if="destinationSuggestion && destinationQuery.length">
+								<li v-for="suggestion in destinationSuggestion" :key="suggestion" @click="applySuggestionDestinationInput(suggestion)">
+									<span>{{ suggestion.airport_kr_city_name }}({{ suggestion.airport_city_name }})</span>
+								</li>
+							</ul>
 						</div>
 					</div>
 					<div class="main_select_ticket_flex_first_middle">
@@ -82,14 +100,137 @@
 
 <script >
 import axios from 'axios';
+import { debounce } from 'lodash';
 
 export default {
 	name: 'MainComponent',
 
 	data() {
 		return {
-
+			previousSearchResults: [],
+			startingPointQuery: '',
+			startingPointQuerySuggestion: [],
+			startingPointFlg: false,
+			destinationQuery: '',
+			destinationSuggestion: [],
+			destinationFlg: false,
 		}
+	},
+
+	methods: {
+		// 출발지 검색어 저장
+		handleStartingPointInput(event) {
+			this.startingPointQuery = event.target.value;
+			if (!this.startingPointQuery) {
+				this.startingPointQuerySuggestion = null;
+				this.startingPointFlg = false;
+			} else {
+				if (!this.startingPointFlg) {
+					this.algoliaStartingPointQuery();
+				}
+			}
+		},
+
+		// 출발지 연관검색어 클릭 후 input 삽입
+		applySuggestionStartingPointInput(suggestion) {
+			this.startingPointQuery = suggestion.airport_kr_city_name + '(' + suggestion.airport_city_name + ')';
+			this.startingPointQuerySuggestion = null;
+			this.startingPointFlg = true;
+		},
+
+		// 출발지 연관 검색어 송수신
+		algoliaStartingPointQuery: debounce(function() {
+			if (!this.startingPointFlg) {
+				const URL = '/search-startingpoint';
+				const query = this.startingPointQuery;
+				const previousResult = this.previousSearchResults.find(result => result.query === query);
+				
+				// 이전 검색 결과 존재 시
+				if (previousResult) {
+					// 이전 검색 결과 사용
+					this.startingPointQuerySuggestion = previousResult.data;
+				} else {
+					// 이전 검색 결과 미 존재 시
+					axios.get(URL, {
+						params: {
+							query: this.startingPointQuery
+						}
+					})
+					.then(response => {
+						if(response.data.code === "SPS00") {
+							// 새 검색 결과
+							this.startingPointQuerySuggestion = response.data.startingPointQueryData;
+							
+							// 새 검색 결과 이전 검색 결과 추가
+							this.previousSearchResults.push({ query: query, data: response.data.startingPointQueryData });
+						}
+					})
+					.catch(error => {
+						console.error(error);
+					})
+					.finally(() => {
+						this.startingPointFlg = true;
+					});         
+				}
+			}
+		}, 500),
+
+		// 도착지 검색어 저장
+		handleDestinationInput(event) {
+			this.destinationQuery = event.target.value;
+			if (!this.destinationQuery) {
+				this.destinationSuggestion = null;
+				this.destinationFlg = false;
+			} else {
+				if (!this.destinationFlg) {
+					this.algoliaDestinationQuery();
+				}
+			}
+		},
+
+		// 도착지 연관검색어 클릭 후 input 삽입
+		applySuggestionDestinationInput(suggestion) {
+			this.destinationQuery = suggestion.airport_kr_city_name + '(' + suggestion.airport_city_name + ')';
+			this.destinationSuggestion = null;
+			this.destinationFlg = true;
+		},
+
+		// 도착지 연관 검색어 송수신
+		algoliaDestinationQuery: debounce(function() {
+			if (!this.destinationFlg) {
+				const URL = '/search-destination';
+				const query = this.destinationQuery;
+				const previousResult = this.previousSearchResults.find(result => result.query === query);
+					
+				// 이전 검색 결과가 존재 시
+				if (previousResult) {
+					// 이전 검색 결과 사용
+					this.destinationSuggestion = previousResult.data;
+				} else {
+					// 이전 검색 결과 미 존재 시
+					axios.get(URL, {
+						params: {
+							query: this.destinationQuery
+						}
+					})
+					.then(response => {
+						if(response.data.code === "DS00") {
+							// 새 검색 결과
+							this.destinationSuggestion = response.data.destinationQueryData;
+							
+							// 새 검색 결과 이전 검색 결과 추가
+							this.previousSearchResults.push({ query: query, data: response.data.destinationQueryData });
+						}
+					})
+					.catch(error => {
+						console.error(error);
+					})
+					.finally(() => {
+						this.destinationFlg = true;
+					});
+				}
+			}
+		}, 500),
 	}
 }
 </script>
