@@ -195,9 +195,8 @@ Route::middleware(['userValidation'])->group(function() {
 });
 
 // 카카오로그인
-Route::get('/login/kakao', function () {
-    return Socialite::driver('kakao')->redirect();
-});
+Route::get('/login/kakao', [SocialLoginController::class, 'kakaoLogin']);
+
 Route::get('/auth/kakaocallback', [SocialLoginController::class, 'handleKakaoCallback']);
 Route::get('/kakaologin',  function () {
     return view('welcome');

@@ -17,7 +17,11 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialLoginController extends Controller
-{
+{   
+    public function kakaoLogin() 
+    {
+        return Socialite::driver('kakao')->redirect();
+    }
     // 카카오로그인
     public function handleKakaoCallback(Request $request)
     {
