@@ -32,6 +32,9 @@ use App\Http\Controllers\AlgoliaSearchController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('/', function () {
+    return view('welcome');
+});
 
 Route::get('/test', function () {
     return view('welcome');
@@ -199,12 +202,6 @@ Route::get('/login/kakao', function () {
     return Socialite::driver('kakao')->redirect();
 });
 Route::get('/auth/kakaocallback', [SocialLoginController::class, 'handleKakaoCallback']);
-Route::get('/kakaologin',  function () {
-    return view('welcome');
-});
-Route::post('/kakaologin',  function () {
-    return view('welcome');
-});
 
 Route::get('/signup', function () {
     return view('welcome');
