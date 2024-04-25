@@ -71,8 +71,12 @@ class SocialLoginController extends Controller
         } else {
             Auth::login($result);
 
-            $kakaoToken = JWTAuth::fromUser($result);
-            Log::debug("==== 토큰생성 ====");
+            // $kakaoToken = JWTAuth::fromUser($result);
+            // Log::debug("==== 토큰생성 ====");
+            // Log::debug($kakaoToken);
+
+            // 로그인된 사용자에 대한 토큰 생성
+            $kakaoToken = Auth::user()->createToken('Kakao Token')->accessToken;
             Log::debug($kakaoToken);
 
             // 로그인 로그 찍기
@@ -82,12 +86,12 @@ class SocialLoginController extends Controller
             ]);
 
             return response()->json([
-                'message' => '사용자가 로그인되었습니다.', 
+                'code' => 'KLI01',
                 'kakaoUserEmail' => $result->user_email,
                 'kakaoToken' => $kakaoToken
             ]);
         }
 
-        return redirect('/welcome'); // 로그인 후 리디렉션할 URL
+        // return redirect('/welcome'); // 로그인 후 리디렉션할 URL
     }
 }

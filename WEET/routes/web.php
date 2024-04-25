@@ -1,5 +1,6 @@
 <?php
 
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminSignUpController;
@@ -197,9 +198,13 @@ Route::middleware(['userValidation'])->group(function() {
 Route::get('/login/kakao', function () {
     return Socialite::driver('kakao')->redirect();
 });
-// Route::get('/login/kakao', [UserController::class, 'handleKakaoCallback']);
 Route::get('/auth/kakaocallback', [SocialLoginController::class, 'handleKakaoCallback']);
-Route::post('/auth/kakaocallback', [SocialLoginController::class, 'handleKakaoCallback']);
+Route::get('/kakaologin',  function () {
+    return view('welcome');
+});
+Route::post('/kakaologin',  function () {
+    return view('welcome');
+});
 
 Route::get('/signup', function () {
     return view('welcome');

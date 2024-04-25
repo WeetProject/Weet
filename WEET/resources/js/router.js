@@ -6,7 +6,7 @@ import MypageComponent from '../components/User/MypageComponent.vue';
 import ReservationComponent from '../components/Reservation/ReservationComponent.vue';
 import SearchComponent from '../components/search/SearchComponent.vue';
 import SignUpComponent from '../components/User/SignUpComponent.vue';
-// import LoginComponent from '../components/User/LoginComponent.vue';
+// import HeaderComponent from '../components/User/HeaderComponent.vue';
 
 // ### Admin ###
 // Admin Layout
@@ -41,6 +41,15 @@ const routes = [
 		path: '/main',
 		component: MainComponent
 	},
+	// 카카오 로그인 콜백 URL 설정
+	// {
+	// 	path: 'kakaologin',
+	// 	redirect: '/', // 카카오 로그인 후에 메인 페이지로 리디렉션합니다.
+	// },
+	// {
+	// 	path: '/login/kakao',
+	// 	redirect: '/', // 카카오 로그인 후에 메인 페이지로 리디렉션합니다.
+	// },
 	{
 		path: '/test',
 		component: TestComponent

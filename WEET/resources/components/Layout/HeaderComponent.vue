@@ -153,7 +153,7 @@ import store from '../../js/store.js';
 		// DOM이 렌더링되기 직전에 호출되는 시점
 		created() {
         	this.loadUserLoginStatus();
-			// this.kakaoUserLoginData();
+			this.handleKakaoLogin();
     	},
 
 		mounted() {
@@ -208,20 +208,22 @@ import store from '../../js/store.js';
 			loginKakao() {
 
 				location.href='/login/kakao?before_url=' + window.location.pathname;
-
-				// this.$store.dispatch('kakaoUserLoginData', this.frmKakaoLoginData);
-				// this.showmodal = false;
-
-				// // 현재 URL을 저장
-				// const beforeUrl = window.location.pathname;
-
-				// // Vuex 상태를 업데이트
-				// this.$store.commit('setBeforeUrl', beforeUrl);
-
-				// this.$store.dispatch('kakaoUserLoginData', this.frmKakaoLoginData);
-				// // 모달 닫기
-				// this.showmodal = false;
+				// location.href='/kakaologin?before_url=' + window.location.pathname;
+				
 			},
+
+			handleKakaoLogin() {
+			// kakaoUserLoginData 액션 디스패치
+			this.$store.dispatch('kakaoUserLoginData')
+				.then(() => {
+					// 로그인 성공 시 처리할 내용
+					console.log('카카오 로그인 성공!');
+				})
+				.catch(error => {
+					// 로그인 실패 시 처리할 내용
+					console.error('카카오 로그인 실패:', error);
+				});
+			}
 
     	},
 		

@@ -96,7 +96,8 @@ const store = createStore({
             localStorage.setItem('setUserLoginChk', data.controllerToken);
             localStorage.setItem('setUserData', data.userData);
             localStorage.setItem('setKakaoUserData', data.kakaoUserEmail);
-            localStorage.setItem('setKakaoToken', data.kakaoToken);
+            // localStorage.setItem('setKakaoToken', data.kakaoToken);
+            localStorage.setItem('setKakaoUserData', JSON.stringify(data.kakaoUserEmail));
 
             // 로컬스토리지의 정보 삭제부분(시간설정)
             setTimeout(function() {
@@ -299,7 +300,6 @@ const store = createStore({
 
         //             if(res.data.success) {
         //                 context.commit('setKakaoToken', token);
-        //                 context.commit('setKakaoToken', token);
         //             }
         //         })
         //         .catch(err => {
@@ -358,12 +358,11 @@ const store = createStore({
                     const kakaoToken = res.data.kakaoToken;
                     const kakaoEmail = res.data.kakaoUserEmail;
 
-                    if (res.data.code === "KLI00") {
+                    if (res.data.code === "KLI00" || res.data.code === "KLI01") {
                         commit('setKakaoToken', kakaoToken);
                         commit('setKakaoUserData', kakaoEmail);
-
                         alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
-                        router.push('/');                        
+                        router.push('/'); 
                     } else {
                         alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
                     }
