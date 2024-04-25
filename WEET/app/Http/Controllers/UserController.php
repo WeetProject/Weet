@@ -167,8 +167,8 @@ class UserController extends Controller
 
             // 현재 사용자의 토큰 가져오기
             $token = JWTAuth::getToken();
-            Log::debug("토큰오나");
-            Log::debug($token);
+            // Log::debug("토큰오나");
+            // Log::debug($token);
             
             if (!$token) {
                 // 토큰이 없으면 에러 반환
@@ -177,7 +177,7 @@ class UserController extends Controller
             
             // 토큰을 블랙리스트에 추가하여 무효화
             JWTAuth::invalidate($token);
-            Log::debug($token);
+            // Log::debug($token);
 
             // 로그아웃 처리
             Auth::logout();

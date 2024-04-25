@@ -51,8 +51,8 @@ const store = createStore({
         setCloseModal(state) {
             state.showmodal = false;
         },
-        // loginSuccess(state) {
-        //     state.isLoggedIn = true;
+        // setBeforeUrl(state, beforeUrl) {
+        //     state.beforeUrl = beforeUrl;
         // },
 		
         // 로그인 시 유저 데이터
@@ -88,13 +88,14 @@ const store = createStore({
             };
 
             state.kakaoUserEmail = data.kakaoUserEmail;
-            // state.kakaoToken = data.kakaoToken;
+            state.kakaoToken = data.kakaoToken;
 
             localStorage.setItem('setUserID', data.userData.user_id);
             localStorage.setItem('setToken', data.token);
             localStorage.setItem('setUserLoginChk', data.controllerToken);
             localStorage.setItem('setUserData', data.userData);
             localStorage.setItem('setKakaoUserData', data.kakaoUserEmail);
+            localStorage.setItem('setKakaoToken', data.kakaoToken);
 
             // 로컬스토리지의 정보 삭제부분(시간설정)
             setTimeout(function() {
@@ -223,43 +224,42 @@ const store = createStore({
                 context.dispatch('closeLoginModal');
                 // console.log("레스", res);
                 // console.log(requestData);
-                
-				const token = res.data.token;
-                const userData = res.data.userData;
-                const userID = res.data.userData.user_id;
 				// const decoded = jwtDecode(token);
 				
-				// console.log("토큰",token);
-				// console.log("유저데이터",userData);
-				// console.log("유저아이디",userID);
-				// console.log("유저데이터", res.data.userData);
 
                 if (res.data.success) {
+
+                    const token = res.data.token;
+                    const userData = res.data.userData;
+                    const userID = res.data.userData.user_id;
+
                     context.commit('setSaveToLocalStorage', res.data);
                     context.commit('setUserData', userData);
                     context.commit('setUserLoginChk', res.data.controllerToken);
                     context.commit('setUserID', userID);
                     context.commit('setToken', token);
-
-                    // const loginUserData = res.data.userData.userID;
-                    // console.log("레스.데이터", res.data);
-                    // console.log("유저체크", res.data.controllerToken);
-                    console.log(userID);
-                    console.log("유저데이터",userData);
+                    // console.log(userID);
+                    // console.log("유저데이터",userData);
 					
                     localStorage.setItem('setUserData', userData);
                     // console.log(userID);
-                    console.log(userData);
-					// localStorage.setItem('loginUser', userId);
-					// localStorage.setItem('loginUserId', res.data.userId);
-					// localStorage.setItem('loginUserEmail', res.data.userEmail);
-					// localStorage.setItem('setUserData', userData);
+                    // console.log(userData);
                     localStorage.setItem('setUserData', JSON.stringify(userData));
 					localStorage.setItem('setToken', token);
-					localStorage.setItem('setUserID', userID);
+					// localStorage.setItem('setUserID', userID);
 					localStorage.setItem('setUserLoginChk', res.data.controllerToken);
 					localStorage.setItem('setSaveToLocalStorage', res.data);
 					localStorage.setItem('setUserID', userID);
+
+                    // 카카오 로그인 정보 저장
+                    if (res.data.kakaoUserEmail && res.data.kakaoToken) {
+                        console.log(res.data);
+                        context.commit('setKakaoUserData', res.data.kakaoUserEmail);
+                        context.commit('setKakaoToken', res.data.kakaoToken);
+
+                        localStorage.setItem('setKakaoUserData', res.data.kakaoUserEmail);
+                        localStorage.setItem('setKakaoToken', res.data.kakaoToken);
+                    }
 
                     alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
                     router.push('/');
@@ -346,11 +346,11 @@ const store = createStore({
             });
         },
 
-        // 카카오 유저 로그인 데이터 수신
+        //카카오 유저 로그인 데이터 수신
         kakaoUserLoginData({ commit }) {
-			// const URL = '/auth/kakaocallback';            
-			const URL = '/login/kakao';            
-			axios.get(URL)
+			const URL = '/auth/kakaocallback';            
+			// const URL = '/login/kakao';            
+			axios.post(URL)
                 .then(res => {                  
                     console.log('레스', res);
                     

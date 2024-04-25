@@ -16,7 +16,6 @@
 					</button>
 					<div class="header_nav_login_btn">
 						<div v-if="!$store.state.token" class="header_nav_login_btn_user">
-							
 							<button @click="toggleModal">login</button>
 							<!-- <LoginComponent v-if="showmodal" @closeModal="closemodal" /> -->
 							<!-- <a href="/login">login</a> -->
@@ -136,10 +135,12 @@ import store from '../../js/store.js';
                 	userEmail: '',
                 	userPassword: '',
             	},
-				frmKakaoLoginData: {
-					userEmail: '',
-					userToken: '',
-				}
+				// frmKakaoLoginData: {
+				// 	kakaoUserEmail: '',
+				// 	kakaoToken: '',
+				// },
+				kakaoUserEmail: '',
+				kakaoToken: '',
             }
 	    },
 
@@ -207,24 +208,20 @@ import store from '../../js/store.js';
 			loginKakao() {
 
 				location.href='/login/kakao?before_url=' + window.location.pathname;
-			},
 
-			// kakaoUserLoginData() {
-				// axios.get('/auth/kakaocallback')
-				// 	.then(response => {
-				// 		// 받은 사용자 정보를 처리
-				// 		console.log(response.data);
-				// 		// 필요한 처리를 수행
-				// 	})
-				// 	.catch(error => {
-				// 		console.error('Kakao 로그인 처리 중 에러 발생:', error);
-				// 	});
-				// if(this.isUserLoggedIn()) {
-				// 	this.$router.push('/');
-				// }
-			// 	this.$store.dispatch('kakaoUserLoginData', this.frmKakaoLoginData);
-			// 	this.showmodal = false;
-			// },
+				// this.$store.dispatch('kakaoUserLoginData', this.frmKakaoLoginData);
+				// this.showmodal = false;
+
+				// // 현재 URL을 저장
+				// const beforeUrl = window.location.pathname;
+
+				// // Vuex 상태를 업데이트
+				// this.$store.commit('setBeforeUrl', beforeUrl);
+
+				// this.$store.dispatch('kakaoUserLoginData', this.frmKakaoLoginData);
+				// // 모달 닫기
+				// this.showmodal = false;
+			},
 
     	},
 		

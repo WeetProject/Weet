@@ -21,6 +21,10 @@ class SocialLoginController extends Controller
     // 카카오로그인
     public function handleKakaoCallback(Request $request)
     {
+        // POST 요청에서 전달된 데이터 가져오기
+        // $kakaoToken = $request->input('kakaoToken');
+        // $kakaoEmail = $request->input('kakaoUserEmail');
+
         // 카카오서버에 유저 있는지 확인하고 변수에 담기
         // 실제 운영에서는 보안을 위해 사용하지 않는 것이 좋다고 함.
         // 해석 : 카카오 서비스로부터 사용자 정보를 가져오는 코드
