@@ -145,7 +145,7 @@ import store from '../../js/store.js';
 	    },
 
 		computed: {
-			
+
 		},
 
 		// 로컬스토리지에 유저정보 저장

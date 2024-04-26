@@ -13,7 +13,7 @@ const store = createStore({
             userData: null,
             userLoginChk: null,
             userID: null,
-            kakaoToken: '',
+            jwtToken: '',
             kakaoUserEmail: '',
 
             // ### Admin ###
@@ -104,8 +104,8 @@ const store = createStore({
         setToken(state, token) {
             state.token = token;
         },
-        setKakaoToken(state, kakaoToken) {
-            state.kakaoToken = kakaoToken;
+        setKakaoToken(state, jwtToken) {
+            state.jwtToken = jwtToken;
         },
 
 
@@ -306,12 +306,17 @@ const store = createStore({
         //카카오 유저 로그인 데이터 수신
         kakaoUserLoginData({ commit }) {
             console.log('함수실행');
-			const URL = '/auth/kakaocallback';        
-			axios.post(URL)
+			const URL = '/login/kakao/callback';
+            // const header = {
+            //     header: {
+            //         "Content-type": 'application/x-www-form-urlencoded;charset=utf-8'
+            //     }    
+            // };       
+			axios.get(URL)
                 .then(res => {                  
                     console.log('레스', res.data);
                     
-                    const kakaoToken = res.data.kakaoToken;
+                    const jwtToken = res.data.jwtToken;
                     const kakaoEmail = res.data.kakaoUserEmail;
                     console.log('토큰', kakaoToken);
                     console.log('이메일', kakaoEmail);
