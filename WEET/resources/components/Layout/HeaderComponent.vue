@@ -156,8 +156,7 @@ import store from '../../js/store.js';
 			// this.handleKakaoLogin();
     	},
 
-		mounted() {
-			// this.handleKakaoLogin();
+		mounted() {			
 		},
 
 		methods: {
@@ -201,8 +200,9 @@ import store from '../../js/store.js';
 
 			loginKakao() {
 				window.location.href = '/login/kakao';
+				this.$store.dispatch('kakaoUserLoginData');		
 			},
-
+			
     	},
 		
     }

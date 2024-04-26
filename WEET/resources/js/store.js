@@ -303,29 +303,30 @@ const store = createStore({
             });
         },
 
-        //카카오 유저 로그인 데이터 수신
+        // 카카오 유저 로그인 데이터 수신
         kakaoUserLoginData({ commit }) {
             console.log('함수실행');
-			const URL = '/login/kakao/callback';
-            // const header = {
-            //     header: {
-            //         "Content-type": 'application/x-www-form-urlencoded;charset=utf-8'
-            //     }    
-            // };       
+			const URL = '/kakao'
 			axios.get(URL)
-                .then(res => {                  
-                    console.log('레스', res.data);
+                .then(response => {          
+                    console.log(response.data.kakaoData);
                     
-                    const jwtToken = res.data.jwtToken;
-                    const kakaoEmail = res.data.kakaoUserEmail;
-                    console.log('토큰', kakaoToken);
-                    console.log('이메일', kakaoEmail);
+                    const token = response.data.kakaoData.kakaoToken;
+                    const userID = response.data.kakaoData.kakaoUserEmail;
 
-                    if (res.data.code === "KLI00" || res.data.code === "KLI01") {
-                        commit('setKakaoToken', kakaoToken);
-                        commit('setKakaoUserData', kakaoEmail);
+                    if (response.data.kakaoData.code === "KLI00") {
+                        commit('setUserLoginChk', response.data.kakaoData.kakaoToken);
+                        commit('setToken', token);
+                        commit('setUserID', userID);
+                        
+                        // ### setUserLoginChk, setToken 동일한 토큰을 두번 저장하는 이유?
+                        localStorage.setItem('setUserLoginChk', response.data.kakaoData.kakaoToken);
+                        localStorage.setItem('setToken', token);
+                        localStorage.setItem('setUserID', userID);
+                        localStorage.setItem('setSaveToLocalStorage', response.data.kakaoData);
+
                         alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
-                        router.push('/'); 
+                        window.location.reload();
                     } else {
                         alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
                     }
