@@ -631,6 +631,11 @@ video {
 .cursor-pointer {
   cursor: pointer;
 }
+.select-text {
+  -webkit-user-select: text;
+     -moz-user-select: text;
+          user-select: text;
+}
 .resize {
   resize: both;
 }
