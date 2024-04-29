@@ -109,6 +109,7 @@ class SocialLoginController extends Controller
                 Log::debug("### 카카오 유저 전송 데이터 : " . json_encode($newKakaoData) . " ###");
                 
                 session(['newKakaoData' => $newKakaoData]);
+                Log::debug("### 세션 카카오 유저 전송 데이터 저장 ###");
             }
         } catch (\Exception $e) {
             // 예외 발생 시 로그에 기록하고 적절한 응답 반환
@@ -125,7 +126,6 @@ class SocialLoginController extends Controller
             'code' => 'KLI00',
             'kakaoToken' => $token,
             'kakaoUserEmail' => $email,
-            'message' => '카카오 로그인 성공',
         ]);
     }
 
