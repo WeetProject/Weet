@@ -1,5 +1,6 @@
 <template lang="">
     <div class="search_flight_layout">
+        <!-- 사이드바 -->
         <div class="search_flight_sidebar">
             <div class="search_flight_accordion">
                 <div class="search_flight_accordion_item">
@@ -91,7 +92,183 @@
                 <hr>
             </div>
         </div>
-        <div class="search_flight_main">2번영역</div>
+        <!-- 메인영역 -->
+        <div class="search_flight_main">
+            <!-- 추천영역 -->
+            <div class="search_flight_main_header mb-5">
+                <div class="search_flight_main_header_box cursor-pointer">
+                    <div class="font-black">추천항공</div>
+                    <div>
+                        <div>￦52,728</div>
+                        <div>0시간 58분(평균)</div>
+                    </div>
+                </div>
+                <div class="search_flight_main_header_box cursor-pointer">
+                    <div class="font-black">최저항공</div>
+                    <div>
+                        <div>￦51,728</div>
+                        <div>0시간 58분(평균)</div>
+                    </div>
+                </div>
+                <div class="search_flight_main_header_box cursor-pointer">
+                    <div class="font-black">최단시간</div>
+                    <div>
+                        <div>￦54,728</div>
+                        <div>0시간 55분(평균)</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 메인의 메인 -->
+            <div class="search_flight_main_body">
+                <div class="search_flight_main_body_haeder mb-3">
+                    <div>1024개의 검색결과</div>
+                    <div class="relative">
+                        <select class="block appearance-none bg-gray-300 px-4 py-2 pr-8 rounded-md leading-tight focus:outline-none cursor-pointer">
+                            <option>추천순</option>
+                            <option>가격순</option>
+                            <option>시간순</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-black">
+                            <svg class="fill-current h-4 w-4 transform rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M10 5l-5 10h10z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="search_flight_main_body_container">
+                    <div class="search_flight_main_body_main">
+                        <div>
+                            <div class="search_flight_main_body_main_left">
+                                <div>
+                                    <div>제주항공</div>
+                                    <div>제주항공</div>
+                                </div>
+                                <div>
+                                    <div class="search_flight_main_body_main_left_box">
+                                        <div>
+                                            <div>오전 07:55</div>
+                                            <div>PUS</div>
+                                        </div>
+                                        <div>
+                                            <div>00시간 55분</div>
+                                            <hr>
+                                            <div>직항</div>
+                                        </div>
+                                        <div>
+                                            <div>오전 08:55</div>
+                                            <div>CJU</div>
+                                        </div>
+                                    </div>
+                                    <div class="search_flight_main_body_main_left_box">
+                                        <div>
+                                            <div>오전 07:55</div>
+                                            <div>PUS</div>
+                                        </div>
+                                        <div>
+                                            <div>00시간 55분</div>
+                                            <hr>
+                                            <div>직항</div>
+                                        </div>
+                                        <div>
+                                            <div>오전 08:55</div>
+                                            <div>CJU</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center search_flight_main_body_main_right">
+                            <div>최저가</div>
+                            <div class="mb-5">￦52,728</div>
+                            <div class="flex">
+                                <div>
+                                    선택하기 
+                                </div>
+                                <span>
+                                    <svg class="h-6 w-6 text-slate-100"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="5" y1="12" x2="19" y2="12" />  <line x1="13" y1="18" x2="19" y2="12" />  <line x1="13" y1="6" x2="19" y2="12" /></svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search_flight_main_body_main">
+                        <div>
+                            <div class="search_flight_main_body_main_left">
+                                <div>
+                                    <div>제주항공</div>
+                                </div>
+                                <div>
+                                    <div class="search_flight_main_body_main_left_box">
+                                        <div>
+                                            <div>오전 07:55</div>
+                                            <div>PUS</div>
+                                        </div>
+                                        <div>
+                                            <div>00시간 55분</div>
+                                            <hr>
+                                            <div>직항</div>
+                                        </div>
+                                        <div>
+                                            <div>오전 08:55</div>
+                                            <div>CJU</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center search_flight_main_body_main_right">
+                            <div>최저가</div>
+                            <div class="mb-5">￦52,728</div>
+                            <div class="flex">
+                                <div>
+                                    선택하기 
+                                </div>
+                                <span>
+                                    <svg class="h-6 w-6 text-slate-100"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="5" y1="12" x2="19" y2="12" />  <line x1="13" y1="18" x2="19" y2="12" />  <line x1="13" y1="6" x2="19" y2="12" /></svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search_flight_main_body_main">
+                        <div>
+                            <div class="search_flight_main_body_main_left">
+                                <div>
+                                    <div>제주항공</div>
+                                </div>
+                                <div>
+                                    <div class="search_flight_main_body_main_left_box">
+                                        <div>
+                                            <div>오전 07:55</div>
+                                            <div>PUS</div>
+                                        </div>
+                                        <div>
+                                            <div>00시간 55분</div>
+                                            <hr>
+                                            <div>직항</div>
+                                        </div>
+                                        <div>
+                                            <div>오전 08:55</div>
+                                            <div>CJU</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center search_flight_main_body_main_right">
+                            <div>최저가</div>
+                            <div class="mb-5">￦52,728</div>
+                            <div class="flex">
+                                <div>
+                                    선택하기 
+                                </div>
+                                <span>
+                                    <svg class="h-6 w-6 text-slate-100"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="5" y1="12" x2="19" y2="12" />  <line x1="13" y1="18" x2="19" y2="12" />  <line x1="13" y1="6" x2="19" y2="12" /></svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
