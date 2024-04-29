@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Cache;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cookie;
 
 class SocialLoginController extends Controller
 {   
@@ -107,10 +108,25 @@ class SocialLoginController extends Controller
 
                 $newKakaoData = $this->kakaoDataSave($newToken, $kakaoUserEmail)->original;
                 Log::debug("### 카카오 유저 전송 데이터 : " . json_encode($newKakaoData) . " ###");
-                
+                                
+                // if($code) {
+                //     Log::debug($code);
+
+                //     Auth::login($kakaoUserConfirm);
+                //     Log::debug("### 카카오 가입 유저 로그인 완료 ###");
+                //     $newKakaoData = $this->kakaoDataSave($newToken, $kakaoUserEmail)->original;
+                //     Log::debug("### 카카오 유저 전송 데이터 : " . json_encode($newKakaoData) . " ###");
+                    
+                // }
+                // else {
+                //     Log::debug("### 카카오 토큰이 유효하지 않습니다. ###");
+                //     return redirect('/');
+                // }
+
                 session(['newKakaoData' => $newKakaoData]);
                 Log::debug("### 세션 카카오 유저 전송 데이터 저장 ###");
             }
+
         } catch (\Exception $e) {
             // 예외 발생 시 로그에 기록하고 적절한 응답 반환
             Log::error('Kakao login error: ' . $e->getMessage());
@@ -138,6 +154,22 @@ class SocialLoginController extends Controller
             'code' => '11',
             'kakaoData' => $kakaoData
         ]);
+
+    }
+
+    public function kakaoLogout(Request $request) {
+        Log::debug("### 프론트정보 : " . $request . " ###");
+        $kakaoUser = $request->user();
+        // Log::debug("세션 정보: " . json_encode($request->session()->all()));
+        $token = JWTAuth::getToken();
+        JWTAuth::invalidate($token);
+        // 현재 사용자의 세션을 종료합니다.
+        // Cookie::forget('laravel_session');
+        // Session::flush();
+
+        Auth::logout();
+
+        // Log::debug("세션 정보: " . json_encode($request->session()->all()));
     }
 
     // ### 현희 ###
