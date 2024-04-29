@@ -4,7 +4,6 @@ import Vuex from 'vuex';
 import router from '../js/router.js';
 import axios from "axios";
 import jwtDecode from 'vue-jwt-decode';
-import VueCookies from 'vue-cookies';
 
 const store = createStore({
 
