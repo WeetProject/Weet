@@ -32,13 +32,32 @@
 						</div>
 					</div>
 					<div class="main_select_ticket_flex_first_middle">
-						<div class="main_select_ticket_border main_select_ticket_outbound_flight_area">
-							<p class="text-base font-semibold text-left main_select_ticket_title">가는 편</p>
-							<p class="text-sm text-left main_select_ticket_content">날짜 입력</p>
-						</div>
-						<div class="main_select_ticket_border main_select_ticket_inbound_flight_area">
-							<p class="text-base font-semibold text-left main_select_ticket_title">오는 편</p>
-							<p class="text-sm text-left main_select_ticket_content">날짜 입력</p>
+						<div class="main_select_ticket_border_bottom main_select_ticket_outbound_flight_area">
+							<p class="text-base font-semibold text-left main_select_ticket_title">날짜 선택</p>
+							<!-- <p class="text-sm text-left main_select_ticket_content">날짜 입력</p> -->
+							<!-- 달력 라이브러리 출력부분 -->
+							<VueDatePicker 
+								v-model="date" 
+								locale="ko" 
+								select-text="선택" 
+								cancel-text="취소"
+								range multi-calendars
+								calendar-cell-class-name="calendar_select"
+								placeholder="날짜 선택"
+								position="left"
+								:min-date="new Date()"
+								:enable-time-picker=false
+								:date-format="'YYYY-MM-DD'">
+								
+								<template #calendar-header="{ index, day }">
+									<div :class="[index === 5 ? 'saturday' : '', index === 6 ? 'sunday' : '']">
+										{{ day }}
+									</div>
+								</template>
+								<template #action-preview>
+								</template>
+
+							</VueDatePicker>
 						</div>
 					</div>
 					<div class="main_select_ticket_flex_first_bottom">
@@ -101,9 +120,15 @@
 <script >
 import axios from 'axios';
 import { debounce } from 'lodash';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+// import { ko } from 'date-fns/locale';
 
 export default {
 	name: 'MainComponent',
+	components: {
+		VueDatePicker,
+	},
 
 	data() {
 		return {
@@ -114,7 +139,15 @@ export default {
 			destinationQuery: '',
 			destinationSuggestion: [],
 			destinationFlg: false,
+			date: [],
 		}
+	},
+
+	mounted() {
+		const startDate = new Date();
+        const endDate = new Date(startDate);
+        endDate.setDate(startDate.getDate() + 1);
+        this.date = [startDate, endDate];
 	},
 
 	methods: {
@@ -236,5 +269,23 @@ export default {
 </script>
 
 <style lang="scss">
+	@import '../sass/_variables.scss';
     @import '../sass/main.scss';
+	.dp__range_start,
+	.dp__range_end {
+		background-color: $main-font-color !important;
+	}
+
+	.dp__today {
+		border: none !important;
+	}
+	.calendar_select {
+		border-radius: 50%;
+	}
+	.saturday {
+		color: $logo-one-main-color;
+	}
+	.sunday {
+		color: $red;
+	}
 </style>

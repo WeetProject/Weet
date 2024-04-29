@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- 달력 라이브러리 css --}}
+    <link rel="stylesheet" href="https://unpkg.com/@vuepic/vue-datepicker@latest/dist/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="icon" href="{{ asset('images/pabicon.png') }}">
     <script src="{{ asset('js/app.js')}}" defer></script>
@@ -23,5 +25,8 @@
         </div>
     </div>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    {{-- 달력 라이브러리 --}}
+    <script src="https://unpkg.com/vue@latest"></script>
+    <script src="https://unpkg.com/@vuepic/vue-datepicker@latest"></script>
 </body>
 </html>
