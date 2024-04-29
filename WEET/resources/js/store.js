@@ -313,13 +313,13 @@ const store = createStore({
                 }
             })
             .then(response => {
-                if(response.status === "200") {
-                    const cookiesToDelete = ['XSRF-TOKEN', 'laravel_session'];
-                    // 쿠키 삭제
-                    cookiesToDelete.forEach(cookieName => {
-                        document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-                    });
-                }
+                // if(response.status === "200") {
+                //     const cookiesToDelete = ['XSRF-TOKEN', 'laravel_session'];
+                //     // 쿠키 삭제
+                //     cookiesToDelete.forEach(cookieName => {
+                //         document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                //     });
+                // }
                 localStorage.clear();
                 console.log(response);
                 alert("로그아웃 성공\n로그아웃에 성공했습니다. 페이지를 새로고침 하시겠습니까?");
