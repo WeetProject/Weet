@@ -85,7 +85,7 @@ class UserController extends Controller
         Log::debug("==== 토큰생성 ====");
         Log::debug($controllerToken);
         // $userEmail = $result->user_email;
-        Log::debug($result->user_id);
+        Log::debug("### User PK : " . $result->user_id . " ###");
         // $tokenInfo = $result->only('user_email', 'password');
 
         // 로그인 로그 찍기
@@ -106,7 +106,6 @@ class UserController extends Controller
             'message' => '사용자 로그인 성공',
             'token' => $controllerToken,
             'userID' => $result->user_id,
-            // 'userData' => $result,
             'userData' => [
                 'userEmail' => $result->user_email, 
                 'userName' => $result->user_name,
@@ -118,16 +117,7 @@ class UserController extends Controller
                 'userDetailAddress' => $result->user_detail_address,
             ],
         ]);
-
-
-        // todo 
-        // 필요한 추가데이터 넘겨주기, 로컬스토리지 토큰, 추가데이터 저장
-        // 리멤버 토큰에 토큰 저장
-        // 로그아웃시 user 테이블 리멤버 토큰 초기화
-        // 1. 프론트에서 디코드 사용해서 정보 사용
-        // 2. 리멤버 토큰 사용(저장 후 로그아웃하면 null로 초기화)
-        
-        }
+    }
     
 
     // 로그아웃

@@ -84,7 +84,7 @@
             </div>
             <div class="header_mobile_nav_icon_user">
                 
-                    <div v-if="!$store.state.userLoginChk">
+                    <div v-if="!$store.state.token">
                         <button @click="toggleModal">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
@@ -92,7 +92,7 @@
                             </svg>
                         </button>
                     </div>
-                    <div v-if="$store.state.userLoginChk">
+                    <div v-if="$store.state.token">
                         <button>
                             <a href="/mypage">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -225,7 +225,6 @@ export default {
         },
         // 로그인
         submitUserLoginData() {
-            console.log("로그인정보");
             this.$store.dispatch('submitUserLoginData', this.frmUserLoginData);
             this.showmodal = false;
         },
@@ -238,12 +237,10 @@ export default {
 
         // 로컬스토리지에 있는 유저 정보를 저장하기 위한 함수.
         loadUserLoginStatus() {
-            const userLoginChk = localStorage.getItem('userCheck');
             const userID = localStorage.getItem('userID');
             const token = localStorage.getItem('token');
 
-            if (userLoginChk !== null) {
-                this.$store.commit('setUserLoginChk', userLoginChk);
+            if (token !== null) {
                 this.$store.commit('setUserID', userID);
                 this.$store.commit('setToken', token);
             }
