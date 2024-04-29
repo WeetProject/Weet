@@ -31,8 +31,11 @@
 									</a>
 								</button>
 							</div>
-							<div style="margin-top: 3px;">
+							<div v-if="!$store.state.token" style="margin-top: 3px;">
 								<button @click="logout">logout</button>
+							</div>
+							<div v-else-if="$store.state.token" style="margin-top: 3px;">
+								<button @click="kakaoLogout">logout</button>
 							</div>
 						</div>
 
@@ -199,6 +202,11 @@ import store from '../../js/store.js';
 				window.location.href = '/login/kakao';
 				this.$store.dispatch('kakaoUserLoginData');		
 			},
+
+			kakaoLogout() {
+				this.$store.dispatch('kakaoLogout');
+				localStorage.clear();
+			}
 			
     	},
 		
