@@ -94,3 +94,11 @@
 
 16. debounce 사용 목적 Lodash 라이브러리 설치
     - npm install lodash
+
+17. 달력 라이브러리
+    - npm install @vuepic/vue-datepicker
+    - 참고 : https://vue3datepicker.com/installation/
+
+18. 데이트 포맷 라이브러리
+    - npm install date-fns --save
+    - 참고 : https://date-fns.org/v2.16.1/docs/Getting-Started
