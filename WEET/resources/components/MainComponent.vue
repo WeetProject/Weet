@@ -34,7 +34,6 @@
 					<div class="main_select_ticket_flex_first_middle">
 						<div class="main_select_ticket_border_bottom main_select_ticket_outbound_flight_area">
 							<p class="text-base font-semibold text-left main_select_ticket_title">날짜 선택</p>
-							<!-- <p class="text-sm text-left main_select_ticket_content">날짜 입력</p> -->
 							<!-- 달력 라이브러리 출력부분 -->
 							<VueDatePicker 
 								v-model="date" 
@@ -47,7 +46,7 @@
 								position="left"
 								:min-date="new Date()"
 								:enable-time-picker=false
-								:date-format="'YYYY-MM-DD'">
+								:format="formatDate">
 								
 								<template #calendar-header="{ index, day }">
 									<div :class="[index === 5 ? 'saturday' : '', index === 6 ? 'sunday' : '']">
@@ -122,7 +121,7 @@ import axios from 'axios';
 import { debounce } from 'lodash';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-// import { ko } from 'date-fns/locale';
+import { format } from 'date-fns';
 
 export default {
 	name: 'MainComponent',
@@ -264,6 +263,26 @@ export default {
 				}
 			}
 		}, 500),
+		
+		// date format
+		formatDate(date) {
+			if (Array.isArray(date)) {
+				const startDate = date[0];
+				const endDate = date[1];
+				const startYear = startDate.getFullYear();
+				const startMonth = startDate.getMonth() + 1;
+				const startDay = startDate.getDate();
+				const endYear = endDate.getFullYear();
+				const endMonth = endDate.getMonth() + 1;
+				const endDay = endDate.getDate();
+				return `${startYear}년 ${startMonth}월 ${startDay}일 - ${endYear}년 ${endMonth}월 ${endDay}일`;
+			} else {
+				const year = date.getFullYear();
+				const month = date.getMonth() + 1;
+				const day = date.getDate();
+				return `${year}년 ${month}월 ${day}일`;
+			}
+		},
 	}
 }
 </script>
@@ -274,6 +293,11 @@ export default {
 	.dp__range_start,
 	.dp__range_end {
 		background-color: $main-font-color !important;
+	}
+
+	.dp__input {
+		width: 100%;
+		border: none !important;
 	}
 
 	.dp__today {

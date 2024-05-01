@@ -21,7 +21,8 @@
 				align-items: center;
 
 				.main_select_ticket_flex_first_top,
-				.main_select_ticket_flex_first_middle {
+				.main_select_ticket_flex_first_middle,
+				.main_select_ticket_flex_first_bottom {
 					width: 100%;
 					display: flex;
 					margin: 0 auto;
@@ -52,22 +53,18 @@
 					}
 				}
 				
-				.main_select_ticket_flex_first_bottom {
+				.main_select_ticket_border_bottom {
 					width: 100%;
+					height: 90px;
+					margin: 5px 0;
+					padding: 10px;
+					border: 1px solid $layout-background-color;
+					border-radius: 20px;
 
-					.main_select_ticket_border_bottom {
-						width: 100%;
-						height: 90px;
-						margin: 5px 0;
-						padding: 10px;
-						border: 1px solid $layout-background-color;
-						border-radius: 20px;
-
-						.main_select_ticket_title {
-							margin-bottom: 10px;
-						}
+					.main_select_ticket_title {
+						margin-bottom: 10px;
 					}
-				}	
+				}
 			}			
 		}
 
@@ -236,7 +233,7 @@
     
 @include tablet {
     .main_section {
-		width: 95%;
+		width: 90%;
 		font-family: sans-serif;
 		margin: 0 auto;
 
@@ -246,19 +243,20 @@
 			justify-content: center;
 			align-items: center;
 			margin-top: 30px;
-			
-			.main_select_ticket_flex_first {
+
+			.main_select_ticket_flex_first{
 				width: 100%;
 				display: flex;
+				flex-direction: column;
 				justify-content: center;
 				align-items: center;
 
 				.main_select_ticket_flex_first_top,
-				.main_select_ticket_flex_first_middle {
+				.main_select_ticket_flex_first_middle,
+				.main_select_ticket_flex_first_bottom {
 					width: 100%;
 					display: flex;
-					justify-content: center;
-					align-items: center;
+					margin: 0 auto;
 
 					.main_select_ticket_border {
 						width: 100%;
@@ -266,39 +264,39 @@
 						margin-right: 5px;
 						padding: 10px;
 						border: 1px solid $layout-background-color;
-		
-						&:nth-child(odd) {
-							
-							border-radius: 20px 0 0 20px;
-						}
-		
-						&:nth-child(even) {
-							border-radius: 0 20px 20px 0;
-						}					
+						border-radius: 20px;
 						
 						.main_select_ticket_title {
 							margin-bottom: 10px;
 						}
-					}					
+					}
+
+					.main_select_ticket_starting_point_area,
+					.main_select_ticket_outbound_flight_area {
+						margin-right: 5px;
+						margin-bottom: 10px;
+					}
+
+					.main_select_ticket_destination_area,
+					.main_select_ticket_inbound_flight_area {
+						margin-left: 5px;
+						margin-bottom: 10px;
+					}
 				}
 				
-				.main_select_ticket_flex_first_bottom {
-					width: 65%;
+				.main_select_ticket_border_bottom {
+					width: 100%;
+					height: 90px;
+					margin: 5px 0;
+					padding: 10px;
+					border: 1px solid $layout-background-color;
+					border-radius: 20px;
 
-					.main_select_ticket_border_bottom {
-						width: 100%;
-						height: 90px;
-						margin: 5px 0;
-						padding: 10px;
-						border: 1px solid $layout-background-color;
-						border-radius: 20px;
-
-						.main_select_ticket_title {
-							margin-bottom: 10px;
-						}
+					.main_select_ticket_title {
+						margin-bottom: 10px;
 					}
-				}	
-			}
+				}
+			}			
 		}
 
 		.main_search_ticket_section {
@@ -497,8 +495,7 @@
 						padding: 10px;
 						border: 1px solid $layout-background-color;
 		
-						&:nth-child(odd) {
-							
+						&:nth-child(odd) {							
 							border-radius: 20px 0 0 20px;
 						}
 		
@@ -526,7 +523,7 @@
 				}
 
 				.main_select_ticket_flex_first_bottom {
-					width: 65%;
+					width: 70%;
 
 					.main_select_ticket_border_bottom {
 						width: 100%;
@@ -535,12 +532,12 @@
 						padding: 10px;
 						border: 1px solid $layout-background-color;
 						border-radius: 20px;
-
+	
 						.main_select_ticket_title {
 							margin-bottom: 10px;
 						}
 					}
-				}	
+				}				
 			}
 		}
 
