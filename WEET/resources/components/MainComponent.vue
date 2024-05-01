@@ -6,26 +6,26 @@
 					<div class="main_select_ticket_flex_first_top">
 						<div class="main_select_ticket_border main_select_ticket_starting_point_area">
 							<p class="text-base font-semibold text-left main_select_ticket_title">출발지</p>
-							<input class="main_select_ticket_starting_point_area" type="text" 
+							<input class="main_select_ticket_area_input" type="text" 
 							name="starting_point_input" id="starting_point_input" v-model="startingPointQuery"
 							autocomplete="off" spellcheck="false" placeholder="출발지"
 							maxlength="15" @input="handleStartingPointInput">
 							<!-- 연관 검색어 출력부분 -->
-							<ul v-if="startingPointQuerySuggestion && startingPointQuery.length">
-								<li v-for="suggestion in startingPointQuerySuggestion" :key="suggestion" @click="applySuggestionStartingPointInput(suggestion)">
+							<ul v-if="startingPointQuerySuggestion && startingPointQuery.length" class="suggetion_ul">
+								<li class="suggetion_li" v-for="suggestion in startingPointQuerySuggestion" :key="suggestion" @click="applySuggestionStartingPointInput(suggestion)">
 									<span>{{ suggestion.airport_kr_city_name }}({{ suggestion.airport_city_name }})</span>
 								</li>
-							</ul>
+							</ul>						
 						</div>
 						<div class="main_select_ticket_border main_select_ticket_destination_area">
 							<p class="text-base font-semibold text-left main_select_ticket_title">도착지</p>
-							<input class="main_select_ticket_destination_area_input" type="text" 
+							<input class="main_select_ticket_area_input" type="text" 
 							name="destination_input" id="destination_input" v-model="destinationQuery"
 							autocomplete="off" spellcheck="false" placeholder="도착지"
 							maxlength="15" @input="handleDestinationInput">
 							<!-- 연관 검색어 출력부분 -->
-							<ul v-if="destinationSuggestion && destinationQuery.length">
-								<li v-for="suggestion in destinationSuggestion" :key="suggestion" @click="applySuggestionDestinationInput(suggestion)">
+							<ul v-if="destinationSuggestion && destinationQuery.length" class="suggetion_ul">
+								<li class="suggetion_li" v-for="suggestion in destinationSuggestion" :key="suggestion" @click="applySuggestionDestinationInput(suggestion)">
 									<span>{{ suggestion.airport_kr_city_name }}({{ suggestion.airport_city_name }})</span>
 								</li>
 							</ul>
