@@ -72,7 +72,7 @@ export default {
 
     data() {
         return {
-            pageflg:0,
+            pageflg:1,
             calFlg:0,
             departureDate:'날짜를 선택해주세요',
             arrivalDate:'날짜를 선택해주세요',
