@@ -12,8 +12,8 @@
 							maxlength="15" @input="handleStartingPointInput">
 							<!-- 연관 검색어 출력부분 -->
 							<ul v-if="startingPointQuerySuggestion && startingPointQuery.length" class="suggetion_ul">
-								<li class="suggetion_li" v-for="suggestion in startingPointQuerySuggestion" :key="suggestion" @click="applySuggestionStartingPointInput(suggestion)">
-									<span>{{ suggestion.airport_kr_city_name }}({{ suggestion.airport_city_name }})</span>
+								<li class="suggetion_li" v-for="originSuggestion in startingPointQuerySuggestion" :key="originSuggestion" @click="applySuggestionStartingPointInput(originSuggestion)">
+									<span>{{ originSuggestion.airport_kr_city_name }}({{ originSuggestion.airport_city_name }})</span>
 								</li>
 							</ul>						
 						</div>
@@ -24,9 +24,9 @@
 							autocomplete="off" spellcheck="false" placeholder="도착지"
 							maxlength="15" @input="handleDestinationInput">
 							<!-- 연관 검색어 출력부분 -->
-							<ul v-if="destinationSuggestion && destinationQuery.length" class="suggetion_ul">
-								<li class="suggetion_li" v-for="suggestion in destinationSuggestion" :key="suggestion" @click="applySuggestionDestinationInput(suggestion)">
-									<span>{{ suggestion.airport_kr_city_name }}({{ suggestion.airport_city_name }})</span>
+							<ul v-if="destinationQuerySuggestion && destinationQuery.length" class="suggetion_ul">
+								<li class="suggetion_li" v-for="destinationSuggestion in destinationQuerySuggestion" :key="destinationSuggestion" @click="applySuggestionDestinationInput(destinationSuggestion)">
+									<span>{{ destinationSuggestion.airport_kr_city_name }}({{ destinationSuggestion.airport_city_name }})</span>
 								</li>
 							</ul>
 						</div>
@@ -136,7 +136,7 @@ export default {
 			startingPointQuerySuggestion: [],
 			startingPointFlg: false,
 			destinationQuery: '',
-			destinationSuggestion: [],
+			destinationQuerySuggestion: [],
 			destinationFlg: false,
 			date: [],
 		}
@@ -164,8 +164,8 @@ export default {
 		},
 
 		// 출발지 연관검색어 클릭 후 input 삽입
-		applySuggestionStartingPointInput(suggestion) {
-			this.startingPointQuery = suggestion.airport_kr_city_name + '(' + suggestion.airport_city_name + ')';
+		applySuggestionStartingPointInput(originSuggestion) {
+			this.startingPointQuery = originSuggestion.airport_kr_city_name + '(' + originSuggestion.airport_city_name + ')';
 			this.startingPointQuerySuggestion = null;
 			this.startingPointFlg = true;
 		},
@@ -221,9 +221,9 @@ export default {
 		},
 
 		// 도착지 연관검색어 클릭 후 input 삽입
-		applySuggestionDestinationInput(suggestion) {
-			this.destinationQuery = suggestion.airport_kr_city_name + '(' + suggestion.airport_city_name + ')';
-			this.destinationSuggestion = null;
+		applySuggestionDestinationInput(destinationSuggestion) {
+			this.destinationQuery = destinationSuggestion.airport_kr_city_name + '(' + destinationSuggestion.airport_city_name + ')';
+			this.destinationQuerySuggestion = null;
 			this.destinationFlg = true;
 		},
 
@@ -237,7 +237,7 @@ export default {
 				// 이전 검색 결과가 존재 시
 				if (previousResult) {
 					// 이전 검색 결과 사용
-					this.destinationSuggestion = previousResult.data;
+					this.destinationQuerySuggestion = previousResult.data;
 				} else {
 					// 이전 검색 결과 미 존재 시
 					axios.get(URL, {
@@ -248,7 +248,7 @@ export default {
 					.then(response => {
 						if(response.data.code === "DS00") {
 							// 새 검색 결과
-							this.destinationSuggestion = response.data.destinationQueryData;
+							this.destinationQuerySuggestion = response.data.destinationQueryData;
 							
 							// 새 검색 결과 이전 검색 결과 추가
 							this.previousSearchResults.push({ query: query, data: response.data.destinationQueryData });
@@ -283,6 +283,47 @@ export default {
 				return `${year}년 ${month}월 ${day}일`;
 			}
 		},
+
+
+		// 0502 todo
+		// 1. 알고리아 인덱스 내 iatacode, 공항명 저장
+		// 2. 리턴 받은 데이터 iatacode, 공항명 출력
+		// 3. 여행자 및 좌석 등급 input 값 설정
+		// 4. 파라미터 설정 후 api 호출(데이터 확인)
+
+		// 출발지, 도착지, 날짜 데이터 api 송수신
+		amadeusSearch(originSuggestion, destinationSuggestion) {
+			const URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers';
+			const originLocationCode = originSuggestion.airport_city_name; // 출발지
+			const destinationLocationCode = destinationSuggestion.airport_city_name; // 도착지
+			const KRW = "KRW" // 원화
+			// const passenger = 
+			
+			axios.get(URL, {
+				params: {
+					// 출발지
+					origin: originLocationCode, 
+					// 도착지
+					destination: destinationLocationCode,
+					// 도착날짜
+					// departureDate: 
+					// 돌아오는 날짜
+					// returnDate: 
+					// 원화
+					currenecyCode: KRW,
+					// 인원
+					adults: passenger
+					// 좌석 등급
+					// travelClass:
+				}
+			})
+			.then(response => {
+			
+			})
+			.catch(error => {
+			
+			});
+		}
 	}
 }
 </script>
