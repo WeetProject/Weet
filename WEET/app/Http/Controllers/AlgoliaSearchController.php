@@ -23,11 +23,13 @@ class AlgoliaSearchController extends Controller
                                                 ->raw();
                 $startingPointQueryData = [];
                 // Algolia 데이터 hits 리턴
+                log::debug($startingPointQuerySuggestion);
                 foreach ($startingPointQuerySuggestion['hits'] as $hit) {
                     $startingPointQueryData[] = [
                         'airport_kr_city_name' => $hit['airport_kr_city_name'],
                         'airport_city_name' => $hit['airport_city_name'],
-                        // 'airport_kr_country_name' => $hit['airport_kr_country_name'],
+                        'airport_kr_name' => $hit['airport_kr_name'],
+                        'airport_iata_code' => $hit['airport_iata_code']
                     ];
                 }
 
