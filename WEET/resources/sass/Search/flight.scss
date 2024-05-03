@@ -188,7 +188,7 @@ input[type='radio']:checked {
 .search_flight_main_body_main_left_box>div:nth-child(3)>div:nth-child(1){
     font-weight: bold;
 }
-.search_flight_main_body_main_left_box hr{
+.search_flight_main_body_main_left_box>hr{
     border: none;
     height: 1px; 
     background-color: $black

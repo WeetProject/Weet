@@ -6,27 +6,27 @@
 					<div class="main_select_ticket_flex_first_top">
 						<div class="main_select_ticket_border main_select_ticket_starting_point_area">
 							<p class="text-base font-semibold text-left main_select_ticket_title">출발지</p>
-							<input class="main_select_ticket_starting_point_area" type="text" 
+							<input class="main_select_ticket_area_input" type="text" 
 							name="starting_point_input" id="starting_point_input" v-model="startingPointQuery"
 							autocomplete="off" spellcheck="false" placeholder="출발지"
 							maxlength="15" @input="handleStartingPointInput">
 							<!-- 연관 검색어 출력부분 -->
-							<ul v-if="startingPointQuerySuggestion && startingPointQuery.length">
-								<li v-for="suggestion in startingPointQuerySuggestion" :key="suggestion" @click="applySuggestionStartingPointInput(suggestion)">
-									<span>{{ suggestion.airport_kr_city_name }}({{ suggestion.airport_city_name }})</span>
+							<ul v-if="startingPointQuerySuggestion && startingPointQuery.length" class="suggetion_ul">
+								<li class="suggetion_li" v-for="originSuggestion in startingPointQuerySuggestion" :key="originSuggestion" @click="applySuggestionStartingPointInput(originSuggestion)">
+									<span>{{ originSuggestion.airport_kr_city_name }}({{ originSuggestion.airport_city_name }})</span>
 								</li>
-							</ul>
+							</ul>						
 						</div>
 						<div class="main_select_ticket_border main_select_ticket_destination_area">
 							<p class="text-base font-semibold text-left main_select_ticket_title">도착지</p>
-							<input class="main_select_ticket_destination_area_input" type="text" 
+							<input class="main_select_ticket_area_input" type="text" 
 							name="destination_input" id="destination_input" v-model="destinationQuery"
 							autocomplete="off" spellcheck="false" placeholder="도착지"
 							maxlength="15" @input="handleDestinationInput">
 							<!-- 연관 검색어 출력부분 -->
-							<ul v-if="destinationSuggestion && destinationQuery.length">
-								<li v-for="suggestion in destinationSuggestion" :key="suggestion" @click="applySuggestionDestinationInput(suggestion)">
-									<span>{{ suggestion.airport_kr_city_name }}({{ suggestion.airport_city_name }})</span>
+							<ul v-if="destinationQuerySuggestion && destinationQuery.length" class="suggetion_ul">
+								<li class="suggetion_li" v-for="destinationSuggestion in destinationQuerySuggestion" :key="destinationSuggestion" @click="applySuggestionDestinationInput(destinationSuggestion)">
+									<span>{{ destinationSuggestion.airport_kr_city_name }}({{ destinationSuggestion.airport_city_name }})</span>
 								</li>
 							</ul>
 						</div>
@@ -34,7 +34,6 @@
 					<div class="main_select_ticket_flex_first_middle">
 						<div class="main_select_ticket_border_bottom main_select_ticket_outbound_flight_area">
 							<p class="text-base font-semibold text-left main_select_ticket_title">날짜 선택</p>
-							<!-- <p class="text-sm text-left main_select_ticket_content">날짜 입력</p> -->
 							<!-- 달력 라이브러리 출력부분 -->
 							<VueDatePicker 
 								v-model="date" 
@@ -47,7 +46,7 @@
 								position="left"
 								:min-date="new Date()"
 								:enable-time-picker=false
-								:date-format="'YYYY-MM-DD'">
+								:format="formatDate">
 								
 								<template #calendar-header="{ index, day }">
 									<div :class="[index === 5 ? 'saturday' : '', index === 6 ? 'sunday' : '']">
@@ -122,7 +121,7 @@ import axios from 'axios';
 import { debounce } from 'lodash';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-// import { ko } from 'date-fns/locale';
+import { format } from 'date-fns';
 
 export default {
 	name: 'MainComponent',
@@ -137,7 +136,7 @@ export default {
 			startingPointQuerySuggestion: [],
 			startingPointFlg: false,
 			destinationQuery: '',
-			destinationSuggestion: [],
+			destinationQuerySuggestion: [],
 			destinationFlg: false,
 			date: [],
 		}
@@ -165,8 +164,8 @@ export default {
 		},
 
 		// 출발지 연관검색어 클릭 후 input 삽입
-		applySuggestionStartingPointInput(suggestion) {
-			this.startingPointQuery = suggestion.airport_kr_city_name + '(' + suggestion.airport_city_name + ')';
+		applySuggestionStartingPointInput(originSuggestion) {
+			this.startingPointQuery = originSuggestion.airport_kr_city_name + '(' + originSuggestion.airport_city_name + ')';
 			this.startingPointQuerySuggestion = null;
 			this.startingPointFlg = true;
 		},
@@ -222,9 +221,9 @@ export default {
 		},
 
 		// 도착지 연관검색어 클릭 후 input 삽입
-		applySuggestionDestinationInput(suggestion) {
-			this.destinationQuery = suggestion.airport_kr_city_name + '(' + suggestion.airport_city_name + ')';
-			this.destinationSuggestion = null;
+		applySuggestionDestinationInput(destinationSuggestion) {
+			this.destinationQuery = destinationSuggestion.airport_kr_city_name + '(' + destinationSuggestion.airport_city_name + ')';
+			this.destinationQuerySuggestion = null;
 			this.destinationFlg = true;
 		},
 
@@ -238,7 +237,7 @@ export default {
 				// 이전 검색 결과가 존재 시
 				if (previousResult) {
 					// 이전 검색 결과 사용
-					this.destinationSuggestion = previousResult.data;
+					this.destinationQuerySuggestion = previousResult.data;
 				} else {
 					// 이전 검색 결과 미 존재 시
 					axios.get(URL, {
@@ -249,7 +248,7 @@ export default {
 					.then(response => {
 						if(response.data.code === "DS00") {
 							// 새 검색 결과
-							this.destinationSuggestion = response.data.destinationQueryData;
+							this.destinationQuerySuggestion = response.data.destinationQueryData;
 							
 							// 새 검색 결과 이전 검색 결과 추가
 							this.previousSearchResults.push({ query: query, data: response.data.destinationQueryData });
@@ -264,6 +263,67 @@ export default {
 				}
 			}
 		}, 500),
+		
+		// date format
+		formatDate(date) {
+			if (Array.isArray(date)) {
+				const startDate = date[0];
+				const endDate = date[1];
+				const startYear = startDate.getFullYear();
+				const startMonth = startDate.getMonth() + 1;
+				const startDay = startDate.getDate();
+				const endYear = endDate.getFullYear();
+				const endMonth = endDate.getMonth() + 1;
+				const endDay = endDate.getDate();
+				return `${startYear}년 ${startMonth}월 ${startDay}일 - ${endYear}년 ${endMonth}월 ${endDay}일`;
+			} else {
+				const year = date.getFullYear();
+				const month = date.getMonth() + 1;
+				const day = date.getDate();
+				return `${year}년 ${month}월 ${day}일`;
+			}
+		},
+
+
+		// 0502 todo
+		// 1. 알고리아 인덱스 내 iatacode, 공항명 저장
+		// 2. 리턴 받은 데이터 iatacode, 공항명 출력
+		// 3. 여행자 및 좌석 등급 input 값 설정
+		// 4. 파라미터 설정 후 api 호출(데이터 확인)
+
+		// 출발지, 도착지, 날짜 데이터 api 송수신
+		amadeusSearch(originSuggestion, destinationSuggestion) {
+			const URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers';
+			const originLocationCode = originSuggestion.airport_city_name; // 출발지
+			const destinationLocationCode = destinationSuggestion.airport_city_name; // 도착지
+			const KRW = "KRW" // 원화
+			// const passenger = 
+			
+			axios.get(URL, {
+				params: {
+					// 출발지
+					origin: originLocationCode, 
+					// 도착지
+					destination: destinationLocationCode,
+					// 도착날짜
+					// departureDate: 
+					// 돌아오는 날짜
+					// returnDate: 
+					// 원화
+					currenecyCode: KRW,
+					// 인원
+					adults: passenger
+					// 좌석 등급
+					// travelClass:
+				}
+			})
+			.then(response => {
+			
+			})
+			.catch(error => {
+			
+			});
+		}
 	}
 }
 </script>
@@ -274,6 +334,11 @@ export default {
 	.dp__range_start,
 	.dp__range_end {
 		background-color: $main-font-color !important;
+	}
+
+	.dp__input {
+		width: 100%;
+		border: none !important;
 	}
 
 	.dp__today {
