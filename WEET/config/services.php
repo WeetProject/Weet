@@ -36,4 +36,8 @@ return [
         'redirect' => env('KAKAO_REDIRECT_URI'),
     ],
 
+    'amadeus' => [
+        'client_id' => env('AMADEUS_CLIENT_ID'),
+        'client_secret' => env('AMADEUS_CLIENT_SECRET')
+    ],
 ];

@@ -13,7 +13,8 @@
 							<!-- 연관 검색어 출력부분 -->
 							<ul v-if="startingPointQuerySuggestion && startingPointQuery.length" class="suggetion_ul">
 								<li class="suggetion_li" v-for="originSuggestion in startingPointQuerySuggestion" :key="originSuggestion" @click="applySuggestionStartingPointInput(originSuggestion)">
-									<span>{{ originSuggestion.airport_kr_city_name }}({{ originSuggestion.airport_city_name }})</span>
+									<p>{{ originSuggestion.airport_kr_city_name }}({{ originSuggestion.airport_city_name }})</p>
+									<p>{{ originSuggestion.airport_kr_name }}({{ originSuggestion.airport_iata_code }})</p>
 								</li>
 							</ul>						
 						</div>
@@ -121,7 +122,6 @@ import axios from 'axios';
 import { debounce } from 'lodash';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-import { format } from 'date-fns';
 
 export default {
 	name: 'MainComponent',
@@ -275,7 +275,7 @@ export default {
 				const endYear = endDate.getFullYear();
 				const endMonth = endDate.getMonth() + 1;
 				const endDay = endDate.getDate();
-				return `${startYear}년 ${startMonth}월 ${startDay}일 - ${endYear}년 ${endMonth}월 ${endDay}일`;
+				return `${startYear}-${startMonth}-${startDay} ~ ${endYear}-${endMonth}-${endDay}`;
 			} else {
 				const year = date.getFullYear();
 				const month = date.getMonth() + 1;
@@ -284,35 +284,36 @@ export default {
 			}
 		},
 
-
-		// 0502 todo
-		// 1. 알고리아 인덱스 내 iatacode, 공항명 저장
-		// 2. 리턴 받은 데이터 iatacode, 공항명 출력
 		// 3. 여행자 및 좌석 등급 input 값 설정
 		// 4. 파라미터 설정 후 api 호출(데이터 확인)
 
 		// 출발지, 도착지, 날짜 데이터 api 송수신
-		amadeusSearch(originSuggestion, destinationSuggestion) {
+		amadeusSearch() {
 			const URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers';
-			const originLocationCode = originSuggestion.airport_city_name; // 출발지
-			const destinationLocationCode = destinationSuggestion.airport_city_name; // 도착지
+			const originLocationCode = this.originSuggestion.airport_city_name; // 출발지
+			const destinationLocationCode = this.destinationSuggestion.airport_city_name; // 도착지
+			const departureDate = this.formatDate(this.date[0]);
+      		const returnDate = this.formatDate(this.date[1]);
 			const KRW = "KRW" // 원화
-			// const passenger = 
+			const adultPassenger = 1;
+			// const childrenPassenger = ;
+			// const travelClass = ;
+			
 			
 			axios.get(URL, {
 				params: {
 					// 출발지
-					origin: originLocationCode, 
+					originLocationCode: originLocationCode, 
 					// 도착지
-					destination: destinationLocationCode,
+					destinationLocationCode: destinationLocationCode,
 					// 도착날짜
-					// departureDate: 
+					departureDate: departureDate,
 					// 돌아오는 날짜
-					// returnDate: 
+					returnDate: returnDate,
 					// 원화
 					currenecyCode: KRW,
 					// 인원
-					adults: passenger
+					adults: adultPassenger
 					// 좌석 등급
 					// travelClass:
 				}
