@@ -273,14 +273,7 @@ const store = createStore({
             console.log('카카오 로그인 함수실행');
 			const URL = '/kakao'
 			axios.get(URL)
-                .then(response => {          
-                    // console.log("kakaoData", response.data.kakaoData);
-                    // console.log(response);
-                    const kakaoDataConsole = response.data.kakaoData;
-                    console.log("데이터" , kakaoDataConsole);
-                    console.log("토큰" ,  kakaoDataConsole.kakaoToken);
-                    console.log("코드" , kakaoDataConsole.code);
-                    console.log("메일" , kakaoDataConsole.kakaoUserEmail);
+                .then(response => {
 
                     // 만약 세션 데이터가 null이면 클라이언트에서 오류 처리
                     if (!response.data.kakaoData) {
@@ -292,20 +285,19 @@ const store = createStore({
                     const token = response.data.kakaoData.kakaoToken;
                     const userID = response.data.kakaoData.kakaoUserEmail;
 
-                    if (response.data.kakaoData.code === "KLI00") {
-                        commit('setToken', token);
-                        commit('setUserID', userID);
+                    if (token) {
+                        commit('setKakaoToken', token);
+                        commit('setKakaoUserData', userID);
                         // commit('setKakaoUserData', userID);
                         
-                        localStorage.setItem('setToken', token);
+                        localStorage.setItem('setKakaoToken', token);
                         // localStorage.setItem('setKakaoUserData', userID);
-                        localStorage.setItem('setUserID', userID);
-                        localStorage.setItem('setSaveToLocalStorage', response.data.kakaoData);
+                        localStorage.setItem('setKakaoUserData', userID);
 
                         alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
-                        window.location.reload();
+                        // window.location.reload();
                         // location.reload();
-                        // this.$router.push('/');
+                        this.$router.push('/');
                     } else {
                         alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
                     }

@@ -122,7 +122,7 @@
 import axios from 'axios';
 import Vuex from 'vuex';
 import store from '../../js/store.js';
-// import jwtDecode from 'vue-jwt-decode';
+import VueJwtDecode from 'vue-jwt-decode'
 
     export default {
         name: 'HeaderComponent',
@@ -157,14 +157,20 @@ import store from '../../js/store.js';
 		created() {
         	this.loadUserLoginStatus();
 			// this.handleKakaoLogin();
+			const token = localStorage.getItem('setKakaoToken');
+			console.log("카카오 토큰" , token);
+			// const logToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvbG9naW4va2FrYW8vY2FsbGJhY2siLCJpYXQiOjE3MTQ3NTMwODAsImV4cCI6MTcxNDc1NjY4MCwibmJmIjoxNzE0NzUzMDgwLCJqdGkiOiJqU2xTSFRYRHZyamQ1RVlKIiwic3ViIjoiMTI5IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.nTxwrYZWtM3EspgcidfwSYuop7U0T3qLqunQGzkirBY";
+			// const payload = VueJwtDecode.decode(token);
+			// const logPayload = VueJwtDecode.decode(logToken);
+			// console.log(payload);	
+			// console.log(logPayload);	
+			
     	},
 
 		mounted() {		
-			
 		},
 
 		methods: {
-
 			// 모달 토글 액션을 Store에 커밋
 			toggleModal() {
 				this.$store.commit('setToggleModal');
