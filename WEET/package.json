@@ -19,7 +19,7 @@
         "vue": "^3.4.19"
     },
     "dependencies": {
-        "@vuepic/vue-datepicker": "^8.5.0",
+        "@vuepic/vue-datepicker": "^8.5.1",
         "apexcharts": "^3.49.0",
         "bootstrap": "^5.3.3",
         "bootstrap-icons": "^1.11.3",
