@@ -159,7 +159,8 @@ import store from '../../js/store.js';
 			// this.handleKakaoLogin();
     	},
 
-		mounted() {			
+		mounted() {		
+			
 		},
 
 		methods: {
@@ -206,7 +207,7 @@ import store from '../../js/store.js';
 			kakaoLogout() {
 				this.$store.dispatch('kakaoLogout');
 				localStorage.clear();
-			}
+			},
 			
     	},
 		

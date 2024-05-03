@@ -28,6 +28,7 @@ class SocialLoginController extends Controller
     // 0425 여중기 카카오 콜백 메소드 작성
     public function handleKakaoCallback(Request $request)
     {
+        Log::debug("### 리퀘스트 :".$request."###");
         // dd($request);
         // 카카오 인가 코드 저장
         $code = $request->input('code');
@@ -108,23 +109,21 @@ class SocialLoginController extends Controller
 
                 $newKakaoData = $this->kakaoDataSave($newToken, $kakaoUserEmail)->original;
                 Log::debug("### 카카오 유저 전송 데이터 : " . json_encode($newKakaoData) . " ###");
-                                
-                // if($code) {
-                //     Log::debug($code);
+                
+                // session(['newKakaoData' => $newKakaoData]);
+                // Log::debug("### 세션 카카오 유저 전송 데이터 저장 ###");
+                // Log::debug(session('newKakaoData'));
 
-                //     Auth::login($kakaoUserConfirm);
-                //     Log::debug("### 카카오 가입 유저 로그인 완료 ###");
-                //     $newKakaoData = $this->kakaoDataSave($newToken, $kakaoUserEmail)->original;
-                //     Log::debug("### 카카오 유저 전송 데이터 : " . json_encode($newKakaoData) . " ###");
-                    
-                // }
-                // else {
-                //     Log::debug("### 카카오 토큰이 유효하지 않습니다. ###");
-                //     return redirect('/');
-                // }
-
-                session(['newKakaoData' => $newKakaoData]);
+                $newKakaoDataJson = json_encode($newKakaoData);
+                session(['newKakaoData' => $newKakaoDataJson]);
                 Log::debug("### 세션 카카오 유저 전송 데이터 저장 ###");
+                Log::debug(session('newKakaoData'));
+
+                // $this->kakaoDataList();
+                // return response()->json([
+                //     'code' => '11',
+                //     'kakaoData' => $newKakaoData
+                // ]);
             }
 
         } catch (\Exception $e) {
@@ -145,16 +144,32 @@ class SocialLoginController extends Controller
         ]);
     }
 
-    public function kakaoDataList(Request $request)
+    public function kakaoDataList()
     {   
-        $kakaoData = $request->session()->get('newKakaoData');
-        Log::debug("### 세션 저장 데이터 ###" . json_encode($kakaoData) . " ###");
+        // Log::debug("### kakaoDataList함수리퀘스트 :".$request->header('Cookie')."###");
+        // $kakaoData = session()->get('newKakaoData');
+        $kakaoData = Session::get('newKakaoData');
+        Log::debug("### kakaoDataList함수 카카오데이터 :".json_encode($kakaoData)."###");
+        // Log::debug("### kakaoDataList함수 카카오데이터 :".$kakaoData."###");
 
-        return response()->json([
-            'code' => '11',
-            'kakaoData' => $kakaoData
-        ]);
+        // 세션 데이터가 올바른지 확인 후 적절한 응답 반환
+        if ($kakaoData) {
+            Log::debug("### kakaoDataList함수 실행중 ###");
+            return response()->json([
+                'kakaoData' => $kakaoData
+            ]);
+        } else {
+            // 세션에 데이터가 없는 경우 적절한 응답을 반환하거나 오류를 처리할 수 있습니다.
+            return response()->json([
+                'error' => '세션에 데이터가 없습니다.'
+            ], 404); // 예: 404 Not Found
+        }
 
+        // return response()->json([
+        //     // 'code' => '11',
+        //     'kakaoData' => $kakaoData
+        // ]);
+        
     }
 
     public function kakaoLogout(Request $request) {

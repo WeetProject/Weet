@@ -274,7 +274,15 @@ const store = createStore({
 			const URL = '/kakao'
 			axios.get(URL)
                 .then(response => {          
-                    console.log(response.data.kakaoData);
+                    console.log("kakaoData", response.data.kakaoData);
+                    console.log(response);
+
+                    // 만약 세션 데이터가 null이면 클라이언트에서 오류 처리
+                    if (!response.data.kakaoData) {
+                        console.error('세션 데이터가 없습니다.');
+                        alert('세션 데이터가 없습니다. 다시 시도해주세요.');
+                        return;
+                    }
                     
                     const token = response.data.kakaoData.kakaoToken;
                     const userID = response.data.kakaoData.kakaoUserEmail;
@@ -282,21 +290,64 @@ const store = createStore({
                     if (response.data.kakaoData.code === "KLI00") {
                         commit('setToken', token);
                         commit('setUserID', userID);
+                        // commit('setKakaoUserData', userID);
                         
                         localStorage.setItem('setToken', token);
+                        // localStorage.setItem('setKakaoUserData', userID);
                         localStorage.setItem('setUserID', userID);
                         localStorage.setItem('setSaveToLocalStorage', response.data.kakaoData);
 
                         alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
                         window.location.reload();
+                        // location.reload();
+                        // this.$router.push('/');
                     } else {
                         alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
                     }
                 })
                 .catch(error => {
                     console.error("에러");
+                    console.error("에러메세지", error.message);
+                    console.error("에러상태", error.response.status);
+                    console.error("에러응답데이터", error.response);
                 });
 		},
+
+        // // 카카오 유저 로그인 데이터 수신2
+        // kakaoUserLoginData() {
+        //     console.log('카카오 로그인 함수실행');
+		// 	const URL = '/kakaoData'
+		// 	axios.get(URL)
+        //         .then(response => {          
+        //             console.log(response.data);
+        //             console.log(response);
+                    
+        //             const token = response.data.kakaoData.kakaoToken;
+        //             // const token = response.kakaoData.kakaoToken;
+        //             const userID = response.data.kakaoData.kakaoUserEmail;
+
+        //             if (response.data.kakaoData.code === "KLI00") {
+        //                 commit('setToken', token);
+        //                 commit('setUserID', userID);
+                        
+        //                 localStorage.setItem('setToken', token);
+        //                 localStorage.setItem('setUserID', userID);
+        //                 // localStorage.setItem('setSaveToLocalStorage', response.data.kakaoData);
+
+        //                 alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
+        //                 window.location.reload();
+        //                 // location.reload();
+        //             } else {
+        //                 alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error("에러");
+        //             console.error("에러메세지", error.message);
+        //             console.error("에러상태", error.response.status);
+        //             console.error("에러응답데이터", error.response);
+        //         });
+		// },
 
         // 카카오 유저 로그아웃
         kakaoLogout() {

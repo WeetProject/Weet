@@ -204,6 +204,8 @@ Route::get('/login/kakao/callback', [SocialLoginController::class, 'handleKakaoC
 
 Route::get('/kakao', [SocialLoginController::class, 'kakaoDataList']);
 
+// Route::get('/kakaoData', [SocialLoginController::class, 'kakaoDataList']);
+
 Route::post('/kakao', [SocialLoginController::class, 'kakaoLogout']);
 
 Route::get('/signup', function () {
