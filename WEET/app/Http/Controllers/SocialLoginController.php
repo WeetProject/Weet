@@ -110,16 +110,16 @@ class SocialLoginController extends Controller
                 $newKakaoData = $this->kakaoDataSave($newToken, $kakaoUserEmail)->original;
                 Log::debug("### 카카오 유저 전송 데이터 : " . json_encode($newKakaoData) . " ###");
                 
-                // session(['newKakaoData' => $newKakaoData]);
-                // Log::debug("### 세션 카카오 유저 전송 데이터 저장 ###");
-                // Log::debug(session('newKakaoData'));
-
-                $newKakaoDataJson = json_encode($newKakaoData);
-                session(['newKakaoData' => $newKakaoDataJson]);
+                session(['newKakaoData' => $newKakaoData]);
                 Log::debug("### 세션 카카오 유저 전송 데이터 저장 ###");
                 Log::debug(session('newKakaoData'));
 
-                // $this->kakaoDataList();
+                // $newKakaoDataJson = json_encode($newKakaoData);
+                // session(['newKakaoData' => $newKakaoDataJson]);
+                // Log::debug("### 세션 카카오 유저 전송 데이터 저장 ###");
+                // Log::debug(session('newKakaoData'));
+
+                $this->kakaoDataList();
                 // return response()->json([
                 //     'code' => '11',
                 //     'kakaoData' => $newKakaoData
@@ -147,13 +147,13 @@ class SocialLoginController extends Controller
     public function kakaoDataList()
     {   
         // Log::debug("### kakaoDataList함수리퀘스트 :".$request->header('Cookie')."###");
-        // $kakaoData = session()->get('newKakaoData');
-        $kakaoData = Session::get('newKakaoData');
-        Log::debug("### kakaoDataList함수 카카오데이터 :".json_encode($kakaoData)."###");
+        $kakaoData = session()->get('newKakaoData');
+        
         // Log::debug("### kakaoDataList함수 카카오데이터 :".$kakaoData."###");
 
         // 세션 데이터가 올바른지 확인 후 적절한 응답 반환
         if ($kakaoData) {
+            Log::debug("### kakaoDataList함수 카카오데이터 :".json_encode($kakaoData)."###");
             Log::debug("### kakaoDataList함수 실행중 ###");
             return response()->json([
                 'kakaoData' => $kakaoData

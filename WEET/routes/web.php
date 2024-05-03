@@ -206,7 +206,7 @@ Route::get('/kakao', [SocialLoginController::class, 'kakaoDataList']);
 
 // Route::get('/kakaoData', [SocialLoginController::class, 'kakaoDataList']);
 
-Route::post('/kakao', [SocialLoginController::class, 'kakaoLogout']);
+Route::post('/logout/kakao', [SocialLoginController::class, 'kakaoLogout']);
 
 Route::get('/signup', function () {
     return view('welcome');

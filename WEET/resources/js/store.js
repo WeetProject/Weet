@@ -274,8 +274,13 @@ const store = createStore({
 			const URL = '/kakao'
 			axios.get(URL)
                 .then(response => {          
-                    console.log("kakaoData", response.data.kakaoData);
-                    console.log(response);
+                    // console.log("kakaoData", response.data.kakaoData);
+                    // console.log(response);
+                    const kakaoDataConsole = response.data.kakaoData;
+                    console.log("데이터" , kakaoDataConsole);
+                    console.log("토큰" ,  kakaoDataConsole.kakaoToken);
+                    console.log("코드" , kakaoDataConsole.code);
+                    console.log("메일" , kakaoDataConsole.kakaoUserEmail);
 
                     // 만약 세션 데이터가 null이면 클라이언트에서 오류 처리
                     if (!response.data.kakaoData) {
@@ -353,7 +358,7 @@ const store = createStore({
         kakaoLogout() {
             console.log('로그아웃함수실행');
             // const URL = 'https://kapi.kakao.com/v1/user/logout';
-            const URL = '/kakao';
+            const URL = '/logout/kakao';
             const accessToken = localStorage.getItem('setToken');
             console.log(accessToken);
 
