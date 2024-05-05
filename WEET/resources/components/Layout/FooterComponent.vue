@@ -1,5 +1,5 @@
 <template>
-    <div v-show="!$route.path.startsWith('/admin')">
+    <div v-show="!$route.path.startsWith('/admin') && $route.path !== '/kakaoLogin'">
         <footer>
             <div class="footer_container">
                 <div class="text-center footer_container_text">

@@ -6,6 +6,7 @@ import MypageComponent from '../components/User/MypageComponent.vue';
 import ReservationComponent from '../components/Reservation/ReservationComponent.vue';
 import SearchComponent from '../components/search/SearchComponent.vue';
 import SignUpComponent from '../components/User/SignUpComponent.vue';
+import kakaoLoginComponent from '../components/User/kakaoLoginComponent.vue';
 // import HeaderComponent from '../components/User/HeaderComponent.vue';
 
 // ### Admin ###
@@ -62,6 +63,10 @@ const routes = [
 	{
 		path: '/signup',
 		component: SignUpComponent
+	},
+	{
+		path: '/kakaoLogin',
+		component: kakaoLoginComponent
 	},
 	// Admin	
 	{

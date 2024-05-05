@@ -1,12 +1,11 @@
 <template>
-    <div>
-        
-    </div>
 </template>
 
 <script>
 export default {
-    
+    created() {
+        this.$store.dispatch('kakaoUserLoginData');
+    }
 }
 </script>
 

@@ -3,7 +3,7 @@ import { createStore } from 'vuex';
 import Vuex from 'vuex';
 import router from '../js/router.js';
 import axios from "axios";
-import jwtDecode from 'vue-jwt-decode';
+import VueJwtDecode from 'vue-jwt-decode'
 
 const store = createStore({
 
@@ -12,8 +12,9 @@ const store = createStore({
             showmodal: false,			
             userData: null,
             userID: null,
-            jwtToken: '',
-            kakaoUserEmail: '',
+            token: null,
+            kakaoToken: null,
+            kakaoUserEmail: null,
 
             // ### Admin ###
             // Admin Login 데이터 저장용
@@ -89,8 +90,8 @@ const store = createStore({
         setToken(state, token) {
             state.token = token;
         },
-        setKakaoToken(state, jwtToken) {
-            state.jwtToken = jwtToken;
+        setKakaoToken(state, kakaoToken) {
+            state.kakaoToken = kakaoToken;
         },
 
 
@@ -209,6 +210,7 @@ const store = createStore({
                 if (res.data.success) {
 
                     const token = res.data.token;
+                    console.log(token);
                     const userID = res.data.userData.user_id;
                     const userData = res.data.userData;
 
@@ -271,33 +273,27 @@ const store = createStore({
         // 카카오 유저 로그인 데이터 수신
         kakaoUserLoginData({ commit }) {
             console.log('카카오 로그인 함수실행');
-			const URL = '/kakao'
-			axios.get(URL)
+			const URL = '/kakaoLoginData'
+			axios.post(URL)
                 .then(response => {
-
-                    // 만약 세션 데이터가 null이면 클라이언트에서 오류 처리
-                    if (!response.data.kakaoData) {
-                        console.error('세션 데이터가 없습니다.');
-                        alert('세션 데이터가 없습니다. 다시 시도해주세요.');
-                        return;
-                    }
+                    console.log(response.data);
                     
-                    const token = response.data.kakaoData.kakaoToken;
-                    const userID = response.data.kakaoData.kakaoUserEmail;
+                    const kakaoToken = response.data.kakaoToken;
+                    const kakaoUserID = response.data.kakaoUserEmail;
+                    console.log(response.data.kakaoToken);
+                    console.log(response.data.kakaoUserEmail);
 
-                    if (token) {
-                        commit('setKakaoToken', token);
-                        commit('setKakaoUserData', userID);
-                        // commit('setKakaoUserData', userID);
+                    if (kakaoToken) {
+                        commit('setKakaoToken', kakaoToken);
+                        commit('setKakaoUserData', kakaoUserID);
                         
-                        localStorage.setItem('setKakaoToken', token);
-                        // localStorage.setItem('setKakaoUserData', userID);
-                        localStorage.setItem('setKakaoUserData', userID);
+                        localStorage.setItem('setKakaoToken', kakaoToken);
+                        localStorage.setItem('setKakaoUserData', kakaoUserID);
 
                         alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
                         // window.location.reload();
                         // location.reload();
-                        this.$router.push('/');
+                        router.push('/');
                     } else {
                         alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
                     }
@@ -309,42 +305,6 @@ const store = createStore({
                     console.error("에러응답데이터", error.response);
                 });
 		},
-
-        // // 카카오 유저 로그인 데이터 수신2
-        // kakaoUserLoginData() {
-        //     console.log('카카오 로그인 함수실행');
-		// 	const URL = '/kakaoData'
-		// 	axios.get(URL)
-        //         .then(response => {          
-        //             console.log(response.data);
-        //             console.log(response);
-                    
-        //             const token = response.data.kakaoData.kakaoToken;
-        //             // const token = response.kakaoData.kakaoToken;
-        //             const userID = response.data.kakaoData.kakaoUserEmail;
-
-        //             if (response.data.kakaoData.code === "KLI00") {
-        //                 commit('setToken', token);
-        //                 commit('setUserID', userID);
-                        
-        //                 localStorage.setItem('setToken', token);
-        //                 localStorage.setItem('setUserID', userID);
-        //                 // localStorage.setItem('setSaveToLocalStorage', response.data.kakaoData);
-
-        //                 alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
-        //                 window.location.reload();
-        //                 // location.reload();
-        //             } else {
-        //                 alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.error("에러");
-        //             console.error("에러메세지", error.message);
-        //             console.error("에러상태", error.response.status);
-        //             console.error("에러응답데이터", error.response);
-        //         });
-		// },
 
         // 카카오 유저 로그아웃
         kakaoLogout() {

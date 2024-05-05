@@ -20,6 +20,12 @@ use Illuminate\Support\Facades\Cookie;
 
 class SocialLoginController extends Controller
 {   
+    // 카카오 User Data 저장용
+    private $kakaoData = [
+        'kakaoToken' => '',
+        'kakaoUserEmail' => ''
+    ];
+
     public function kakaoLogin() 
     {   
         return Socialite::driver('kakao')->redirect();
@@ -51,14 +57,14 @@ class SocialLoginController extends Controller
         // 액세스 토큰을 사용하여 사용자 정보 요청
         $kakaoUserResponse = Http::withToken($kakaoAccessToken)->get('https://kapi.kakao.com/v2/user/me');
         $kakaoUserInfo = $kakaoUserResponse->json();
-        Log::debug("### 카카오 유저 데이터 ###");
-        Log::debug($kakaoUserInfo);
+        // Log::debug("### 카카오 유저 데이터 ###");
+        // Log::debug($kakaoUserInfo);
 
-        $kakaoUserEmail = $kakaoUserInfo['kakao_account']['email'];
-        Log::debug("### 카카오 유저 이메일 : " . $kakaoUserEmail . " ###");
+        $this->kakaoData['kakaoUserEmail'] = $kakaoUserInfo['kakao_account']['email'];
+        Log::debug("### 카카오 유저 이메일 : " . $this->kakaoData['kakaoUserEmail'] . " ###");
 
         try {
-            $kakaoUserConfirm = User::where('user_email', $kakaoUserEmail)
+            $kakaoUserConfirm = User::where('user_email', $this->kakaoData['kakaoUserEmail'])
                             ->first();
             
             Log::debug($kakaoUserConfirm ? "### 카카오 가입 유저 ###" : "### 카카오 미가입 유저 ###");
@@ -78,53 +84,43 @@ class SocialLoginController extends Controller
                     'user_detail_address' => 'kakaoUserDetailAddress',
                 ]);
 
+                Auth::login($kakaoUserConfirm);
+                Log::debug("### 카카오 가입 유저 로그인 ###");
+
+                // 로그인 로그 찍기
+                LoginLog::create([
+                    'user_email' => $this->kakaoData['kakaoToken'],
+                    'login_at' => now(),
+                ]);
+
                 $kakaoToken = $kakaoAccessToken;
                 Log::debug("### 카카오 토큰 : " . $kakaoToken . " ###");
                 
-                $newToken = JWTAuth::fromUser($kakaoUserData);
+                $this->kakaoData['kakaoToken'] = JWTAuth::fromUser($kakaoUserData);
                 Log::debug("### 카카오 유저 토큰 발급 : " . $newToken . " ###");
-
-                $newKakaoData = $this->kakaoDataSave($newToken, $kakaoUserEmail);
-                Log::debug("### 카카오 유저 전송 데이터 : " . $newKakaoData . " ###");
-                
-                $newKakaoData = $this->kakaoDataSave($newToken, $kakaoUserEmail)->original;
-                Log::debug("### 카카오 유저 전송 데이터 : " . json_encode($newKakaoData) . " ###");
-                
-                session(['newKakaoData' => $newKakaoData]);
+                Log::debug("if 실행");
+                Log::debug("### 리턴 데이터 : " . json_encode($this->kakaoData) . " ###");
+                session()->put('kakaoData', $this->kakaoData);
+                return redirect('/kakaoLogin');
             } else {
                 Auth::login($kakaoUserConfirm);
                 Log::debug("### 카카오 가입 유저 로그인 ###");
 
                 // 로그인 로그 찍기
                 LoginLog::create([
-                    'user_email' => $kakaoUserEmail,
+                    'user_email' => $this->kakaoData['kakaoToken'],
                     'login_at' => now(),
                 ]);
 
                 $kakaoToken = $kakaoAccessToken;
                 Log::debug("### 카카오 토큰 : " . $kakaoToken . " ###");
 
-                $newToken = JWTAuth::fromUser($kakaoUserConfirm);
-                Log::debug("### 카카오 유저 토큰 발급 : " . $newToken . " ###");
-
-                $newKakaoData = $this->kakaoDataSave($newToken, $kakaoUserEmail)->original;
-                Log::debug("### 카카오 유저 전송 데이터 : " . json_encode($newKakaoData) . " ###");
-                
-                session(['newKakaoData' => $newKakaoData]);
-                Log::debug("### 세션 카카오 유저 전송 데이터 저장 ###");
-                // Log::debug(session('newKakaoData'));
-
-                // $newKakaoDataJson = json_encode($newKakaoData);
-                // session(['newKakaoData' => $newKakaoDataJson]);
-                // Log::debug("### 세션 카카오 유저 전송 데이터 저장 ###");
-                // Log::debug(session('newKakaoData'));
-
-                $this->kakaoDataList();
-                return redirect('/');
-                // return response()->json([
-                //     'code' => '11',
-                //     'kakaoData' => $newKakaoData
-                // ]);
+                $this->kakaoData['kakaoToken'] = JWTAuth::fromUser($kakaoUserConfirm);
+                Log::debug("### 카카오 유저 토큰 발급 : " . $this->kakaoData['kakaoToken'] . " ###");
+                Log::debug("else 실행");
+                Log::debug("### 리턴 데이터 : " . json_encode($this->kakaoData) . " ###");
+                session()->put('kakaoData', $this->kakaoData);
+                return redirect('/kakaoLogin');
             }
 
         } catch (\Exception $e) {
@@ -137,39 +133,17 @@ class SocialLoginController extends Controller
         }
     }
 
-    private function kakaoDataSave($token, $email) {
+    public function kakaoUserLoginData() {
+        $kakaoData = session()->get('kakaoData');
+        $kakaoToken = $kakaoData['kakaoToken'];
+        $kakaoUserEmail = $kakaoData['kakaoUserEmail'];
+        Log::debug($kakaoToken);
+        Log::debug($kakaoUserEmail);
+
         return response()->json([
-            'code' => 'KLI00',
-            'kakaoToken' => $token,
-            'kakaoUserEmail' => $email,
+            'kakaoToken' => $kakaoToken,
+            'kakaoUserEmail' => $kakaoUserEmail,
         ]);
-    }
-
-    public function kakaoDataList()
-    {   
-        // Log::debug("### kakaoDataList함수리퀘스트 :".$request->header('Cookie')."###");
-        $kakaoData = session()->get('newKakaoData');
-        
-        Log::debug("### kakaoDataList함수 카카오데이터 :".json_encode($kakaoData)."###");
-
-        // 세션 데이터가 올바른지 확인 후 적절한 응답 반환
-        if ($kakaoData) {
-            Log::debug("### kakaoDataList함수 실행중 ###");
-            return response()->json([
-                'kakaoData' => $kakaoData
-            ]);
-        } else {
-            // 세션에 데이터가 없는 경우 적절한 응답을 반환하거나 오류를 처리할 수 있습니다.
-            return response()->json([
-                'error' => '세션에 데이터가 없습니다.'
-            ], 404); // 예: 404 Not Found
-        }
-
-        // return response()->json([
-        //     // 'code' => '11',
-        //     'kakaoData' => $kakaoData
-        // ]);
-        
     }
 
     public function kakaoLogout(Request $request) {

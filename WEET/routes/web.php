@@ -198,14 +198,15 @@ Route::middleware(['userValidation'])->group(function() {
 });
 
 // 카카오로그인
-Route::get('/login/kakao', [SocialLoginController::class, 'kakaoLogin']);
+Route::get('/kakao', [SocialLoginController::class, 'kakaoLogin']);
 
 Route::get('/login/kakao/callback', [SocialLoginController::class, 'handleKakaoCallback']);
 
-Route::get('/kakao', [SocialLoginController::class, 'kakaoDataList']);
+Route::get('/kakaoLogin', function () {
+    return view('welcome');
+});
 
-// Route::get('/kakaoData', [SocialLoginController::class, 'kakaoDataList']);
-
+Route::post('/kakaoLoginData', [SocialLoginController::class, 'kakaoUserLoginData']);
 Route::post('/logout/kakao', [SocialLoginController::class, 'kakaoLogout']);
 
 Route::get('/signup', function () {

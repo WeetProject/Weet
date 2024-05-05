@@ -1,5 +1,5 @@
 <template>
-	<div v-show="!$route.path.startsWith('/admin')">
+	<div v-show="!$route.path.startsWith('/admin') && $route.path !== '/kakaoLogin'">
 		<div class="header_container">
 			<div class="header_nav">
 				<div class="header_nav_logo">
@@ -31,10 +31,10 @@
 									</a>
 								</button>
 							</div>
-							<div v-if="!$store.state.token" style="margin-top: 3px;">
+							<div v-if="$store.state.token" style="margin-top: 3px;">
 								<button @click="logout">logout</button>
 							</div>
-							<div v-else-if="$store.state.token" style="margin-top: 3px;">
+							<div v-else-if="$store.state.setKakaoToken" style="margin-top: 3px;">
 								<button @click="kakaoLogout">logout</button>
 							</div>
 						</div>
@@ -159,6 +159,8 @@ import VueJwtDecode from 'vue-jwt-decode'
 			// this.handleKakaoLogin();
 			const token = localStorage.getItem('setKakaoToken');
 			console.log("카카오 토큰" , token);
+			const userToken = localStorage.getItem('setToken');
+			console.log("유저 토큰" , userToken);
 			// const logToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvbG9naW4va2FrYW8vY2FsbGJhY2siLCJpYXQiOjE3MTQ3NTMwODAsImV4cCI6MTcxNDc1NjY4MCwibmJmIjoxNzE0NzUzMDgwLCJqdGkiOiJqU2xTSFRYRHZyamQ1RVlKIiwic3ViIjoiMTI5IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.nTxwrYZWtM3EspgcidfwSYuop7U0T3qLqunQGzkirBY";
 			// const payload = VueJwtDecode.decode(token);
 			// const logPayload = VueJwtDecode.decode(logToken);
@@ -206,8 +208,7 @@ import VueJwtDecode from 'vue-jwt-decode'
         	},
 
 			loginKakao() {
-				window.location.href = '/login/kakao';
-				this.$store.dispatch('kakaoUserLoginData');		
+				window.location.href = '/kakao';	
 			},
 
 			kakaoLogout() {
