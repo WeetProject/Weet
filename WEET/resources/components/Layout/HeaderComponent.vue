@@ -200,8 +200,8 @@
 				this.kakaoUserData.kakaoUserID = localStorage.getItem('setKakaoUserID');
 				this.kakaoUserData.kakaoToken = localStorage.getItem('setKakaoToken');
 				
-				console.log('로컬스토리지 저장아이디', this.kakaoUserData.kakaoUserID);
-				console.log('로컬스토리지 저장토큰', this.kakaoUserData.kakaoToken);
+				// console.log('로컬스토리지 저장아이디', this.kakaoUserData.kakaoUserID);
+				// console.log('로컬스토리지 저장토큰', this.kakaoUserData.kakaoToken);
 			},
 
 			loginKakao() {
@@ -210,7 +210,6 @@
 
 			kakaoLogout() {
 				this.$store.dispatch('kakaoLogout');
-				localStorage.clear();
 			},
 			
     	},

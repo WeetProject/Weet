@@ -311,9 +311,8 @@ const store = createStore({
         // 카카오 유저 로그아웃
         kakaoLogout() {
             console.log('로그아웃함수실행');
-            // const URL = 'https://kapi.kakao.com/v1/user/logout';
             const URL = '/logout/kakao';
-            const accessToken = localStorage.getItem('setToken');
+            const accessToken = localStorage.getItem('setKakaoToken');
             console.log(accessToken);
 
             axios.post(URL, null, {
@@ -322,18 +321,13 @@ const store = createStore({
                 }
             })
             .then(response => {
-                // if(response.status === "200") {
-                //     const cookiesToDelete = ['XSRF-TOKEN', 'laravel_session'];
-                //     // 쿠키 삭제
-                //     cookiesToDelete.forEach(cookieName => {
-                //         document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-                //     });
-                // }
-                localStorage.clear();
-                console.log(response);
-                alert("로그아웃 성공\n로그아웃에 성공했습니다. 페이지를 새로고침 하시겠습니까?");
-                console.log("카카오 로그아웃 성공");
-                location.reload();
+                if(response.data.code === "KLO00") {
+                    localStorage.clear();
+                    console.log(response.data.code);
+                    console.log("카카오 로그아웃 성공");
+                    location.reload();
+                }
+                
             })
             .catch(error => {
                 console.error("카카오 로그아웃 오류:", error);

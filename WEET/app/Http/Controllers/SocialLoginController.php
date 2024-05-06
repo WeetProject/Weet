@@ -117,8 +117,7 @@ class SocialLoginController extends Controller
 
                 $this->kakaoData['kakaoToken'] = JWTAuth::fromUser($kakaoUserConfirm);
                 Log::debug("### 카카오 유저 토큰 발급 : " . $this->kakaoData['kakaoToken'] . " ###");
-                Log::debug("else 실행");
-                Log::debug("### 리턴 데이터 : " . json_encode($this->kakaoData) . " ###");
+                // Log::debug("### 리턴 데이터 : " . json_encode($this->kakaoData) . " ###");
                 session()->put('kakaoData', $this->kakaoData);
                 return redirect('/kakaoLogin');
             }
@@ -137,8 +136,6 @@ class SocialLoginController extends Controller
         $kakaoData = session()->get('kakaoData');
         $kakaoToken = $kakaoData['kakaoToken'];
         $kakaoUserEmail = $kakaoData['kakaoUserEmail'];
-        Log::debug($kakaoToken);
-        Log::debug($kakaoUserEmail);
 
         return response()->json([
             'code' => 'KLI00',
@@ -150,18 +147,19 @@ class SocialLoginController extends Controller
     }
 
     public function kakaoLogout(Request $request) {
-        Log::debug("### 프론트정보 : " . $request . " ###");
         $kakaoUser = $request->user();
         // Log::debug("세션 정보: " . json_encode($request->session()->all()));
         $token = JWTAuth::getToken();
         JWTAuth::invalidate($token);
-        // 현재 사용자의 세션을 종료합니다.
-        // Cookie::forget('laravel_session');
-        // Session::flush();
 
-        Auth::logout();
+        Auth::logout($request);
+        Log::debug("### kakao 로그아웃 : 로그아웃 처리완료 ###");
+        Session::flush();
+        Log::debug("### kakao 로그아웃 : 세션 파기 완료 ###");
 
-        // Log::debug("세션 정보: " . json_encode($request->session()->all()));
+        return response()->json([
+            'code' => 'KLO00',
+        ]);
     }
 
     // ### 현희 ###
