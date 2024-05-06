@@ -19,6 +19,9 @@ const store = createStore({
             kakaoUserID: null,
             kakaoToken: null,
 
+            // ### Amadeus ###
+            amadeusToken: null,
+
             // ### Admin ###
             // Admin Login 데이터 저장용
             adminToken: null,
@@ -101,8 +104,11 @@ const store = createStore({
             state.kakaoToken = kakaoToken;
         },
 
-
-
+        // ### Amadeus ###
+        // Amadeus 토큰
+        setAmadeusToken(state, amadeusToken) {
+            state.amadeusToken = amadeusToken;
+        },
 
         // ### Admin ###
         // Admin 토큰
@@ -278,8 +284,7 @@ const store = createStore({
         },
 
         // 카카오 유저 로그인 데이터 수신
-        kakaoUserLoginData({ commit }) {
-            console.log('카카오 로그인 함수실행');
+        kakaoUserLoginData({ commit }) {            
 			const URL = '/kakaoLoginData'
 			axios.post(URL)
                 .then(response => {               
@@ -310,7 +315,6 @@ const store = createStore({
 
         // 카카오 유저 로그아웃
         kakaoLogout() {
-            console.log('로그아웃함수실행');
             const URL = '/logout/kakao';
             const accessToken = localStorage.getItem('setKakaoToken');
             console.log(accessToken);
@@ -334,6 +338,31 @@ const store = createStore({
             });
 
         },
+
+        // amadeus Token 발급
+        amadeusToken({ commit }) {
+            console.log('아마데우스 토큰 발급 함수실행');
+			const tokenURL = '/amadeus';
+			axios.post(tokenURL)
+                .then(response => {               
+                    if (response.data.code === 'AT00') {
+                        const amadeusToken = response.data.amadeusToken;
+
+                        commit('setAmadeusToken', amadeusToken);
+                        
+                        localStorage.setItem('setAmadeusToken', amadeusToken);
+                        console.log(localStorage.getItem('setAmadeusToken'));
+                    } else {
+                        alert('발급실패');
+                    }
+                })
+                .catch(error => {
+                    console.error("에러");
+                    console.error("에러메세지", error.message);
+                    console.error("에러상태", error.response.status);
+                    console.error("에러응답데이터", error.response);
+                });
+		},
 
 
 

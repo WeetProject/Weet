@@ -27,7 +27,8 @@
 							<!-- 연관 검색어 출력부분 -->
 							<ul v-if="destinationQuerySuggestion && destinationQuery.length" class="suggetion_ul">
 								<li class="suggetion_li" v-for="destinationSuggestion in destinationQuerySuggestion" :key="destinationSuggestion" @click="applySuggestionDestinationInput(destinationSuggestion)">
-									<span>{{ destinationSuggestion.airport_kr_city_name }}({{ destinationSuggestion.airport_city_name }})</span>
+									<p>{{ destinationSuggestion.airport_kr_city_name }}({{ destinationSuggestion.airport_city_name }})</p>
+									<p>{{ destinationSuggestion.airport_kr_name }}({{ destinationSuggestion.airport_iata_code }})</p>
 								</li>
 							</ul>
 						</div>
@@ -74,7 +75,7 @@
 					<img src="../../public/images/Main_search.png" alt="">
 				</div>
 				<div class="main_search_ticket_airline_area">
-					<a class="text-center" href="#">검색하기</a>
+					<a class="text-center" href="#" @click="amadeusSearch">검색하기</a>
 				</div>
 			</div>
 
@@ -139,6 +140,8 @@ export default {
 			destinationQuerySuggestion: [],
 			destinationFlg: false,
 			date: [],
+			originLocationCodeQuery: null,
+			destinationLocationCodeQuery: null,
 		}
 	},
 
@@ -147,6 +150,7 @@ export default {
         const endDate = new Date(startDate);
         endDate.setDate(startDate.getDate() + 1);
         this.date = [startDate, endDate];
+		this.amadeusToken()
 	},
 
 	methods: {
@@ -168,6 +172,7 @@ export default {
 			this.startingPointQuery = originSuggestion.airport_kr_city_name + '(' + originSuggestion.airport_city_name + ')';
 			this.startingPointQuerySuggestion = null;
 			this.startingPointFlg = true;
+			this.originLocationCodeQuery = originSuggestion.airport_iata_code;
 		},
 
 		// 출발지 연관 검색어 송수신
@@ -225,6 +230,7 @@ export default {
 			this.destinationQuery = destinationSuggestion.airport_kr_city_name + '(' + destinationSuggestion.airport_city_name + ')';
 			this.destinationQuerySuggestion = null;
 			this.destinationFlg = true;
+			this.destinationLocationCodeQuery = destinationSuggestion.airport_iata_code;
 		},
 
 		// 도착지 연관 검색어 송수신
@@ -266,42 +272,54 @@ export default {
 		
 		// date format
 		formatDate(date) {
+			const addZero = (num) => (num < 10 ? "0" + num : num);
 			if (Array.isArray(date)) {
 				const startDate = date[0];
 				const endDate = date[1];
 				const startYear = startDate.getFullYear();
-				const startMonth = startDate.getMonth() + 1;
-				const startDay = startDate.getDate();
+				const startMonth = addZero(startDate.getMonth() + 1);
+				const startDay = addZero(startDate.getDate());
 				const endYear = endDate.getFullYear();
-				const endMonth = endDate.getMonth() + 1;
-				const endDay = endDate.getDate();
+				const endMonth = addZero(endDate.getMonth() + 1);
+				const endDay = addZero(endDate.getDate());
 				return `${startYear}-${startMonth}-${startDay} ~ ${endYear}-${endMonth}-${endDay}`;
 			} else {
 				const year = date.getFullYear();
-				const month = date.getMonth() + 1;
-				const day = date.getDate();
-				return `${year}년 ${month}월 ${day}일`;
+				const month = addZero(date.getMonth() + 1);
+				const day = addZero(date.getDate());
+				return `${year}-${month}-${day}`;
 			}
 		},
 
 		// 3. 여행자 및 좌석 등급 input 값 설정
 		// 4. 파라미터 설정 후 api 호출(데이터 확인)
 
+		amadeusToken() {
+			this.$store.dispatch('amadeusToken');
+		},
+
 		// 출발지, 도착지, 날짜 데이터 api 송수신
 		amadeusSearch() {
+			const amadeusToken = localStorage.getItem('setAmadeusToken');
+			console.log(amadeusToken);
+
 			const URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers';
-			const originLocationCode = this.originSuggestion.airport_city_name; // 출발지
-			const destinationLocationCode = this.destinationSuggestion.airport_city_name; // 도착지
+			const originLocationCode = this.originLocationCodeQuery; // 출발지
+			const destinationLocationCode = this.destinationLocationCodeQuery; // 도착지
 			const departureDate = this.formatDate(this.date[0]);
-      		const returnDate = this.formatDate(this.date[1]);
+			const returnDate = this.formatDate(this.date[1]);
+			// const departureDate = '2024-05-08';
+			// const returnDate = '2024-05-11';
 			const KRW = "KRW" // 원화
 			const adultPassenger = 1;
 			// const childrenPassenger = ;
-			// const travelClass = ;
-			
+			// const travelClass = ;			
 			
 			axios.get(URL, {
-				params: {
+				headers: {
+					'Authorization': `Bearer ${amadeusToken}`
+				},
+				params: {					
 					// 출발지
 					originLocationCode: originLocationCode, 
 					// 도착지
@@ -311,18 +329,18 @@ export default {
 					// 돌아오는 날짜
 					returnDate: returnDate,
 					// 원화
-					currenecyCode: KRW,
+					currencyCode: KRW,
 					// 인원
 					adults: adultPassenger
 					// 좌석 등급
 					// travelClass:
-				}
+				},				
 			})
 			.then(response => {
-			
+				console.log(response.data);
 			})
 			.catch(error => {
-			
+				console.error(error);
 			});
 		}
 	}

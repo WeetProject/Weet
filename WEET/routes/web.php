@@ -17,6 +17,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\SocialLoginController;
 use App\Http\Controllers\AlgoliaSearchController;
+use App\Http\Controllers\AmadeusTokenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -164,8 +165,9 @@ Route::get('/search-startingpoint',
 Route::get('/search-destination', 
         [AlgoliaSearchController::class, 'destinationSuggestion']);
 
-
-
+// ### Amadeus ###
+Route::post('/amadeus',
+        [AmadeusTokenController::class, 'amadeusToken']);
 
 
 

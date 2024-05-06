@@ -23,7 +23,6 @@ class AlgoliaSearchController extends Controller
                                                 ->raw();
                 $startingPointQueryData = [];
                 // Algolia 데이터 hits 리턴
-                log::debug($startingPointQuerySuggestion);
                 foreach ($startingPointQuerySuggestion['hits'] as $hit) {
                     $startingPointQueryData[] = [
                         'airport_kr_city_name' => $hit['airport_kr_city_name'],
@@ -64,7 +63,7 @@ class AlgoliaSearchController extends Controller
         try {
             // 출발지 검색어 저장 
             $destinationQuery = trim($request->input('query'));
-            Log::debug("### 출발지 검색 Query : " . $destinationQuery . " ###");
+            Log::debug("### 도착지 검색 Query : " . $destinationQuery . " ###");
 
             if($destinationQuery) {
                 // Algolia 데이터 저장
@@ -76,7 +75,8 @@ class AlgoliaSearchController extends Controller
                     $destinationQueryData[] = [
                         'airport_kr_city_name' => $hit['airport_kr_city_name'],
                         'airport_city_name' => $hit['airport_city_name'],
-                        // 'airport_kr_country_name' => $hit['airport_kr_country_name'],
+                        'airport_kr_name' => $hit['airport_kr_name'],
+                        'airport_iata_code' => $hit['airport_iata_code']
                     ];
                 }
 
