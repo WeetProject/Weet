@@ -141,8 +141,11 @@ class SocialLoginController extends Controller
         Log::debug($kakaoUserEmail);
 
         return response()->json([
-            'kakaoToken' => $kakaoToken,
-            'kakaoUserEmail' => $kakaoUserEmail,
+            'code' => 'KLI00',
+            'kakaoUserData' => [
+                'kakaoToken' => $kakaoToken,
+                'kakaoUserEmail' => $kakaoUserEmail
+            ]
         ]);
     }
 

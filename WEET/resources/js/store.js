@@ -9,12 +9,15 @@ const store = createStore({
 
     state() {
         return {
-            showmodal: false,			
+            showmodal: false,
+            // 일반 로그인 
             userData: null,
             userID: null,
             token: null,
+            // 카카오 록그인
+            kakaoUserData: null,
+            kakaoUserID: null,
             kakaoToken: null,
-            kakaoUserEmail: null,
 
             // ### Admin ###
             // Admin Login 데이터 저장용
@@ -59,13 +62,14 @@ const store = createStore({
         // 로그인 시 유저 데이터
         setUserData(state, userData) {
             state.userData = userData;
-        },
-        setKakaoUserData(state, kakaoUserEmail) {
-            state.kakaoUserEmail = kakaoUserEmail;
-        },
+        },        
         // 로그인했을 때 유저ID값
         setUserID(state, userID) {
             state.userID = userID;
+        },
+        // 유저 토큰 저장용
+        setToken(state, token) {
+            state.token = token;
         },
         // 유저 로그인 정보 저장용
         setSaveToLocalStorage(state, data) {
@@ -85,10 +89,13 @@ const store = createStore({
             setTimeout(function() {
                 localStorage.clear();
             }, 2 * 60 * 60 * 1000);
+        },    
+        //  
+        setKakaoUserData(state, kakaoUserData) {
+            state.kakaoUserData = kakaoUserData;
         },
-        // 유저 토큰 저장용
-        setToken(state, token) {
-            state.token = token;
+        setKakaoUserID(state, kakaoUserID) {
+            state.kakaoUserID = kakaoUserID;
         },
         setKakaoToken(state, kakaoToken) {
             state.kakaoToken = kakaoToken;
@@ -275,24 +282,19 @@ const store = createStore({
             console.log('카카오 로그인 함수실행');
 			const URL = '/kakaoLoginData'
 			axios.post(URL)
-                .then(response => {
-                    console.log(response.data);
-                    
-                    const kakaoToken = response.data.kakaoToken;
-                    const kakaoUserID = response.data.kakaoUserEmail;
-                    console.log(response.data.kakaoToken);
-                    console.log(response.data.kakaoUserEmail);
+                .then(response => {               
+                    if (response.data.code === 'KLI00') {
+                        const kakaoUserData = response.data.kakaoUserData;
+                        const kakaoUserID = kakaoUserData.kakaoUserEmail;
+                        const kakaoToken = kakaoUserData.kakaoToken;
 
-                    if (kakaoToken) {
+                        commit('setKakaoUserID', kakaoUserID);
                         commit('setKakaoToken', kakaoToken);
-                        commit('setKakaoUserData', kakaoUserID);
                         
+                        localStorage.setItem('setKakaoUserID', kakaoUserID);
                         localStorage.setItem('setKakaoToken', kakaoToken);
-                        localStorage.setItem('setKakaoUserData', kakaoUserID);
 
                         alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
-                        // window.location.reload();
-                        // location.reload();
                         router.push('/');
                     } else {
                         alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');

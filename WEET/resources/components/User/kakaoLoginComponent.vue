@@ -5,7 +5,10 @@
 export default {
     created() {
         this.$store.dispatch('kakaoUserLoginData');
-    }
+    },
+
+    methods: {
+    },
 }
 </script>
 

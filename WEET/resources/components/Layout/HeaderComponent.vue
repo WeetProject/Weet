@@ -15,7 +15,7 @@
 						</svg>
 					</button>
 					<div class="header_nav_login_btn">
-						<div v-if="!$store.state.token" class="header_nav_login_btn_user">
+						<div v-if="!$store.state.token && !(kakaoUserData.kakaoUserID && kakaoUserData.kakaoToken)" class="header_nav_login_btn_user">
 							<button @click="toggleModal">login</button>
 							<!-- <LoginComponent v-if="showmodal" @closeModal="closemodal" /> -->
 							<!-- <a href="/login">login</a> -->
@@ -34,7 +34,9 @@
 							<div v-if="$store.state.token" style="margin-top: 3px;">
 								<button @click="logout">logout</button>
 							</div>
-							<div v-else-if="$store.state.setKakaoToken" style="margin-top: 3px;">
+						</div>
+						<div v-else-if="kakaoUserData.kakaoUserID && kakaoUserData.kakaoToken" class="header_nav_login_btn_user">
+							<div style="margin-top: 3px;">
 								<button @click="kakaoLogout">logout</button>
 							</div>
 						</div>
@@ -119,10 +121,6 @@
 
 <script>
 // import LoginComponent from '../User/LoginComponent.vue';
-import axios from 'axios';
-import Vuex from 'vuex';
-import store from '../../js/store.js';
-import VueJwtDecode from 'vue-jwt-decode'
 
     export default {
         name: 'HeaderComponent',
@@ -138,38 +136,29 @@ import VueJwtDecode from 'vue-jwt-decode'
                 	userEmail: '',
                 	userPassword: '',
             	},
-				// frmKakaoLoginData: {
-				// 	kakaoUserEmail: '',
-				// 	kakaoToken: '',
-				// },
-				kakaoUserEmail: '',
-				kakaoToken: '',
+				kakaoUserData: {
+					kakaoToken: null,
+					kakaoUserID: null
+				}
             }
 	    },
 
 		computed: {
-
 		},
 
 		// 로컬스토리지에 유저정보 저장
 		// created() : Vue애플리케이션이 생성된 후 컴포넌트가 생성되고 
 		// DOM이 렌더링되기 직전에 호출되는 시점
-		created() {
-        	this.loadUserLoginStatus();
-			// this.handleKakaoLogin();
-			const token = localStorage.getItem('setKakaoToken');
-			console.log("카카오 토큰" , token);
-			const userToken = localStorage.getItem('setToken');
-			console.log("유저 토큰" , userToken);
-			// const logToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvbG9naW4va2FrYW8vY2FsbGJhY2siLCJpYXQiOjE3MTQ3NTMwODAsImV4cCI6MTcxNDc1NjY4MCwibmJmIjoxNzE0NzUzMDgwLCJqdGkiOiJqU2xTSFRYRHZyamQ1RVlKIiwic3ViIjoiMTI5IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.nTxwrYZWtM3EspgcidfwSYuop7U0T3qLqunQGzkirBY";
-			// const payload = VueJwtDecode.decode(token);
-			// const logPayload = VueJwtDecode.decode(logToken);
-			// console.log(payload);	
-			// console.log(logPayload);	
-			
-    	},
+		created() {		
+			this.loadUserLoginStatus();		
+		},
 
-		mounted() {		
+		mounted() {
+			
+		},
+
+		updated() {
+			this.loadKakaoUserLoginStatus();
 		},
 
 		methods: {
@@ -207,8 +196,16 @@ import VueJwtDecode from 'vue-jwt-decode'
 				}
         	},
 
+			loadKakaoUserLoginStatus() {
+				this.kakaoUserData.kakaoUserID = localStorage.getItem('setKakaoUserID');
+				this.kakaoUserData.kakaoToken = localStorage.getItem('setKakaoToken');
+				
+				console.log('로컬스토리지 저장아이디', this.kakaoUserData.kakaoUserID);
+				console.log('로컬스토리지 저장토큰', this.kakaoUserData.kakaoToken);
+			},
+
 			loginKakao() {
-				window.location.href = '/kakao';	
+				window.location.href = '/kakao';
 			},
 
 			kakaoLogout() {
