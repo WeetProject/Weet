@@ -195,6 +195,11 @@ Route::middleware(['userValidation'])->group(function() {
     Route::post('/signupEmailDoubleChk', [UserController::class, 'emailDoubleChk']);
     Route::post('/login', [UserController::class, 'loginPost']);
 
+    Route::get('/sendEmail', function () {
+        return view('welcome');
+    });
+    Route::post('/sendVerificationEmail', [UserController::class, 'emailVerification']);
+
     Route::match(['get'], '/login', function () {
         abort(405, 'Method Not Allowed');
     });

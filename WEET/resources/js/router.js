@@ -8,7 +8,7 @@ import SearchComponent from '../components/search/SearchComponent.vue';
 import SignUpComponent from '../components/User/SignUpComponent.vue';
 import kakaoLoginComponent from '../components/User/kakaoLoginComponent.vue';
 import GoogleLoginComponent from '../components/User/GoogleLoginComponent.vue';
-// import HeaderComponent from '../components/User/HeaderComponent.vue';
+import EmailVerificationComponent from '../components/User/EmailVerificationComponent.vue';
 
 // ### Admin ###
 // Admin Layout
@@ -72,6 +72,10 @@ const routes = [
 	{
 		path: '/googleLogin',
 		component: GoogleLoginComponent
+	},
+	{
+		path: '/sendEmail',
+		component: EmailVerificationComponent
 	},
 	// Admin	
 	{
