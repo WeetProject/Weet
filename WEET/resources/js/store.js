@@ -19,6 +19,11 @@ const store = createStore({
             kakaoUserID: null,
             kakaoToken: null,
 
+            // 구글 로그인
+            googleUserData: null,
+            googleUserEmail: null,
+            googleToken: null,
+
             // ### Amadeus ###
             amadeusToken: null,
 
@@ -102,6 +107,12 @@ const store = createStore({
         },
         setKakaoToken(state, kakaoToken) {
             state.kakaoToken = kakaoToken;
+        },
+        setGoogleUserID(state, googleUserEmail) {
+            state.googleUserEmail = googleUserEmail;
+        },
+        setGoogleToken(state, googleToken) {
+            state.googleToken = googleToken;
         },
 
         // ### Amadeus ###
@@ -299,7 +310,7 @@ const store = createStore({
                         localStorage.setItem('setKakaoUserID', kakaoUserID);
                         localStorage.setItem('setKakaoToken', kakaoToken);
 
-                        alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
+                        // alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
                         router.push('/');
                     } else {
                         alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
@@ -335,6 +346,62 @@ const store = createStore({
             })
             .catch(error => {
                 console.error("카카오 로그아웃 오류:", error);
+            });
+
+        },
+
+        // 구글 로그인 데이터 수신
+        googleUserLoginData({ commit }) {
+            const URL = '/googleLoginData'
+			axios.post(URL)
+                .then(response => {               
+                    if (response.data.code === 'GLI00') {
+                        const googleUserData = response.data.googleUserData;
+                        const googleUserEmail = googleUserData.googleUserEmail;
+                        const googleToken = googleUserData.googleToken;
+
+                        commit('setGoogleUserID', googleUserEmail);
+                        commit('setGoogleToken', googleToken);
+                        
+                        localStorage.setItem('setGoogleUserID', googleUserEmail);
+                        localStorage.setItem('setGoogleToken', googleToken);
+
+                        // alert('로그인 성공. WEET에서 즐거운 여행되세요:)');
+                        router.push('/');
+                    } else {
+                        alert('로그인 실패. 이메일 또는 비밀번호를 확인해주세요.');
+                    }
+                })
+                .catch(error => {
+                    console.error("에러");
+                    console.error("에러메세지", error.message);
+                    console.error("에러상태", error.response.status);
+                    console.error("에러응답데이터", error.response);
+                });
+        },
+
+        // 구글 유저 로그아웃
+        googleLogout() {
+            const URL = '/logout/google';
+            const accessToken = localStorage.getItem('setGoogleToken');
+            console.log(accessToken);
+
+            axios.post(URL, null, {
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`
+                }
+            })
+            .then(response => {
+                if(response.data.code === "GLO00") {
+                    localStorage.clear();
+                    console.log(response.data.code);
+                    console.log("구글 로그아웃 성공");
+                    location.reload();
+                }
+                
+            })
+            .catch(error => {
+                console.error("구글 로그아웃 오류:", error);
             });
 
         },

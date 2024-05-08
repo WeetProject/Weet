@@ -109,6 +109,21 @@
                         </div>
                         <div class="regist_user_info_box_content">
                             <div class="regist_user_info_box_label">
+                                <span class="font-bold">인증번호</span><span style="color: red;">*</span>
+                            </div>
+                            <div class="regist_user_info_box_input">
+                                <input type="text" placeholder="발송된 인증번호를 작성해주세요">
+                            </div>
+                            <div class="regist_user_info_box_email_chk">
+                                <button class="text-xs text-center font-bold">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check-all" :class=" EmailDoubleCheck ? 'text-blue-500' : ''" viewBox="0 0 16 16">
+                                        <path d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="regist_user_info_box_content">
+                            <div class="regist_user_info_box_label">
                                 <span class="font-bold">비밀번호</span><span style="color: red;">*</span>
                             </div>
                             <div class="regist_user_info_box_input">
@@ -490,6 +505,9 @@ export default {
                     // 성공 메시지 표시
                     if (confirm('사용 가능한 이메일입니다. 확인하시겠습니까?')) {
                         this.EmailDoubleCheck = true;
+
+                        // 이메일 중복 체크 후에 이메일을 보내는 API를 호출
+                        this.sendVerificationEmail();
                     }
                 } else if (res.data.message === false) {
                     // this.EmailDoubleerror = '이미 존재하는 이메일입니다.';
@@ -510,6 +528,22 @@ export default {
                     console.error('예상치 못한 에러:', err);
                 }
             });
+        },
+
+        sendVerificationEmail() {
+            const url = '/sendVerificationEmail';
+
+            axios.post(url, { email: this.frmUserData.userEmail })
+                .then(res => {
+                    console.log(res);
+                    // 이메일 전송 성공 메시지 표시
+                    alert('인증 이메일을 성공적으로 보냈습니다./n발송된 인증번호를 확인해주세요:)');
+                })
+                .catch(err => {
+                    console.error('에러:', err);
+                    // 이메일 전송 실패 메시지 표시
+                    alert('인증 이메일을 보내는데 실패했습니다.');
+                });
         },
 
         // 이메일 실시간 유효성 체크
@@ -574,6 +608,7 @@ export default {
                 this.errors.userTel = '';
             }
         },
+        
     },
 }
 

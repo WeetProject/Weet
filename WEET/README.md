@@ -61,10 +61,11 @@
 11. 뷰티파이
     - npm i vuetify
 
-12. kakao Login
+12. Social Login
     - 참고 : https://vuxy.tistory.com/entry/Laravel-8-%EC%86%8C%EC%85%9C%EB%A1%9C%EA%B7%B8%EC%9D%B8Laravel-Socialite-1
     - composer require laravel/socialite
     - composer require socialiteproviders/kakao
+    + 5/8 추가 : composer require socialiteproviders/google
 
 13. CSV 파일 import
     - 마이그레이트 후 HeidSQL
@@ -103,7 +104,3 @@
     - npm install date-fns --save
     - 참고 : https://date-fns.org/v2.16.1/docs/Getting-Started
 
-
-0504 todo
-카카오 서버 토큰 발급 private으로 저장하여 리턴해주는 방식으로
-세션 처리 삭제

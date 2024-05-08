@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\LoginLog;
+use App\Mail\VerificationEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Cache;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -52,10 +54,38 @@ class UserController extends Controller
                 'message' => false,
             ]);
         } else {
+            // Mail::to($userEmail)->send(new VerificationEmail($userEmail));
             return response()->json([
                 'message' => true,
             ]);
         }
+    }
+
+    // 이메일 인증
+    public function emailVerification(Request $request) {
+        Log::debug("리퀘스트".$request);
+        $emailVerification = $request->email;
+        Log::debug("인증이메일".$emailVerification);
+
+        // 이메일 전송
+        // Mail::to($emailVerification)->send(new VerificationEmail($emailVerification));
+
+        $message = "<h1>안녕하세요</h1><p>위트에 가입하시려면 인증코드를 입력해주세요</p>"; // HTML 형식의 메시지
+
+        // 인증코드 만들기
+
+        // 인증코드 변수에 담아서 추가해주기
+        Mail::html($message, function ($mail) use ($emailVerification) {
+            $mail->to($emailVerification)->subject('위트 가입 인증코드'); // 수신자 이메일 주소 및 제목
+        });
+
+        // 인증코드 세션에 저장하기
+        return response()->json([
+            'message' => true,
+        ]);
+
+        // vue컴포넌트에선 인증코드 확인버튼 눌렀을 때 세션에 저장된 값하고 같은지 확인 후 일치하면 통과
+        // 할거많네..
     }
 
     // 로그인
