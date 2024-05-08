@@ -1,0 +1,123 @@
+@import "./mixin";
+
+@include desktop {
+    .main_container {
+        width: 1000px;
+        margin: 0 auto;
+
+        .main_top_container {
+            width: 100%;
+            height: 600px;
+            margin: 30px auto;
+
+            .main_top_img_section {
+                width: 100%;
+                height: 100%;
+                padding: 3rem;
+                background-image: url('../../public/images/Admin_login.jpg');
+                background-size: cover;
+                border-radius: 10px;
+
+                .main_top_originlacation_input_container {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .top_originlacation_input_article,
+                    .top_destinationlocation_input_article {
+                        width: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+
+                        .main_top_originlocation_input_section,
+                        .main_top_destinationlocation_input_section {
+                            width: 100%;
+                            height: 100px;
+                            margin: 0 auto;
+                            background-color: $white;
+                            border-radius: 20px;
+                            position: relative;
+                            
+
+                            .main_top_originlocation_input_area,
+                            .main_top_destinationlocation_input_area {
+                                width: 100%;
+                                height: 100%;
+                                padding: 10px 20px;
+                                margin: 0 auto;
+                                
+                                .main_top_originlocation_input,
+                                .main_top_destinationlocation_input {
+                                    width: 100%;
+                                    height: 70%;
+                                }
+                            }        
+                            
+                            .main_top_suggetion_area{
+                                width: 100%;
+                                // height: 250px;
+                                margin-top: 5px;
+                                background-color: $white;
+                                overflow-y: auto;
+                                border-radius: 20px;                   
+                                
+                                .suggetion_ul {
+                                    width: 100%;
+                                    height: 100%;
+                                    padding: 10px 20px;
+
+                                    .suggetion_li {
+                                        width: 100%;
+                                        height: 40px;
+
+                                        .suggtion_li_article {
+                                            width: 100%;
+                                            display: flex;
+                                            justify-content: space-between;
+                                            align-items: center;
+
+                                            &:hover {
+                                                cursor: pointer;
+                                                background-color: $layout-background-color;
+                                            }
+
+                                            .suggetion_li_city,
+                                            .suggetion_li_airport {
+                                                width: 100%;
+                                                display: flex;
+                                                align-items: center;                                                
+
+                                                .suggetion_li_city_span,
+                                                .suggetion_li_airport_span {
+                                                    display: inline-block;
+                                                    white-space: nowrap;
+                                                    overflow: hidden;
+                                                    text-overflow: ellipsis;
+                                                    max-width: 150px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }                    
+                        }
+                    }
+                }
+
+                .main_top_date_section,
+                .main_top_passenger_section {
+                    width: 100%;
+                    height: 100px;
+                    margin: 0 auto;
+                    padding: 10px 20px;
+                    background-color: $white;
+                    border-radius: 20px;
+                }
+                
+            }
+        }
+    }
+}
