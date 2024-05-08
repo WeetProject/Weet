@@ -15,9 +15,10 @@ use App\Http\Controllers\ReservationAirController;
 use App\Http\Controllers\ReservationHotelController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MyPageController;
-use App\Http\Controllers\SocialLoginController;
+use App\Http\Controllers\KakaoSocialLoginController;
 use App\Http\Controllers\AlgoliaSearchController;
 use App\Http\Controllers\AmadeusTokenController;
+use App\Http\Controllers\GoogleSocialLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -200,21 +201,33 @@ Route::middleware(['userValidation'])->group(function() {
 });
 
 // 카카오로그인
-Route::get('/kakao', [SocialLoginController::class, 'kakaoLogin']);
+Route::get('/kakao', [KakaoSocialLoginController::class, 'kakaoLogin']);
 
-Route::get('/login/kakao/callback', [SocialLoginController::class, 'handleKakaoCallback']);
+Route::get('/login/kakao/callback', [KakaoSocialLoginController::class, 'handleKakaoCallback']);
 
 Route::get('/kakaoLogin', function () {
     return view('welcome');
 });
 
-Route::post('/kakaoLoginData', [SocialLoginController::class, 'kakaoUserLoginData']);
-Route::post('/logout/kakao', [SocialLoginController::class, 'kakaoLogout']);
+Route::post('/kakaoLoginData', [KakaoSocialLoginController::class, 'kakaoUserLoginData']);
+Route::post('/logout/kakao', [KakaoSocialLoginController::class, 'kakaoLogout']);
+
+// 구글로그인
+Route::get('/google', [GoogleSocialLoginController::class, 'googleLogin']);
+
+Route::get('/login/google/callback', [GoogleSocialLoginController::class, 'handleGoogleCallback']);
+
+Route::get('/googleLogin', function () {
+    return view('welcome');
+});
+
+Route::post('/googleLoginData', [GoogleSocialLoginController::class, 'googleUserLoginData']);
+Route::post('/logout/google', [GoogleSocialLoginController::class, 'googleLogout']);
+
 
 Route::get('/signup', function () {
     return view('welcome');
 });
-
 
 Route::get('/logout', [UserController::class, 'logout']);
 Route::post('/logout', function () {

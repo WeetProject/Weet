@@ -7,6 +7,7 @@ import ReservationComponent from '../components/Reservation/ReservationComponent
 import SearchComponent from '../components/search/SearchComponent.vue';
 import SignUpComponent from '../components/User/SignUpComponent.vue';
 import kakaoLoginComponent from '../components/User/kakaoLoginComponent.vue';
+import GoogleLoginComponent from '../components/User/GoogleLoginComponent.vue';
 // import HeaderComponent from '../components/User/HeaderComponent.vue';
 
 // ### Admin ###
@@ -67,6 +68,10 @@ const routes = [
 	{
 		path: '/kakaoLogin',
 		component: kakaoLoginComponent
+	},
+	{
+		path: '/googleLogin',
+		component: GoogleLoginComponent
 	},
 	// Admin	
 	{

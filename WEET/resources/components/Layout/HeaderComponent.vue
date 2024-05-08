@@ -15,7 +15,7 @@
 						</svg>
 					</button>
 					<div class="header_nav_login_btn">
-						<div v-if="!$store.state.token && !(kakaoUserData.kakaoUserID && kakaoUserData.kakaoToken)" class="header_nav_login_btn_user">
+						<div v-if="!$store.state.token && !(kakaoUserData.kakaoUserID && kakaoUserData.kakaoToken) && !(googleUserData.googleUserEmail && googleUserData.googleToken)" class="header_nav_login_btn_user">
 							<button @click="toggleModal">login</button>
 							<!-- <LoginComponent v-if="showmodal" @closeModal="closemodal" /> -->
 							<!-- <a href="/login">login</a> -->
@@ -38,6 +38,11 @@
 						<div v-else-if="kakaoUserData.kakaoUserID && kakaoUserData.kakaoToken" class="header_nav_login_btn_user">
 							<div style="margin-top: 3px;">
 								<button @click="kakaoLogout">logout</button>
+							</div>
+						</div>
+						<div v-else-if="googleUserData.googleUserEmail && googleUserData.googleToken" class="header_nav_login_btn_user">
+							<div style="margin-top: 3px;">
+								<button @click="googleLogout">logout</button>
 							</div>
 						</div>
 
@@ -91,7 +96,7 @@
 											</div>
 
 												<div class="card__social_btn">
-													<button class="card__social_btn_google">
+													<button @click="logingoogle" class="card__social_btn_google">
 														<img src="../../../public/images/Google_logo.svg.png" alt="">
 													</button>
 													<button @click="loginKakao" class="card__social_btn_kakao">
@@ -139,7 +144,11 @@
 				kakaoUserData: {
 					kakaoToken: null,
 					kakaoUserID: null
-				}
+				},
+				googleUserData: {
+					googleToken: null,
+					googleUserEmail: null
+				},
             }
 	    },
 
@@ -159,6 +168,7 @@
 
 		updated() {
 			this.loadKakaoUserLoginStatus();
+			this.loadGoogleUserLoginStatus();
 		},
 
 		methods: {
@@ -211,7 +221,22 @@
 			kakaoLogout() {
 				this.$store.dispatch('kakaoLogout');
 			},
+
+			logingoogle() {
+				window.location.href = '/google';
+			},
 			
+			googleLogout() {
+				this.$store.dispatch('googleLogout');
+			},
+
+			loadGoogleUserLoginStatus() {
+				this.googleUserData.googleUserEmail = localStorage.getItem('setGoogleUserID');
+				this.googleUserData.googleToken = localStorage.getItem('setGoogleToken');
+
+				console.log('로컬스토리지 저장토큰', this.googleUserData.googleToken);
+				console.log('로컬스토리지 저장아이디', this.googleUserData.googleUserEmail);
+			},
     	},
 		
     }
