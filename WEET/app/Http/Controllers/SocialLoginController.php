@@ -73,7 +73,7 @@ class SocialLoginController extends Controller
             if(!$kakaoUserConfirm) {
                 $kakaoUserData = User::create([
                     'user_social_flg' => 1,
-                    'user_email' => $kakaoUserEmail,
+                    'user_email' => $this->kakaoData['kakaoUserEmail'],
                     'password' => 'kakaoUserPassword',
                     'user_name' => 'kakaoUserName',
                     'user_birthdate' => '99991231',
@@ -97,7 +97,7 @@ class SocialLoginController extends Controller
                 Log::debug("### 카카오 토큰 : " . $kakaoToken . " ###");
                 
                 $this->kakaoData['kakaoToken'] = JWTAuth::fromUser($kakaoUserData);
-                Log::debug("### 카카오 유저 토큰 발급 : " . $newToken . " ###");
+                Log::debug("### 카카오 유저 토큰 발급 : " . $this->kakaoData['kakaoToken'] . " ###");
                 Log::debug("if 실행");
                 Log::debug("### 리턴 데이터 : " . json_encode($this->kakaoData) . " ###");
                 session()->put('kakaoData', $this->kakaoData);
