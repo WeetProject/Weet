@@ -108,6 +108,8 @@ import axios from 'axios';
 import { debounce } from 'lodash';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 export default {
 	name: 'MainComponent',
@@ -131,6 +133,7 @@ export default {
 	},
 
 	mounted() {
+		AOS.init()
 		const startDate = new Date();
         const endDate = new Date(startDate);
         endDate.setDate(startDate.getDate() + 1);

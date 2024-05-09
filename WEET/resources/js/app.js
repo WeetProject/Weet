@@ -34,6 +34,8 @@ import FooterComponent from '../components/Layout/FooterComponent.vue';
 import store from './store.js';
 import router from './router.js';
 
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 // Vuetify
 import 'vuetify/styles'

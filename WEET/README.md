@@ -104,3 +104,7 @@
     - npm install date-fns --save
     - 참고 : https://date-fns.org/v2.16.1/docs/Getting-Started
 
+19. AOS(Animate on scroll library) 라이브러리
+    - npm install aos --save
+    - 참고 : https://github.com/michalsnik/aos/tree/v2
+            https://michalsnik.github.io/aos/
