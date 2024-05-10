@@ -44,12 +44,13 @@
 										locale="ko" 
 										select-text="선택" 
 										cancel-text="취소"
+										placeholder="날짜 선택"
 										range multi-calendars
 										calendar-cell-class-name="calendar_select"
 										position="left"
 										:min-date="new Date()"
 										:enable-time-picker=false
-										:date-format="'YYYY-MM-DD'">
+										:format="formatDateRoundTrip">
 
 										<template #calendar-header="{ index, day }">
 											<div :class="[index === 5 ? 'saturday' : '', index === 6 ? 'sunday' : '']">
@@ -64,14 +65,15 @@
 								<div class="main_top_reservation_select_detail_date_input_section" v-if="clickTab === 1">
 									<VueDatePicker 
 										v-model="oneWayDate" 
-										locale="ko" 
+										locale="ko"
+										range minMaxRawRange="1"
 										select-text="선택" 
 										cancel-text="취소"
-										calendar-cell-class-name="calendar_select"
+										placeholder="날짜 선택"
 										position="left"
 										:min-date="new Date()"
 										:enable-time-picker=false
-										:date-format="'YYYY-MM-DD'">
+										:format="formatDateOneWay">
 
 										<template #calendar-header="{ index, day }">
 											<div :class="[index === 5 ? 'saturday' : '', index === 6 ? 'sunday' : '']">
@@ -85,7 +87,7 @@
 								<!-- 성인, 소아 및 좌석 선택 -->
 								<div class="main_top_reservation_select_detail_passenger_input_section">
 									<!-- 성인, 소아 선택 -->
-									<div class="main_top_reservation_select_detail_passenger">
+									<div class="ml-5 main_top_reservation_select_detail_passenger">
 										<!-- 성인 선택 -->
 										<div class="mb-5 main_top_reservation_select_detail_passenger_adult">
 											<button @click="passengerMiuns('adult')">
@@ -108,7 +110,7 @@
 										</div>
 									</div>
 									<!-- 좌석 선택 -->
-									<div class="main_top_reservation_select_detail_class">
+									<div class="ml-5 main_top_reservation_select_detail_class">
 										<!-- 일반석 -->
 										<div class="mb-1 main_top_reservation_select_detail_class_grade">
 											<button class="w-full h-full text-center" @click="classButtonSelect('ECONOMY')">일반석</button>
@@ -139,8 +141,13 @@
 										</div>
 									</div>
 								</div>
+								<div class="ml-5 main_top_reservation_select_detail_search_section">
+									<div class="main_top_reservation_select_detail_search_button">
+										<button class="w-full font-semibold text-center" v-if="clickTab === 0" @click="amadeusSearchRoundTrip()">항공권 검색</button>
+										<button class="w-full font-semibold text-center" v-if="clickTab === 1" @click="amadeusSearchOneWay()">항공권 검색</button>
+									</div>
+								</div>
 							</div>
-							
 						</div>
 							
 					</div>
@@ -334,7 +341,7 @@ export default {
 		}, 500),
 		
 		// date format(왕복)
-		formatDate(roundTripDate) {
+		formatDateRoundTrip(roundTripDate) {
 			const addZero = (num) => (num < 10 ? "0" + num : num);
 			if (Array.isArray(roundTripDate)) {
 				const startDate = roundTripDate[0];
@@ -355,7 +362,7 @@ export default {
 		},
 
 		// date format(편도)
-		formatDate(oneWayDate) {
+		formatDateOneWay(oneWayDate) {
 			const addZero = (num) => (num < 10 ? "0" + num : num);
 			if (Array.isArray(oneWayDate)) {
 				const startDate = oneWayDate[0];
@@ -402,17 +409,20 @@ export default {
 		
 
 		// 출발지, 도착지, 날짜 데이터 api 송수신(왕복)
-		amadeusSearch() {
+		amadeusSearchRoundTrip() {
 			const amadeusToken = localStorage.getItem('setAmadeusToken');
 			console.log(amadeusToken);
 
 			const URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers';
-			const originLocationCode = this.originLocationCodeQuery; // 출발지
-			const destinationLocationCode = this.destinationLocationCodeQuery; // 도착지
+			// const originLocationCode = this.originLocationCodeQuery; // 출발지
+			// const destinationLocationCode = this.destinationLocationCodeQuery; // 도착지
+			const originLocationCode = 'CJU'; // 출발지
+			const destinationLocationCode = 'NRT'; // 도착지
 			const departureDate = this.formatDate(this.roundTripDate[0]);
 			const returnDate = this.formatDate(this.roundTripDate[1]);
-			// const departureDate = '2024-05-08';
-			// const returnDate = '2024-05-11';
+			console.log(returnDate);
+			// const departureDate = '2024-05-11';
+			// const returnDate = '2024-05-12';
 			const KRW = "KRW" // 원화
 			const adultPassenger = 1;
 			// const childrenPassenger = ;
@@ -448,14 +458,17 @@ export default {
 		},
 
 		// 출발지, 도착지, 날짜 데이터 api 송수신(편도)
-		amadeusSearch() {
+		amadeusSearchOneWay() {
 			const amadeusToken = localStorage.getItem('setAmadeusToken');
 			console.log(amadeusToken);
 
 			const URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers';
-			const originLocationCode = this.originLocationCodeQuery; // 출발지
-			const destinationLocationCode = this.destinationLocationCodeQuery; // 도착지
+			// const originLocationCode = this.originLocationCodeQuery; // 출발지
+			// const destinationLocationCode = this.destinationLocationCodeQuery; // 도착지
+			const originLocationCode = 'CJU'; // 출발지
+			const destinationLocationCode = 'NRT'; // 도착지
 			const departureDate = this.formatDate(this.oneWayDate[0]);
+			console.log(departureDate);
 			const KRW = "KRW" // 원화
 			const adultPassenger = 1;
 			// const childrenPassenger = ;
@@ -472,8 +485,6 @@ export default {
 					destinationLocationCode: destinationLocationCode,
 					// 도착날짜
 					departureDate: departureDate,
-					// 돌아오는 날짜
-					returnDate: returnDate,
 					// 원화
 					currencyCode: KRW,
 					// 인원
