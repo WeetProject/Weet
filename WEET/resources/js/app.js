@@ -34,6 +34,7 @@ import FooterComponent from '../components/Layout/FooterComponent.vue';
 import store from './store.js';
 import router from './router.js';
 
+// AOS
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
@@ -58,5 +59,6 @@ const app = createApp({
 app
 .use(store)
 .use(router)
+.use(AOS)
 .use(vuetify)
 .mount('#app'); // 마운트 처리
