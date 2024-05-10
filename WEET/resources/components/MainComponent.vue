@@ -2,102 +2,154 @@
 	<!-- desktop -->
 	<div class="main_container">
 		<div class="main_top_container">
-			<div class="main_top_img_section">
-				<div class="main_top_originlacation_input_container">
-					<!-- 출발지 -->
-					<div class="mr-5 top_originlacation_input_article">
-						<div class="main_top_originlocation_input_section">
-							<div class="main_top_originlocation_input_area">
-								<p class="text-base font-semibold text-left main_top_originlocation_title">출발지</p>
-								<input class="main_top_originlocation_input" type="text" 
-								name="originlocation_input" id="originlocation_input" v-model="startingPointQuery"
-								autocomplete="off" spellcheck="false" placeholder="출발지"
-								maxlength="15" @input="handleStartingPointInput">
+			<div class="main_top_article">
+				<img class="main_top_img" src="../../public/images/plane.png" alt="">
+				<div class="main_top_reservation_section">
+					<!-- 왕복, 편도 선택 -->
+					<div class="main_top_reservation_select_area">
+						<div class="text-center main_top_reservation_round_trip">
+							<div :class="{ 'main_top_reservation_round_trip_select font-semibold text-center': clickTab === 0 }" @click = "clickTab = 0;">왕 복</div>
+						</div>
+						<div class="text-center main_top_reservation_one_way">
+							<div :class="{ 'main_top_reservation_one_way_select font-semibold text-center': clickTab === 1 }" @click = "clickTab = 1;">편 도</div>						
+						</div>                    
+					</div>
+					<div class="main_top_reservation_select_detail_area">
+						<div class="main_top_reservation_select_detail_input_container">
+							<div class="main_top_reservation_select_detail_input_article">
+								<!-- 출발지 선택 -->
+								<div class="main_top_reservation_select_detail_input_section">
+									<p class="mb-2 text-3xl text-center">출발</p>
+									<div class="main_top_originlocation_title">										
+										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+											<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+										</svg>
+										<p>선택</p>
+									</div>
+								</div>
+								<!-- 도착지 선택 -->
+								<div class="main_top_reservation_select_detail_input_section">
+									<p class="mb-2 text-3xl text-center main_top_destinationlocation_title">도착</p>
+									<div class="main_top_destinationlocation_title">	
+										<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+											<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+										</svg>
+										<p>선택</p>
+									</div>
+								</div>
+								<!-- 왕복 날짜 선택 -->
+								<div class="main_top_reservation_select_detail_date_input_section" v-if="clickTab === 0">
+									<VueDatePicker 
+										v-model="roundTripDate"
+										locale="ko" 
+										select-text="선택" 
+										cancel-text="취소"
+										range multi-calendars
+										calendar-cell-class-name="calendar_select"
+										position="left"
+										:min-date="new Date()"
+										:enable-time-picker=false
+										:date-format="'YYYY-MM-DD'">
+
+										<template #calendar-header="{ index, day }">
+											<div :class="[index === 5 ? 'saturday' : '', index === 6 ? 'sunday' : '']">
+												{{ day }}
+											</div>
+										</template>
+										<template #action-preview>
+										</template>
+									</VueDatePicker>
+								</div>
+								<!-- 편도 날짜 선택 -->
+								<div class="main_top_reservation_select_detail_date_input_section" v-if="clickTab === 1">
+									<VueDatePicker 
+										v-model="oneWayDate" 
+										locale="ko" 
+										select-text="선택" 
+										cancel-text="취소"
+										calendar-cell-class-name="calendar_select"
+										position="left"
+										:min-date="new Date()"
+										:enable-time-picker=false
+										:date-format="'YYYY-MM-DD'">
+
+										<template #calendar-header="{ index, day }">
+											<div :class="[index === 5 ? 'saturday' : '', index === 6 ? 'sunday' : '']">
+												{{ day }}
+											</div>
+										</template>
+										<template #action-preview>
+										</template>
+									</VueDatePicker>
+								</div>
+								<!-- 성인, 소아 및 좌석 선택 -->
+								<div class="main_top_reservation_select_detail_passenger_input_section">
+									<!-- 성인, 소아 선택 -->
+									<div class="main_top_reservation_select_detail_passenger">
+										<!-- 성인 선택 -->
+										<div class="mb-5 main_top_reservation_select_detail_passenger_adult">
+											<button @click="passengerMiuns('adult')">
+												<svg class="w-8 h-8"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" /></svg>
+											</button>
+											<span class="mx-2" :style="{ fontWeight: adultPassenger ? 'semibold' : 'normal' }">성인 <span :style="{ fontWeight: adultPassenger ? 'bold' : 'normal' }">{{ adultPassenger }}</span>명</span>
+											<button @click="passengerPlus('adult')">
+												<svg class="w-8 h-8 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" />  <line x1="12" y1="9" x2="12" y2="15" /></svg>
+											</button>
+										</div>
+										<!-- 소아 선택 -->
+										<div class="mt-5 main_top_reservation_select_detail_passenger_children">
+											<button @click="passengerMiuns('children')">
+												<svg class="w-8 h-8"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" /></svg>
+											</button>
+											<span class="mx-2" :style="{ fontWeight: childrenPassenger ? 'semibold' : 'normal' }">소아 <span :style="{ fontWeight: childrenPassenger ? 'bold' : 'normal' }">{{ childrenPassenger }}</span>명</span>
+											<button @click="passengerPlus('children')">
+												<svg class="w-8 h-8 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" />  <line x1="12" y1="9" x2="12" y2="15" /></svg>
+											</button>
+										</div>
+									</div>
+									<!-- 좌석 선택 -->
+									<div class="main_top_reservation_select_detail_class">
+										<!-- 일반석 -->
+										<div class="mb-1 main_top_reservation_select_detail_class_grade">
+											<button class="w-full h-full text-center" @click="classButtonSelect('ECONOMY')">일반석</button>
+											<div class="mr-2 main_top_reservation_select_detail_class_grade_select" v-if="classSelectData.ECONOMY">
+												<svg class="w-5 h-5 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M5 12l5 5l10 -10" /></svg>
+											</div>
+										</div>
+										<!-- 프리미엄 일반석 -->
+										<div class="mb-1 main_top_reservation_select_detail_class_grade">
+											<button class="w-full h-full text-center" @click="classButtonSelect('PREMIUM_ECONOMY')">프리미엄 일반석</button>
+											<div class="mr-2 main_top_reservation_select_detail_class_grade_select" v-if="classSelectData.PREMIUM_ECONOMY">
+												<svg class="w-5 h-5 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M5 12l5 5l10 -10" /></svg>
+											</div>
+										</div>
+										<!-- 비즈니스석 -->
+										<div class="mb-1 main_top_reservation_select_detail_class_grade">
+											<button class="w-full h-full text-center" @click="classButtonSelect('BUSINESS')">비즈니스석</button>
+											<div class="mr-2 main_top_reservation_select_detail_class_grade_select" v-if="classSelectData.BUSINESS">
+												<svg class="w-5 h-5 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M5 12l5 5l10 -10" /></svg>
+											</div>
+										</div>
+										<!-- 일등석 -->
+										<div class="mb-1 main_top_reservation_select_detail_class_grade">
+											<button class="w-full h-full text-center" @click="classButtonSelect('FIRST')">일등석</button>
+											<div class="mr-2 main_top_reservation_select_detail_class_grade_select" v-if="classSelectData.FIRST">
+												<svg class="w-5 h-5 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M5 12l5 5l10 -10" /></svg>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 							
-							<!-- 연관 검색어 -->
-							<div class="main_top_suggetion_area" v-if="startingPointQuerySuggestion && startingPointQuery.length && startingPointFlg">
-								<ul class="suggetion_ul">
-									<li class="suggetion_li" v-for="originSuggestion in startingPointQuerySuggestion" :key="originSuggestion" 
-										@click="applySuggestionStartingPointInput(originSuggestion)">
-										<div class="suggtion_li_article">
-											<div class="suggetion_li_city">
-												<svg class="mr-1 w-6 h-6 fill-[#000000]" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
-													<path d="M64 48c-8.8 0-16 7.2-16 16V448c0 8.8 7.2 16 16 16h80V400c0-26.5 21.5-48 48-48s48 21.5 48 48v64h80c8.8 0 16-7.2 16-16V64c0-8.8-7.2-16-16-16H64zM0 64C0 28.7 28.7 0 64 0H320c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm88 40c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16H104c-8.8 0-16-7.2-16-16V104zM232 88h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16H232c-8.8 0-16-7.2-16-16V104c0-8.8 7.2-16 16-16zM88 232c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16H104c-8.8 0-16-7.2-16-16V232zm144-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16H232c-8.8 0-16-7.2-16-16V232c0-8.8 7.2-16 16-16z"></path>
-												</svg>
-												<span class="my-2 suggetion_li_city_span">
-													{{ originSuggestion.airport_kr_city_name }} ({{ originSuggestion.airport_city_name }}) 											
-												</span>
-											</div>
-											<div class="suggetion_li_airport">
-												<svg class="mr-1 w-6 h-6 fill-[#000000]" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
-													<path d="M482.3 192c34.2 0 93.7 29 93.7 64c0 36-59.5 64-93.7 64l-116.6 0L265.2 495.9c-5.7 10-16.3 16.1-27.8 16.1l-56.2 0c-10.6 0-18.3-10.2-15.4-20.4l49-171.6L112 320 68.8 377.6c-3 4-7.8 6.4-12.8 6.4l-42 0c-7.8 0-14-6.3-14-14c0-1.3 .2-2.6 .5-3.9L32 256 .5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-7.8 6.3-14 14-14l42 0c5 0 9.8 2.4 12.8 6.4L112 192l102.9 0-49-171.6C162.9 10.2 170.6 0 181.2 0l56.2 0c11.5 0 22.1 6.2 27.8 16.1L365.7 192l116.6 0z"></path>
-												</svg>
-												<span class="my-2 suggetion_li_airport_span">
-													{{ originSuggestion.airport_kr_name }} ({{ originSuggestion.airport_iata_code }})
-												</span>
-											</div>
-										</div>
-									</li>
-								</ul>
-							</div>
-						</div>						
-					</div>
-	
-					<!-- 도착지 -->
-					<div class="ml-5 top_destinationlocation_input_article">
-						<div class="main_top_destinationlocation_input_section">
-							<div class="main_top_destinationlocation_input_area">
-								<p class="text-base font-semibold text-left main_top_destinationlocation_title">도착지</p>
-								<input class="main_top_destinationlocation_input" type="text" 
-								name="destinationlocation_input" id="destinationlocation_input" v-model="destinationQuery"
-								autocomplete="off" spellcheck="false" placeholder="도착지"
-								maxlength="15" @input="handleDestinationInput">
-							</div>
-
-							<!-- 연관 검색어 -->
-							<div class="main_top_suggetion_area" v-if="destinationQuerySuggestion && destinationQuery.length && destinationFlg">
-								<ul class="suggetion_ul">
-									<li class="suggetion_li" v-for="destinationSuggestion in destinationQuerySuggestion" :key="destinationSuggestion" 
-									@click="applySuggestionDestinationInput(destinationSuggestion)">
-										<div class="suggtion_li_article">
-											<div class="suggetion_li_city">
-												<svg class="mr-1 w-6 h-6 fill-[#000000]" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
-													<path d="M64 48c-8.8 0-16 7.2-16 16V448c0 8.8 7.2 16 16 16h80V400c0-26.5 21.5-48 48-48s48 21.5 48 48v64h80c8.8 0 16-7.2 16-16V64c0-8.8-7.2-16-16-16H64zM0 64C0 28.7 28.7 0 64 0H320c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm88 40c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16H104c-8.8 0-16-7.2-16-16V104zM232 88h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16H232c-8.8 0-16-7.2-16-16V104c0-8.8 7.2-16 16-16zM88 232c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16H104c-8.8 0-16-7.2-16-16V232zm144-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16H232c-8.8 0-16-7.2-16-16V232c0-8.8 7.2-16 16-16z"></path>
-												</svg>
-												<span class="my-2 suggetion_li_city_span">
-													{{ destinationSuggestion.airport_kr_city_name }} ({{ destinationSuggestion.airport_city_name }}) 											
-												</span>
-											</div>
-											<div class="suggetion_li_airport">
-												<svg class="mr-1 w-6 h-6 fill-[#000000]" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
-													<path d="M482.3 192c34.2 0 93.7 29 93.7 64c0 36-59.5 64-93.7 64l-116.6 0L265.2 495.9c-5.7 10-16.3 16.1-27.8 16.1l-56.2 0c-10.6 0-18.3-10.2-15.4-20.4l49-171.6L112 320 68.8 377.6c-3 4-7.8 6.4-12.8 6.4l-42 0c-7.8 0-14-6.3-14-14c0-1.3 .2-2.6 .5-3.9L32 256 .5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-7.8 6.3-14 14-14l42 0c5 0 9.8 2.4 12.8 6.4L112 192l102.9 0-49-171.6C162.9 10.2 170.6 0 181.2 0l56.2 0c11.5 0 22.1 6.2 27.8 16.1L365.7 192l116.6 0z"></path>
-												</svg>
-												<span class="my-2 suggetion_li_airport_span">
-													{{ destinationSuggestion.airport_kr_name }} ({{ destinationSuggestion.airport_iata_code }})
-												</span>
-											</div>
-										</div>
-									</li>
-								</ul>
-							</div>
 						</div>
+							
 					</div>
 				</div>
-				<!-- todo -->
-				<!-- 날짜(범위선택, 단일선택 컴포넌트 생성), 탑승객정보(성인, 유아, 좌석등급) -->
-				<!-- 편도, 왕복 선택 div영역 -->
+			</div>
+		</div>
+		<div class="main_middle_container">
+			<div class="main_middle_article">
 				
-				<!-- 날짜 -->
-				<div class="mt-5 main_top_date_section">
-					<p class="text-base font-semibold text-left main_top_date_title">날짜 선택</p>
-					<!-- 달력 라이브러리 -->					
-				</div>
-
-				<!-- 탑승객 정보 -->
-				<div class="mt-5 main_top_passenger_section">
-					<p class="text-base font-semibold text-left main_top_passenger_title">여행자 및 좌석등급</p>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -119,6 +171,16 @@ export default {
 
 	data() {
 		return {
+			clickTab: 0,
+			adultPassenger: 1,
+			childrenPassenger: 1,
+			classSelectData: {
+				ECONOMY: true,
+				PREMIUM_ECONOMY: false,
+				BUSINESS: false,
+				FIRST: false,
+			},
+			selectClass: null,
 			previousSearchResults: [],
 			startingPointQuery: '',
 			startingPointQuerySuggestion: [],
@@ -126,22 +188,29 @@ export default {
 			destinationQuery: '',
 			destinationQuerySuggestion: [],
 			destinationFlg: false,
-			date: [],
+			roundTripDate: [],
+			oneWayDate:[],
 			originLocationCodeQuery: null,
 			destinationLocationCodeQuery: null,
 		}
 	},
 
 	mounted() {
-		AOS.init()
+		AOS.init();
 		const startDate = new Date();
         const endDate = new Date(startDate);
         endDate.setDate(startDate.getDate() + 1);
-        this.date = [startDate, endDate];
+        this.roundTripDate = [startDate, endDate];
+        this.oneWayDate = [startDate];
 		this.amadeusToken()
 	},
 
 	methods: {
+		// Amadeus 토큰 획득
+		amadeusToken() {
+			this.$store.dispatch('amadeusToken');
+		},
+
 		// 출발지 검색어 저장
 		handleStartingPointInput(event) {
 			this.startingPointQuery = event.target.value;
@@ -264,12 +333,12 @@ export default {
 			}
 		}, 500),
 		
-		// date format
-		formatDate(date) {
+		// date format(왕복)
+		formatDate(roundTripDate) {
 			const addZero = (num) => (num < 10 ? "0" + num : num);
-			if (Array.isArray(date)) {
-				const startDate = date[0];
-				const endDate = date[1];
+			if (Array.isArray(roundTripDate)) {
+				const startDate = roundTripDate[0];
+				const endDate = roundTripDate[1];
 				const startYear = startDate.getFullYear();
 				const startMonth = addZero(startDate.getMonth() + 1);
 				const startDay = addZero(startDate.getDate());
@@ -278,21 +347,61 @@ export default {
 				const endDay = addZero(endDate.getDate());
 				return `${startYear}-${startMonth}-${startDay} ~ ${endYear}-${endMonth}-${endDay}`;
 			} else {
-				const year = date.getFullYear();
-				const month = addZero(date.getMonth() + 1);
-				const day = addZero(date.getDate());
+				const year = roundTripDate.getFullYear();
+				const month = addZero(roundTripDate.getMonth() + 1);
+				const day = addZero(roundTripDate.getDate());
 				return `${year}-${month}-${day}`;
 			}
 		},
 
-		// 3. 여행자 및 좌석 등급 input 값 설정
-		// 4. 파라미터 설정 후 api 호출(데이터 확인)
-
-		amadeusToken() {
-			this.$store.dispatch('amadeusToken');
+		// date format(편도)
+		formatDate(oneWayDate) {
+			const addZero = (num) => (num < 10 ? "0" + num : num);
+			if (Array.isArray(oneWayDate)) {
+				const startDate = oneWayDate[0];
+				const startYear = startDate.getFullYear();
+				const startMonth = addZero(startDate.getMonth() + 1);
+				const startDay = addZero(startDate.getDate());
+				return `${startYear}-${startMonth}-${startDay}`;
+			} else {
+				const year = oneWayDate.getFullYear();
+				const month = addZero(oneWayDate.getMonth() + 1);
+				const day = addZero(oneWayDate.getDate());
+				return `${year}-${month}-${day}`;
+			}
 		},
 
-		// 출발지, 도착지, 날짜 데이터 api 송수신
+		// 성인, 소아 인원 감소
+		passengerMiuns(passengerType) {
+			if (passengerType === 'adult' && this.adultPassenger > 1) {
+				this.adultPassenger--;
+			} else if (passengerType === 'children' && this.childrenPassenger > 1) {
+				this.childrenPassenger--;
+			}
+		},
+
+		// 성인, 소아 인원 증가
+		passengerPlus(passengerType) {
+			if (passengerType === 'adult' && this.adultPassenger < 8) {
+				this.adultPassenger++;
+			} else if (passengerType === 'children' && this.childrenPassenger < 8) {
+				this.childrenPassenger++;
+			}
+		},
+
+		// 좌석 등급 체크
+		classButtonSelect(classType) {
+			for (let key in this.classSelectData) {
+				this.classSelectData[key] = false;
+			}
+			this.classSelectData[classType] = true;
+			// Amadeus Class 파라미터 저장
+			this.selectClass = classType;
+		},
+
+		
+
+		// 출발지, 도착지, 날짜 데이터 api 송수신(왕복)
 		amadeusSearch() {
 			const amadeusToken = localStorage.getItem('setAmadeusToken');
 			console.log(amadeusToken);
@@ -300,10 +409,53 @@ export default {
 			const URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers';
 			const originLocationCode = this.originLocationCodeQuery; // 출발지
 			const destinationLocationCode = this.destinationLocationCodeQuery; // 도착지
-			const departureDate = this.formatDate(this.date[0]);
-			const returnDate = this.formatDate(this.date[1]);
+			const departureDate = this.formatDate(this.roundTripDate[0]);
+			const returnDate = this.formatDate(this.roundTripDate[1]);
 			// const departureDate = '2024-05-08';
 			// const returnDate = '2024-05-11';
+			const KRW = "KRW" // 원화
+			const adultPassenger = 1;
+			// const childrenPassenger = ;
+			// const travelClass = ;			
+			
+			axios.get(URL, {
+				headers: {
+					'Authorization': `Bearer ${amadeusToken}`
+				},
+				params: {					
+					// 출발지
+					originLocationCode: originLocationCode, 
+					// 도착지
+					destinationLocationCode: destinationLocationCode,
+					// 도착날짜
+					departureDate: departureDate,
+					// 돌아오는 날짜
+					returnDate: returnDate,
+					// 원화
+					currencyCode: KRW,
+					// 인원
+					adults: adultPassenger
+					// 좌석 등급
+					// travelClass:
+				},				
+			})
+			.then(response => {
+				console.log(response.data);
+			})
+			.catch(error => {
+				console.error(error);
+			});
+		},
+
+		// 출발지, 도착지, 날짜 데이터 api 송수신(편도)
+		amadeusSearch() {
+			const amadeusToken = localStorage.getItem('setAmadeusToken');
+			console.log(amadeusToken);
+
+			const URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers';
+			const originLocationCode = this.originLocationCodeQuery; // 출발지
+			const destinationLocationCode = this.destinationLocationCodeQuery; // 도착지
+			const departureDate = this.formatDate(this.oneWayDate[0]);
 			const KRW = "KRW" // 원화
 			const adultPassenger = 1;
 			// const childrenPassenger = ;
@@ -351,6 +503,7 @@ export default {
 
 	.dp__input {
 		width: 100%;
+		height: 130px;
 		border: none !important;
 	}
 
