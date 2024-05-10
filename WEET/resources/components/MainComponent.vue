@@ -66,7 +66,6 @@
 									<VueDatePicker 
 										v-model="oneWayDate" 
 										locale="ko"
-										range minMaxRawRange="1"
 										select-text="선택" 
 										cancel-text="취소"
 										placeholder="날짜 선택"
@@ -162,18 +161,30 @@
 	</div>
 </template>
 
-<script >
+<script>
 import axios from 'axios';
 import { debounce } from 'lodash';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-import AOS from 'aos'
-import 'aos/dist/aos.css'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { ref, onMounted } from 'vue';
 
 export default {
 	name: 'MainComponent',
 	components: {
 		VueDatePicker,
+	},
+
+	setup() {
+		const roundTripDate = ref();
+		const oneWayDate = ref();
+		const range = false;
+
+		return {
+			roundTripDate,
+			range
+		};
 	},
 
 	data() {
@@ -202,13 +213,14 @@ export default {
 		}
 	},
 
+	onMounted() {
+		const startDate = new Date();
+		const endDate = new Date(startDate);
+		roundTripDate.value = [startDate, endDate];
+	},
+
 	mounted() {
 		AOS.init();
-		const startDate = new Date();
-        const endDate = new Date(startDate);
-        endDate.setDate(startDate.getDate() + 1);
-        this.roundTripDate = [startDate, endDate];
-        this.oneWayDate = [startDate];
 		this.amadeusToken()
 	},
 
@@ -343,39 +355,32 @@ export default {
 		// date format(왕복)
 		formatDateRoundTrip(roundTripDate) {
 			const addZero = (num) => (num < 10 ? "0" + num : num);
-			if (Array.isArray(roundTripDate)) {
+			if (roundTripDate[0] && roundTripDate[1]) {
+				// 출발일
 				const startDate = roundTripDate[0];
-				const endDate = roundTripDate[1];
+				console.log(startDate);
 				const startYear = startDate.getFullYear();
 				const startMonth = addZero(startDate.getMonth() + 1);
 				const startDay = addZero(startDate.getDate());
+				// 도착일
+				const endDate = roundTripDate[1];
 				const endYear = endDate.getFullYear();
 				const endMonth = addZero(endDate.getMonth() + 1);
 				const endDay = addZero(endDate.getDate());
 				return `${startYear}-${startMonth}-${startDay} ~ ${endYear}-${endMonth}-${endDay}`;
-			} else {
-				const year = roundTripDate.getFullYear();
-				const month = addZero(roundTripDate.getMonth() + 1);
-				const day = addZero(roundTripDate.getDate());
-				return `${year}-${month}-${day}`;
 			}
 		},
 
 		// date format(편도)
 		formatDateOneWay(oneWayDate) {
 			const addZero = (num) => (num < 10 ? "0" + num : num);
-			if (Array.isArray(oneWayDate)) {
-				const startDate = oneWayDate[0];
+			if (oneWayDate) {
+				const startDate = oneWayDate;
 				const startYear = startDate.getFullYear();
 				const startMonth = addZero(startDate.getMonth() + 1);
 				const startDay = addZero(startDate.getDate());
 				return `${startYear}-${startMonth}-${startDay}`;
-			} else {
-				const year = oneWayDate.getFullYear();
-				const month = addZero(oneWayDate.getMonth() + 1);
-				const day = addZero(oneWayDate.getDate());
-				return `${year}-${month}-${day}`;
-			}
+			} 
 		},
 
 		// 성인, 소아 인원 감소
@@ -407,12 +412,12 @@ export default {
 		},
 
 		
-
+		// 05-12 todo 출발지, 도착지, 날짜 데이터 store 저장
+		// 연관검색어 출력 레이아웃
+		
 		// 출발지, 도착지, 날짜 데이터 api 송수신(왕복)
 		amadeusSearchRoundTrip() {
 			const amadeusToken = localStorage.getItem('setAmadeusToken');
-			console.log(amadeusToken);
-
 			const URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers';
 			// const originLocationCode = this.originLocationCodeQuery; // 출발지
 			// const destinationLocationCode = this.destinationLocationCodeQuery; // 도착지
@@ -509,25 +514,42 @@ export default {
     @import '../sass/main.test.scss';
 	.dp__range_start,
 	.dp__range_end {
-		background-color: $main-font-color !important;
+		background-color: $logo-one-main-color !important;
 	}
 
 	.dp__input {
-		width: 100%;
-		height: 130px;
+		width: 100% !important;
+		height: 130px !important;
 		border: none !important;
+	}
+
+	.dp__active_date {
+		border-radius: 50% !important;
+		background-color: $logo-one-main-color !important;
 	}
 
 	.dp__today {
 		border: none !important;
 	}
+
+	.dp__date_hover_end:hover,
+	.dp__date_hover:hover {
+		background: $logo-one-main-color !important;
+		color: $white !important;
+		border-radius: 50% !important;
+	}
+
+	.dp__cell_inner {
+		border-radius: 50% !important;
+	}
+
 	.calendar_select {
-		border-radius: 50%;
+		border-radius: 50% !important;
 	}
 	.saturday {
-		color: $logo-one-main-color;
+		color: $logo-one-main-color !important;
 	}
 	.sunday {
-		color: $red;
+		color: $red !important;
 	}
 </style>
