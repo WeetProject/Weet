@@ -261,30 +261,45 @@ class UserController extends Controller
 
     // 마이페이지
     // 마이페이지 비밀번호 수정
-    public function userPasswordChange(Request $request) {
+    public function userInfoChange(Request $request) {
 
         Log::debug("비밀번호변경시작_리퀘스트", [$request->all()]);
 
         // 사용자 인증 확인
         $userToken = JWTAuth::getToken();
-        Log::debug("비밀번호변경_유저", [$user]);
+        // Log::debug("비밀번호변경_유저", [$user]);
+        $user = User::where('user_email', $request->email)->first();
 
         if (!$userToken) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        // // 전달받은 데이터 유효성 검사
-        // $request->validate([
-        //     'password' => 'required|min:8|max:17|confirmed', // 비밀번호와 확인 필드가 일치하는지 검사
-        // ]);
-
         // 새로운 비밀번호 설정
-        $user->password = Hash::make($request->password);
-        $user->save();
+        if($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
 
+        // 주소 변경 요청
+        if ($request->filled('user_postcode') && $request->filled('user_basic_address') && $request->filled('user_detail_address')) {
+            // 받은 주소 데이터를 그대로 저장
+            $user->user_postcode = $request->userPostcode;
+            $user->user_basic_address = $request->userBasicAddress;
+            $user->user_detail_address = $request->userDetailAddress;
+        }
+
+        $user->save();
         return response()->json(['message' => '비밀번호가 성공적으로 변경되었습니다.'], 200);
     
     }
+
+    // 마이페이지 주소 수정
+    // public function userAddressChange(Request $request) {
+
+    //     Log::debug("비밀번호변경시작_리퀘스트", [$request->all()]);
+
+    //     $userAddress = User::where('user_email', $request->email)->first();
+    //     Log::debug("비밀번호변경_유저", [$userAddress]);
+    // }
 
 
 

@@ -201,7 +201,8 @@ Route::middleware(['userValidation'])->group(function() {
     Route::post('/sendVerificationEmail', [UserController::class, 'emailVerification']);
     Route::post('/emailCodeChk', [UserController::class, 'emailVerificationDel']);
 
-    Route::post('/userPasswordChange', [UserController::class, 'userPasswordChange']);
+    Route::post('/userInfoChange', [UserController::class, 'userInfoChange']);
+    // Route::post('/userInfoChange', [UserController::class, 'userAddressChange']);
     Route::match(['get'], '/login', function () {
         abort(405, 'Method Not Allowed');
     });

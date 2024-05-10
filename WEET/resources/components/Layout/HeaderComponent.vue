@@ -179,7 +179,7 @@
 		// created() : Vue애플리케이션이 생성된 후 컴포넌트가 생성되고 
 		// DOM이 렌더링되기 직전에 호출되는 시점
 		created() {		
-			this.loadUserLoginStatus();		
+			this.loadUserLoginStatus();	
 		},
 
 		mounted() {
@@ -230,6 +230,10 @@
 				this.kakaoUserData.kakaoUserID = localStorage.getItem('setKakaoUserID');
 				this.kakaoUserData.kakaoToken = localStorage.getItem('setKakaoToken');
 				
+				if (this.kakaoUserData.kakaoToken !== null) {
+					this.$store.commit('setKakaoUserID', this.kakaoUserData.kakaoUserID);
+					this.$store.commit('setKakaoToken', this.kakaoUserData.kakaoToken);
+				}
 				// console.log('로컬스토리지 저장아이디', this.kakaoUserData.kakaoUserID);
 				// console.log('로컬스토리지 저장토큰', this.kakaoUserData.kakaoToken);
 			},
@@ -253,6 +257,11 @@
 			loadGoogleUserLoginStatus() {
 				this.googleUserData.googleUserEmail = localStorage.getItem('setGoogleUserID');
 				this.googleUserData.googleToken = localStorage.getItem('setGoogleToken');
+
+				if (this.googleUserData.googleToken !== null) {
+					this.$store.commit('setGoogleUserID', this.googleUserData.googleUserEmail);
+					this.$store.commit('setGoogleToken', this.googleUserData.googleToken);
+				}
 
 				console.log('로컬스토리지 저장토큰', this.googleUserData.googleToken);
 				console.log('로컬스토리지 저장아이디', this.googleUserData.googleUserEmail);

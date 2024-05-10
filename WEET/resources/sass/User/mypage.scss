@@ -108,7 +108,7 @@
                                 &:focus {
                                     transition: 0.5s;
                                     border-bottom: 3px solid $main-font-color;
-                                }                                
+                                }
                             }
                         }
 
@@ -261,7 +261,7 @@
                             }
                         }
                     }
-                }   
+                } 
             }
         }
     }
@@ -734,6 +734,10 @@
                             }
                         }
                     }
+                }
+                
+                .mypage_user_info_content_input::placeholder {
+                    font-size: 14px;
                 }
 
                 // ### clickTab = 1 ###

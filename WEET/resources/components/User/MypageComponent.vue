@@ -3,7 +3,7 @@
         <div class="box-border mypage_container">
             <div class="mypage_top_container">
                 <div class="mypage_top_tab_top_section">
-                    <div class="text-center mypage_top_tab_top_area">
+                    <div v-if="userToken" class="text-center mypage_top_tab_top_area">
                         <div :class="{ 'font-semibold': clickTab === 0 }" @click = "clickTab = 0;">개인정보</div>
                     </div>
                     <div class="text-center mypage_top_tab_top_area">
@@ -19,7 +19,7 @@
             </div>
             <div class="mypage_bottom_container">
                 <!-- clickTab 0 -->
-                <div class="mypage_user_info_container" v-if="clickTab === 0">
+                <div class="mypage_user_info_container" v-if="clickTab === 0 && userToken">
                     <div class="mypage_user_info_data_container">
                         <div class="mypage_user_info_title_section">
                             <div class="mypage_user_info_title_area">
@@ -54,12 +54,14 @@
                             <div class="mypage_user_info_content_area">
                                 <input type="password" name="password" id="password"
                                 minlength="8" maxlength="17" v-model="this.newUserInfoData.userPassword"
-                                class="mypage_user_info_content_input">
+                                class="mypage_user_info_content_input"
+                                placeholder="영대소문자,숫자,특수문자(!@#)를 포함한 8~16자">
                             </div>
                             <div class="mypage_user_info_content_area">
                                 <input type="password"
                                 minlength="8" maxlength="17" v-model="this.newUserInfoData.userPasswordChk"
-                                class="mypage_user_info_content_input">
+                                class="mypage_user_info_content_input"
+                                placeholder="영대소문자,숫자,특수문자(!@#)를 포함한 8~16자">
                             </div>
                             <div class="mypage_user_info_content_area">
                                 <span class="ml-2.5">{{ this.userInfo.userName }}</span>
@@ -70,7 +72,7 @@
                             <!-- 우편번호 -->
                             <div class="mypage_user_info_content_postcode_area">
                                 <input type="text" name="user_postcode" id="user_postcode"
-                                autocomplete="off" v-model="this.userInfo.userPostcode"
+                                autocomplete="off" v-model="this.newUserAddressData.userPostcode"
                                 class="mypage_user_info_content_input_postcode">
                                 <div class="mypage_user_info_content_area_postcode_button">
                                     <button type="button" @click="openDaumPostcode()"
@@ -81,12 +83,13 @@
                             </div>
                             <div class="mypage_user_info_content_area">
                                 <input type="text" name="user_basic_address" id="user_basic_address"
-                                autocomplete="off" v-model="this.userInfo.userBasicAddress"
+                                autocomplete="off" v-model="this.newUserAddressData.userBasicAddress"
                                 class="mypage_user_info_content_input">
                             </div>
                             <div class="mypage_user_info_content_area">
-                                <input type="text" name="user_detail_address" id="user_detail_address"
-                                autocomplete="off" v-model="this.userInfo.userDetailAddress"
+                                <input
+                                type="text" name="user_detail_address" id="user_detail_address"
+                                autocomplete="off" v-model="this.newUserAddressData.userDetailAddress"
                                 class="mypage_user_info_content_input">
                             </div>                        
                         </div>
@@ -94,10 +97,10 @@
                     <div class="my-10 mypage_user_info_button_container">
                         <div class="mypage_user_info_button_section">
                             <div class="mypage_user_info_button_area">
-                                <button @click="changePassword" class="mypage_user_info_button">수정</button>
+                                <button @click="changeInfo" class="mypage_user_info_button">수정</button>
                             </div>
                             <div class="mypage_user_info_button_area">
-                                <button class="mypage_user_info_button">취소</button>
+                                <button @click="back" class="mypage_user_info_button">취소</button>
                             </div>                 
                         </div>
                     </div>            
@@ -274,6 +277,9 @@ export default {
                 userBasicAddress: '',
                 userDetailAddress: '',
             },
+            userToken: null,
+            kakaoToken: null,
+            googleToken: null,
         }
     },
 
@@ -283,9 +289,12 @@ export default {
 
     mounted() {
         this.userToken = localStorage.getItem('setToken');
-        // JSON.parse() : 
+        this.kakaoToken = localStorage.getItem('setKakaoToken');
+        this.googleToken = localStorage.getItem('setGoogleToken');
         this.userInfo = JSON.parse(localStorage.getItem('setUserData'));
-        console.log(this.userInfo);
+        console.log("일반 토큰" , this.userToken);
+        console.log(this.kakaoToken);
+        console.log(this.googleToken);
         // console.log(this.userInfo.userEmail);
     },
 
@@ -342,28 +351,48 @@ export default {
             }
             console.log(data);
         },
-        changePassword() {
+        changeInfo() {
             if (this.newUserInfoData.userPassword !== this.newUserInfoData.userPasswordChk) {
                 alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
                 return;
             }
 
-            axios.post('/userPasswordChange', {
+            // API 요청 데이터 구성
+            const requestData = {
                 email: this.userInfo.userEmail,
-                password: this.newUserInfoData.userPassword,
                 token: localStorage.getItem('setToken'),
-            })
+                userPostcode: this.newUserAddressData.userPostcode,
+                userBasicAddress: this.newUserAddressData.userBasicAddress,
+                userDetailAddress: this.newUserAddressData.userDetailAddress
+            };
+
+            // 비밀번호가 입력되었다면 요청 데이터에 추가
+            if (this.newUserInfoData.userPassword) {
+                requestData.password = this.newUserInfoData.userPassword;
+            }
+
+            axios.post('/userInfoChange', requestData
+                // email: this.userInfo.userEmail,
+                // password: this.newUserInfoData.userPassword,
+                // token: localStorage.getItem('setToken'),
+            )
             .then(response => {
                 console.log("response",response);
-                alert('비밀번호가 성공적으로 변경되었습니다.');
+                alert('회원정보를 성공적으로 변경하였습니다.');
                 // 성공 시, 추가 작업을 수행할 수 있습니다.
                 this.$store.dispatch('logout');
                 location.reload();
             })
             .catch(error => {
-                console.error('비밀번호 변경에 실패했습니다.', error);
-                alert('비밀번호 변경에 실패했습니다. 다시 시도해주세요.');
+                console.error('회원정보 변경에 실패했습니다.', error);
+                alert('회원정보 변경에 실패했습니다. 다시 시도해주세요.');
             });
+        },
+        // changeAddress() {
+
+        // },
+        back() {
+            this.$router.push('/');
         }
     },
 

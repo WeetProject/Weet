@@ -28,7 +28,7 @@ import AdminRegistrationComponent from '../components/Admin/AdminRegistration/Ad
 
 // 로그인 되있는지 확인
 function requireAuth(to, from, next) {
-	if (!localStorage.getItem('setToken')) {
+	if (!localStorage.getItem('setToken') && !localStorage.getItem('setKakaoToken') && !localStorage.getItem('setGoogleToken')) {
 		next('/');
 	} else {
 		next();
