@@ -53,12 +53,12 @@
                             </div>
                             <div class="mypage_user_info_content_area">
                                 <input type="password" name="password" id="password"
-                                minlength="8" maxlength="17"
+                                minlength="8" maxlength="17" v-model="this.newUserInfoData.userPassword"
                                 class="mypage_user_info_content_input">
                             </div>
                             <div class="mypage_user_info_content_area">
-                                <input type="password" name="password" id="password"
-                                minlength="8" maxlength="17"
+                                <input type="password"
+                                minlength="8" maxlength="17" v-model="this.newUserInfoData.userPasswordChk"
                                 class="mypage_user_info_content_input">
                             </div>
                             <div class="mypage_user_info_content_area">
@@ -94,7 +94,7 @@
                     <div class="my-10 mypage_user_info_button_container">
                         <div class="mypage_user_info_button_section">
                             <div class="mypage_user_info_button_area">
-                                <button class="mypage_user_info_button">수정</button>
+                                <button @click="changePassword" class="mypage_user_info_button">수정</button>
                             </div>
                             <div class="mypage_user_info_button_area">
                                 <button class="mypage_user_info_button">취소</button>
@@ -287,8 +287,6 @@ export default {
         this.userInfo = JSON.parse(localStorage.getItem('setUserData'));
         console.log(this.userInfo);
         // console.log(this.userInfo.userEmail);
-
-
     },
 
     created() {
@@ -320,7 +318,7 @@ export default {
                     }
                 }).open();
             }
-            },
+        },
         handleAddressComplete(data) {
         // 주소 검색 완료 후 처리할 작업을 수행합니다.
             var roadAddr = data.roadAddress;
@@ -344,8 +342,29 @@ export default {
             }
             console.log(data);
         },
+        changePassword() {
+            if (this.newUserInfoData.userPassword !== this.newUserInfoData.userPasswordChk) {
+                alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+                return;
+            }
 
-
+            axios.post('/userPasswordChange', {
+                email: this.userInfo.userEmail,
+                password: this.newUserInfoData.userPassword,
+                token: localStorage.getItem('setToken'),
+            })
+            .then(response => {
+                console.log("response",response);
+                alert('비밀번호가 성공적으로 변경되었습니다.');
+                // 성공 시, 추가 작업을 수행할 수 있습니다.
+                this.$store.dispatch('logout');
+                location.reload();
+            })
+            .catch(error => {
+                console.error('비밀번호 변경에 실패했습니다.', error);
+                alert('비밀번호 변경에 실패했습니다. 다시 시도해주세요.');
+            });
+        }
     },
 
 

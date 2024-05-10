@@ -266,7 +266,7 @@ const store = createStore({
             if (!userToken) {
                 localStorage.clear();
                 alert('세션이 만료되었습니다. 다시 로그인해주세요.');
-                router.push('/');
+                location.reload();
 
                 return;
             }
@@ -284,10 +284,7 @@ const store = createStore({
             axios.get(url, header)
             .then(res => {
                 localStorage.clear();
-        
-                if (confirm('로그아웃 성공\n로그아웃에 성공했습니다. 페이지를 새로고침 하시겠습니까?')) {
-                    location.reload();
-                }
+                location.reload();
             })
             .catch(err => {
                 console.log(err.response.data);

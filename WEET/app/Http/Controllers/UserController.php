@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\LoginLog;
 use App\Mail\VerificationEmail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -64,40 +65,87 @@ class UserController extends Controller
     // 이메일 인증
     public function emailVerification(Request $request) {
         Log::debug("리퀘스트".$request);
-        $emailVerification = $request->email;
-        Log::debug("인증이메일".$emailVerification);
 
-        // 이메일 전송
-        // Mail::to($emailVerification)->send(new VerificationEmail($emailVerification));
+        try {
+            $emailVerification = $request->email;
+            Log::debug("인증이메일".$emailVerification);
 
-        $message = "<h1>안녕하세요</h1><p>위트에 가입하시려면 인증코드를 입력해주세요</p>"; // HTML 형식의 메시지
+            // 이메일 전송
+            // Mail::to($emailVerification)->send(new VerificationEmail($emailVerification));
 
-        // 인증코드 만들기
+            // 인증코드 만들기
+            $verificationCode = Str::random(6);
 
-        // 인증코드 변수에 담아서 추가해주기
-        Mail::html($message, function ($mail) use ($emailVerification) {
-            $mail->to($emailVerification)->subject('위트 가입 인증코드'); // 수신자 이메일 주소 및 제목
-        });
+            Log::debug("인증코드".$verificationCode);
 
-        // 인증코드 세션에 저장하기
-        return response()->json([
-            'message' => true,
-        ]);
+            $message = "<h3>안녕하세요😄</h3>
+                        <p>해당 인증코드를 회원가입 페이지에서 입력해주세요.</p>
+                        <p>인증번호</p><h3>$verificationCode</h3>"; // HTML 형식의 메시지
+
+            Mail::html($message, function ($mail) use ($emailVerification) {
+                $mail->to($emailVerification)->subject('위트 가입 인증코드'); // 수신자 이메일 주소 및 제목
+            });
+
+            // 인증코드 세션에 저장하기
+            session(['verificationCode' => $verificationCode]);
+
+            return response()->json([
+                'message' => true,
+                'verificationCode' => $verificationCode,
+            ]);
+        } catch(\Exception $e) {
+            // 예외 발생 시 로그에 기록하고 적절한 응답 반환
+            Log::error('email verification error: ' . $e->getMessage());
+            return response()->json([
+                'code' => 'EVERR',
+                'message' => '이메일 인증 오류가 발생했습니다.'
+            ], 500);
+        }
 
         // vue컴포넌트에선 인증코드 확인버튼 눌렀을 때 세션에 저장된 값하고 같은지 확인 후 일치하면 통과
         // 할거많네..
+    }
+
+    public function emailVerificationDel(Request $request) {
+        Log::debug("이메일확인리퀘스트".$request);
+        // 사용자가 제출한 인증코드
+        $userVerificationCode = $request->verificationCode;
+        Log::debug("생성코드정보".$request->verificationCode);
+
+        // 세션에 저장된 인증코드
+        $sessionVerificationCode = session()->get('verificationCode');
+        Log::debug("세션코드정보".$sessionVerificationCode);
+
+        // 사용자가 제출한 인증코드와 세션에 저장된 인증코드를 비교하여 일치하는지 확인
+        if ($userVerificationCode === $sessionVerificationCode) {
+            // 인증 완료
+            // 세션에서 인증코드 제거
+            session()->forget('verificationCode');
+
+            // 여기에 인증이 완료되었을 때 수행할 작업을 추가합니다.
+            // 예를 들어, 회원가입 처리 등을 수행할 수 있습니다.
+
+            return response()->json([
+                'message' => '인증이 완료되었습니다.',
+            ]);
+        } else {
+            // 인증 실패
+            return response()->json([
+                'message' => '인증코드가 올바르지 않습니다.',
+            ], 400);
+        }
     }
 
     // 로그인
     public function loginPost(Request $request) {
 
         // $data = $request->all();
-        Log::debug($request);
+        // Log::debug($request);
         
         // 유저 이메일 정보
         $result = User::where('user_email', $request->userEmail)->first();
-        Log::debug("===========================유저데이터==================");
-        Log::debug($result);
+        // Log::debug("===========================유저데이터==================");
+        // Log::debug($result);
 
 
         // 유저 비밀번호 체크
@@ -211,17 +259,33 @@ class UserController extends Controller
         
     }
 
-    // 유저를 kakao인증페이지로 리다이렉트하는 함수
-    // 유저가 kakao계정으로 인증하면 설정해둔 Redirect URI로 다시 보냄.
-    // 그럼 여기서 weet회원인지 아닌지 확인하는 분기 만들면되나?
-    // public function redirectToKakao()
-    // {
-    //     return Socialite::driver('kakao')
-    //         ->with(['prompt' => 'consent'])
-    //         ->redirect();
-    // }
+    // 마이페이지
+    // 마이페이지 비밀번호 수정
+    public function userPasswordChange(Request $request) {
 
+        Log::debug("비밀번호변경시작_리퀘스트", [$request->all()]);
+
+        // 사용자 인증 확인
+        $userToken = JWTAuth::getToken();
+        Log::debug("비밀번호변경_유저", [$user]);
+
+        if (!$userToken) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        // // 전달받은 데이터 유효성 검사
+        // $request->validate([
+        //     'password' => 'required|min:8|max:17|confirmed', // 비밀번호와 확인 필드가 일치하는지 검사
+        // ]);
+
+        // 새로운 비밀번호 설정
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return response()->json(['message' => '비밀번호가 성공적으로 변경되었습니다.'], 200);
     
+    }
+
 
 
 }

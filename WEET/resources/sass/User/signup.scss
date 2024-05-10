@@ -33,9 +33,9 @@
             }
         }
 
-        .regist_terms_box {
-            // transform: translate(0, 30%);
-        }
+        // .regist_terms_box {
+        //     // transform: translate(0, 30%);
+        // }
 
         .terms_conditions {
             text-align: center;
@@ -175,8 +175,7 @@
                 position: relative;
 
                 input {
-                    // width: 100%;
-
+                    width: 100%;
                 }
 
                 :focus {
@@ -271,6 +270,12 @@
                 margin-top: 5px;
             }
 
+            .regist_user_info_box_gender_choose_radio {
+                width: 1.25em;
+                vertical-align: middle;
+                appearance: none;
+            }
         }
+
     }
 }
