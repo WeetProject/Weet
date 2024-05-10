@@ -1,7 +1,7 @@
 @import "../mixin";
 
 .search_recommenmd_container{
-    border: 3px solid #A4A4A4;
+    border: 1px solid #A4A4A4;
     border-radius: 10px;
     // background-color: #d9d9d9;
     padding: 20px;
@@ -39,7 +39,7 @@
     padding-top: 10px;
     margin-bottom: 20px;
     width: 100%;
-    border-bottom: 1px solid $black;
+    border-bottom: 1px solid #A4A4A4;
 }
 .search_recommenmd_body_content{
     display: grid;
@@ -65,7 +65,7 @@
     padding: 5px 30px;
     border-radius: 10px;
     font-weight: bold;
-    box-shadow: 0px 2px 0px 1px #b8b8b8;
+    box-shadow: 0px 0px 0px 1px #b8b8b8;
     width: 200px;
     margin: 0 auto;
 }
@@ -100,14 +100,15 @@
 .search_recommenmd_review_body_content_main{
     border-radius: 10px;
     border: 1px solid $black;
-    padding: 10px;
+    padding: 15px 20px;
+    text-align: left;
 }
 .search_recommenmd_review_body_content_tag{
     flex: 1;
     border-left: 1px solid $black;
 }
 .search_recommenmd_review_body_content_tag_box{
-    padding: 10px;
+    padding: 10px 0px 10px 20px;
 }
 .search_recommenmd_review_body_content_tag_box>div:nth-child(1){
     display: flex;
@@ -115,8 +116,9 @@
 }
 .search_recommenmd_review_body_content_tag_box>div:nth-child(2){
     padding-top: 10px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill);
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 .search_recommenmd_review_body_content_tag_box>div:nth-child(2)>div{
     background-color: $main-font-color;
@@ -124,4 +126,31 @@
     padding: 5px 13px;
     border-radius: 10px;
     display: inline;
+}
+.search_recommenmd_review_body_content_main_grade_box{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.search_recommenmd_review_body_content_main_grade_box>:nth-child(1){
+    font-size: 12px;
+    color: $admin-font-color;
+}
+.search_recommenmd_review_body_content_main_text_box{
+    background-color: #d9d9d9;
+    padding: 10px;
+}
+
+.search_recommenmd_review_body_content_main_text_box>:nth-child(2){
+    display: flex;
+    justify-content: right;
+}
+.search_recommenmd_review_body_content_main_text_box>:nth-child(2) div{
+    background-color: $white;
+    padding:5px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.search_recommenmd_star_icon{
+    color: #e3e300;
 }

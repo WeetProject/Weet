@@ -8,7 +8,7 @@
 .search_flight_sidebar{
     background-color: #fff;
     min-width: 280px;
-    border: 3px solid #A4A4A4;
+    border: 1px solid #A4A4A4;
     border-radius: 10px;
 }
 .search_flight_main{
@@ -90,7 +90,7 @@ input[type='radio']:checked {
     width: 18px;
     height: 18px;
     background-color: $main-font-color;
-    border: 3px solid white; 
+    border: 1px solid white; 
     box-shadow: 0 0 0 0.5px $main-font-color;  
 }
 .search_flight_main_header{

@@ -22,7 +22,7 @@ input:focus{
     gap: 10px;
     position: absolute;
     top: -50px;
-    left: -2px;
+    left: -0.5px;
 }
 .search_menu_top2 {
     height: 50px;
@@ -30,7 +30,7 @@ input:focus{
     gap: 10px;
     position: absolute;
     top: -60px;
-    left: -17.5px;
+    left: -15.5px;
 }
 .search_menu_top div{
     text-align: center;
@@ -40,7 +40,7 @@ input:focus{
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     color: #0B2161;
-    border: 3px solid #A4A4A4;
+    border: 1px solid #A4A4A4;
     border-bottom: none;
 }
 .search_menu_top2 div{
@@ -51,7 +51,7 @@ input:focus{
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     color: #0B2161;
-    border: 3px solid #A4A4A4;
+    border: 1px solid #A4A4A4;
     border-bottom: none;
 }
 .search_menu_bottom{
@@ -62,7 +62,7 @@ input:focus{
     padding: 10px 15px;
     margin-top: 50px;
     margin-bottom: 20px;
-    border: 3px solid #A4A4A4;
+    border: 1px solid #A4A4A4;
     position: relative;
 }
 .search_menu_recommend{

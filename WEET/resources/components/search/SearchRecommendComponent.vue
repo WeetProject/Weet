@@ -3,8 +3,8 @@
         <div class="search_recommenmd_header"> 
             <div class="search_recommenmd_menu_box">인기여행지</div>
             <div class="search_recommenmd_choice_box">
-                <div>국내</div>
-                <div>해외</div>
+                <div :class="areaFlg===0 ? 'text-black font-bold' : ''" @click="changeFlg('area',0)">국내</div>
+                <div :class="areaFlg!==0 ? 'text-black font-bold' : ''" @click="changeFlg('area',1)">해외</div>
             </div>
             <div class="search_recommenmd_menu_line"/>
         </div>
@@ -21,8 +21,8 @@
         <div class="search_recommenmd_header"> 
             <div class="search_recommenmd_menu_box">여행리뷰</div>
             <div class="search_recommenmd_choice_box">
-                <div>국내</div>
-                <div>해외</div>
+                <div :class="reviewAreaFlg===0 ? 'text-black font-bold' : ''" @click="changeFlg('review',0)">국내</div>
+                <div :class="reviewAreaFlg!==0 ? 'text-black font-bold' : ''" @click="changeFlg('review',1)">해외</div>
             </div>
             <div class="search_recommenmd_menu_line"/>
         </div>
@@ -30,7 +30,32 @@
             <div class="search_recommenmd_review_box">
                 <div class="search_recommenmd_review_body_content">
                     <div class="search_recommenmd_review_body_content_img">이미지</div>
-                    <div class="search_recommenmd_review_body_content_main"></div>
+                    <div class="search_recommenmd_review_body_content_main">
+                        <div class="font-bold">제주 애월 맛집 부수기</div>
+                        <div class="search_recommenmd_review_body_content_main_grade_box">
+                            <div>여행지평점</div>
+                            <div class="flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path class="search_recommenmd_star_icon" d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path class="search_recommenmd_star_icon" d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path class="search_recommenmd_star_icon" d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path class="search_recommenmd_star_icon" d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="search_recommenmd_review_body_content_main_text_box">
+                            <div>동해붐ㅁ메하무후멓모험노륨ㄹ너ㅠㅁㄴㄻ너ㅜㄹ넘뤄ㅜ</div>
+                            <div>
+                                <div class="cursor-pointer">상세보기</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="search_recommenmd_review_body_content_tag">
                     <div class="search_recommenmd_review_body_content_tag_box">
@@ -62,12 +87,19 @@ export default {
 
     data() {
         return {
-            
+            areaFlg:0,
+            reviewAreaFlg:0,
         }
     },
     
     methods: {
-        
+        changeFlg(flg,i){
+            if(flg==='area'){
+                this.areaFlg = i
+            }else{
+                this.reviewAreaFlg = i
+            }
+        }
     },
 }
 </script>
