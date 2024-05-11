@@ -10,34 +10,35 @@ use App\Models\Airport;
 class AlgoliaSearchController extends Controller
 {   
     // 출발지 연관 검색어 송신
-    public function startingPointSuggestion(Request $request)
+    public function originSuggestion(Request $request)
     {   
         try {
             // 출발지 검색어 저장 
-            $startingPointQuery = trim($request->input('query'));
-            Log::debug("### 출발지 검색 Query : " . $startingPointQuery . " ###");
+            $originQuery = trim($request->input('query'));
+            Log::debug("### 출발지 검색 Query : " . $originQuery . " ###");
 
-            if($startingPointQuery) {
+            if($originQuery) {
                 // Algolia 데이터 저장
-                $startingPointQuerySuggestion = Airport::search($startingPointQuery)
+                $originQuerySuggestion = Airport::search($originQuery)
                                                 ->raw();
-                $startingPointQueryData = [];
+                $originQueryData = [];
                 // Algolia 데이터 hits 리턴
-                foreach ($startingPointQuerySuggestion['hits'] as $hit) {
-                    $startingPointQueryData[] = [
+                foreach ($originQuerySuggestion['hits'] as $hit) {
+                    $originQueryData[] = [
                         'airport_kr_city_name' => $hit['airport_kr_city_name'],
+                        'airport_kr_country_name' => $hit['airport_kr_country_name'],
                         'airport_city_name' => $hit['airport_city_name'],
+                        'airport_iata_code' => $hit['airport_iata_code'],
                         'airport_kr_name' => $hit['airport_kr_name'],
-                        'airport_iata_code' => $hit['airport_iata_code']
                     ];
                 }
 
                 // Algolia 데이터 송신 확인용 Log
-                // Log::debug("### 출발지 Algolia Data : " . json_encode($destinationQueryData) . " ###");
+                // Log::debug("### 출발지 Algolia Data : " . json_encode($originQueryData) . " ###");
 
                 return response()->json([
                     'code' => 'SPS00',
-                    'startingPointQueryData' => $startingPointQueryData
+                    'originQueryData' => $originQueryData
                 ], 200);
             } else {
                 Log::debug("검색어 없음");

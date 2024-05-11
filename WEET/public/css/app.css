@@ -603,9 +603,6 @@ video {
 .block {
   display: block;
 }
-.inline {
-  display: inline;
-}
 .flex {
   display: flex;
 }
@@ -630,6 +627,12 @@ video {
 .h-full {
   height: 100%;
 }
+.h-\[50px\] {
+  height: 50px;
+}
+.h-3 {
+  height: 0.75rem;
+}
 .w-1\/4 {
   width: 25%;
 }
@@ -653,6 +656,12 @@ video {
 }
 .w-full {
   width: 100%;
+}
+.w-\[50px\] {
+  width: 50px;
+}
+.w-3 {
+  width: 0.75rem;
 }
 .max-w-sm {
   max-width: 24rem;
@@ -719,6 +728,18 @@ video {
 }
 .fill-current {
   fill: currentColor;
+}
+.fill-\[\#0b4aff\] {
+  fill: #0b4aff;
+}
+.fill-\[\#ededed\] {
+  fill: #ededed;
+}
+.fill-\[\#666666\] {
+  fill: #666666;
+}
+.fill-\[\#000000\] {
+  fill: #000000;
 }
 .px-2 {
   padding-left: 0.5rem;

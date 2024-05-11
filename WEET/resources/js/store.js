@@ -24,8 +24,12 @@ const store = createStore({
             googleUserEmail: null,
             googleToken: null,
 
+            // ### Algolia ###
+            algoliaStartingPoint: null,
+            algoliaDestination: null,
+
             // ### Amadeus ###
-            amadeusToken: null,
+            amadeusToken: null,            
 
             // ### Admin ###
             // Admin Login 데이터 저장용
@@ -113,6 +117,16 @@ const store = createStore({
         },
         setGoogleToken(state, googleToken) {
             state.googleToken = googleToken;
+        },
+
+        // ### Algolia ###
+        // Algolia 출발지
+        setAlgoliaStartingPoint(state, algoliaStartingPoint) {
+            state.algoliaStartingPoint = algoliaStartingPoint;
+        },
+        // Algolia 도착지
+        setAlgoliaDestination(state, algoliaDestination) {
+            state.algoliaDestination = algoliaDestination;
         },
 
         // ### Amadeus ###
