@@ -484,11 +484,14 @@ export default {
 
             if (extraRoadAddr !== '') {
                 extraRoadAddr = ' (' + extraRoadAddr + ')';
+            } else {
+                extraRoadAddr = ''
             }
 
             this.frmUserAddressData = {
                 userPostcode: data.zonecode,
                 userBasicAddress: roadAddr,
+                userDetailAddress: extraRoadAddr,
             }
             // console.log(data);
         },

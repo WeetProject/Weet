@@ -373,6 +373,8 @@ const store = createStore({
                         const kakaoUserID = kakaoUserData.kakaoUserEmail;
                         const kakaoToken = kakaoUserData.kakaoToken;
 
+                        console.log('카카오유저데이터', kakaoUserData);
+
                         commit('setKakaoUserID', kakaoUserID);
                         commit('setKakaoToken', kakaoToken);
                         

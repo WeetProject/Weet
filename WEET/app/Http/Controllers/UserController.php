@@ -32,6 +32,11 @@ class UserController extends Controller
         // 비밀번호 암호화
         $data['password'] = Hash::make($data['password']);
 
+        // 디테일주소 공백
+        if( $data['user_detail_address'] === null ) {
+            $data['user_detail_address'] = '상세주소없음';
+        }
+
         // 유저 데이터 db에 입력
         $result = User::create($data);
         Log::debug("되냐");
@@ -280,6 +285,7 @@ class UserController extends Controller
         }
 
         // 주소 변경 요청
+        // 해야댐
         if ($request->filled('user_postcode') && $request->filled('user_basic_address') && $request->filled('user_detail_address')) {
             // 받은 주소 데이터를 그대로 저장
             $user->user_postcode = $request->userPostcode;
