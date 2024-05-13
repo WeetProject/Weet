@@ -133,11 +133,7 @@ const store = createStore({
             setTimeout(function() {
                 localStorage.clear();
             }, 2 * 60 * 60 * 1000);
-        },    
-        //  
-        setKakaoUserData(state, kakaoUserData) {
-            state.kakaoUserData = kakaoUserData;
-        },
+        }, 
         setKakaoUserID(state, kakaoUserID) {
             state.kakaoUserID = kakaoUserID;
         },
