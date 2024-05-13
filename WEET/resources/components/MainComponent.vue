@@ -116,7 +116,7 @@
 									<div class="ml-5 main_top_reservation_select_detail_passenger">
 										<!-- 성인 선택 -->
 										<div class="mb-5 main_top_reservation_select_detail_passenger_adult">
-											<button @click="passengerMiuns('adult')">
+											<button @click="passengerMinus('adult')">
 												<svg class="w-8 h-8"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" /></svg>
 											</button>
 											<span class="mx-2" :style="{ fontWeight: adultPassenger ? 'semibold' : 'normal' }">성인 <span :style="{ fontWeight: adultPassenger ? 'bold' : 'normal' }">{{ adultPassenger }}</span>명</span>
@@ -126,7 +126,7 @@
 										</div>
 										<!-- 소아 선택 -->
 										<div class="mt-5 main_top_reservation_select_detail_passenger_children">
-											<button @click="passengerMiuns('children')">
+											<button @click="passengerMinus('children')">
 												<svg class="w-8 h-8"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="12" cy="12" r="9" />  <line x1="9" y1="12" x2="15" y2="12" /></svg>
 											</button>
 											<span class="mx-2" :style="{ fontWeight: childrenPassenger ? 'semibold' : 'normal' }">소아 <span :style="{ fontWeight: childrenPassenger ? 'bold' : 'normal' }">{{ childrenPassenger }}</span>명</span>
@@ -169,8 +169,8 @@
 								</div>
 								<div class="ml-5 main_top_reservation_select_detail_search_section">
 									<div class="main_top_reservation_select_detail_search_button">
-										<button class="w-full font-semibold text-center" v-if="clickTab === 0" @click="amadeusSearchRoundTrip()">항공권 검색</button>
-										<button class="w-full font-semibold text-center" v-if="clickTab === 1" @click="amadeusSearchOneWay()">항공권 검색</button>
+										<button class="w-full font-semibold text-center" v-if="clickTab === 0" @click="amadeusSearch()">항공권 검색</button>
+										<button class="w-full font-semibold text-center" v-if="clickTab === 1" @click="amadeusSearch()">항공권 검색</button>
 									</div>
 								</div>
 							</div>
@@ -220,6 +220,7 @@ export default {
 	data() {
 		return {
 			clickTab: 0,
+			roundTripOneWayFlg: null,
 			adultPassenger: 1,
 			childrenPassenger: 0,
 			classSelectData: {
@@ -228,9 +229,16 @@ export default {
 				BUSINESS: false,
 				FIRST: false,
 			},
-			selectClass: null,			
+			selectClass: "ECONOMY",
+			
+			// 왕복 출발일 및 귀국일 데이터 저장용
 			roundTripDate: [],
+			selectRoundTripOriginDepartureDate: null,
+			selectRoundTripOriginReturnDate: null,
+			// 편도 출발일 데이터 저장용
 			oneWayDate:[],
+			selectOneWayOriginDepartureDate: null,
+
 			originModalFlg: false,
 			originExchangeQueryData: null,
 			originLocationCodeQuery: null,
@@ -285,15 +293,18 @@ export default {
 			if (roundTripDate[0] && roundTripDate[1]) {
 				// 출발일
 				const startDate = roundTripDate[0];
-				console.log(startDate);
 				const startYear = startDate.getFullYear();
 				const startMonth = addZero(startDate.getMonth() + 1);
 				const startDay = addZero(startDate.getDate());
+				// 출발일 데이터 저장
+				this.selectRoundTripOriginDepartureDate = `${startYear}-${startMonth}-${startDay}`;
 				// 도착일
 				const endDate = roundTripDate[1];
 				const endYear = endDate.getFullYear();
 				const endMonth = addZero(endDate.getMonth() + 1);
 				const endDay = addZero(endDate.getDate());
+				// 귀국일 데이터 저장
+				this.selectRoundTripOriginReturnDate = `${endYear}-${endMonth}-${endDay}`;
 				return `${startYear}-${startMonth}-${startDay} ~ ${endYear}-${endMonth}-${endDay}`;
 			}
 		},
@@ -306,12 +317,14 @@ export default {
 				const startYear = startDate.getFullYear();
 				const startMonth = addZero(startDate.getMonth() + 1);
 				const startDay = addZero(startDate.getDate());
+				// 출발일 데이터 저장
+				this.selectOneWayOriginDepartureDate = `${startYear}-${startMonth}-${startDay}`;
 				return `${startYear}-${startMonth}-${startDay}`;
 			} 
 		},
 
 		// 성인, 소아 인원 감소
-		passengerMiuns(passengerType) {
+		passengerMinus(passengerType) {
 			if (passengerType === 'adult' && this.adultPassenger > 1) {
 				this.adultPassenger--;
 			} else if (passengerType === 'children' && this.childrenPassenger > 0) {
@@ -346,107 +359,194 @@ export default {
 		// 에러 출력 css 추가
 		// ### 05-12 todo ### 
 		
-		// 출발지, 도착지, 날짜 데이터 api 송수신(왕복)
-		amadeusSearchRoundTrip() {
-			const originQueryCode = this.originExchangeQueryData.airport_iata_code
-			const originQueryName = this.originExchangeQueryData.airport_kr_city_name
-			const destinationQueryCode = this.destinationExchangeQueryData.airport_iata_code
-			const destinationQueryName = this.destinationExchangeQueryData.airport_kr_city_name
+		// Amadeus 데이터 수신(왕복, 편도)
+		amadeusSearch() {
 
-			if(originQueryCode !== destinationQueryCode && originQueryName !== destinationQueryName) {
-				// Amadeus Parameter
-				const amadeusToken = localStorage.getItem('setAmadeusToken');
-				const URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers';
-				// const originLocationCode = this.originLocationCodeQuery; // 출발지
-				// const destinationLocationCode = this.destinationLocationCodeQuery; // 도착지
-				const originLocationCode = 'CJU'; // 출발지
-				const destinationLocationCode = 'NRT'; // 도착지
-				const departureDate = this.formatDate(this.roundTripDate[0]);
-				const returnDate = this.formatDate(this.roundTripDate[1]);
-				console.log(returnDate);
-				// const departureDate = '2024-05-11';
-				// const returnDate = '2024-05-12';
-				const KRW = "KRW" // 원화
-				const adultPassenger = 1;
-				// const childrenPassenger = ;
-				// const travelClass = ;			
-				
-				axios.get(URL, {
-					headers: {
-						'Authorization': `Bearer ${amadeusToken}`
-					},
-					params: {					
-						// 출발지
-						originLocationCode: originLocationCode, 
-						// 도착지
-						destinationLocationCode: destinationLocationCode,
-						// 도착날짜
-						departureDate: departureDate,
-						// 돌아오는 날짜
-						returnDate: returnDate,
-						// 원화
-						currencyCode: KRW,
-						// 인원
-						adults: adultPassenger
-						// 좌석 등급
-						// travelClass:
-					},				
-				})
-				.then(response => {
-					console.log(response.data);
-				})
-				.catch(error => {
-					console.error(error);
-				});
-			} else {
-				const error= "출발지와 도착지는 다르게 입력해주세요"
+			// 날짜데이터로 왕복 편도 확인
+			if(this.clickTab === 0) {
+				// ### 왕복 ###
+				console.log("왕복 함수 실행");
+				// Amadeus Required Parameters								
+				const roundTripOriginQueryCode = this.originExchangeQueryData.airport_iata_code // 출발지
+				const roundTripDestinationQueryCode = this.destinationExchangeQueryData.airport_iata_code // 도착지
+				const roundTripOriginDepartureDate = this.selectRoundTripOriginDepartureDate; // 출발일
+				const roundTripAdultPassenger = this.adultPassenger; // 성인 인원
+
+				// Amadeus optional parameter
+				const roundTripOriginReturnDate = this.selectRoundTripOriginReturnDate; // 귀국일
+				const roundTripChildrenPassenger = this.childrenPassenger; // 소아 인원
+				const roundTripTravelClass = this.selectClass; // 좌석 등급	
+				const roundTripNonStop = true; // 직항
+				const roundTripCurrencyCode = "KRW" // 원화				
+
+				if(roundTripOriginDepartureDate !== roundTripOriginReturnDate) {
+					const amadeusToken = localStorage.getItem('setAmadeusToken');					
+					const roundTripParams = {
+						headers: {
+							'Authorization': `Bearer ${amadeusToken}`
+						},
+						params: {
+							// Amadeus Required Parameters
+							// 출발지
+							originLocationCode: roundTripOriginQueryCode, 
+							// 도착지
+							destinationLocationCode: roundTripDestinationQueryCode,
+							// 출발일
+							departureDate: roundTripOriginDepartureDate,
+							// 성인 인원
+							adults: roundTripAdultPassenger,
+
+							// Amadeus optional parameter
+							// 귀국일
+							returnDate: roundTripOriginReturnDate,
+							// 직항
+							nonStop: roundTripNonStop,
+							// 원화
+							currencyCode: roundTripCurrencyCode,
+							// 좌석 등급
+							travelClass: roundTripTravelClass
+						}
+					};
+
+					// 소아 인원 요청여부 확인 Amadeus optional parameter 추가여부 결정
+					if (roundTripChildrenPassenger >= 1) {
+						console.log("### 왕복 if ###");
+						// 소아 인원 요청 존재 시 Amadeus optional parameter 저장
+						roundTripParams.params.children = roundTripChildrenPassenger;
+						this.$store.commit('setRoundTripSearchUserData', {
+							// Amadeus Required Parameters
+							roundTripOriginQueryCode: roundTripParams.params.originLocationCode, // 출발지
+							roundTripDestinationQueryCode: roundTripParams.params.destinationLocationCode, // 도착지
+							roundTripOriginDepartureDate: roundTripParams.params.departureDate, // 출발일
+							roundTripAdultPassenger: roundTripParams.params.adults, // 성인 인원
+							// Amadeus optional parameter
+							roundTripOriginReturnDate: roundTripParams.params.returnDate, // 귀국일
+							roundTripChildrenPassenger: roundTripParams.params.children, // 소아 인원
+							roundTripTravelClass: roundTripParams.params.travelClass, // 좌석 등급
+							roundTripNonStop: roundTripParams.params.nonStop, // 직항
+							roundTripCurrencyCode: roundTripParams.params.currencyCode, // 원화
+						})
+						console.log("### store 데이터 if ###", this.$store.state.roundTripSearchUserData.roundTripChildrenPassenger);
+					} else {
+						// 소아 인원 요청 미 존재 시 null 저장
+						this.$store.commit('setRoundTripSearchUserData', {
+							// Amadeus Required Parameters
+							roundTripOriginQueryCode: roundTripParams.params.originLocationCode, // 출발지
+							roundTripDestinationQueryCode: roundTripParams.params.destinationLocationCode, // 도착지
+							roundTripOriginDepartureDate: roundTripParams.params.departureDate, // 출발일
+							roundTripAdultPassenger: roundTripParams.params.adults, // 성인 인원
+							// Amadeus optional parameter
+							roundTripOriginReturnDate: roundTripParams.params.returnDate, // 귀국일
+							roundTripChildrenPassenger: null, // 소아 인원
+							roundTripTravelClass: roundTripParams.params.travelClass, // 좌석 등급
+							roundTripNonStop: roundTripParams.params.nonStop, // 직항
+							roundTripCurrencyCode: roundTripParams.params.currencyCode, // 원화
+						})
+						console.log("### store 데이터else ###", this.$store.state.roundTripSearchUserData.roundTripChildrenPassenger);
+					}
+					
+					const URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers';
+					axios.get(URL, roundTripParams)
+						.then(response => {
+							console.log("### 왕복 아마데우스 데이터 ###", response.data);
+						})
+						.catch(error => {
+							console.error(error);
+						});
+				} else {
+					const error= "출발지와 도착지는 다르게 입력해주세요"
+					alert(error);
+				}
+			} else if(this.clickTab == 1) {				
+				// ### 편도 ###
+				console.log("편도 함수 실행");
+				// Amadeus Required Parameters
+				const oneWayOriginQueryCode = this.originExchangeQueryData.airport_iata_code // 출발지
+				const oneWayDestinationQueryCode = this.destinationExchangeQueryData.airport_iata_code // 도착지
+				const oneWayDestinationDepartureDate = this.selectOneWayOriginDepartureDate; // 출발일
+				const oneWayAdultPassenger = this.adultPassenger; // 성인 인원
+
+				// Amadeus optional parameter
+				const oneWayChildrenPassenger = this.childrenPassenger; //소아 인원
+				const oneWayTravelClass = this.selectClass; // 좌석 등급
+				const oneWayNonStop = true; // 직항
+				const oneWayCurrencyCode = "KRW" // 원화				
+
+				if(oneWayDestinationDepartureDate) {
+					const amadeusToken = localStorage.getItem('setAmadeusToken');
+					const oneWayParam = {
+						headers: {
+							'Authorization': `Bearer ${amadeusToken}`
+						},
+						params: {
+							// Amadeus Required Parameters
+							// 출발지
+							originLocationCode: oneWayOriginQueryCode, 
+							// 도착지
+							destinationLocationCode: oneWayDestinationQueryCode,
+							// 출발일
+							departureDate: oneWayDestinationDepartureDate,
+							// 성인 인원
+							adults: oneWayAdultPassenger,
+
+							// Amadeus optional parameter
+							// 직항
+							nonStop: oneWayNonStop,
+							// 원화
+							currencyCode: oneWayCurrencyCode,
+							// 좌석 등급
+							travelClass: oneWayTravelClass
+						}
+					};
+
+					// 소아 인원 요청 시 Amadeus optional parameter 추가
+					if (oneWayChildrenPassenger >= 1) {
+						oneWayParam.params.children = oneWayChildrenPassenger;
+						this.$store.commit('setOneWaySearchUserData', {
+							// Amadeus Required Parameters
+							oneWayOriginQueryCode: oneWayParam.params.originLocationCode, // 출발지
+							oneWayDestinationQueryCode: oneWayParam.params.destinationLocationCode, // 도착지
+							oneWayOriginDepartureDate: oneWayParam.params.departureDate, // 출발일
+							oneWayAdultPassenger: oneWayParam.params.adults, // 성인 인원
+							// Amadeus optional parameter
+							oneWayChildrenPassenger: oneWayParam.params.children, // 소아 인원
+							oneWayTravelClass: oneWayParam.params.travelClass, // 좌석 등급
+							oneWayNonStop: oneWayParam.params.nonStop, // 직항
+							oneWayCurrencyCode: oneWayParam.params.currencyCode, // 원화
+						})
+						console.log("### store 데이터if ###", this.$store.state.oneWaySearchUserData.oneWayChildrenPassenger);
+					} else {
+						// 소아 인원 요청 미 존재 시 null 저장
+						this.$store.commit('setOneWaySearchUserData', {
+							// Amadeus Required Parameters
+							oneWayOriginQueryCode: oneWayParam.params.originLocationCode, // 출발지
+							oneWayDestinationQueryCode: oneWayParam.params.destinationLocationCode, // 도착지
+							oneWayOriginDepartureDate: oneWayParam.params.departureDate, // 출발일
+							oneWayAdultPassenger: oneWayParam.params.adults, // 성인 인원
+							// Amadeus optional parameter
+							oneWayChildrenPassenger: null, // 소아 인원
+							oneWayTravelClass: oneWayParam.params.travelClass, // 좌석 등급
+							oneWayNonStop: oneWayParam.params.nonStop, // 직항
+							oneWayCurrencyCode: oneWayParam.params.currencyCode, // 원화
+						})
+						console.log("### store 데이터else ###", this.$store.state.oneWaySearchUserData.oneWayChildrenPassenger);
+					}
+
+					const URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers';
+					console.log("### 편도 요청 파라미터 ###", oneWayParam);
+					axios.get(URL, oneWayParam)
+						.then(response => {
+							console.log("### 편도 아마데우스 데이터 ###", response.data);
+						})
+						.catch(error => {
+							console.error(error);
+						});
+				} else {
+					const error= "날짜를 선택해주세요"
+					alert(error);
+				}
 			}
-
 		},
-
-		// 출발지, 도착지, 날짜 데이터 api 송수신(편도)
-		amadeusSearchOneWay() {
-			const amadeusToken = localStorage.getItem('setAmadeusToken');
-			console.log(amadeusToken);
-
-			const URL = 'https://test.api.amadeus.com/v2/shopping/flight-offers';
-			// const originLocationCode = this.originLocationCodeQuery; // 출발지
-			// const destinationLocationCode = this.destinationLocationCodeQuery; // 도착지
-			const originLocationCode = 'CJU'; // 출발지
-			const destinationLocationCode = 'NRT'; // 도착지
-			const departureDate = this.formatDate(this.oneWayDate[0]);
-			console.log(departureDate);
-			const KRW = "KRW" // 원화
-			const adultPassenger = 1;
-			// const childrenPassenger = ;
-			// const travelClass = ;			
-			
-			axios.get(URL, {
-				headers: {
-					'Authorization': `Bearer ${amadeusToken}`
-				},
-				params: {					
-					// 출발지
-					originLocationCode: originLocationCode, 
-					// 도착지
-					destinationLocationCode: destinationLocationCode,
-					// 도착날짜
-					departureDate: departureDate,
-					// 원화
-					currencyCode: KRW,
-					// 인원
-					adults: adultPassenger
-					// 좌석 등급
-					// travelClass:
-				},				
-			})
-			.then(response => {
-				console.log(response.data);
-			})
-			.catch(error => {
-				console.error(error);
-			});
-		}
 	}
 }
 </script>
