@@ -72,7 +72,7 @@
                             <!-- 우편번호 -->
                             <div class="mypage_user_info_content_postcode_area">
                                 <input type="text" name="user_postcode" id="user_postcode"
-                                autocomplete="off" v-model="this.newUserAddressData.userPostcode"
+                                autocomplete="off" v-model="this.userInfo.userPostcode"
                                 class="mypage_user_info_content_input_postcode">
                                 <div class="mypage_user_info_content_area_postcode_button">
                                     <button type="button" @click="openDaumPostcode()"
@@ -83,13 +83,13 @@
                             </div>
                             <div class="mypage_user_info_content_area">
                                 <input type="text" name="user_basic_address" id="user_basic_address"
-                                autocomplete="off" v-model="this.newUserAddressData.userBasicAddress"
+                                autocomplete="off" v-model="this.userInfo.userBasicAddress"
                                 class="mypage_user_info_content_input">
                             </div>
                             <div class="mypage_user_info_content_area">
                                 <input
                                 type="text" name="user_detail_address" id="user_detail_address"
-                                autocomplete="off" v-model="this.newUserAddressData.userDetailAddress"
+                                autocomplete="off" v-model="this.userInfo.userDetailAddress"
                                 class="mypage_user_info_content_input">
                             </div>                        
                         </div>
@@ -345,10 +345,10 @@ export default {
                 extraRoadAddr = ' (' + extraRoadAddr + ')';
             }
 
-            this.newUserAddressData = {
-                userPostcode: data.zonecode,
-                userBasicAddress: roadAddr,
-            }
+            this.userInfo.userPostcode = data.zonecode;
+            this.userInfo.userBasicAddress = roadAddr;
+            this.userInfo.userDetailAddress = extraRoadAddr;
+            
             console.log(data);
         },
         changeInfo() {
@@ -361,9 +361,9 @@ export default {
             const requestData = {
                 email: this.userInfo.userEmail,
                 token: localStorage.getItem('setToken'),
-                userPostcode: this.newUserAddressData.userPostcode,
-                userBasicAddress: this.newUserAddressData.userBasicAddress,
-                userDetailAddress: this.newUserAddressData.userDetailAddress
+                userPostcode: this.userInfo.userPostcode,
+                userBasicAddress: this.userInfo.userBasicAddress,
+                userDetailAddress: this.userInfo.userDetailAddress
             };
 
             // 비밀번호가 입력되었다면 요청 데이터에 추가
