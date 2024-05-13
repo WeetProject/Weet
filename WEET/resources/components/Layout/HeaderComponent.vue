@@ -67,7 +67,7 @@
 						</div>
 
 					<!-- 로그인모달 -->
-					<div v-if="showmodal" class="modal">
+					<div v-if="showmodal" class="modal" @click="closeModal">
 						<div class="modal-content">
 							<div class="flex scene" style="width: 300px;">
 								<section class="card">
