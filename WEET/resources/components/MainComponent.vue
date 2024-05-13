@@ -352,12 +352,10 @@ export default {
 		},
 
 		
-		// ### 05-12 todo ### 		
-		// 왕복 편도 axios 통합
-		// 출발지, 도착지, 날짜 데이터 store 저장
+		// ### 05-14 todo ###
 		// 모달 세부사항 조정(css, 모달창 바깥 클릭시 모달 off)
 		// 에러 출력 css 추가
-		// ### 05-12 todo ### 
+		// ### 05-14 todo ### 
 		
 		// Amadeus 데이터 수신(왕복, 편도)
 		amadeusSearch() {
