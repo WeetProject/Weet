@@ -147,14 +147,33 @@ class KakaoSocialLoginController extends Controller
     }
 
     public function kakaoLogout(Request $request) {
-        $kakaoUser = $request->user();
-        // Log::debug("세션 정보: " . json_encode($request->session()->all()));
-        $token = JWTAuth::getToken();
-        Log::debug("로그아웃토큰".$token);
-        JWTAuth::invalidate($token);
 
-        Auth::logout($request);
+        try {
+            $kakaoUser = $request->user();
+            // Log::debug("세션 정보: " . json_encode($request->session()->all()));
+            $token = JWTAuth::getToken();
+            Log::debug("로그아웃토큰".$token);
+
+            if($token) {
+                JWTAuth::invalidate($token);
+            } else {
+                Log::debug("### Kakao 로그아웃 : 토큰 없음 ###");
+            }
+            
+        } catch(Exception $e) {
+            $error = "세션이 만료되었습니다. 다시 로그인 해주세요.";
+            Log::debug("### 토큰 시간 만료 로그아웃 : " . $e->getMessage() . "###");
+
+            return response()->json([
+                'code' => 'KLO01',
+                'error' => $error
+            ], 401);
+        }
+
+        // Auth::logout($request);
+        Auth::logout();
         Log::debug("### kakao 로그아웃 : 로그아웃 처리완료 ###");
+
         Session::flush();
         Log::debug("### kakao 로그아웃 : 세션 파기 완료 ###");
 

@@ -408,6 +408,10 @@ const store = createStore({
                     console.log(response.data.code);
                     console.log("카카오 로그아웃 성공");
                     location.reload();
+                } else if(response.data.code === "KLO01") {
+                    alert('토큰이 만료되었습니다. 자동으로 로그아웃됩니다.');
+                    localStorage.clear();
+                    location.reload();
                 }
                 
             })

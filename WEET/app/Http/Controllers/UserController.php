@@ -286,12 +286,9 @@ class UserController extends Controller
 
         // 주소 변경 요청
         // 해야댐
-        if ($request->filled('user_postcode') && $request->filled('user_basic_address') && $request->filled('user_detail_address')) {
-            // 받은 주소 데이터를 그대로 저장
-            $user->user_postcode = $request->userPostcode;
-            $user->user_basic_address = $request->userBasicAddress;
-            $user->user_detail_address = $request->userDetailAddress;
-        }
+        $user->user_postcode = $request->userPostcode;
+        $user->user_basic_address = $request->userBasicAddress;
+        $user->user_detail_address = $request->userDetailAddress;
 
         $user->save();
         return response()->json(['message' => '비밀번호가 성공적으로 변경되었습니다.'], 200);
