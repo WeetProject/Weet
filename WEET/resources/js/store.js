@@ -10,6 +10,10 @@ const store = createStore({
     state() {
         return {
             showmodal: false,
+            // Main origin, destination Modal
+            originModalFlg: false,
+            destinationModalFlg: false,
+
             // 일반 로그인 
             userData: null,
             userID: null,
@@ -24,8 +28,40 @@ const store = createStore({
             googleUserEmail: null,
             googleToken: null,
 
+            // ### Algolia ###
+            algoliaStartingPoint: null,
+            algoliaDestination: null,
+
             // ### Amadeus ###
             amadeusToken: null,
+            // Amadeus 왕복 유저 검색 데이터 저장용
+            roundTripSearchUserData: {
+                // Amadeus Required Parameters
+                roundTripOriginQueryCode: '', // 출발지
+                roundTripDestinationQueryCode: '', // 도착지
+                roundTripOriginDepartureDate: '', // 출발일
+                roundTripAdultPassenger: '', // 성인 인원
+                // Amadeus optional parameter
+                roundTripOriginReturnDate: '', // 귀국일
+                roundTripChildrenPassenger: '', // 소아 인원(소아 인원 없을 시 null)
+                roundTripTravelClass: '', // 좌석 등급
+                roundTripNonStop: '', // 직항
+                roundTripCurrencyCode: '', // 원화
+            },
+
+            // Amadeus 편도 유저 검색 데이터 저장용
+            oneWaySearchUserData: {
+                // Amadeus Required Parameters
+                oneWayOriginQueryCode: '', // 출발지
+                oneWayDestinationQueryCode: '', // 도착지
+                oneWayOriginDepartureDate: '', // 출발일
+                oneWayAdultPassenger: '', // 성인 인원
+                // Amadeus optional parameter
+                oneWayChildrenPassenger: '', // 소아 인원
+                oneWayTravelClass: '', // 좌석 등급
+                oneWayNonStop: '', // 직항
+                oneWayCurrencyCode: '', // 원화
+            },
 
             // ### Admin ###
             // Admin Login 데이터 저장용
@@ -97,11 +133,7 @@ const store = createStore({
             setTimeout(function() {
                 localStorage.clear();
             }, 2 * 60 * 60 * 1000);
-        },    
-        //  
-        setKakaoUserData(state, kakaoUserData) {
-            state.kakaoUserData = kakaoUserData;
-        },
+        }, 
         setKakaoUserID(state, kakaoUserID) {
             state.kakaoUserID = kakaoUserID;
         },
@@ -115,10 +147,46 @@ const store = createStore({
             state.googleToken = googleToken;
         },
 
+        // ### Algolia ###
+        // Algolia 출발지
+        setAlgoliaStartingPoint(state, algoliaStartingPoint) {
+            state.algoliaStartingPoint = algoliaStartingPoint;
+        },
+        // Algolia 도착지
+        setAlgoliaDestination(state, algoliaDestination) {
+            state.algoliaDestination = algoliaDestination;
+        },
+
         // ### Amadeus ###
+
+        // 출발지, 검색지 모달 open
+        setOriginModal(state) {
+            state.originModalFlg = true;
+        },
+        
+        setOriginModalClose(state) {
+            state.originModalFlg = false;
+        },
+
+        setDestinationModal(state) {
+            state.destinationModalFlg = true;
+        },
+
+        setDestinationModalClose(state) {
+            state.destinationModalFlg = false;
+        },
+        
         // Amadeus 토큰
         setAmadeusToken(state, amadeusToken) {
             state.amadeusToken = amadeusToken;
+        },
+
+        setRoundTripSearchUserData(state, roundTripSearchUserData) {
+            state.roundTripSearchUserData = roundTripSearchUserData;
+        },
+
+        setOneWaySearchUserData(state, oneWayUserSearchData) {
+            state.oneWaySearchUserData = oneWayUserSearchData;
         },
 
         // ### Admin ###
@@ -301,6 +369,8 @@ const store = createStore({
                         const kakaoUserID = kakaoUserData.kakaoUserEmail;
                         const kakaoToken = kakaoUserData.kakaoToken;
 
+                        console.log('카카오유저데이터', kakaoUserData);
+
                         commit('setKakaoUserID', kakaoUserID);
                         commit('setKakaoToken', kakaoToken);
                         
@@ -405,7 +475,6 @@ const store = createStore({
 
         // amadeus Token 발급
         amadeusToken({ commit }) {
-            console.log('아마데우스 토큰 발급 함수실행');
 			const tokenURL = '/amadeus';
 			axios.post(tokenURL)
                 .then(response => {               
@@ -415,7 +484,6 @@ const store = createStore({
                         commit('setAmadeusToken', amadeusToken);
                         
                         localStorage.setItem('setAmadeusToken', amadeusToken);
-                        console.log(localStorage.getItem('setAmadeusToken'));
                     } else {
                         alert('발급실패');
                     }

@@ -56,9 +56,11 @@ const app = createApp({
 	}
 });
 
+// AOS 초기화
+AOS.init();
+
 app
 .use(store)
 .use(router)
-.use(AOS)
 .use(vuetify)
 .mount('#app'); // 마운트 처리

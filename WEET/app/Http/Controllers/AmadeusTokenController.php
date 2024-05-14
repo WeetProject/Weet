@@ -16,12 +16,13 @@ class AmadeusTokenController extends Controller
             'client_id' => config('services.amadeus.client_id'),
             'client_secret' => config('services.amadeus.client_secret'),
         ]);
-        
-        log::debug("### 아마데우스 토큰 데이터 : " . json_encode($amadeusResponse->json()) . " ###");
-        
-        $amadeusToken = $amadeusResponse->json()['access_token'];
+                
+        // Amadeus 데이터 송신 확인용 Log
+        // log::debug("### Amadeus 토큰 데이터 : " . json_encode($amadeusResponse->json()) . " ###");
 
-        log::debug("### 아마데우스 액세스 토큰 : " . $amadeusToken . " ###");
+        $amadeusToken = $amadeusResponse->json()['access_token'];
+        // Amadeus 토큰 확인용 Log
+        // log::debug("### Amadeus 액세스 토큰 : " . $amadeusToken . " ###");
 
         return response()->json([
             'code' => 'AT00',
