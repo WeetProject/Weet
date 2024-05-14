@@ -278,7 +278,9 @@ export default {
 
 		// origin Modal Open(출발)
 		originModal() {
-			this.originModalFlg = !this.originModalFlg;
+			if(!this.destinationModalFlg) {
+				this.originModalFlg = !this.originModalFlg;
+			}
 		},
 
 		// origin Modal Data 수신(출발)
@@ -289,7 +291,9 @@ export default {
 
 		// destination Modal Open(도착)
 		destinationModal() {
-			this.destinationModalFlg = !this.destinationModalFlg;
+			if(!this.originModalFlg) {
+				this.destinationModalFlg = !this.destinationModalFlg;
+			}
 		},
 
 		// destination Modal Data 수신(도착)
