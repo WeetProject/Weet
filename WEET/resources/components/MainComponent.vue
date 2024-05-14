@@ -1,15 +1,19 @@
 <template>
 	<!-- desktop -->
-	<div class="main_container">
+	<div class="main_container" @click="searchModalOff">
 		<div class="main_top_container">
 			<div class="main_top_article">
 				<img class="main_top_img" src="../../public/images/plane.png" alt="">
+				<!-- 출발지 Modal -->
 				<MainOriginModalComponent 
 					v-if="originModalFlg"
+					@click.stop=""
 					@originExchangeQueryData="originQueryData">
 				</MainOriginModalComponent>
+				<!-- 도착지 Modal -->
 				<MainDestinationModalComponent 
 					v-if="destinationModalFlg"
+					@click.stop=""
 					@destinationExchangeQueryData="destinationQueryData">
 				</MainDestinationModalComponent>
 				<div class="main_top_reservation_section">
@@ -263,6 +267,13 @@ export default {
 		// Amadeus 토큰 획득
 		amadeusToken() {
 			this.$store.dispatch('amadeusToken');
+		},
+
+		searchModalOff(event) {
+			if (!event.target.closest('.main_top_reservation_select_detail_side_input_section')) {
+				this.originModalFlg = false;
+				this.destinationModalFlg = false;
+			}
 		},
 
 		// origin Modal Open(출발)
