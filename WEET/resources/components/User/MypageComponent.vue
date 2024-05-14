@@ -421,6 +421,8 @@ export default {
 
         delWithdrawal() {
             const url = '/userWithdrawal';
+
+            axios.delete()
         }
     },
 
