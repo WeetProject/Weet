@@ -15,9 +15,9 @@
                 </button>
             </div>
             <!-- 가운데 영역 분할 선 -->
-            <div class="main_modal_line" v-if="destinationQuery && destinationQuerySuggestion.length && destinationFlg"></div>
+            <div class="main_modal_line" v-if="destinationQuery && destinationQuerySuggestion.length >= 1 && destinationFlg"></div>
             <!-- 연관 검색어 -->
-            <div class="main_modal_suggetion_section" v-if="destinationQuery && destinationQuerySuggestion.length && destinationFlg">
+            <div class="main_modal_suggetion_section" v-if="destinationQuery && destinationQuerySuggestion.length >= 1 && destinationFlg">
                 <div class="main_modal_suggetion_area">
                     <div class="main_modal_suggetion_list" 
                         v-for="destinationSuggestion in destinationQuerySuggestion"
@@ -60,11 +60,15 @@ export default {
     data() {
         return {
             isQueryFocus: false,
-            previousSearchResults: [],
+            previousDestinationQueryResult: [],
 			destinationQuery: '',
 			destinationQuerySuggestion: [],
 			destinationFlg: false,
         }
+    },
+
+    created() {
+        this.debouncAlgoliaDestinationQuery = debounce(this.algoliaDestinationQuery, 300);  
     },
 
     methods: {
@@ -87,40 +91,42 @@ export default {
 		destinationInput(event) {
 			this.destinationQuery = event.target.value;
 			if (!this.destinationQuery) {
-				this.destinationQuerySuggestion = null;
+				this.destinationQuerySuggestion = [];
 				this.destinationFlg = false;
 			} else {
 				if (!this.destinationFlg) {
-					this.algoliaDestinationQuery();
+					this.debouncAlgoliaDestinationQuery();
 				}
 			}
 		},
 
 		// 도착지 연관 검색어 송수신
-		algoliaDestinationQuery: debounce(function() {
+		algoliaDestinationQuery() {
 			if (!this.destinationFlg) {
 				const URL = '/search-destination';
 				const query = this.destinationQuery;
-				const previousResult = this.previousSearchResults.find(result => result.query === query);
+				const previousResult = this.previousDestinationQueryResult.find(result => result.query === query);
 					
 				// 이전 검색 결과가 존재 시
 				if (previousResult) {
 					// 이전 검색 결과 사용
 					this.destinationQuerySuggestion = previousResult.data;
+                    this.destinationFlg = true;
 				} else {
 					// 이전 검색 결과 미 존재 시
 					axios.get(URL, {
 						params: {
-							query: this.destinationQuery
+							query: query
 						}
 					})
 					.then(response => {
 						if(response.data.code === "DS00") {
+                            console.log("### 도착지 검색 데이터 ###" , response.data);
 							// 새 검색 결과
 							this.destinationQuerySuggestion = response.data.destinationQueryData;
 							
 							// 새 검색 결과 이전 검색 결과 추가
-							this.previousSearchResults.push({ query: query, data: response.data.destinationQueryData });
+							this.previousDestinationQueryResult.push({ query: query, data: response.data.destinationQueryData });
 							
 							// 새 검색 결과 플래그 변경
 							this.destinationFlg = true;
@@ -129,12 +135,9 @@ export default {
 					.catch(error => {
 						console.error(error);
 					})
-					.finally(() => {
-						this.destinationFlg = true;
-					});
 				}
 			}
-		}, 500),
+		},
     }
 }
 </script>

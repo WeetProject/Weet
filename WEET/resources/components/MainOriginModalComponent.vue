@@ -15,9 +15,9 @@
                 </button>
             </div>
             <!-- 가운데 영역 분할 선 -->
-            <div class="main_modal_line" v-if="originQuery && originQuerySuggestion.length && originFlg"></div>
+            <div class="main_modal_line" v-if="originQuery && originQuerySuggestion.length >= 1 && originFlg"></div>
             <!-- 연관 검색어 -->
-            <div class="main_modal_suggetion_section" v-if="originQuery && originQuerySuggestion.length && originFlg">
+            <div class="main_modal_suggetion_section" v-if="originQuery && originQuerySuggestion.length >= 1 && originFlg">
                 <div class="main_modal_suggetion_area">
                     <div class="main_modal_suggetion_list" 
                         v-for="originSuggestion in originQuerySuggestion" 
@@ -60,11 +60,15 @@ export default {
     data() {
         return {
             isQueryFocus: false,
-            previousSearchResults: [],
+            previousOriginQueryResult: [],
 			originQuery: '',
 			originQuerySuggestion: [],
 			originFlg: false,
         }
+    },
+
+    created() {
+        this.debounceAlgoliaOriginQuery = debounce(this.algoliaOriginQuery, 300);  
     },
 
     methods: {
@@ -87,54 +91,51 @@ export default {
 		originInput(event) {
 			this.originQuery = event.target.value;
 			if (!this.originQuery) {
-				this.originQuerySuggestion = null;
+				this.originQuerySuggestion = [];
 				this.originFlg = false;
 			} else {
 				if (!this.originFlg) {
-					this.algoliaOriginQuery();
+                    this.debounceAlgoliaOriginQuery();
 				}
 			}
 		},
 
 		// 출발지 연관 검색어 송수신
-		algoliaOriginQuery: debounce(function() {
-			if (!this.originFlg) {
-				const URL = '/search-origin';
-				const query = this.originQuery;
-				const previousResult = this.previousSearchResults.find(result => result.query === query);
-				
-				// 이전 검색 결과 존재 시
-				if (previousResult) {
-					// 이전 검색 결과 사용
-					this.originQuerySuggestion = previousResult.data;
-				} else {
-					// 이전 검색 결과 미 존재 시
-					axios.get(URL, {
-						params: {
-							query: this.originQuery
-						}
-					})
-					.then(response => {
-						if(response.data.code === "SPS00") {
-							// 새 검색 결과
-							this.originQuerySuggestion = response.data.originQueryData;
-							
-							// 새 검색 결과 이전 검색 결과 추가
-							this.previousSearchResults.push({ query: query, data: response.data.originQueryData });
-							
-							// 새 검색 결과 플래그 변경
-							this.originFlg = true;
-						}
-					})
-					.catch(error => {
-						console.error(error);
-					})
-					.finally(() => {
-						this.originFlg = true;
-					});         
-				}
-			}
-		}, 300),
+		algoliaOriginQuery() {
+            const URL = '/search-origin';
+            const query = this.originQuery;
+            const previousResult = this.previousOriginQueryResult.find(result => result.query === query);
+            
+            // 이전 검색 결과 존재 시
+            if (previousResult) {
+                // 이전 검색 결과 사용
+                this.originQuerySuggestion = previousResult.data;
+                this.originFlg = true;
+            } else {
+                // 이전 검색 결과 미 존재 시
+                axios.get(URL, {
+                    params: {
+                        query: query
+                    }
+                })
+                .then(response => {
+                    if(response.data.code === "SPS00") {
+                        console.log("### 출발지 검색 데이터 ###" , response.data);
+                        // 새 검색 결과
+                        this.originQuerySuggestion = response.data.originQueryData;
+                        
+                        // 새 검색 결과 이전 검색 결과 추가
+                        this.previousOriginQueryResult.push({ query: query, data: response.data.originQueryData });
+                        
+                        // 새 검색 결과 플래그 변경
+                        this.originFlg = true;
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                })       
+            }
+		},
     }
 }
 </script>
