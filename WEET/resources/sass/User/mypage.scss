@@ -733,6 +733,15 @@
                                 height: 100%;
                             }
                         }
+
+                        .mypage_user_info_button_withdrawal {
+                            width: 100px;
+                            height: 40px;
+                            line-height: 40px;
+                            background-color: $layout-border-color;
+                            color: $white;
+                            border-radius: 10px;
+                        }
                     }
                 }
                 

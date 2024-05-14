@@ -272,7 +272,7 @@ class UserController extends Controller
 
         // 사용자 인증 확인
         $userToken = JWTAuth::getToken();
-        // Log::debug("비밀번호변경_유저", [$user]);
+        // Log::debug("비밀번호변경_유저토큰", [$user]);
         $user = User::where('user_email', $request->email)->first();
 
         if (!$userToken) {
@@ -282,28 +282,74 @@ class UserController extends Controller
         // 새로운 비밀번호 설정
         if($request->filled('password')) {
             $user->password = Hash::make($request->password);
+
+            $user->save();
+
+            return response()->json([
+                'message' => '비밀번호가 성공적으로 변경되었습니다.',
+                'code' => 'UICP00',
+            ], 200);
         }
 
         // 주소 변경 요청
-        // 해야댐
         $user->user_postcode = $request->userPostcode;
         $user->user_basic_address = $request->userBasicAddress;
         $user->user_detail_address = $request->userDetailAddress;
 
         $user->save();
-        return response()->json(['message' => '비밀번호가 성공적으로 변경되었습니다.'], 200);
+
+        $newUserPostcode = $user->user_postcode;
+        $newUserBasicAddress = $user->user_basic_address;
+        $newUserDetailAddress = $user->user_detail_address;
+        Log::debug("변동된 유저 우편번호". $newUserPostcode);
+
+        return response()->json([
+            'message' => '주소가 성공적으로 변경되었습니다.',
+            'code' => 'UICA00',
+            'userData' => [
+                'userEmail' => $user->user_email, 
+                'userName' => $user->user_name,
+                'userTel' => $user->user_tel,
+                'userGender' => $user->user_gender,
+                'userBirthDate' => $user->user_birthdate,
+                'userPostcode' => $newUserPostcode,
+                'userBasicAddress' => $newUserBasicAddress,
+                'userDetailAddress' => $newUserDetailAddress,
+            ]
+        ], 200);
     
     }
 
-    // 마이페이지 주소 수정
-    // public function userAddressChange(Request $request) {
+    
+    // 마이페이지 회원탈퇴
 
-    //     Log::debug("비밀번호변경시작_리퀘스트", [$request->all()]);
+    public function deleteWithdrawal(Request $request) {
 
-    //     $userAddress = User::where('user_email', $request->email)->first();
-    //     Log::debug("비밀번호변경_유저", [$userAddress]);
-    // }
+        Log::debug("회원탈퇴 리퀘스트 :". $request);
+        
+        $loginUser = User::where('user_email', $request->email)->first();
 
+        try {
+
+            $loginUser->delete();
+
+            // 로그아웃
+            Auth::logout();
+            Session::flush();
+
+            return response()->json([
+                'message' => '성공적으로 회원탈퇴가 되었습니다.',
+                'code' => 'DW000',
+            ]);
+
+        } catch(\Exception $e) {
+            Log::error('회원탈퇴 에러: ' . $e->getMessage());
+            return response()->json([
+                'code' => 'DWERR',
+                'message' => '회원탈퇴 오류가 발생했습니다.'
+            ], 500);
+        }
+    }
 
 
 }

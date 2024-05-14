@@ -303,7 +303,7 @@ const store = createStore({
 
                     const token = res.data.token;
                     console.log(token);
-                    const userID = res.data.userData.user_id;
+                    const userID = res.data.userData.userEmail;
                     const userData = res.data.userData;
 
                     context.commit('setToken', token);
@@ -403,6 +403,9 @@ const store = createStore({
                 }
             })
             .then(response => {
+
+                console.log(response);
+
                 if(response.data.code === "KLO00") {
                     localStorage.clear();
                     console.log(response.data.code);
@@ -416,6 +419,14 @@ const store = createStore({
                 
             })
             .catch(error => {
+                console.log(error);
+                console.log(error.status);
+
+                if(error.response.status === 401) {
+                    alert('토큰이 만료되었습니다. 자동으로 로그아웃됩니다.');
+                    localStorage.clear();
+                    location.reload();
+                }
                 console.error("카카오 로그아웃 오류:", error);
             });
 

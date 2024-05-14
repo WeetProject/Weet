@@ -203,6 +203,8 @@ Route::middleware(['userValidation'])->group(function() {
 
     Route::post('/userInfoChange', [UserController::class, 'userInfoChange']);
     // Route::post('/userInfoChange', [UserController::class, 'userAddressChange']);
+
+    Route::delete('/userWithdrawal', [UserController::class, 'deleteWithdrawal']);
     Route::match(['get'], '/login', function () {
         abort(405, 'Method Not Allowed');
     });
