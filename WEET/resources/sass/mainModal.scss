@@ -71,19 +71,28 @@
                             background-color: $admin-index-background-color;
                         }
 
-                        .main_modal_suggetion_list_city_country {
-                            width: 100%;
-                            padding: 0 1.5rem;
-                            display: flex;
-                            align-items: center;
-                        }
-
+                        .main_modal_suggetion_list_city_country,
                         .main_modal_suggetion_list_iatacode_airport {
                             width: 100%;
                             padding: 0 1.5rem;
                             display: flex;
                             align-items: center;
+                            
+                            .main_modal_suggetion_list_city_country_span,
+                            .main_modal_suggetion_list_iatacode_airport_span {
+                                width: 200px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                            }
                         }
+
+                        // .main_modal_suggetion_list_iatacode_airport {
+                        //     width: 100%;
+                        //     padding: 0 1.5rem;
+                        //     display: flex;
+                        //     align-items: center;
+                        // }
                     }
                 }
             }

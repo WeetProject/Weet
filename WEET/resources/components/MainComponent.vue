@@ -1,15 +1,19 @@
 <template>
 	<!-- desktop -->
-	<div class="main_container">
+	<div class="main_container" @click="searchModalOff">
 		<div class="main_top_container">
 			<div class="main_top_article">
 				<img class="main_top_img" src="../../public/images/plane.png" alt="">
+				<!-- 출발지 Modal -->
 				<MainOriginModalComponent 
 					v-if="originModalFlg"
+					@click.stop=""
 					@originExchangeQueryData="originQueryData">
 				</MainOriginModalComponent>
+				<!-- 도착지 Modal -->
 				<MainDestinationModalComponent 
 					v-if="destinationModalFlg"
+					@click.stop=""
 					@destinationExchangeQueryData="destinationQueryData">
 				</MainDestinationModalComponent>
 				<div class="main_top_reservation_section">
@@ -43,8 +47,11 @@
 									</div>
 								</div>
 								<div class="main_top_reservation_select_detail_center_input_section">
-									<svg class="w-[50px] h-[50px] fill-[#0b4aff]" viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg">
+									<svg class="w-[50px] h-[50px] mb-3 fill-[#0b4aff]" viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg">
 										<path d="M381 114.9L186.1 41.8c-16.7-6.2-35.2-5.3-51.1 2.7L89.1 67.4C78 73 77.2 88.5 87.6 95.2l146.9 94.5L136 240 77.8 214.1c-8.7-3.9-18.8-3.7-27.3 .6L18.3 230.8c-9.3 4.7-11.8 16.8-5 24.7l73.1 85.3c6.1 7.1 15 11.2 24.3 11.2H248.4c5 0 9.9-1.2 14.3-3.4L535.6 212.2c46.5-23.3 82.5-63.3 100.8-112C645.9 75 627.2 48 600.2 48H542.8c-20.2 0-40.2 4.8-58.2 14L381 114.9zM0 480c0 17.7 14.3 32 32 32H608c17.7 0 32-14.3 32-32s-14.3-32-32-32H32c-17.7 0-32 14.3-32 32z"></path>
+									</svg>
+									<svg class="w-7 h-7 mt-3 fill-[#0b4aff] cursor-pointer" @click="changeData" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+										<path d="M142.9 142.9c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5c0 0 0 0 0 0H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5c7.7-21.8 20.2-42.3 37.8-59.8zM16 312v7.6 .7V440c0 9.7 5.8 18.5 14.8 22.2s19.3 1.7 26.2-5.2l41.6-41.6c87.6 86.5 228.7 86.2 315.8-1c24.4-24.4 42.1-53.1 52.9-83.7c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.2 62.2-162.7 62.5-225.3 1L185 329c6.9-6.9 8.9-17.2 5.2-26.2s-12.5-14.8-22.2-14.8H48.4h-.7H40c-13.3 0-24 10.7-24 24z"></path>
 									</svg>
 								</div>
 								<!-- 도착지 선택 -->
@@ -265,9 +272,19 @@ export default {
 			this.$store.dispatch('amadeusToken');
 		},
 
+		// origin, destination Modal Close(Modal 영역 밖 클릭 시 Close)
+		searchModalOff(event) {
+			if (!event.target.closest('.main_top_reservation_select_detail_side_input_section')) {
+				this.originModalFlg = false;
+				this.destinationModalFlg = false;
+			}
+		},
+
 		// origin Modal Open(출발)
 		originModal() {
-			this.originModalFlg = !this.originModalFlg;
+			if(!this.destinationModalFlg) {
+				this.originModalFlg = !this.originModalFlg;
+			}
 		},
 
 		// origin Modal Data 수신(출발)
@@ -278,14 +295,23 @@ export default {
 
 		// destination Modal Open(도착)
 		destinationModal() {
-			this.destinationModalFlg = !this.destinationModalFlg;
+			if(!this.originModalFlg) {
+				this.destinationModalFlg = !this.destinationModalFlg;
+			}
 		},
 
 		// destination Modal Data 수신(도착)
 		destinationQueryData(destinationSuggestion) {
 			this.destinationExchangeQueryData = destinationSuggestion;
 			this.destinationModalFlg = false;
-		},		
+		},
+
+		// origin, destination 출력 데이터 교환
+		changeData() {
+			const changeQueryData = this.originExchangeQueryData;
+			this.originExchangeQueryData = this.destinationExchangeQueryData;
+			this.destinationExchangeQueryData = changeQueryData;
+		},
 		
 		// date format(왕복)
 		formatDateRoundTrip(roundTripDate) {
