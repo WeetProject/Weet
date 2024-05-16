@@ -327,8 +327,10 @@ class UserController extends Controller
 
         Log::debug("회원탈퇴 리퀘스트 :". $request);
         
-        $loginUser = User::where('user_email', $request->email)->first();
-
+        $loginUser = User::where('user_email', $request->userEmail)->first();
+        // Log::debug("로그인 유저정보 :". json_encode($loginUser));
+        Log::debug("로그인 유저정보 :". $loginUser);
+        
         try {
 
             $loginUser->delete();

@@ -97,7 +97,7 @@
                     <div class="my-10 mypage_user_info_button_container">
                         <div class="mypage_user_info_button_section">
                             <div class="mypage_user_info_button_withdrawal text-center">
-                                <button @click="delWithdrawal" class="mypage_user_info_button">회원탈퇴</button>
+                                <button @click="delWithdrawal()" class="mypage_user_info_button">회원탈퇴</button>
                             </div>
                             <div class="mypage_user_info_button_area">
                                 <button @click="back" class="mypage_user_info_button">취소</button>
@@ -422,7 +422,20 @@ export default {
         delWithdrawal() {
             const url = '/userWithdrawal';
 
-            axios.delete()
+            axios.delete(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                data: {
+                    userEmail: this.userInfo.userEmail
+                }
+            })
+            .then( res => {
+                console.log(res);
+            })
+            .catch( err => {
+                console.error(err);
+            })
         }
     },
 
