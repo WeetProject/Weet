@@ -210,6 +210,14 @@ Route::middleware(['userValidation'])->group(function() {
     });
 });
 
+// social login : 이렇게도 가능하다.. 로직에 따라 컨트롤러 분리 유연하게
+// Route::get('/social/{domain}', [SocialLoginController::class, 'sociaLogin']);
+
+// 참고 컨트롤러는 아래처럼
+// public function sociaLogin(string $domain) {
+//     return Sociallite::driver($domain)->redirect();
+// }
+
 // 카카오로그인
 Route::get('/kakao', [KakaoSocialLoginController::class, 'kakaoLogin']);
 
