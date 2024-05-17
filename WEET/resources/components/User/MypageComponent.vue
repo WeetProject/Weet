@@ -298,8 +298,8 @@ export default {
         this.userInfo = JSON.parse(localStorage.getItem('setUserData'));
         console.log("일반 토큰" , this.userToken);
         console.log("유저 정보" , this.userInfo);
-        console.log(this.kakaoToken);
-        console.log(this.googleToken);
+        console.log("kakao Token" , this.kakaoToken);
+        console.log("google Token" , this.googleToken);
         // console.log(this.userInfo.userEmail);
         // this.userInfo;
         // this.userInfo.userBasicAddress;
@@ -421,13 +421,17 @@ export default {
 
         delWithdrawal() {
             const url = '/userWithdrawal';
-
+            const token = localStorage.getItem('setToken');
+            console.log("delWithdrawal() User Email", this.userInfo.userEmail);
+            console.log("delWithdrawal() User Token", this.userToken);
             axios.delete(url, {
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 data: {
-                    userEmail: this.userInfo.userEmail
+                    userEmail: this.userInfo.userEmail,
+                    userToken: this.userToken,
                 }
             })
             .then( res => {

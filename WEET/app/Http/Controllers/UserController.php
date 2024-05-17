@@ -144,13 +144,15 @@ class UserController extends Controller
     // 로그인
     public function loginPost(Request $request) {
 
-        // $data = $request->all();
-        // Log::debug($request);
+        Log::debug("===========================loginPost Start==================");
+        $data = $request->all();
+        Log::debug($data);
+        Log::debug($request->userEmail);
         
         // 유저 이메일 정보
         $result = User::where('user_email', $request->userEmail)->first();
         // Log::debug("===========================유저데이터==================");
-        // Log::debug($result);
+        Log::debug('User Info', $result->getOriginal());
 
 
         // 유저 비밀번호 체크
@@ -160,6 +162,7 @@ class UserController extends Controller
                 'message' => '아이디와 비밀번호를 확인해주세요.',
             ]);
         }
+        Log::debug("===========================유저 비밀번호 체크 pass==================");
 
         // 유저 인증 작업
         Auth::login($result);
@@ -326,30 +329,40 @@ class UserController extends Controller
     public function deleteWithdrawal(Request $request) {
 
         Log::debug("회원탈퇴 리퀘스트 :". $request);
+        Log::debug("request", $request->all());
+        Log::debug("회원탈퇴 유저이메일 리퀘스트 :". $request->userEmail);
         
         $loginUser = User::where('user_email', $request->userEmail)->first();
+        // $loginUser = User::where('user_email', json_encode($request->userEmail))->first(); 
+        // $loginUser = User::find($request->userEmail);
         // Log::debug("로그인 유저정보 :". json_encode($loginUser));
-        Log::debug("로그인 유저정보 :". $loginUser);
+        Log::debug("로그인 유저정보 :". $loginUser->user_email);
+
+        $loginUserToken = JWTAuth::getToken();
+        Log::debug("로그인 유저토큰 정보 :". $loginUserToken);
         
-        try {
+        if($loginUser) {
+            try {
+                JWTAuth::invalidate($loginUserToken);
 
-            $loginUser->delete();
+                $loginUser->delete();
 
-            // 로그아웃
-            Auth::logout();
-            Session::flush();
+                // 로그아웃
+                Auth::logout();
+                Session::flush();
 
-            return response()->json([
-                'message' => '성공적으로 회원탈퇴가 되었습니다.',
-                'code' => 'DW000',
-            ]);
+                return response()->json([
+                    'message' => '성공적으로 회원탈퇴가 되었습니다.',
+                    'code' => 'DW000',
+                ]);
 
-        } catch(\Exception $e) {
-            Log::error('회원탈퇴 에러: ' . $e->getMessage());
-            return response()->json([
-                'code' => 'DWERR',
-                'message' => '회원탈퇴 오류가 발생했습니다.'
-            ], 500);
+            } catch(\Exception $e) {
+                Log::error('회원탈퇴 에러: ' . $e->getMessage());
+                return response()->json([
+                    'code' => 'DWERR',
+                    'message' => '회원탈퇴 오류가 발생했습니다.'
+                ], 500);
+            }
         }
     }
 
