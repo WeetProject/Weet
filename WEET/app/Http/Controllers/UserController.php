@@ -152,7 +152,7 @@ class UserController extends Controller
         // 유저 이메일 정보
         $result = User::where('user_email', $request->userEmail)->first();
         // Log::debug("===========================유저데이터==================");
-        Log::debug('User Info', $result->getOriginal());
+        // Log::debug('User Info', $result->getOriginal());
 
 
         // 유저 비밀번호 체크
@@ -162,7 +162,7 @@ class UserController extends Controller
                 'message' => '아이디와 비밀번호를 확인해주세요.',
             ]);
         }
-        Log::debug("===========================유저 비밀번호 체크 pass==================");
+        // Log::debug("===========================유저 비밀번호 체크 pass==================");
 
         // 유저 인증 작업
         Auth::login($result);

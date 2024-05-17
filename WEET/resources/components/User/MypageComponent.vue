@@ -422,8 +422,8 @@ export default {
         delWithdrawal() {
             const url = '/userWithdrawal';
             const token = localStorage.getItem('setToken');
-            console.log("delWithdrawal() User Email", this.userInfo.userEmail);
-            console.log("delWithdrawal() User Token", this.userToken);
+            // console.log("delWithdrawal() User Email", this.userInfo.userEmail);
+            // console.log("delWithdrawal() User Token", this.userToken);
             axios.delete(url, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -436,6 +436,10 @@ export default {
             })
             .then( res => {
                 console.log(res);
+
+                alert('WEET를 이용해주셔서 감사합니다 :)');
+                this.$store.dispatch('logout');
+                // this.$router.push('/');
             })
             .catch( err => {
                 console.error(err);
