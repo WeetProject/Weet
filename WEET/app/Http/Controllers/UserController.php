@@ -204,24 +204,6 @@ class UserController extends Controller
             ],
         ]);
     }
-    
-
-    // 로그아웃
-    // public function logout(Request $request) {
-
-    //     Log::debug("**************로그인정보*************");
-    //     Log::debug($request);
-
-    //     // 로그아웃 처리
-    //     Auth::logout();
-
-    //     $sessionDataCheck = Auth::check();
-
-    //     return response()->json([
-    //         'message' => '로그아웃 성공',
-    //         'sessionDataCheck' => $sessionDataCheck,
-    //     ]);
-    // }
 
     public function logout() {
 

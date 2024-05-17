@@ -263,8 +263,8 @@
 					this.$store.commit('setGoogleToken', this.googleUserData.googleToken);
 				}
 
-				console.log('로컬스토리지 저장토큰', this.googleUserData.googleToken);
-				console.log('로컬스토리지 저장아이디', this.googleUserData.googleUserEmail);
+				// console.log('로컬스토리지 저장토큰', this.googleUserData.googleToken);
+				// console.log('로컬스토리지 저장아이디', this.googleUserData.googleUserEmail);
 			},
     	},
 		

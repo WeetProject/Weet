@@ -302,9 +302,9 @@ const store = createStore({
                 if (res.data.success) {
 
                     const token = res.data.token;
-                    console.log(token);
                     const userID = res.data.userData.userEmail;
                     const userData = res.data.userData;
+                    // console.log(token);
 
                     context.commit('setToken', token);
                     context.commit('setUserID', userID);

@@ -137,11 +137,10 @@
                                             <span>오전 07:05</span>
                                             <span>PUS</span>
                                         </div>
-                                        <div class="text-center mypage_flight_route_line" style="margin: 0 auto;">
+                                        <div class="text-center text-xs mypage_flight_route_line" style="margin: 0 auto;">
                                             <span>소요시간</span>
-                                            <svg class="text-center w-[50px] h-[50px] fill-[#8e8e8e]" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                                            <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                                <path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z"></path>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mypage_flight_route_line_svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                                             </svg>
                                             <span>직항</span>
                                         </div>
@@ -155,7 +154,7 @@
                                             <span>오전 07:05</span>
                                             <span>CJU</span>
                                         </div>
-                                        <div class="text-center mypage_flight_route_line">
+                                        <div class="text-center text-xs mypage_flight_route_line">
                                             <span>소요시간</span>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mypage_flight_route_line_svg">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />

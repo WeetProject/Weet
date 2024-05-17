@@ -473,6 +473,7 @@ export default {
 					axios.get(URL, roundTripParams)
 						.then(response => {
 							console.log("### 왕복 아마데우스 데이터 ###", response.data);
+							// 검색클릭했을때 response.data를 넘겨줘야함.
 						})
 						.catch(error => {
 							console.error(error);
