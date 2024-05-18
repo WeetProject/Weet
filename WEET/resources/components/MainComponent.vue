@@ -187,9 +187,45 @@
 				</div>
 			</div>
 		</div>
-		<div class="main_middle_container">
+		<div class="main_middle_container" data-aos="fade-up">
 			<div class="main_middle_article">
+				<img class="main_middle_img" src="../../public/images/landmark.jpg" alt="">
+				<!-- css 테스트 -->
+				<div class="flip" data-aos="fade-up">
+					<div class="front">
+						<h1 class="text-shadow">MOUNTAIN</h1>
+					</div>
+					<div class="back">
+						<h2>Angular</h2>
+						<p>Good tools make application development quicker and easier to maintain than if you did everything by hand..</p>
+					</div>
+				</div>
+				<div class="flip flip-vertical" data-aos="fade-up">
+    				<div class="front">
+						<h1 class="text-shadow">SWAMP</h1>
+					</div>
+					<div class="back">
+						<h2>Angular</h2>
+						<p>Good tools make application development quicker and easier to maintain than if you did everything by hand..</p>
+					</div>
+				</div>
 				
+				<!-- <div class="main_middle_card_1" data-aos="fade-up">
+					<p>미국</p>
+					<p>자유와 모험의 땅, 미국으로 떠나보세요</p>
+				</div>
+				<div class="main_middle_card_1" data-aos="fade-up">
+					<p>영국</p>
+					<p>셰익스피어의 고향, 영국에서 문화를 만끽하세요</p>
+				</div>
+				<div class="main_middle_card_1" data-aos="fade-up">
+					<p>프랑스</p>
+					<p>패션과 낭만의 도시, 파리가 있는 프랑스</p>
+				</div>
+				<div class="main_middle_card_1" data-aos="fade-up">
+					<p>일본</p>
+					<p>애니메이션과 전통 예술의 만남, 일본에서 특별한 경험을</p>
+				</div> -->
 			</div>
 		</div>
 	</div>
