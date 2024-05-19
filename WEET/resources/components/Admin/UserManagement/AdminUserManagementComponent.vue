@@ -14,6 +14,7 @@
 				v-model="userSelectOption" @change="userDataOptionChange">
 					<option value="0">최신 가입 순</option>
 					<option value="1">최신 결제 순</option>
+					<!-- <option value="2">탈퇴 유저</option> -->
 				</select>
 				<!-- Pagination -->
 				<div class="relative admin_user_management_pagination_section">

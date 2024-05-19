@@ -191,22 +191,36 @@
 			<div class="main_middle_article">
 				<img class="main_middle_img" src="../../public/images/landmark.jpg" alt="">
 				<!-- css 테스트 -->
-				<div class="flip" data-aos="fade-up">
-					<div class="front">
-						<h1 class="text-shadow">MOUNTAIN</h1>
+				<div class="main_middle_section">
+					<!-- card 1 -->
+					<div class="flip" data-aos="fade-up-right">
+						<div class="front">
+							<h1 class="text-shadow">카드 1</h1>
+						</div>
+						<div class="back">
+							<h2>테스트1111</h2>
+							<p>카드 테스트1111</p>
+						</div>
 					</div>
-					<div class="back">
-						<h2>Angular</h2>
-						<p>Good tools make application development quicker and easier to maintain than if you did everything by hand..</p>
+					<!-- card 2 -->
+					<div class="flip" data-aos="fade-up-left">
+						<div class="front">
+							<h1 class="text-shadow">카드 2</h1>
+						</div>
+						<div class="back">
+							<h2>테스트2222</h2>
+							<p>카드 테스트2222</p>
+						</div>
 					</div>
-				</div>
-				<div class="flip flip-vertical" data-aos="fade-up">
-    				<div class="front">
-						<h1 class="text-shadow">SWAMP</h1>
-					</div>
-					<div class="back">
-						<h2>Angular</h2>
-						<p>Good tools make application development quicker and easier to maintain than if you did everything by hand..</p>
+					<!-- card 3 -->
+					<div class="flip" data-aos="fade-up-right">
+						<div class="front">
+							<h1 class="text-shadow">카드 3</h1>
+						</div>
+						<div class="back">
+							<h2>테스트3333</h2>
+							<p>카드 테스트3333</p>
+						</div>
 					</div>
 				</div>
 				
