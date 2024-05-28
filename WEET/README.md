@@ -108,3 +108,9 @@
     - npm install --save aos@next
     - 참고 : https://github.com/michalsnik/aos/tree/v2
             https://michalsnik.github.io/aos/
+
+20. 실시간 채팅
+    - composer require pusher/pusher-php-server
+    - npm install --save-dev laravel-echo pusher-js
+    - 참고 : https://laravel.kr/docs/9.x/broadcasting
+            https://pusher.com/tutorials/how-to-build-a-chat-app-with-vue-js-and-laravel/#install-front-end-dependencies
