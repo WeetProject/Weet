@@ -24,7 +24,8 @@ class UserController extends Controller
     // 회원가입
     public function store(Request $request) {
         
-        // 배열에서 가져 올 값 지정. 가지고와야할 유저 정보 담아서 data에 넣어줌.
+        // 배열에서 가져 올 값 지정. : $request->only();
+        // 가지고와야할 유저 정보 담아서 data에 넣어줌.
         $data = $request->only('user_email', 'password', 'user_name', 'user_gender', 'user_tel', 'user_postcode', 'user_basic_address', 'user_detail_address', 'user_birthdate');
         Log::debug("==========================");
         Log::debug("유저데이터");
@@ -37,7 +38,7 @@ class UserController extends Controller
             $data['user_detail_address'] = '상세주소없음';
         }
 
-        // 유저 데이터 db에 입력
+        // 유저 데이터 db에 입력 : create();
         $result = User::create($data);
         Log::debug("되냐");
 
@@ -47,10 +48,12 @@ class UserController extends Controller
     // 이메일 중복체크
     public function emailDoubleChk(Request $request) {
 
+        // 배열에서 특정 키에 대한 값을 가져옴(두번째 인자 생략가능) : $request->input();
         $userEmail = $request->input('user_email');
         Log::debug("==============이메일============");
         Log::debug($userEmail);
 
+        // sql 평문 : SELECT * FROM users WEHRE user_email = ':user_email' LIMIT 1;
         $result = User::where('user_email', $userEmail)->first();
         Log::debug("==============체크한이메일============");
         Log::debug($result);
@@ -107,10 +110,10 @@ class UserController extends Controller
             ], 500);
         }
 
-        // vue컴포넌트에선 인증코드 확인버튼 눌렀을 때 세션에 저장된 값하고 같은지 확인 후 일치하면 통과
-        // 할거많네..
+        
     }
 
+    // 이메일 인증코드 확인 후 인증완료와 함께 저장된 인증코드 삭제 함수
     public function emailVerificationDel(Request $request) {
         Log::debug("이메일확인리퀘스트".$request);
         // 사용자가 제출한 인증코드
@@ -145,11 +148,12 @@ class UserController extends Controller
     public function loginPost(Request $request) {
 
         Log::debug("===========================loginPost Start==================");
+        // 리퀘스트값 모두 배열로 가지고 와서 data에 담기.
         $data = $request->all();
         Log::debug($data);
         Log::debug($request->userEmail);
         
-        // 유저 이메일 정보
+        // 유저 이메일 정보 서버와 일치하는지 확인 : user_email은 uniq
         $result = User::where('user_email', $request->userEmail)->first();
         // Log::debug("===========================유저데이터==================");
         // Log::debug('User Info', $result->getOriginal());
@@ -164,7 +168,8 @@ class UserController extends Controller
         }
         // Log::debug("===========================유저 비밀번호 체크 pass==================");
 
-        // 유저 인증 작업
+        // 유저 인증 작업(Auth::인증관련메서드)
+        // $result에 담긴 유저를 로그인상태로 만들때 사용
         Auth::login($result);
 
         $controllerToken = JWTAuth::fromUser($result);

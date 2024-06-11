@@ -114,3 +114,9 @@
     - npm install --save-dev laravel-echo pusher-js
     - 참고 : https://laravel.kr/docs/9.x/broadcasting
             https://pusher.com/tutorials/how-to-build-a-chat-app-with-vue-js-and-laravel/#install-front-end-dependencies
+
+21. email 인증
+    - google smtp 설정
+    - SMTP : Simple Mail Transfer Protocol. 
+            인터넷을 통해 이메일 메세지를 보내고 받는데 사용되는 통신 프로토콜.
+    - 참고 : https://kincoding.com/entry/Google-Gmail-SMTP-%EC%82%AC%EC%9A%A9%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%84%B8%ED%8C%85
