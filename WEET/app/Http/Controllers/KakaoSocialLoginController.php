@@ -84,7 +84,7 @@ class KakaoSocialLoginController extends Controller
                     'user_detail_address' => 'kakaoUserDetailAddress',
                 ]);
 
-                Auth::login($kakaoUserConfirm);
+                Auth::login($kakaoUserData);
                 Log::debug("### 카카오 가입 유저 로그인 ###");
 
                 // 로그인 로그 찍기
